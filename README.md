@@ -1,7 +1,7 @@
 # lingua - language detection done easily
 *lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 ___
-![ci build status][travis ci badge]
+[![ci build status][travis ci badge]][travis ci url]
 ___
 
 ### What does this library do?
@@ -107,3 +107,4 @@ Bye! Ciao! Tschüss! Salut!
 - detection accuracy measurements (with comparison to [language-detector](https://github.com/optimaize/language-detector))
 
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
+[travis ci url]: https://travis-ci.org/pemistahl/lingua
