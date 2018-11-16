@@ -1,10 +1,4 @@
-addons:
-    apt:
-        packages:
-        - openjdk-6-jdk
-
 language: java
 jdk:
     - oraclejdk8
-    - openjdk7
-    - openjdk6
+    - openjdk8
