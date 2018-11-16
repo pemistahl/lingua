@@ -39,8 +39,8 @@ cd lingua
 mvn install
 ```
 Maven's `package` phase generates two jar files in the `target` directory:
-1. `lingua-0.1.0.jar` contains the compiled sources only.
-2. `lingua-0.1.0-with-dependencies.jar` additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. It can also be used to run *lingua* in standalone mode (see below).
+1. `lingua-0.2.0-SNAPSHOT.jar` contains the compiled sources only.
+2. `lingua-0.2.0-SNAPSHOT-with-dependencies.jar` additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. It can also be used to run *lingua* in standalone mode (see below).
 
 ### How to use?
 *lingua* can be used programmatically in your own code or in standalone mode.
@@ -77,7 +77,7 @@ val detector = LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 #### Standalone mode
 If you want to try out *lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.1.0-with-dependencies.jar`
+2. Without Maven: `java -jar lingua-0.2.0-SNAPSHOT-with-dependencies.jar`
 
 Then just play around:
 

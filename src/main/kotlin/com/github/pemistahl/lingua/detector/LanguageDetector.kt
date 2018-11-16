@@ -50,15 +50,17 @@ class LanguageDetector private constructor(
 
     private fun computeLogProbabilities(ngrams: Set<Ngram>): Map<Language, Double> {
         val logProbabilities = mutableMapOf<Language, Double>()
+        val totalNumberOfNgrams = ngrams.size
+        val unseenNgramProbability = Math.log(1.0) - Math.log(totalNumberOfNgrams.toDouble())
 
         languageModels.forEach { model ->
             logProbabilities[model.language!!] = ngrams.map { model.getRelativeFrequency(it) }
                 .map { when (it) {
-                    null -> Math.log(1.0) - Math.log(ngrams.size.toDouble())
+                    null -> unseenNgramProbability
                     else -> {
                         val numerator = it.numerator.toDouble()
                         val denominator = it.denominator.toDouble()
-                        Math.log(numerator + 1) - Math.log(denominator + ngrams.size)
+                        Math.log(numerator + 1) - Math.log(denominator + totalNumberOfNgrams)
                     }
                 }}.sum()
         }
