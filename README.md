@@ -2,6 +2,8 @@
 *lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 ___
 [![ci build status][travis ci badge]][travis ci url]
+[![Kotlin version][Kotlin version badge]][Kotlin url]
+[![JVM target][JVM target badge]][JVM target url]
 ___
 
 ### What does this library do?
@@ -15,7 +17,7 @@ So far, on the JVM the only other comprehensive open source library for this tas
 1. Detection only works with quite lengthy text fragments. For very short text snippets such as Twitter messages, it doesn't provide adequate results.
 2. Configuration of the library is quite cumbersome and requires some knowledge about the statistical methods that are used internally.
 
-*lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and expressions. At the same time, it draws on statistical methods only and does not use any dictionaries or other linguistic knowledge.
+*lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. At the same time, it draws on statistical methods only and does not use any dictionaries or other linguistic knowledge.
 
 ### Which languages are supported?
 
@@ -108,3 +110,7 @@ Bye! Ciao! Tschüss! Salut!
 
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
+[Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg
+[Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
+[JVM target badge]: https://img.shields.io/badge/JVM%20target-1.6+-yellowgreen.svg
+[JVM target url]: https://www.oracle.com/technetwork/java/javase/java-archive-downloads-javase6-419409.html
