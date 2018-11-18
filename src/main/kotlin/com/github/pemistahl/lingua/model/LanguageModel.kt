@@ -89,16 +89,25 @@ internal class LanguageModel {
         val trigrams = hashSetOf<Trigram>()
 
         for (line in linesOfText) {
-            val preprocessedLineForUnigrams =
-                preprocess<Unigram>(line, areNgramsLowerCase, areNgramsPadded)
-            val preprocessedLineForBigrams =
-                preprocess<Bigram>(line, areNgramsLowerCase, areNgramsPadded)
-            val preprocessedLineForTrigrams =
-                preprocess<Trigram>(line, areNgramsLowerCase, areNgramsPadded)
+            val lowerCasedLine = if (areNgramsLowerCase)
+                line.toLowerCase()
+            else line
 
-            collectNgrams(unigrams, preprocessedLineForUnigrams)
-            collectNgrams(bigrams, preprocessedLineForBigrams)
-            collectNgrams(trigrams, preprocessedLineForTrigrams)
+            val unigramLine = if (areNgramsPadded)
+                UNIGRAM_PADDING + lowerCasedLine + UNIGRAM_PADDING
+            else lowerCasedLine
+
+            val bigramLine = if (areNgramsPadded)
+                BIGRAM_PADDING + lowerCasedLine + BIGRAM_PADDING
+            else lowerCasedLine
+
+            val trigramLine = if (areNgramsPadded)
+                TRIGRAM_PADDING + lowerCasedLine + TRIGRAM_PADDING
+            else lowerCasedLine
+
+            collectNgrams(unigrams, unigramLine)
+            collectNgrams(bigrams, bigramLine)
+            collectNgrams(trigrams, trigramLine)
         }
 
         this.language = null
@@ -128,20 +137,6 @@ internal class LanguageModel {
             "trigrams" to trigramRelativeFrequencies.inverse()
         )
     )
-
-    private inline fun <reified T : Ngram> preprocess(
-        text: String,
-        areNgramsLowerCase: Boolean,
-        areNgramsPadded: Boolean
-    ): String {
-        val padding = "<PAD>".repeat(getNgramLength<T>() - 1)
-        return when {
-            areNgramsPadded && areNgramsLowerCase -> padding + text.toLowerCase() + padding
-            areNgramsPadded -> padding + text + padding
-            areNgramsLowerCase -> text.toLowerCase()
-            else -> text
-        }
-    }
 
     private inline fun <reified T : Ngram> collectNgrams(
         ngrams: MutableSet<T>,
@@ -187,6 +182,11 @@ internal class LanguageModel {
                 LanguageModelDeserializer()
             )
             .create()
+
+        private const val PAD_CHAR = "<PAD>"
+        private const val UNIGRAM_PADDING = PAD_CHAR
+        private const val BIGRAM_PADDING = "$PAD_CHAR$PAD_CHAR"
+        private const val TRIGRAM_PADDING = "$PAD_CHAR$PAD_CHAR$PAD_CHAR"
     }
 
     private class LanguageModelDeserializer : JsonDeserializer<LanguageModel> {
