@@ -17,6 +17,7 @@
 package com.github.pemistahl.lingua
 
 import com.github.pemistahl.lingua.detector.LanguageDetector
+import java.util.Scanner
 
 fun main() {
     runApp()
@@ -42,9 +43,11 @@ private fun runApp() {
         """.trimIndent()
     )
 
+    val scanner = Scanner(System.`in`, "UTF-8")
+
     while (true) {
         print("> ")
-        val text = readLine().toString().trim()
+        val text = scanner.nextLine().trim()
         if (text == ":quit") break
         if (text.isEmpty()) continue
         println(detector.detectLanguageFrom(text))
