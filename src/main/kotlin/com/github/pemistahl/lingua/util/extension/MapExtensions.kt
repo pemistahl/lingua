@@ -16,8 +16,8 @@
 
 package com.github.pemistahl.lingua.util.extension
 
+import com.github.pemistahl.lingua.math.Fraction
 import com.github.pemistahl.lingua.model.Ngram
-import org.apache.commons.math3.fraction.Fraction
 
 internal fun <T : Ngram> Map<T, Fraction>.inverse(): Map<Fraction, Set<String>> {
     val result = mutableMapOf<Fraction, MutableSet<String>>()

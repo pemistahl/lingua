@@ -16,7 +16,7 @@
 
 package com.github.pemistahl.lingua.model
 
-import com.github.pemistahl.lingua.util.extension.Fraction
+import com.github.pemistahl.lingua.math.Fraction
 import com.github.pemistahl.lingua.util.extension.inverse
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
@@ -25,7 +25,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
-import org.apache.commons.math3.fraction.Fraction
 import java.lang.reflect.Type
 import kotlin.reflect.full.primaryConstructor
 
