@@ -4,7 +4,7 @@ ___
 [![ci build status][travis ci badge]][travis ci url]
 ![lingua version badge][lingua version badge]
 [![Kotlin version][Kotlin version badge]][Kotlin url]
-![Kotlin platforms badge][Kotlin platforms badge]
+[![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
 [![JVM target][JVM target badge]][JVM target url]
 [![license badge][license badge]][license url]
 ___
@@ -179,6 +179,7 @@ Bye! Ciao! Tschüss! Salut!
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-Kotlin%2FJVM-yellowgreen.svg
+[Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [JVM target badge]: https://img.shields.io/badge/JVM%20target-1.6+-yellowgreen.svg
 [JVM target url]: https://www.oracle.com/technetwork/java/javase/java-archive-downloads-javase6-419409.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
