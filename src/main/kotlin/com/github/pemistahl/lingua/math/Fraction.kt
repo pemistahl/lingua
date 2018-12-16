@@ -19,7 +19,7 @@ package com.github.pemistahl.lingua.math
 import java.io.Serializable
 import java.math.BigInteger
 
-class Fraction : Number, Comparable<Fraction>, Serializable {
+internal class Fraction : Number, Comparable<Fraction>, Serializable {
 
     val numerator: Int
     val denominator: Int
@@ -42,6 +42,8 @@ class Fraction : Number, Comparable<Fraction>, Serializable {
     }
 
     fun abs() = if (numerator >= 0) this else negate()
+
+    fun log() = Math.log(numerator.toDouble()) - Math.log(denominator.toDouble())
 
     fun negate(): Fraction {
         if (numerator == Int.MIN_VALUE) {
@@ -88,8 +90,8 @@ class Fraction : Number, Comparable<Fraction>, Serializable {
         val d0n = denominator.toLong() * other.numerator
         return when {
             n0d < d0n -> -1
-            n0d > d0n -> 1
-            else -> 0
+            n0d > d0n ->  1
+            else      ->  0
         }
     }
 
@@ -298,18 +300,10 @@ class Fraction : Number, Comparable<Fraction>, Serializable {
         var j = i
         var n = 31
 
-        var y = j shl 16; if (y != 0) {
-            n -= 16; j = y
-        }
-        y = j shl 8; if (y != 0) {
-            n -= 8; j = y
-        }
-        y = j shl 4; if (y != 0) {
-            n -= 4; j = y
-        }
-        y = j shl 2; if (y != 0) {
-            n -= 2; j = y
-        }
+        var y = j shl 16; if (y != 0) { n -= 16; j = y }
+        y = j shl 8; if (y != 0) { n -= 8; j = y }
+        y = j shl 4; if (y != 0) { n -= 4; j = y }
+        y = j shl 2; if (y != 0) { n -= 2; j = y }
 
         return n - (j shl 1).ushr(31)
     }
