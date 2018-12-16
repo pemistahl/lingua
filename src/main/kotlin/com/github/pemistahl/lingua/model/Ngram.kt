@@ -46,3 +46,5 @@ internal sealed class Ngram(private val length: Int, value: String) {
 internal class Unigram(value: String) : Ngram(1, value)
 internal class Bigram(value: String) : Ngram(2, value)
 internal class Trigram(value: String) : Ngram(3, value)
+internal class Quadrigram(value: String) : Ngram(4, value)
+internal class Fivegram(value: String) : Ngram(5, value)
