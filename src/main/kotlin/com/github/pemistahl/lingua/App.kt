@@ -35,7 +35,7 @@ private fun runApp() {
 
     println(
         """
-        Done. ${detector.supportedLanguages} language models loaded.
+        Done. ${detector.numberOfLoadedLanguages} language models loaded.
 
         Type some text and press <Enter> to detect its language.
         Type :quit to exit.
@@ -50,7 +50,7 @@ private fun runApp() {
         val text = scanner.nextLine().trim()
         if (text == ":quit") break
         if (text.isEmpty()) continue
-        println(detector.detectLanguageFrom(text))
+        println(detector.detectLanguageOf(text))
     }
 
     println("Bye! Ciao! Tschüss! Salut!")
