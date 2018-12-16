@@ -16,11 +16,14 @@
 
 package com.github.pemistahl.lingua.model
 
-enum class Language(val isoCode: String) {
-    ENGLISH ("en"),
-    FRENCH  ("fr"),
-    GERMAN  ("de"),
-    ITALIAN ("it"),
-    LATIN   ("la"),
-    SPANISH ("es")
+enum class Language(val isoCode: String, internal var isExcludedFromDetection: Boolean) {
+    ENGLISH    ("en", false),
+    FRENCH     ("fr", false),
+    GERMAN     ("de", false),
+    ITALIAN    ("it", false),
+    LATIN      ("la", false),
+    PORTUGUESE ("pt", false),
+    SPANISH    ("es", false),
+
+    UNKNOWN    ("<unk>", true)
 }
