@@ -18,223 +18,243 @@ package com.github.pemistahl.lingua.model
 
 import com.github.pemistahl.lingua.math.Fraction
 import com.github.pemistahl.lingua.util.extension.inverse
+import com.github.pemistahl.lingua.util.extension.over
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.full.primaryConstructor
+import kotlin.reflect.KClass
 
-internal class LanguageModel {
+internal class LanguageModel<T : Ngram> {
 
-    val language: Language?
+    val language: Language
     val areNgramsLowerCase: Boolean
     val areNgramsPadded: Boolean
-
-    val unigrams: Set<Unigram>
-        get() = if (unigramRelativeFrequencies.isNotEmpty()) {
-            unigramRelativeFrequencies.keys
+    val ngrams: Set<T>
+        get() = if (ngramRelativeFrequencies.isNotEmpty()) {
+            ngramRelativeFrequencies.keys
         } else {
             field
         }
 
-    val bigrams: Set<Bigram>
-        get() = if (bigramRelativeFrequencies.isNotEmpty()) {
-            bigramRelativeFrequencies.keys
-        } else {
-            field
-        }
-
-    val trigrams: Set<Trigram>
-        get() = if (trigramRelativeFrequencies.isNotEmpty()) {
-            trigramRelativeFrequencies.keys
-        } else {
-            field
-        }
-
-    private val unigramRelativeFrequencies: Map<Unigram, Fraction>
-    private val bigramRelativeFrequencies: Map<Bigram, Fraction>
-    private val trigramRelativeFrequencies: Map<Trigram, Fraction>
+    private val ngramRelativeFrequencies: Map<T, Fraction>
 
     private constructor(
         language: Language,
         areNgramsLowerCase: Boolean,
         areNgramsPadded: Boolean,
-        unigramRelativeFrequencies: Map<Unigram, Fraction>,
-        bigramRelativeFrequencies: Map<Bigram, Fraction>,
-        trigramRelativeFrequencies: Map<Trigram, Fraction>
+        ngramRelativeFrequencies: Map<T, Fraction>
     ) {
         this.language = language
         this.areNgramsLowerCase = areNgramsLowerCase
         this.areNgramsPadded = areNgramsPadded
-        this.unigramRelativeFrequencies = unigramRelativeFrequencies
-        this.bigramRelativeFrequencies = bigramRelativeFrequencies
-        this.trigramRelativeFrequencies = trigramRelativeFrequencies
-        this.unigrams = emptySet()
-        this.bigrams = emptySet()
-        this.trigrams = emptySet()
+        this.ngrams = emptySet()
+        this.ngramRelativeFrequencies = ngramRelativeFrequencies
     }
 
     private constructor(
         linesOfText: Sequence<String>,
+        ngramLength: Int,
         areNgramsLowerCase: Boolean = true,
         areNgramsPadded: Boolean = false
     ) {
-        val unigrams = hashSetOf<Unigram>()
-        val bigrams = hashSetOf<Bigram>()
-        val trigrams = hashSetOf<Trigram>()
+        val ngrams = hashSetOf<T>()
+        val padding = PAD_CHAR.repeat(ngramLength)
 
         for (line in linesOfText) {
             val lowerCasedLine = if (areNgramsLowerCase)
                 line.toLowerCase()
             else line
 
-            val unigramLine = if (areNgramsPadded)
-                UNIGRAM_PADDING + lowerCasedLine + UNIGRAM_PADDING
+            val ngramLine = if (areNgramsPadded)
+                padding + lowerCasedLine + padding
             else lowerCasedLine
 
-            val bigramLine = if (areNgramsPadded)
-                BIGRAM_PADDING + lowerCasedLine + BIGRAM_PADDING
-            else lowerCasedLine
-
-            val trigramLine = if (areNgramsPadded)
-                TRIGRAM_PADDING + lowerCasedLine + TRIGRAM_PADDING
-            else lowerCasedLine
-
-            collectNgrams(unigrams, unigramLine)
-            collectNgrams(bigrams, bigramLine)
-            collectNgrams(trigrams, trigramLine)
+            for (i in 0..ngramLine.length - ngramLength) {
+                val textSlice = ngramLine.slice(i until i + ngramLength)
+                val ngram = getNgramInstance<T>(ngramLength, textSlice)
+                ngrams.add(ngram)
+            }
         }
 
-        this.language = null
+        this.language = Language.UNKNOWN
         this.areNgramsLowerCase = areNgramsLowerCase
         this.areNgramsPadded = areNgramsPadded
-        this.unigramRelativeFrequencies = emptyMap()
-        this.bigramRelativeFrequencies = emptyMap()
-        this.trigramRelativeFrequencies = emptyMap()
-        this.unigrams = unigrams
-        this.bigrams = bigrams
-        this.trigrams = trigrams
+        this.ngrams = ngrams
+        this.ngramRelativeFrequencies = emptyMap()
     }
 
-    fun getRelativeFrequency(ngram: Ngram): Fraction? = when (ngram) {
-        is Unigram -> unigramRelativeFrequencies[ngram]
-        is Bigram -> bigramRelativeFrequencies[ngram]
-        is Trigram -> trigramRelativeFrequencies[ngram]
+    private constructor(
+        linesOfText: Sequence<String>,
+        ngramLength: Int,
+        language: Language,
+        areNgramsLowerCase: Boolean = true,
+        areNgramsPadded: Boolean = false
+    ) {
+        val ngramAbsoluteFrequencies = hashMapOf<T, Int>()
+        val padding = PAD_CHAR.repeat(ngramLength)
+        val regex = Regex("[\\p{L}]+")
+
+        for (line in linesOfText) {
+            val lowerCasedLine = if (areNgramsLowerCase)
+                line.toLowerCase()
+            else line
+
+            val ngramLine = if (areNgramsPadded)
+                padding + lowerCasedLine + padding
+            else lowerCasedLine
+
+            for (i in 0..ngramLine.length - ngramLength) {
+                val textSlice = ngramLine.slice(i until i + ngramLength)
+                if (regex.matches(textSlice)) {
+                    val ngram = getNgramInstance<T>(ngramLength, textSlice)
+                    ngramAbsoluteFrequencies.merge(ngram, 1, Int::plus)
+                }
+            }
+        }
+
+        val ngramRelativeFrequencies = computeConditionalProbabilities(ngramAbsoluteFrequencies)
+
+        this.language = language
+        this.areNgramsLowerCase = areNgramsLowerCase
+        this.areNgramsPadded = areNgramsPadded
+        this.ngrams = emptySet()
+        this.ngramRelativeFrequencies = ngramRelativeFrequencies
     }
 
-    fun toJson(): String = gson.toJson(
+    fun getRelativeFrequency(ngram: T): Fraction? = ngramRelativeFrequencies[ngram]
+
+    fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass).toJson(
         mapOf(
             "language" to language,
             "areNgramsLowerCase" to areNgramsLowerCase,
             "areNgramsPadded" to areNgramsPadded,
-            "unigrams" to unigramRelativeFrequencies.inverse(),
-            "bigrams" to bigramRelativeFrequencies.inverse(),
-            "trigrams" to trigramRelativeFrequencies.inverse()
+            "ngrams" to ngramRelativeFrequencies.inverse()
         )
     )
 
-    private inline fun <reified T : Ngram> collectNgrams(
-        ngrams: MutableSet<T>,
-        text: String
-    ) {
-        val ngramLength = getNgramLength<T>()
-        for (i in 0..text.length - ngramLength) {
-            val textSlice = text.slice(i until i + ngramLength)
-            val ngram = T::class.primaryConstructor?.call(textSlice)
-            ngram?.let { ngrams.add(it) }
+    private fun computeConditionalProbabilities(
+        ngrams: Map<T, Int>
+    ): Map<T, Fraction>
+    {
+        val ngramProbabilities = hashMapOf<T, Fraction>()
+        val totalNgramFrequency = ngrams.values.sum()
+        for ((ngram, frequency) in ngrams) {
+            ngramProbabilities[ngram] = frequency over totalNgramFrequency
         }
+
+        return ngramProbabilities
     }
 
-    private inline fun <reified T : Ngram> getNgramLength(): Int =
-        when (T::class) {
-            Unigram::class -> 1
-            Bigram::class -> 2
-            Trigram::class -> 3
-            else -> throw IllegalArgumentException(
-                "unsupported ngram type: ${T::class.simpleName}"
-            )
-        }
-
     internal companion object {
-        fun fromTestData(
+
+        inline fun <reified T : Ngram> fromTestData(
             text: Sequence<String>,
             areNgramsLowerCase: Boolean = true,
             areNgramsPadded: Boolean = false
-        ) = LanguageModel(
+        ) = LanguageModel<T>(
             text,
+            getNgramLength<T>(),
             areNgramsLowerCase,
             areNgramsPadded
         )
 
-        fun fromJson(json: JsonReader): LanguageModel {
-            val type = object : TypeToken<LanguageModel>() {}.type
-            return gson.fromJson<LanguageModel>(json, type)
+        inline fun <reified T : Ngram> fromTrainingData(
+            text: Sequence<String>,
+            language: Language,
+            areNgramsLowerCase: Boolean = true,
+            areNgramsPadded: Boolean = false
+        ) = LanguageModel<T>(
+            text,
+            getNgramLength<T>(),
+            language,
+            areNgramsLowerCase,
+            areNgramsPadded
+        )
+
+        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T> {
+            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
+            return getGson(ngramClass).fromJson(json, type)
         }
 
-        private val gson = GsonBuilder()
-            .registerTypeAdapter(
-                LanguageModel::class.java,
-                LanguageModelDeserializer()
-            )
-            .create()
+        private inline fun <reified T : Ngram> getNgramLength(): Int =
+            when (T::class) {
+                Unigram::class -> 1
+                Bigram::class -> 2
+                Trigram::class -> 3
+                Quadrigram::class -> 4
+                Fivegram::class -> 5
+                else -> throw IllegalArgumentException(
+                    "unsupported ngram type: ${T::class.simpleName}"
+                )
+            }
+
+        private fun <T: Ngram> getNgramInstance(ngramLength: Int, value: String): T {
+            val ngram = when (ngramLength) {
+                1 -> Unigram(value)
+                2 -> Bigram(value)
+                3 -> Trigram(value)
+                4 -> Quadrigram(value)
+                5 -> Fivegram(value)
+                else -> throw IllegalArgumentException(
+                    "unsupported ngram length: $ngramLength"
+                )
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            return ngram as T
+        }
+
+
+        private fun <T : Ngram> getGson(ngramClass: KClass<T>): Gson {
+            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
+            return GsonBuilder()
+                .registerTypeAdapter(
+                    type,
+                    LanguageModelDeserializer<T>()
+                )
+                .create()
+        }
 
         private const val PAD_CHAR = "<PAD>"
-        private const val UNIGRAM_PADDING = PAD_CHAR
-        private const val BIGRAM_PADDING = "$PAD_CHAR$PAD_CHAR"
-        private const val TRIGRAM_PADDING = "$PAD_CHAR$PAD_CHAR$PAD_CHAR"
     }
 
-    private class LanguageModelDeserializer : JsonDeserializer<LanguageModel> {
+    private class LanguageModelDeserializer<T : Ngram> : JsonDeserializer<LanguageModel<T>> {
         override fun deserialize(
             json: JsonElement,
             type: Type,
             context: JsonDeserializationContext
-        ): LanguageModel {
+        ): LanguageModel<T> {
+
+            @Suppress("UNCHECKED_CAST")
+            val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
 
             val jsonObj = json.asJsonObject
-
             val language = Language.valueOf(jsonObj["language"].asString)
             val areNgramsLowerCase = jsonObj["areNgramsLowerCase"].asBoolean
             val areNgramsPadded = jsonObj["areNgramsPadded"].asBoolean
+            val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
 
-            val unigramsJsonObj = jsonObj["unigrams"].asJsonObject
-            val bigramsJsonObj = jsonObj["bigrams"].asJsonObject
-            val trigramsJsonObj = jsonObj["trigrams"].asJsonObject
-
-            val unigramRelativeFrequencies =
-                restoreNgramFrequencies<Unigram>(unigramsJsonObj)
-            val bigramRelativeFrequencies =
-                restoreNgramFrequencies<Bigram>(bigramsJsonObj)
-            val trigramRelativeFrequencies =
-                restoreNgramFrequencies<Trigram>(trigramsJsonObj)
+            val ngramRelativeFrequencies = hashMapOf<T, Fraction>()
+            for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
+                val fraction = Fraction(fractionLiteral)
+                for (ngramJsonElem in ngramsJsonElem.asJsonArray) {
+                    val ngram: T? = ngramClass.getConstructor(String::class.java).newInstance(ngramJsonElem.asString)
+                    ngram?.let { ngramRelativeFrequencies[ngram] = fraction }
+                }
+            }
 
             return LanguageModel(
                 language,
                 areNgramsLowerCase,
                 areNgramsPadded,
-                unigramRelativeFrequencies,
-                bigramRelativeFrequencies,
-                trigramRelativeFrequencies
+                ngramRelativeFrequencies
             )
-        }
-
-        private inline fun <reified T : Ngram> restoreNgramFrequencies(
-            jsonObj: JsonObject
-        ): Map<T, Fraction> {
-            val relativeFrequencies = hashMapOf<T, Fraction>()
-            for ((fractionLiteral, ngramsJsonElem) in jsonObj.entrySet()) {
-                val fraction = Fraction(fractionLiteral)
-                for (ngramJsonElem in ngramsJsonElem.asJsonArray) {
-                    val ngram =
-                        T::class.primaryConstructor?.call(ngramJsonElem.asString)
-                    ngram?.let { relativeFrequencies[ngram] = fraction }
-                }
-            }
-            return relativeFrequencies
         }
     }
 }
