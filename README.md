@@ -1,4 +1,6 @@
-# lingua - language detection done right
+![lingua](logo.png)
+
+# language detection done right
 *lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 ___
 [![ci build status][travis ci badge]][travis ci url]
