@@ -4,6 +4,7 @@
 *lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 ___
 [![ci build status][travis ci badge]][travis ci url]
+[![Maintainability][maintainability badge]][maintainability url]
 [![Download][lingua version badge]][lingua download url]
 [![Kotlin version][Kotlin version badge]][Kotlin url]
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
@@ -223,6 +224,8 @@ Bye! Ciao! Tschüss! Salut!
 
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
+[maintainability badge]: https://api.codeclimate.com/v1/badges/15822c202592b047f793/maintainability
+[maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
 [lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
 [lingua download url]: https://bintray.com/pemistahl/nlp-libraries/lingua/_latestVersion
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg
