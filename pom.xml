@@ -9,7 +9,30 @@
 
     <name>Lingua</name>
     <description>A language detection library for Kotlin and Java, suitable for long and short text alike</description>
+    <url>https://github.com/pemistahl/lingua</url>
     <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>pemistahl</id>
+            <name>Peter M. Stahl</name>
+            <email>pemistahl@googlemail.com</email>
+            <url>https://github.com/pemistahl</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/pemistahl/lingua.git</connection>
+        <developerConnection>scm:git:ssh://github.com:pemistahl/lingua.git</developerConnection>
+        <url>http://github.com/pemistahl/lingua/tree/master</url>
+    </scm>
 
     <properties>
         <!--
@@ -25,11 +48,13 @@
         <gson.version>2.8.5</gson.version>
         <junit.jupiter.version>5.3.2</junit.jupiter.version>
         <mockk.version>1.8.13.kotlin13</mockk.version>
+        <dokka.version>0.9.17</dokka.version>
 
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
         <exec.maven.plugin.version>1.6.0</exec.maven.plugin.version>
         <maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
+        <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
 
         <lingua.main.class>com.github.pemistahl.lingua.AppKt</lingua.main.class>
     </properties>
@@ -77,6 +102,9 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -88,22 +116,12 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            </sourceDirs>
-                        </configuration>
                     </execution>
                     <execution>
                         <id>test-compile</id>
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            </sourceDirs>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -159,6 +177,11 @@
 
         <profile>
             <id>with-dependencies</id>
+            <activation>
+                <property>
+                    <name>profile.release</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -185,6 +208,61 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>profile.release</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven.source.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludeResources>true</excludeResources>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jetbrains.dokka</groupId>
+                        <artifactId>dokka-maven-plugin</artifactId>
+                        <version>${dokka.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>dokka</goal>
+                                    <goal>javadoc</goal>
+                                    <goal>javadocJar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <jdkVersion>6</jdkVersion>
+                            <reportNotDocumented>false</reportNotDocumented>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>jcenter</id>
+                    <name>JCenter</name>
+                    <url>https://jcenter.bintray.com/</url>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
     </profiles>
 </project>
