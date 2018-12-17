@@ -5,7 +5,9 @@
 ___
 [![ci build status][travis ci badge]][travis ci url]
 [![Maintainability][maintainability badge]][maintainability url]
+[![codecov][codecov badge]][codecov url]
 [![Download][lingua version badge]][lingua download url]
+---
 [![Kotlin version][Kotlin version badge]][Kotlin url]
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
 [![JVM target][JVM target badge]][JVM target url]
@@ -226,13 +228,15 @@ Bye! Ciao! Tschüss! Salut!
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
 [maintainability badge]: https://api.codeclimate.com/v1/badges/15822c202592b047f793/maintainability
 [maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
+[codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
+[codecov url]: https://codecov.io/gh/pemistahl/lingua
 [lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/lingua/_latestVersion
-[Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.0%2Flingua-0.2.0-with-dependencies.jar
+[Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
-[Kotlin platforms badge]: https://img.shields.io/badge/platforms-Kotlin%2FJVM-yellowgreen.svg
+[Kotlin platforms badge]: https://img.shields.io/badge/platforms-Kotlin%2FJVM-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
-[JVM target badge]: https://img.shields.io/badge/JVM%20target-1.6+-yellowgreen.svg
+[JVM target badge]: https://img.shields.io/badge/JVM%20target-1.6+-blue.svg?logo=java
 [JVM target url]: https://www.oracle.com/technetwork/java/javase/java-archive-downloads-javase6-419409.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
