@@ -263,6 +263,13 @@
                     <url>https://jcenter.bintray.com/</url>
                 </pluginRepository>
             </pluginRepositories>
+            <distributionManagement>
+                <repository>
+                    <id>bintray-pemistahl-nlp-libraries</id>
+                    <name>pemistahl-nlp-libraries</name>
+                    <url>https://api.bintray.com/maven/pemistahl/nlp-libraries/lingua/;publish=1</url>
+                </repository>
+            </distributionManagement>
         </profile>
     </profiles>
 </project>
