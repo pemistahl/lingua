@@ -68,7 +68,7 @@ Accuracy: 98,67%
 Erroneously classified as ENGLISH: 0,96%, LATIN: 0,12%, PORTUGUESE: 0,11%, FRENCH: 0,05%, ITALIAN: 0,05%, SPANISH: 0,04%
 ```
 
-Here is a summary of all accuracy reports of the current *lingua* version `0.2.0`. Accuracy values are stated as rounded percentages.
+Here is a summary of all accuracy reports of the current *lingua* version `0.2.0`. All supported languages have been taken into account during the classification process. Accuracy values are stated as rounded percentages.
 
 | Language | Average | Single Words | Word Pairs | Sentences |
 | -------- | ------- | ------------ | ---------- | --------- |
@@ -79,6 +79,7 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
 | Latin    | 88      | 80           | 94         | 89        |
 | Portuguese | 86    | 69           | 90         | 99        | 
 | Spanish  | 83      | 64           | 87         | 98        |
+| **overall** | **88** | **75**     | **92**     | **97**    |
 
 
 ### How to build?
@@ -102,6 +103,9 @@ The API is pretty straightforward and can be used in both Kotlin and Java code.
 
 import com.github.pemistahl.lingua.detector.LanguageDetector
 import com.github.pemistahl.lingua.model.Language
+
+println(LanguageDetector.supportedLanguages())
+// [ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE, SPANISH]
 
 val detector = LanguageDetector.fromAllBuiltInLanguages()
 val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are awesome")
