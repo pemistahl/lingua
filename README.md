@@ -40,7 +40,9 @@ So far, one of the few other comprehensive open source libraries working on the 
 1. Detection only works with quite lengthy text fragments. For very short text snippets such as Twitter messages, it doesn't provide adequate results.
 2. Configuration of the library is quite cumbersome and requires some knowledge about the statistical methods that are used internally.
 
-*lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries. Compared to other language detection libraries, *lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones.
+*lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries. It does not need a connection to any external service either. Once the library has been downloaded, it can be used completely offline. 
+
+Compared to other language detection libraries, *lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones.
 
 ### <a name="supported-languages"></a> Which languages are supported?
 
