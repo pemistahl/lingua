@@ -223,35 +223,31 @@ class LanguageDetector private constructor(
         return 0.0
     }
 
-    private fun lookUpUnigramProbability(language: Language, ngram: Ngram): Fraction? {
-        return unigramLanguageModels
-            .first { it.language == language }
-            .getRelativeFrequency(Unigram(ngram.value[0].toString()))
-    }
+    private fun <T : Ngram> lookUpNgramProbability(
+        languageModels: List<LanguageModel<T>>,
+        language: Language,
+        ngram: T
+    ): Fraction? = languageModels.first { it.language == language }.getRelativeFrequency(ngram)
 
-    private fun lookUpBigramProbability(language: Language, ngram: Ngram): Fraction? {
-        return bigramLanguageModels
-            .first { it.language == language }
-            .getRelativeFrequency(Bigram(ngram.value.slice(0..1)))
-    }
+    private fun lookUpUnigramProbability(language: Language, ngram: Ngram) = lookUpNgramProbability(
+        unigramLanguageModels, language, Unigram(ngram.value[0].toString())
+    )
 
-    private fun lookUpTrigramProbability(language: Language, ngram: Ngram): Fraction? {
-        return trigramLanguageModels
-            .first { it.language == language }
-            .getRelativeFrequency(Trigram(ngram.value.slice(0..2)))
-    }
+    private fun lookUpBigramProbability(language: Language, ngram: Ngram) = lookUpNgramProbability(
+        bigramLanguageModels, language, Bigram(ngram.value.slice(0..1))
+    )
 
-    private fun lookUpQuadrigramProbability(language: Language, ngram: Ngram): Fraction? {
-        return quadrigramLanguageModels
-            .first { it.language == language }
-            .getRelativeFrequency(Quadrigram(ngram.value.slice(0..3)))
-    }
+    private fun lookUpTrigramProbability(language: Language, ngram: Ngram) = lookUpNgramProbability(
+        trigramLanguageModels, language, Trigram(ngram.value.slice(0..2))
+    )
 
-    private fun lookUpFivegramProbability(language: Language, ngram: Ngram): Fraction? {
-        return fivegramLanguageModels
-            .first { it.language == language }
-            .getRelativeFrequency(Fivegram(ngram.value.slice(0..4)))
-    }
+    private fun lookUpQuadrigramProbability(language: Language, ngram: Ngram) = lookUpNgramProbability(
+        quadrigramLanguageModels, language, Quadrigram(ngram.value.slice(0..3))
+    )
+
+    private fun lookUpFivegramProbability(language: Language, ngram: Ngram) = lookUpNgramProbability(
+        fivegramLanguageModels, language, Fivegram(ngram.value.slice(0..4))
+    )
 
     companion object {
         @JvmStatic

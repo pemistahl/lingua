@@ -5,7 +5,7 @@
 
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
 
     <name>Lingua</name>
     <description>A language detection library for Kotlin and Java, suitable for long and short text alike</description>
@@ -57,6 +57,8 @@
         <maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
 
+        <com.optimaize.languagedetector.version>0.6</com.optimaize.languagedetector.version>
+
         <lingua.main.class>com.github.pemistahl.lingua.AppKt</lingua.main.class>
     </properties>
 
@@ -98,6 +100,12 @@
             <groupId>io.mockk</groupId>
             <artifactId>mockk</artifactId>
             <version>${mockk.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.optimaize.languagedetector</groupId>
+            <artifactId>language-detector</artifactId>
+            <version>${com.optimaize.languagedetector.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

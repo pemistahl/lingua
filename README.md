@@ -115,7 +115,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.pemistahl:lingua:0.2.0'
+    implementation 'com.github.pemistahl:lingua:0.2.1-SNAPSHOT'
 }
 ```
 
@@ -125,7 +125,7 @@ dependencies {
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
 </dependency>
 
 <repository>
@@ -144,8 +144,8 @@ cd lingua
 mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
-1. `mvn package` creates `lingua-0.2.0.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.2.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *lingua* in standalone mode (see below).
+1. `mvn package` creates `lingua-0.2.1-SNAPSHOT.jar` that contains the compiled sources only.
+2. `mvn package -P with-dependencies` creates `lingua-0.2.1-SNAPSHOT-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *lingua* in standalone mode (see below).
 
 ### <a name="library-use"></a> How to use?
 *lingua* can be used programmatically in your own code or in standalone mode.
@@ -198,7 +198,7 @@ LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 #### <a name="library-use-standalone"></a> Standalone mode
 If you want to try out *lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.2.0-with-dependencies.jar`
+2. Without Maven: `java -jar lingua-0.2.1-SNAPSHOT-with-dependencies.jar`
 
 Then just play around:
 
