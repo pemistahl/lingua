@@ -14,10 +14,25 @@ ___
 [![license badge][license badge]][license url]
 ___
 
-### What does this library do?
+## Table of Contents
+
+* [What does this library do?](#library-purpose)
+* [Why does this library exist?](#library-reason)
+* [Which languages are supported?](#supported-languages)
+* [How good is it?](#library-accuracy)
+* [How to add it to your project?](#library-dependency)
+  * [Using Gradle](#library-dependency-gradle)
+  * [Using Maven](#library-dependency-maven)
+* [How to build?](#library-build)
+* [How to use?](#library-use)
+  * [Programmatic use](#library-use-programmatic)
+  * [Standalone mode](#library-use-standalone)
+* [What's next for upcoming versions?](#whats-next)
+
+### <a name="library-purpose"></a> What does this library do?
 Its task is simple: It tells you which language some provided textual data is written in. This is very useful as a preprocessing step for linguistic data in natural language processing applications such as text classification and spell checking. Other use cases, for instance, might include routing e-mails to the right geographically located customer service department, based on the e-mails' languages.
 
-### Why does this library exist?
+### <a name="library-reason"></a> Why does this library exist?
 Language detection is often done as part of large machine learning frameworks or natural language processing applications. In cases where you don't need the full-fledged functionality of those systems or don't want to learn the ropes of those, a small flexible library comes in handy. 
 
 So far, one of the few other comprehensive open source libraries working on the JVM for this task is [language-detector]. Unfortunately, it has two major drawbacks:
@@ -27,7 +42,7 @@ So far, one of the few other comprehensive open source libraries working on the 
 
 *lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries. Compared to other language detection libraries, *lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages before adding new ones.
 
-### Which languages are supported?
+### <a name="supported-languages"></a> Which languages are supported?
 
 Currently, the following seven languages are supported:
 
@@ -41,7 +56,7 @@ Currently, the following seven languages are supported:
 | Portuguese | *pt*         |
 | Spanish  |   *es*         |
 
-### How good is it?
+### <a name="library-accuracy"></a> How good is it?
 
 *lingua* is able to report accuracy statistics for some bundled test data available for each supported language. The test data for each language is split into three parts:
 1. a list of single words with a minimum length of 5 characters
@@ -86,11 +101,11 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
 | Spanish  | 83      | 64           | 87         | 98        |
 | **overall** | **88** | **75**     | **92**     | **97**    |
 
-### How to add it to your project?
+### <a name="library-dependency"></a> How to add it to your project?
 
 *lingua* is currently hosted on [Bintray] only, but it will soon be available on JCenter and Maven Central as well.
 
-#### Using Gradle
+#### <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
 repositories {
@@ -104,7 +119,7 @@ dependencies {
 }
 ```
 
-#### Using Maven
+#### <a name="library-dependency-maven"></a> Using Maven
 
 ```
 <project>
@@ -125,7 +140,7 @@ dependencies {
 </project>
 ```
 
-### How to build?
+### <a name="library-build"></a> How to build?
 
 *lingua* uses Maven to build. A switch to Gradle is planned for the future.
 
@@ -138,10 +153,10 @@ Maven's `package` phase is able to generate two jar files in the `target` direct
 1. `mvn package` creates `lingua-0.2.0.jar` that contains the compiled sources only.
 2. `mvn package -P with-dependencies` creates `lingua-0.2.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. It can also be used to run *lingua* in standalone mode (see below).
 
-### How to use?
+### <a name="library-use"></a> How to use?
 *lingua* can be used programmatically in your own code or in standalone mode.
 
-#### Programmatic use
+#### <a name="library-use-programmatic"></a> Programmatic use
 The API is pretty straightforward and can be used in both Kotlin and Java code.
 
 ```kotlin
@@ -186,7 +201,7 @@ LanguageDetector.fromAllBuiltInLanguagesWithout(Language.SPANISH)
 LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 ```
 
-#### Standalone mode
+#### <a name="library-use-standalone"></a> Standalone mode
 If you want to try out *lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
 2. Without Maven: `java -jar lingua-0.2.0-with-dependencies.jar`
@@ -217,7 +232,7 @@ PORTUGUESE
 Bye! Ciao! Tschüss! Salut!
 ```
 
-### What's next for upcoming versions?
+### <a name="whats-next"></a> What's next for upcoming versions?
 - languages, languages, even more languages :-)
 - accuracy improvements
 - more unit tests
