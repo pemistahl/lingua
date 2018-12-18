@@ -10,7 +10,6 @@ ___
 ---
 [![Kotlin version][Kotlin version badge]][Kotlin url]
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
-[![JVM target][JVM target badge]][JVM target url]
 [![license badge][license badge]][license url]
 ___
 
@@ -144,7 +143,7 @@ mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
 1. `mvn package` creates `lingua-0.2.0.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.2.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. It can also be used to run *lingua* in standalone mode (see below).
+2. `mvn package -P with-dependencies` creates `lingua-0.2.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *lingua* in standalone mode (see below).
 
 ### <a name="library-use"></a> How to use?
 *lingua* can be used programmatically in your own code or in standalone mode.
@@ -234,7 +233,7 @@ In case you want to contribute something to *lingua* even though it's in a very 
 - accuracy improvements
 - more unit tests
 - API documentation
-- public API stability until version 1.0.0
+- for version 1.0.0: public API stability, Gradle build, multiplatform support
 
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
@@ -246,10 +245,8 @@ In case you want to contribute something to *lingua* even though it's in a very 
 [lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.0%2Flingua-0.2.0-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
-[Kotlin platforms badge]: https://img.shields.io/badge/platforms-Kotlin%2FJVM-blue.svg
+[Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
-[JVM target badge]: https://img.shields.io/badge/JVM%20target-1.6+-blue.svg?logo=java
-[JVM target url]: https://www.oracle.com/technetwork/java/javase/java-archive-downloads-javase6-419409.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
