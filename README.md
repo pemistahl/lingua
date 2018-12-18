@@ -27,6 +27,7 @@ ___
 * [How to use?](#library-use)
   * [Programmatic use](#library-use-programmatic)
   * [Standalone mode](#library-use-standalone)
+* [Do you want to contribute?](#library-contribution)
 * [What's next for upcoming versions?](#whats-next)
 
 ### <a name="library-purpose"></a> What does this library do?
@@ -231,6 +232,10 @@ PORTUGUESE
 > :quit
 Bye! Ciao! Tschüss! Salut!
 ```
+
+### <a name="library-contribution"></a> Do you want to contribute?
+
+In case you want to contribute something to *lingua* even though it's in a very early stage of development, then I encourage you to do so nevertheless. Do you have ideas for improving the API? Are there some specific languages that you want to have supported early? Or have you found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated. :-)
 
 ### <a name="whats-next"></a> What's next for upcoming versions?
 - languages, languages, even more languages :-)
