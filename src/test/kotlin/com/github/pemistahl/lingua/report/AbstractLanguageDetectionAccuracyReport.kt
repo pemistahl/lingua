@@ -1,14 +1,39 @@
-package com.github.pemistahl.lingua.detector.report
+/*
+ * Copyright 2018 Peter M. Stahl
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.detector.LanguageDetector
 import com.github.pemistahl.lingua.model.Language
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
+import com.google.common.base.Optional
+import com.optimaize.langdetect.LanguageDetectorBuilder
+import com.optimaize.langdetect.i18n.LdLocale
+import com.optimaize.langdetect.ngram.NgramExtractors
+import com.optimaize.langdetect.profiles.LanguageProfileReader
+import com.optimaize.langdetect.text.CommonTextObjectFactories
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import java.util.logging.Logger
 
 @TestInstance(Lifecycle.PER_CLASS)
 abstract class AbstractLanguageDetectionAccuracyReport(
-    private val language: Language
+    private val language: Language,
+    private val implementationToUse: LanguageDetectorImplementation
 ) {
     protected val logger: Logger = Logger.getLogger(this::class.qualifiedName)
 
@@ -82,7 +107,13 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     private fun computeStatistics(statistics: MutableMap<Language, Int>, element: String) {
-        val detectedLanguage = detector.detectLanguageOf(element)
+        val detectedLanguage = when (implementationToUse) {
+            LINGUA -> {
+                if (language == Language.LATIN) linguaDetector.addLanguageModel(Language.LATIN)
+                linguaDetector.detectLanguageOf(element)
+            }
+            OPTIMAIZE -> mapLocaleToLanguage(optimaizeDetector.detect(textObjectFactory.forText(element)))
+        }
         statistics.merge(detectedLanguage, 1, Int::plus)
     }
 
@@ -118,8 +149,31 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
     }
 
+    private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
+        return if (!locale.isPresent) { Language.UNKNOWN }
+        else when (locale.get().language) {
+            "de" -> Language.GERMAN
+            "en" -> Language.ENGLISH
+            "es" -> Language.SPANISH
+            "fr" -> Language.FRENCH
+            "it" -> Language.ITALIAN
+            "pt" -> Language.PORTUGUESE
+            else -> Language.UNKNOWN
+        }
+    }
+
     companion object {
-        private val detector = LanguageDetector.fromAllBuiltInLanguages()
+        private val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
+
+        private val textObjectFactory by lazy { CommonTextObjectFactories.forDetectingShortCleanText() }
+        private val optimaizeDetector by lazy {
+            val languageLocales = listOf("de", "en", "es", "fr", "it", "pt").map { LdLocale.fromString(it) }
+            val languageProfiles = LanguageProfileReader().readBuiltIn(languageLocales)
+            LanguageDetectorBuilder
+                .create(NgramExtractors.standard())
+                .withProfiles(languageProfiles)
+                .build()
+        }
 
         const val CSV_FILE_ENCODING = "UTF-8"
         const val CSV_FILE_DELIMITER = '|'

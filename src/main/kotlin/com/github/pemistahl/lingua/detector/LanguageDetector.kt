@@ -29,7 +29,7 @@ import com.github.pemistahl.lingua.util.extension.asJsonResource
 import kotlin.reflect.KClass
 
 class LanguageDetector private constructor(
-    val languages: Set<Language>,
+    internal val languages: MutableSet<Language>,
     val numberOfLoadedLanguages: Int = languages.size
 ) {
     private val unigramLanguageModels = loadLanguageModels(languages, Unigram::class)
@@ -80,8 +80,19 @@ class LanguageDetector private constructor(
         return getMostLikelyLanguage(summedUpProbabilities)
     }
 
+    internal fun addLanguageModel(language: Language) {
+        if (!languages.contains(language)) {
+            languages.add(language)
+            unigramLanguageModels.add(loadLanguageModel(language, Unigram::class))
+            bigramLanguageModels.add(loadLanguageModel(language, Bigram::class))
+            trigramLanguageModels.add(loadLanguageModel(language, Trigram::class))
+            quadrigramLanguageModels.add(loadLanguageModel(language, Quadrigram::class))
+            fivegramLanguageModels.add(loadLanguageModel(language, Fivegram::class))
+        }
+    }
+
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        return probabilities.toList().sortedByDescending { (_, value) -> value }.first().first
+        return probabilities.maxBy { (_, value) -> value }!!.key
     }
 
     private fun detectLanguageWithRules(text: String): Language {
@@ -252,17 +263,17 @@ class LanguageDetector private constructor(
     companion object {
         @JvmStatic
         fun fromAllBuiltInLanguages() = LanguageDetector(
-            Language.values().toSet().minus(Language.UNKNOWN)
+            Language.values().toSet().minus(Language.UNKNOWN).toMutableSet()
         )
 
         @JvmStatic
         fun fromAllBuiltInSpokenLanguages() = LanguageDetector(
-            Language.values().toSet().minus(arrayOf(Language.UNKNOWN, Language.LATIN))
+            Language.values().toSet().minus(arrayOf(Language.UNKNOWN, Language.LATIN)).toMutableSet()
         )
 
         @JvmStatic
         fun fromAllBuiltInLanguagesWithout(language: Language, vararg languages: Language): LanguageDetector {
-            val languagesToLoad = Language.values().toSet().minus(arrayOf(Language.UNKNOWN, language, *languages))
+            val languagesToLoad = Language.values().toSet().minus(arrayOf(Language.UNKNOWN, language, *languages)).toMutableSet()
             require(languagesToLoad.size > 1) { MISSING_LANGUAGE_MESSAGE }
             return LanguageDetector(languagesToLoad)
         }
@@ -270,22 +281,31 @@ class LanguageDetector private constructor(
         @JvmStatic
         fun fromLanguages(language: Language, vararg languages: Language): LanguageDetector {
             require(languages.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetector(arrayOf(language, *languages).toSet())
+            return LanguageDetector(arrayOf(language, *languages).toMutableSet())
         }
 
         @JvmStatic
         fun supportedLanguages() = Language.values().toSet().minus(Language.UNKNOWN)
 
+        private fun <T : Ngram> loadLanguageModel(
+            language: Language,
+            ngramClass: KClass<T>
+        ): LanguageModel<T> {
+            var languageModel: LanguageModel<T>? = null
+            val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
+            "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
+                languageModel = LanguageModel.fromJson(jsonReader, ngramClass)
+            }
+            return languageModel!!
+        }
+
         private fun <T : Ngram> loadLanguageModels(
             languages: Set<Language>,
             ngramClass: KClass<T>
-        ): List<LanguageModel<T>> {
+        ): MutableList<LanguageModel<T>> {
             val languageModels = mutableListOf<LanguageModel<T>>()
             for (language in languages) {
-                val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
-                "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
-                    languageModels.add(LanguageModel.fromJson(jsonReader, ngramClass))
-                }
+                languageModels.add(loadLanguageModel(language, ngramClass))
             }
             return languageModels
         }

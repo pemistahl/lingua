@@ -57,9 +57,10 @@
         <maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
 
-        <com.optimaize.languagedetector.version>0.6</com.optimaize.languagedetector.version>
-
         <lingua.main.class>com.github.pemistahl.lingua.AppKt</lingua.main.class>
+
+        <com.optimaize.languagedetector.version>0.6</com.optimaize.languagedetector.version>
+        <detector>*</detector>
     </properties>
 
     <dependencies>
@@ -194,7 +195,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <includes>
-                                <include>**/*Report.java</include>
+                                <include>**/${detector}/*Report.java</include>
                             </includes>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>
                         </configuration>
