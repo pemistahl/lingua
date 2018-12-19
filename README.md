@@ -113,14 +113,14 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
     </tr>
     <tr>
         <td>English</td>
-        <td>88</td>
-        <td>49</td>
-        <td>76</td>
-        <td>12</td>
-        <td>91</td>
-        <td>43</td>
-        <td>98</td>
-        <td>90</td>
+        <td>88 ![green-marker]</td>
+        <td>49 ![orange-marker]</td>
+        <td>76 ![green-marker]</td>
+        <td>12 ![red-marker]</td>
+        <td>91 ![green-marker]</td>
+        <td>43 ![orange-marker]</td>
+        <td>98 ![green-marker]</td>
+        <td>90 ![green-marker]</td>
     </tr>
 </table>
 
@@ -287,3 +287,7 @@ In case you want to contribute something to *lingua* even though it's in a very 
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
 [language-detector]: https://github.com/optimaize/language-detector
 [Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua
+[green-marker]: https://placehold.it/10/008000/000000?text=+
+[yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
+[orange-marker]: https://placehold.it/10/ff8c00/000000?text=+
+[red-marker]: https://placehold.it/10/ff0000/000000?text=+
