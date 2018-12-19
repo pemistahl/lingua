@@ -163,7 +163,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
+        internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 
         private val textObjectFactory by lazy { CommonTextObjectFactories.forDetectingShortCleanText() }
         private val optimaizeDetector by lazy {

@@ -66,10 +66,14 @@ class LanguageDetectorTest {
 
     @Test
     fun `assert that each and every built-in language model is loaded properly`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns listOf(
-            englishLanguageModel, frenchLanguageModel, germanLanguageModel,
-            italianLanguageModel, latinLanguageModel, portugueseLanguageModel,
-            spanishLanguageModel
+        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
+            ENGLISH to englishLanguageModel,
+            FRENCH to frenchLanguageModel,
+            GERMAN to germanLanguageModel,
+            ITALIAN to italianLanguageModel,
+            LATIN to latinLanguageModel,
+            PORTUGUESE to portugueseLanguageModel,
+            SPANISH to spanishLanguageModel
         )
         val detector = LanguageDetector.fromAllBuiltInLanguages()
         assertEquals(7, detector.numberOfLoadedLanguages)
@@ -78,9 +82,13 @@ class LanguageDetectorTest {
 
     @Test
     fun `assert that all built-in spoken language models are loaded properly`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns listOf(
-            englishLanguageModel, frenchLanguageModel, germanLanguageModel,
-            italianLanguageModel, portugueseLanguageModel, spanishLanguageModel
+        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
+            ENGLISH to englishLanguageModel,
+            FRENCH to frenchLanguageModel,
+            GERMAN to germanLanguageModel,
+            ITALIAN to italianLanguageModel,
+            PORTUGUESE to portugueseLanguageModel,
+            SPANISH to spanishLanguageModel
         )
         val detector = LanguageDetector.fromAllBuiltInSpokenLanguages()
         assertEquals(6, detector.numberOfLoadedLanguages)
@@ -92,8 +100,9 @@ class LanguageDetectorTest {
 
     @Test
     fun `assert that selected language models are loaded properly`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns listOf(
-            latinLanguageModel, germanLanguageModel
+        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
+            GERMAN to germanLanguageModel,
+            LATIN to latinLanguageModel
         )
         val detector = LanguageDetector.fromLanguages(LATIN, GERMAN)
         assertEquals(2, detector.numberOfLoadedLanguages)
@@ -119,8 +128,11 @@ class LanguageDetectorTest {
 
     @Test
     fun `assert that excluded language models are not loaded`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns listOf(
-            englishLanguageModel, germanLanguageModel, italianLanguageModel, spanishLanguageModel
+        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
+            ENGLISH to englishLanguageModel,
+            GERMAN to germanLanguageModel,
+            ITALIAN to italianLanguageModel,
+            SPANISH to spanishLanguageModel
         )
         val detector = LanguageDetector.fromAllBuiltInLanguagesWithout(FRENCH, LATIN, PORTUGUESE)
         assertEquals(4, detector.numberOfLoadedLanguages)
