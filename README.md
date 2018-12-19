@@ -92,6 +92,39 @@ Erroneously classified as ENGLISH: 0,96%, LATIN: 0,12%, PORTUGUESE: 0,11%, FRENC
 
 Here is a summary of all accuracy reports of the current *lingua* version `0.2.0`. All supported languages have been taken into account during the classification process. Accuracy values are stated as rounded percentages.
 
+<table>
+    <tr>
+        <th>Language</th>
+        <th colspan="2">Average</th>
+        <th colspan="2">Single Words</th>
+        <th colspan="2">Word Pairs</th>
+        <th colspan="2">Sentences</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Lingua</th>
+        <th>Optimaize</th>
+        <th>Lingua</th>
+        <th>Optimaize</th>
+        <th>Lingua</th>
+        <th>Optimaize</th>
+        <th>Lingua</th>
+        <th>Optimaize</th>
+    </tr>
+    <tr>
+        <td>English</td>
+        <td>88</td>
+        <td>49</td>
+        <td>76</td>
+        <td>12</td>
+        <td>91</td>
+        <td>43</td>
+        <td>98</td>
+        <td>90</td>
+    </tr>
+</table>
+
+
 | Language | Average | Single Words | Word Pairs | Sentences |
 | -------- | ------- | ------------ | ---------- | --------- |
 | English  | 87      | 72           | 89         | 98        |

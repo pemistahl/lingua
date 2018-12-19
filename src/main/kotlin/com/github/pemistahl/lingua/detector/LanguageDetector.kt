@@ -43,15 +43,16 @@ class LanguageDetector private constructor(
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
+        val textSequence = trimmedText.lineSequence()
 
         val languageDetectedByRules = detectLanguageWithRules(trimmedText)
         if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
 
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
-        val unigramTestDataModel = LanguageModel.fromTestData<Unigram>(trimmedText.lineSequence())
-        val bigramTestDataModel = LanguageModel.fromTestData<Bigram>(trimmedText.lineSequence())
-        val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(trimmedText.lineSequence())
+        val unigramTestDataModel = LanguageModel.fromTestData<Unigram>(textSequence)
+        val bigramTestDataModel = LanguageModel.fromTestData<Bigram>(textSequence)
+        val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
 
         val unigramProbabilities = computeUnigramProbabilities(unigramTestDataModel)
         val bigramProbabilities = computeBigramProbabilities(bigramTestDataModel)
@@ -60,12 +61,12 @@ class LanguageDetector private constructor(
         val allProbabilities = mutableListOf(unigramProbabilities, bigramProbabilities, trigramProbabilities)
 
         if (trimmedText.length >= 4) {
-            val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(trimmedText.lineSequence())
+            val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
             val quadrigramProbabilities = computeQuadrigramProbabilities(quadrigramTestDataModel)
             allProbabilities.add(quadrigramProbabilities)
         }
         if (trimmedText.length >= 5) {
-            val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(trimmedText.lineSequence())
+            val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             val fivegramProbabilities = computeFivegramProbabilities(fivegramTestDataModel)
             allProbabilities.add(fivegramProbabilities)
         }
@@ -106,7 +107,7 @@ class LanguageDetector private constructor(
 
     private fun detectLanguageWithRules(text: String): Language {
         if (text.isEmpty() || NO_LETTER_REGEX.matches(text)) return Language.UNKNOWN
-        val splitText = text.split(" ")
+        val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
 
         for (word in splitText) {
             if (word.contains(ENGLISH_GRAPHS) || word.endsWith("ing")) return Language.ENGLISH
