@@ -113,14 +113,14 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
     </tr>
     <tr>
         <td>English</td>
-        <td>88 <img src="https://placehold.it/10/008000/000000?text=+"></td>
-        <td>49 <img src="https://placehold.it/10/ff8c00/000000?text=+"></td>
-        <td>76 <img src="https://placehold.it/10/008000/000000?text=+"></td>
-        <td>12 <img src="https://placehold.it/10/ff0000/000000?text=+"></td>
-        <td>91 <img src="https://placehold.it/10/008000/000000?text=+"></td>
-        <td>43 <img src="https://placehold.it/10/ff8c00/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/10/008000/000000?text=+"></td>
-        <td>90 <img src="https://placehold.it/10/008000/000000?text=+"></td>
+        <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>49 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>12 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
 </table>
 
