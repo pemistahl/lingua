@@ -9,6 +9,7 @@
 ---
 [![ci build status][travis ci badge]][travis ci url]
 [![codebeat badge][codebeat badge]][codebeat url]
+[![Codacy Badge][Codacy Badge]][codacy url]
 [![Maintainability][maintainability badge]][maintainability url]
 [![codecov][codecov badge]][codecov url]
 ---
@@ -382,6 +383,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
 [codebeat badge]: https://codebeat.co/badges/92a1d221-35b8-4e96-8d40-ed101b6f128e
 [codebeat url]: https://codebeat.co/projects/github-com-pemistahl-lingua-master
+[Codacy Badge]: https://api.codacy.com/project/badge/Grade/1d09ea5efbe348058ac163962c5c5264
+[codacy url]: https://www.codacy.com/app/pemistahl/lingua?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pemistahl/lingua&amp;utm_campaign=Badge_Grade
 [maintainability badge]: https://api.codeclimate.com/v1/badges/15822c202592b047f793/maintainability
 [maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
