@@ -1,4 +1,4 @@
-![lingua](logo.png)
+[![lingua](logo.png)][translate-lingua]
 
 # language detection done right
 *Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
@@ -396,3 +396,4 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
 [orange-marker]: https://placehold.it/10/ff8c00/000000?text=+
 [red-marker]: https://placehold.it/10/ff0000/000000?text=+
+[translate-lingua]: https://translate.google.com/?hl=en#view=home&op=translate&sl=en&tl=la&text=tongue
