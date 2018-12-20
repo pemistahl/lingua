@@ -102,14 +102,14 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
     </tr>
     <tr>
         <th></th>
-        <th>Lingua</th>
-        <th>Optimaize</th>
-        <th>Lingua</th>
-        <th>Optimaize</th>
-        <th>Lingua</th>
-        <th>Optimaize</th>
-        <th>Lingua</th>
-        <th>Optimaize</th>
+        <th>lingua</th>
+        <th>optimaize</th>
+        <th>lingua</th>
+        <th>optimaize</th>
+        <th>lingua</th>
+        <th>optimaize</th>
+        <th>lingua</th>
+        <th>optimaize</th>
     </tr>
     <tr>
         <td>English</td>
@@ -122,6 +122,76 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
+    <tr>
+        <td>French</td>
+        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>62 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>81 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>27 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+    </tr>
+    <tr>
+        <td>German</td>
+        <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>78 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>54 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>81 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+    </tr>
+    <tr>
+        <td>Italian</td>
+        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>80 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>23 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>56 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+    </tr>
+    <tr>
+        <td>Portuguese</td>
+        <td>86 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>69 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>&nbsp;&nbsp;9 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>25 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+    </tr>
+    <tr>
+        <td>Spanish</td>
+        <td>83 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>64 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>&nbsp;&nbsp;8 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>24 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+    </tr>
+    <tr>
+        <td colspan="9"></td>
+    </tr>
+    <tr>
+        <td><strong>overall</strong></td>
+        <td><strong>89</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>56</strong> <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td><strong>77</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>22</strong> <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
+        <td><strong>92</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>48</strong> <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td><strong>98</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>96</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+    </tr>
+        
 </table>
 
 
