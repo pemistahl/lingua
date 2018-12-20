@@ -2,16 +2,20 @@
 
 # language detection done right
 *Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
-___
+
+---
+[![Download][lingua version badge]][lingua download url]
+![supported languages badge]
+---
 [![ci build status][travis ci badge]][travis ci url]
+[![codebeat badge][codebeat badge]][codebeat url]
 [![Maintainability][maintainability badge]][maintainability url]
 [![codecov][codecov badge]][codecov url]
-[![Download][lingua version badge]][lingua download url]
 ---
 [![Kotlin version][Kotlin version badge]][Kotlin url]
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
 [![license badge][license badge]][license url]
-___
+---
 
 ## <a name="table-of-contents"></a> Table of Contents
 
@@ -67,7 +71,7 @@ Currently, the following seven languages are supported:
 2. a list of word pairs with a minimum length of 10 characters
 3. a list of complete grammatical sentences of various lengths
 
-Both the language models and the test data have been created from the [Wortschatz corpora] offered by Leipzig University, Germany.
+Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. 
 
 #### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -376,10 +380,13 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
+[codebeat badge]: https://codebeat.co/badges/92a1d221-35b8-4e96-8d40-ed101b6f128e
+[codebeat url]: https://codebeat.co/projects/github-com-pemistahl-lingua-master
 [maintainability badge]: https://api.codeclimate.com/v1/badges/15822c202592b047f793/maintainability
 [maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
+[supported languages badge]: https://img.shields.io/badge/supported%20languages-7-red.svg
 [lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
 [lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.1%2Flingua-0.2.1-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
