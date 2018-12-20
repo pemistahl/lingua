@@ -95,86 +95,114 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
 <table>
     <tr>
         <th>Language</th>
-        <th colspan="2">Average</th>
-        <th colspan="2">Single Words</th>
-        <th colspan="2">Word Pairs</th>
-        <th colspan="2">Sentences</th>
+        <th colspan="3">Average</th>
+        <th colspan="3">Single Words</th>
+        <th colspan="3">Word Pairs</th>
+        <th colspan="3">Sentences</th>
     </tr>
     <tr>
         <th></th>
-        <th>lingua</th>
-        <th>optimaize</th>
-        <th>lingua</th>
-        <th>optimaize</th>
-        <th>lingua</th>
-        <th>optimaize</th>
-        <th>lingua</th>
-        <th>optimaize</th>
+        <th>Lingua</th>
+        <th>Tika</th>
+        <th>Optimaize</th>
+        <th>Lingua</th>
+        <th>Tika</th>
+        <th>Optimaize</th>
+        <th>Lingua</th>
+        <th>Tika</th>
+        <th>Optimaize</th>
+        <th>Lingua</th>
+        <th>Tika</th>
+        <th>Optimaize</th>
     </tr>
     <tr>
         <td>English</td>
         <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>77</td>
         <td>49 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>57</td>
         <td>12 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>76</td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>97</td>
         <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>French</td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>84</td>
         <td>62 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>81 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>67</td>
         <td>27 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>85</td>
         <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>100</td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>German</td>
         <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>90</td>
         <td>78 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>79</td>
         <td>54 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>93</td>
         <td>81 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>100</td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>Italian</td>
         <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>87</td>
         <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>80 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>74</td>
         <td>23 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>88</td>
         <td>56 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>99</td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>Portuguese</td>
-        <td>86 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>72</td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>69 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>72 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>50</td>
         <td>&nbsp;&nbsp;9 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>68</td>
         <td>25 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>98</td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>Spanish</td>
-        <td>83 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>84 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>75</td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>64 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>67 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
+        <td>52</td>
         <td>&nbsp;&nbsp;8 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>75</td>
         <td>24 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>99</td>
         <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
@@ -183,28 +211,20 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
     <tr>
         <td><strong>overall</strong></td>
         <td><strong>89</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td></td>
         <td><strong>56</strong> <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td><strong>77</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>78</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td></td>
         <td><strong>22</strong> <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td><strong>92</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>93</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td></td>
         <td><strong>48</strong> <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td><strong>98</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td></td>
         <td><strong>96</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
         
 </table>
-
-
-| Language | Average | Single Words | Word Pairs | Sentences |
-| -------- | ------- | ------------ | ---------- | --------- |
-| English  | 87      | 72           | 89         | 98        |
-| French   | 90      | 78           | 93         | 97        |
-| German   | 95      | 89           | 98         | 99        |
-| Italian  | 87      | 73           | 92         | 96        |
-| Latin    | 88      | 80           | 94         | 89        |
-| Portuguese | 86    | 69           | 90         | 99        | 
-| Spanish  | 83      | 64           | 87         | 98        |
-| **overall** | **88** | **75**     | **92**     | **97**    |
 
 ### <a name="library-dependency"></a> How to add it to your project?
 

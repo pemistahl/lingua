@@ -20,12 +20,15 @@ import com.github.pemistahl.lingua.detector.LanguageDetector
 import com.github.pemistahl.lingua.model.Language
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
 import com.google.common.base.Optional
 import com.optimaize.langdetect.LanguageDetectorBuilder
 import com.optimaize.langdetect.i18n.LdLocale
 import com.optimaize.langdetect.ngram.NgramExtractors
 import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
+import org.apache.tika.langdetect.OptimaizeLangDetector
+import org.apache.tika.language.detect.LanguageResult
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import java.util.logging.Logger
@@ -113,6 +116,12 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 linguaDetector.detectLanguageOf(element)
             }
             OPTIMAIZE -> mapLocaleToLanguage(optimaizeDetector.detect(textObjectFactory.forText(element)))
+            TIKA -> {
+                tikaDetector.addText(element)
+                val detectedLanguage = mapLanguageResultToLanguage(tikaDetector.detect())
+                tikaDetector.reset()
+                detectedLanguage
+            }
         }
         statistics.merge(detectedLanguage, 1, Int::plus)
     }
@@ -162,18 +171,34 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
     }
 
+    private fun mapLanguageResultToLanguage(result: LanguageResult): Language {
+        return if (result.isUnknown) { Language.UNKNOWN }
+        else when (result.language) {
+            "de" -> Language.GERMAN
+            "en" -> Language.ENGLISH
+            "es" -> Language.SPANISH
+            "fr" -> Language.FRENCH
+            "it" -> Language.ITALIAN
+            "pt" -> Language.PORTUGUESE
+            else -> Language.UNKNOWN
+        }
+    }
+
     companion object {
+        private val languageIsoCodesToTest = listOf("de", "en", "es", "fr", "it", "pt")
+
         internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 
         private val textObjectFactory by lazy { CommonTextObjectFactories.forDetectingShortCleanText() }
         private val optimaizeDetector by lazy {
-            val languageLocales = listOf("de", "en", "es", "fr", "it", "pt").map { LdLocale.fromString(it) }
+            val languageLocales = languageIsoCodesToTest.map { LdLocale.fromString(it) }
             val languageProfiles = LanguageProfileReader().readBuiltIn(languageLocales)
             LanguageDetectorBuilder
                 .create(NgramExtractors.standard())
                 .withProfiles(languageProfiles)
                 .build()
         }
+        private val tikaDetector by lazy { OptimaizeLangDetector().loadModels(languageIsoCodesToTest.toSet()) }
 
         const val CSV_FILE_ENCODING = "UTF-8"
         const val CSV_FILE_DELIMITER = '|'

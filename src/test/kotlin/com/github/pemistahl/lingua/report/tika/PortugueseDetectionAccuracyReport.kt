@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.report
+package com.github.pemistahl.lingua.report.tika
 
-enum class LanguageDetectorImplementation {
+import com.github.pemistahl.lingua.report.AbstractPortugueseDetectionAccuracyReport
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
+import org.junit.jupiter.api.AfterAll
 
-    LINGUA,
-    OPTIMAIZE,
-    TIKA
+class PortugueseDetectionAccuracyReport : AbstractPortugueseDetectionAccuracyReport(TIKA) {
+
+    @AfterAll
+    fun afterAll() = logger.info(statisticsReport())
 }

@@ -60,6 +60,7 @@
         <lingua.main.class>com.github.pemistahl.lingua.AppKt</lingua.main.class>
 
         <com.optimaize.languagedetector.version>0.6</com.optimaize.languagedetector.version>
+        <org.apache.tika.version>1.19.1</org.apache.tika.version>
         <detector>*</detector>
     </properties>
 
@@ -107,6 +108,12 @@
             <groupId>com.optimaize.languagedetector</groupId>
             <artifactId>language-detector</artifactId>
             <version>${com.optimaize.languagedetector.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-langdetect</artifactId>
+            <version>${org.apache.tika.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
