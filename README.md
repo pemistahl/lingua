@@ -1,7 +1,7 @@
 ![lingua](logo.png)
 
 # language detection done right
-*lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
+*Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 ___
 [![ci build status][travis ci badge]][travis ci url]
 [![Maintainability][maintainability badge]][maintainability url]
@@ -13,12 +13,14 @@ ___
 [![license badge][license badge]][license url]
 ___
 
-## Table of Contents
+## <a name="table-of-contents"></a> Table of Contents
 
 * [What does this library do?](#library-purpose)
 * [Why does this library exist?](#library-reason)
 * [Which languages are supported?](#supported-languages)
 * [How good is it?](#library-accuracy)
+  * [Comparison of Libraries](#library-comparison)
+  * [Test Report Generation](#report-generation)
 * [How to add it to your project?](#library-dependency)
   * [Using Gradle](#library-dependency-gradle)
   * [Using Maven](#library-dependency-maven)
@@ -29,22 +31,22 @@ ___
 * [Do you want to contribute?](#library-contribution)
 * [What's next for upcoming versions?](#whats-next)
 
-### <a name="library-purpose"></a> What does this library do?
+### <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. This is very useful as a preprocessing step for linguistic data in natural language processing applications such as text classification and spell checking. Other use cases, for instance, might include routing e-mails to the right geographically located customer service department, based on the e-mails' languages.
 
-### <a name="library-reason"></a> Why does this library exist?
+### <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
 Language detection is often done as part of large machine learning frameworks or natural language processing applications. In cases where you don't need the full-fledged functionality of those systems or don't want to learn the ropes of those, a small flexible library comes in handy. 
 
-So far, one of the few other comprehensive open source libraries working on the JVM for this task is [language-detector]. Unfortunately, it has two major drawbacks:
+So far, two other comprehensive open source libraries working on the JVM for this task are [Apache Tika] and [Optimaize Language Detector]. Unfortunately, especially the latter has two major drawbacks:
  
 1. Detection only works with quite lengthy text fragments. For very short text snippets such as Twitter messages, it doesn't provide adequate results.
 2. Configuration of the library is quite cumbersome and requires some knowledge about the statistical methods that are used internally.
 
-*lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries. It does not need a connection to any external service either. Once the library has been downloaded, it can be used completely offline. 
+*Lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries. It does not need a connection to any external service either. Once the library has been downloaded, it can be used completely offline. 
 
-Compared to other language detection libraries, *lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones.
+Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones.
 
-### <a name="supported-languages"></a> Which languages are supported?
+### <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
 Currently, the following seven languages are supported:
 
@@ -58,39 +60,20 @@ Currently, the following seven languages are supported:
 | Portuguese | *pt*         |
 | Spanish  |   *es*         |
 
-### <a name="library-accuracy"></a> How good is it?
+### <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
 
-*lingua* is able to report accuracy statistics for some bundled test data available for each supported language. The test data for each language is split into three parts:
+*Lingua* is able to report accuracy statistics for some bundled test data available for each supported language. The test data for each language is split into three parts:
 1. a list of single words with a minimum length of 5 characters
 2. a list of word pairs with a minimum length of 10 characters
 3. a list of complete grammatical sentences of various lengths
 
 Both the language models and the test data have been created from the [Wortschatz corpora] offered by Leipzig University, Germany.
 
-When running `mvn test -P accuracy-reports`, a report file for each language is created under `target/surefire-reports`.
-As an example, here is the current output of the German report:
+#### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
 
-```
-com.github.pemistahl.lingua.detector.report.GermanDetectionAccuracyReport afterAll 
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of six languages. Tika actually uses a heavily optimized version of Optimaize internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. 
 
-##### GERMAN #####
-
->>> Accuracy on average: 95,28%
-
->> Detection of 11748 single words (average length: 10 chars)
-Accuracy: 89,31%
-Erroneously classified as LATIN: 3,10%, ENGLISH: 2,47%, FRENCH: 2,00%, ITALIAN: 1,54%, SPANISH: 0,87%, PORTUGUESE: 0,72%
-
->> Detection of 9347 word pairs (average length: 17 chars)
-Accuracy: 97,86%
-Erroneously classified as ENGLISH: 0,76%, LATIN: 0,70%, FRENCH: 0,27%, ITALIAN: 0,22%, SPANISH: 0,13%, PORTUGUESE: 0,06%
-
->> Detection of 10000 sentences (average length: 47 chars)
-Accuracy: 98,67%
-Erroneously classified as ENGLISH: 0,96%, LATIN: 0,12%, PORTUGUESE: 0,11%, FRENCH: 0,05%, ITALIAN: 0,05%, SPANISH: 0,04%
-```
-
-Here is a summary of all accuracy reports of the current *lingua* version `0.2.0`. All supported languages have been taken into account during the classification process. Accuracy values are stated as rounded percentages.
+As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 12% higher on average than with *Tika*, for single words it is even 15% higher. 
 
 <table>
     <tr>
@@ -103,106 +86,106 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
     <tr>
         <th></th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;Tika&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;Tika&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;Tika&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;Tika&nbsp;</th>
         <th>Optimaize</th>
     </tr>
     <tr>
         <td>English</td>
         <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>77</td>
+        <td>77 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>49 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>57</td>
+        <td>57 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>12 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>76</td>
+        <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>97</td>
+        <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>French</td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>84</td>
+        <td>84 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>62 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>81 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>67</td>
+        <td>67 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>27 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>85</td>
+        <td>85 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>100</td>
+        <td>100 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>German</td>
         <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>90</td>
-        <td>78 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>78 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>79</td>
+        <td>79 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>54 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>93</td>
+        <td>93 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>81 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>100</td>
+        <td>100 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>Italian</td>
         <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>87</td>
+        <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>80 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>74</td>
+        <td>74 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>23 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>88</td>
+        <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>56 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>99</td>
+        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>Portuguese</td>
         <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>72</td>
+        <td>72 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>72 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>50</td>
+        <td>50 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>&nbsp;&nbsp;9 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>68</td>
+        <td>68 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>25 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>98</td>
+        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
         <td>Spanish</td>
         <td>84 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>75</td>
+        <td>75 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>67 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>52</td>
+        <td>52 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>&nbsp;&nbsp;8 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>75</td>
+        <td>75 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>24 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>99</td>
+        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
@@ -211,24 +194,55 @@ Here is a summary of all accuracy reports of the current *lingua* version `0.2.0
     <tr>
         <td><strong>overall</strong></td>
         <td><strong>89</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td></td>
+        <td><strong>81</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td><strong>56</strong> <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td><strong>78</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td></td>
+        <td><strong>63</strong> <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td><strong>22</strong> <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td><strong>93</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td></td>
+        <td><strong>81</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td><strong>48</strong> <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td><strong>98</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td></td>
+        <td><strong>99</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td><strong>96</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
-        
 </table>
 
-### <a name="library-dependency"></a> How to add it to your project?
+#### <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
 
-*lingua* is currently hosted on [Jcenter] and will soon be available on Maven Central as well.
+If you want to reproduce the accuracy results above, you can generate the test reports yourself:
+
+- `mvn test -P accuracy-reports` generates all reports for all compared detectors
+- `mvn test -P accuracy-reports -D detector=lingua` generates reports for *Lingua* only
+- `mvn test -P accuracy-reports -D detector=tika` generates reports for *Apache Tika* only
+- `mvn test -P accuracy-reports -D detector=optimaize` generates reports for *Optimaize* only
+
+For each detector and language, a test report file is then written into `target/surefire-reports`.
+As an example, here is the current output of the *Lingua* German report:
+
+```
+com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
+
+##### GERMAN #####
+
+>>> Accuracy on average: 95,90%
+
+>> Detection of 11748 single words (average length: 10 chars)
+Accuracy: 90,64%
+Erroneously classified as ENGLISH: 2,95%, FRENCH: 2,38%, ITALIAN: 2,05%, SPANISH: 1,05%, PORTUGUESE: 0,94%
+
+>> Detection of 9347 word pairs (average length: 17 chars)
+Accuracy: 98,31%
+Erroneously classified as ENGLISH: 0,78%, FRENCH: 0,35%, ITALIAN: 0,29%, SPANISH: 0,16%, PORTUGUESE: 0,11%
+
+>> Detection of 10000 sentences (average length: 47 chars)
+Accuracy: 98,75%
+Erroneously classified as ENGLISH: 0,97%, PORTUGUESE: 0,12%, FRENCH: 0,06%, ITALIAN: 0,06%, SPANISH: 0,04%
+```
+
+### <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
+
+*Lingua* is currently hosted on [Jcenter] and will soon be available on Maven Central as well.
 
 #### <a name="library-dependency-gradle"></a> Using Gradle
 
@@ -257,9 +271,9 @@ dependencies {
 </repository>
 ```
 
-### <a name="library-build"></a> How to build?
+### <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
-*lingua* uses Maven to build. A switch to Gradle is planned for the future.
+*Lingua* uses Maven to build. A switch to Gradle is planned for the future.
 
 ```
 git clone https://github.com/pemistahl/lingua.git
@@ -268,12 +282,12 @@ mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
 1. `mvn package` creates `lingua-0.2.1-SNAPSHOT.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.2.1-SNAPSHOT-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *lingua* in standalone mode (see below).
+2. `mvn package -P with-dependencies` creates `lingua-0.2.1-SNAPSHOT-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
-### <a name="library-use"></a> How to use?
-*lingua* can be used programmatically in your own code or in standalone mode.
+### <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
+*Lingua* can be used programmatically in your own code or in standalone mode.
 
-#### <a name="library-use-programmatic"></a> Programmatic use
+#### <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
 The API is pretty straightforward and can be used in both Kotlin and Java code.
 
 ```kotlin
@@ -291,7 +305,7 @@ val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are
 // returns Language.ENGLISH
 ```
 
-If a string's language cannot be detected reliably because of missing linguistic information, `Language.UNKNOWN` is returned. The public API of *lingua* never returns null somewhere, so it is safe to be used from within Java code as well.
+If a string's language cannot be detected reliably because of missing linguistic information, `Language.UNKNOWN` is returned. The public API of *Lingua* never returns null somewhere, so it is safe to be used from within Java code as well.
 
 ```java
 /* Java */
@@ -318,8 +332,8 @@ LanguageDetector.fromAllBuiltInLanguagesWithout(Language.SPANISH)
 LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 ```
 
-#### <a name="library-use-standalone"></a> Standalone mode
-If you want to try out *lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
+#### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
+If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
 2. Without Maven: `java -jar lingua-0.2.1-SNAPSHOT-with-dependencies.jar`
 
@@ -349,11 +363,11 @@ PORTUGUESE
 Bye! Ciao! Tschüss! Salut!
 ```
 
-### <a name="library-contribution"></a> Do you want to contribute?
+### <a name="library-contribution"></a> Do you want to contribute? <sup>[Top ▲](#table-of-contents)</sup>
 
-In case you want to contribute something to *lingua* even though it's in a very early stage of development, then I encourage you to do so nevertheless. Do you have ideas for improving the API? Are there some specific languages that you want to have supported early? Or have you found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated. :-)
+In case you want to contribute something to *Lingua* even though it's in a very early stage of development, then I encourage you to do so nevertheless. Do you have ideas for improving the API? Are there some specific languages that you want to have supported early? Or have you found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated. :-)
 
-### <a name="whats-next"></a> What's next for upcoming versions?
+### <a name="whats-next"></a> What's next for upcoming versions? <sup>[Top ▲](#table-of-contents)</sup>
 - languages, languages, even more languages :-)
 - accuracy improvements
 - more unit tests
@@ -375,7 +389,8 @@ In case you want to contribute something to *lingua* even though it's in a very 
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
-[language-detector]: https://github.com/optimaize/language-detector
+[Apache Tika]: https://tika.apache.org/1.19.1/detection.html#Language_Detection
+[Optimaize Language Detector]: https://github.com/optimaize/language-detector
 [Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua
 [green-marker]: https://placehold.it/10/008000/000000?text=+
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
