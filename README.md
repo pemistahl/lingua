@@ -71,7 +71,7 @@ Both the language models and the test data have been created from the [Wortschat
 
 #### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
 
-Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of six languages. Tika actually uses a heavily optimized version of Optimaize internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. 
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of six languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. 
 
 As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 12% higher on average than with *Tika*, for single words it is even 15% higher. 
 
@@ -95,7 +95,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <th>&nbsp;Tika&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>&nbsp;Tika&nbsp;</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>Optimaize</th>
     </tr>
     <tr>
@@ -110,7 +110,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>&nbsp;&nbsp;97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
@@ -155,7 +155,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>56 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>&nbsp;&nbsp;99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
@@ -170,7 +170,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>68 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>25 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>&nbsp;&nbsp;98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
@@ -185,7 +185,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>75 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>24 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>&nbsp;&nbsp;99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
     <tr>
@@ -203,7 +203,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td><strong>81</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td><strong>48</strong> <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td><strong>98</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>99</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>&nbsp;&nbsp;<strong>99</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td><strong>96</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
     </tr>
 </table>
