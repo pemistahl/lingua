@@ -61,7 +61,6 @@
 
         <com.optimaize.languagedetector.version>0.6</com.optimaize.languagedetector.version>
         <org.apache.tika.version>1.19.1</org.apache.tika.version>
-        <detector>*</detector>
     </properties>
 
     <dependencies>
@@ -195,6 +194,11 @@
     <profiles>
         <profile>
             <id>accuracy-reports</id>
+            <activation>
+                <property>
+                    <name>detector</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -204,7 +208,9 @@
                             <includes>
                                 <include>**/${detector}/*Report.java</include>
                             </includes>
+                            <reportsDirectory>${project.build.directory}/../accuracy-reports/${detector}</reportsDirectory>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <disableXmlReport>true</disableXmlReport>
                         </configuration>
                     </plugin>
                 </plugins>

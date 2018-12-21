@@ -1,0 +1,18 @@
+Dez 21, 2018 1:38:26 PM com.github.pemistahl.lingua.report.lingua.PortugueseDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### PORTUGUESE #####
+
+>>> Accuracy on average: 87,05%
+
+>> Detection of 16576 single words (average length: 8 chars)
+Accuracy: 71,82%
+Erroneously classified as SPANISH: 14,21%, ITALIAN: 6,98%, FRENCH: 2,76%, ENGLISH: 2,36%, GERMAN: 1,87%
+
+>> Detection of 16101 word pairs (average length: 15 chars)
+Accuracy: 90,65%
+Erroneously classified as SPANISH: 5,73%, ITALIAN: 1,69%, FRENCH: 0,78%, ENGLISH: 0,71%, GERMAN: 0,45%
+
+>> Detection of 10000 sentences (average length: 102 chars)
+Accuracy: 98,69%
+Erroneously classified as SPANISH: 0,35%, ITALIAN: 0,34%, ENGLISH: 0,29%, GERMAN: 0,26%, FRENCH: 0,07%

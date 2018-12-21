@@ -47,13 +47,11 @@ So far, two other comprehensive open source libraries working on the JVM for thi
 1. Detection only works with quite lengthy text fragments. For very short text snippets such as Twitter messages, it doesn't provide adequate results.
 2. Configuration of the library is quite cumbersome and requires some knowledge about the statistical methods that are used internally.
 
-*Lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries. It does not need a connection to any external service either. Once the library has been downloaded, it can be used completely offline. 
-
-Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones.
+*Lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries of words. It does not need a connection to any external API or service either. Once the library has been downloaded, it can be used completely offline. 
 
 ### <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
-Currently, the following seven languages are supported:
+Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following seven languages are supported:
 
 | Language | ISO 639-1 code |
 | -------- | -------------- |
@@ -217,10 +215,9 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself:
 
-- `mvn test -P accuracy-reports` generates all reports for all compared detectors
-- `mvn test -P accuracy-reports -D detector=lingua` generates reports for *Lingua* only
-- `mvn test -P accuracy-reports -D detector=tika` generates reports for *Apache Tika* only
-- `mvn test -P accuracy-reports -D detector=optimaize` generates reports for *Optimaize* only
+- `mvn test -P accuracy-reports -D detector=lingua` generates reports for *Lingua*
+- `mvn test -P accuracy-reports -D detector=tika` generates reports for *Apache Tika*
+- `mvn test -P accuracy-reports -D detector=optimaize` generates reports for *Optimaize*
 
 For each detector and language, a test report file is then written into `target/surefire-reports`.
 As an example, here is the current output of the *Lingua* German report:

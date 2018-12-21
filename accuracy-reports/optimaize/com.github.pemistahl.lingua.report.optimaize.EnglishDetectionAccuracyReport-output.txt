@@ -1,0 +1,21 @@
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Dez 21, 2018 1:49:56 PM com.github.pemistahl.lingua.report.optimaize.EnglishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ENGLISH #####
+
+>>> Accuracy on average: 48,62%
+
+>> Detection of 5914 single words (average length: 7 chars)
+Accuracy: 12,02%
+Erroneously classified as UNKNOWN: 86,91%, GERMAN: 0,63%, FRENCH: 0,22%, ITALIAN: 0,14%, PORTUGUESE: 0,05%, SPANISH: 0,03%
+
+>> Detection of 3759 word pairs (average length: 15 chars)
+Accuracy: 43,42%
+Erroneously classified as UNKNOWN: 54,54%, FRENCH: 0,82%, GERMAN: 0,72%, ITALIAN: 0,37%, SPANISH: 0,13%
+
+>> Detection of 10000 sentences (average length: 34 chars)
+Accuracy: 90,41%
+Erroneously classified as UNKNOWN: 9,11%, FRENCH: 0,23%, GERMAN: 0,18%, ITALIAN: 0,05%, SPANISH: 0,02%

@@ -1,0 +1,18 @@
+Dez 21, 2018 1:50:11 PM com.github.pemistahl.lingua.report.optimaize.ItalianDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ITALIAN #####
+
+>>> Accuracy on average: 58,92%
+
+>> Detection of 19620 single words (average length: 8 chars)
+Accuracy: 23,22%
+Erroneously classified as UNKNOWN: 76,24%, ENGLISH: 0,21%, GERMAN: 0,18%, FRENCH: 0,10%, PORTUGUESE: 0,06%
+
+>> Detection of 23190 word pairs (average length: 16 chars)
+Accuracy: 55,59%
+Erroneously classified as UNKNOWN: 43,77%, ENGLISH: 0,36%, FRENCH: 0,12%, PORTUGUESE: 0,07%, GERMAN: 0,06%, SPANISH: 0,02%
+
+>> Detection of 10000 sentences (average length: 124 chars)
+Accuracy: 97,95%
+Erroneously classified as UNKNOWN: 2,03%, PORTUGUESE: 0,01%, ENGLISH: 0,01%

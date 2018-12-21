@@ -1,0 +1,18 @@
+Dez 21, 2018 1:37:43 PM com.github.pemistahl.lingua.report.lingua.FrenchDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### FRENCH #####
+
+>>> Accuracy on average: 90,73%
+
+>> Detection of 16504 single words (average length: 8 chars)
+Accuracy: 81,04%
+Erroneously classified as ENGLISH: 5,30%, ITALIAN: 4,65%, SPANISH: 3,11%, GERMAN: 3,08%, PORTUGUESE: 2,82%
+
+>> Detection of 15264 word pairs (average length: 16 chars)
+Accuracy: 93,88%
+Erroneously classified as ENGLISH: 2,48%, GERMAN: 1,23%, ITALIAN: 0,98%, SPANISH: 0,77%, PORTUGUESE: 0,66%
+
+>> Detection of 10000 sentences (average length: 123 chars)
+Accuracy: 97,27%
+Erroneously classified as ENGLISH: 1,11%, SPANISH: 0,66%, GERMAN: 0,51%, ITALIAN: 0,42%, PORTUGUESE: 0,03%

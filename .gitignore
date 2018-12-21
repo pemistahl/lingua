@@ -38,3 +38,5 @@ $RECYCLE.BIN/
 *.lnk
 Desktop.ini
 ehthumbs.db
+
+accuracy-reports/*/*Report.txt
