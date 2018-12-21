@@ -1,11 +1,11 @@
-[![lingua](logo.png)][translate-lingua]
+[![lingua](logo.png)][translate-lingua] 
 
-# language detection done right
+# language detection done right [![awesome nlp badge][awesome nlp badge]][awesome nlp url]
 *Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 
 ---
 [![Download][lingua version badge]][lingua download url]
-![supported languages badge]
+[![supported languages][supported languages badge]](#supported-languages)
 ---
 [![ci build status][travis ci badge]][travis ci url]
 [![codebeat badge][codebeat badge]][codebeat url]
@@ -143,7 +143,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>54 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>93 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>81 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
+        <td>81 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>100 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
@@ -390,6 +390,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-7-red.svg
+[awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
+[awesome nlp url]: https://github.com/keon/awesome-nlp#user-content-kotlin
 [lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
 [lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.1%2Flingua-0.2.1-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
