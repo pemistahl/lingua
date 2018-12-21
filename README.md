@@ -219,7 +219,7 @@ If you want to reproduce the accuracy results above, you can generate the test r
 - `mvn test -P accuracy-reports -D detector=tika` generates reports for *Apache Tika*
 - `mvn test -P accuracy-reports -D detector=optimaize` generates reports for *Optimaize*
 
-For each detector and language, a test report file is then written into `target/surefire-reports`.
+For each detector and language, a test report file is then written into `/accuracy-reports`, to be found next to the `src` directory. All accuracy reports of the current release are committed to this repository and can be found [here](https://github.com/pemistahl/lingua/tree/master/accuracy-reports).
 As an example, here is the current output of the *Lingua* German report:
 
 ```
@@ -307,7 +307,7 @@ val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are
 // returns Language.ENGLISH
 ```
 
-If a string's language cannot be detected reliably because of missing linguistic information, `Language.UNKNOWN` is returned. The public API of *Lingua* never returns null somewhere, so it is safe to be used from within Java code as well.
+If a string's language cannot be detected reliably because of missing linguistic information, `Language.UNKNOWN` is returned. The public API of *Lingua* never returns `null` somewhere, so it is safe to be used from within Java code as well.
 
 ```java
 /* Java */
