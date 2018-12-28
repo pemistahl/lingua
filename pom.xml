@@ -49,7 +49,7 @@
         <junit.jupiter.version>5.3.2</junit.jupiter.version>
         <mockk.version>1.8.13.kotlin13</mockk.version>
         <dokka.version>0.9.17</dokka.version>
-        <jacoco.version>0.8.3-20181214.170703-36</jacoco.version>
+        <jacoco.version>0.8.3-SNAPSHOT</jacoco.version>
 
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
