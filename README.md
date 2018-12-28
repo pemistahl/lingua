@@ -254,7 +254,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.pemistahl:lingua:0.2.1'
+    implementation 'com.github.pemistahl:lingua:0.2.2'
 }
 ```
 
@@ -264,7 +264,7 @@ dependencies {
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
 </dependency>
 
 <repository>
@@ -283,8 +283,8 @@ cd lingua
 mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
-1. `mvn package` creates `lingua-0.2.1.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.2.1-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+1. `mvn package` creates `lingua-0.2.2.jar` that contains the compiled sources only.
+2. `mvn package -P with-dependencies` creates `lingua-0.2.2-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ### <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -337,7 +337,7 @@ LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 #### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.2.1-with-dependencies.jar`
+2. Without Maven: `java -jar lingua-0.2.2-with-dependencies.jar`
 
 Then just play around:
 
@@ -390,7 +390,7 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [awesome nlp url]: https://github.com/keon/awesome-nlp#user-content-kotlin
 [lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.1%2Flingua-0.2.1-with-dependencies.jar
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.2%2Flingua-0.2.2-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
