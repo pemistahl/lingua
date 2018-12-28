@@ -243,8 +243,8 @@ internal class LanguageModel<T : Ngram> {
             val ngramRelativeFrequencies = hashMapOf<T, Fraction>()
             for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
                 val fraction = Fraction(fractionLiteral)
-                for (ngramJsonElem in ngramsJsonElem.asJsonArray) {
-                    val ngram: T? = ngramClass.getConstructor(String::class.java).newInstance(ngramJsonElem.asString)
+                for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
+                    val ngram: T? = ngramClass.getConstructor(String::class.java).newInstance(ngramJsonElem)
                     ngram?.let { ngramRelativeFrequencies[ngram] = fraction }
                 }
             }

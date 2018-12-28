@@ -277,18 +277,23 @@ class LanguageDetector private constructor(
 
     companion object {
         @JvmStatic
-        fun fromAllBuiltInLanguages() = LanguageDetector(
-            Language.values().toSet().minus(Language.UNKNOWN).toMutableSet()
-        )
+        fun fromAllBuiltInLanguages(): LanguageDetector {
+            val languagesToLoad = Language.values().toMutableSet()
+            languagesToLoad.remove(Language.UNKNOWN)
+            return LanguageDetector(languagesToLoad)
+        }
 
         @JvmStatic
-        fun fromAllBuiltInSpokenLanguages() = LanguageDetector(
-            Language.values().toSet().minus(arrayOf(Language.UNKNOWN, Language.LATIN)).toMutableSet()
-        )
+        fun fromAllBuiltInSpokenLanguages(): LanguageDetector {
+            val languagesToLoad = Language.values().toMutableSet()
+            languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, Language.LATIN))
+            return LanguageDetector(languagesToLoad)
+        }
 
         @JvmStatic
         fun fromAllBuiltInLanguagesWithout(language: Language, vararg languages: Language): LanguageDetector {
-            val languagesToLoad = Language.values().toSet().minus(arrayOf(Language.UNKNOWN, language, *languages)).toMutableSet()
+            val languagesToLoad = Language.values().toMutableSet()
+            languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, language, *languages))
             require(languagesToLoad.size > 1) { MISSING_LANGUAGE_MESSAGE }
             return LanguageDetector(languagesToLoad)
         }

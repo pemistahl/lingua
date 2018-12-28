@@ -62,6 +62,7 @@
 
         <com.optimaize.languagedetector.version>0.6</com.optimaize.languagedetector.version>
         <org.apache.tika.version>1.19.1</org.apache.tika.version>
+        <slf4j.api.version>1.7.25</slf4j.api.version>
     </properties>
 
     <dependencies>
@@ -114,6 +115,18 @@
             <groupId>org.apache.tika</groupId>
             <artifactId>tika-langdetect</artifactId>
             <version>${org.apache.tika.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.api.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.api.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -19,10 +19,10 @@ package com.github.pemistahl.lingua.util.extension
 import com.github.pemistahl.lingua.math.Fraction
 import com.github.pemistahl.lingua.model.Ngram
 
-internal fun <T : Ngram> Map<T, Fraction>.inverse(): Map<Fraction, Set<String>> {
+internal fun <T : Ngram> Map<T, Fraction>.inverse(): Map<Fraction, String> {
     val result = mutableMapOf<Fraction, MutableSet<String>>()
-    for ((key, value) in this) {
-        result.computeIfAbsent(value) { mutableSetOf() }.add(key.toString())
+    for ((ngram, fraction) in this) {
+        result.computeIfAbsent(fraction) { mutableSetOf() }.add(ngram.toString())
     }
-    return result
+    return result.mapValues { it.value.joinToString(separator = " ") }
 }
