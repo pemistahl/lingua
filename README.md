@@ -244,15 +244,11 @@ Erroneously classified as ENGLISH: 0,97%, PORTUGUESE: 0,12%, FRENCH: 0,06%, ITAL
 
 ### <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
-*Lingua* is currently hosted on [Jcenter] and will soon be available on Maven Central as well.
+*Lingua* is hosted on [Jcenter] and [Maven Central].
 
 #### <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
-repositories {
-    jcenter()
-}
-
 dependencies {
     implementation 'com.github.pemistahl:lingua:0.2.2'
 }
@@ -266,11 +262,6 @@ dependencies {
     <artifactId>lingua</artifactId>
     <version>0.2.2</version>
 </dependency>
-
-<repository>
-    <id>jcenter</id>
-    <url>https://jcenter.bintray.com/</url>
-</repository>
 ```
 
 ### <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
@@ -400,7 +391,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
 [Apache Tika]: https://tika.apache.org/1.19.1/detection.html#Language_Detection
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.2.2
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.2.2/jar
 [green-marker]: https://placehold.it/10/008000/000000?text=+
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
 [orange-marker]: https://placehold.it/10/ff8c00/000000?text=+
