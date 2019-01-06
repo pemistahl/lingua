@@ -249,9 +249,7 @@ Erroneously classified as ENGLISH: 0,97%, PORTUGUESE: 0,12%, FRENCH: 0,06%, ITAL
 #### <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
-dependencies {
-    implementation 'com.github.pemistahl:lingua:0.2.2'
-}
+implementation 'com.github.pemistahl:lingua:0.2.2'
 ```
 
 #### <a name="library-dependency-maven"></a> Using Maven
