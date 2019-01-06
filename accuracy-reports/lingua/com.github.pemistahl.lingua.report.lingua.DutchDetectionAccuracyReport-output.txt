@@ -1,18 +1,18 @@
-Jan 06, 2019 5:55:00 PM com.github.pemistahl.lingua.report.lingua.DutchDetectionAccuracyReport afterAll
+Jan 06, 2019 7:15:33 PM com.github.pemistahl.lingua.report.lingua.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
 
->>> Accuracy on average: 88,71%
+>>> Accuracy on average: 87,60%
 
 >> Detection of 18550 single words (average length: 9 chars)
-Accuracy: 73,85%
-Erroneously classified as GERMAN: 7,54%, ENGLISH: 6,96%, FRENCH: 4,61%, ITALIAN: 3,46%, SPANISH: 2,06%, PORTUGUESE: 1,50%
+Accuracy: 71,37%
+Erroneously classified as GERMAN: 6,80%, ENGLISH: 6,48%, FRENCH: 4,39%, DANISH: 4,26%, ITALIAN: 3,30%, SPANISH: 1,94%, PORTUGUESE: 1,44%
 
 >> Detection of 43985 word pairs (average length: 17 chars)
-Accuracy: 92,89%
-Erroneously classified as GERMAN: 2,79%, ENGLISH: 1,89%, FRENCH: 1,11%, ITALIAN: 0,71%, SPANISH: 0,40%, PORTUGUESE: 0,22%
+Accuracy: 92,12%
+Erroneously classified as GERMAN: 2,62%, ENGLISH: 1,81%, DANISH: 1,09%, FRENCH: 1,09%, ITALIAN: 0,67%, SPANISH: 0,39%, PORTUGUESE: 0,22%
 
 >> Detection of 9999 sentences (average length: 97 chars)
-Accuracy: 99,39%
-Erroneously classified as ENGLISH: 0,28%, GERMAN: 0,15%, FRENCH: 0,09%, ITALIAN: 0,04%, PORTUGUESE: 0,03%, SPANISH: 0,02%
+Accuracy: 99,31%
+Erroneously classified as ENGLISH: 0,27%, GERMAN: 0,15%, DANISH: 0,10%, FRENCH: 0,09%, ITALIAN: 0,04%, SPANISH: 0,02%, PORTUGUESE: 0,02%

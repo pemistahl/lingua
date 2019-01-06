@@ -1,18 +1,18 @@
-Jan 06, 2019 5:55:22 PM com.github.pemistahl.lingua.report.lingua.EnglishDetectionAccuracyReport afterAll
+Jan 06, 2019 7:16:04 PM com.github.pemistahl.lingua.report.lingua.EnglishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ENGLISH #####
 
->>> Accuracy on average: 87,27%
+>>> Accuracy on average: 86,11%
 
 >> Detection of 5914 single words (average length: 7 chars)
-Accuracy: 73,72%
-Erroneously classified as FRENCH: 8,81%, GERMAN: 4,43%, ITALIAN: 4,23%, DUTCH: 3,74%, SPANISH: 2,77%, PORTUGUESE: 2,30%
+Accuracy: 71,56%
+Erroneously classified as FRENCH: 8,61%, DANISH: 4,29%, ITALIAN: 4,11%, GERMAN: 3,53%, DUTCH: 3,03%, SPANISH: 2,65%, PORTUGUESE: 2,22%
 
 >> Detection of 3759 word pairs (average length: 15 chars)
-Accuracy: 89,62%
-Erroneously classified as FRENCH: 2,63%, GERMAN: 2,26%, DUTCH: 1,84%, ITALIAN: 1,57%, SPANISH: 1,25%, PORTUGUESE: 0,82%
+Accuracy: 88,59%
+Erroneously classified as FRENCH: 2,61%, GERMAN: 2,08%, DUTCH: 1,62%, ITALIAN: 1,54%, DANISH: 1,52%, SPANISH: 1,22%, PORTUGUESE: 0,82%
 
 >> Detection of 10000 sentences (average length: 34 chars)
-Accuracy: 98,47%
-Erroneously classified as DUTCH: 0,42%, GERMAN: 0,39%, FRENCH: 0,29%, ITALIAN: 0,15%, PORTUGUESE: 0,14%, SPANISH: 0,14%
+Accuracy: 98,19%
+Erroneously classified as DANISH: 0,37%, GERMAN: 0,37%, DUTCH: 0,36%, FRENCH: 0,29%, ITALIAN: 0,15%, SPANISH: 0,14%, PORTUGUESE: 0,13%

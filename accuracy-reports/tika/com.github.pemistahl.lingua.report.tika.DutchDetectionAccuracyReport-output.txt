@@ -1,21 +1,18 @@
-log4j:WARN No appenders could be found for logger (com.optimaize.langdetect.LanguageDetectorImpl).
-log4j:WARN Please initialize the log4j system properly.
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-Jan 06, 2019 6:06:13 PM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
+Jan 06, 2019 7:05:24 PM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
 
->>> Accuracy on average: 81,05%
+>>> Accuracy on average: 75,49%
 
 >> Detection of 18550 single words (average length: 9 chars)
-Accuracy: 60,42%
-Erroneously classified as GERMAN: 10,64%, ENGLISH: 9,98%, FRENCH: 7,40%, ITALIAN: 5,81%, SPANISH: 3,70%, PORTUGUESE: 2,05%
+Accuracy: 50,63%
+Erroneously classified as DANISH: 14,79%, GERMAN: 8,57%, ENGLISH: 8,33%, FRENCH: 6,87%, ITALIAN: 5,49%, SPANISH: 3,42%, PORTUGUESE: 1,89%
 
 >> Detection of 43985 word pairs (average length: 17 chars)
-Accuracy: 83,37%
-Erroneously classified as GERMAN: 5,39%, ENGLISH: 4,69%, FRENCH: 3,02%, ITALIAN: 2,01%, SPANISH: 1,08%, PORTUGUESE: 0,43%
+Accuracy: 76,70%
+Erroneously classified as DANISH: 8,50%, GERMAN: 4,59%, ENGLISH: 4,14%, FRENCH: 2,81%, ITALIAN: 1,87%, SPANISH: 1,01%, PORTUGUESE: 0,38%
 
 >> Detection of 9999 sentences (average length: 97 chars)
-Accuracy: 99,37%
-Erroneously classified as ENGLISH: 0,26%, GERMAN: 0,25%, FRENCH: 0,06%, SPANISH: 0,04%, ITALIAN: 0,02%
+Accuracy: 99,13%
+Erroneously classified as ENGLISH: 0,27%, DANISH: 0,25%, GERMAN: 0,24%, FRENCH: 0,06%, SPANISH: 0,03%, ITALIAN: 0,02%

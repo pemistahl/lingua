@@ -1,18 +1,18 @@
-Jan 06, 2019 5:56:43 PM com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport afterAll
+Jan 06, 2019 7:17:20 PM com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### GERMAN #####
 
->>> Accuracy on average: 94,53%
+>>> Accuracy on average: 93,31%
 
 >> Detection of 11748 single words (average length: 10 chars)
-Accuracy: 86,60%
-Erroneously classified as DUTCH: 4,44%, ENGLISH: 2,48%, FRENCH: 2,23%, ITALIAN: 1,94%, PORTUGUESE: 1,30%, SPANISH: 1,00%
+Accuracy: 83,72%
+Erroneously classified as DANISH: 4,29%, DUTCH: 3,74%, ENGLISH: 2,21%, FRENCH: 2,07%, ITALIAN: 1,80%, PORTUGUESE: 1,27%, SPANISH: 0,91%
 
 >> Detection of 9347 word pairs (average length: 17 chars)
-Accuracy: 97,61%
-Erroneously classified as DUTCH: 0,93%, ENGLISH: 0,41%, FRENCH: 0,37%, ITALIAN: 0,28%, PORTUGUESE: 0,26%, SPANISH: 0,14%
+Accuracy: 96,94%
+Erroneously classified as DUTCH: 0,87%, DANISH: 0,80%, ENGLISH: 0,36%, FRENCH: 0,35%, ITALIAN: 0,28%, PORTUGUESE: 0,26%, SPANISH: 0,14%
 
 >> Detection of 10000 sentences (average length: 47 chars)
-Accuracy: 99,36%
-Erroneously classified as ENGLISH: 0,24%, DUTCH: 0,18%, PORTUGUESE: 0,09%, FRENCH: 0,06%, ITALIAN: 0,05%, SPANISH: 0,02%
+Accuracy: 99,27%
+Erroneously classified as ENGLISH: 0,23%, DUTCH: 0,17%, DANISH: 0,11%, PORTUGUESE: 0,09%, FRENCH: 0,06%, ITALIAN: 0,05%, SPANISH: 0,02%
