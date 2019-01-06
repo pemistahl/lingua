@@ -30,11 +30,12 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
-internal class LanguageModel<T : Ngram> {
+internal class LanguageModel<T : Ngram, U : Ngram> {
 
     val language: Language
     val areNgramsLowerCase: Boolean
     val areNgramsPadded: Boolean
+    val ngramAbsoluteFrequencies: Map<T, Int>
     val ngrams: Set<T>
         get() = if (ngramRelativeFrequencies.isNotEmpty()) {
             ngramRelativeFrequencies.keys
@@ -54,6 +55,7 @@ internal class LanguageModel<T : Ngram> {
         this.areNgramsLowerCase = areNgramsLowerCase
         this.areNgramsPadded = areNgramsPadded
         this.ngrams = emptySet()
+        this.ngramAbsoluteFrequencies = emptyMap()
         this.ngramRelativeFrequencies = ngramRelativeFrequencies
     }
 
@@ -86,6 +88,7 @@ internal class LanguageModel<T : Ngram> {
         this.areNgramsLowerCase = areNgramsLowerCase
         this.areNgramsPadded = areNgramsPadded
         this.ngrams = ngrams
+        this.ngramAbsoluteFrequencies = emptyMap()
         this.ngramRelativeFrequencies = emptyMap()
     }
 
@@ -93,6 +96,7 @@ internal class LanguageModel<T : Ngram> {
         linesOfText: Sequence<String>,
         ngramLength: Int,
         language: Language,
+        lowerNgramAbsoluteFrequencies: Map<U, Int>,
         areNgramsLowerCase: Boolean = true,
         areNgramsPadded: Boolean = false
     ) {
@@ -118,12 +122,17 @@ internal class LanguageModel<T : Ngram> {
             }
         }
 
-        val ngramRelativeFrequencies = computeConditionalProbabilities(ngramAbsoluteFrequencies)
+        val ngramRelativeFrequencies = computeConditionalProbabilities(
+            ngramLength,
+            ngramAbsoluteFrequencies,
+            lowerNgramAbsoluteFrequencies
+        )
 
         this.language = language
         this.areNgramsLowerCase = areNgramsLowerCase
         this.areNgramsPadded = areNgramsPadded
         this.ngrams = emptySet()
+        this.ngramAbsoluteFrequencies = ngramAbsoluteFrequencies
         this.ngramRelativeFrequencies = ngramRelativeFrequencies
     }
 
@@ -139,13 +148,27 @@ internal class LanguageModel<T : Ngram> {
     )
 
     private fun computeConditionalProbabilities(
-        ngrams: Map<T, Int>
+        ngramLength: Int,
+        ngrams: Map<T, Int>,
+        lowerNgramAbsoluteFrequencies: Map<U, Int>
     ): Map<T, Fraction>
     {
         val ngramProbabilities = hashMapOf<T, Fraction>()
         val totalNgramFrequency = ngrams.values.sum()
         for ((ngram, frequency) in ngrams) {
-            ngramProbabilities[ngram] = frequency over totalNgramFrequency
+            @Suppress("UNCHECKED_CAST")
+            val denominator = if (ngramLength == 1 || lowerNgramAbsoluteFrequencies.isEmpty())
+                totalNgramFrequency
+            else if (ngramLength == 2)
+                lowerNgramAbsoluteFrequencies.getValue(Unigram(ngram.value[0].toString()) as U)
+            else if (ngramLength == 3)
+                lowerNgramAbsoluteFrequencies.getValue(Bigram(ngram.value.slice(0..1)) as U)
+            else if (ngramLength == 4)
+                lowerNgramAbsoluteFrequencies.getValue(Trigram(ngram.value.slice(0..2)) as U)
+            else if (ngramLength == 5)
+                lowerNgramAbsoluteFrequencies.getValue(Quadrigram(ngram.value.slice(0..3)) as U)
+            else totalNgramFrequency
+            ngramProbabilities[ngram] = frequency over denominator
         }
 
         return ngramProbabilities
@@ -157,27 +180,29 @@ internal class LanguageModel<T : Ngram> {
             text: Sequence<String>,
             areNgramsLowerCase: Boolean = true,
             areNgramsPadded: Boolean = false
-        ) = LanguageModel<T>(
+        ) = LanguageModel<T, T>(
             text,
             getNgramLength<T>(),
             areNgramsLowerCase,
             areNgramsPadded
         )
 
-        inline fun <reified T : Ngram> fromTrainingData(
+        inline fun <reified T : Ngram, U : Ngram> fromTrainingData(
             text: Sequence<String>,
             language: Language,
+            lowerNgramAbsoluteFrequencies: Map<U, Int>,
             areNgramsLowerCase: Boolean = true,
             areNgramsPadded: Boolean = false
-        ) = LanguageModel<T>(
+        ) = LanguageModel<T, U>(
             text,
             getNgramLength<T>(),
             language,
+            lowerNgramAbsoluteFrequencies,
             areNgramsLowerCase,
             areNgramsPadded
         )
 
-        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T> {
+        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T, T> {
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
             return getGson(ngramClass).fromJson(json, type)
         }
@@ -224,12 +249,12 @@ internal class LanguageModel<T : Ngram> {
         private const val PAD_CHAR = "<PAD>"
     }
 
-    private class LanguageModelDeserializer<T : Ngram> : JsonDeserializer<LanguageModel<T>> {
+    private class LanguageModelDeserializer<T : Ngram> : JsonDeserializer<LanguageModel<T, T>> {
         override fun deserialize(
             json: JsonElement,
             type: Type,
             context: JsonDeserializationContext
-        ): LanguageModel<T> {
+        ): LanguageModel<T, T> {
 
             @Suppress("UNCHECKED_CAST")
             val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>

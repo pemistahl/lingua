@@ -45,8 +45,8 @@ class LanguageDetector private constructor(
         val trimmedText = text.trim().toLowerCase()
         val textSequence = trimmedText.lineSequence()
 
-        val languageDetectedByRules = detectLanguageWithRules(trimmedText)
-        if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
+        //val languageDetectedByRules = detectLanguageWithRules(trimmedText)
+        //if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
 
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
@@ -143,7 +143,7 @@ class LanguageDetector private constructor(
     }
 
     private fun computeUnigramProbabilities(
-        unigramTestDataModel: LanguageModel<Unigram>
+        unigramTestDataModel: LanguageModel<Unigram, Unigram>
     ): Map<Language, Double> {
         val probabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -159,7 +159,7 @@ class LanguageDetector private constructor(
     }
 
     private fun computeBigramProbabilities(
-        bigramTestDataModel: LanguageModel<Bigram>
+        bigramTestDataModel: LanguageModel<Bigram, Bigram>
     ): Map<Language, Double> {
         val probabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -176,7 +176,7 @@ class LanguageDetector private constructor(
     }
 
     private fun computeTrigramProbabilities(
-        trigramTestDataModel: LanguageModel<Trigram>
+        trigramTestDataModel: LanguageModel<Trigram, Trigram>
     ): Map<Language, Double> {
         val probabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -194,7 +194,7 @@ class LanguageDetector private constructor(
     }
 
     private fun computeQuadrigramProbabilities(
-        quadrigramTestDataModel: LanguageModel<Quadrigram>
+        quadrigramTestDataModel: LanguageModel<Quadrigram, Quadrigram>
     ): Map<Language, Double> {
         val probabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -213,7 +213,7 @@ class LanguageDetector private constructor(
     }
 
     private fun computeFivegramProbabilities(
-        fivegramTestDataModel: LanguageModel<Fivegram>
+        fivegramTestDataModel: LanguageModel<Fivegram, Fivegram>
     ): Map<Language, Double> {
         val probabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -245,7 +245,7 @@ class LanguageDetector private constructor(
     }
 
     private fun <T : Ngram> lookUpNgramProbability(
-        languageModels: Map<Language, LanguageModel<T>>,
+        languageModels: Map<Language, LanguageModel<T, T>>,
         language: Language,
         ngram: T
     ): Fraction? = languageModels.getValue(language).getRelativeFrequency(ngram)
@@ -310,8 +310,8 @@ class LanguageDetector private constructor(
         private fun <T : Ngram> loadLanguageModel(
             language: Language,
             ngramClass: KClass<T>
-        ): LanguageModel<T> {
-            var languageModel: LanguageModel<T>? = null
+        ): LanguageModel<T, T> {
+            var languageModel: LanguageModel<T, T>? = null
             val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
             "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
                 languageModel = LanguageModel.fromJson(jsonReader, ngramClass)
@@ -322,8 +322,8 @@ class LanguageDetector private constructor(
         private fun <T : Ngram> loadLanguageModels(
             languages: Set<Language>,
             ngramClass: KClass<T>
-        ): MutableMap<Language, LanguageModel<T>> {
-            val languageModels = hashMapOf<Language, LanguageModel<T>>()
+        ): MutableMap<Language, LanguageModel<T, T>> {
+            val languageModels = hashMapOf<Language, LanguageModel<T, T>>()
             for (language in languages) {
                 languageModels[language] = loadLanguageModel(language, ngramClass)
             }
