@@ -166,6 +166,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             "es" -> Language.SPANISH
             "fr" -> Language.FRENCH
             "it" -> Language.ITALIAN
+            "nl" -> Language.DUTCH
             "pt" -> Language.PORTUGUESE
             else -> Language.UNKNOWN
         }
@@ -179,13 +180,14 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             "es" -> Language.SPANISH
             "fr" -> Language.FRENCH
             "it" -> Language.ITALIAN
+            "nl" -> Language.DUTCH
             "pt" -> Language.PORTUGUESE
             else -> Language.UNKNOWN
         }
     }
 
     companion object {
-        private val languageIsoCodesToTest = listOf("de", "en", "es", "fr", "it", "pt")
+        private val languageIsoCodesToTest = listOf("de", "en", "es", "fr", "it", "nl", "pt")
 
         internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 
