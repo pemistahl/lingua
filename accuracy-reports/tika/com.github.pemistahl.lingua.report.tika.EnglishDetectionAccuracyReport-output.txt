@@ -1,21 +1,18 @@
-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-Dez 21, 2018 1:54:15 PM com.github.pemistahl.lingua.report.tika.EnglishDetectionAccuracyReport afterAll
+Jan 06, 2019 6:06:25 PM com.github.pemistahl.lingua.report.tika.EnglishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ENGLISH #####
 
->>> Accuracy on average: 76,67%
+>>> Accuracy on average: 72,80%
 
 >> Detection of 5914 single words (average length: 7 chars)
-Accuracy: 57,10%
-Erroneously classified as FRENCH: 16,08%, ITALIAN: 9,84%, GERMAN: 8,42%, SPANISH: 5,80%, PORTUGUESE: 2,76%
+Accuracy: 51,47%
+Erroneously classified as FRENCH: 14,47%, DUTCH: 11,21%, ITALIAN: 9,30%, GERMAN: 5,56%, SPANISH: 5,36%, PORTUGUESE: 2,62%
 
 >> Detection of 3759 word pairs (average length: 15 chars)
-Accuracy: 76,03%
-Erroneously classified as FRENCH: 8,06%, ITALIAN: 6,73%, SPANISH: 4,10%, GERMAN: 3,80%, PORTUGUESE: 1,28%
+Accuracy: 71,48%
+Erroneously classified as FRENCH: 7,66%, DUTCH: 6,62%, ITALIAN: 6,52%, SPANISH: 3,91%, GERMAN: 2,61%, PORTUGUESE: 1,20%
 
 >> Detection of 10000 sentences (average length: 34 chars)
-Accuracy: 96,87%
-Erroneously classified as FRENCH: 1,43%, ITALIAN: 0,63%, GERMAN: 0,59%, SPANISH: 0,29%, PORTUGUESE: 0,19%
+Accuracy: 95,46%
+Erroneously classified as DUTCH: 1,66%, FRENCH: 1,33%, ITALIAN: 0,61%, GERMAN: 0,48%, SPANISH: 0,28%, PORTUGUESE: 0,18%

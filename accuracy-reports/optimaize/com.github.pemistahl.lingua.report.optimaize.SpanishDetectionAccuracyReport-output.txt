@@ -1,18 +1,18 @@
-Dez 21, 2018 1:50:22 PM com.github.pemistahl.lingua.report.optimaize.SpanishDetectionAccuracyReport afterAll
+Jan 06, 2019 6:13:31 PM com.github.pemistahl.lingua.report.optimaize.SpanishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### SPANISH #####
 
->>> Accuracy on average: 43,03%
+>>> Accuracy on average: 42,89%
 
 >> Detection of 21493 single words (average length: 8 chars)
-Accuracy: 7,59%
-Erroneously classified as UNKNOWN: 91,02%, ITALIAN: 0,54%, FRENCH: 0,33%, ENGLISH: 0,20%, GERMAN: 0,19%, PORTUGUESE: 0,13%
+Accuracy: 7,47%
+Erroneously classified as UNKNOWN: 91,32%, ITALIAN: 0,51%, FRENCH: 0,33%, PORTUGUESE: 0,13%, ENGLISH: 0,12%, DUTCH: 0,07%, GERMAN: 0,06%
 
 >> Detection of 21640 word pairs (average length: 16 chars)
-Accuracy: 24,13%
-Erroneously classified as UNKNOWN: 74,36%, ITALIAN: 0,65%, ENGLISH: 0,32%, PORTUGUESE: 0,21%, FRENCH: 0,17%, GERMAN: 0,16%
+Accuracy: 23,84%
+Erroneously classified as UNKNOWN: 74,76%, ITALIAN: 0,63%, ENGLISH: 0,26%, PORTUGUESE: 0,21%, FRENCH: 0,16%, DUTCH: 0,09%, GERMAN: 0,06%
 
 >> Detection of 10000 sentences (average length: 135 chars)
 Accuracy: 97,37%
-Erroneously classified as UNKNOWN: 2,57%, FRENCH: 0,02%, PORTUGUESE: 0,01%, GERMAN: 0,01%, ITALIAN: 0,01%, ENGLISH: 0,01%
+Erroneously classified as UNKNOWN: 2,58%, FRENCH: 0,02%, PORTUGUESE: 0,01%, ITALIAN: 0,01%, ENGLISH: 0,01%

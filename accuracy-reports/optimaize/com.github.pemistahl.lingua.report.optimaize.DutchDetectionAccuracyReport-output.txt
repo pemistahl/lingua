@@ -1,0 +1,21 @@
+log4j:WARN No appenders could be found for logger (com.optimaize.langdetect.LanguageDetectorImpl).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Jan 06, 2019 6:11:34 PM com.github.pemistahl.lingua.report.optimaize.DutchDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### DUTCH #####
+
+>>> Accuracy on average: 61,03%
+
+>> Detection of 18550 single words (average length: 9 chars)
+Accuracy: 26,47%
+Erroneously classified as UNKNOWN: 71,37%, ENGLISH: 0,77%, GERMAN: 0,68%, FRENCH: 0,42%, ITALIAN: 0,26%, PORTUGUESE: 0,03%, SPANISH: 0,01%
+
+>> Detection of 43985 word pairs (average length: 17 chars)
+Accuracy: 58,90%
+Erroneously classified as UNKNOWN: 39,23%, ENGLISH: 0,74%, GERMAN: 0,58%, FRENCH: 0,33%, ITALIAN: 0,20%, SPANISH: 0,02%, PORTUGUESE: 0,01%
+
+>> Detection of 9999 sentences (average length: 97 chars)
+Accuracy: 97,71%
+Erroneously classified as UNKNOWN: 2,16%, ENGLISH: 0,05%, GERMAN: 0,04%, ITALIAN: 0,02%, FRENCH: 0,02%

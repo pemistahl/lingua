@@ -1,18 +1,18 @@
-Dez 21, 2018 1:54:23 PM com.github.pemistahl.lingua.report.tika.GermanDetectionAccuracyReport afterAll
+Jan 06, 2019 6:06:59 PM com.github.pemistahl.lingua.report.tika.GermanDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### GERMAN #####
 
->>> Accuracy on average: 90,29%
+>>> Accuracy on average: 84,56%
 
 >> Detection of 11748 single words (average length: 10 chars)
-Accuracy: 78,98%
-Erroneously classified as ENGLISH: 7,27%, ITALIAN: 5,19%, FRENCH: 5,07%, SPANISH: 1,95%, PORTUGUESE: 1,54%
+Accuracy: 69,64%
+Erroneously classified as DUTCH: 13,04%, ENGLISH: 5,70%, ITALIAN: 4,56%, FRENCH: 4,22%, SPANISH: 1,45%, PORTUGUESE: 1,39%
 
 >> Detection of 9347 word pairs (average length: 17 chars)
-Accuracy: 92,56%
-Erroneously classified as ENGLISH: 3,16%, FRENCH: 1,78%, ITALIAN: 1,72%, SPANISH: 0,55%, PORTUGUESE: 0,24%
+Accuracy: 85,12%
+Erroneously classified as DUTCH: 8,82%, ENGLISH: 2,46%, ITALIAN: 1,51%, FRENCH: 1,44%, SPANISH: 0,45%, PORTUGUESE: 0,20%
 
 >> Detection of 10000 sentences (average length: 47 chars)
-Accuracy: 99,34%
-Erroneously classified as ENGLISH: 0,45%, FRENCH: 0,11%, ITALIAN: 0,04%, PORTUGUESE: 0,04%, SPANISH: 0,02%
+Accuracy: 98,92%
+Erroneously classified as DUTCH: 0,47%, ENGLISH: 0,40%, FRENCH: 0,11%, ITALIAN: 0,04%, PORTUGUESE: 0,04%, SPANISH: 0,02%
