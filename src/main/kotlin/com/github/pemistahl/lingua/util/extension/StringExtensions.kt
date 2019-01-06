@@ -32,3 +32,14 @@ internal fun String.asJsonResource(
 
     operation(JsonReader(InputStreamReader(inputStream, charset)))
 }
+
+internal fun String.asLineSequenceResource(
+    charset: Charset = Charsets.UTF_8,
+    operation: (Sequence<String>) -> Unit
+) {
+    val inputStream =
+        LanguageDetector::class.java.getResourceAsStream(this)
+            ?: throw FileNotFoundException("the file '$this' could not be found")
+
+    inputStream.bufferedReader(charset).useLines(operation)
+}
