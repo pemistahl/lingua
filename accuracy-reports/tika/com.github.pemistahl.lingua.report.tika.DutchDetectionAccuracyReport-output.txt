@@ -1,18 +1,18 @@
-Jan 06, 2019 7:05:24 PM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
+Jan 06, 2019 8:15:57 PM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
 
->>> Accuracy on average: 75,49%
+>>> Accuracy on average: 74,97%
 
 >> Detection of 18550 single words (average length: 9 chars)
-Accuracy: 50,63%
-Erroneously classified as DANISH: 14,79%, GERMAN: 8,57%, ENGLISH: 8,33%, FRENCH: 6,87%, ITALIAN: 5,49%, SPANISH: 3,42%, PORTUGUESE: 1,89%
+Accuracy: 49,68%
+Erroneously classified as DANISH: 12,49%, GERMAN: 8,39%, ENGLISH: 7,87%, FRENCH: 6,75%, ITALIAN: 5,26%, SWEDISH: 4,55%, SPANISH: 3,26%, PORTUGUESE: 1,76%
 
 >> Detection of 43985 word pairs (average length: 17 chars)
-Accuracy: 76,70%
-Erroneously classified as DANISH: 8,50%, GERMAN: 4,59%, ENGLISH: 4,14%, FRENCH: 2,81%, ITALIAN: 1,87%, SPANISH: 1,01%, PORTUGUESE: 0,38%
+Accuracy: 76,12%
+Erroneously classified as DANISH: 7,61%, GERMAN: 4,55%, ENGLISH: 4,04%, FRENCH: 2,75%, ITALIAN: 1,82%, SWEDISH: 1,78%, SPANISH: 0,97%, PORTUGUESE: 0,37%
 
 >> Detection of 9999 sentences (average length: 97 chars)
-Accuracy: 99,13%
-Erroneously classified as ENGLISH: 0,27%, DANISH: 0,25%, GERMAN: 0,24%, FRENCH: 0,06%, SPANISH: 0,03%, ITALIAN: 0,02%
+Accuracy: 99,10%
+Erroneously classified as ENGLISH: 0,28%, DANISH: 0,24%, GERMAN: 0,24%, FRENCH: 0,06%, SWEDISH: 0,03%, SPANISH: 0,03%, ITALIAN: 0,02%

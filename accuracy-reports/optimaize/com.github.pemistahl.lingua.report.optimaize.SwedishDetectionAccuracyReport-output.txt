@@ -1,0 +1,18 @@
+Jan 06, 2019 8:13:18 PM com.github.pemistahl.lingua.report.optimaize.SwedishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### SWEDISH #####
+
+>>> Accuracy on average: 57,40%
+
+>> Detection of 21061 single words (average length: 10 chars)
+Accuracy: 26,75%
+Erroneously classified as UNKNOWN: 72,13%, DANISH: 0,39%, ENGLISH: 0,20%, ITALIAN: 0,19%, GERMAN: 0,12%, DUTCH: 0,11%, FRENCH: 0,09%, PORTUGUESE: 0,01%, SPANISH: 0,00%
+
+>> Detection of 44276 word pairs (average length: 17 chars)
+Accuracy: 51,12%
+Erroneously classified as UNKNOWN: 46,99%, DANISH: 1,17%, ITALIAN: 0,25%, ENGLISH: 0,24%, DUTCH: 0,08%, GERMAN: 0,07%, FRENCH: 0,05%, PORTUGUESE: 0,02%, SPANISH: 0,01%
+
+>> Detection of 9997 sentences (average length: 92 chars)
+Accuracy: 94,33%
+Erroneously classified as UNKNOWN: 5,29%, DANISH: 0,20%, ENGLISH: 0,12%, GERMAN: 0,04%, FRENCH: 0,02%

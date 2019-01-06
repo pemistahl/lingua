@@ -1,0 +1,18 @@
+Jan 06, 2019 8:18:35 PM com.github.pemistahl.lingua.report.tika.SwedishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### SWEDISH #####
+
+>>> Accuracy on average: 79,73%
+
+>> Detection of 21061 single words (average length: 10 chars)
+Accuracy: 61,50%
+Erroneously classified as DANISH: 16,56%, ITALIAN: 4,55%, ENGLISH: 4,42%, DUTCH: 3,40%, FRENCH: 2,81%, SPANISH: 2,40%, GERMAN: 2,24%, PORTUGUESE: 2,14%
+
+>> Detection of 44276 word pairs (average length: 17 chars)
+Accuracy: 79,70%
+Erroneously classified as DANISH: 12,66%, ENGLISH: 1,75%, ITALIAN: 1,73%, DUTCH: 1,31%, GERMAN: 0,84%, SPANISH: 0,75%, FRENCH: 0,72%, PORTUGUESE: 0,52%
+
+>> Detection of 9997 sentences (average length: 92 chars)
+Accuracy: 97,99%
+Erroneously classified as DANISH: 0,95%, ENGLISH: 0,42%, GERMAN: 0,28%, DUTCH: 0,17%, FRENCH: 0,06%, ITALIAN: 0,05%, PORTUGUESE: 0,04%, SPANISH: 0,04%

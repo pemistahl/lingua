@@ -1,18 +1,18 @@
-Jan 06, 2019 7:14:18 PM com.github.pemistahl.lingua.report.lingua.DanishDetectionAccuracyReport afterAll
+Jan 06, 2019 8:22:50 PM com.github.pemistahl.lingua.report.lingua.DanishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DANISH #####
 
->>> Accuracy on average: 90,19%
+>>> Accuracy on average: 87,88%
 
 >> Detection of 20787 single words (average length: 9 chars)
-Accuracy: 77,44%
-Erroneously classified as ENGLISH: 5,42%, GERMAN: 5,24%, DUTCH: 3,60%, ITALIAN: 2,86%, FRENCH: 2,62%, SPANISH: 1,48%, PORTUGUESE: 1,34%
+Accuracy: 72,98%
+Erroneously classified as SWEDISH: 6,25%, ENGLISH: 5,20%, GERMAN: 4,60%, DUTCH: 3,19%, ITALIAN: 2,68%, FRENCH: 2,46%, SPANISH: 1,38%, PORTUGUESE: 1,26%
 
 >> Detection of 50156 word pairs (average length: 16 chars)
-Accuracy: 93,48%
-Erroneously classified as GERMAN: 1,96%, ENGLISH: 1,72%, DUTCH: 1,06%, FRENCH: 0,71%, ITALIAN: 0,50%, SPANISH: 0,31%, PORTUGUESE: 0,26%
+Accuracy: 91,37%
+Erroneously classified as SWEDISH: 2,52%, GERMAN: 1,76%, ENGLISH: 1,66%, DUTCH: 0,98%, FRENCH: 0,70%, ITALIAN: 0,47%, SPANISH: 0,28%, PORTUGUESE: 0,25%
 
 >> Detection of 10000 sentences (average length: 109 chars)
-Accuracy: 99,65%
-Erroneously classified as ENGLISH: 0,19%, GERMAN: 0,07%, DUTCH: 0,05%, FRENCH: 0,02%, PORTUGUESE: 0,01%, ITALIAN: 0,01%
+Accuracy: 99,28%
+Erroneously classified as SWEDISH: 0,37%, ENGLISH: 0,19%, GERMAN: 0,07%, DUTCH: 0,05%, FRENCH: 0,02%, PORTUGUESE: 0,01%, ITALIAN: 0,01%
