@@ -161,6 +161,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
         return if (!locale.isPresent) { Language.UNKNOWN }
         else when (locale.get().language) {
+            "da" -> Language.DANISH
             "de" -> Language.GERMAN
             "en" -> Language.ENGLISH
             "es" -> Language.SPANISH
@@ -175,6 +176,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun mapLanguageResultToLanguage(result: LanguageResult): Language {
         return if (result.isUnknown) { Language.UNKNOWN }
         else when (result.language) {
+            "da" -> Language.DANISH
             "de" -> Language.GERMAN
             "en" -> Language.ENGLISH
             "es" -> Language.SPANISH
@@ -187,7 +189,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = listOf("de", "en", "es", "fr", "it", "nl", "pt")
+        private val languageIsoCodesToTest = listOf("da", "de", "en", "es", "fr", "it", "nl", "pt")
 
         internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 
