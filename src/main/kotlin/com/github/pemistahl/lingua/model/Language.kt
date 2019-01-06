@@ -26,6 +26,7 @@ enum class Language(val isoCode: String, internal var isExcludedFromDetection: B
     LATIN      ("la", false),
     PORTUGUESE ("pt", false),
     SPANISH    ("es", false),
+    SWEDISH    ("sv", false),
 
     UNKNOWN    ("<unk>", true)
 }
