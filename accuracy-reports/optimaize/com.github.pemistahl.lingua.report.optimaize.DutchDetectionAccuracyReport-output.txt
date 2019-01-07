@@ -1,18 +1,18 @@
-Jan 06, 2019 8:10:41 PM com.github.pemistahl.lingua.report.optimaize.DutchDetectionAccuracyReport afterAll
+Jan 07, 2019 10:11:19 AM com.github.pemistahl.lingua.report.optimaize.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
 
->>> Accuracy on average: 54,35%
+>>> Accuracy on average: 53,41%
 
 >> Detection of 18550 single words (average length: 9 chars)
-Accuracy: 18,89%
-Erroneously classified as UNKNOWN: 78,92%, ENGLISH: 0,62%, GERMAN: 0,61%, FRENCH: 0,38%, DANISH: 0,28%, ITALIAN: 0,23%, SWEDISH: 0,05%, PORTUGUESE: 0,02%, SPANISH: 0,01%
+Accuracy: 17,41%
+Erroneously classified as UNKNOWN: 79,90%, FINNISH: 0,62%, ENGLISH: 0,60%, GERMAN: 0,59%, FRENCH: 0,37%, DANISH: 0,26%, ITALIAN: 0,19%, SWEDISH: 0,03%, PORTUGUESE: 0,02%, SPANISH: 0,01%
 
 >> Detection of 43985 word pairs (average length: 17 chars)
-Accuracy: 47,33%
-Erroneously classified as UNKNOWN: 50,37%, DANISH: 0,61%, ENGLISH: 0,59%, GERMAN: 0,52%, FRENCH: 0,30%, ITALIAN: 0,18%, SWEDISH: 0,08%, SPANISH: 0,02%, PORTUGUESE: 0,01%
+Accuracy: 46,02%
+Erroneously classified as UNKNOWN: 51,30%, DANISH: 0,60%, ENGLISH: 0,59%, GERMAN: 0,52%, FINNISH: 0,45%, FRENCH: 0,28%, ITALIAN: 0,16%, SWEDISH: 0,06%, SPANISH: 0,02%, PORTUGUESE: 0,01%
 
 >> Detection of 9999 sentences (average length: 97 chars)
-Accuracy: 96,84%
-Erroneously classified as UNKNOWN: 3,01%, ENGLISH: 0,05%, GERMAN: 0,04%, ITALIAN: 0,02%, DANISH: 0,02%, FRENCH: 0,02%
+Accuracy: 96,80%
+Erroneously classified as UNKNOWN: 3,04%, ENGLISH: 0,05%, GERMAN: 0,04%, ITALIAN: 0,02%, DANISH: 0,02%, FRENCH: 0,02%, FINNISH: 0,01%
