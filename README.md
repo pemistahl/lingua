@@ -1,4 +1,4 @@
-[![lingua](logo.png)][translate-lingua] 
+[![lingua](images/logo.png)][translate-lingua] 
 
 # language detection done right [![awesome nlp badge][awesome nlp badge]][awesome nlp url]
 *Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
@@ -103,7 +103,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
     </tr>
     <tr>
         <td>English</td>
-        <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>88 <img src="images/green.png"></td>
         <td>77 <img src="https://placehold.it/12/008000/000000?text=+"></td>
         <td>49 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
         <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
