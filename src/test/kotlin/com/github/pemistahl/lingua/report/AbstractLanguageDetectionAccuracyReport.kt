@@ -161,14 +161,17 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
         return if (!locale.isPresent) { Language.UNKNOWN }
         else when (locale.get().language) {
+            "cs" -> Language.CZECH
             "da" -> Language.DANISH
             "de" -> Language.GERMAN
             "en" -> Language.ENGLISH
             "es" -> Language.SPANISH
             "fi" -> Language.FINNISH
             "fr" -> Language.FRENCH
+            "hu" -> Language.HUNGARIAN
             "it" -> Language.ITALIAN
             "nl" -> Language.DUTCH
+            "pl" -> Language.POLISH
             "pt" -> Language.PORTUGUESE
             "sv" -> Language.SWEDISH
             else -> Language.UNKNOWN
@@ -178,14 +181,17 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun mapLanguageResultToLanguage(result: LanguageResult): Language {
         return if (result.isUnknown) { Language.UNKNOWN }
         else when (result.language) {
+            "cs" -> Language.CZECH
             "da" -> Language.DANISH
             "de" -> Language.GERMAN
             "en" -> Language.ENGLISH
             "es" -> Language.SPANISH
             "fi" -> Language.FINNISH
             "fr" -> Language.FRENCH
+            "hu" -> Language.HUNGARIAN
             "it" -> Language.ITALIAN
             "nl" -> Language.DUTCH
+            "pl" -> Language.POLISH
             "pt" -> Language.PORTUGUESE
             "sv" -> Language.SWEDISH
             else -> Language.UNKNOWN
@@ -193,7 +199,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = listOf("da", "de", "en", "es", "fi", "fr", "it", "nl", "pt", "sv")
+        private val languageIsoCodesToTest = listOf(
+            "cs", "da", "de", "en", "es", "fi", "fr", "hu", "it", "nl", "pl", "pt", "sv"
+        )
 
         internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 

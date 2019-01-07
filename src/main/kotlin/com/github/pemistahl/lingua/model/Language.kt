@@ -17,14 +17,17 @@
 package com.github.pemistahl.lingua.model
 
 enum class Language(val isoCode: String, internal var isExcludedFromDetection: Boolean) {
+    CZECH      ("cs", false),
     DANISH     ("da", false),
     DUTCH      ("nl", false),
     ENGLISH    ("en", false),
     FINNISH    ("fi", false),
     FRENCH     ("fr", false),
     GERMAN     ("de", false),
+    HUNGARIAN  ("hu", false),
     ITALIAN    ("it", false),
     LATIN      ("la", false),
+    POLISH     ("pl", false),
     PORTUGUESE ("pt", false),
     SPANISH    ("es", false),
     SWEDISH    ("sv", false),
