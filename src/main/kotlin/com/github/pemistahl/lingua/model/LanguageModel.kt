@@ -203,8 +203,42 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         )
 
         fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T, T> {
-            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
-            return getGson(ngramClass).fromJson(json, type)
+            var language: Language? = null
+            var areNgramsLowerCase: Boolean? = null
+            var areNgramsPadded: Boolean? = null
+            val ngramRelativeFrequencies = hashMapOf<T, Fraction>()
+
+            json.beginObject()
+            while (json.hasNext()) {
+                val name = json.nextName()
+                if (name == "language") {
+                    language = Language.valueOf(json.nextString())
+                }
+                else if (name == "areNgramsLowerCase") {
+                    areNgramsLowerCase = json.nextBoolean()
+                }
+                else if (name == "areNgramsPadded") {
+                    areNgramsPadded = json.nextBoolean()
+                }
+                else if (name == "ngrams") {
+                    json.beginObject()
+                    while (json.hasNext()) {
+                        val fraction = Fraction(json.nextName())
+                        val ngrams = json.nextString().split(' ')
+                        for (ngramJsonElem in ngrams) {
+                            val ngram: T? = ngramClass.java.getConstructor(String::class.java).newInstance(ngramJsonElem)
+                            ngram?.let { ngramRelativeFrequencies[ngram] = fraction }
+                        }
+                    }
+                    json.endObject()
+                }
+            }
+            json.endObject()
+            json.close()
+
+            return LanguageModel(language!!, areNgramsLowerCase!!, areNgramsPadded!!, ngramRelativeFrequencies)
+            //val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
+            //return getGson(ngramClass).fromJson(json, type)
         }
 
         private inline fun <reified T : Ngram> getNgramLength(): Int =
@@ -234,7 +268,6 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             @Suppress("UNCHECKED_CAST")
             return ngram as T
         }
-
 
         private fun <T : Ngram> getGson(ngramClass: KClass<T>): Gson {
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
