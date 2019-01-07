@@ -17,20 +17,32 @@
 package com.github.pemistahl.lingua.model
 
 enum class Language(val isoCode: String, internal var isExcludedFromDetection: Boolean) {
+
+    ARABIC     ("ar", false),
+    BELARUSIAN ("be", false),
+    BULGARIAN  ("bg", false),
+    CROATIAN   ("hr", false),
     CZECH      ("cs", false),
     DANISH     ("da", false),
     DUTCH      ("nl", false),
     ENGLISH    ("en", false),
+    ESTONIAN   ("et", false),
     FINNISH    ("fi", false),
     FRENCH     ("fr", false),
     GERMAN     ("de", false),
     HUNGARIAN  ("hu", false),
     ITALIAN    ("it", false),
     LATIN      ("la", false),
+    LATVIAN    ("lv", false),
+    LITHUANIAN ("lt", false),
+    PERSIAN    ("fa", false),
     POLISH     ("pl", false),
     PORTUGUESE ("pt", false),
+    ROMANIAN   ("ro", false),
+    RUSSIAN    ("ru", false),
     SPANISH    ("es", false),
     SWEDISH    ("sv", false),
+    TURKISH    ("tr", false),
 
     UNKNOWN    ("<unk>", true)
 }
