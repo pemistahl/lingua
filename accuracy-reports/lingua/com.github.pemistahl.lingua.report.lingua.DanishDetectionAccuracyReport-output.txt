@@ -1,18 +1,18 @@
-Jan 07, 2019 10:03:40 AM com.github.pemistahl.lingua.report.lingua.DanishDetectionAccuracyReport afterAll
+Jan 07, 2019 11:49:37 AM com.github.pemistahl.lingua.report.lingua.DanishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DANISH #####
 
->>> Accuracy on average: 87,67%
+>>> Accuracy on average: 87,43%
 
 >> Detection of 20787 single words (average length: 9 chars)
-Accuracy: 72,44%
-Erroneously classified as SWEDISH: 5,96%, ENGLISH: 5,04%, GERMAN: 4,46%, DUTCH: 3,01%, ITALIAN: 2,54%, FRENCH: 2,38%, FINNISH: 1,69%, SPANISH: 1,29%, PORTUGUESE: 1,20%
+Accuracy: 71,85%
+Erroneously classified as SWEDISH: 5,68%, ENGLISH: 4,82%, GERMAN: 4,29%, DUTCH: 2,90%, ITALIAN: 2,39%, FRENCH: 2,33%, FINNISH: 1,54%, SPANISH: 1,24%, PORTUGUESE: 1,16%, POLISH: 0,64%, CZECH: 0,63%, HUNGARIAN: 0,55%
 
 >> Detection of 50156 word pairs (average length: 16 chars)
-Accuracy: 91,29%
-Erroneously classified as SWEDISH: 2,49%, GERMAN: 1,74%, ENGLISH: 1,63%, DUTCH: 0,96%, FRENCH: 0,69%, ITALIAN: 0,45%, SPANISH: 0,27%, PORTUGUESE: 0,24%, FINNISH: 0,23%
+Accuracy: 91,21%
+Erroneously classified as SWEDISH: 2,46%, GERMAN: 1,72%, ENGLISH: 1,60%, DUTCH: 0,94%, FRENCH: 0,69%, ITALIAN: 0,43%, SPANISH: 0,26%, PORTUGUESE: 0,24%, FINNISH: 0,22%, HUNGARIAN: 0,10%, POLISH: 0,07%, CZECH: 0,06%
 
 >> Detection of 10000 sentences (average length: 109 chars)
-Accuracy: 99,27%
-Erroneously classified as SWEDISH: 0,37%, ENGLISH: 0,19%, GERMAN: 0,07%, DUTCH: 0,05%, FRENCH: 0,02%, PORTUGUESE: 0,01%, ITALIAN: 0,01%, FINNISH: 0,01%
+Accuracy: 99,25%
+Erroneously classified as SWEDISH: 0,36%, ENGLISH: 0,19%, GERMAN: 0,07%, DUTCH: 0,05%, CZECH: 0,03%, FRENCH: 0,02%, PORTUGUESE: 0,01%, ITALIAN: 0,01%, FINNISH: 0,01%

@@ -1,0 +1,18 @@
+Jan 07, 2019 11:57:52 AM com.github.pemistahl.lingua.report.tika.PolishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### POLISH #####
+
+>>> Accuracy on average: 92,59%
+
+>> Detection of 27576 single words (average length: 9 chars)
+Accuracy: 82,38%
+Erroneously classified as FINNISH: 2,64%, CZECH: 2,36%, ITALIAN: 2,21%, ENGLISH: 2,00%, DANISH: 1,41%, PORTUGUESE: 1,30%, SWEDISH: 1,18%, HUNGARIAN: 1,09%, SPANISH: 0,99%, FRENCH: 0,92%, GERMAN: 0,83%, DUTCH: 0,70%
+
+>> Detection of 61455 word pairs (average length: 17 chars)
+Accuracy: 95,49%
+Erroneously classified as CZECH: 0,78%, ENGLISH: 0,66%, FINNISH: 0,58%, ITALIAN: 0,57%, DANISH: 0,37%, PORTUGUESE: 0,29%, SWEDISH: 0,25%, SPANISH: 0,25%, HUNGARIAN: 0,24%, DUTCH: 0,22%, FRENCH: 0,16%, GERMAN: 0,15%
+
+>> Detection of 10000 sentences (average length: 102 chars)
+Accuracy: 99,90%
+Erroneously classified as PORTUGUESE: 0,02%, FINNISH: 0,02%, ENGLISH: 0,02%, FRENCH: 0,01%, GERMAN: 0,01%, ITALIAN: 0,01%, SPANISH: 0,01%

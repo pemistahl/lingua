@@ -1,0 +1,18 @@
+Jan 07, 2019 12:40:47 PM com.github.pemistahl.lingua.report.optimaize.HungarianDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### HUNGARIAN #####
+
+>>> Accuracy on average: 83,03%
+
+>> Detection of 33962 single words (average length: 9 chars)
+Accuracy: 62,43%
+Erroneously classified as UNKNOWN: 36,50%, FINNISH: 0,39%, CZECH: 0,20%, GERMAN: 0,08%, POLISH: 0,08%, DANISH: 0,08%, SPANISH: 0,06%, ITALIAN: 0,04%, SWEDISH: 0,04%, FRENCH: 0,04%, ENGLISH: 0,02%, PORTUGUESE: 0,02%, DUTCH: 0,01%
+
+>> Detection of 63887 word pairs (average length: 18 chars)
+Accuracy: 87,29%
+Erroneously classified as UNKNOWN: 12,01%, FINNISH: 0,25%, CZECH: 0,10%, DANISH: 0,08%, ITALIAN: 0,05%, GERMAN: 0,05%, ENGLISH: 0,04%, SWEDISH: 0,04%, SPANISH: 0,03%, FRENCH: 0,03%, PORTUGUESE: 0,02%, POLISH: 0,02%, DUTCH: 0,01%
+
+>> Detection of 10000 sentences (average length: 116 chars)
+Accuracy: 99,37%
+Erroneously classified as UNKNOWN: 0,59%, FINNISH: 0,01%, GERMAN: 0,01%, DANISH: 0,01%, DUTCH: 0,01%
