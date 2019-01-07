@@ -1,0 +1,18 @@
+Jan 07, 2019 5:26:56 PM com.github.pemistahl.lingua.report.optimaize.ArabicDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ARABIC #####
+
+>>> Accuracy on average: 88,12%
+
+>> Detection of 25532 single words (average length: 6 chars)
+Accuracy: 69,43%
+Erroneously classified as UNKNOWN: 29,40%, PERSIAN: 1,17%
+
+>> Detection of 55504 word pairs (average length: 14 chars)
+Accuracy: 95,09%
+Erroneously classified as UNKNOWN: 4,55%, PERSIAN: 0,36%, GERMAN: 0,00%, FRENCH: 0,00%, ENGLISH: 0,00%
+
+>> Detection of 10000 sentences (average length: 92 chars)
+Accuracy: 99,83%
+Erroneously classified as UNKNOWN: 0,12%, PERSIAN: 0,04%, ENGLISH: 0,01%

@@ -44,5 +44,20 @@ enum class Language(val isoCode: String, internal var isExcludedFromDetection: B
     SWEDISH    ("sv", false),
     TURKISH    ("tr", false),
 
-    UNKNOWN    ("<unk>", true)
+    UNKNOWN    ("<unk>", true);
+
+    companion object {
+        fun getByIsoCode(isoCode: String): Language {
+            for (language in Language.values()) {
+                if (isoCode == language.isoCode) {
+                    return language
+                }
+            }
+            return Language.UNKNOWN
+        }
+
+        internal fun getIsoCodesForTests(): List<String> {
+            return Language.values().toSet().minus(arrayOf(LATIN, UNKNOWN)).map { it.isoCode }
+        }
+    }
 }

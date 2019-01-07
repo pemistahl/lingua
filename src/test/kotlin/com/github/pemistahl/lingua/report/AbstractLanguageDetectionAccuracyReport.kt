@@ -159,49 +159,21 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
-        return if (!locale.isPresent) { Language.UNKNOWN }
-        else when (locale.get().language) {
-            "cs" -> Language.CZECH
-            "da" -> Language.DANISH
-            "de" -> Language.GERMAN
-            "en" -> Language.ENGLISH
-            "es" -> Language.SPANISH
-            "fi" -> Language.FINNISH
-            "fr" -> Language.FRENCH
-            "hu" -> Language.HUNGARIAN
-            "it" -> Language.ITALIAN
-            "nl" -> Language.DUTCH
-            "pl" -> Language.POLISH
-            "pt" -> Language.PORTUGUESE
-            "sv" -> Language.SWEDISH
-            else -> Language.UNKNOWN
-        }
+        return if (!locale.isPresent)
+            Language.UNKNOWN
+        else
+            Language.getByIsoCode(locale.get().language)
     }
 
     private fun mapLanguageResultToLanguage(result: LanguageResult): Language {
-        return if (result.isUnknown) { Language.UNKNOWN }
-        else when (result.language) {
-            "cs" -> Language.CZECH
-            "da" -> Language.DANISH
-            "de" -> Language.GERMAN
-            "en" -> Language.ENGLISH
-            "es" -> Language.SPANISH
-            "fi" -> Language.FINNISH
-            "fr" -> Language.FRENCH
-            "hu" -> Language.HUNGARIAN
-            "it" -> Language.ITALIAN
-            "nl" -> Language.DUTCH
-            "pl" -> Language.POLISH
-            "pt" -> Language.PORTUGUESE
-            "sv" -> Language.SWEDISH
-            else -> Language.UNKNOWN
-        }
+        return if (result.isUnknown)
+            Language.UNKNOWN
+        else
+            Language.getByIsoCode(result.language)
     }
 
     companion object {
-        private val languageIsoCodesToTest = listOf(
-            "cs", "da", "de", "en", "es", "fi", "fr", "hu", "it", "nl", "pl", "pt", "sv"
-        )
+        private val languageIsoCodesToTest = Language.getIsoCodesForTests()
 
         internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 

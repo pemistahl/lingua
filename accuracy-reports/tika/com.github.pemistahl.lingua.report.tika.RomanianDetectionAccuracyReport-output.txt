@@ -1,0 +1,18 @@
+Jan 07, 2019 5:34:21 PM com.github.pemistahl.lingua.report.tika.RomanianDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ROMANIAN #####
+
+>>> Accuracy on average: 79,61%
+
+>> Detection of 24957 single words (average length: 8 chars)
+Accuracy: 60,34%
+Erroneously classified as ITALIAN: 12,88%, ENGLISH: 3,04%, PORTUGUESE: 2,90%, SPANISH: 2,81%, CROATIAN: 2,40%, FRENCH: 2,34%, ESTONIAN: 2,21%, DANISH: 2,02%, DUTCH: 1,51%, FINNISH: 1,33%, GERMAN: 1,13%, LITHUANIAN: 1,05%, TURKISH: 0,94%, SWEDISH: 0,89%, LATVIAN: 0,67%, HUNGARIAN: 0,63%, POLISH: 0,46%, CZECH: 0,44%, BULGARIAN: 0,00%
+
+>> Detection of 62715 word pairs (average length: 16 chars)
+Accuracy: 81,06%
+Erroneously classified as ITALIAN: 8,61%, SPANISH: 1,70%, ENGLISH: 1,60%, PORTUGUESE: 1,47%, FRENCH: 1,17%, ESTONIAN: 0,85%, CROATIAN: 0,82%, DANISH: 0,61%, DUTCH: 0,52%, FINNISH: 0,31%, SWEDISH: 0,27%, LITHUANIAN: 0,26%, GERMAN: 0,22%, LATVIAN: 0,18%, TURKISH: 0,14%, HUNGARIAN: 0,10%, CZECH: 0,06%, POLISH: 0,05%
+
+>> Detection of 10000 sentences (average length: 118 chars)
+Accuracy: 97,42%
+Erroneously classified as ITALIAN: 1,58%, SPANISH: 0,28%, PORTUGUESE: 0,22%, ENGLISH: 0,19%, FRENCH: 0,09%, CROATIAN: 0,08%, DUTCH: 0,05%, ESTONIAN: 0,03%, POLISH: 0,02%, LITHUANIAN: 0,01%, CZECH: 0,01%, DANISH: 0,01%, GERMAN: 0,01%

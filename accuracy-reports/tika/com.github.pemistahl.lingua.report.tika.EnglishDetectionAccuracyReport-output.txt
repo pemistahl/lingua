@@ -1,18 +1,18 @@
-Jan 07, 2019 11:56:57 AM com.github.pemistahl.lingua.report.tika.EnglishDetectionAccuracyReport afterAll
+Jan 07, 2019 5:32:31 PM com.github.pemistahl.lingua.report.tika.EnglishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ENGLISH #####
 
->>> Accuracy on average: 66,82%
+>>> Accuracy on average: 65,01%
 
 >> Detection of 5914 single words (average length: 7 chars)
-Accuracy: 40,77%
-Erroneously classified as FRENCH: 12,43%, DANISH: 10,13%, ITALIAN: 7,93%, DUTCH: 6,41%, SPANISH: 4,58%, SWEDISH: 4,46%, GERMAN: 3,47%, FINNISH: 3,25%, PORTUGUESE: 2,11%, POLISH: 1,96%, CZECH: 1,62%, HUNGARIAN: 0,88%
+Accuracy: 37,54%
+Erroneously classified as FRENCH: 10,60%, DANISH: 9,40%, ITALIAN: 6,59%, DUTCH: 5,78%, ROMANIAN: 4,84%, SPANISH: 3,80%, SWEDISH: 3,58%, GERMAN: 3,26%, ESTONIAN: 2,94%, FINNISH: 2,16%, POLISH: 1,81%, PORTUGUESE: 1,57%, TURKISH: 1,52%, CZECH: 1,18%, LATVIAN: 1,12%, CROATIAN: 1,03%, HUNGARIAN: 0,68%, LITHUANIAN: 0,57%
 
 >> Detection of 3759 word pairs (average length: 15 chars)
-Accuracy: 65,20%
-Erroneously classified as FRENCH: 7,16%, DANISH: 6,33%, ITALIAN: 5,75%, DUTCH: 4,31%, SPANISH: 3,48%, SWEDISH: 2,61%, GERMAN: 1,65%, PORTUGUESE: 1,09%, FINNISH: 1,06%, POLISH: 0,59%, CZECH: 0,45%, HUNGARIAN: 0,32%
+Accuracy: 63,39%
+Erroneously classified as FRENCH: 6,60%, DANISH: 5,91%, ITALIAN: 5,03%, DUTCH: 3,96%, SPANISH: 2,98%, ROMANIAN: 2,66%, SWEDISH: 2,26%, GERMAN: 1,65%, ESTONIAN: 1,65%, PORTUGUESE: 0,85%, FINNISH: 0,69%, TURKISH: 0,61%, POLISH: 0,53%, CROATIAN: 0,40%, CZECH: 0,32%, HUNGARIAN: 0,24%, LITHUANIAN: 0,21%, LATVIAN: 0,05%
 
 >> Detection of 10000 sentences (average length: 34 chars)
-Accuracy: 94,48%
-Erroneously classified as DUTCH: 1,39%, FRENCH: 1,28%, DANISH: 0,81%, ITALIAN: 0,58%, GERMAN: 0,40%, SPANISH: 0,26%, SWEDISH: 0,26%, PORTUGUESE: 0,18%, FINNISH: 0,17%, CZECH: 0,10%, POLISH: 0,07%, HUNGARIAN: 0,02%
+Accuracy: 94,11%
+Erroneously classified as DUTCH: 1,36%, FRENCH: 1,18%, DANISH: 0,78%, ITALIAN: 0,55%, GERMAN: 0,40%, ESTONIAN: 0,31%, ROMANIAN: 0,24%, SPANISH: 0,24%, SWEDISH: 0,21%, PORTUGUESE: 0,16%, FINNISH: 0,12%, CROATIAN: 0,10%, CZECH: 0,08%, POLISH: 0,07%, LATVIAN: 0,03%, LITHUANIAN: 0,03%, TURKISH: 0,02%, HUNGARIAN: 0,01%

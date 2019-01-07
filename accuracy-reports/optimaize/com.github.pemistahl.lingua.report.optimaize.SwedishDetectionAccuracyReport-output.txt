@@ -1,18 +1,18 @@
-Jan 07, 2019 12:41:27 PM com.github.pemistahl.lingua.report.optimaize.SwedishDetectionAccuracyReport afterAll
+Jan 07, 2019 5:30:15 PM com.github.pemistahl.lingua.report.optimaize.SwedishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### SWEDISH #####
 
->>> Accuracy on average: 53,82%
+>>> Accuracy on average: 52,13%
 
 >> Detection of 21061 single words (average length: 10 chars)
-Accuracy: 21,20%
-Erroneously classified as UNKNOWN: 76,84%, FINNISH: 0,81%, DANISH: 0,38%, ITALIAN: 0,16%, ENGLISH: 0,15%, GERMAN: 0,10%, DUTCH: 0,10%, CZECH: 0,09%, FRENCH: 0,05%, POLISH: 0,05%, HUNGARIAN: 0,04%, PORTUGUESE: 0,01%, SPANISH: 0,00%
+Accuracy: 18,95%
+Erroneously classified as UNKNOWN: 79,57%, DANISH: 0,37%, FINNISH: 0,28%, ENGLISH: 0,14%, ITALIAN: 0,13%, CROATIAN: 0,10%, GERMAN: 0,09%, DUTCH: 0,09%, FRENCH: 0,05%, ESTONIAN: 0,05%, TURKISH: 0,04%, CZECH: 0,03%, POLISH: 0,03%, HUNGARIAN: 0,02%, LITHUANIAN: 0,02%, ROMANIAN: 0,01%, SPANISH: 0,00%, PORTUGUESE: 0,00%
 
 >> Detection of 44276 word pairs (average length: 17 chars)
-Accuracy: 46,16%
-Erroneously classified as UNKNOWN: 51,04%, DANISH: 1,17%, FINNISH: 0,84%, ITALIAN: 0,23%, ENGLISH: 0,23%, GERMAN: 0,07%, DUTCH: 0,07%, CZECH: 0,06%, FRENCH: 0,05%, POLISH: 0,03%, HUNGARIAN: 0,02%, PORTUGUESE: 0,02%, SPANISH: 0,01%
+Accuracy: 43,48%
+Erroneously classified as UNKNOWN: 54,10%, DANISH: 1,14%, FINNISH: 0,39%, ENGLISH: 0,22%, ITALIAN: 0,21%, CROATIAN: 0,09%, ESTONIAN: 0,08%, GERMAN: 0,07%, DUTCH: 0,07%, FRENCH: 0,05%, TURKISH: 0,02%, CZECH: 0,02%, POLISH: 0,02%, ROMANIAN: 0,01%, PORTUGUESE: 0,01%, HUNGARIAN: 0,01%, LITHUANIAN: 0,01%, LATVIAN: 0,00%, SPANISH: 0,00%
 
 >> Detection of 9997 sentences (average length: 92 chars)
-Accuracy: 94,10%
-Erroneously classified as UNKNOWN: 5,51%, DANISH: 0,20%, ENGLISH: 0,12%, GERMAN: 0,04%, FRENCH: 0,02%, FINNISH: 0,01%
+Accuracy: 93,96%
+Erroneously classified as UNKNOWN: 5,57%, DANISH: 0,20%, ENGLISH: 0,12%, LITHUANIAN: 0,05%, GERMAN: 0,04%, FRENCH: 0,02%, FINNISH: 0,01%, ESTONIAN: 0,01%, CROATIAN: 0,01%, ROMANIAN: 0,01%

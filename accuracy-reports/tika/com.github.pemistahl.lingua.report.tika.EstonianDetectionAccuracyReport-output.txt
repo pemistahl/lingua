@@ -1,0 +1,18 @@
+Jan 07, 2019 5:32:42 PM com.github.pemistahl.lingua.report.tika.EstonianDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ESTONIAN #####
+
+>>> Accuracy on average: 87,77%
+
+>> Detection of 30316 single words (average length: 9 chars)
+Accuracy: 72,86%
+Erroneously classified as FINNISH: 7,60%, DUTCH: 2,39%, ITALIAN: 2,05%, DANISH: 1,66%, SWEDISH: 1,55%, CROATIAN: 1,51%, LITHUANIAN: 1,35%, ROMANIAN: 1,32%, ENGLISH: 1,29%, PORTUGUESE: 1,18%, FRENCH: 1,11%, TURKISH: 1,07%, LATVIAN: 0,97%, SPANISH: 0,71%, GERMAN: 0,67%, HUNGARIAN: 0,32%, CZECH: 0,19%, POLISH: 0,17%, RUSSIAN: 0,01%, BULGARIAN: 0,00%
+
+>> Detection of 59490 word pairs (average length: 17 chars)
+Accuracy: 90,94%
+Erroneously classified as FINNISH: 3,58%, DUTCH: 0,74%, ITALIAN: 0,72%, DANISH: 0,55%, CROATIAN: 0,51%, ENGLISH: 0,47%, SWEDISH: 0,44%, ROMANIAN: 0,37%, FRENCH: 0,32%, PORTUGUESE: 0,29%, LITHUANIAN: 0,28%, LATVIAN: 0,22%, SPANISH: 0,15%, TURKISH: 0,14%, GERMAN: 0,14%, POLISH: 0,05%, HUNGARIAN: 0,05%, CZECH: 0,04%, BULGARIAN: 0,01%, RUSSIAN: 0,00%
+
+>> Detection of 10000 sentences (average length: 104 chars)
+Accuracy: 99,51%
+Erroneously classified as FINNISH: 0,44%, DUTCH: 0,02%, ENGLISH: 0,02%, CROATIAN: 0,01%

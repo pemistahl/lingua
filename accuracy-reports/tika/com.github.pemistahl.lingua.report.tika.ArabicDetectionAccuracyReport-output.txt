@@ -1,0 +1,18 @@
+Jan 07, 2019 5:31:20 PM com.github.pemistahl.lingua.report.tika.ArabicDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ARABIC #####
+
+>>> Accuracy on average: 96,47%
+
+>> Detection of 25532 single words (average length: 6 chars)
+Accuracy: 91,05%
+Erroneously classified as PERSIAN: 8,93%, ENGLISH: 0,01%, FRENCH: 0,00%, SWEDISH: 0,00%
+
+>> Detection of 55504 word pairs (average length: 14 chars)
+Accuracy: 98,43%
+Erroneously classified as PERSIAN: 1,45%, ROMANIAN: 0,02%, ENGLISH: 0,02%, ESTONIAN: 0,02%, ITALIAN: 0,01%, DANISH: 0,01%, FRENCH: 0,01%, SWEDISH: 0,01%, SPANISH: 0,01%, GERMAN: 0,00%, PORTUGUESE: 0,00%, CROATIAN: 0,00%, DUTCH: 0,00%, POLISH: 0,00%
+
+>> Detection of 10000 sentences (average length: 92 chars)
+Accuracy: 99,92%
+Erroneously classified as PERSIAN: 0,05%, GERMAN: 0,02%, ENGLISH: 0,01%

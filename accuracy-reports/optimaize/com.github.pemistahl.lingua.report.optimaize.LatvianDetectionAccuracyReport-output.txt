@@ -1,0 +1,18 @@
+Jan 07, 2019 5:29:05 PM com.github.pemistahl.lingua.report.optimaize.LatvianDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### LATVIAN #####
+
+>>> Accuracy on average: 75,59%
+
+>> Detection of 29027 single words (average length: 8 chars)
+Accuracy: 50,81%
+Erroneously classified as UNKNOWN: 48,69%, ROMANIAN: 0,12%, CROATIAN: 0,10%, LITHUANIAN: 0,08%, ENGLISH: 0,05%, TURKISH: 0,02%, POLISH: 0,02%, FINNISH: 0,02%, RUSSIAN: 0,02%, DUTCH: 0,01%, ESTONIAN: 0,01%, ITALIAN: 0,01%, GERMAN: 0,01%, PORTUGUESE: 0,01%, FRENCH: 0,01%, HUNGARIAN: 0,00%, CZECH: 0,00%
+
+>> Detection of 60675 word pairs (average length: 16 chars)
+Accuracy: 78,78%
+Erroneously classified as UNKNOWN: 20,53%, ROMANIAN: 0,19%, CROATIAN: 0,13%, LITHUANIAN: 0,10%, ESTONIAN: 0,06%, ENGLISH: 0,06%, FINNISH: 0,03%, ITALIAN: 0,02%, POLISH: 0,02%, TURKISH: 0,02%, PORTUGUESE: 0,02%, DUTCH: 0,01%, FRENCH: 0,01%, RUSSIAN: 0,01%, GERMAN: 0,00%, HUNGARIAN: 0,00%, CZECH: 0,00%, SPANISH: 0,00%, BULGARIAN: 0,00%, DANISH: 0,00%
+
+>> Detection of 10000 sentences (average length: 108 chars)
+Accuracy: 97,17%
+Erroneously classified as UNKNOWN: 2,58%, ESTONIAN: 0,09%, ROMANIAN: 0,05%, CROATIAN: 0,04%, ENGLISH: 0,03%, ITALIAN: 0,01%, TURKISH: 0,01%, HUNGARIAN: 0,01%, LITHUANIAN: 0,01%

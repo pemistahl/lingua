@@ -1,0 +1,18 @@
+Jan 07, 2019 5:33:46 PM com.github.pemistahl.lingua.report.tika.LithuanianDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### LITHUANIAN #####
+
+>>> Accuracy on average: 89,89%
+
+>> Detection of 31404 single words (average length: 9 chars)
+Accuracy: 77,10%
+Erroneously classified as LATVIAN: 3,61%, CROATIAN: 2,91%, ITALIAN: 2,78%, ESTONIAN: 2,60%, FINNISH: 2,50%, PORTUGUESE: 1,32%, ROMANIAN: 1,18%, ENGLISH: 0,82%, SPANISH: 0,78%, DANISH: 0,78%, POLISH: 0,75%, FRENCH: 0,63%, CZECH: 0,48%, DUTCH: 0,47%, SWEDISH: 0,43%, GERMAN: 0,37%, TURKISH: 0,29%, HUNGARIAN: 0,19%, BULGARIAN: 0,00%
+
+>> Detection of 63131 word pairs (average length: 17 chars)
+Accuracy: 93,10%
+Erroneously classified as LATVIAN: 1,77%, CROATIAN: 0,82%, ESTONIAN: 0,80%, ITALIAN: 0,79%, FINNISH: 0,57%, PORTUGUESE: 0,40%, SPANISH: 0,29%, ROMANIAN: 0,27%, ENGLISH: 0,26%, DUTCH: 0,18%, DANISH: 0,17%, FRENCH: 0,13%, SWEDISH: 0,13%, POLISH: 0,11%, CZECH: 0,10%, GERMAN: 0,05%, TURKISH: 0,04%, HUNGARIAN: 0,04%, BULGARIAN: 0,00%
+
+>> Detection of 10000 sentences (average length: 108 chars)
+Accuracy: 99,49%
+Erroneously classified as LATVIAN: 0,18%, CROATIAN: 0,06%, ENGLISH: 0,05%, ESTONIAN: 0,04%, FINNISH: 0,04%, ITALIAN: 0,03%, PORTUGUESE: 0,03%, DUTCH: 0,02%, SWEDISH: 0,02%, ROMANIAN: 0,02%, SPANISH: 0,01%, TURKISH: 0,01%
