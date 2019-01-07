@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.report.lingua
+package com.github.pemistahl.lingua.report.optimaize
 
-import com.github.pemistahl.lingua.report.AbstractDanishDetectionAccuracyReport
-import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
+import com.github.pemistahl.lingua.report.AbstractFinnishDetectionAccuracyReport
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
 import org.junit.jupiter.api.AfterAll
 
-class DanishDetectionAccuracyReport : AbstractDanishDetectionAccuracyReport(LINGUA) {
+class FinnishDetectionAccuracyReport : AbstractFinnishDetectionAccuracyReport(OPTIMAIZE) {
 
     @AfterAll
     fun afterAll() = logger.info(statisticsReport())

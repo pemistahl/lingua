@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Peter M. Stahl
+ * Copyright 2018-2019 Peter M. Stahl pemistahl@googlemail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -165,6 +165,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             "de" -> Language.GERMAN
             "en" -> Language.ENGLISH
             "es" -> Language.SPANISH
+            "fi" -> Language.FINNISH
             "fr" -> Language.FRENCH
             "it" -> Language.ITALIAN
             "nl" -> Language.DUTCH
@@ -181,6 +182,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             "de" -> Language.GERMAN
             "en" -> Language.ENGLISH
             "es" -> Language.SPANISH
+            "fi" -> Language.FINNISH
             "fr" -> Language.FRENCH
             "it" -> Language.ITALIAN
             "nl" -> Language.DUTCH
@@ -191,7 +193,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = listOf("da", "de", "en", "es", "fr", "it", "nl", "pt", "sv")
+        private val languageIsoCodesToTest = listOf("da", "de", "en", "es", "fi", "fr", "it", "nl", "pt", "sv")
 
         internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
 

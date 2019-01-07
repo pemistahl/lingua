@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Peter M. Stahl
+ * Copyright 2018-2019 Peter M. Stahl pemistahl@googlemail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ enum class Language(val isoCode: String, internal var isExcludedFromDetection: B
     DANISH     ("da", false),
     DUTCH      ("nl", false),
     ENGLISH    ("en", false),
+    FINNISH    ("fi", false),
     FRENCH     ("fr", false),
     GERMAN     ("de", false),
     ITALIAN    ("it", false),

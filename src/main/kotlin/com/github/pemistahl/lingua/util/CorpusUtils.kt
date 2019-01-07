@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Peter M. Stahl
+ * Copyright 2018-2019 Peter M. Stahl pemistahl@googlemail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,24 +26,22 @@ import com.github.pemistahl.lingua.model.Unigram
 import com.github.pemistahl.lingua.util.extension.asLineSequenceResource
 import java.io.File
 
-internal fun stripLineNumbersFromLeipzigCorpusFile(inputPath: String, outputPath: String) {
+internal fun writeTestDataFiles(inputPath: String, outputPath: String) {
+    val wordRegex = Regex("""[\p{L}]{5,}""")
+    val whitespaceRegex = Regex("""\s+""")
+    val words = mutableSetOf<String>()
+    val wordPairs = mutableSetOf<String>()
+
     println("Stripping line numbers from each line...")
     File("$outputPath/corpus_full.txt").bufferedWriter().use { writer ->
         inputPath.asLineSequenceResource { lines ->
             lines.forEach { line ->
-                writer.write(line.split("\t")[1].replace("\"", ""))
+                writer.write(line.split("\t")[1].replace(whitespaceRegex, " ").replace("\"", ""))
                 writer.newLine()
             }
         }
     }
     println("Done.\n")
-}
-
-internal fun getWordsAndWordPairsFromLeipzigCorpusFile(inputPath: String, outputPath: String) {
-    val wordRegex = Regex("""[\p{L}]{5,}""")
-    val whitespaceRegex = Regex("""\s+""")
-    val words = mutableSetOf<String>()
-    val wordPairs = mutableSetOf<String>()
 
     println("Creating words and word pairs...")
     inputPath.asLineSequenceResource { lines ->
