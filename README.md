@@ -104,110 +104,110 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
     <tr>
         <td>English</td>
         <td>88 <img src="images/green.png"></td>
-        <td>77 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>49 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>57 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>12 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>76 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>&nbsp;&nbsp;97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>77 <img src="images/green.png"></td>
+        <td>49 <img src="images/orange.png"></td>
+        <td>76 <img src="images/green.png"></td>
+        <td>57 <img src="images/yellow.png"></td>
+        <td>12 <img src="images/red.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>76 <img src="images/green.png"></td>
+        <td>43 <img src="images/orange.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>&nbsp;&nbsp;97 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>French</td>
-        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>84 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>62 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>81 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>67 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>27 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>85 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>100 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>84 <img src="images/green.png"></td>
+        <td>62 <img src="images/yellow.png"></td>
+        <td>81 <img src="images/green.png"></td>
+        <td>67 <img src="images/yellow.png"></td>
+        <td>27 <img src="images/red.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>59 <img src="images/yellow.png"></td>
+        <td>97 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>German</td>
-        <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>78 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>79 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>54 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>93 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>81 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>100 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>96 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
+        <td>78 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>79 <img src="images/green.png"></td>
+        <td>54 <img src="images/yellow.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>93 <img src="images/green.png"></td>
+        <td>81 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>Italian</td>
-        <td>90 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>59 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>80 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>74 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>23 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>56 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>96 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>&nbsp;&nbsp;99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>90 <img src="images/green.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>59 <img src="images/yellow.png"></td>
+        <td>80 <img src="images/green.png"></td>
+        <td>74 <img src="images/yellow.png"></td>
+        <td>23 <img src="images/red.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>56 <img src="images/yellow.png"></td>
+        <td>96 <img src="images/green.png"></td>
+        <td>&nbsp;&nbsp;99 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>Portuguese</td>
-        <td>87 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>72 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>72 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>50 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>&nbsp;&nbsp;9 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>91 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>68 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>25 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>&nbsp;&nbsp;98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>94 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>72 <img src="images/yellow.png"></td>
+        <td>43 <img src="images/orange.png"></td>
+        <td>72 <img src="images/yellow.png"></td>
+        <td>50 <img src="images/yellow.png"></td>
+        <td>&nbsp;&nbsp;9 <img src="images/red.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>68 <img src="images/yellow.png"></td>
+        <td>25 <img src="images/orange.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>&nbsp;&nbsp;98 <img src="images/green.png"></td>
+        <td>94 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>Spanish</td>
-        <td>84 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>75 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>43 <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td>67 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>52 <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td>&nbsp;&nbsp;8 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>88 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>75 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>24 <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td>98 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>&nbsp;&nbsp;99 <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>97 <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td>84 <img src="images/green.png"></td>
+        <td>75 <img src="images/green.png"></td>
+        <td>43 <img src="images/orange.png"></td>
+        <td>67 <img src="images/yellow.png"></td>
+        <td>52 <img src="images/yellow.png"></td>
+        <td>&nbsp;&nbsp;8 <img src="images/red.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>75 <img src="images/green.png"></td>
+        <td>24 <img src="images/red.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>&nbsp;&nbsp;99 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td colspan="9"></td>
     </tr>
     <tr>
         <td><strong>overall</strong></td>
-        <td><strong>89</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>81</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>56</strong> <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td><strong>78</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>63</strong> <img src="https://placehold.it/12/ffff00/000000?text=+"></td>
-        <td><strong>22</strong> <img src="https://placehold.it/12/ff0000/000000?text=+"></td>
-        <td><strong>93</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>81</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>48</strong> <img src="https://placehold.it/12/ff8c00/000000?text=+"></td>
-        <td><strong>98</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td>&nbsp;&nbsp;<strong>99</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
-        <td><strong>96</strong> <img src="https://placehold.it/12/008000/000000?text=+"></td>
+        <td><strong>89</strong> <img src="images/green.png"></td>
+        <td><strong>81</strong> <img src="images/green.png"></td>
+        <td><strong>56</strong> <img src="images/yellow.png"></td>
+        <td><strong>78</strong> <img src="images/green.png"></td>
+        <td><strong>63</strong> <img src="images/yellow.png"></td>
+        <td><strong>22</strong> <img src="images/red.png"></td>
+        <td><strong>93</strong> <img src="images/green.png"></td>
+        <td><strong>81</strong> <img src="images/green.png"></td>
+        <td><strong>48</strong> <img src="images/orange.png"></td>
+        <td><strong>98</strong> <img src="images/green.png"></td>
+        <td>&nbsp;&nbsp;<strong>99</strong> <img src="images/green.png"></td>
+        <td><strong>96</strong> <img src="images/green.png"></td>
     </tr>
 </table>
 
