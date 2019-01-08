@@ -1,4 +1,4 @@
-Jan 08, 2019 11:05:57 AM com.github.pemistahl.lingua.report.lingua.SwedishDetectionAccuracyReport afterAll
+Jan 08, 2019 4:46:36 PM com.github.pemistahl.lingua.report.lingua.SwedishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### SWEDISH #####
@@ -7,11 +7,11 @@ INFORMATION:
 
 >> Detection of 21061 single words (average length: 10 chars)
 Accuracy: 72,14%
-Erroneously classified as DANISH: 7,16%, GERMAN: 3,45%, ENGLISH: 2,54%, DUTCH: 1,56%, ITALIAN: 1,56%, FINNISH: 1,54%, FRENCH: 1,39%, SPANISH: 1,09%, PORTUGUESE: 1,05%, ESTONIAN: 1,03%, LITHUANIAN: 1,01%, ROMANIAN: 0,94%, CROATIAN: 0,90%, TURKISH: 0,85%, POLISH: 0,54%, LATVIAN: 0,46%, HUNGARIAN: 0,44%, CZECH: 0,36%, RUSSIAN: 0,00%, BELARUSIAN: 0,00%
+Erroneously classified as DANISH: 7,16%, GERMAN: 3,45%, ENGLISH: 2,54%, DUTCH: 1,56%, ITALIAN: 1,56%, FINNISH: 1,54%, FRENCH: 1,39%, SPANISH: 1,09%, PORTUGUESE: 1,05%, ESTONIAN: 1,04%, LITHUANIAN: 1,01%, ROMANIAN: 0,94%, CROATIAN: 0,90%, TURKISH: 0,85%, POLISH: 0,54%, LATVIAN: 0,46%, HUNGARIAN: 0,44%, CZECH: 0,37%
 
 >> Detection of 44276 word pairs (average length: 17 chars)
 Accuracy: 92,33%
-Erroneously classified as DANISH: 2,95%, GERMAN: 1,03%, ENGLISH: 0,74%, FINNISH: 0,51%, DUTCH: 0,35%, ITALIAN: 0,33%, FRENCH: 0,32%, ESTONIAN: 0,26%, SPANISH: 0,21%, PORTUGUESE: 0,16%, LITHUANIAN: 0,16%, TURKISH: 0,14%, CROATIAN: 0,13%, ROMANIAN: 0,12%, LATVIAN: 0,08%, POLISH: 0,07%, HUNGARIAN: 0,04%, CZECH: 0,04%, BULGARIAN: 0,00%
+Erroneously classified as DANISH: 2,95%, GERMAN: 1,03%, ENGLISH: 0,74%, FINNISH: 0,51%, DUTCH: 0,35%, ITALIAN: 0,33%, FRENCH: 0,32%, ESTONIAN: 0,26%, SPANISH: 0,21%, PORTUGUESE: 0,16%, LITHUANIAN: 0,16%, TURKISH: 0,14%, CROATIAN: 0,13%, ROMANIAN: 0,12%, LATVIAN: 0,08%, POLISH: 0,07%, HUNGARIAN: 0,04%, CZECH: 0,04%
 
 >> Detection of 9997 sentences (average length: 92 chars)
 Accuracy: 99,11%

@@ -17,11 +17,29 @@
 package com.github.pemistahl.lingua
 
 import com.github.pemistahl.lingua.detector.LanguageDetector
+import com.github.pemistahl.lingua.model.Language
+import com.github.pemistahl.lingua.util.writeLanguageModelsFromLeipzigCorpusFile
+import com.github.pemistahl.lingua.util.writeTestDataFiles
 import java.io.Console
 import java.util.Scanner
 
 fun main() {
-    runApp()
+    //runApp()
+
+    /*
+    writeLanguageModelsFromLeipzigCorpusFile(
+        inputPath = "/training-data/pt/pt_1M.txt",
+        outputPath = "C:/Users/pstahl/Documents",
+        language = Language.PORTUGUESE
+    )
+    */
+
+    /*
+    writeTestDataFiles(
+        inputPath = "/training-data/cs/cs_10K.txt",
+        outputPath = "C:/Users/pstahl/Documents"
+    )
+    */
 }
 
 private fun runApp() {

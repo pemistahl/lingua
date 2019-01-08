@@ -45,8 +45,8 @@ class LanguageDetector private constructor(
         val trimmedText = text.trim().toLowerCase()
         val textSequence = trimmedText.lineSequence()
 
-        //val languageDetectedByRules = detectLanguageWithRules(trimmedText)
-        //if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
+        val languageDetectedByRules = detectLanguageWithRules(trimmedText)
+        if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
 
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
@@ -70,6 +70,12 @@ class LanguageDetector private constructor(
             val fivegramProbabilities = computeFivegramProbabilities(fivegramTestDataModel)
             allProbabilities.add(fivegramProbabilities)
         }
+
+        /*
+        for (prob in allProbabilities) {
+            println(prob)
+        }
+        */
 
         val summedUpProbabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -102,6 +108,7 @@ class LanguageDetector private constructor(
     }
 
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
+        //println(probabilities)
         return probabilities
             .asSequence()
             .filter { it.value != 0.0 }
@@ -113,6 +120,36 @@ class LanguageDetector private constructor(
         val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
 
         for (word in splitText) {
+            if (word.contains('ß')) return Language.GERMAN
+
+            if (LATIN_ALPHABET_REGEX.matches(word)) {
+                languagesSequence.filterNot {
+                    it.hasLatinAlphabet
+                }.forEach {
+                    it.isExcludedFromDetection = true
+                }
+                break
+            }
+
+            else if (CYRILLIC_ALPHABET_REGEX.matches(word)) {
+                languagesSequence.filterNot {
+                    it.hasCyrillicAlphabet
+                }.forEach {
+                    it.isExcludedFromDetection = true
+                }
+                break
+            }
+
+            else if (ARABIC_ALPHABET_REGEX.matches(word)) {
+                languagesSequence.filterNot {
+                    it.hasArabicAlphabet
+                }.forEach {
+                    it.isExcludedFromDetection = true
+                }
+                break
+            }
+
+            /*
             if (word.contains(ENGLISH_GRAPHS) || word.endsWith("ing")) return Language.ENGLISH
             if (word.contains(FRENCH_UNIQUE_CHARS)) return Language.FRENCH
             if (word.contains(GERMAN_UNIQUE_CHARS) || word.endsWith("ung")) return Language.GERMAN
@@ -140,6 +177,7 @@ class LanguageDetector private constructor(
                 }.forEach { it.isExcludedFromDetection = true }
                 break
             }
+            */
         }
 
         return Language.UNKNOWN
@@ -335,11 +373,16 @@ class LanguageDetector private constructor(
 
         private const val MISSING_LANGUAGE_MESSAGE = "LanguageDetector needs at least 2 languages to choose from"
         private val NO_LETTER_REGEX = Regex("^[^\\p{L}]+$")
+        private val LATIN_ALPHABET_REGEX = Regex("^[\\p{IsLatin}]+$")
+        private val CYRILLIC_ALPHABET_REGEX = Regex("^[\\p{IsCyrillic}]+$")
+        private val ARABIC_ALPHABET_REGEX = Regex("^[\\p{IsArabic}]+$")
+        /*
         private val ENGLISH_GRAPHS = Regex("[ao]ugh")
         private val FRENCH_UNIQUE_CHARS = Regex("[ÆæŒœŸÿ]+")
         private val GERMAN_UNIQUE_CHARS = Regex("[AÖÜäöüß]+")
         private val ITALIAN_GRAPHS = Regex("cch|ggh|zz")
         private val PORTUGUESE_UNIQUE_CHARS = Regex("[ãõ]+")
         private val SPANISH_UNIQUE_CHARS = Regex("[ñ¿¡]+")
+        */
     }
 }

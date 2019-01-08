@@ -220,6 +220,9 @@
     <profiles>
         <profile>
             <id>accuracy-reports</id>
+            <properties>
+                <language>*</language>
+            </properties>
             <activation>
                 <property>
                     <name>detector</name>
@@ -232,7 +235,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <includes>
-                                <include>**/${detector}/*Report.java</include>
+                                <include>**/${detector}/${language}DetectionAccuracyReport.java</include>
                             </includes>
                             <reportsDirectory>${project.build.directory}/../accuracy-reports/${detector}</reportsDirectory>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>

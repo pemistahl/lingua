@@ -16,35 +16,41 @@
 
 package com.github.pemistahl.lingua.model
 
-enum class Language(val isoCode: String, internal var isExcludedFromDetection: Boolean) {
+enum class Language(
+    val isoCode: String,
+    internal val hasLatinAlphabet: Boolean,
+    internal val hasCyrillicAlphabet: Boolean,
+    internal val hasArabicAlphabet: Boolean,
+    internal var isExcludedFromDetection: Boolean
+) {
 
-    ARABIC     ("ar", false),
-    BELARUSIAN ("be", false),
-    BULGARIAN  ("bg", false),
-    CROATIAN   ("hr", false),
-    CZECH      ("cs", false),
-    DANISH     ("da", false),
-    DUTCH      ("nl", false),
-    ENGLISH    ("en", false),
-    ESTONIAN   ("et", false),
-    FINNISH    ("fi", false),
-    FRENCH     ("fr", false),
-    GERMAN     ("de", false),
-    HUNGARIAN  ("hu", false),
-    ITALIAN    ("it", false),
-    LATIN      ("la", false),
-    LATVIAN    ("lv", false),
-    LITHUANIAN ("lt", false),
-    PERSIAN    ("fa", false),
-    POLISH     ("pl", false),
-    PORTUGUESE ("pt", false),
-    ROMANIAN   ("ro", false),
-    RUSSIAN    ("ru", false),
-    SPANISH    ("es", false),
-    SWEDISH    ("sv", false),
-    TURKISH    ("tr", false),
+    ARABIC     ("ar", false, false, true, false),
+    BELARUSIAN ("be", false, true, false, false),
+    BULGARIAN  ("bg", false, true, false, false),
+    CROATIAN   ("hr", true, false, false, false),
+    CZECH      ("cs", true, false, false, false),
+    DANISH     ("da", true, false, false, false),
+    DUTCH      ("nl", true, false, false, false),
+    ENGLISH    ("en", true, false, false, false),
+    ESTONIAN   ("et", true, false, false, false),
+    FINNISH    ("fi", true, false, false, false),
+    FRENCH     ("fr", true, false, false, false),
+    GERMAN     ("de", true, false, false, false),
+    HUNGARIAN  ("hu", true, false, false, false),
+    ITALIAN    ("it", true, false, false, false),
+    LATIN      ("la", true, false, false, false),
+    LATVIAN    ("lv", true, false, false, false),
+    LITHUANIAN ("lt", true, false, false, false),
+    PERSIAN    ("fa", false, false, true, false),
+    POLISH     ("pl", true, false, false, false),
+    PORTUGUESE ("pt", true, false, false, false),
+    ROMANIAN   ("ro", true, false, false, false),
+    RUSSIAN    ("ru", false, true, false, false),
+    SPANISH    ("es", true, false, false, false),
+    SWEDISH    ("sv", true, false, false, false),
+    TURKISH    ("tr", true, false, false, false),
 
-    UNKNOWN    ("<unk>", true);
+    UNKNOWN    ("<unk>", false, false, false, true);
 
     companion object {
         fun getByIsoCode(isoCode: String): Language {

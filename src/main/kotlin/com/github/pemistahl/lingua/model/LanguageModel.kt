@@ -102,7 +102,21 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
     ) {
         val ngramAbsoluteFrequencies = hashMapOf<T, Int>()
         val padding = PAD_CHAR.repeat(ngramLength)
-        val regex = Regex("[\\p{L}]+")
+
+        // Match only cyrillic letters
+        //val regex = Regex("[\\p{L}&&\\p{IsCyrillic}]+")
+
+        // Match only arabic letters
+        //val regex = Regex("[\\p{L}&&\\p{IsArabic}]+")
+
+        // Match only german letters
+        //val regex = Regex("[A-Za-zÄÖÜäöüß]+")
+
+        // Match only English letters
+        //val regex = Regex("[A-Za-z]+")
+
+        // Match only letters of latin alphabet
+        val regex = Regex("[\\p{IsLatin}]+")
 
         for (line in linesOfText) {
             val lowerCasedLine = if (areNgramsLowerCase)

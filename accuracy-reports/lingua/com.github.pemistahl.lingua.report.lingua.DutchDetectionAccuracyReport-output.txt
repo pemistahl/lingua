@@ -1,4 +1,4 @@
-Jan 08, 2019 10:48:31 AM com.github.pemistahl.lingua.report.lingua.DutchDetectionAccuracyReport afterAll
+Jan 08, 2019 4:34:35 PM com.github.pemistahl.lingua.report.lingua.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
@@ -7,12 +7,12 @@ INFORMATION:
 
 >> Detection of 18550 single words (average length: 9 chars)
 Accuracy: 67,49%
-Erroneously classified as GERMAN: 5,81%, ENGLISH: 5,29%, FRENCH: 3,65%, DANISH: 3,08%, ITALIAN: 2,18%, SWEDISH: 1,85%, ROMANIAN: 1,65%, FINNISH: 1,43%, SPANISH: 1,33%, ESTONIAN: 1,31%, PORTUGUESE: 1,04%, LITHUANIAN: 0,78%, TURKISH: 0,68%, CROATIAN: 0,61%, POLISH: 0,59%, HUNGARIAN: 0,44%, LATVIAN: 0,42%, CZECH: 0,32%, RUSSIAN: 0,01%, BULGARIAN: 0,01%
+Erroneously classified as GERMAN: 5,81%, ENGLISH: 5,30%, FRENCH: 3,65%, DANISH: 3,08%, ITALIAN: 2,18%, SWEDISH: 1,85%, ROMANIAN: 1,65%, FINNISH: 1,43%, SPANISH: 1,33%, ESTONIAN: 1,32%, PORTUGUESE: 1,04%, LITHUANIAN: 0,78%, TURKISH: 0,68%, CROATIAN: 0,61%, POLISH: 0,59%, HUNGARIAN: 0,44%, LATVIAN: 0,42%, CZECH: 0,32%
 
 >> Detection of 43985 word pairs (average length: 17 chars)
 Accuracy: 91,18%
-Erroneously classified as GERMAN: 2,46%, ENGLISH: 1,59%, FRENCH: 1,00%, DANISH: 0,84%, ITALIAN: 0,50%, SWEDISH: 0,47%, ESTONIAN: 0,34%, SPANISH: 0,31%, ROMANIAN: 0,25%, FINNISH: 0,24%, PORTUGUESE: 0,18%, POLISH: 0,14%, LITHUANIAN: 0,12%, CROATIAN: 0,10%, HUNGARIAN: 0,09%, TURKISH: 0,08%, LATVIAN: 0,06%, CZECH: 0,04%, BULGARIAN: 0,00%
+Erroneously classified as GERMAN: 2,46%, ENGLISH: 1,59%, FRENCH: 1,01%, DANISH: 0,84%, ITALIAN: 0,50%, SWEDISH: 0,47%, ESTONIAN: 0,34%, SPANISH: 0,31%, ROMANIAN: 0,25%, FINNISH: 0,24%, PORTUGUESE: 0,18%, POLISH: 0,14%, LITHUANIAN: 0,12%, CROATIAN: 0,10%, HUNGARIAN: 0,09%, TURKISH: 0,08%, LATVIAN: 0,06%, CZECH: 0,04%
 
 >> Detection of 9999 sentences (average length: 97 chars)
 Accuracy: 99,27%
-Erroneously classified as ENGLISH: 0,26%, GERMAN: 0,13%, FRENCH: 0,08%, DANISH: 0,07%, FINNISH: 0,04%, SWEDISH: 0,04%, ITALIAN: 0,04%, LITHUANIAN: 0,01%, PORTUGUESE: 0,01%, POLISH: 0,01%, ESTONIAN: 0,01%, HUNGARIAN: 0,01%, CROATIAN: 0,01%, SPANISH: 0,01%
+Erroneously classified as ENGLISH: 0,26%, GERMAN: 0,13%, FRENCH: 0,08%, DANISH: 0,07%, FINNISH: 0,04%, SWEDISH: 0,04%, ITALIAN: 0,04%, ESTONIAN: 0,02%, LITHUANIAN: 0,01%, POLISH: 0,01%, HUNGARIAN: 0,01%, CROATIAN: 0,01%, SPANISH: 0,01%

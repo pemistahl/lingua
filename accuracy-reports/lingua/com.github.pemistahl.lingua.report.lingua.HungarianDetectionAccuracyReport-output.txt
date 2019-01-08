@@ -1,4 +1,4 @@
-Jan 08, 2019 10:54:17 AM com.github.pemistahl.lingua.report.lingua.HungarianDetectionAccuracyReport afterAll
+Jan 08, 2019 4:39:17 PM com.github.pemistahl.lingua.report.lingua.HungarianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### HUNGARIAN #####
