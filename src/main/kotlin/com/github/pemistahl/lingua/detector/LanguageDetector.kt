@@ -38,8 +38,8 @@ class LanguageDetector private constructor(
     private val bigramLanguageModels = loadLanguageModels(languages, Bigram::class)
     private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
 
-    private val quadrigramLanguageModels by lazy { loadLanguageModels(languages, Quadrigram::class) }
-    private val fivegramLanguageModels by lazy { loadLanguageModels(languages, Fivegram::class) }
+    //private val quadrigramLanguageModels by lazy { loadLanguageModels(languages, Quadrigram::class) }
+    //private val fivegramLanguageModels by lazy { loadLanguageModels(languages, Fivegram::class) }
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
@@ -71,11 +71,9 @@ class LanguageDetector private constructor(
             allProbabilities.add(fivegramProbabilities)
         }
 
-        /*
         for (prob in allProbabilities) {
             println(prob)
         }
-        */
 
         val summedUpProbabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -95,8 +93,8 @@ class LanguageDetector private constructor(
             unigramLanguageModels[language] = loadLanguageModel(language, Unigram::class)
             bigramLanguageModels[language] = loadLanguageModel(language, Bigram::class)
             trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
-            quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
-            fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
+            //quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
+            //fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
         }
     }
 
@@ -308,12 +306,46 @@ class LanguageDetector private constructor(
 
     private fun lookUpQuadrigramProbability(language: Language, ngram: Ngram): Fraction? {
         val quadrigram = if (ngram is Quadrigram) ngram else Quadrigram(ngram.value.slice(0..3))
-        return lookUpNgramProbability(quadrigramLanguageModels, language, quadrigram)
+        return lookUpNgramProbabilityInJsonStream(language, quadrigram)
     }
 
     private fun lookUpFivegramProbability(language: Language, ngram: Ngram): Fraction? {
         val fivegram = if (ngram is Fivegram) ngram else Fivegram(ngram.value.slice(0..4))
-        return lookUpNgramProbability(fivegramLanguageModels, language, fivegram)
+        return lookUpNgramProbabilityInJsonStream(language, fivegram)
+    }
+
+    private fun lookUpNgramProbabilityInJsonStream(language: Language, ngram: Ngram): Fraction? {
+        val fileName = "${ngram::class.simpleName!!.toLowerCase()}s.json"
+        var fraction: Fraction? = null
+
+        "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
+            jsonReader.beginObject()
+            while (jsonReader.hasNext()) {
+                val name = jsonReader.nextName()
+                if (name == "ngrams") {
+                    jsonReader.beginObject()
+                    while (jsonReader.hasNext()) {
+                        val fractionLiteral = jsonReader.nextName()
+                        if (true) {
+                            val ngrams = jsonReader.nextString()
+                            if (ngrams.contains(ngram.value)) {
+                                fraction = Fraction(fractionLiteral)
+                                jsonReader.close()
+                                break
+                            }
+                        }
+                    }
+                    //jsonReader.endObject()
+                    break
+                } else {
+                    jsonReader.skipValue()
+                }
+            }
+            //jsonReader.endObject()
+            //jsonReader.close()
+        }
+
+        return fraction
     }
 
     companion object {
