@@ -203,6 +203,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         )
 
         fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T, T> {
+            /*
             var language: Language? = null
             var areNgramsLowerCase: Boolean? = null
             var areNgramsPadded: Boolean? = null
@@ -237,8 +238,10 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             json.close()
 
             return LanguageModel(language!!, areNgramsLowerCase!!, areNgramsPadded!!, ngramRelativeFrequencies)
-            //val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
-            //return getGson(ngramClass).fromJson(json, type)
+            */
+
+            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
+            return getGson(ngramClass).fromJson(json, type)
         }
 
         private inline fun <reified T : Ngram> getNgramLength(): Int =

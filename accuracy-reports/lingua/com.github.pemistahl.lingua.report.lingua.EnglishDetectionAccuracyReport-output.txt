@@ -1,0 +1,18 @@
+Jan 08, 2019 10:48:52 AM com.github.pemistahl.lingua.report.lingua.EnglishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### ENGLISH #####
+
+>>> Accuracy on average: 83,26%
+
+>> Detection of 5914 single words (average length: 7 chars)
+Accuracy: 65,67%
+Erroneously classified as FRENCH: 7,88%, DANISH: 3,48%, ITALIAN: 3,15%, GERMAN: 2,79%, ROMANIAN: 2,30%, DUTCH: 2,28%, SWEDISH: 2,08%, SPANISH: 1,98%, PORTUGUESE: 1,81%, ESTONIAN: 1,30%, FINNISH: 1,22%, POLISH: 1,00%, TURKISH: 0,86%, LITHUANIAN: 0,56%, HUNGARIAN: 0,52%, CROATIAN: 0,44%, CZECH: 0,42%, LATVIAN: 0,25%
+
+>> Detection of 3759 word pairs (average length: 15 chars)
+Accuracy: 86,41%
+Erroneously classified as FRENCH: 2,42%, GERMAN: 1,76%, DUTCH: 1,28%, DANISH: 1,22%, ITALIAN: 1,22%, SWEDISH: 1,12%, SPANISH: 0,98%, PORTUGUESE: 0,69%, ROMANIAN: 0,48%, TURKISH: 0,43%, POLISH: 0,43%, FINNISH: 0,43%, ESTONIAN: 0,35%, HUNGARIAN: 0,29%, CROATIAN: 0,19%, CZECH: 0,19%, LITHUANIAN: 0,13%
+
+>> Detection of 10000 sentences (average length: 34 chars)
+Accuracy: 97,70%
+Erroneously classified as DUTCH: 0,32%, DANISH: 0,30%, GERMAN: 0,30%, SWEDISH: 0,28%, FRENCH: 0,26%, FINNISH: 0,16%, SPANISH: 0,14%, ITALIAN: 0,12%, PORTUGUESE: 0,11%, CZECH: 0,11%, POLISH: 0,07%, TURKISH: 0,04%, ESTONIAN: 0,03%, HUNGARIAN: 0,02%, CROATIAN: 0,01%, LITHUANIAN: 0,01%, ROMANIAN: 0,01%, LATVIAN: 0,01%

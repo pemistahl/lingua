@@ -1,0 +1,18 @@
+Jan 08, 2019 10:51:40 AM com.github.pemistahl.lingua.report.lingua.FinnishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### FINNISH #####
+
+>>> Accuracy on average: 96,50%
+
+>> Detection of 33691 single words (average length: 11 chars)
+Accuracy: 91,28%
+Erroneously classified as ESTONIAN: 1,59%, ENGLISH: 0,98%, ITALIAN: 0,80%, LITHUANIAN: 0,75%, SWEDISH: 0,59%, GERMAN: 0,54%, DUTCH: 0,49%, ROMANIAN: 0,45%, FRENCH: 0,41%, DANISH: 0,41%, TURKISH: 0,33%, CROATIAN: 0,30%, SPANISH: 0,28%, PORTUGUESE: 0,26%, POLISH: 0,17%, CZECH: 0,12%, LATVIAN: 0,12%, HUNGARIAN: 0,12%, BULGARIAN: 0,00%
+
+>> Detection of 59049 word pairs (average length: 19 chars)
+Accuracy: 98,45%
+Erroneously classified as ENGLISH: 0,29%, ESTONIAN: 0,29%, SWEDISH: 0,16%, GERMAN: 0,14%, DUTCH: 0,11%, ITALIAN: 0,09%, LITHUANIAN: 0,07%, DANISH: 0,07%, FRENCH: 0,06%, ROMANIAN: 0,05%, SPANISH: 0,04%, POLISH: 0,04%, PORTUGUESE: 0,04%, CROATIAN: 0,03%, TURKISH: 0,03%, HUNGARIAN: 0,02%, LATVIAN: 0,01%, CZECH: 0,01%
+
+>> Detection of 10000 sentences (average length: 104 chars)
+Accuracy: 99,76%
+Erroneously classified as SWEDISH: 0,05%, TURKISH: 0,03%, GERMAN: 0,03%, ENGLISH: 0,03%, ESTONIAN: 0,03%, ROMANIAN: 0,02%, HUNGARIAN: 0,01%, DUTCH: 0,01%, PORTUGUESE: 0,01%, CZECH: 0,01%, FRENCH: 0,01%

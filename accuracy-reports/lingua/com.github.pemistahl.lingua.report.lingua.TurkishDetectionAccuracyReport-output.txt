@@ -1,0 +1,18 @@
+Jan 08, 2019 11:07:25 AM com.github.pemistahl.lingua.report.lingua.TurkishDetectionAccuracyReport afterAll
+INFORMATION: 
+
+##### TURKISH #####
+
+>>> Accuracy on average: 92,69%
+
+>> Detection of 31566 single words (average length: 9 chars)
+Accuracy: 83,15%
+Erroneously classified as SWEDISH: 4,93%, SPANISH: 2,08%, ESTONIAN: 1,21%, LATVIAN: 1,12%, ENGLISH: 0,88%, FINNISH: 0,79%, DANISH: 0,71%, LITHUANIAN: 0,62%, ROMANIAN: 0,62%, PORTUGUESE: 0,60%, ITALIAN: 0,58%, GERMAN: 0,54%, CROATIAN: 0,52%, FRENCH: 0,46%, DUTCH: 0,41%, HUNGARIAN: 0,39%, POLISH: 0,21%, CZECH: 0,18%, BELARUSIAN: 0,00%
+
+>> Detection of 74017 word pairs (average length: 17 chars)
+Accuracy: 95,39%
+Erroneously classified as SWEDISH: 2,30%, SPANISH: 0,66%, ENGLISH: 0,24%, ESTONIAN: 0,22%, LATVIAN: 0,21%, GERMAN: 0,14%, FRENCH: 0,10%, FINNISH: 0,10%, ROMANIAN: 0,09%, DANISH: 0,09%, LITHUANIAN: 0,08%, DUTCH: 0,07%, PORTUGUESE: 0,07%, HUNGARIAN: 0,07%, ITALIAN: 0,07%, CROATIAN: 0,06%, POLISH: 0,02%, CZECH: 0,02%, RUSSIAN: 0,00%, BELARUSIAN: 0,00%, ARABIC: 0,00%
+
+>> Detection of 10000 sentences (average length: 117 chars)
+Accuracy: 99,54%
+Erroneously classified as SWEDISH: 0,36%, SPANISH: 0,05%, LATVIAN: 0,01%, HUNGARIAN: 0,01%, GERMAN: 0,01%, FINNISH: 0,01%, ENGLISH: 0,01%
