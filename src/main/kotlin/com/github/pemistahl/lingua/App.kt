@@ -24,7 +24,7 @@ import java.io.Console
 import java.util.Scanner
 
 fun main() {
-    //runApp()
+    runApp()
 
     /*
     writeLanguageModelsFromLeipzigCorpusFile(
@@ -36,8 +36,10 @@ fun main() {
 
     /*
     writeTestDataFiles(
-        inputPath = "/training-data/cs/cs_10K.txt",
-        outputPath = "C:/Users/pstahl/Documents"
+        inputPath = "/training-data/pt/pt_10K.txt",
+        outputPath = "C:/Users/pstahl/Documents/language-testdata",
+        isoCode = "pt",
+        charClass = "IsLatin"
     )
     */
 }

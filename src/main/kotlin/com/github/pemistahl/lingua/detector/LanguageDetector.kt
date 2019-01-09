@@ -38,8 +38,11 @@ class LanguageDetector private constructor(
     private val bigramLanguageModels = loadLanguageModels(languages, Bigram::class)
     private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
 
-    //private val quadrigramLanguageModels by lazy { loadLanguageModels(languages, Quadrigram::class) }
-    //private val fivegramLanguageModels by lazy { loadLanguageModels(languages, Fivegram::class) }
+    //private val quadrigramProbabilities = mutableMapOf<Language, MutableMap<Quadrigram, Fraction>>()
+    //private val fivegramProbabilities = mutableMapOf<Language, MutableMap<Fivegram, Fraction>>()
+
+    private val quadrigramLanguageModels by lazy { loadLanguageModels(languages, Quadrigram::class) }
+    private val fivegramLanguageModels by lazy { loadLanguageModels(languages, Fivegram::class) }
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
@@ -63,21 +66,27 @@ class LanguageDetector private constructor(
         if (trimmedText.length in 4..60) {
             val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
             val quadrigramProbabilities = computeQuadrigramProbabilities(quadrigramTestDataModel)
-            allProbabilities.add(quadrigramProbabilities)
+            if (!quadrigramProbabilities.containsValue(0.0)) {
+                allProbabilities.add(quadrigramProbabilities)
+            }
         }
         if (trimmedText.length in 5..60) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             val fivegramProbabilities = computeFivegramProbabilities(fivegramTestDataModel)
-            allProbabilities.add(fivegramProbabilities)
+            if (!fivegramProbabilities.containsValue(0.0)) {
+                allProbabilities.add(fivegramProbabilities)
+            }
         }
 
+        /*
         for (prob in allProbabilities) {
             println(prob)
         }
+        */
 
         val summedUpProbabilities = mutableMapOf<Language, Double>()
         for (language in languagesSequence) {
-            summedUpProbabilities[language] = allProbabilities.sumByDouble { it.getValue(language) }
+            summedUpProbabilities[language] = allProbabilities.sumByDouble { it.getOrDefault(language, 0.0) }
         }
 
         languagesSequence = languages.asSequence()
@@ -93,8 +102,8 @@ class LanguageDetector private constructor(
             unigramLanguageModels[language] = loadLanguageModel(language, Unigram::class)
             bigramLanguageModels[language] = loadLanguageModel(language, Bigram::class)
             trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
-            //quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
-            //fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
+            quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
+            fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
         }
     }
 
@@ -106,7 +115,7 @@ class LanguageDetector private constructor(
     }
 
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        println("TOTAL: $probabilities")
+        //println("TOTAL: $probabilities")
         return probabilities
             .asSequence()
             .filter { it.value != 0.0 }
@@ -312,22 +321,53 @@ class LanguageDetector private constructor(
         val quadrigrams = ngrams.map {
             if (it is Quadrigram) it else Quadrigram(it.value.slice(0..3))
         }.toMutableList()
-        return lookUpNgramProbabilitiesInJsonStream(language, quadrigrams, "quadrigrams.json")
+        return lookUpNgramProbabilities(quadrigramLanguageModels, language, quadrigrams)
+        //return lookUpNgramProbabilitiesInJsonStream(language, quadrigrams, "quadrigrams.json")
     }
 
     private fun <T : Ngram> lookUpFivegramProbabilities(language: Language, ngrams: List<T>): MutableList<Fraction?> {
         val fivegrams = ngrams.map {
             if (it is Fivegram) it else Fivegram(it.value.slice(0..4))
         }.toMutableList()
-        return lookUpNgramProbabilitiesInJsonStream(language, fivegrams, "fivegrams.json")
+
+        return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
+        //return lookUpNgramProbabilitiesInJsonStream(language, fivegrams, "fivegrams.json")
     }
 
+    /*
     private fun <T : Ngram> lookUpNgramProbabilitiesInJsonStream(
         language: Language,
         ngrams: MutableList<T>,
         filename: String
     ): MutableList<Fraction?> {
         val probabilities = mutableListOf<Fraction?>()
+        val ngramsToRemove = mutableListOf<T>()
+
+        if (!quadrigramProbabilities.contains(language)) {
+            quadrigramProbabilities[language] = mutableMapOf<Quadrigram, Fraction>()
+        }
+        if (!fivegramProbabilities.contains(language)) {
+            fivegramProbabilities[language] = mutableMapOf<Fivegram, Fraction>()
+        }
+
+        for (ngram in ngrams) {
+            if (ngram is Quadrigram && quadrigramProbabilities.getValue(language).contains(ngram)) {
+                probabilities.add(quadrigramProbabilities.getValue(language)[ngram])
+                ngramsToRemove.add(ngram)
+            }
+            else if (ngram is Fivegram && fivegramProbabilities.getValue(language).contains(ngram)) {
+                probabilities.add(fivegramProbabilities.getValue(language)[ngram])
+                ngramsToRemove.add(ngram)
+            }
+        }
+
+        for (n in ngramsToRemove) {
+            ngrams.remove(n)
+        }
+
+        if (ngrams.isEmpty()) return probabilities
+
+        ngramsToRemove.clear()
 
         "/language-models/${language.isoCode}/$filename".asJsonResource { jsonReader ->
             jsonReader.beginObject()
@@ -338,18 +378,19 @@ class LanguageDetector private constructor(
                     while (jsonReader.hasNext()) {
                         val fractionLiteral = jsonReader.nextName()
                         if (ngrams.isNotEmpty()) {
-                            /*
-                            if (ngrams.isEmpty()) {
-                                //jsonReader.close()
-                                break
-                            }
-                            */
                             val ngramsStr = jsonReader.nextString()
-                            val ngramsToRemove = mutableListOf<T>()
-                            for ((i, ngram) in ngrams.withIndex()) {
+                            for (ngram in ngrams) {
                                 if (ngramsStr.contains(ngram.value)) {
-                                    probabilities.add(Fraction(fractionLiteral))
+                                    val fraction = Fraction(fractionLiteral)
+                                    probabilities.add(fraction)
                                     ngramsToRemove.add(ngram)
+
+                                    if (ngram is Quadrigram) {
+                                        quadrigramProbabilities.getValue(language)[ngram] = fraction
+                                    }
+                                    else if (ngram is Fivegram) {
+                                        fivegramProbabilities.getValue(language)[ngram] = fraction
+                                    }
                                 }
                             }
                             for (n in ngramsToRemove) {
@@ -372,6 +413,7 @@ class LanguageDetector private constructor(
 
         return probabilities
     }
+    */
 
     companion object {
         @JvmStatic

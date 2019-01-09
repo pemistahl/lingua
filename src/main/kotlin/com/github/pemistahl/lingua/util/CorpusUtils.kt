@@ -25,56 +25,81 @@ import com.github.pemistahl.lingua.model.Trigram
 import com.github.pemistahl.lingua.model.Unigram
 import com.github.pemistahl.lingua.util.extension.asLineSequenceResource
 import java.io.File
+import kotlin.random.Random
 
-internal fun writeTestDataFiles(inputPath: String, outputPath: String) {
-    val wordRegex = Regex("""[\p{L}]{5,}""")
+internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: String, charClass: String) {
+    val wordRegex = Regex("""[\p{L}&&\p{$charClass}]{5,}""")
     val whitespaceRegex = Regex("""\s+""")
     val words = mutableSetOf<String>()
     val wordPairs = mutableSetOf<String>()
 
+    var lineCounter = 0
+    val randomLineNumbers = (0 until 1100).map { Random.nextInt(0, 9900) }
+
     println("Stripping line numbers from each line...")
-    File("$outputPath/corpus_full.txt").bufferedWriter().use { writer ->
+    File("$outputPath/sentences/$isoCode.txt").bufferedWriter().use { writer ->
         inputPath.asLineSequenceResource { lines ->
-            lines.forEach { line ->
-                writer.write(line.split("\t")[1].replace(whitespaceRegex, " ").replace("\"", ""))
-                writer.newLine()
+            for ((idx, line) in lines.withIndex()) {
+                if (randomLineNumbers.contains(idx) && lineCounter < 1000) {
+                    writer.write(line.split("\t")[1].replace(whitespaceRegex, " ").replace("\"", ""))
+                    writer.newLine()
+                    lineCounter++
+                }
             }
         }
     }
     println("Done.\n")
 
+    lineCounter = 0
+
     println("Creating words and word pairs...")
     inputPath.asLineSequenceResource { lines ->
-        lines.forEach { line ->
-            val singleWords = line
-                .split("\t")[1]
-                .replace(whitespaceRegex, " ")
-                .replace("\"", "")
-                .split(' ')
-                .map { it.trim().toLowerCase() }
-                .filter { wordRegex.matches(it) }
+        for ((idx, line) in lines.withIndex()) {
+            if (randomLineNumbers.contains(idx) && lineCounter < 1000) {
+                val singleWords = line
+                    .split("\t")[1]
+                    .replace(whitespaceRegex, " ")
+                    .replace("\"", "")
+                    .split(' ')
+                    .map { it.trim().toLowerCase() }
+                    .filter { wordRegex.matches(it) }
 
-            words.addAll(singleWords)
+                words.addAll(singleWords)
 
-            for (i in 0..(singleWords.size-2)) {
-                wordPairs.add(
-                    singleWords.slice(i..i+1).joinToString(" ")
-                )
+                for (i in 0..(singleWords.size-2)) {
+                    wordPairs.add(
+                        singleWords.slice(i..i+1).joinToString(" ")
+                    )
+                }
+
+                lineCounter++
             }
         }
     }
 
-    File("$outputPath/corpus_words.txt").bufferedWriter().use { writer ->
-        for (word in words.sorted()) {
-            writer.write(word)
-            writer.newLine()
+    lineCounter = 0
+
+    File("$outputPath/single-words/$isoCode.txt").bufferedWriter().use { writer ->
+        for (word in words.shuffled()) {
+            if (lineCounter < 1000) {
+                writer.write(word)
+                writer.newLine()
+                lineCounter++
+            }
+
         }
     }
 
-    File("$outputPath/corpus_wordpairs.txt").bufferedWriter().use { writer ->
-        for (wordPair in wordPairs.sorted()) {
-            writer.write(wordPair)
-            writer.newLine()
+    lineCounter = 0
+
+    File("$outputPath/word-pairs/$isoCode.txt").bufferedWriter().use { writer ->
+        for (wordPair in wordPairs.shuffled()) {
+            if (lineCounter < 1000) {
+                writer.write(wordPair)
+                writer.newLine()
+                lineCounter++
+            }
+
         }
     }
     println("Done.\n")
