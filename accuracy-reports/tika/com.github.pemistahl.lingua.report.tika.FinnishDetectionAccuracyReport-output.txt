@@ -1,18 +1,18 @@
-Jan 07, 2019 5:32:53 PM com.github.pemistahl.lingua.report.tika.FinnishDetectionAccuracyReport afterAll
+Jan 09, 2019 3:59:18 PM com.github.pemistahl.lingua.report.tika.FinnishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### FINNISH #####
 
->>> Accuracy on average: 93,76%
+>>> Accuracy on average: 94,83%
 
->> Detection of 33691 single words (average length: 11 chars)
-Accuracy: 85,13%
-Erroneously classified as ESTONIAN: 3,80%, ITALIAN: 1,82%, DUTCH: 1,38%, ENGLISH: 0,99%, CROATIAN: 0,91%, LITHUANIAN: 0,85%, DANISH: 0,80%, ROMANIAN: 0,69%, FRENCH: 0,67%, SWEDISH: 0,65%, GERMAN: 0,47%, LATVIAN: 0,41%, TURKISH: 0,36%, SPANISH: 0,35%, PORTUGUESE: 0,31%, POLISH: 0,15%, HUNGARIAN: 0,13%, CZECH: 0,11%
+>> Detection of 1000 single words (average length: 10 chars)
+Accuracy: 88,30%
+Erroneously classified as ESTONIAN: 2,60%, DUTCH: 1,60%, ITALIAN: 1,20%, SWEDISH: 0,90%, CROATIAN: 0,90%, ROMANIAN: 0,60%, FRENCH: 0,50%, GERMAN: 0,50%, SPANISH: 0,40%, DANISH: 0,40%, PORTUGUESE: 0,40%, LITHUANIAN: 0,40%, TURKISH: 0,30%, ENGLISH: 0,30%, LATVIAN: 0,30%, POLISH: 0,20%, HUNGARIAN: 0,10%, CZECH: 0,10%
 
->> Detection of 59049 word pairs (average length: 19 chars)
-Accuracy: 96,52%
-Erroneously classified as ESTONIAN: 1,31%, ITALIAN: 0,38%, DUTCH: 0,37%, ENGLISH: 0,29%, SWEDISH: 0,19%, DANISH: 0,15%, LITHUANIAN: 0,13%, GERMAN: 0,11%, FRENCH: 0,11%, ROMANIAN: 0,10%, CROATIAN: 0,10%, SPANISH: 0,05%, TURKISH: 0,05%, PORTUGUESE: 0,04%, POLISH: 0,04%, LATVIAN: 0,04%, HUNGARIAN: 0,01%, CZECH: 0,01%
+>> Detection of 1000 word pairs (average length: 19 chars)
+Accuracy: 96,30%
+Erroneously classified as ESTONIAN: 1,20%, DANISH: 0,50%, DUTCH: 0,40%, ITALIAN: 0,40%, FRENCH: 0,20%, HUNGARIAN: 0,20%, ENGLISH: 0,20%, LITHUANIAN: 0,20%, PORTUGUESE: 0,10%, SWEDISH: 0,10%, CZECH: 0,10%, POLISH: 0,10%
 
->> Detection of 10000 sentences (average length: 104 chars)
-Accuracy: 99,63%
-Erroneously classified as ESTONIAN: 0,19%, ENGLISH: 0,06%, GERMAN: 0,03%, DUTCH: 0,03%, SWEDISH: 0,02%, HUNGARIAN: 0,01%, ITALIAN: 0,01%, TURKISH: 0,01%, DANISH: 0,01%
+>> Detection of 1000 sentences (average length: 103 chars)
+Accuracy: 99,90%
+Erroneously classified as ESTONIAN: 0,10%

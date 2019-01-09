@@ -1,18 +1,18 @@
-Jan 08, 2019 4:38:09 PM com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport afterAll
+Jan 09, 2019 5:23:12 PM com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### GERMAN #####
 
->>> Accuracy on average: 92,25%
+>>> Accuracy on average: 91,13%
 
->> Detection of 11748 single words (average length: 10 chars)
-Accuracy: 81,22%
-Erroneously classified as DANISH: 3,19%, DUTCH: 3,19%, SWEDISH: 2,07%, FRENCH: 1,81%, ENGLISH: 1,63%, ITALIAN: 1,24%, ROMANIAN: 0,68%, FINNISH: 0,60%, ESTONIAN: 0,60%, SPANISH: 0,59%, PORTUGUESE: 0,58%, LITHUANIAN: 0,54%, POLISH: 0,43%, TURKISH: 0,42%, CROATIAN: 0,37%, LATVIAN: 0,29%, CZECH: 0,29%, HUNGARIAN: 0,25%
+>> Detection of 1000 single words (average length: 9 chars)
+Accuracy: 78,50%
+Erroneously classified as DANISH: 3,50%, ENGLISH: 3,30%, DUTCH: 2,80%, SWEDISH: 2,10%, ITALIAN: 1,90%, FRENCH: 1,70%, ESTONIAN: 0,90%, LITHUANIAN: 0,80%, FINNISH: 0,80%, PORTUGUESE: 0,80%, CROATIAN: 0,80%, POLISH: 0,60%, SPANISH: 0,50%, ROMANIAN: 0,30%, TURKISH: 0,30%, LATVIAN: 0,20%, CZECH: 0,20%
 
->> Detection of 9347 word pairs (average length: 17 chars)
-Accuracy: 96,42%
-Erroneously classified as DUTCH: 0,76%, DANISH: 0,72%, SWEDISH: 0,34%, FRENCH: 0,32%, ENGLISH: 0,27%, ITALIAN: 0,18%, FINNISH: 0,18%, PORTUGUESE: 0,15%, POLISH: 0,13%, SPANISH: 0,11%, HUNGARIAN: 0,10%, LITHUANIAN: 0,09%, CROATIAN: 0,07%, CZECH: 0,05%, ESTONIAN: 0,05%, ROMANIAN: 0,03%, LATVIAN: 0,02%, TURKISH: 0,01%
+>> Detection of 1000 word pairs (average length: 18 chars)
+Accuracy: 95,30%
+Erroneously classified as ENGLISH: 0,90%, DANISH: 0,80%, DUTCH: 0,80%, SWEDISH: 0,60%, FRENCH: 0,40%, ESTONIAN: 0,30%, CZECH: 0,20%, TURKISH: 0,10%, LATVIAN: 0,10%, PORTUGUESE: 0,10%, FINNISH: 0,10%, HUNGARIAN: 0,10%, ROMANIAN: 0,10%, SPANISH: 0,10%
 
->> Detection of 10000 sentences (average length: 47 chars)
-Accuracy: 99,12%
-Erroneously classified as ENGLISH: 0,23%, DUTCH: 0,15%, DANISH: 0,09%, PORTUGUESE: 0,07%, SWEDISH: 0,07%, ESTONIAN: 0,06%, FINNISH: 0,05%, FRENCH: 0,04%, TURKISH: 0,03%, SPANISH: 0,02%, CZECH: 0,02%, POLISH: 0,02%, ROMANIAN: 0,01%, ITALIAN: 0,01%, CROATIAN: 0,01%
+>> Detection of 1000 sentences (average length: 111 chars)
+Accuracy: 99,60%
+Erroneously classified as SWEDISH: 0,10%, POLISH: 0,10%, DUTCH: 0,10%, ENGLISH: 0,10%

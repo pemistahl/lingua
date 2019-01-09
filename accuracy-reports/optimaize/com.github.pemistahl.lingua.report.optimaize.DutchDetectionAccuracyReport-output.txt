@@ -1,18 +1,18 @@
-Jan 07, 2019 5:28:00 PM com.github.pemistahl.lingua.report.optimaize.DutchDetectionAccuracyReport afterAll
+Jan 09, 2019 3:56:29 PM com.github.pemistahl.lingua.report.optimaize.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
 
->>> Accuracy on average: 51,49%
+>>> Accuracy on average: 51,37%
 
->> Detection of 18550 single words (average length: 9 chars)
-Accuracy: 14,64%
-Erroneously classified as UNKNOWN: 83,29%, GERMAN: 0,54%, ENGLISH: 0,44%, DANISH: 0,22%, FRENCH: 0,22%, FINNISH: 0,14%, CROATIAN: 0,12%, ITALIAN: 0,09%, POLISH: 0,08%, ROMANIAN: 0,05%, ESTONIAN: 0,04%, TURKISH: 0,04%, HUNGARIAN: 0,03%, SWEDISH: 0,02%, CZECH: 0,02%, LITHUANIAN: 0,02%, PORTUGUESE: 0,01%, LATVIAN: 0,01%
+>> Detection of 1000 single words (average length: 9 chars)
+Accuracy: 14,20%
+Erroneously classified as UNKNOWN: 83,50%, GERMAN: 0,90%, ENGLISH: 0,30%, DANISH: 0,30%, FINNISH: 0,20%, CROATIAN: 0,20%, SPANISH: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%
 
->> Detection of 43985 word pairs (average length: 17 chars)
-Accuracy: 43,14%
-Erroneously classified as UNKNOWN: 54,29%, DANISH: 0,57%, ENGLISH: 0,52%, GERMAN: 0,50%, FINNISH: 0,22%, FRENCH: 0,21%, CROATIAN: 0,13%, ESTONIAN: 0,12%, ITALIAN: 0,10%, ROMANIAN: 0,06%, POLISH: 0,06%, SWEDISH: 0,04%, HUNGARIAN: 0,02%, TURKISH: 0,01%, CZECH: 0,01%, SPANISH: 0,01%, PORTUGUESE: 0,01%, LITHUANIAN: 0,01%, LATVIAN: 0,00%
+>> Detection of 1000 word pairs (average length: 17 chars)
+Accuracy: 42,30%
+Erroneously classified as UNKNOWN: 54,70%, ENGLISH: 0,70%, ITALIAN: 0,40%, FRENCH: 0,40%, GERMAN: 0,30%, DANISH: 0,30%, CROATIAN: 0,20%, ESTONIAN: 0,20%, POLISH: 0,10%, FINNISH: 0,10%, SWEDISH: 0,10%, SPANISH: 0,10%, LATVIAN: 0,10%
 
->> Detection of 9999 sentences (average length: 97 chars)
-Accuracy: 96,68%
-Erroneously classified as UNKNOWN: 3,17%, GERMAN: 0,04%, ENGLISH: 0,04%, ITALIAN: 0,02%, DANISH: 0,02%, FRENCH: 0,02%, ESTONIAN: 0,01%
+>> Detection of 1000 sentences (average length: 107 chars)
+Accuracy: 97,60%
+Erroneously classified as UNKNOWN: 2,10%, ENGLISH: 0,20%, CZECH: 0,10%

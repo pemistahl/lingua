@@ -1,18 +1,18 @@
-Jan 07, 2019 5:29:24 PM com.github.pemistahl.lingua.report.optimaize.PersianDetectionAccuracyReport afterAll
+Jan 09, 2019 3:56:33 PM com.github.pemistahl.lingua.report.optimaize.PersianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### PERSIAN #####
 
->>> Accuracy on average: 74,08%
+>>> Accuracy on average: 73,23%
 
->> Detection of 14277 single words (average length: 6 chars)
-Accuracy: 50,98%
-Erroneously classified as UNKNOWN: 43,64%, ARABIC: 5,37%
+>> Detection of 1000 single words (average length: 6 chars)
+Accuracy: 48,70%
+Erroneously classified as UNKNOWN: 45,90%, ARABIC: 5,40%
 
->> Detection of 44348 word pairs (average length: 13 chars)
-Accuracy: 72,31%
-Erroneously classified as UNKNOWN: 23,00%, ARABIC: 4,67%, ENGLISH: 0,01%, BELARUSIAN: 0,00%, ESTONIAN: 0,00%
+>> Detection of 1000 word pairs (average length: 13 chars)
+Accuracy: 72,30%
+Erroneously classified as UNKNOWN: 23,10%, ARABIC: 4,60%
 
->> Detection of 10000 sentences (average length: 107 chars)
-Accuracy: 98,93%
-Erroneously classified as UNKNOWN: 0,78%, ENGLISH: 0,16%, ARABIC: 0,12%, FRENCH: 0,01%
+>> Detection of 1000 sentences (average length: 107 chars)
+Accuracy: 98,70%
+Erroneously classified as UNKNOWN: 1,00%, ARABIC: 0,20%, ENGLISH: 0,10%

@@ -1,18 +1,21 @@
-Jan 07, 2019 5:26:56 PM com.github.pemistahl.lingua.report.optimaize.ArabicDetectionAccuracyReport afterAll
+log4j:WARN No appenders could be found for logger (com.optimaize.langdetect.LanguageDetectorImpl).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Jan 09, 2019 3:56:26 PM com.github.pemistahl.lingua.report.optimaize.ArabicDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ARABIC #####
 
->>> Accuracy on average: 88,12%
+>>> Accuracy on average: 90,83%
 
->> Detection of 25532 single words (average length: 6 chars)
-Accuracy: 69,43%
-Erroneously classified as UNKNOWN: 29,40%, PERSIAN: 1,17%
+>> Detection of 1000 single words (average length: 6 chars)
+Accuracy: 77,20%
+Erroneously classified as UNKNOWN: 22,50%, PERSIAN: 0,30%
 
->> Detection of 55504 word pairs (average length: 14 chars)
-Accuracy: 95,09%
-Erroneously classified as UNKNOWN: 4,55%, PERSIAN: 0,36%, GERMAN: 0,00%, FRENCH: 0,00%, ENGLISH: 0,00%
+>> Detection of 1000 word pairs (average length: 14 chars)
+Accuracy: 95,50%
+Erroneously classified as UNKNOWN: 4,10%, PERSIAN: 0,40%
 
->> Detection of 10000 sentences (average length: 92 chars)
-Accuracy: 99,83%
-Erroneously classified as UNKNOWN: 0,12%, PERSIAN: 0,04%, ENGLISH: 0,01%
+>> Detection of 1000 sentences (average length: 89 chars)
+Accuracy: 99,80%
+Erroneously classified as UNKNOWN: 0,20%

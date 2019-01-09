@@ -1,18 +1,18 @@
-Jan 08, 2019 4:39:17 PM com.github.pemistahl.lingua.report.lingua.HungarianDetectionAccuracyReport afterAll
+Jan 09, 2019 5:23:14 PM com.github.pemistahl.lingua.report.lingua.HungarianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### HUNGARIAN #####
 
->>> Accuracy on average: 95,31%
+>>> Accuracy on average: 94,90%
 
->> Detection of 33962 single words (average length: 9 chars)
-Accuracy: 88,41%
-Erroneously classified as ROMANIAN: 1,19%, GERMAN: 0,97%, FINNISH: 0,81%, TURKISH: 0,79%, SWEDISH: 0,77%, LITHUANIAN: 0,73%, ENGLISH: 0,67%, PORTUGUESE: 0,67%, ITALIAN: 0,66%, SPANISH: 0,63%, ESTONIAN: 0,53%, LATVIAN: 0,51%, CZECH: 0,50%, DANISH: 0,47%, POLISH: 0,46%, FRENCH: 0,44%, CROATIAN: 0,43%, DUTCH: 0,35%
+>> Detection of 1000 single words (average length: 9 chars)
+Accuracy: 88,00%
+Erroneously classified as LITHUANIAN: 1,20%, ROMANIAN: 1,20%, PORTUGUESE: 1,10%, TURKISH: 1,10%, ITALIAN: 0,80%, ESTONIAN: 0,80%, FINNISH: 0,80%, LATVIAN: 0,80%, GERMAN: 0,80%, DANISH: 0,70%, ENGLISH: 0,50%, CZECH: 0,50%, SWEDISH: 0,40%, POLISH: 0,40%, SPANISH: 0,40%, CROATIAN: 0,20%, FRENCH: 0,20%, DUTCH: 0,10%
 
->> Detection of 63887 word pairs (average length: 18 chars)
-Accuracy: 97,60%
-Erroneously classified as ROMANIAN: 0,36%, GERMAN: 0,21%, SWEDISH: 0,21%, ENGLISH: 0,18%, FINNISH: 0,16%, PORTUGUESE: 0,14%, LITHUANIAN: 0,14%, SPANISH: 0,13%, TURKISH: 0,13%, LATVIAN: 0,12%, ITALIAN: 0,11%, ESTONIAN: 0,10%, DANISH: 0,09%, FRENCH: 0,08%, POLISH: 0,07%, DUTCH: 0,07%, CZECH: 0,06%, CROATIAN: 0,06%
+>> Detection of 1000 word pairs (average length: 17 chars)
+Accuracy: 96,70%
+Erroneously classified as SWEDISH: 0,50%, GERMAN: 0,40%, FRENCH: 0,30%, DUTCH: 0,30%, ROMANIAN: 0,30%, PORTUGUESE: 0,30%, LATVIAN: 0,30%, CROATIAN: 0,20%, ESTONIAN: 0,20%, LITHUANIAN: 0,20%, FINNISH: 0,10%, ENGLISH: 0,10%, TURKISH: 0,10%
 
->> Detection of 10000 sentences (average length: 116 chars)
-Accuracy: 99,92%
-Erroneously classified as ROMANIAN: 0,02%, LITHUANIAN: 0,01%, FINNISH: 0,01%, TURKISH: 0,01%, DANISH: 0,01%, GERMAN: 0,01%, DUTCH: 0,01%
+>> Detection of 1000 sentences (average length: 116 chars)
+Accuracy: 100,00%
+Erroneously classified as 

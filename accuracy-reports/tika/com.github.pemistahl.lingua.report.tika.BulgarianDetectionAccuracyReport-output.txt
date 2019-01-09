@@ -1,18 +1,18 @@
-Jan 07, 2019 5:31:42 PM com.github.pemistahl.lingua.report.tika.BulgarianDetectionAccuracyReport afterAll
+Jan 09, 2019 3:59:14 PM com.github.pemistahl.lingua.report.tika.BulgarianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### BULGARIAN #####
 
->>> Accuracy on average: 88,13%
+>>> Accuracy on average: 88,83%
 
->> Detection of 19623 single words (average length: 9 chars)
-Accuracy: 76,68%
-Erroneously classified as RUSSIAN: 17,92%, BELARUSIAN: 5,39%, PORTUGUESE: 0,01%, FRENCH: 0,01%
+>> Detection of 1000 single words (average length: 8 chars)
+Accuracy: 78,60%
+Erroneously classified as RUSSIAN: 18,10%, BELARUSIAN: 3,30%
 
->> Detection of 46256 word pairs (average length: 17 chars)
-Accuracy: 88,57%
-Erroneously classified as RUSSIAN: 10,55%, BELARUSIAN: 0,84%, ESTONIAN: 0,02%, ENGLISH: 0,00%, ROMANIAN: 0,00%, DANISH: 0,00%, SPANISH: 0,00%, PORTUGUESE: 0,00%, DUTCH: 0,00%
+>> Detection of 1000 word pairs (average length: 17 chars)
+Accuracy: 88,80%
+Erroneously classified as RUSSIAN: 10,70%, BELARUSIAN: 0,50%
 
->> Detection of 9998 sentences (average length: 88 chars)
-Accuracy: 99,14%
-Erroneously classified as RUSSIAN: 0,79%, BELARUSIAN: 0,05%, ESTONIAN: 0,01%, ENGLISH: 0,01%
+>> Detection of 1000 sentences (average length: 89 chars)
+Accuracy: 99,10%
+Erroneously classified as RUSSIAN: 0,90%

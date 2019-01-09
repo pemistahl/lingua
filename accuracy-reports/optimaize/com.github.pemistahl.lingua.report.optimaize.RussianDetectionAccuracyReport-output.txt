@@ -1,18 +1,18 @@
-Jan 07, 2019 5:30:01 PM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
+Jan 09, 2019 3:56:34 PM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### RUSSIAN #####
 
->>> Accuracy on average: 63,51%
+>>> Accuracy on average: 63,87%
 
->> Detection of 21462 single words (average length: 8 chars)
-Accuracy: 34,51%
-Erroneously classified as UNKNOWN: 64,21%, BELARUSIAN: 1,15%, BULGARIAN: 0,14%
+>> Detection of 1000 single words (average length: 8 chars)
+Accuracy: 34,40%
+Erroneously classified as UNKNOWN: 64,40%, BELARUSIAN: 1,00%, BULGARIAN: 0,20%
 
->> Detection of 31961 word pairs (average length: 16 chars)
-Accuracy: 66,55%
-Erroneously classified as UNKNOWN: 32,74%, BELARUSIAN: 0,52%, BULGARIAN: 0,19%, POLISH: 0,00%
+>> Detection of 1000 word pairs (average length: 16 chars)
+Accuracy: 66,90%
+Erroneously classified as UNKNOWN: 32,70%, BELARUSIAN: 0,40%
 
->> Detection of 10000 sentences (average length: 65 chars)
-Accuracy: 89,46%
-Erroneously classified as UNKNOWN: 10,02%, BULGARIAN: 0,28%, BELARUSIAN: 0,24%
+>> Detection of 1000 sentences (average length: 65 chars)
+Accuracy: 90,30%
+Erroneously classified as UNKNOWN: 9,40%, BELARUSIAN: 0,20%, BULGARIAN: 0,10%
