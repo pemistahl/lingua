@@ -26,17 +26,12 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
-import org.mapdb.BTreeMap
-import org.mapdb.DBMaker
 import org.mapdb.Serializer
 import org.mapdb.SortedTableMap
 import org.mapdb.volume.MappedFileVol
-import org.mapdb.volume.Volume
 import java.io.File
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import java.util.concurrent.ConcurrentMap
-import kotlin.math.sin
 import kotlin.reflect.KClass
 
 internal class LanguageModel<T : Ngram, U : Ngram> {
@@ -121,14 +116,8 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         // Match only arabic letters
         //val regex = Regex("[\\p{L}&&\\p{IsArabic}]+")
 
-        // Match only german letters
-        //val regex = Regex("[A-Za-zÄÖÜäöüß]+")
-
-        // Match only English letters
-        //val regex = Regex("[A-Za-z]+")
-
         // Match only letters of latin alphabet
-        val regex = Regex("[\\p{IsLatin}]+")
+        val regex = Regex("[\\p{L}&&\\p{IsLatin}]+")
 
         for (line in linesOfText) {
             val lowerCasedLine = if (areNgramsLowerCase)
@@ -194,6 +183,8 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 lowerNgramAbsoluteFrequencies.getValue(Trigram(ngram.value.slice(0..2)) as U)
             else if (ngramLength == 5)
                 lowerNgramAbsoluteFrequencies.getValue(Quadrigram(ngram.value.slice(0..3)) as U)
+            else if (ngramLength == 6)
+                lowerNgramAbsoluteFrequencies.getValue(Fivegram(ngram.value.slice(0..4)) as U)
             else totalNgramFrequency
             ngramProbabilities[ngram] = frequency over denominator
         }
@@ -241,6 +232,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 Trigram::class -> 3
                 Quadrigram::class -> 4
                 Fivegram::class -> 5
+                Sixgram::class -> 6
                 else -> throw IllegalArgumentException(
                     "unsupported ngram type: ${T::class.simpleName}"
                 )
@@ -253,6 +245,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 3 -> Trigram(value)
                 4 -> Quadrigram(value)
                 5 -> Fivegram(value)
+                6 -> Sixgram(value)
                 else -> throw IllegalArgumentException(
                     "unsupported ngram length: $ngramLength"
                 )

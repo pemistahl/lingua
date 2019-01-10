@@ -31,9 +31,9 @@ fun main() {
 
     /*
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/pt/pt_1M.txt",
-        outputPath = "C:/Users/pstahl/Documents",
-        language = Language.PORTUGUESE
+        inputPath = "/training-data/tr/tr_1M.txt",
+        outputPath = "C:/Users/pstahl/Documents/ngrams",
+        language = Language.TURKISH
     )
     */
 

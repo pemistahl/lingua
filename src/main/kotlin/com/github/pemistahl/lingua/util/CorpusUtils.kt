@@ -21,6 +21,7 @@ import com.github.pemistahl.lingua.model.Fivegram
 import com.github.pemistahl.lingua.model.Language
 import com.github.pemistahl.lingua.model.LanguageModel
 import com.github.pemistahl.lingua.model.Quadrigram
+import com.github.pemistahl.lingua.model.Sixgram
 import com.github.pemistahl.lingua.model.Trigram
 import com.github.pemistahl.lingua.model.Unigram
 import com.github.pemistahl.lingua.util.extension.asLineSequenceResource
@@ -156,6 +157,16 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
         fivegramModel = LanguageModel.fromTrainingData(lines, language, quadrigramModel.ngramAbsoluteFrequencies)
         File("$outputPath/fivegrams.json").bufferedWriter().use { writer ->
             writer.write(fivegramModel.toJson(Fivegram::class))
+        }
+    }
+    println("Done.\n")
+
+    println("Writing sixgrams...")
+    lateinit var sixgramModel: LanguageModel<Sixgram, Fivegram>
+    inputPath.asLineSequenceResource { lines ->
+        sixgramModel = LanguageModel.fromTrainingData(lines, language, fivegramModel.ngramAbsoluteFrequencies)
+        File("$outputPath/sixgrams.json").bufferedWriter().use { writer ->
+            writer.write(sixgramModel.toJson(Sixgram::class))
         }
     }
     println("Done.")

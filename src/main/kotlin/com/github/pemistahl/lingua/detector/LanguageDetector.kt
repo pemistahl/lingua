@@ -23,6 +23,7 @@ import com.github.pemistahl.lingua.model.Language
 import com.github.pemistahl.lingua.model.LanguageModel
 import com.github.pemistahl.lingua.model.Ngram
 import com.github.pemistahl.lingua.model.Quadrigram
+import com.github.pemistahl.lingua.model.Sixgram
 import com.github.pemistahl.lingua.model.Trigram
 import com.github.pemistahl.lingua.model.Unigram
 import com.github.pemistahl.lingua.util.extension.asJsonResource
@@ -39,6 +40,7 @@ class LanguageDetector private constructor(
     private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
     private val quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
     private val fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
+    private val sixgramLanguageModels = loadLanguageModels(languages, Sixgram::class)
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
@@ -59,18 +61,25 @@ class LanguageDetector private constructor(
 
         val allProbabilities = mutableListOf(unigramProbabilities, bigramProbabilities, trigramProbabilities)
 
-        if (trimmedText.length in 4..60) {
+        if (trimmedText.length in 4..50) {
             val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
             val quadrigramProbabilities = computeQuadrigramProbabilities(quadrigramTestDataModel)
             if (!quadrigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(quadrigramProbabilities)
             }
         }
-        if (trimmedText.length in 5..60) {
+        if (trimmedText.length in 5..50) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             val fivegramProbabilities = computeFivegramProbabilities(fivegramTestDataModel)
             if (!fivegramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(fivegramProbabilities)
+            }
+        }
+        if (trimmedText.length in 6..50) {
+            val sixgramTestDataModel = LanguageModel.fromTestData<Sixgram>(textSequence)
+            val sixgramProbabilities = computeSixgramProbabilities(sixgramTestDataModel)
+            if (!sixgramProbabilities.containsValue(0.0)) {
+                allProbabilities.add(sixgramProbabilities)
             }
         }
 
@@ -100,6 +109,7 @@ class LanguageDetector private constructor(
             trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
             quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
             fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
+            sixgramLanguageModels[language] = loadLanguageModel(language, Sixgram::class)
         }
     }
 
@@ -266,6 +276,25 @@ class LanguageDetector private constructor(
         return probabilities
     }
 
+    private fun computeSixgramProbabilities(
+        sixgramTestDataModel: LanguageModel<Sixgram, Sixgram>
+    ): Map<Language, Double> {
+        val probabilities = mutableMapOf<Language, Double>()
+        for (language in languagesSequence) {
+            probabilities[language] = lookUpNgramProbabilities(
+                language,
+                sixgramTestDataModel.ngrams,
+                ::lookUpSixgramProbabilities,
+                ::lookUpFivegramProbabilities,
+                ::lookUpQuadrigramProbabilities,
+                ::lookUpTrigramProbabilities,
+                ::lookUpBigramProbabilities,
+                ::lookUpUnigramProbabilities
+            )
+        }
+        return probabilities
+    }
+
     private fun <T : Ngram> lookUpNgramProbabilities(
         language: Language,
         ngrams: Set<T>,
@@ -326,6 +355,14 @@ class LanguageDetector private constructor(
         }.toMutableList()
 
         return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
+    }
+
+    private fun <T : Ngram> lookUpSixgramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
+        val sixgrams = ngrams.map {
+            if (it is Sixgram) it else Sixgram(it.value.slice(0..4))
+        }.toMutableList()
+
+        return lookUpNgramProbabilities(sixgramLanguageModels, language, sixgrams)
     }
 
     companion object {
