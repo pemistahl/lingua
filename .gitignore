@@ -21,6 +21,7 @@ out/
 *.launch
 *.tmp
 *.class
+*.dumpstream
 .buildpath
 .classpath
 .vscode/*
