@@ -26,8 +26,12 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import org.mapdb.BTreeMap
+import org.mapdb.DBMaker
+import org.mapdb.Serializer
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+import java.util.concurrent.ConcurrentMap
 import kotlin.reflect.KClass
 
 internal class LanguageModel<T : Ngram, U : Ngram> {
@@ -194,6 +198,12 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
     internal companion object {
 
+        private val database = DBMaker
+            .fileDB("C:/Users/pstahl/Documents/lingua.db")
+            .fileMmapEnable()
+            .closeOnJvmShutdown()
+            .make()
+
         inline fun <reified T : Ngram> fromTestData(
             text: Sequence<String>,
             areNgramsLowerCase: Boolean = true,
@@ -277,14 +287,29 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             val language = Language.valueOf(jsonObj["language"].asString)
             val areNgramsLowerCase = jsonObj["areNgramsLowerCase"].asBoolean
             val areNgramsPadded = jsonObj["areNgramsPadded"].asBoolean
-            val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
 
-            val ngramRelativeFrequencies = hashMapOf<String, Double>()
-            for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
-                val fractionParts = fractionLiteral.split('/').map { it.toInt() }
-                val probability = fractionParts[0].toDouble() / fractionParts[1]
-                for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                    ngramRelativeFrequencies[ngramJsonElem] = probability
+            @Suppress("UNCHECKED_CAST")
+            val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
+            val treeMapName = "${ngramClass.simpleName}_$language"
+
+            lateinit var ngramRelativeFrequencies: BTreeMap<String, Double>
+
+            if (database.exists(treeMapName)) {
+                ngramRelativeFrequencies = database.get(treeMapName)
+            }
+            else {
+                ngramRelativeFrequencies = database
+                    .treeMap(treeMapName, Serializer.STRING, Serializer.DOUBLE)
+                    .create()
+
+                val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
+
+                for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
+                    val fractionParts = fractionLiteral.split('/').map { it.toInt() }
+                    val probability = fractionParts[0].toDouble() / fractionParts[1]
+                    for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
+                        ngramRelativeFrequencies[ngramJsonElem] = probability
+                    }
                 }
             }
 

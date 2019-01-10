@@ -18,8 +18,10 @@ package com.github.pemistahl.lingua
 
 import com.github.pemistahl.lingua.detector.LanguageDetector
 import com.github.pemistahl.lingua.model.Language
+import com.github.pemistahl.lingua.model.LanguageModel
 import com.github.pemistahl.lingua.util.writeLanguageModelsFromLeipzigCorpusFile
 import com.github.pemistahl.lingua.util.writeTestDataFiles
+import org.mapdb.BTreeMap
 import java.io.Console
 import java.util.Scanner
 import kotlin.math.roundToInt
