@@ -22,6 +22,7 @@ import com.github.pemistahl.lingua.util.writeLanguageModelsFromLeipzigCorpusFile
 import com.github.pemistahl.lingua.util.writeTestDataFiles
 import java.io.Console
 import java.util.Scanner
+import kotlin.math.roundToInt
 
 fun main() {
     runApp()
@@ -52,11 +53,14 @@ private fun runApp() {
         """.trimIndent()
     )
 
+    val startTime = System.currentTimeMillis()
     val detector = LanguageDetector.fromAllBuiltInLanguages()
+    val endTime = System.currentTimeMillis()
+    val seconds = ((endTime - startTime) / 1000.0).roundToInt()
 
     println(
         """
-        Done. ${detector.numberOfLoadedLanguages} language models loaded.
+        Done. ${detector.numberOfLoadedLanguages} language models loaded in $seconds seconds.
 
         Type some text and press <Enter> to detect its language.
         Type :quit to exit.

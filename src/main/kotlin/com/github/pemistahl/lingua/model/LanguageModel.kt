@@ -44,19 +44,21 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         }
 
     private val ngramRelativeFrequencies: Map<T, Fraction>
+    private val jsonNgramRelativeFrequencies: Map<String, Double>
 
     private constructor(
         language: Language,
         areNgramsLowerCase: Boolean,
         areNgramsPadded: Boolean,
-        ngramRelativeFrequencies: Map<T, Fraction>
+        ngramRelativeFrequencies: Map<String, Double>
     ) {
         this.language = language
         this.areNgramsLowerCase = areNgramsLowerCase
         this.areNgramsPadded = areNgramsPadded
         this.ngrams = emptySet()
         this.ngramAbsoluteFrequencies = emptyMap()
-        this.ngramRelativeFrequencies = ngramRelativeFrequencies
+        this.ngramRelativeFrequencies = emptyMap()
+        this.jsonNgramRelativeFrequencies = ngramRelativeFrequencies
     }
 
     private constructor(
@@ -90,6 +92,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         this.ngrams = ngrams
         this.ngramAbsoluteFrequencies = emptyMap()
         this.ngramRelativeFrequencies = emptyMap()
+        this.jsonNgramRelativeFrequencies = emptyMap()
     }
 
     private constructor(
@@ -148,9 +151,10 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         this.ngrams = emptySet()
         this.ngramAbsoluteFrequencies = ngramAbsoluteFrequencies
         this.ngramRelativeFrequencies = ngramRelativeFrequencies
+        this.jsonNgramRelativeFrequencies = emptyMap()
     }
 
-    fun getRelativeFrequency(ngram: T): Fraction? = ngramRelativeFrequencies[ngram]
+    fun getRelativeFrequency(ngram: T): Double? = jsonNgramRelativeFrequencies[ngram.value]
 
     fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass).toJson(
         mapOf(
@@ -217,43 +221,6 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         )
 
         fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T, T> {
-            /*
-            var language: Language? = null
-            var areNgramsLowerCase: Boolean? = null
-            var areNgramsPadded: Boolean? = null
-            val ngramRelativeFrequencies = hashMapOf<T, Fraction>()
-
-            json.beginObject()
-            while (json.hasNext()) {
-                val name = json.nextName()
-                if (name == "language") {
-                    language = Language.valueOf(json.nextString())
-                }
-                else if (name == "areNgramsLowerCase") {
-                    areNgramsLowerCase = json.nextBoolean()
-                }
-                else if (name == "areNgramsPadded") {
-                    areNgramsPadded = json.nextBoolean()
-                }
-                else if (name == "ngrams") {
-                    json.beginObject()
-                    while (json.hasNext()) {
-                        val fraction = Fraction(json.nextName())
-                        val ngrams = json.nextString().split(' ')
-                        for (ngramJsonElem in ngrams) {
-                            val ngram: T? = ngramClass.java.getConstructor(String::class.java).newInstance(ngramJsonElem)
-                            ngram?.let { ngramRelativeFrequencies[ngram] = fraction }
-                        }
-                    }
-                    json.endObject()
-                }
-            }
-            json.endObject()
-            json.close()
-
-            return LanguageModel(language!!, areNgramsLowerCase!!, areNgramsPadded!!, ngramRelativeFrequencies)
-            */
-
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
             return getGson(ngramClass).fromJson(json, type)
         }
@@ -306,21 +273,18 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             context: JsonDeserializationContext
         ): LanguageModel<T, T> {
 
-            @Suppress("UNCHECKED_CAST")
-            val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
-
             val jsonObj = json.asJsonObject
             val language = Language.valueOf(jsonObj["language"].asString)
             val areNgramsLowerCase = jsonObj["areNgramsLowerCase"].asBoolean
             val areNgramsPadded = jsonObj["areNgramsPadded"].asBoolean
             val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
 
-            val ngramRelativeFrequencies = hashMapOf<T, Fraction>()
+            val ngramRelativeFrequencies = hashMapOf<String, Double>()
             for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
-                val fraction = Fraction(fractionLiteral)
+                val fractionParts = fractionLiteral.split('/').map { it.toInt() }
+                val probability = fractionParts[0].toDouble() / fractionParts[1]
                 for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                    val ngram: T? = ngramClass.getConstructor(String::class.java).newInstance(ngramJsonElem)
-                    ngram?.let { ngramRelativeFrequencies[ngram] = fraction }
+                    ngramRelativeFrequencies[ngramJsonElem] = probability
                 }
             }
 
