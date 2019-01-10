@@ -16,14 +16,12 @@
 
 package com.github.pemistahl.lingua.detector
 
-import com.github.pemistahl.lingua.math.Fraction
 import com.github.pemistahl.lingua.model.Bigram
 import com.github.pemistahl.lingua.model.Fivegram
 import com.github.pemistahl.lingua.model.Language
 import com.github.pemistahl.lingua.model.LanguageModel
 import com.github.pemistahl.lingua.model.Ngram
 import com.github.pemistahl.lingua.model.Quadrigram
-import com.github.pemistahl.lingua.model.Sixgram
 import com.github.pemistahl.lingua.model.Trigram
 import com.github.pemistahl.lingua.model.Unigram
 import com.github.pemistahl.lingua.util.extension.asJsonResource
@@ -40,7 +38,7 @@ class LanguageDetector private constructor(
     private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
     private val quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
     private val fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
-    private val sixgramLanguageModels = loadLanguageModels(languages, Sixgram::class)
+    //private val sixgramLanguageModels = loadLanguageModels(languages, Sixgram::class)
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
@@ -75,6 +73,7 @@ class LanguageDetector private constructor(
                 allProbabilities.add(fivegramProbabilities)
             }
         }
+        /*
         if (trimmedText.length in 6..50) {
             val sixgramTestDataModel = LanguageModel.fromTestData<Sixgram>(textSequence)
             val sixgramProbabilities = computeSixgramProbabilities(sixgramTestDataModel)
@@ -82,6 +81,7 @@ class LanguageDetector private constructor(
                 allProbabilities.add(sixgramProbabilities)
             }
         }
+        */
 
         /*
         for (prob in allProbabilities) {
@@ -109,7 +109,7 @@ class LanguageDetector private constructor(
             trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
             quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
             fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
-            sixgramLanguageModels[language] = loadLanguageModel(language, Sixgram::class)
+            //sixgramLanguageModels[language] = loadLanguageModel(language, Sixgram::class)
         }
     }
 
@@ -276,6 +276,7 @@ class LanguageDetector private constructor(
         return probabilities
     }
 
+    /*
     private fun computeSixgramProbabilities(
         sixgramTestDataModel: LanguageModel<Sixgram, Sixgram>
     ): Map<Language, Double> {
@@ -294,6 +295,7 @@ class LanguageDetector private constructor(
         }
         return probabilities
     }
+    */
 
     private fun <T : Ngram> lookUpNgramProbabilities(
         language: Language,
@@ -310,7 +312,7 @@ class LanguageDetector private constructor(
                     if (fraction == null) indices.add(idx)
                 }
                 val probs = lookUpFunctions[i](language, ngramsList.filterIndexed {
-                        idx, ngram -> indices.contains(idx)
+                        idx, _ -> indices.contains(idx)
                 })
                 for ((c, idx) in indices.withIndex()) {
                     probabilities.set(idx, probs.get(c))
@@ -357,6 +359,7 @@ class LanguageDetector private constructor(
         return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
     }
 
+    /*
     private fun <T : Ngram> lookUpSixgramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
         val sixgrams = ngrams.map {
             if (it is Sixgram) it else Sixgram(it.value.slice(0..4))
@@ -364,6 +367,7 @@ class LanguageDetector private constructor(
 
         return lookUpNgramProbabilities(sixgramLanguageModels, language, sixgrams)
     }
+    */
 
     companion object {
         @JvmStatic
@@ -404,7 +408,7 @@ class LanguageDetector private constructor(
             var languageModel: LanguageModel<T, T>? = null
             val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
             "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
-                languageModel = LanguageModel.fromJson(jsonReader, ngramClass)
+                languageModel = LanguageModel.fromJson(jsonReader, ngramClass, language)
             }
             return languageModel!!
         }

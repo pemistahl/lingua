@@ -29,9 +29,11 @@ import com.google.gson.stream.JsonReader
 import org.mapdb.Serializer
 import org.mapdb.SortedTableMap
 import org.mapdb.volume.MappedFileVol
-import java.io.File
+import org.mapdb.volume.Volume
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+import java.net.URL
+import java.nio.file.Paths
 import kotlin.reflect.KClass
 
 internal class LanguageModel<T : Ngram, U : Ngram> {
@@ -154,7 +156,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
     fun getRelativeFrequency(ngram: T): Double? = jsonNgramRelativeFrequencies[ngram.value]
 
-    fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass).toJson(
+    fun <T : Ngram> toJson(ngramClass: KClass<T>, language: Language): String = getGson(ngramClass, language).toJson(
         mapOf(
             "language" to language,
             "areNgramsLowerCase" to areNgramsLowerCase,
@@ -220,9 +222,9 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             areNgramsPadded
         )
 
-        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T, T> {
+        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>, language: Language): LanguageModel<T, T> {
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
-            return getGson(ngramClass).fromJson(json, type)
+            return getGson(ngramClass, language).fromJson(json, type)
         }
 
         private inline fun <reified T : Ngram> getNgramLength(): Int =
@@ -255,12 +257,12 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             return ngram as T
         }
 
-        private fun <T : Ngram> getGson(ngramClass: KClass<T>): Gson {
+        private fun <T : Ngram> getGson(ngramClass: KClass<T>, language: Language): Gson {
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
             return GsonBuilder()
                 .registerTypeAdapter(
                     type,
-                    LanguageModelDeserializer<T>()
+                    LanguageModelDeserializer<T>(language)
                 )
                 .create()
         }
@@ -268,7 +270,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         private const val PAD_CHAR = "<PAD>"
     }
 
-    private class LanguageModelDeserializer<T : Ngram> : JsonDeserializer<LanguageModel<T, T>> {
+    private class LanguageModelDeserializer<T : Ngram>(val language: Language) : JsonDeserializer<LanguageModel<T, T>> {
         override fun deserialize(
             json: JsonElement,
             type: Type,
@@ -276,25 +278,54 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         ): LanguageModel<T, T> {
 
             val jsonObj = json.asJsonObject
-            val language = Language.valueOf(jsonObj["language"].asString)
-            val areNgramsLowerCase = jsonObj["areNgramsLowerCase"].asBoolean
-            val areNgramsPadded = jsonObj["areNgramsPadded"].asBoolean
 
             @Suppress("UNCHECKED_CAST")
             val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
-            val filePath = "C:/Users/pstahl/Documents/mapdb"
-            val treeMapName = "${ngramClass.simpleName}_$language"
+            val mapDbFileName = "${ngramClass.simpleName}s_$language.mapdb"
+            val basicInfoFileName = "INFO_$language.mapdb"
+            val mapDbFilePath = "/mapdb-files/$mapDbFileName"
+            val basicInfoFilePath = "/mapdb-files/$basicInfoFileName"
+            val userHomeFolderPath = System.getProperty("user.home")
+            val mapDbFileResource: URL? = LanguageModel::class.java.getResource(mapDbFilePath)
+            val basicInfoFileResource: URL? = LanguageModel::class.java.getResource(basicInfoFilePath)
 
+            lateinit var basicInfoVolume: Volume
+            lateinit var ngramRelativeFrequenciesVolume: Volume
+
+            lateinit var basicInfo: SortedTableMap<String, String>
             lateinit var ngramRelativeFrequencies: SortedTableMap<String, Double>
 
-            if (File("$filePath/$treeMapName.db").exists()) {
-                val volume = MappedFileVol.FACTORY.makeVolume("$filePath/$treeMapName.db", true)
-                ngramRelativeFrequencies = SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
+            if (basicInfoFileResource != null) {
+                basicInfoVolume = MappedFileVol.FACTORY.makeVolume(Paths.get(basicInfoFileResource.toURI()).toString(), true)
+                basicInfo = SortedTableMap.open(basicInfoVolume, Serializer.STRING, Serializer.STRING)
             }
             else {
-                val volume = MappedFileVol.FACTORY.makeVolume("$filePath/$treeMapName.db", false)
+                basicInfoVolume = MappedFileVol.FACTORY.makeVolume("$userHomeFolderPath/$basicInfoFileName", false)
+                val sink: SortedTableMap.Sink<String, String> = SortedTableMap
+                    .create(basicInfoVolume, Serializer.STRING, Serializer.STRING)
+                    .pageSize(1*1024) // page size of 1KB
+                    .nodeSize(1)
+                    .createFromSink()
+                val tempMap = hashMapOf<String, String>()
+
+                tempMap["language"] = jsonObj["language"].asString
+                tempMap["areNgramsLowerCase"] = jsonObj["areNgramsLowerCase"].asString
+                tempMap["areNgramsPadded"] = jsonObj["areNgramsPadded"].asString
+                for ((key, value) in tempMap.toList().sortedBy { it.first }) {
+                    sink.put(key, value)
+                }
+
+                basicInfo = sink.create()
+            }
+
+            if (mapDbFileResource != null) {
+                ngramRelativeFrequenciesVolume = MappedFileVol.FACTORY.makeVolume(Paths.get(mapDbFileResource.toURI()).toString(), true)
+                ngramRelativeFrequencies = SortedTableMap.open(ngramRelativeFrequenciesVolume, Serializer.STRING, Serializer.DOUBLE)
+            }
+            else {
+                ngramRelativeFrequenciesVolume = MappedFileVol.FACTORY.makeVolume("$userHomeFolderPath/$mapDbFileName", false)
                 val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
-                    .create(volume, Serializer.STRING, Serializer.DOUBLE)
+                    .create(ngramRelativeFrequenciesVolume, Serializer.STRING, Serializer.DOUBLE)
                     .pageSize(1*1024) // page size of 1KB
                     .nodeSize(1)
                     .createFromSink()
@@ -317,12 +348,17 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 ngramRelativeFrequencies = sink.create()
             }
 
-            return LanguageModel(
-                language,
-                areNgramsLowerCase,
-                areNgramsPadded,
+            val languageModel = LanguageModel<T, T>(
+                Language.valueOf(basicInfo.getValue("language")),
+                basicInfo.getValue("areNgramsLowerCase").toBoolean(),
+                basicInfo.getValue("areNgramsPadded").toBoolean(),
                 ngramRelativeFrequencies
             )
+
+            //basicInfoVolume.close()
+            //ngramRelativeFrequenciesVolume.close()
+
+            return languageModel
         }
     }
 }
