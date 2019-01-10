@@ -29,9 +29,14 @@ import com.google.gson.stream.JsonReader
 import org.mapdb.BTreeMap
 import org.mapdb.DBMaker
 import org.mapdb.Serializer
+import org.mapdb.SortedTableMap
+import org.mapdb.volume.MappedFileVol
+import org.mapdb.volume.Volume
+import java.io.File
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.util.concurrent.ConcurrentMap
+import kotlin.math.sin
 import kotlin.reflect.KClass
 
 internal class LanguageModel<T : Ngram, U : Ngram> {
@@ -198,12 +203,6 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
     internal companion object {
 
-        private val database = DBMaker
-            .fileDB("C:/Users/pstahl/Documents/lingua.db")
-            .fileMmapEnable()
-            .closeOnJvmShutdown()
-            .make()
-
         inline fun <reified T : Ngram> fromTestData(
             text: Sequence<String>,
             areNgramsLowerCase: Boolean = true,
@@ -290,27 +289,39 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
             @Suppress("UNCHECKED_CAST")
             val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
+            val filePath = "C:/Users/pstahl/Documents/mapdb"
             val treeMapName = "${ngramClass.simpleName}_$language"
 
-            lateinit var ngramRelativeFrequencies: BTreeMap<String, Double>
+            lateinit var ngramRelativeFrequencies: SortedTableMap<String, Double>
 
-            if (database.exists(treeMapName)) {
-                ngramRelativeFrequencies = database.get(treeMapName)
+            if (File("$filePath/$treeMapName.db").exists()) {
+                val volume = MappedFileVol.FACTORY.makeVolume("$filePath/$treeMapName.db", true)
+                ngramRelativeFrequencies = SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
             }
             else {
-                ngramRelativeFrequencies = database
-                    .treeMap(treeMapName, Serializer.STRING, Serializer.DOUBLE)
-                    .create()
+                val volume = MappedFileVol.FACTORY.makeVolume("$filePath/$treeMapName.db", false)
+                val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
+                    .create(volume, Serializer.STRING, Serializer.DOUBLE)
+                    .pageSize(1*1024) // page size of 1KB
+                    .nodeSize(1)
+                    .createFromSink()
 
                 val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
+                val tempMap = hashMapOf<String, Double>()
 
                 for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
                     val fractionParts = fractionLiteral.split('/').map { it.toInt() }
                     val probability = fractionParts[0].toDouble() / fractionParts[1]
                     for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                        ngramRelativeFrequencies[ngramJsonElem] = probability
+                        tempMap.put(ngramJsonElem, probability)
                     }
                 }
+
+                for ((key, value) in tempMap.toList().sortedBy { it.first }) {
+                    sink.put(key, value)
+                }
+
+                ngramRelativeFrequencies = sink.create()
             }
 
             return LanguageModel(
