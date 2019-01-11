@@ -16,31 +16,29 @@
 
 package com.github.pemistahl.lingua.detector
 
-import com.github.pemistahl.lingua.math.Fraction
 import com.github.pemistahl.lingua.model.Bigram
 import com.github.pemistahl.lingua.model.Fivegram
 import com.github.pemistahl.lingua.model.Language
 import com.github.pemistahl.lingua.model.LanguageModel
 import com.github.pemistahl.lingua.model.Ngram
 import com.github.pemistahl.lingua.model.Quadrigram
-import com.github.pemistahl.lingua.model.Sixgram
 import com.github.pemistahl.lingua.model.Trigram
 import com.github.pemistahl.lingua.model.Unigram
 import com.github.pemistahl.lingua.util.extension.asJsonResource
 import kotlin.reflect.KClass
 
-class LanguageDetector private constructor(
-    internal val languages: MutableSet<Language>,
+class LanguageDetector internal constructor(
+    val languages: MutableSet<Language>,
+    val isCachedByMapDB: Boolean,
     val numberOfLoadedLanguages: Int = languages.size
 ) {
-    internal var languagesSequence = languages.asSequence()
+    private var languagesSequence = languages.asSequence()
 
     private val unigramLanguageModels = loadLanguageModels(languages, Unigram::class)
     private val bigramLanguageModels = loadLanguageModels(languages, Bigram::class)
     private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
     private val quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
     private val fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
-    //private val sixgramLanguageModels = loadLanguageModels(languages, Sixgram::class)
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
@@ -75,15 +73,6 @@ class LanguageDetector private constructor(
                 allProbabilities.add(fivegramProbabilities)
             }
         }
-        /*
-        if (trimmedText.length in 6..50) {
-            val sixgramTestDataModel = LanguageModel.fromTestData<Sixgram>(textSequence)
-            val sixgramProbabilities = computeSixgramProbabilities(sixgramTestDataModel)
-            if (!sixgramProbabilities.containsValue(0.0)) {
-                allProbabilities.add(sixgramProbabilities)
-            }
-        }
-        */
 
         /*
         for (prob in allProbabilities) {
@@ -278,27 +267,6 @@ class LanguageDetector private constructor(
         return probabilities
     }
 
-    /*
-    private fun computeSixgramProbabilities(
-        sixgramTestDataModel: LanguageModel<Sixgram, Sixgram>
-    ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
-        for (language in languagesSequence) {
-            probabilities[language] = lookUpNgramProbabilities(
-                language,
-                sixgramTestDataModel.ngrams,
-                ::lookUpSixgramProbabilities,
-                ::lookUpFivegramProbabilities,
-                ::lookUpQuadrigramProbabilities,
-                ::lookUpTrigramProbabilities,
-                ::lookUpBigramProbabilities,
-                ::lookUpUnigramProbabilities
-            )
-        }
-        return probabilities
-    }
-    */
-
     private fun <T : Ngram> lookUpNgramProbabilities(
         language: Language,
         ngrams: Set<T>,
@@ -314,7 +282,7 @@ class LanguageDetector private constructor(
                     if (fraction == null) indices.add(idx)
                 }
                 val probs = lookUpFunctions[i](language, ngramsList.filterIndexed {
-                        idx, ngram -> indices.contains(idx)
+                        idx, _ -> indices.contains(idx)
                 })
                 for ((c, idx) in indices.withIndex()) {
                     probabilities.set(idx, probs.get(c))
@@ -361,72 +329,30 @@ class LanguageDetector private constructor(
         return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
     }
 
-    /*
-    private fun <T : Ngram> lookUpSixgramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val sixgrams = ngrams.map {
-            if (it is Sixgram) it else Sixgram(it.value.slice(0..4))
-        }.toMutableList()
-
-        return lookUpNgramProbabilities(sixgramLanguageModels, language, sixgrams)
+    private fun <T : Ngram> loadLanguageModel(
+        language: Language,
+        ngramClass: KClass<T>
+    ): LanguageModel<T, T> {
+        var languageModel: LanguageModel<T, T>? = null
+        val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
+        "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
+            languageModel = LanguageModel.fromJson(jsonReader, ngramClass, isCachedByMapDB)
+        }
+        return languageModel!!
     }
-    */
 
-    companion object {
-        @JvmStatic
-        fun fromAllBuiltInLanguages(): LanguageDetector {
-            val languagesToLoad = Language.values().toMutableSet()
-            languagesToLoad.remove(Language.UNKNOWN)
-            return LanguageDetector(languagesToLoad)
+    private fun <T : Ngram> loadLanguageModels(
+        languages: Set<Language>,
+        ngramClass: KClass<T>
+    ): MutableMap<Language, LanguageModel<T, T>> {
+        val languageModels = hashMapOf<Language, LanguageModel<T, T>>()
+        for (language in languages) {
+            languageModels[language] = loadLanguageModel(language, ngramClass)
         }
+        return languageModels
+    }
 
-        @JvmStatic
-        fun fromAllBuiltInSpokenLanguages(): LanguageDetector {
-            val languagesToLoad = Language.values().toMutableSet()
-            languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, Language.LATIN))
-            return LanguageDetector(languagesToLoad)
-        }
-
-        @JvmStatic
-        fun fromAllBuiltInLanguagesWithout(language: Language, vararg languages: Language): LanguageDetector {
-            val languagesToLoad = Language.values().toMutableSet()
-            languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, language, *languages))
-            require(languagesToLoad.size > 1) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetector(languagesToLoad)
-        }
-
-        @JvmStatic
-        fun fromLanguages(language: Language, vararg languages: Language): LanguageDetector {
-            require(languages.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetector(arrayOf(language, *languages).toMutableSet())
-        }
-
-        @JvmStatic
-        fun supportedLanguages() = Language.values().toSet().minus(Language.UNKNOWN)
-
-        private fun <T : Ngram> loadLanguageModel(
-            language: Language,
-            ngramClass: KClass<T>
-        ): LanguageModel<T, T> {
-            var languageModel: LanguageModel<T, T>? = null
-            val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
-            "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
-                languageModel = LanguageModel.fromJson(jsonReader, ngramClass)
-            }
-            return languageModel!!
-        }
-
-        private fun <T : Ngram> loadLanguageModels(
-            languages: Set<Language>,
-            ngramClass: KClass<T>
-        ): MutableMap<Language, LanguageModel<T, T>> {
-            val languageModels = hashMapOf<Language, LanguageModel<T, T>>()
-            for (language in languages) {
-                languageModels[language] = loadLanguageModel(language, ngramClass)
-            }
-            return languageModels
-        }
-
-        private const val MISSING_LANGUAGE_MESSAGE = "LanguageDetector needs at least 2 languages to choose from"
+    internal companion object {
         private val NO_LETTER_REGEX = Regex("^[^\\p{L}]+$")
         private val LATIN_ALPHABET_REGEX = Regex("^[\\p{IsLatin}]+$")
         private val CYRILLIC_ALPHABET_REGEX = Regex("^[\\p{IsCyrillic}]+$")

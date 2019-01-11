@@ -155,7 +155,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
     fun getRelativeFrequency(ngram: T): Double? = jsonNgramRelativeFrequencies[ngram.value]
 
-    fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass).toJson(
+    fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass, useMapDBCache = false).toJson(
         mapOf(
             "language" to language,
             "areNgramsLowerCase" to areNgramsLowerCase,
@@ -221,9 +221,9 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             areNgramsPadded
         )
 
-        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>): LanguageModel<T, T> {
+        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>, useMapDBCache: Boolean): LanguageModel<T, T> {
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
-            return getGson(ngramClass).fromJson(json, type)
+            return getGson(ngramClass, useMapDBCache).fromJson(json, type)
         }
 
         private inline fun <reified T : Ngram> getNgramLength(): Int =
@@ -256,12 +256,12 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             return ngram as T
         }
 
-        private fun <T : Ngram> getGson(ngramClass: KClass<T>): Gson {
+        private fun <T : Ngram> getGson(ngramClass: KClass<T>, useMapDBCache: Boolean): Gson {
             val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
             return GsonBuilder()
                 .registerTypeAdapter(
                     type,
-                    LanguageModelDeserializer<T>()
+                    LanguageModelDeserializer<T>(useMapDBCache)
                 )
                 .create()
         }
@@ -269,7 +269,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         private const val PAD_CHAR = "<PAD>"
     }
 
-    private class LanguageModelDeserializer<T : Ngram> : JsonDeserializer<LanguageModel<T, T>> {
+    private class LanguageModelDeserializer<T : Ngram>(val useMapDBCache: Boolean) : JsonDeserializer<LanguageModel<T, T>> {
         override fun deserialize(
             json: JsonElement,
             type: Type,
@@ -284,45 +284,59 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             @Suppress("UNCHECKED_CAST")
             val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
 
-            val userHomeDirectory = System.getProperty("user.home")
-            val mapdbDirectoryPath = Paths.get(userHomeDirectory, "lingua-mapdb-files", language.isoCode)
-            val mapdbFileName = "${ngramClass.simpleName}s_$language.mapdb"
-            val mapdbFilePath = Paths.get(mapdbDirectoryPath.toString(), mapdbFileName)
+            lateinit var ngramRelativeFrequencies: Map<String, Double>
 
-            if (!Files.isDirectory(mapdbDirectoryPath)) {
-                Files.createDirectories(mapdbDirectoryPath)
-            }
+            if (useMapDBCache) {
+                val userHomeDirectory = System.getProperty("user.home")
+                val mapdbDirectoryPath = Paths.get(userHomeDirectory, "lingua-mapdb-files", language.isoCode)
+                val mapdbFileName = "${ngramClass.simpleName}s_$language.mapdb"
+                val mapdbFilePath = Paths.get(mapdbDirectoryPath.toString(), mapdbFileName)
 
-            lateinit var ngramRelativeFrequencies: SortedTableMap<String, Double>
+                if (!Files.isDirectory(mapdbDirectoryPath)) {
+                    Files.createDirectories(mapdbDirectoryPath)
+                }
 
-            if (Files.exists(mapdbFilePath)) {
-                val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), true)
-                ngramRelativeFrequencies = SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
+                if (Files.exists(mapdbFilePath)) {
+                    val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), true)
+                    ngramRelativeFrequencies = SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
+                }
+                else {
+                    val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), false)
+                    val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
+                        .create(volume, Serializer.STRING, Serializer.DOUBLE)
+                        .pageSize(1*1024) // page size of 1KB
+                        .nodeSize(1)
+                        .createFromSink()
+
+                    val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
+                    val tempMap = hashMapOf<String, Double>()
+
+                    for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
+                        val fractionParts = fractionLiteral.split('/').map { it.toInt() }
+                        val probability = fractionParts[0].toDouble() / fractionParts[1]
+                        for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
+                            tempMap[ngramJsonElem] = probability
+                        }
+                    }
+
+                    for ((key, value) in tempMap.toList().sortedBy { it.first }) {
+                        sink.put(key, value)
+                    }
+
+                    ngramRelativeFrequencies = sink.create()
+                }
             }
             else {
-                val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), false)
-                val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
-                    .create(volume, Serializer.STRING, Serializer.DOUBLE)
-                    .pageSize(1*1024) // page size of 1KB
-                    .nodeSize(1)
-                    .createFromSink()
+                ngramRelativeFrequencies = hashMapOf()
 
                 val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
-                val tempMap = hashMapOf<String, Double>()
-
                 for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
                     val fractionParts = fractionLiteral.split('/').map { it.toInt() }
                     val probability = fractionParts[0].toDouble() / fractionParts[1]
                     for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                        tempMap[ngramJsonElem] = probability
+                        ngramRelativeFrequencies[ngramJsonElem] = probability
                     }
                 }
-
-                for ((key, value) in tempMap.toList().sortedBy { it.first }) {
-                    sink.put(key, value)
-                }
-
-                ngramRelativeFrequencies = sink.create()
             }
 
             return LanguageModel(

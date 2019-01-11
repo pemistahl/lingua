@@ -77,7 +77,7 @@ class LanguageDetectorTest {
             PORTUGUESE to portugueseLanguageModel,
             SPANISH to spanishLanguageModel
         )
-        val detector = LanguageDetector.fromAllBuiltInLanguages()
+        val detector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build()
         assertEquals(7, detector.numberOfLoadedLanguages)
         assertEquals(setOf(ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE, SPANISH), detector.languages)
     }
@@ -92,7 +92,7 @@ class LanguageDetectorTest {
             PORTUGUESE to portugueseLanguageModel,
             SPANISH to spanishLanguageModel
         )
-        val detector = LanguageDetector.fromAllBuiltInSpokenLanguages()
+        val detector = LanguageDetectorBuilder.fromAllBuiltInSpokenLanguages().build()
         assertEquals(6, detector.numberOfLoadedLanguages)
         assertEquals(
             setOf(ENGLISH, FRENCH, GERMAN, ITALIAN, PORTUGUESE, SPANISH),
@@ -106,7 +106,7 @@ class LanguageDetectorTest {
             GERMAN to germanLanguageModel,
             LATIN to latinLanguageModel
         )
-        val detector = LanguageDetector.fromLanguages(LATIN, GERMAN)
+        val detector = LanguageDetectorBuilder.fromLanguages(LATIN, GERMAN).build()
         assertEquals(2, detector.numberOfLoadedLanguages)
         assertEquals(setOf(LATIN, GERMAN), detector.languages)
     }
@@ -116,13 +116,15 @@ class LanguageDetectorTest {
         val expectedMessage = "LanguageDetector needs at least 2 languages to choose from"
         run {
             val exception = assertThrows(IllegalArgumentException::class.java) {
-                LanguageDetector.fromLanguages(GERMAN)
+                LanguageDetectorBuilder.fromLanguages(GERMAN).build()
             }
             assertEquals(expectedMessage, exception.message)
         }
         run {
             val exception = assertThrows(IllegalArgumentException::class.java) {
-                LanguageDetector.fromAllBuiltInLanguagesWithout(ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE)
+                LanguageDetectorBuilder
+                    .fromAllBuiltInLanguagesWithout(ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE)
+                    .build()
             }
             assertEquals(expectedMessage, exception.message)
         }
@@ -136,7 +138,7 @@ class LanguageDetectorTest {
             ITALIAN to italianLanguageModel,
             SPANISH to spanishLanguageModel
         )
-        val detector = LanguageDetector.fromAllBuiltInLanguagesWithout(FRENCH, LATIN, PORTUGUESE)
+        val detector = LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(FRENCH, LATIN, PORTUGUESE).build()
         assertEquals(4, detector.numberOfLoadedLanguages)
         assertEquals(
             setOf(ENGLISH, GERMAN, ITALIAN, SPANISH),

@@ -16,35 +16,13 @@
 
 package com.github.pemistahl.lingua
 
-import com.github.pemistahl.lingua.detector.LanguageDetector
-import com.github.pemistahl.lingua.model.Language
-import com.github.pemistahl.lingua.model.LanguageModel
-import com.github.pemistahl.lingua.util.writeLanguageModelsFromLeipzigCorpusFile
-import com.github.pemistahl.lingua.util.writeTestDataFiles
-import org.mapdb.BTreeMap
+import com.github.pemistahl.lingua.detector.LanguageDetectorBuilder
 import java.io.Console
 import java.util.Scanner
 import kotlin.math.roundToInt
 
 fun main() {
     runApp()
-
-    /*
-    writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/tr/tr_1M.txt",
-        outputPath = "C:/Users/pstahl/Documents/ngrams",
-        language = Language.TURKISH
-    )
-    */
-
-    /*
-    writeTestDataFiles(
-        inputPath = "/training-data/pt/pt_10K.txt",
-        outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "pt",
-        charClass = "IsLatin"
-    )
-    */
 }
 
 private fun runApp() {
@@ -56,7 +34,7 @@ private fun runApp() {
     )
 
     val startTime = System.currentTimeMillis()
-    val detector = LanguageDetector.fromAllBuiltInLanguages()
+    val detector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build()
     val endTime = System.currentTimeMillis()
     val seconds = ((endTime - startTime) / 1000.0).roundToInt()
 

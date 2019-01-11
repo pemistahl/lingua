@@ -16,13 +16,12 @@
 
 package com.github.pemistahl.lingua.report
 
-import com.github.pemistahl.lingua.detector.LanguageDetector
+import com.github.pemistahl.lingua.detector.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.model.Language
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
 import com.google.common.base.Optional
-import com.optimaize.langdetect.LanguageDetectorBuilder
 import com.optimaize.langdetect.i18n.LdLocale
 import com.optimaize.langdetect.ngram.NgramExtractors
 import com.optimaize.langdetect.profiles.LanguageProfileReader
@@ -175,18 +174,29 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     companion object {
         private val languageIsoCodesToTest = Language.getIsoCodesForTests()
 
-        internal val linguaDetector by lazy { LanguageDetector.fromAllBuiltInSpokenLanguages() }
+        internal val linguaDetector by lazy {
+            LanguageDetectorBuilder
+                .fromAllBuiltInSpokenLanguages()
+                .build()
+        }
 
-        private val textObjectFactory by lazy { CommonTextObjectFactories.forDetectingShortCleanText() }
+        private val textObjectFactory by lazy {
+            CommonTextObjectFactories.forDetectingShortCleanText()
+        }
+
         private val optimaizeDetector by lazy {
             val languageLocales = languageIsoCodesToTest.map { LdLocale.fromString(it) }
             val languageProfiles = LanguageProfileReader().readBuiltIn(languageLocales)
-            LanguageDetectorBuilder
+            com.optimaize.langdetect.LanguageDetectorBuilder
                 .create(NgramExtractors.standard())
                 .withProfiles(languageProfiles)
                 .build()
         }
-        private val tikaDetector by lazy { OptimaizeLangDetector().loadModels(languageIsoCodesToTest.toSet()) }
+
+        private val tikaDetector by lazy {
+            OptimaizeLangDetector()
+                .loadModels(languageIsoCodesToTest.toSet())
+        }
 
         const val CSV_FILE_ENCODING = "UTF-8"
         const val CSV_FILE_DELIMITER = '|'
