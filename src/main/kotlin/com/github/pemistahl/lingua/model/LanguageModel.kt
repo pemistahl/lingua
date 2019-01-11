@@ -29,9 +29,10 @@ import com.google.gson.stream.JsonReader
 import org.mapdb.Serializer
 import org.mapdb.SortedTableMap
 import org.mapdb.volume.MappedFileVol
-import java.io.File
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+import java.nio.file.Files
+import java.nio.file.Paths
 import kotlin.reflect.KClass
 
 internal class LanguageModel<T : Ngram, U : Ngram> {
@@ -282,17 +283,24 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
             @Suppress("UNCHECKED_CAST")
             val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
-            val filePath = "C:/Users/pstahl/Documents/mapdb"
-            val treeMapName = "${ngramClass.simpleName}_$language"
+
+            val userHomeDirectory = System.getProperty("user.home")
+            val mapdbDirectoryPath = Paths.get(userHomeDirectory, "lingua-mapdb-files", language.isoCode)
+            val mapdbFileName = "${ngramClass.simpleName}s_$language.mapdb"
+            val mapdbFilePath = Paths.get(mapdbDirectoryPath.toString(), mapdbFileName)
+
+            if (!Files.isDirectory(mapdbDirectoryPath)) {
+                Files.createDirectories(mapdbDirectoryPath)
+            }
 
             lateinit var ngramRelativeFrequencies: SortedTableMap<String, Double>
 
-            if (File("$filePath/$treeMapName.db").exists()) {
-                val volume = MappedFileVol.FACTORY.makeVolume("$filePath/$treeMapName.db", true)
+            if (Files.exists(mapdbFilePath)) {
+                val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), true)
                 ngramRelativeFrequencies = SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
             }
             else {
-                val volume = MappedFileVol.FACTORY.makeVolume("$filePath/$treeMapName.db", false)
+                val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), false)
                 val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
                     .create(volume, Serializer.STRING, Serializer.DOUBLE)
                     .pageSize(1*1024) // page size of 1KB
@@ -306,7 +314,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                     val fractionParts = fractionLiteral.split('/').map { it.toInt() }
                     val probability = fractionParts[0].toDouble() / fractionParts[1]
                     for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                        tempMap.put(ngramJsonElem, probability)
+                        tempMap[ngramJsonElem] = probability
                     }
                 }
 

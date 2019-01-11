@@ -40,7 +40,7 @@ class LanguageDetector private constructor(
     private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
     private val quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
     private val fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
-    private val sixgramLanguageModels = loadLanguageModels(languages, Sixgram::class)
+    //private val sixgramLanguageModels = loadLanguageModels(languages, Sixgram::class)
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
@@ -75,6 +75,7 @@ class LanguageDetector private constructor(
                 allProbabilities.add(fivegramProbabilities)
             }
         }
+        /*
         if (trimmedText.length in 6..50) {
             val sixgramTestDataModel = LanguageModel.fromTestData<Sixgram>(textSequence)
             val sixgramProbabilities = computeSixgramProbabilities(sixgramTestDataModel)
@@ -82,6 +83,7 @@ class LanguageDetector private constructor(
                 allProbabilities.add(sixgramProbabilities)
             }
         }
+        */
 
         /*
         for (prob in allProbabilities) {
@@ -109,7 +111,7 @@ class LanguageDetector private constructor(
             trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
             quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
             fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
-            sixgramLanguageModels[language] = loadLanguageModel(language, Sixgram::class)
+            //sixgramLanguageModels[language] = loadLanguageModel(language, Sixgram::class)
         }
     }
 
@@ -276,6 +278,7 @@ class LanguageDetector private constructor(
         return probabilities
     }
 
+    /*
     private fun computeSixgramProbabilities(
         sixgramTestDataModel: LanguageModel<Sixgram, Sixgram>
     ): Map<Language, Double> {
@@ -294,6 +297,7 @@ class LanguageDetector private constructor(
         }
         return probabilities
     }
+    */
 
     private fun <T : Ngram> lookUpNgramProbabilities(
         language: Language,
@@ -357,6 +361,7 @@ class LanguageDetector private constructor(
         return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
     }
 
+    /*
     private fun <T : Ngram> lookUpSixgramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
         val sixgrams = ngrams.map {
             if (it is Sixgram) it else Sixgram(it.value.slice(0..4))
@@ -364,6 +369,7 @@ class LanguageDetector private constructor(
 
         return lookUpNgramProbabilities(sixgramLanguageModels, language, sixgrams)
     }
+    */
 
     companion object {
         @JvmStatic
