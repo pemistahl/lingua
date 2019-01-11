@@ -176,7 +176,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         internal val linguaDetector by lazy {
             LanguageDetectorBuilder
-                .fromAllBuiltInSpokenLanguages()
+                .fromIsoCodes(languageIsoCodesToTest)
                 .build()
         }
 

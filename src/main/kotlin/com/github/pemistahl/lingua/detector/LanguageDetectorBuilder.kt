@@ -59,6 +59,13 @@ class LanguageDetectorBuilder private constructor(
         }
 
         @JvmStatic
+        fun fromIsoCodes(isoCodes: List<String>): LanguageDetectorBuilder {
+            require(isoCodes.size > 1) { MISSING_LANGUAGE_MESSAGE }
+            val languages = isoCodes.map { Language.getByIsoCode(it) }.toSet()
+            return LanguageDetectorBuilder(languages, false)
+        }
+
+        @JvmStatic
         fun supportedLanguages() = Language.values().toSet().minus(Language.UNKNOWN)
 
         private const val MISSING_LANGUAGE_MESSAGE = "LanguageDetector needs at least 2 languages to choose from"
