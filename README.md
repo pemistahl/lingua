@@ -98,7 +98,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>Optimaize</th>
     </tr>
     <tr>
