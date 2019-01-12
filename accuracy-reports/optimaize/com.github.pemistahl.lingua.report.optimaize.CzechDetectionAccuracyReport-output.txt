@@ -1,4 +1,4 @@
-Jan 09, 2019 3:56:28 PM com.github.pemistahl.lingua.report.optimaize.CzechDetectionAccuracyReport afterAll
+Jan 12, 2019 10:37:42 AM com.github.pemistahl.lingua.report.optimaize.CzechDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### CZECH #####

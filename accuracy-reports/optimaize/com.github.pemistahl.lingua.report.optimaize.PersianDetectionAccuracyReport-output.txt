@@ -1,4 +1,4 @@
-Jan 09, 2019 3:56:33 PM com.github.pemistahl.lingua.report.optimaize.PersianDetectionAccuracyReport afterAll
+Jan 12, 2019 10:37:58 AM com.github.pemistahl.lingua.report.optimaize.PersianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### PERSIAN #####

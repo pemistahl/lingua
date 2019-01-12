@@ -1,4 +1,4 @@
-Jan 09, 2019 3:56:29 PM com.github.pemistahl.lingua.report.optimaize.DanishDetectionAccuracyReport afterAll
+Jan 12, 2019 10:37:44 AM com.github.pemistahl.lingua.report.optimaize.DanishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DANISH #####

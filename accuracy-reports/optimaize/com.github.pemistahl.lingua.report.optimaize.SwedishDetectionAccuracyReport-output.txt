@@ -1,4 +1,4 @@
-Jan 09, 2019 3:56:35 PM com.github.pemistahl.lingua.report.optimaize.SwedishDetectionAccuracyReport afterAll
+Jan 12, 2019 10:38:07 AM com.github.pemistahl.lingua.report.optimaize.SwedishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### SWEDISH #####

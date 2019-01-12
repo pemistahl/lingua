@@ -1,7 +1,4 @@
-log4j:WARN No appenders could be found for logger (com.optimaize.langdetect.LanguageDetectorImpl).
-log4j:WARN Please initialize the log4j system properly.
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-Jan 09, 2019 3:56:26 PM com.github.pemistahl.lingua.report.optimaize.ArabicDetectionAccuracyReport afterAll
+Jan 12, 2019 10:37:32 AM com.github.pemistahl.lingua.report.optimaize.ArabicDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ARABIC #####

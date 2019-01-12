@@ -1,4 +1,4 @@
-Jan 09, 2019 3:59:23 PM com.github.pemistahl.lingua.report.tika.SwedishDetectionAccuracyReport afterAll
+Jan 12, 2019 10:40:34 AM com.github.pemistahl.lingua.report.tika.SwedishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### SWEDISH #####

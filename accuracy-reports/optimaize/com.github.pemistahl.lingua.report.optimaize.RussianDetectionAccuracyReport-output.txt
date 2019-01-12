@@ -1,4 +1,4 @@
-Jan 09, 2019 3:56:34 PM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
+Jan 12, 2019 10:38:03 AM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### RUSSIAN #####

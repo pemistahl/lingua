@@ -1,18 +1,18 @@
-Jan 10, 2019 4:38:43 PM com.github.pemistahl.lingua.report.lingua.DutchDetectionAccuracyReport afterAll
+Jan 12, 2019 10:46:24 AM com.github.pemistahl.lingua.report.lingua.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
 
->>> Accuracy on average: 85,87%
+>>> Accuracy on average: 85,27%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 70,10%
-Erroneously classified as ENGLISH: 5,50%, GERMAN: 5,40%, DANISH: 3,00%, FRENCH: 2,90%, PORTUGUESE: 1,80%, ESTONIAN: 1,60%, ITALIAN: 1,60%, LITHUANIAN: 1,30%, SWEDISH: 1,20%, FINNISH: 1,20%, ROMANIAN: 1,00%, SPANISH: 0,70%, CROATIAN: 0,70%, HUNGARIAN: 0,60%, POLISH: 0,50%, LATVIAN: 0,30%, CZECH: 0,30%, TURKISH: 0,30%
+Accuracy: 68,50%
+Erroneously classified as GERMAN: 5,70%, ENGLISH: 5,60%, DANISH: 3,40%, FRENCH: 2,50%, ITALIAN: 1,90%, PORTUGUESE: 1,80%, SWEDISH: 1,60%, ROMANIAN: 1,60%, ESTONIAN: 1,40%, LITHUANIAN: 1,30%, FINNISH: 1,20%, SPANISH: 0,80%, HUNGARIAN: 0,60%, CROATIAN: 0,60%, POLISH: 0,50%, TURKISH: 0,40%, LATVIAN: 0,30%, CZECH: 0,30%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 89,40%
-Erroneously classified as GERMAN: 2,40%, ENGLISH: 2,30%, DANISH: 0,90%, ITALIAN: 0,70%, FRENCH: 0,70%, ROMANIAN: 0,70%, SPANISH: 0,50%, PORTUGUESE: 0,50%, ESTONIAN: 0,40%, TURKISH: 0,30%, FINNISH: 0,20%, POLISH: 0,20%, SWEDISH: 0,20%, CROATIAN: 0,20%, HUNGARIAN: 0,20%, LATVIAN: 0,10%, LITHUANIAN: 0,10%
+Accuracy: 89,10%
+Erroneously classified as GERMAN: 2,70%, ENGLISH: 2,50%, FRENCH: 1,00%, ITALIAN: 0,80%, DANISH: 0,80%, ESTONIAN: 0,60%, ROMANIAN: 0,60%, SPANISH: 0,60%, SWEDISH: 0,30%, PORTUGUESE: 0,30%, POLISH: 0,20%, LATVIAN: 0,10%, TURKISH: 0,10%, HUNGARIAN: 0,10%, CROATIAN: 0,10%, LITHUANIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 107 chars)
-Accuracy: 98,10%
-Erroneously classified as FRENCH: 0,70%, ENGLISH: 0,50%, GERMAN: 0,30%, SWEDISH: 0,10%, ITALIAN: 0,10%, CZECH: 0,10%, HUNGARIAN: 0,10%
+Accuracy: 98,20%
+Erroneously classified as FRENCH: 0,70%, ENGLISH: 0,40%, GERMAN: 0,30%, SWEDISH: 0,10%, ITALIAN: 0,10%, CZECH: 0,10%, HUNGARIAN: 0,10%

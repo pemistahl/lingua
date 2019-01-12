@@ -1,4 +1,4 @@
-Jan 09, 2019 3:59:17 PM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
+Jan 12, 2019 10:40:10 AM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####

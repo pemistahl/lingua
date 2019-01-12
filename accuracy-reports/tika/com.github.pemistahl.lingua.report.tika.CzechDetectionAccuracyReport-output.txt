@@ -1,4 +1,4 @@
-Jan 09, 2019 3:59:15 PM com.github.pemistahl.lingua.report.tika.CzechDetectionAccuracyReport afterAll
+Jan 12, 2019 10:40:07 AM com.github.pemistahl.lingua.report.tika.CzechDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### CZECH #####
