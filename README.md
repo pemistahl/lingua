@@ -89,17 +89,122 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
     <tr>
         <th></th>
         <th>Lingua</th>
-        <th>&nbsp;Tika&nbsp;</th>
+        <th>Tika</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>&nbsp;Tika&nbsp;</th>
+        <th>Tika</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>&nbsp;Tika&nbsp;</th>
+        <th>Tika</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>Tika</th>
         <th>Optimaize</th>
+    </tr>
+    <tr>
+        <td>Arabic</td>
+        <td>98 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>77 <img src="images/lightgreen.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>96 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Belarusian</td>
+        <td>98 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>78 <img src="images/lightgreen.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>96 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Bulgarian</td>
+        <td>94 <img src="images/green.png"></td>
+        <td>89 <img src="images/green.png"></td>
+        <td>58 <img src="images/yellow.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>79 <img src="images/lightgreen.png"></td>
+        <td>25 <img src="images/orange.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>89 <img src="images/green.png"></td>
+        <td>51 <img src="images/yellow.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Croatian</td>
+        <td>91 <img src="images/green.png"></td>
+        <td>89 <img src="images/green.png"></td>
+        <td>70 <img src="images/lightgreen.png"></td>
+        <td>79 <img src="images/lightgreen.png"></td>
+        <td>75 <img src="images/lightgreen.png"></td>
+        <td>35 <img src="images/orange.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>92 <img src="images/green.png"></td>
+        <td>76 <img src="images/lightgreen.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Czech</td>
+        <td>84 <img src="images/green.png"></td>
+        <td>83 <img src="images/green.png"></td>
+        <td>71 <img src="images/lightgreen.png"></td>
+        <td>72 <img src="images/lightgreen.png"></td>
+        <td>70 <img src="images/lightgreen.png"></td>
+        <td>49 <img src="images/yellow.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>86 <img src="images/green.png"></td>
+        <td>76 <img src="images/lightgreen.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>93 <img src="images/green.png"></td>
+        <td>89 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Danish</td>
+        <td>89 <img src="images/green.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>58 <img src="images/yellow.png"></td>
+        <td>76 <img src="images/lightgreen.png"></td>
+        <td>68 <img src="images/lightgreen.png"></td>
+        <td>24 <img src="images/orange.png"></td>
+        <td>92 <img src="images/green.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>55 <img src="images/yellow.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Dutch</td>
+        <td>85 <img src="images/green.png"></td>
+        <td>72 <img src="images/lightgreen.png"></td>
+        <td>51 <img src="images/yellow.png"></td>
+        <td>69 <img src="images/lightgreen.png"></td>
+        <td>46 <img src="images/yellow.png"></td>
+        <td>14 <img src="images/red.png"></td>
+        <td>89 <img src="images/green.png"></td>
+        <td>71 <img src="images/lightgreen.png"></td>
+        <td>42 <img src="images/yellow.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>English</td>
@@ -117,11 +222,41 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>97 <img src="images/green.png"></td>
     </tr>
     <tr>
+        <td>Estonian</td>
+        <td>93 <img src="images/green.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>64 <img src="images/lightgreen.png"></td>
+        <td>84 <img src="images/green.png"></td>
+        <td>72 <img src="images/lightgreen.png"></td>
+        <td>26 <img src="images/orange.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
+        <td>66 <img src="images/lightgreen.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Finnish</td>
+        <td>97 <img src="images/*.png"></td>
+        <td>95 <img src="images/*.png"></td>
+        <td>80 <img src="images/*.png"></td>
+        <td>94 <img src="images/*.png"></td>
+        <td>88 <img src="images/*.png"></td>
+        <td>55 <img src="images/*.png"></td>
+        <td>99 <img src="images/*.png"></td>
+        <td>96 <img src="images/*.png"></td>
+        <td>87 <img src="images/*.png"></td>
+        <td>100 <img src="images/*.png"></td>
+        <td>100 <img src="images/*.png"></td>
+        <td>100 <img src="images/*.png"></td>
+    </tr>
+    <tr>
         <td>French</td>
         <td>91 <img src="images/green.png"></td>
         <td>80 <img src="images/lightgreen.png"></td>
         <td>58 <img src="images/yellow.png"></td>
-        <td>79 <img src="images/yellow.png"></td>
+        <td>79 <img src="images/lightgreen.png"></td>
         <td>59 <img src="images/yellow.png"></td>
         <td>23 <img src="images/orange.png"></td>
         <td>96 <img src="images/green.png"></td>
@@ -147,6 +282,21 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>99 <img src="images/green.png"></td>
     </tr>
     <tr>
+        <td>Hungarian</td>
+        <td>95 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
+        <td>81 <img src="images/green.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>79 <img src="images/lightgreen.png"></td>
+        <td>58 <img src="images/yellow.png"></td>
+        <td>97 <img src="images/green.png"></td>
+        <td>92 <img src="images/green.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+    </tr>
+    <tr>
         <td>Italian</td>
         <td>90 <img src="images/green.png"></td>
         <td>83 <img src="images/green.png"></td>
@@ -160,6 +310,66 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>100 <img src="images/green.png"></td>
         <td>&nbsp;&nbsp;99 <img src="images/green.png"></td>
         <td>98 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Latvian</td>
+        <td>78 <img src="images/lightgreen.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>75 <img src="images/lightgreen.png"></td>
+        <td>62 <img src="images/lightgreen.png"></td>
+        <td>76 <img src="images/lightgreen.png"></td>
+        <td>52 <img src="images/yellow.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>78 <img src="images/lightgreen.png"></td>
+        <td>89 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>96 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Lithuanian</td>
+        <td>86 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
+        <td>74 <img src="images/lightgreen.png"></td>
+        <td>76 <img src="images/lightgreen.png"></td>
+        <td>77 <img src="images/lightgreen.png"></td>
+        <td>45 <img src="images/yellow.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>79 <img src="images/lightgreen.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Persian</td>
+        <td>96 <img src="images/green.png"></td>
+        <td>86 <img src="images/green.png"></td>
+        <td>73 <img src="images/lightgreen.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>73 <img src="images/lightgreen.png"></td>
+        <td>49 <img src="images/yellow.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>72 <img src="images/lightgreen.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Polish</td>
+        <td>92 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>84 <img src="images/green.png"></td>
+        <td>81 <img src="images/green.png"></td>
+        <td>79 <img src="images/lightgreen.png"></td>
+        <td>62 <img src="images/lightgreen.png"></td>
+        <td>96 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>89 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>Portuguese</td>
@@ -177,6 +387,36 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>95 <img src="images/green.png"></td>
     </tr>
     <tr>
+        <td>Romanian</td>
+        <td>83 <img src="images/green.png"></td>
+        <td>81 <img src="images/green.png"></td>
+        <td>57 <img src="images/yellow.png"></td>
+        <td>67 <img src="images/lightgreen.png"></td>
+        <td>62 <img src="images/lightgreen.png"></td>
+        <td>26 <img src="images/orange.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>82 <img src="images/green.png"></td>
+        <td>53 <img src="images/yellow.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>92 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Russian</td>
+        <td>95 <img src="images/green.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>64 <img src="images/lightgreen.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>75 <img src="images/lightgreen.png"></td>
+        <td>34 <img src="images/orange.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>92 <img src="images/green.png"></td>
+        <td>67 <img src="images/lightgreen.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
+    </tr>
+    <tr>
         <td>Spanish</td>
         <td>76 <img src="images/lightgreen.png"></td>
         <td>62 <img src="images/lightgreen.png"></td>
@@ -192,21 +432,51 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>92 <img src="images/green.png"></td>
     </tr>
     <tr>
+        <td>Swedish</td>
+        <td>89 <img src="images/green.png"></td>
+        <td>74 <img src="images/lightgreen.png"></td>
+        <td>52 <img src="images/yellow.png"></td>
+        <td>75 <img src="images/lightgreen.png"></td>
+        <td>49 <img src="images/yellow.png"></td>
+        <td>18 <img src="images/red.png"></td>
+        <td>91 <img src="images/green.png"></td>
+        <td>74 <img src="images/lightgreen.png"></td>
+        <td>44 <img src="images/yellow.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+        <td>94 <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td>Turkish</td>
+        <td>93 <img src="images/green.png"></td>
+        <td>86 <img src="images/green.png"></td>
+        <td>74 <img src="images/lightgreen.png"></td>
+        <td>85 <img src="images/green.png"></td>
+        <td>71 <img src="images/lightgreen.png"></td>
+        <td>49 <img src="images/yellow.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>76 <img src="images/lightgreen.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
+    </tr>
+    <tr>
         <td colspan="9"></td>
     </tr>
     <tr>
         <td><strong>overall</strong></td>
-        <td><strong>86</strong> <img src="images/green.png"></td>
-        <td><strong>72</strong> <img src="images/lightgreen.png"></td>
-        <td><strong>48</strong> <img src="images/yellow.png"></td>
-        <td><strong>70</strong> <img src="images/lightgreen.png"></td>
-        <td><strong>48</strong> <img src="images/yellow.png"></td>
-        <td><strong>13</strong> <img src="images/red.png"></td>
         <td><strong>90</strong> <img src="images/green.png"></td>
-        <td><strong>81</strong> <img src="images/green.png"></td>
-        <td><strong>35</strong> <img src="images/orange.png"></td>
+        <td><strong>83</strong> <img src="images/green.png"></td>
+        <td><strong>65</strong> <img src="images/lightgreen.png"></td>
+        <td><strong>79</strong> <img src="images/lightgreen.png"></td>
+        <td><strong>67</strong> <img src="images/lightgreen.png"></td>
+        <td><strong>36</strong> <img src="images/orange.png"></td>
+        <td><strong>92</strong> <img src="images/green.png"></td>
+        <td><strong>84</strong> <img src="images/green.png"></td>
+        <td><strong>62</strong> <img src="images/lightgreen.png"></td>
+        <td><strong>98</strong> <img src="images/green.png"></td>
         <td><strong>99</strong> <img src="images/green.png"></td>
-        <td>&nbsp;&nbsp;<strong>99</strong> <img src="images/green.png"></td>
         <td><strong>97</strong> <img src="images/green.png"></td>
     </tr>
 </table>
