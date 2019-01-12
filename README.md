@@ -89,13 +89,13 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
     <tr>
         <th></th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
-        <th>Tika</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>Optimaize</th>
         <th>Lingua</th>
         <th>Tika</th>
@@ -238,18 +238,18 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
     </tr>
     <tr>
         <td>Finnish</td>
-        <td>97 <img src="images/*.png"></td>
-        <td>95 <img src="images/*.png"></td>
-        <td>80 <img src="images/*.png"></td>
-        <td>94 <img src="images/*.png"></td>
-        <td>88 <img src="images/*.png"></td>
-        <td>55 <img src="images/*.png"></td>
-        <td>99 <img src="images/*.png"></td>
-        <td>96 <img src="images/*.png"></td>
-        <td>87 <img src="images/*.png"></td>
-        <td>100 <img src="images/*.png"></td>
-        <td>100 <img src="images/*.png"></td>
-        <td>100 <img src="images/*.png"></td>
+        <td>97 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
+        <td>80 <img src="images/lightgreen.png"></td>
+        <td>94 <img src="images/green.png"></td>
+        <td>88 <img src="images/green.png"></td>
+        <td>55 <img src="images/yellow.png"></td>
+        <td>99 <img src="images/green.png"></td>
+        <td>96 <img src="images/green.png"></td>
+        <td>87 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
+        <td>100 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>French</td>
