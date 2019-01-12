@@ -100,7 +100,6 @@ class LanguageDetector internal constructor(
             trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
             quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
             fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
-            //sixgramLanguageModels[language] = loadLanguageModel(language, Sixgram::class)
         }
     }
 
