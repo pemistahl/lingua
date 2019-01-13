@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:53 AM com.github.pemistahl.lingua.report.optimaize.GermanDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:21 PM com.github.pemistahl.lingua.report.optimaize.GermanDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### GERMAN #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 50,10%, SWEDISH: 0,90%, DANISH: 0,30%, ENGLIS
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99,00%
 Erroneously classified as UNKNOWN: 1,00%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+57.333333333333336 24.9 48.1 99.0

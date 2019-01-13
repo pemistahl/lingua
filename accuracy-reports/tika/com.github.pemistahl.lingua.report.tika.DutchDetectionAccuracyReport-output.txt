@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:10 AM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
+Jan 13, 2019 4:26:52 PM com.github.pemistahl.lingua.report.tika.DutchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### DUTCH #####
@@ -16,3 +16,7 @@ Erroneously classified as DANISH: 5,80%, GERMAN: 5,50%, ENGLISH: 4,40%, ROMANIAN
 >> Detection of 1000 sentences (average length: 107 chars)
 Accuracy: 99,20%
 Erroneously classified as GERMAN: 0,30%, ENGLISH: 0,20%, ITALIAN: 0,10%, SWEDISH: 0,10%, CZECH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+72.13333333333333 46.300000000000004 70.89999999999999 99.2

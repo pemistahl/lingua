@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:26 AM com.github.pemistahl.lingua.report.tika.PolishDetectionAccuracyReport afterAll
+Jan 13, 2019 4:27:15 PM com.github.pemistahl.lingua.report.tika.PolishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### POLISH #####
@@ -16,3 +16,7 @@ Erroneously classified as CROATIAN: 1,10%, HUNGARIAN: 0,70%, CZECH: 0,60%, SWEDI
 >> Detection of 1000 sentences (average length: 99 chars)
 Accuracy: 99,80%
 Erroneously classified as CROATIAN: 0,10%, SPANISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+91.2 78.5 95.3 99.8

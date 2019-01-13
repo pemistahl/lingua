@@ -1,4 +1,4 @@
-Jan 12, 2019 10:50:04 AM com.github.pemistahl.lingua.report.lingua.HungarianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:15:29 PM com.github.pemistahl.lingua.report.lingua.HungarianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### HUNGARIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as SWEDISH: 0,50%, GERMAN: 0,40%, FRENCH: 0,30%, DUTCH: 0
 >> Detection of 1000 sentences (average length: 116 chars)
 Accuracy: 100,00%
 Erroneously classified as 
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+94.89999999999999 88.0 96.7 100.0

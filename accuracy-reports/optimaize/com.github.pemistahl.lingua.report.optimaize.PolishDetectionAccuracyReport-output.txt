@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:59 AM com.github.pemistahl.lingua.report.optimaize.PolishDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:34 PM com.github.pemistahl.lingua.report.optimaize.PolishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### POLISH #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 10,70%, HUNGARIAN: 0,20%, CROATIAN: 0,20%, FI
 >> Detection of 1000 sentences (average length: 99 chars)
 Accuracy: 99,70%
 Erroneously classified as UNKNOWN: 0,20%, CROATIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+83.60000000000001 62.3 88.8 99.7

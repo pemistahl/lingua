@@ -1,4 +1,4 @@
-Jan 12, 2019 10:44:27 AM com.github.pemistahl.lingua.report.lingua.CroatianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:09:45 PM com.github.pemistahl.lingua.report.lingua.CroatianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### CROATIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as TURKISH: 1,70%, SWEDISH: 1,10%, LITHUANIAN: 0,50%, GER
 >> Detection of 1000 sentences (average length: 127 chars)
 Accuracy: 99,10%
 Erroneously classified as SWEDISH: 0,40%, TURKISH: 0,20%, GERMAN: 0,10%, LITHUANIAN: 0,10%, POLISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+90.56666666666666 78.5 94.1 99.1

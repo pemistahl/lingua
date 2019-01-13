@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:19 AM com.github.pemistahl.lingua.report.tika.GermanDetectionAccuracyReport afterAll
+Jan 13, 2019 4:27:04 PM com.github.pemistahl.lingua.report.tika.GermanDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### GERMAN #####
@@ -16,3 +16,7 @@ Erroneously classified as DANISH: 7,00%, DUTCH: 5,20%, SWEDISH: 4,30%, ENGLISH: 
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99,80%
 Erroneously classified as CZECH: 0,10%, ROMANIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+76.06666666666666 54.1 74.3 99.8

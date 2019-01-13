@@ -1,4 +1,4 @@
-Jan 12, 2019 10:45:14 AM com.github.pemistahl.lingua.report.lingua.CzechDetectionAccuracyReport afterAll
+Jan 13, 2019 4:10:30 PM com.github.pemistahl.lingua.report.lingua.CzechDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### CZECH #####
@@ -16,3 +16,7 @@ Erroneously classified as CROATIAN: 2,50%, TURKISH: 2,10%, SWEDISH: 2,10%, POLIS
 >> Detection of 1000 sentences (average length: 93 chars)
 Accuracy: 93,60%
 Erroneously classified as SWEDISH: 1,10%, CROATIAN: 0,90%, TURKISH: 0,80%, ENGLISH: 0,50%, SPANISH: 0,50%, ITALIAN: 0,50%, HUNGARIAN: 0,40%, ESTONIAN: 0,30%, POLISH: 0,20%, GERMAN: 0,20%, DANISH: 0,20%, DUTCH: 0,20%, ROMANIAN: 0,20%, LITHUANIAN: 0,20%, FRENCH: 0,10%, FINNISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+83.76666666666667 72.3 85.39999999999999 93.60000000000001

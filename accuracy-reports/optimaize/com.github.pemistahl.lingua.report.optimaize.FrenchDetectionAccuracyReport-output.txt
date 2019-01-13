@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:51 AM com.github.pemistahl.lingua.report.optimaize.FrenchDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:19 PM com.github.pemistahl.lingua.report.optimaize.FrenchDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### FRENCH #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 44,90%, ENGLISH: 0,50%, GERMAN: 0,10%
 >> Detection of 1000 sentences (average length: 112 chars)
 Accuracy: 97,60%
 Erroneously classified as UNKNOWN: 2,00%, GERMAN: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+58.199999999999996 22.5 54.50000000000001 97.6

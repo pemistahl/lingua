@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:57 AM com.github.pemistahl.lingua.report.optimaize.LithuanianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:31 PM com.github.pemistahl.lingua.report.optimaize.LithuanianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### LITHUANIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 20,40%, CROATIAN: 0,20%
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 98,80%
 Erroneously classified as UNKNOWN: 1,10%, ITALIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+74.23333333333333 44.5 79.4 98.8

@@ -1,4 +1,4 @@
-Jan 12, 2019 10:46:50 AM com.github.pemistahl.lingua.report.lingua.EnglishDetectionAccuracyReport afterAll
+Jan 13, 2019 4:12:12 PM com.github.pemistahl.lingua.report.lingua.EnglishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ENGLISH #####
@@ -16,3 +16,7 @@ Erroneously classified as FRENCH: 3,40%, GERMAN: 1,10%, DANISH: 1,00%, SWEDISH: 
 >> Detection of 999 sentences (average length: 108 chars)
 Accuracy: 99,40%
 Erroneously classified as DUTCH: 0,30%, FRENCH: 0,20%, SPANISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+84.76646646646647 64.60000000000001 90.3 99.3993993993994

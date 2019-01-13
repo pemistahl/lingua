@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:58 AM com.github.pemistahl.lingua.report.optimaize.PersianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:33 PM com.github.pemistahl.lingua.report.optimaize.PersianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### PERSIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 23,10%, ARABIC: 4,60%
 >> Detection of 1000 sentences (average length: 107 chars)
 Accuracy: 98,70%
 Erroneously classified as UNKNOWN: 1,00%, ARABIC: 0,20%, ENGLISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+73.23333333333333 48.699999999999996 72.3 98.7

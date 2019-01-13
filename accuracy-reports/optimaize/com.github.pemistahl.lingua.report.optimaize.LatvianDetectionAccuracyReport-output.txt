@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:56 AM com.github.pemistahl.lingua.report.optimaize.LatvianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:29 PM com.github.pemistahl.lingua.report.optimaize.LatvianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### LATVIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 21,40%, ROMANIAN: 0,40%, CROATIAN: 0,10%
 >> Detection of 1000 sentences (average length: 109 chars)
 Accuracy: 96,20%
 Erroneously classified as UNKNOWN: 3,40%, CROATIAN: 0,10%, ESTONIAN: 0,10%, ROMANIAN: 0,10%, ENGLISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+75.46666666666668 52.1 78.10000000000001 96.2

@@ -1,4 +1,4 @@
-Jan 12, 2019 10:38:03 AM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:38 PM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### RUSSIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 32,70%, BELARUSIAN: 0,40%
 >> Detection of 1000 sentences (average length: 65 chars)
 Accuracy: 90,30%
 Erroneously classified as UNKNOWN: 9,40%, BELARUSIAN: 0,20%, BULGARIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+63.866666666666674 34.4 66.9 90.3

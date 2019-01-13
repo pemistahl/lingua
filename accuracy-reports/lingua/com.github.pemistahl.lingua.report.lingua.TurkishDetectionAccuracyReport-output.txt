@@ -1,4 +1,4 @@
-Jan 12, 2019 10:56:23 AM com.github.pemistahl.lingua.report.lingua.TurkishDetectionAccuracyReport afterAll
+Jan 13, 2019 4:24:37 PM com.github.pemistahl.lingua.report.lingua.TurkishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### TURKISH #####
@@ -16,3 +16,7 @@ Erroneously classified as SWEDISH: 2,50%, ENGLISH: 0,50%, SPANISH: 0,50%, GERMAN
 >> Detection of 1000 sentences (average length: 119 chars)
 Accuracy: 99,60%
 Erroneously classified as SWEDISH: 0,30%, SPANISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+93.0 84.5 94.89999999999999 99.6

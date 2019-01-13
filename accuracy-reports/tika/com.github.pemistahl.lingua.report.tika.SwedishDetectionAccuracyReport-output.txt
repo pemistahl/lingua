@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:34 AM com.github.pemistahl.lingua.report.tika.SwedishDetectionAccuracyReport afterAll
+Jan 13, 2019 4:27:26 PM com.github.pemistahl.lingua.report.tika.SwedishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### SWEDISH #####
@@ -16,3 +16,7 @@ Erroneously classified as DANISH: 11,90%, FINNISH: 3,10%, ENGLISH: 1,80%, DUTCH:
 >> Detection of 1000 sentences (average length: 90 chars)
 Accuracy: 97,60%
 Erroneously classified as DANISH: 1,20%, LITHUANIAN: 0,30%, GERMAN: 0,30%, ENGLISH: 0,20%, PORTUGUESE: 0,10%, DUTCH: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+73.63333333333334 49.4 73.9 97.6

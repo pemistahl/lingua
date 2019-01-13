@@ -1,4 +1,4 @@
-Jan 12, 2019 10:50:37 AM com.github.pemistahl.lingua.report.lingua.ItalianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:16:02 PM com.github.pemistahl.lingua.report.lingua.ItalianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ITALIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as PORTUGUESE: 1,20%, ENGLISH: 1,10%, SPANISH: 1,10%, ROM
 >> Detection of 1000 sentences (average length: 123 chars)
 Accuracy: 99,50%
 Erroneously classified as ENGLISH: 0,50%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+89.76666666666667 76.6 93.2 99.5

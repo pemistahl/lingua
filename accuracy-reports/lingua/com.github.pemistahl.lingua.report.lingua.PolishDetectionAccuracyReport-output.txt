@@ -1,4 +1,4 @@
-Jan 12, 2019 10:53:15 AM com.github.pemistahl.lingua.report.lingua.PolishDetectionAccuracyReport afterAll
+Jan 13, 2019 4:19:48 PM com.github.pemistahl.lingua.report.lingua.PolishDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### POLISH #####
@@ -16,3 +16,7 @@ Erroneously classified as TURKISH: 1,40%, SWEDISH: 1,10%, FINNISH: 0,50%, DANISH
 >> Detection of 1000 sentences (average length: 99 chars)
 Accuracy: 99,30%
 Erroneously classified as TURKISH: 0,30%, SWEDISH: 0,20%, ENGLISH: 0,10%, PORTUGUESE: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+91.89999999999999 80.9 95.5 99.3

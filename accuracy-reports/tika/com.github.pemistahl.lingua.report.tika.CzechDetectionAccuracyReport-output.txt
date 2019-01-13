@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:07 AM com.github.pemistahl.lingua.report.tika.CzechDetectionAccuracyReport afterAll
+Jan 13, 2019 4:26:43 PM com.github.pemistahl.lingua.report.tika.CzechDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### CZECH #####
@@ -16,3 +16,7 @@ Erroneously classified as CROATIAN: 5,70%, POLISH: 1,50%, ROMANIAN: 0,90%, ESTON
 >> Detection of 1000 sentences (average length: 93 chars)
 Accuracy: 93,00%
 Erroneously classified as CROATIAN: 2,90%, ENGLISH: 1,10%, GERMAN: 0,60%, ESTONIAN: 0,40%, ROMANIAN: 0,40%, PORTUGUESE: 0,30%, ITALIAN: 0,30%, POLISH: 0,20%, SPANISH: 0,10%, SWEDISH: 0,10%, DUTCH: 0,10%, TURKISH: 0,10%, LITHUANIAN: 0,10%, FRENCH: 0,10%, HUNGARIAN: 0,10%, DANISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+82.86666666666666 69.5 86.1 93.0

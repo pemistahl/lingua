@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:02 AM com.github.pemistahl.lingua.report.tika.BulgarianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:26:38 PM com.github.pemistahl.lingua.report.tika.BulgarianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### BULGARIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as RUSSIAN: 10,70%, BELARUSIAN: 0,50%
 >> Detection of 1000 sentences (average length: 89 chars)
 Accuracy: 99,10%
 Erroneously classified as RUSSIAN: 0,90%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+88.83333333333333 78.60000000000001 88.8 99.1

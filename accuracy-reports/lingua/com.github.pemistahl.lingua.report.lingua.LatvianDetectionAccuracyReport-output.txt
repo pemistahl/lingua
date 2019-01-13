@@ -1,4 +1,4 @@
-Jan 12, 2019 10:52:02 AM com.github.pemistahl.lingua.report.lingua.LatvianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:18:16 PM com.github.pemistahl.lingua.report.lingua.LatvianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### LATVIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as SWEDISH: 4,00%, TURKISH: 2,20%, LITHUANIAN: 1,80%, DUT
 >> Detection of 1000 sentences (average length: 109 chars)
 Accuracy: 88,70%
 Erroneously classified as TURKISH: 4,90%, SWEDISH: 2,60%, DUTCH: 1,20%, LITHUANIAN: 0,90%, PORTUGUESE: 0,40%, ESTONIAN: 0,40%, FINNISH: 0,20%, FRENCH: 0,20%, DANISH: 0,20%, ITALIAN: 0,10%, POLISH: 0,10%, ROMANIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+78.33333333333333 61.8 84.5 88.7

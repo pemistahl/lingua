@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:29 AM com.github.pemistahl.lingua.report.tika.RomanianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:27:21 PM com.github.pemistahl.lingua.report.tika.RomanianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ROMANIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as ITALIAN: 9,20%, PORTUGUESE: 1,30%, ENGLISH: 1,30%, SPA
 >> Detection of 1000 sentences (average length: 118 chars)
 Accuracy: 97,50%
 Erroneously classified as ITALIAN: 1,30%, PORTUGUESE: 0,30%, CROATIAN: 0,20%, ENGLISH: 0,20%, FRENCH: 0,20%, CZECH: 0,10%, DUTCH: 0,10%, SPANISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+80.53333333333333 62.3 81.8 97.5

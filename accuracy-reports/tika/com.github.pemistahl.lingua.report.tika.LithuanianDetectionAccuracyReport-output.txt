@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:24 AM com.github.pemistahl.lingua.report.tika.LithuanianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:27:10 PM com.github.pemistahl.lingua.report.tika.LithuanianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### LITHUANIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as LATVIAN: 1,50%, CROATIAN: 0,80%, ITALIAN: 0,70%, ESTON
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 99,40%
 Erroneously classified as CROATIAN: 0,20%, ROMANIAN: 0,20%, PORTUGUESE: 0,10%, ITALIAN: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+90.16666666666667 77.2 93.89999999999999 99.4

@@ -1,4 +1,4 @@
-Jan 12, 2019 10:47:32 AM com.github.pemistahl.lingua.report.lingua.EstonianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:12:59 PM com.github.pemistahl.lingua.report.lingua.EstonianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ESTONIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as FINNISH: 1,20%, GERMAN: 0,60%, LITHUANIAN: 0,50%, ROMA
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 99,60%
 Erroneously classified as ROMANIAN: 0,20%, FINNISH: 0,10%, SWEDISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+92.83333333333333 83.6 95.3 99.6

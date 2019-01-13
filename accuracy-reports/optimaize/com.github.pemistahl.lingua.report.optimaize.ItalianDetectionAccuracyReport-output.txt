@@ -1,4 +1,4 @@
-Jan 12, 2019 10:37:55 AM com.github.pemistahl.lingua.report.optimaize.ItalianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:32:27 PM com.github.pemistahl.lingua.report.optimaize.ItalianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ITALIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as UNKNOWN: 51,80%, FINNISH: 0,30%, ENGLISH: 0,30%, ROMAN
 >> Detection of 1000 sentences (average length: 123 chars)
 Accuracy: 98,40%
 Erroneously classified as UNKNOWN: 1,30%, ENGLISH: 0,20%, FRENCH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+53.73333333333333 15.7 47.099999999999994 98.4

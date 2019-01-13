@@ -1,4 +1,4 @@
-Jan 12, 2019 10:40:14 AM com.github.pemistahl.lingua.report.tika.EstonianDetectionAccuracyReport afterAll
+Jan 13, 2019 4:26:56 PM com.github.pemistahl.lingua.report.tika.EstonianDetectionAccuracyReport afterAll
 INFORMATION: 
 
 ##### ESTONIAN #####
@@ -16,3 +16,7 @@ Erroneously classified as FINNISH: 4,00%, DUTCH: 1,00%, ITALIAN: 0,70%, CROATIAN
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 99,60%
 Erroneously classified as FINNISH: 0,30%, ENGLISH: 0,10%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+87.16666666666667 71.8 90.10000000000001 99.6
