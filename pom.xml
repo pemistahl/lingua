@@ -152,6 +152,7 @@
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>training-data/**</exclude>
+                    <exclude>language-models/*/sixgrams.json</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -216,7 +217,9 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>accuracy-reports</directory>
+                            <directory>accuracy-reports/lingua</directory>
+                            <directory>accuracy-reports/tika</directory>
+                            <directory>accuracy-reports/optimaize</directory>
                         </fileset>
                     </filesets>
                 </configuration>
