@@ -51,17 +51,35 @@ So far, two other comprehensive open source libraries working on the JVM for thi
 
 ### <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
-Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following seven languages are supported:
+Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 25 languages are supported:
 
-| Language | ISO 639-1 code |
-| -------- | -------------- |
-| English  |   *en*         |
-| French   |   *fr*         |
-| German   |   *de*         |
-| Italian  |   *it*         |
-| Latin    |   *la*         |
-| Portuguese | *pt*         |
-| Spanish  |   *es*         |
+| Language   | ISO 639-1 code |
+| --------   | -------------- |
+| Arabic     | *ar*           |
+| Belarusian | *be*           |
+| Bulgarian  | *bg*           |
+| Croatian   | *hr*           |
+| Czech      | *cs*           |
+| Danish     | *da*           |
+| Dutch      | *nl*           |
+| English    | *en*           |
+| Estonian   | *et*           |
+| Finnish    | *fi*           |
+| French     | *fr*           |
+| German     | *de*           |
+| Hungarian  | *hu*           |
+| Italian    | *it*           |
+| Latin      | *la*           |
+| Latvian    | *lv*           |
+| Lithuanian | *lt*           |
+| Polish     | *pl*           |
+| Persian    | *fa*           |
+| Portuguese | *pt*           |
+| Romanian   | *ro*           |
+| Russian    | *ru*           |
+| Spanish    | *es*           |
+| Swedish    | *sv*           |
+| Turkish    | *tr*           |
 
 ### <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -70,13 +88,17 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 2. a list of word pairs with a minimum length of 10 characters
 3. a list of complete grammatical sentences of various lengths
 
-Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. 
+Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 sentences, 1000 single words and 1000 word pairs has been extracted, respectively.
 
 #### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
 
-Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of six languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. 
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 24 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. All other 24 are indeed part of the decision process, that is, each classifier might theoretically return one of these 24 languages as the result.
 
-As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 12% higher on average than with *Tika*, for single words it is even 15% higher. 
+As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 8% higher on average than with *Tika*, for single words it is even 12% higher. 
+
+It seems that languages with less characteristic letters are harder to identify than those that have, such as English and Dutch. This is probably due to their lack of diacritics and other distinctive letters, basically using the letters A-Z only. Even though English and Dutch are harder to identify for *Lingua* as well, it performs much better than *Apache Tika* with 28% more English and 23% more Dutch words classified correctly. 
+
+By looking at the standard deviations of the separate categories, it is remarkable that *Lingua's* detection quality is much more stable and consistent across the different languages. The accuracy values of *Tika* and *Optimaize* fluctuate in a broader scope than *Lingua's* results. Whereas *Tika's* values for single word detection range between 33% (Spanish) and 95% (Arabic and Belarusian), *Lingua* only ranges between 55% (Spanish) and 97% (Arabic).  
 
 <table>
     <tr>
@@ -218,7 +240,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>66 <img src="images/lightgreen.png"></td>
         <td>28 <img src="images/orange.png"></td>
         <td>99 <img src="images/green.png"></td>
-        <td>&nbsp;&nbsp;99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
         <td>97 <img src="images/green.png"></td>
     </tr>
     <tr>
@@ -308,7 +330,7 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>85 <img src="images/green.png"></td>
         <td>47 <img src="images/yellow.png"></td>
         <td>100 <img src="images/green.png"></td>
-        <td>&nbsp;&nbsp;99 <img src="images/green.png"></td>
+        <td>99 <img src="images/green.png"></td>
         <td>98 <img src="images/green.png"></td>
     </tr>
     <tr>
@@ -378,12 +400,12 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>41 <img src="images/yellow.png"></td>
         <td>65 <img src="images/lightgreen.png"></td>
         <td>38 <img src="images/orange.png"></td>
-        <td>&nbsp;&nbsp;8 <img src="images/red.png"></td>
+        <td>8 <img src="images/red.png"></td>
         <td>87 <img src="images/green.png"></td>
         <td>60 <img src="images/lightgreen.png"></td>
         <td>22 <img src="images/orange.png"></td>
         <td>99 <img src="images/green.png"></td>
-        <td>&nbsp;&nbsp;98 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
         <td>95 <img src="images/green.png"></td>
     </tr>
     <tr>
@@ -423,12 +445,12 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td>34 <img src="images/orange.png"></td>
         <td>55 <img src="images/yellow.png"></td>
         <td>33 <img src="images/orange.png"></td>
-        <td>&nbsp;&nbsp;1 <img src="images/red.png"></td>
+        <td>1 <img src="images/red.png"></td>
         <td>76 <img src="images/lightgreen.png"></td>
         <td>54 <img src="images/yellow.png"></td>
         <td>8 <img src="images/red.png"></td>
         <td>98 <img src="images/green.png"></td>
-        <td>&nbsp;&nbsp;98 <img src="images/green.png"></td>
+        <td>98 <img src="images/green.png"></td>
         <td>92 <img src="images/green.png"></td>
     </tr>
     <tr>
@@ -465,19 +487,37 @@ As the table below shows, *Lingua* outperforms the other two libraries significa
         <td colspan="9"></td>
     </tr>
     <tr>
-        <td><strong>overall</strong></td>
+        <td><strong>Mean</strong></td>
         <td><strong>90</strong> <img src="images/green.png"></td>
         <td><strong>83</strong> <img src="images/green.png"></td>
         <td><strong>65</strong> <img src="images/lightgreen.png"></td>
-        <td><strong>79</strong> <img src="images/lightgreen.png"></td>
+        <td><strong>78</strong> <img src="images/lightgreen.png"></td>
         <td><strong>67</strong> <img src="images/lightgreen.png"></td>
-        <td><strong>36</strong> <img src="images/orange.png"></td>
+        <td><strong>35</strong> <img src="images/orange.png"></td>
         <td><strong>92</strong> <img src="images/green.png"></td>
         <td><strong>84</strong> <img src="images/green.png"></td>
         <td><strong>62</strong> <img src="images/lightgreen.png"></td>
         <td><strong>98</strong> <img src="images/green.png"></td>
         <td><strong>99</strong> <img src="images/green.png"></td>
         <td><strong>97</strong> <img src="images/green.png"></td>
+    </tr>
+    <tr>
+        <td colspan="9"></td>
+    </tr>
+    <tr>
+        <td>Standard Deviation</td>
+        <td>6.01</td>
+        <td>9.71</td>
+        <td>15.25</td>
+        <td>11.11</td>
+        <td>17.01</td>
+        <td>21.69</td>
+        <td>5.66</td>
+        <td>11.99</td>
+        <td>23.29</td>
+        <td>2.70</td>
+        <td>1.62</td>
+        <td>3.09</td>
     </tr>
 </table>
 
