@@ -16,7 +16,7 @@
 
 package com.github.pemistahl.lingua.report.lingua
 
-import com.github.pemistahl.lingua.report.AbstractPolishDetectionAccuracyReport
+import com.github.pemistahl.lingua.report.config.AbstractPolishDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import org.junit.jupiter.api.AfterAll
 

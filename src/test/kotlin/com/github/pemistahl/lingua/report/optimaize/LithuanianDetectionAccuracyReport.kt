@@ -16,7 +16,7 @@
 
 package com.github.pemistahl.lingua.report.optimaize
 
-import com.github.pemistahl.lingua.report.AbstractLithuanianDetectionAccuracyReport
+import com.github.pemistahl.lingua.report.config.AbstractLithuanianDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
 import org.junit.jupiter.api.AfterAll
 

@@ -16,7 +16,7 @@
 
 package com.github.pemistahl.lingua.report.tika
 
-import com.github.pemistahl.lingua.report.AbstractItalianDetectionAccuracyReport
+import com.github.pemistahl.lingua.report.config.AbstractItalianDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
 import org.junit.jupiter.api.AfterAll
 

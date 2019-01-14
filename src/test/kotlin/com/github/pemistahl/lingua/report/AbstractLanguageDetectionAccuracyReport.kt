@@ -16,8 +16,8 @@
 
 package com.github.pemistahl.lingua.report
 
-import com.github.pemistahl.lingua.detector.LanguageDetectorBuilder
-import com.github.pemistahl.lingua.model.Language
+import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
@@ -28,11 +28,8 @@ import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
 import org.apache.tika.langdetect.OptimaizeLangDetector
 import org.apache.tika.language.detect.LanguageResult
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.TestInstance.Lifecycle
 import java.util.logging.Logger
 
-@TestInstance(Lifecycle.PER_CLASS)
 abstract class AbstractLanguageDetectionAccuracyReport(
     private val language: Language,
     private val implementationToUse: LanguageDetectorImplementation
