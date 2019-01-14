@@ -17,8 +17,8 @@
 package com.github.pemistahl.lingua.api
 
 class LanguageDetectorBuilder private constructor(
-    private val languages: Set<Language>,
-    private var useMapDBCache: Boolean
+    internal val languages: Set<Language>,
+    internal var useMapDBCache: Boolean
 ) {
     fun build() = LanguageDetector(languages.toMutableSet(), useMapDBCache)
 
