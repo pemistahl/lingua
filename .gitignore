@@ -42,3 +42,4 @@ ehthumbs.db
 
 training-data/
 accuracy-reports/*/*Report.txt
+.ipynb_checkpoints
