@@ -505,6 +505,21 @@ By looking at the standard deviations of the separate categories, it is remarkab
         <td colspan="9"></td>
     </tr>
     <tr>
+        <td>Median</td>
+        <td>90.83</td>
+        <td>85.85</td>
+        <td>63.68</td>
+        <td>78.50</td>
+        <td>71.30</td>
+        <td>30.35</td>
+        <td>94.50</td>
+        <td>87.40</td>
+        <td>66.60</td>
+        <td>99.20</td>
+        <td>99.30</td>
+        <td>97.70</td>
+    </tr>
+    <tr>
         <td>Standard Deviation</td>
         <td>6.01</td>
         <td>9.71</td>
@@ -559,7 +574,7 @@ Erroneously classified as ENGLISH: 0,97%, PORTUGUESE: 0,12%, FRENCH: 0,06%, ITAL
 #### <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
-implementation 'com.github.pemistahl:lingua:0.2.2'
+implementation 'com.github.pemistahl:lingua:0.3.0'
 ```
 
 #### <a name="library-dependency-maven"></a> Using Maven
@@ -568,7 +583,7 @@ implementation 'com.github.pemistahl:lingua:0.2.2'
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.2.2</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -582,8 +597,8 @@ cd lingua
 mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
-1. `mvn package` creates `lingua-0.2.2.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.2.2-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+1. `mvn package` creates `lingua-0.3.0.jar` that contains the compiled sources only.
+2. `mvn package -P with-dependencies` creates `lingua-0.3.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ### <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -594,8 +609,8 @@ The API is pretty straightforward and can be used in both Kotlin and Java code.
 ```kotlin
 /* Kotlin */
 
-import com.github.pemistahl.lingua.detector.LanguageDetector
-import com.github.pemistahl.lingua.model.Language
+import com.github.pemistahl.lingua.api.LanguageDetector
+import com.github.pemistahl.lingua.api.Language
 
 println(LanguageDetector.supportedLanguages())
 // [ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE, SPANISH]
@@ -611,8 +626,8 @@ If a string's language cannot be detected reliably because of missing linguistic
 ```java
 /* Java */
 
-import com.github.pemistahl.lingua.detector.LanguageDetector;
-import com.github.pemistahl.lingua.model.Language;
+import com.github.pemistahl.lingua.api.LanguageDetector;
+import com.github.pemistahl.lingua.api.Language;
 
 final LanguageDetector detector = LanguageDetector.fromAllBuiltInLanguages();
 final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
@@ -636,7 +651,7 @@ LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 #### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.2.2-with-dependencies.jar`
+2. Without Maven: `java -jar lingua-0.3.0-with-dependencies.jar`
 
 Then just play around:
 
