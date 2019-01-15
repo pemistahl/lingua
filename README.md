@@ -24,6 +24,10 @@
   * [Comparison of Libraries](#library-comparison)
     * [Tabular Comparison](#library-comparison-tabular)
     * [Graphical Comparison](#library-comparison-graphical)
+      * [Single Words](#library-comparison-graphical-singlewords)
+      * [Word Pairs](#library-comparison-graphical-wordpairs)
+      * [Sentences](#library-comparison-graphical-sentences)
+      * [Average](#library-comparison-graphical-average)
 * [Test Report Generation](#report-generation)
 * [How to add it to your project?](#library-dependency)
   * [Using Gradle](#library-dependency-gradle)
@@ -527,9 +531,25 @@ By looking at the standard deviations of the separate categories, it is remarkab
 
 ### <a name="library-comparison-graphical"></a> Graphical Comparison <sup>[Top ▲](#table-of-contents)</sup>
 
+The following plots even better reflect how *Lingua* performs next to its contenders.
+
+#### <a name="library-comparison-graphical-singlewords"></a> Single Words <sup>[Top ▲](#table-of-contents)</sup>
+
+The line plot shows that *Lingua's* detection accuracy for single words is superior except for Latvian. Looking at the report for this language, more than 12% of the words are erroneously classified as Swedish or Turkish. This is probably due to some very specific characters that occur much more often in the other two languages.
+
+As already stated, some languages generally seem harder to identify than others, especially the Romance languages French, Italian, Portuguese and Spanish which are very similar to each other. Also, German and English are difficult to keep apart.
+
 ![lineplot-singlewords](/images/plots/lineplot-singlewords.png)
 
+The box plot very nicely shows the differences in the deviation of the results, proving that *Lingua* is generally more reliable, independent of the language. 
+
 ![boxplot-singlewords](/images/plots/boxplot-singlewords.png)
+
+#### <a name="library-comparison-graphical-wordpairs"></a> Word Pairs <sup>[Top ▲](#table-of-contents)</sup>
+
+![lineplot-wordpairs](/images/plots/lineplot-wordpairs.png)
+
+![boxplot-wordpairs](/images/plots/boxplot-wordpairs.png)
 
 ## <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
 
