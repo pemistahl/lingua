@@ -45,10 +45,11 @@ Its task is simple: It tells you which language some provided textual data is wr
 ## <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
 Language detection is often done as part of large machine learning frameworks or natural language processing applications. In cases where you don't need the full-fledged functionality of those systems or don't want to learn the ropes of those, a small flexible library comes in handy. 
 
-So far, two other comprehensive open source libraries working on the JVM for this task are [Apache Tika] and [Optimaize Language Detector]. Unfortunately, especially the latter has two major drawbacks:
+So far, two other comprehensive open source libraries working on the JVM for this task are [Apache Tika] and [Optimaize Language Detector]. Unfortunately, especially the latter has three major drawbacks:
  
 1. Detection only works with quite lengthy text fragments. For very short text snippets such as Twitter messages, it doesn't provide adequate results.
-2. Configuration of the library is quite cumbersome and requires some knowledge about the statistical methods that are used internally.
+2. The more languages take part in the decision process, the less accurate are the detection results.
+3. Configuration of the library is quite cumbersome and requires some knowledge about the statistical methods that are used internally.
 
 *Lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries of words. It does not need a connection to any external API or service either. Once the library has been downloaded, it can be used completely offline. 
 
@@ -575,7 +576,11 @@ If you want to reproduce the accuracy results above, you can generate the test r
 - `mvn test -P accuracy-reports -D detector=tika` generates reports for *Apache Tika*
 - `mvn test -P accuracy-reports -D detector=optimaize` generates reports for *Optimaize*
 
-For each detector and language, a test report file is then written into `/accuracy-reports`, to be found next to the `src` directory. All accuracy reports of the current release are committed to this repository and can be found [here](https://github.com/pemistahl/lingua/tree/master/accuracy-reports).
+If you just want to create a report for a specific language, you can do so as well:
+
+- `mvn test -P accuracy-reports -D detector=lingua -D language=German`
+
+For each detector and language, a test report file is then written into [`/accuracy-reports`](https://github.com/pemistahl/lingua/tree/master/accuracy-reports), to be found next to the `src` directory. 
 As an example, here is the current output of the *Lingua* German report:
 
 ```
@@ -583,20 +588,22 @@ com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
 
 ##### GERMAN #####
 
->>> Accuracy on average: 95,90%
+>>> Accuracy on average: 91,10%
 
->> Detection of 11748 single words (average length: 10 chars)
-Accuracy: 90,64%
-Erroneously classified as ENGLISH: 2,95%, FRENCH: 2,38%, ITALIAN: 2,05%, SPANISH: 1,05%, PORTUGUESE: 0,94%
+>> Detection of 1000 single words (average length: 9 chars)
+Accuracy: 78,50%
+Erroneously classified as DANISH: 3,50%, ENGLISH: 3,30%, DUTCH: 2,80%, SWEDISH: 2,10%, ITALIAN: 1,90%, FRENCH: 1,70%, ESTONIAN: 0,90%, LITHUANIAN: 0,80%, FINNISH: 0,80%, PORTUGUESE: 0,80%, CROATIAN: 0,80%, POLISH: 0,60%, SPANISH: 0,50%, ROMANIAN: 0,30%, TURKISH: 0,30%, LATVIAN: 0,20%, CZECH: 0,20%
 
->> Detection of 9347 word pairs (average length: 17 chars)
-Accuracy: 98,31%
-Erroneously classified as ENGLISH: 0,78%, FRENCH: 0,35%, ITALIAN: 0,29%, SPANISH: 0,16%, PORTUGUESE: 0,11%
+>> Detection of 1000 word pairs (average length: 18 chars)
+Accuracy: 95,30%
+Erroneously classified as ENGLISH: 0,90%, DANISH: 0,80%, DUTCH: 0,80%, SWEDISH: 0,60%, FRENCH: 0,40%, ESTONIAN: 0,30%, CZECH: 0,20%, TURKISH: 0,10%, LATVIAN: 0,10%, PORTUGUESE: 0,10%, FINNISH: 0,10%, HUNGARIAN: 0,10%, ROMANIAN: 0,10%, SPANISH: 0,10%
 
->> Detection of 10000 sentences (average length: 47 chars)
-Accuracy: 98,75%
-Erroneously classified as ENGLISH: 0,97%, PORTUGUESE: 0,12%, FRENCH: 0,06%, ITALIAN: 0,06%, SPANISH: 0,04%
+>> Detection of 1000 sentences (average length: 111 chars)
+Accuracy: 99,50%
+Erroneously classified as SWEDISH: 0,10%, POLISH: 0,10%, FINNISH: 0,10%, DUTCH: 0,10%, ENGLISH: 0,10%
 ```
+
+The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The code is contained in an IPython notebook and can be found under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/master/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
 
 ## <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -640,16 +647,19 @@ The API is pretty straightforward and can be used in both Kotlin and Java code.
 ```kotlin
 /* Kotlin */
 
+import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetector
 import com.github.pemistahl.lingua.api.Language
 
-println(LanguageDetector.supportedLanguages())
-// [ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE, SPANISH]
+println(LanguageDetectorBuilder.supportedLanguages())
+// [ARABIC, BELARUSIAN, BULGARIAN, ...]
 
-val detector = LanguageDetector.fromAllBuiltInLanguages()
+val detector: LanguageDetector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build()
 val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are awesome")
+// ENGLISH
 
-// returns Language.ENGLISH
+val languages: List<Language> = detector.detectLanguagesOf(texts = listOf("languages", "are", "awesome"))
+// [ENGLISH, ENGLISH, ENGLISH]
 ```
 
 If a string's language cannot be detected reliably because of missing linguistic information, `Language.UNKNOWN` is returned. The public API of *Lingua* never returns `null` somewhere, so it is safe to be used from within Java code as well.
@@ -657,26 +667,39 @@ If a string's language cannot be detected reliably because of missing linguistic
 ```java
 /* Java */
 
+import com.github.pemistahl.lingua.api.LanguageDetectorBuilder;
 import com.github.pemistahl.lingua.api.LanguageDetector;
 import com.github.pemistahl.lingua.api.Language;
+import static java.util.Arrays.asList;
 
-final LanguageDetector detector = LanguageDetector.fromAllBuiltInLanguages();
+final LanguageDetector detector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build();
 final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
-
-// returns Language.ENGLISH
+final List<Language> languages = detector.detectLanguagesOf(asList("languages", "are", "awesome"));
 ```
 
 There might be classification tasks where you know beforehand that your language data is definitely not written in Latin, for instance (what a surprise :-). The detection accuracy can become better in such cases if you exclude certain languages from the decision process or just explicitly include relevant languages:
-```kotlin
 
+```kotlin
 // include only languages that are not yet extinct (= currently excludes Latin)
-LanguageDetector.fromAllBuiltInSpokenLanguages()
+LanguageDetectorBuilder.fromAllBuiltInSpokenLanguages()
 
 // exclude the Spanish language from the decision algorithm
-LanguageDetector.fromAllBuiltInLanguagesWithout(Language.SPANISH)
+LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(Language.SPANISH)
 
 // only decide between English and German
-LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
+LanguageDetectorBuilder.fromLanguages(Language.ENGLISH, Language.GERMAN)
+
+// select languages by ISO 639-1 code
+LanguageDetectorBuilder.fromIsoCodes(listOf("en", "de"))
+```
+
+If you build your detector from all built-in language models, this can consume quite a bit of time and memory, depending on your machine. In order to speed up the loading process and save memory, *Lingua* offers an optional [MapDB](https://github.com/jankotek/mapdb) cache that converts the language models to highly efficient [`SortedTableMap`](https://jankotek.gitbooks.io/mapdb/content/sortedtablemap/) instances upon first access. These MapDB files are then stored in your operating system account's user home directory under `[your home directory]/lingua-mapdb-files`. Every subsequent access to the language models will then read them from MapDB. This saves 33% of memory and 66% of loading times, approximately. You can active the MapDB cache like so:
+
+```kotlin
+val detector = LanguageDetectorBuilder
+    .fromAllBuiltInLanguages()
+    .withMapDBCache() // this builds the cache
+    .build()
 ```
 
 ### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
@@ -688,24 +711,32 @@ Then just play around:
 
 ```
 This is Lingua.
+Select the language models to load.
+
+1: all 25 supported languages
+2: French, Italian, Spanish, Portuguese
+3: Dutch, English, German
+4: Belarusian, Bulgarian, Russian
+5: Danish, Finnish, Swedish
+6: Estonian, Latvian, Lithuanian
+7: Czech, Polish
+8: Croatian, Hungarian, Romanian
+9: Arabic, Persian
+
+Type a number (default: 1) and press <Enter>.
+Type :quit to exit.
+
+> 3
 Loading language models...
-Done. 7 language models loaded.
+Done. 3 language models loaded in 2 seconds.
 
 Type some text and press <Enter> to detect its language.
 Type :quit to exit.
 
-> Good day
-ENGLISH
-> Guten Tag
+> Sprachen sind schon toll.
 GERMAN
-> Bonjour
-FRENCH
-> Buon giorno
-ITALIAN
-> Buenos dias
-SPANISH
-> Bom dia
-PORTUGUESE
+> languages are great
+ENGLISH
 > :quit
 Bye! Ciao! Tschüss! Salut!
 ```
