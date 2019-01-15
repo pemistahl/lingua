@@ -4,8 +4,10 @@
 *Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
 
 ---
-[![Download][lingua version badge]][lingua download url]
 [![supported languages][supported languages badge]](#supported-languages)
+[![Maven Central][Maven Central badge]][Maven Central]
+[![Jcenter][Jcenter badge]][Jcenter]
+[![Download][lingua version badge]][lingua download url]
 ---
 [![ci build status][travis ci badge]][travis ci url]
 [![codecov][codecov badge]][codecov url]
@@ -693,7 +695,7 @@ LanguageDetectorBuilder.fromLanguages(Language.ENGLISH, Language.GERMAN)
 LanguageDetectorBuilder.fromIsoCodes(listOf("en", "de"))
 ```
 
-If you build your detector from all built-in language models, this can consume quite a bit of time and memory, depending on your machine. In order to speed up the loading process and save memory, *Lingua* offers an optional [MapDB](https://github.com/jankotek/mapdb) cache that converts the language models to highly efficient [`SortedTableMap`](https://jankotek.gitbooks.io/mapdb/content/sortedtablemap/) instances upon first access. These MapDB files are then stored in your operating system account's user home directory under `[your home directory]/lingua-mapdb-files`. Every subsequent access to the language models will then read them from MapDB. This saves 33% of memory and 66% of loading times, approximately. You can active the MapDB cache like so:
+If you build your detector from all built-in language models, this can consume quite a bit of time and memory, depending on your machine. In order to speed up the loading process and save memory, *Lingua* offers an optional [MapDB](https://github.com/jankotek/mapdb) cache that converts the language models to highly efficient [`SortedTableMap`](https://jankotek.gitbooks.io/mapdb/content/sortedtablemap/) instances upon first access. These MapDB files are then stored in your operating system account's user home directory under `[your home directory]/lingua-mapdb-files`. Every subsequent access to the language models will then read them from MapDB. This saves 33% of memory and 66% of loading times, approximately. You can activate the MapDB cache like so:
 
 ```kotlin
 val detector = LanguageDetectorBuilder
@@ -762,11 +764,11 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
-[supported languages badge]: https://img.shields.io/badge/supported%20languages-7-red.svg
+[supported languages badge]: https://img.shields.io/badge/supported%20languages-25-orange.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [awesome nlp url]: https://github.com/keon/awesome-nlp#user-content-kotlin
 [lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.2.2%2Flingua-0.2.2-with-dependencies.jar
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.3.0%2Flingua-0.3.0-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
@@ -774,10 +776,12 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
-[Apache Tika]: https://tika.apache.org/1.19.1/detection.html#Language_Detection
+[Apache Tika]: https://tika.apache.org/1.20/detection.html#Language_Detection
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.2.2
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.2.2/jar
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.3.0
+[Jcenter badge]: https://img.shields.io/badge/JCenter-0.3.0-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.3.0/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.3.0-green.svg
 [green-marker]: https://placehold.it/10/008000/000000?text=+
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
 [orange-marker]: https://placehold.it/10/ff8c00/000000?text=+
