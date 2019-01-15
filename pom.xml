@@ -5,7 +5,7 @@
 
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.3.0</version>
 
     <name>Lingua</name>
     <description>A language detection library for Kotlin and Java, suitable for long and short text alike</description>
