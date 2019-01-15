@@ -8,9 +8,6 @@
 [![supported languages][supported languages badge]](#supported-languages)
 ---
 [![ci build status][travis ci badge]][travis ci url]
-[![codebeat badge][codebeat badge]][codebeat url]
-[![Codacy Badge][Codacy Badge]][codacy url]
-[![Maintainability][maintainability badge]][maintainability url]
 [![codecov][codecov badge]][codecov url]
 ---
 [![Kotlin version][Kotlin version badge]][Kotlin url]
@@ -25,7 +22,9 @@
 * [Which languages are supported?](#supported-languages)
 * [How good is it?](#library-accuracy)
   * [Comparison of Libraries](#library-comparison)
-  * [Test Report Generation](#report-generation)
+    * [Tabular Comparison](#library-comparison-tabular)
+    * [Graphical Comparison](#library-comparison-graphical)
+* [Test Report Generation](#report-generation)
 * [How to add it to your project?](#library-dependency)
   * [Using Gradle](#library-dependency-gradle)
   * [Using Maven](#library-dependency-maven)
@@ -36,10 +35,10 @@
 * [Do you want to contribute?](#library-contribution)
 * [What's next for upcoming versions?](#whats-next)
 
-### <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. This is very useful as a preprocessing step for linguistic data in natural language processing applications such as text classification and spell checking. Other use cases, for instance, might include routing e-mails to the right geographically located customer service department, based on the e-mails' languages.
 
-### <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
 Language detection is often done as part of large machine learning frameworks or natural language processing applications. In cases where you don't need the full-fledged functionality of those systems or don't want to learn the ropes of those, a small flexible library comes in handy. 
 
 So far, two other comprehensive open source libraries working on the JVM for this task are [Apache Tika] and [Optimaize Language Detector]. Unfortunately, especially the latter has two major drawbacks:
@@ -49,50 +48,40 @@ So far, two other comprehensive open source libraries working on the JVM for thi
 
 *Lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries of words. It does not need a connection to any external API or service either. Once the library has been downloaded, it can be used completely offline. 
 
-### <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 25 languages are supported:
 
-| Language   | ISO 639-1 code |
-| --------   | -------------- |
-| Arabic     | *ar*           |
-| Belarusian | *be*           |
-| Bulgarian  | *bg*           |
-| Croatian   | *hr*           |
-| Czech      | *cs*           |
-| Danish     | *da*           |
-| Dutch      | *nl*           |
-| English    | *en*           |
-| Estonian   | *et*           |
-| Finnish    | *fi*           |
-| French     | *fr*           |
-| German     | *de*           |
-| Hungarian  | *hu*           |
-| Italian    | *it*           |
-| Latin      | *la*           |
-| Latvian    | *lv*           |
-| Lithuanian | *lt*           |
-| Polish     | *pl*           |
-| Persian    | *fa*           |
-| Portuguese | *pt*           |
-| Romanian   | *ro*           |
-| Russian    | *ru*           |
-| Spanish    | *es*           |
-| Swedish    | *sv*           |
-| Turkish    | *tr*           |
+| Language   | ISO 639-1 code | Language   | ISO 639-1 code |
+| --------   | -------------- | --------   | -------------- |
+| Arabic     | *ar*           | Italian    | *it*           |
+| Belarusian | *be*           | Latin      | *la*           |
+| Bulgarian  | *bg*           | Latvian    | *lv*           |
+| Croatian   | *hr*           | Lithuanian | *lt*           |
+| Czech      | *cs*           | Polish     | *pl*           |
+| Danish     | *da*           | Persian    | *fa*           |
+| Dutch      | *nl*           | Portuguese | *pt*           |
+| English    | *en*           | Romanian   | *ro*           |
+| Estonian   | *et*           | Russian    | *ru*           |
+| Finnish    | *fi*           | Spanish    | *es*           |
+| French     | *fr*           | Swedish    | *sv*           |
+| German     | *de*           | Turkish    | *tr*           |
+| Hungarian  | *hu*           |            |                |
 
-### <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
 
 *Lingua* is able to report accuracy statistics for some bundled test data available for each supported language. The test data for each language is split into three parts:
 1. a list of single words with a minimum length of 5 characters
 2. a list of word pairs with a minimum length of 10 characters
 3. a list of complete grammatical sentences of various lengths
 
-Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 sentences, 1000 single words and 1000 word pairs has been extracted, respectively.
+Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
-#### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
+### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
 
 Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 24 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. All other 24 are indeed part of the decision process, that is, each classifier might theoretically return one of these 24 languages as the result.
+
+#### <a name="library-comparison-tabular"></a> Tabular Comparison <sup>[Top ▲](#table-of-contents)</sup>
 
 As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 8% higher on average than with *Tika*, for single words it is even 12% higher. 
 
@@ -536,7 +525,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
 </table>
 
-#### <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
+### <a name="library-comparison-graphical"></a> Graphical Comparison <sup>[Top ▲](#table-of-contents)</sup>
+
+![lineplot-singlewords](/images/plots/lineplot-singlewords.png)
+
+![boxplot-singlewords](/images/plots/boxplot-singlewords.png)
+
+## <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself:
 
@@ -567,17 +562,17 @@ Accuracy: 98,75%
 Erroneously classified as ENGLISH: 0,97%, PORTUGUESE: 0,12%, FRENCH: 0,06%, ITALIAN: 0,06%, SPANISH: 0,04%
 ```
 
-### <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
 *Lingua* is hosted on [Jcenter] and [Maven Central].
 
-#### <a name="library-dependency-gradle"></a> Using Gradle
+### <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
 implementation 'com.github.pemistahl:lingua:0.3.0'
 ```
 
-#### <a name="library-dependency-maven"></a> Using Maven
+### <a name="library-dependency-maven"></a> Using Maven
 
 ```
 <dependency>
@@ -587,7 +582,7 @@ implementation 'com.github.pemistahl:lingua:0.3.0'
 </dependency>
 ```
 
-### <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
 *Lingua* uses Maven to build. A switch to Gradle is planned for the future.
 
@@ -600,10 +595,10 @@ Maven's `package` phase is able to generate two jar files in the `target` direct
 1. `mvn package` creates `lingua-0.3.0.jar` that contains the compiled sources only.
 2. `mvn package -P with-dependencies` creates `lingua-0.3.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
-### <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
 
-#### <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
+### <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
 The API is pretty straightforward and can be used in both Kotlin and Java code.
 
 ```kotlin
@@ -648,7 +643,7 @@ LanguageDetector.fromAllBuiltInLanguagesWithout(Language.SPANISH)
 LanguageDetector.fromLanguages(Language.ENGLISH, Language.GERMAN)
 ```
 
-#### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
+### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
 2. Without Maven: `java -jar lingua-0.3.0-with-dependencies.jar`
@@ -679,11 +674,11 @@ PORTUGUESE
 Bye! Ciao! Tschüss! Salut!
 ```
 
-### <a name="library-contribution"></a> Do you want to contribute? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="library-contribution"></a> Do you want to contribute? <sup>[Top ▲](#table-of-contents)</sup>
 
 In case you want to contribute something to *Lingua* even though it's in a very early stage of development, then I encourage you to do so nevertheless. Do you have ideas for improving the API? Are there some specific languages that you want to have supported early? Or have you found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated. :-)
 
-### <a name="whats-next"></a> What's next for upcoming versions? <sup>[Top ▲](#table-of-contents)</sup>
+## <a name="whats-next"></a> What's next for upcoming versions? <sup>[Top ▲](#table-of-contents)</sup>
 - languages, languages, even more languages :-)
 - accuracy improvements
 - more unit tests
