@@ -16,129 +16,68 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.ENGLISH
-import com.github.pemistahl.lingua.api.Language.FRENCH
-import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.ITALIAN
-import com.github.pemistahl.lingua.api.Language.LATIN
-import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.SPANISH
-import com.github.pemistahl.lingua.internal.model.LanguageModel
-import com.github.pemistahl.lingua.internal.model.Unigram
-import io.mockk.every
-import io.mockk.impl.annotations.MockK
-import io.mockk.junit5.MockKExtension
-import io.mockk.mockkObject
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import kotlin.reflect.KClass
 
-@ExtendWith(MockKExtension::class)
-@Disabled
 class LanguageDetectorTest {
 
-    @MockK internal lateinit var englishLanguageModel: LanguageModel<Unigram, Unigram>
-    @MockK internal lateinit var frenchLanguageModel: LanguageModel<Unigram, Unigram>
-    @MockK internal lateinit var germanLanguageModel: LanguageModel<Unigram, Unigram>
-    @MockK internal lateinit var italianLanguageModel: LanguageModel<Unigram, Unigram>
-    @MockK internal lateinit var latinLanguageModel: LanguageModel<Unigram, Unigram>
-    @MockK internal lateinit var portugueseLanguageModel: LanguageModel<Unigram, Unigram>
-    @MockK internal lateinit var spanishLanguageModel: LanguageModel<Unigram, Unigram>
+    private val detector = LanguageDetector(
+        languages = Language.values().toSet().minus(Language.UNKNOWN).toMutableSet(),
+        isCachedByMapDB = false
+    )
 
-    @BeforeAll
-    fun beforeAll() {
-        every { englishLanguageModel.language } returns ENGLISH
-        every { frenchLanguageModel.language } returns FRENCH
-        every { germanLanguageModel.language } returns GERMAN
-        every { italianLanguageModel.language } returns ITALIAN
-        every { latinLanguageModel.language } returns LATIN
-        every { portugueseLanguageModel.language } returns PORTUGUESE
-        every { spanishLanguageModel.language } returns SPANISH
-
-        mockkObject(LanguageDetector)
+    @AfterEach
+    fun afterEach() {
+        detector.languages.forEach { it.isExcludedFromDetection = false }
     }
 
     @Test
-    fun `assert that each and every built-in language model is loaded properly`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
-            ENGLISH to englishLanguageModel,
-            FRENCH to frenchLanguageModel,
-            GERMAN to germanLanguageModel,
-            ITALIAN to italianLanguageModel,
-            LATIN to latinLanguageModel,
-            PORTUGUESE to portugueseLanguageModel,
-            SPANISH to spanishLanguageModel
-        )
-        val detector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build()
-        assertEquals(7, detector.numberOfLoadedLanguages)
-        assertEquals(setOf(ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE, SPANISH), detector.languages)
-    }
-
-    @Test
-    fun `assert that all built-in spoken language models are loaded properly`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
-            ENGLISH to englishLanguageModel,
-            FRENCH to frenchLanguageModel,
-            GERMAN to germanLanguageModel,
-            ITALIAN to italianLanguageModel,
-            PORTUGUESE to portugueseLanguageModel,
-            SPANISH to spanishLanguageModel
-        )
-        val detector = LanguageDetectorBuilder.fromAllBuiltInSpokenLanguages().build()
-        assertEquals(6, detector.numberOfLoadedLanguages)
-        assertEquals(
-            setOf(ENGLISH, FRENCH, GERMAN, ITALIAN, PORTUGUESE, SPANISH),
-            detector.languages
-        )
-    }
-
-    @Test
-    fun `assert that selected language models are loaded properly`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
-            GERMAN to germanLanguageModel,
-            LATIN to latinLanguageModel
-        )
-        val detector = LanguageDetectorBuilder.fromLanguages(LATIN, GERMAN).build()
-        assertEquals(2, detector.numberOfLoadedLanguages)
-        assertEquals(setOf(LATIN, GERMAN), detector.languages)
-    }
-
-    @Test
-    fun `assert that LanguageDetector can not be built from only one language`() {
-        val expectedMessage = "LanguageDetector needs at least 2 languages to choose from"
-        run {
-            val exception = assertThrows(IllegalArgumentException::class.java) {
-                LanguageDetectorBuilder.fromLanguages(GERMAN).build()
-            }
-            assertEquals(expectedMessage, exception.message)
-        }
-        run {
-            val exception = assertThrows(IllegalArgumentException::class.java) {
-                LanguageDetectorBuilder
-                    .fromAllBuiltInLanguagesWithout(ENGLISH, FRENCH, GERMAN, ITALIAN, LATIN, PORTUGUESE)
-                    .build()
-            }
-            assertEquals(expectedMessage, exception.message)
+    fun `assert that invalid strings return unknown language`() {
+        listOf(
+            "",
+            " \n  \t;",
+            "3jfh856%)§"
+        ).forEach { str ->
+            assertThat(detector.detectLanguageWithRules(str)).isEqualTo(Language.UNKNOWN)
         }
     }
 
     @Test
-    fun `assert that excluded language models are not loaded`() {
-        every { LanguageDetector["loadLanguageModels"](any<Set<Language>>(), any<KClass<Unigram>>()) } returns mapOf(
-            ENGLISH to englishLanguageModel,
-            GERMAN to germanLanguageModel,
-            ITALIAN to italianLanguageModel,
-            SPANISH to spanishLanguageModel
-        )
-        val detector = LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(FRENCH, LATIN, PORTUGUESE).build()
-        assertEquals(4, detector.numberOfLoadedLanguages)
-        assertEquals(
-            setOf(ENGLISH, GERMAN, ITALIAN, SPANISH),
-            detector.languages
-        )
+    fun `assert that strings with letter 'ß' return German language`() {
+        listOf(
+            "ß",
+            "Fuß",
+            "groß und stark"
+        ).forEach { str ->
+            assertThat(detector.detectLanguageWithRules(str)).isEqualTo(Language.GERMAN)
+        }
+    }
+
+    @Test
+    fun `assert that languages not supporting Latin characters are excluded for input with Latin characters`() {
+        assertThat(detector.languages.all { it.isExcludedFromDetection }).isFalse()
+        val language = detector.detectLanguageWithRules("language detection is hard")
+        assertThat(detector.languages.filterNot { it.hasLatinAlphabet }.all { it.isExcludedFromDetection }).isTrue()
+        assertThat(detector.languages.filter { it.hasLatinAlphabet }.all { it.isExcludedFromDetection }).isFalse()
+        assertThat(language).isEqualTo(Language.UNKNOWN)
+    }
+
+    @Test
+    fun `assert that languages not supporting Cyrillic characters are excluded for input with Cyrillic characters`() {
+        assertThat(detector.languages.all { it.isExcludedFromDetection }).isFalse()
+        val language = detector.detectLanguageWithRules("трудно определить язык")
+        assertThat(detector.languages.filterNot { it.hasCyrillicAlphabet }.all { it.isExcludedFromDetection }).isTrue()
+        assertThat(detector.languages.filter { it.hasCyrillicAlphabet }.all { it.isExcludedFromDetection }).isFalse()
+        assertThat(language).isEqualTo(Language.UNKNOWN)
+    }
+
+    @Test
+    fun `assert that languages not supporting Arabic characters are excluded for input with Arabic characters`() {
+        assertThat(detector.languages.all { it.isExcludedFromDetection }).isFalse()
+        val language = detector.detectLanguageWithRules("اكتشاف اللغة صعب")
+        assertThat(detector.languages.filterNot { it.hasArabicAlphabet }.all { it.isExcludedFromDetection }).isTrue()
+        assertThat(detector.languages.filter { it.hasArabicAlphabet }.all { it.isExcludedFromDetection }).isFalse()
+        assertThat(language).isEqualTo(Language.UNKNOWN)
     }
 }

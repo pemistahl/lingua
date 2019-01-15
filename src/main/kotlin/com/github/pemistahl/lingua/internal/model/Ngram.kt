@@ -31,13 +31,8 @@ internal sealed class Ngram(private val length: Int, value: String) {
     }
 
     private fun validate(value: String): String {
-        if (value.length != this.length) {
-            throw IllegalArgumentException(
-                """
-                value '$value' must be of length $length
-                for type ${this::class.simpleName}
-                """.trimIndent()
-            )
+        require(value.length == this.length) {
+            "value '$value' must be of length $length for type ${this::class.simpleName} but is ${value.length}"
         }
         return value
     }

@@ -33,11 +33,11 @@ class LanguageDetector internal constructor(
 ) {
     private var languagesSequence = languages.asSequence()
 
-    private val unigramLanguageModels = loadLanguageModels(languages, Unigram::class)
-    private val bigramLanguageModels = loadLanguageModels(languages, Bigram::class)
-    private val trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
-    private val quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
-    private val fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
+    private lateinit var unigramLanguageModels: MutableMap<Language, LanguageModel<Unigram, Unigram>>
+    private lateinit var bigramLanguageModels: MutableMap<Language, LanguageModel<Bigram, Bigram>>
+    private lateinit var trigramLanguageModels: MutableMap<Language, LanguageModel<Trigram, Trigram>>
+    private lateinit var quadrigramLanguageModels: MutableMap<Language, LanguageModel<Quadrigram, Quadrigram>>
+    private lateinit var fivegramLanguageModels: MutableMap<Language, LanguageModel<Fivegram, Fivegram>>
 
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
@@ -112,7 +112,7 @@ class LanguageDetector internal constructor(
             .maxBy { (_, value) -> value }!!.key
     }
 
-    private fun detectLanguageWithRules(text: String): Language {
+    internal fun detectLanguageWithRules(text: String): Language {
         if (text.isEmpty() || NO_LETTER_REGEX.matches(text)) return Language.UNKNOWN
         val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
 
@@ -343,6 +343,32 @@ class LanguageDetector internal constructor(
             languageModels[language] = loadLanguageModel(language, ngramClass)
         }
         return languageModels
+    }
+
+    internal fun loadAllLanguageModels() {
+        unigramLanguageModels = loadLanguageModels(languages, Unigram::class)
+        bigramLanguageModels = loadLanguageModels(languages, Bigram::class)
+        trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
+        quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
+        fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as LanguageDetector
+
+        if (languages != other.languages) return false
+        if (isCachedByMapDB != other.isCachedByMapDB) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = languages.hashCode()
+        result = 31 * result + isCachedByMapDB.hashCode()
+        return result
     }
 
     internal companion object {

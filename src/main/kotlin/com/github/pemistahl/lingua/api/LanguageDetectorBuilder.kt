@@ -20,7 +20,11 @@ class LanguageDetectorBuilder private constructor(
     internal val languages: Set<Language>,
     internal var useMapDBCache: Boolean
 ) {
-    fun build() = LanguageDetector(languages.toMutableSet(), useMapDBCache)
+    fun build(): LanguageDetector {
+        val detector = LanguageDetector(languages.toMutableSet(), useMapDBCache)
+        detector.loadAllLanguageModels()
+        return detector
+    }
 
     fun withMapDBCache(): LanguageDetectorBuilder {
         this.useMapDBCache = true
