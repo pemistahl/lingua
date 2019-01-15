@@ -43,13 +43,14 @@ class LanguageDetector internal constructor(
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
-        val textSequence = trimmedText.lineSequence()
+        if (trimmedText.isEmpty() || NO_LETTER_REGEX.matches(trimmedText)) return Language.UNKNOWN
 
         val languageDetectedByRules = detectLanguageWithRules(trimmedText)
         if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
 
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
+        val textSequence = trimmedText.lineSequence()
         val unigramTestDataModel = LanguageModel.fromTestData<Unigram>(textSequence)
         val bigramTestDataModel = LanguageModel.fromTestData<Bigram>(textSequence)
         val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
@@ -113,7 +114,6 @@ class LanguageDetector internal constructor(
     }
 
     internal fun detectLanguageWithRules(text: String): Language {
-        if (text.isEmpty() || NO_LETTER_REGEX.matches(text)) return Language.UNKNOWN
         val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
 
         for (word in splitText) {

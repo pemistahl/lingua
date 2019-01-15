@@ -17,7 +17,7 @@
 package com.github.pemistahl.lingua.api
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class LanguageDetectorTest {
@@ -27,30 +27,28 @@ class LanguageDetectorTest {
         isCachedByMapDB = false
     )
 
-    @AfterEach
-    fun afterEach() {
+    @BeforeEach
+    fun beforeEach() {
         detector.languages.forEach { it.isExcludedFromDetection = false }
     }
 
     @Test
     fun `assert that invalid strings return unknown language`() {
-        listOf(
-            "",
-            " \n  \t;",
-            "3jfh856%)§"
-        ).forEach { str ->
+        val invalidStrings = listOf("", " \n  \t;", "3<856%)§")
+        assertThat(detector.detectLanguagesOf(invalidStrings)).allMatch { it == Language.UNKNOWN }
+        invalidStrings.forEach { str ->
             assertThat(detector.detectLanguageWithRules(str)).isEqualTo(Language.UNKNOWN)
+            assertThat(detector.detectLanguageOf(str)).isEqualTo(Language.UNKNOWN)
         }
     }
 
     @Test
     fun `assert that strings with letter 'ß' return German language`() {
-        listOf(
-            "ß",
-            "Fuß",
-            "groß und stark"
-        ).forEach { str ->
+        val validStrings = listOf("ß", "Fuß", "groß und stark")
+        assertThat(detector.detectLanguagesOf(validStrings)).allMatch { it == Language.GERMAN }
+        validStrings.forEach { str ->
             assertThat(detector.detectLanguageWithRules(str)).isEqualTo(Language.GERMAN)
+            assertThat(detector.detectLanguageOf(str)).isEqualTo(Language.GERMAN)
         }
     }
 
