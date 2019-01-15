@@ -28,7 +28,7 @@
       * [Word Pairs](#library-comparison-graphical-wordpairs)
       * [Sentences](#library-comparison-graphical-sentences)
       * [Average](#library-comparison-graphical-average)
-* [Test Report Generation](#report-generation)
+  * [Test Report Generation](#report-generation)
 * [How to add it to your project?](#library-dependency)
   * [Using Gradle](#library-dependency-gradle)
   * [Using Maven](#library-dependency-maven)
@@ -547,11 +547,27 @@ The box plot very nicely shows the differences in the deviation of the results, 
 
 #### <a name="library-comparison-graphical-wordpairs"></a> Word Pairs <sup>[Top ▲](#table-of-contents)</sup>
 
+Comparing the plots for word pairs, they illustrate the same aspects as mentioned for single words above. The detection results for Lithuanian are worse than with *Apache Tika*, showing that Baltic languages obviously need some more care.
+
 ![lineplot-wordpairs](/images/plots/lineplot-wordpairs.png)
 
 ![boxplot-wordpairs](/images/plots/boxplot-wordpairs.png)
 
-## <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
+#### <a name="library-comparison-graphical-sentences"></a> Sentences <sup>[Top ▲](#table-of-contents)</sup>
+
+As already said, Baltic languages seem to be a problem. This will be fixed in the next minor version update.
+
+![lineplot-sentences](/images/plots/lineplot-sentences.png)
+
+![boxplot-sentences](/images/plots/boxplot-sentences.png)
+
+#### <a name="library-comparison-graphical-average"></a> Average <sup>[Top ▲](#table-of-contents)</sup>
+
+![lineplot-average](/images/plots/lineplot-average.png)
+
+![boxplot-average](/images/plots/boxplot-average.png)
+
+### <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself:
 
