@@ -1,0 +1,8 @@
+accuracy-reports/lingua/* linguist-documentation
+accuracy-reports/tika/* linguist-documentation
+accuracy-reports/optimaize/* linguist-documentation
+images/* linguist-documentation
+
+accuracy-reports/accuracy-reports-analysis-notebook.ipynb linguist-language=Jupyter Notebook
+src/main/kotlin/* linguist-language=Kotlin
+src/test/kotlin/* linguist-language=Kotlin
