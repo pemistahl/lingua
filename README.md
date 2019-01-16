@@ -5,6 +5,7 @@
 
 ---
 [![supported languages][supported languages badge]](#supported-languages)
+[![change log][change log badge]][change log]
 [![Maven Central][Maven Central badge]][Maven Central]
 [![Jcenter][Jcenter badge]][Jcenter]
 [![Download][lingua version badge]][lingua download url]
@@ -754,6 +755,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 - API documentation
 - for version 1.0.0: public API stability, Gradle build, multiplatform support
 
+[change log]: https://github.com/pemistahl/lingua/releases
+[change log badge]: https://img.shields.io/badge/change%20log-what's%20new%3F-yellow.svg
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
 [codebeat badge]: https://codebeat.co/badges/92a1d221-35b8-4e96-8d40-ed101b6f128e
