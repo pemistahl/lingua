@@ -780,8 +780,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
 [Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.3.0
 [Jcenter badge]: https://img.shields.io/badge/JCenter-0.3.0-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.2.2/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.2.2-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.3.0/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.3.0-green.svg
 [green-marker]: https://placehold.it/10/008000/000000?text=+
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
 [orange-marker]: https://placehold.it/10/ff8c00/000000?text=+
