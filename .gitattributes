@@ -1,6 +1,2 @@
-*.ipynb linguist-detectable=true
 accuracy-reports/accuracy-reports-analysis-notebook.ipynb linguist-documentation=false
 accuracy-reports/accuracy-reports-analysis-notebook.ipynb linguist-language=Jupyter Notebook
-
-#src/main/kotlin/* linguist-language=Kotlin
-#src/test/kotlin/* linguist-language=Kotlin
