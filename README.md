@@ -20,32 +20,32 @@
 
 ## <a name="table-of-contents"></a> Table of Contents
 
-* [What does this library do?](#library-purpose)
-* [Why does this library exist?](#library-reason)
-* [Which languages are supported?](#supported-languages)
-* [How good is it?](#library-accuracy)
-  * [Comparison of Libraries](#library-comparison)
-    * [Tabular Comparison](#library-comparison-tabular)
-    * [Graphical Comparison](#library-comparison-graphical)
-      * [Single Words](#library-comparison-graphical-singlewords)
-      * [Word Pairs](#library-comparison-graphical-wordpairs)
-      * [Sentences](#library-comparison-graphical-sentences)
-      * [Average](#library-comparison-graphical-average)
-  * [Test Report Generation](#report-generation)
-* [How to add it to your project?](#library-dependency)
-  * [Using Gradle](#library-dependency-gradle)
-  * [Using Maven](#library-dependency-maven)
-* [How to build?](#library-build)
-* [How to use?](#library-use)
-  * [Programmatic use](#library-use-programmatic)
-  * [Standalone mode](#library-use-standalone)
-* [Do you want to contribute?](#library-contribution)
-* [What's next for upcoming versions?](#whats-next)
+1. [What does this library do?](#library-purpose)
+2. [Why does this library exist?](#library-reason)
+3. [Which languages are supported?](#supported-languages)
+4. [How good is it?](#library-accuracy)  
+  4.1 [Comparison of Libraries](#library-comparison)  
+    &nbsp;&nbsp;&nbsp;&nbsp;4.1.1 [Tabular Comparison](#library-comparison-tabular)  
+    &nbsp;&nbsp;&nbsp;&nbsp;4.1.2 [Graphical Comparison](#library-comparison-graphical)  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1.2.1 [Single Words](#library-comparison-graphical-singlewords)  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1.2.2 [Word Pairs](#library-comparison-graphical-wordpairs)  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1.2.3 [Sentences](#library-comparison-graphical-sentences)  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1.2.4 [Average](#library-comparison-graphical-average)  
+  4.2 [Test Report Generation](#report-generation)
+5. [How to add it to your project?](#library-dependency)  
+  5.1 [Using Gradle](#library-dependency-gradle)  
+  5.2 [Using Maven](#library-dependency-maven)
+6. [How to build?](#library-build)
+7. [How to use?](#library-use)  
+  7.1 [Programmatic use](#library-use-programmatic)  
+  7.2 [Standalone mode](#library-use-standalone)
+8. [Do you want to contribute?](#library-contribution)
+9. [What's next for upcoming versions?](#whats-next)
 
-## <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
+## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. This is very useful as a preprocessing step for linguistic data in natural language processing applications such as text classification and spell checking. Other use cases, for instance, might include routing e-mails to the right geographically located customer service department, based on the e-mails' languages.
 
-## <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
+## 2. <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
 Language detection is often done as part of large machine learning frameworks or natural language processing applications. In cases where you don't need the full-fledged functionality of those systems or don't want to learn the ropes of those, a small flexible library comes in handy. 
 
 So far, two other comprehensive open source libraries working on the JVM for this task are [Apache Tika] and [Optimaize Language Detector]. Unfortunately, especially the latter has three major drawbacks:
@@ -56,7 +56,7 @@ So far, two other comprehensive open source libraries working on the JVM for thi
 
 *Lingua* aims at eliminating these problems. It nearly doesn't need any configuration and yields pretty accurate results on both long and short text, even on single words and phrases. It draws on both rule-based and statistical methods but does not use any dictionaries of words. It does not need a connection to any external API or service either. Once the library has been downloaded, it can be used completely offline. 
 
-## <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
+## 3. <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 25 languages are supported:
 
@@ -76,7 +76,7 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 | German     | *de*           | Turkish    | *tr*           |
 | Hungarian  | *hu*           |            |                |
 
-## <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
+## 4. <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
 
 *Lingua* is able to report accuracy statistics for some bundled test data available for each supported language. The test data for each language is split into three parts:
 1. a list of single words with a minimum length of 5 characters
@@ -85,11 +85,11 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 
 Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
-### <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
+### 4.1 <a name="library-comparison"></a> Comparison of Libraries <sup>[Top ▲](#table-of-contents)</sup>
 
 Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 24 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Latin is currently only supported by *Lingua*, so it's left out both in the decision process and in the comparison. All other 24 are indeed part of the decision process, that is, each classifier might theoretically return one of these 24 languages as the result.
 
-#### <a name="library-comparison-tabular"></a> Tabular Comparison <sup>[Top ▲](#table-of-contents)</sup>
+#### 4.1.1 <a name="library-comparison-tabular"></a> Tabular Comparison <sup>[Top ▲](#table-of-contents)</sup>
 
 As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 8% higher on average than with *Tika*, for single words it is even 12% higher. 
 
@@ -533,11 +533,11 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
 </table>
 
-### <a name="library-comparison-graphical"></a> Graphical Comparison <sup>[Top ▲](#table-of-contents)</sup>
+#### 4.1.2 <a name="library-comparison-graphical"></a> Graphical Comparison <sup>[Top ▲](#table-of-contents)</sup>
 
 The following plots even better reflect how *Lingua* performs next to its contenders.
 
-#### <a name="library-comparison-graphical-singlewords"></a> Single Words <sup>[Top ▲](#table-of-contents)</sup>
+##### 4.1.2.1 <a name="library-comparison-graphical-singlewords"></a> Single Words <sup>[Top ▲](#table-of-contents)</sup>
 
 The line plot shows that *Lingua's* detection accuracy for single words is superior except for Latvian. Looking at the report for this language, more than 12% of the words are erroneously classified as Swedish or Turkish. This is probably due to some very specific characters that occur much more often in the other two languages.
 
@@ -549,7 +549,7 @@ The box plot very nicely shows the differences in the deviation of the results, 
 
 ![boxplot-singlewords](/images/plots/boxplot-singlewords.png)
 
-#### <a name="library-comparison-graphical-wordpairs"></a> Word Pairs <sup>[Top ▲](#table-of-contents)</sup>
+##### 4.1.2.2 <a name="library-comparison-graphical-wordpairs"></a> Word Pairs <sup>[Top ▲](#table-of-contents)</sup>
 
 Comparing the plots for word pairs, they illustrate the same aspects as mentioned for single words above. The detection results for Lithuanian are worse than with *Apache Tika*, showing that Baltic languages obviously need some more care.
 
@@ -557,7 +557,7 @@ Comparing the plots for word pairs, they illustrate the same aspects as mentione
 
 ![boxplot-wordpairs](/images/plots/boxplot-wordpairs.png)
 
-#### <a name="library-comparison-graphical-sentences"></a> Sentences <sup>[Top ▲](#table-of-contents)</sup>
+##### 4.1.2.3 <a name="library-comparison-graphical-sentences"></a> Sentences <sup>[Top ▲](#table-of-contents)</sup>
 
 As already said, Baltic languages seem to be a problem. This will be fixed in the next minor version update.
 
@@ -565,13 +565,13 @@ As already said, Baltic languages seem to be a problem. This will be fixed in th
 
 ![boxplot-sentences](/images/plots/boxplot-sentences.png)
 
-#### <a name="library-comparison-graphical-average"></a> Average <sup>[Top ▲](#table-of-contents)</sup>
+##### 4.1.2.4 <a name="library-comparison-graphical-average"></a> Average <sup>[Top ▲](#table-of-contents)</sup>
 
 ![lineplot-average](/images/plots/lineplot-average.png)
 
 ![boxplot-average](/images/plots/boxplot-average.png)
 
-### <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
+### 4.2 <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself:
 
@@ -608,17 +608,17 @@ Erroneously classified as SWEDISH: 0,10%, POLISH: 0,10%, FINNISH: 0,10%, DUTCH: 
 
 The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The code is contained in an IPython notebook and can be found under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/master/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
 
-## <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
+## 5. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
 *Lingua* is hosted on [Jcenter] and [Maven Central].
 
-### <a name="library-dependency-gradle"></a> Using Gradle
+### 5.1 <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
 implementation 'com.github.pemistahl:lingua:0.3.0'
 ```
 
-### <a name="library-dependency-maven"></a> Using Maven
+### 5.2 <a name="library-dependency-maven"></a> Using Maven
 
 ```
 <dependency>
@@ -628,7 +628,7 @@ implementation 'com.github.pemistahl:lingua:0.3.0'
 </dependency>
 ```
 
-## <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
+## 6. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
 *Lingua* uses Maven to build. A switch to Gradle is planned for the future.
 
@@ -641,10 +641,10 @@ Maven's `package` phase is able to generate two jar files in the `target` direct
 1. `mvn package` creates `lingua-0.3.0.jar` that contains the compiled sources only.
 2. `mvn package -P with-dependencies` creates `lingua-0.3.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
-## <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
+## 7. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
 
-### <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
+### 7.1 <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
 The API is pretty straightforward and can be used in both Kotlin and Java code.
 
 ```kotlin
@@ -705,7 +705,7 @@ val detector = LanguageDetectorBuilder
     .build()
 ```
 
-### <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
+### 7.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
 2. Without Maven: `java -jar lingua-0.3.0-with-dependencies.jar`
@@ -744,11 +744,11 @@ ENGLISH
 Bye! Ciao! Tschüss! Salut!
 ```
 
-## <a name="library-contribution"></a> Do you want to contribute? <sup>[Top ▲](#table-of-contents)</sup>
+## 8. <a name="library-contribution"></a> Do you want to contribute? <sup>[Top ▲](#table-of-contents)</sup>
 
 In case you want to contribute something to *Lingua* even though it's in a very early stage of development, then I encourage you to do so nevertheless. Do you have ideas for improving the API? Are there some specific languages that you want to have supported early? Or have you found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated. :-)
 
-## <a name="whats-next"></a> What's next for upcoming versions? <sup>[Top ▲](#table-of-contents)</sup>
+## 9. <a name="whats-next"></a> What's next for upcoming versions? <sup>[Top ▲](#table-of-contents)</sup>
 - languages, languages, even more languages :-)
 - accuracy improvements
 - more unit tests
