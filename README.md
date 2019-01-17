@@ -17,6 +17,16 @@
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
 [![license badge][license badge]][license url]
 ---
+### Quick Info
+* this library tries to solve language detection of very short words and phrases, even shorter than tweets for instance
+* makes use of both statistical and rule-based approaches
+* already outperforms *Apache Tika* and *Optimaize Language Detector* in this respect for more than 20 languages
+* works within every Java 6+ application and on Android
+* can be used in a REPL for a quick try-out
+* uses only two dependencies:
+  * [Gson](https://github.com/google/gson) for reading and writing language models
+  * [MapDB](https://github.com/jankotek/mapdb) for optional caching of language models
+---
 
 ## <a name="table-of-contents"></a> Table of Contents
 
