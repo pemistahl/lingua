@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua.api
 
+import com.github.pemistahl.lingua.api.Language.*
 import com.github.pemistahl.lingua.internal.model.Bigram
 import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
@@ -43,7 +44,7 @@ class LanguageDetector internal constructor(
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
-        if (trimmedText.isEmpty() || NO_LETTER_REGEX.matches(trimmedText)) return Language.UNKNOWN
+        if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return Language.UNKNOWN
 
         val languageDetectedByRules = detectLanguageWithRules(trimmedText)
         if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
@@ -117,67 +118,37 @@ class LanguageDetector internal constructor(
         val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
 
         for (word in splitText) {
-            if (word.contains('ß')) return Language.GERMAN
+            if (word.contains('ß')) return GERMAN
 
-            if (LATIN_ALPHABET_REGEX.matches(word)) {
-                languagesSequence.filterNot {
-                    it.hasLatinAlphabet
-                }.forEach {
-                    it.isExcludedFromDetection = true
+            if (LATIN_ALPHABET.matches(word)) {
+                filterLanguages(Language::hasLatinAlphabet)
+
+                if (word.contains(UMLAUTS)) filterLanguages(Language::hasUmlauts)
+                if (word.contains(LITHUANIAN_OR_POLISH_CHARACTERS)) filterLanguages {
+                    it in arrayOf(LITHUANIAN, POLISH)
                 }
-                break
-            }
-
-            else if (CYRILLIC_ALPHABET_REGEX.matches(word)) {
-                languagesSequence.filterNot {
-                    it.hasCyrillicAlphabet
-                }.forEach {
-                    it.isExcludedFromDetection = true
+                else if (word.contains(LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(LATVIAN, LITHUANIAN)
                 }
+                if (word.contains(LATVIAN_CHARACTERS)) return LATVIAN
+                if (word.contains(LITHUANIAN_CHARACTERS)) return LITHUANIAN
                 break
             }
-
-            else if (ARABIC_ALPHABET_REGEX.matches(word)) {
-                languagesSequence.filterNot {
-                    it.hasArabicAlphabet
-                }.forEach {
-                    it.isExcludedFromDetection = true
-                }
+            else if (CYRILLIC_ALPHABET.matches(word)) {
+                filterLanguages(Language::hasCyrillicAlphabet)
                 break
             }
-
-            /*
-            if (word.contains(ENGLISH_GRAPHS) || word.endsWith("ing")) return Language.ENGLISH
-            if (word.contains(FRENCH_UNIQUE_CHARS)) return Language.FRENCH
-            if (word.contains(GERMAN_UNIQUE_CHARS) || word.endsWith("ung")) return Language.GERMAN
-            if (word.contains(ITALIAN_GRAPHS)) return Language.ITALIAN
-            if (word.contains(PORTUGUESE_UNIQUE_CHARS)) return Language.PORTUGUESE
-            if (word.contains(SPANISH_UNIQUE_CHARS)) return Language.SPANISH
-
-            if (word.contains("ç")) {
-                languagesSequence.filterNot {
-                    it == Language.FRENCH || it == Language.PORTUGUESE
-                }.forEach { it.isExcludedFromDetection = true }
+            else if (ARABIC_ALPHABET.matches(word)) {
+                filterLanguages(Language::hasArabicAlphabet)
                 break
             }
-
-            if (word.endsWith("ed")) {
-                languagesSequence.filterNot {
-                    it == Language.ENGLISH || it == Language.SPANISH
-                }.forEach { it.isExcludedFromDetection = true }
-                break
-            }
-
-            if (word.contains("sch")) {
-                languagesSequence.filterNot {
-                    it == Language.ENGLISH || it == Language.GERMAN || it == Language.ITALIAN
-                }.forEach { it.isExcludedFromDetection = true }
-                break
-            }
-            */
         }
 
         return Language.UNKNOWN
+    }
+
+    private fun filterLanguages(func: (Language) -> Boolean) {
+        return languagesSequence.filterNot(func).forEach { it.isExcludedFromDetection = true }
     }
 
     private fun computeUnigramProbabilities(
@@ -278,7 +249,7 @@ class LanguageDetector internal constructor(
                         idx, _ -> indices.contains(idx)
                 })
                 for ((c, idx) in indices.withIndex()) {
-                    probabilities.set(idx, probs.get(c))
+                    probabilities[idx] = probs[c]
                 }
             }
         }
@@ -372,17 +343,14 @@ class LanguageDetector internal constructor(
     }
 
     internal companion object {
-        private val NO_LETTER_REGEX = Regex("^[^\\p{L}]+$")
-        private val LATIN_ALPHABET_REGEX = Regex("^[\\p{IsLatin}]+$")
-        private val CYRILLIC_ALPHABET_REGEX = Regex("^[\\p{IsCyrillic}]+$")
-        private val ARABIC_ALPHABET_REGEX = Regex("^[\\p{IsArabic}]+$")
-        /*
-        private val ENGLISH_GRAPHS = Regex("[ao]ugh")
-        private val FRENCH_UNIQUE_CHARS = Regex("[ÆæŒœŸÿ]+")
-        private val GERMAN_UNIQUE_CHARS = Regex("[AÖÜäöüß]+")
-        private val ITALIAN_GRAPHS = Regex("cch|ggh|zz")
-        private val PORTUGUESE_UNIQUE_CHARS = Regex("[ãõ]+")
-        private val SPANISH_UNIQUE_CHARS = Regex("[ñ¿¡]+")
-        */
+        private val NO_LETTER = Regex("^[^\\p{L}]+$")
+        private val LATIN_ALPHABET = Regex("^[\\p{IsLatin}]+$")
+        private val CYRILLIC_ALPHABET = Regex("^[\\p{IsCyrillic}]+$")
+        private val ARABIC_ALPHABET = Regex("^[\\p{IsArabic}]+$")
+        private val UMLAUTS = Regex("[ÄÖÜäöü]+")
+        private val LATVIAN_CHARACTERS = Regex("[ĀĒĢĪĶĻŅāēģīķļņ]+")
+        private val LITHUANIAN_CHARACTERS = Regex("[ĖĮŲėįų]+")
+        private val LITHUANIAN_OR_POLISH_CHARACTERS = Regex("[ĄĘąę]+")
+        private val LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[Ūū]+")
     }
 }

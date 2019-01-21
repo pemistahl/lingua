@@ -201,7 +201,7 @@ By looking at the standard deviations of the separate categories, it is remarkab
         <td>85 <img src="images/green.png"></td>
         <td>86 <img src="images/green.png"></td>
         <td>76 <img src="images/lightgreen.png"></td>
-        <td>94 <img src="images/green.png"></td>
+        <td>93 <img src="images/green.png"></td>
         <td>93 <img src="images/green.png"></td>
         <td>89 <img src="images/green.png"></td>
     </tr>
@@ -342,31 +342,31 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Latvian</td>
-        <td>78 <img src="images/lightgreen.png"></td>
+        <td>88 <img src="images/green.png"></td>
         <td>88 <img src="images/green.png"></td>
         <td>75 <img src="images/lightgreen.png"></td>
-        <td>62 <img src="images/lightgreen.png"></td>
+        <td>82 <img src="images/green.png"></td>
         <td>76 <img src="images/lightgreen.png"></td>
         <td>52 <img src="images/yellow.png"></td>
-        <td>85 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
         <td>91 <img src="images/green.png"></td>
         <td>78 <img src="images/lightgreen.png"></td>
-        <td>89 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
         <td>98 <img src="images/green.png"></td>
         <td>96 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>Lithuanian</td>
-        <td>86 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
         <td>90 <img src="images/green.png"></td>
         <td>74 <img src="images/lightgreen.png"></td>
-        <td>76 <img src="images/lightgreen.png"></td>
+        <td>90 <img src="images/green.png"></td>
         <td>77 <img src="images/lightgreen.png"></td>
         <td>45 <img src="images/yellow.png"></td>
-        <td>87 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
         <td>94 <img src="images/green.png"></td>
         <td>79 <img src="images/lightgreen.png"></td>
-        <td>95 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
         <td>99 <img src="images/green.png"></td>
         <td>99 <img src="images/green.png"></td>
     </tr>
@@ -387,13 +387,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Polish</td>
-        <td>92 <img src="images/green.png"></td>
+        <td>94 <img src="images/green.png"></td>
         <td>91 <img src="images/green.png"></td>
         <td>84 <img src="images/green.png"></td>
-        <td>81 <img src="images/green.png"></td>
+        <td>85 <img src="images/green.png"></td>
         <td>79 <img src="images/lightgreen.png"></td>
         <td>62 <img src="images/lightgreen.png"></td>
-        <td>96 <img src="images/green.png"></td>
+        <td>97 <img src="images/green.png"></td>
         <td>95 <img src="images/green.png"></td>
         <td>89 <img src="images/green.png"></td>
         <td>99 <img src="images/green.png"></td>
@@ -495,13 +495,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td><strong>Mean</strong></td>
-        <td><strong>90</strong> <img src="images/green.png"></td>
+        <td><strong>91</strong> <img src="images/green.png"></td>
         <td><strong>83</strong> <img src="images/green.png"></td>
         <td><strong>65</strong> <img src="images/lightgreen.png"></td>
-        <td><strong>78</strong> <img src="images/lightgreen.png"></td>
+        <td><strong>80</strong> <img src="images/lightgreen.png"></td>
         <td><strong>67</strong> <img src="images/lightgreen.png"></td>
         <td><strong>35</strong> <img src="images/orange.png"></td>
-        <td><strong>92</strong> <img src="images/green.png"></td>
+        <td><strong>93</strong> <img src="images/green.png"></td>
         <td><strong>84</strong> <img src="images/green.png"></td>
         <td><strong>62</strong> <img src="images/lightgreen.png"></td>
         <td><strong>98</strong> <img src="images/green.png"></td>
@@ -513,13 +513,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Median</td>
-        <td>90.83</td>
+        <td>91.20</td>
         <td>85.85</td>
         <td>63.68</td>
-        <td>78.50</td>
+        <td>80.75</td>
         <td>71.30</td>
         <td>30.35</td>
-        <td>94.50</td>
+        <td>95.15</td>
         <td>87.40</td>
         <td>66.60</td>
         <td>99.20</td>
@@ -528,16 +528,16 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Standard Deviation</td>
-        <td>6.01</td>
+        <td>5.58</td>
         <td>9.71</td>
         <td>15.25</td>
-        <td>11.11</td>
+        <td>10.80</td>
         <td>17.01</td>
         <td>21.69</td>
-        <td>5.66</td>
+        <td>5.40</td>
         <td>11.99</td>
         <td>23.29</td>
-        <td>2.70</td>
+        <td>2.38</td>
         <td>1.62</td>
         <td>3.09</td>
     </tr>

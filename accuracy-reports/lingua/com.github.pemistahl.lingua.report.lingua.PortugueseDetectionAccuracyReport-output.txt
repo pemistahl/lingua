@@ -1,6 +1,3 @@
-Jan 13, 2019 4:20:38 PM com.github.pemistahl.lingua.report.lingua.PortugueseDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### PORTUGUESE #####
 
 >>> Accuracy on average: 83,43%

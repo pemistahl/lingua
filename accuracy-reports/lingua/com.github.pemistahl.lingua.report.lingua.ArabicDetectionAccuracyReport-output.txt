@@ -1,6 +1,3 @@
-Jan 13, 2019 4:08:03 PM com.github.pemistahl.lingua.report.lingua.ArabicDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### ARABIC #####
 
 >>> Accuracy on average: 98,43%

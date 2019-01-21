@@ -1,6 +1,3 @@
-Jan 13, 2019 4:09:03 PM com.github.pemistahl.lingua.report.lingua.BulgarianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### BULGARIAN #####
 
 >>> Accuracy on average: 93,80%

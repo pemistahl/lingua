@@ -1,6 +1,3 @@
-Jan 13, 2019 4:17:10 PM com.github.pemistahl.lingua.report.lingua.LatinDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### LATIN #####
 
 >>> Accuracy on average: 89,13%
