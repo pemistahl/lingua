@@ -16,17 +16,7 @@
 
 package com.github.pemistahl.lingua.report.lingua
 
-import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.report.AbstractLanguageDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.config.AbstractLatinDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
-import org.junit.jupiter.api.AfterAll
 
-class LatinDetectionAccuracyReport : AbstractLatinDetectionAccuracyReport(LINGUA) {
-
-    @AfterAll
-    fun afterAll() {
-        logger.info(statisticsReport())
-        AbstractLanguageDetectionAccuracyReport.linguaDetector.removeLanguageModel(Language.LATIN)
-    }
-}
+class LatinDetectionAccuracyReport : AbstractLatinDetectionAccuracyReport(LINGUA)

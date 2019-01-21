@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.lingua
 
 import com.github.pemistahl.lingua.report.config.AbstractFrenchDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
-import org.junit.jupiter.api.AfterAll
 
-class FrenchDetectionAccuracyReport : AbstractFrenchDetectionAccuracyReport(LINGUA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class FrenchDetectionAccuracyReport : AbstractFrenchDetectionAccuracyReport(LINGUA)

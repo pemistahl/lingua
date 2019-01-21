@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.tika
 
 import com.github.pemistahl.lingua.report.config.AbstractGermanDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
-import org.junit.jupiter.api.AfterAll
 
-class GermanDetectionAccuracyReport : AbstractGermanDetectionAccuracyReport(TIKA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class GermanDetectionAccuracyReport : AbstractGermanDetectionAccuracyReport(TIKA)

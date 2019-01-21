@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.lingua
 
 import com.github.pemistahl.lingua.report.config.AbstractItalianDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
-import org.junit.jupiter.api.AfterAll
 
-class ItalianDetectionAccuracyReport : AbstractItalianDetectionAccuracyReport(LINGUA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class ItalianDetectionAccuracyReport : AbstractItalianDetectionAccuracyReport(LINGUA)

@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.lingua
 
 import com.github.pemistahl.lingua.report.config.AbstractBelarusianDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
-import org.junit.jupiter.api.AfterAll
 
-class BelarusianDetectionAccuracyReport : AbstractBelarusianDetectionAccuracyReport(LINGUA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class BelarusianDetectionAccuracyReport : AbstractBelarusianDetectionAccuracyReport(LINGUA)

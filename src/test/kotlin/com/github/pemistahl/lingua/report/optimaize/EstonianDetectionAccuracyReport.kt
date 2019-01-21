@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.optimaize
 
 import com.github.pemistahl.lingua.report.config.AbstractEstonianDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
-import org.junit.jupiter.api.AfterAll
 
-class EstonianDetectionAccuracyReport : AbstractEstonianDetectionAccuracyReport(OPTIMAIZE) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class EstonianDetectionAccuracyReport : AbstractEstonianDetectionAccuracyReport(OPTIMAIZE)

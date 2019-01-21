@@ -26,16 +26,17 @@ import com.optimaize.langdetect.i18n.LdLocale
 import com.optimaize.langdetect.ngram.NgramExtractors
 import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
+import org.apache.log4j.Level
+import org.apache.log4j.Logger
 import org.apache.tika.langdetect.OptimaizeLangDetector
 import org.apache.tika.language.detect.LanguageResult
-import java.util.logging.Logger
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
 
 abstract class AbstractLanguageDetectionAccuracyReport(
     private val language: Language,
     private val implementationToUse: LanguageDetectorImplementation
 ) {
-    protected val logger: Logger = Logger.getLogger(this::class.qualifiedName)
-
     private val singleWordsStatistics = mutableMapOf<Language, Int>()
     private val wordPairsStatistics = mutableMapOf<Language, Int>()
     private val sentencesStatistics = mutableMapOf<Language, Int>()
@@ -54,7 +55,21 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
     abstract fun `assert that entire sentences are identified correctly`(sentence: String)
 
-    protected fun statisticsReport(): String {
+    @BeforeAll
+    fun beforeAll() {
+        // Disable Log4j warnings for Apache Tika and Optimaize
+        Logger.getRootLogger().level = Level.OFF
+    }
+
+    @AfterAll
+    fun afterAll() {
+        println(statisticsReport())
+        if (implementationToUse == LINGUA && language == Language.LATIN) {
+            linguaDetector.removeLanguageModel(Language.LATIN)
+        }
+    }
+
+    private fun statisticsReport(): String {
         val singleWordsAccuracyValues = mapCountsToAccuracy(singleWordsStatistics)
         val wordPairsAccuracyValues = mapCountsToAccuracy(wordPairsStatistics)
         val sentencesAccuracyValues = mapCountsToAccuracy(sentencesStatistics)
@@ -79,7 +94,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             sentenceAccuracyReport
         )
         val newlines = System.lineSeparator().repeat(2)
-        var report = "$newlines##### $language #####"
+        var report = "##### $language #####"
         for (reportPart in reportParts)
             if (reportPart.isNotEmpty())
                 report += "$newlines$reportPart"
@@ -173,7 +188,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = Language.getIsoCodesForTests()
+        private val languageIsoCodesToTest = Language.values().toSet().minus(
+            arrayOf(Language.LATIN, Language.UNKNOWN)
+        ).map { it.isoCode }
 
         internal val linguaDetector by lazy {
             LanguageDetectorBuilder

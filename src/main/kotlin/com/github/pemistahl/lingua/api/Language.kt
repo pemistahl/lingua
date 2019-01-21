@@ -61,12 +61,5 @@ enum class Language(
             }
             return UNKNOWN
         }
-
-        internal fun getIsoCodesForTests(): List<String> {
-            return Language.values().toSet().minus(arrayOf(
-                LATIN,
-                UNKNOWN
-            )).map { it.isoCode }
-        }
     }
 }

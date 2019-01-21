@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.tika
 
 import com.github.pemistahl.lingua.report.config.AbstractSpanishDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
-import org.junit.jupiter.api.AfterAll
 
-class SpanishDetectionAccuracyReport : AbstractSpanishDetectionAccuracyReport(TIKA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class SpanishDetectionAccuracyReport : AbstractSpanishDetectionAccuracyReport(TIKA)

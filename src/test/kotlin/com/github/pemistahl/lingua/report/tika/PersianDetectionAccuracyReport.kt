@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.tika
 
 import com.github.pemistahl.lingua.report.config.AbstractPersianDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
-import org.junit.jupiter.api.AfterAll
 
-class PersianDetectionAccuracyReport : AbstractPersianDetectionAccuracyReport(TIKA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class PersianDetectionAccuracyReport : AbstractPersianDetectionAccuracyReport(TIKA)

@@ -96,17 +96,4 @@ class LanguageTest {
     fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
         assertThat(getByIsoCode(isoCode)).isEqualTo(language)
     }
-
-    @Test
-    fun `assert that iso codes for tests are correct`() {
-        assertThat(Language.getIsoCodesForTests())
-            .`as`("iso codes for language reports incorrect or missing")
-            .containsExactlyInAnyOrder(
-                "ar", "be", "bg", "hr", "cs", "da", "nl", "en",
-                "et", "fi", "fr", "de", "hu", "it", "lv", "lt",
-                "fa", "pl", "pt", "ro", "ru", "es", "sv", "tr"
-            )
-            .doesNotContain("la", "<unk>")
-    }
-
 }

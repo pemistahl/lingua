@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.tika
 
 import com.github.pemistahl.lingua.report.config.AbstractArabicDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
-import org.junit.jupiter.api.AfterAll
 
-class ArabicDetectionAccuracyReport : AbstractArabicDetectionAccuracyReport(TIKA) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class ArabicDetectionAccuracyReport : AbstractArabicDetectionAccuracyReport(TIKA)

@@ -18,10 +18,5 @@ package com.github.pemistahl.lingua.report.optimaize
 
 import com.github.pemistahl.lingua.report.config.AbstractArabicDetectionAccuracyReport
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
-import org.junit.jupiter.api.AfterAll
 
-class ArabicDetectionAccuracyReport : AbstractArabicDetectionAccuracyReport(OPTIMAIZE) {
-
-    @AfterAll
-    fun afterAll() = logger.info(statisticsReport())
-}
+class ArabicDetectionAccuracyReport : AbstractArabicDetectionAccuracyReport(OPTIMAIZE)
