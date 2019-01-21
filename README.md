@@ -180,10 +180,10 @@ By looking at the standard deviations of the separate categories, it is remarkab
         <td>91 <img src="images/green.png"></td>
         <td>89 <img src="images/green.png"></td>
         <td>70 <img src="images/lightgreen.png"></td>
-        <td>79 <img src="images/lightgreen.png"></td>
+        <td>80 <img src="images/lightgreen.png"></td>
         <td>75 <img src="images/lightgreen.png"></td>
         <td>35 <img src="images/orange.png"></td>
-        <td>94 <img src="images/green.png"></td>
+        <td>95 <img src="images/green.png"></td>
         <td>92 <img src="images/green.png"></td>
         <td>76 <img src="images/lightgreen.png"></td>
         <td>99 <img src="images/green.png"></td>
@@ -252,13 +252,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Estonian</td>
-        <td>93 <img src="images/green.png"></td>
+        <td>94 <img src="images/green.png"></td>
         <td>87 <img src="images/green.png"></td>
         <td>64 <img src="images/lightgreen.png"></td>
-        <td>84 <img src="images/green.png"></td>
+        <td>86 <img src="images/green.png"></td>
         <td>72 <img src="images/lightgreen.png"></td>
         <td>26 <img src="images/orange.png"></td>
-        <td>95 <img src="images/green.png"></td>
+        <td>96 <img src="images/green.png"></td>
         <td>90 <img src="images/green.png"></td>
         <td>66 <img src="images/lightgreen.png"></td>
         <td>100 <img src="images/green.png"></td>
@@ -312,10 +312,10 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Hungarian</td>
-        <td>95 <img src="images/green.png"></td>
+        <td>96 <img src="images/green.png"></td>
         <td>90 <img src="images/green.png"></td>
         <td>81 <img src="images/green.png"></td>
-        <td>88 <img src="images/green.png"></td>
+        <td>89 <img src="images/green.png"></td>
         <td>79 <img src="images/lightgreen.png"></td>
         <td>58 <img src="images/yellow.png"></td>
         <td>97 <img src="images/green.png"></td>
@@ -351,13 +351,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
         <td>91 <img src="images/green.png"></td>
         <td>91 <img src="images/green.png"></td>
         <td>78 <img src="images/lightgreen.png"></td>
-        <td>91 <img src="images/green.png"></td>
+        <td>90 <img src="images/green.png"></td>
         <td>98 <img src="images/green.png"></td>
         <td>96 <img src="images/green.png"></td>
     </tr>
     <tr>
         <td>Lithuanian</td>
-        <td>95 <img src="images/green.png"></td>
+        <td>94 <img src="images/green.png"></td>
         <td>90 <img src="images/green.png"></td>
         <td>74 <img src="images/lightgreen.png"></td>
         <td>90 <img src="images/green.png"></td>
@@ -402,7 +402,7 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Portuguese</td>
-        <td>83 <img src="images/green.png"></td>
+        <td>84 <img src="images/green.png"></td>
         <td>65 <img src="images/lightgreen.png"></td>
         <td>41 <img src="images/yellow.png"></td>
         <td>65 <img src="images/lightgreen.png"></td>
@@ -468,7 +468,7 @@ By looking at the standard deviations of the separate categories, it is remarkab
         <td>75 <img src="images/lightgreen.png"></td>
         <td>49 <img src="images/yellow.png"></td>
         <td>18 <img src="images/red.png"></td>
-        <td>91 <img src="images/green.png"></td>
+        <td>92 <img src="images/green.png"></td>
         <td>74 <img src="images/lightgreen.png"></td>
         <td>44 <img src="images/yellow.png"></td>
         <td>100 <img src="images/green.png"></td>
@@ -528,16 +528,16 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Standard Deviation</td>
-        <td>5.58</td>
+        <td>5.63</td>
         <td>9.71</td>
         <td>15.25</td>
-        <td>10.80</td>
+        <td>10.85</td>
         <td>17.01</td>
         <td>21.69</td>
-        <td>5.40</td>
+        <td>5.45</td>
         <td>11.99</td>
         <td>23.29</td>
-        <td>2.38</td>
+        <td>2.43</td>
         <td>1.62</td>
         <td>3.09</td>
     </tr>

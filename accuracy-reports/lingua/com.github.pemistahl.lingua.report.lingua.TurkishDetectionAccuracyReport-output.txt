@@ -1,10 +1,10 @@
 ##### TURKISH #####
 
->>> Accuracy on average: 93,07%
+>>> Accuracy on average: 93,23%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 84,60%
-Erroneously classified as SWEDISH: 5,30%, SPANISH: 2,70%, ESTONIAN: 1,00%, LATVIAN: 0,90%, ENGLISH: 0,90%, DUTCH: 0,80%, FINNISH: 0,80%, PORTUGUESE: 0,60%, GERMAN: 0,60%, ROMANIAN: 0,40%, CROATIAN: 0,40%, DANISH: 0,30%, ITALIAN: 0,20%, LITHUANIAN: 0,20%, POLISH: 0,10%, FRENCH: 0,10%, CZECH: 0,10%
+Accuracy: 85,10%
+Erroneously classified as SWEDISH: 5,00%, SPANISH: 2,60%, LATVIAN: 0,90%, ENGLISH: 0,90%, ESTONIAN: 0,90%, DUTCH: 0,80%, FINNISH: 0,80%, PORTUGUESE: 0,60%, GERMAN: 0,60%, ROMANIAN: 0,40%, CROATIAN: 0,40%, DANISH: 0,30%, ITALIAN: 0,20%, LITHUANIAN: 0,20%, POLISH: 0,10%, FRENCH: 0,10%, CZECH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 95,00%
@@ -16,4 +16,4 @@ Erroneously classified as SWEDISH: 0,30%, SPANISH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-93.06666666666666 84.6 95.0 99.6
+93.23333333333333 85.1 95.0 99.6

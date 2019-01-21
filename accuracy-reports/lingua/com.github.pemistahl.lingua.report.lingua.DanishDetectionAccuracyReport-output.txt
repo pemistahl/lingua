@@ -1,14 +1,14 @@
 ##### DANISH #####
 
->>> Accuracy on average: 89,03%
+>>> Accuracy on average: 89,07%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 75,50%
 Erroneously classified as SWEDISH: 5,10%, GERMAN: 3,70%, ENGLISH: 3,50%, DUTCH: 1,90%, FRENCH: 1,70%, ITALIAN: 1,50%, ESTONIAN: 1,30%, SPANISH: 0,90%, PORTUGUESE: 0,80%, TURKISH: 0,70%, LITHUANIAN: 0,70%, CROATIAN: 0,60%, FINNISH: 0,50%, LATVIAN: 0,50%, HUNGARIAN: 0,40%, ROMANIAN: 0,40%, POLISH: 0,20%, CZECH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 91,90%
-Erroneously classified as SWEDISH: 1,80%, GERMAN: 1,70%, DUTCH: 1,10%, ENGLISH: 0,90%, FRENCH: 0,50%, ITALIAN: 0,50%, ESTONIAN: 0,40%, HUNGARIAN: 0,30%, CZECH: 0,20%, ROMANIAN: 0,10%, TURKISH: 0,10%, PORTUGUESE: 0,10%, SPANISH: 0,10%, CROATIAN: 0,10%, POLISH: 0,10%, FINNISH: 0,10%
+Accuracy: 92,00%
+Erroneously classified as SWEDISH: 1,80%, GERMAN: 1,70%, DUTCH: 1,10%, ENGLISH: 0,80%, FRENCH: 0,50%, ITALIAN: 0,50%, ESTONIAN: 0,40%, HUNGARIAN: 0,30%, CZECH: 0,20%, ROMANIAN: 0,10%, TURKISH: 0,10%, PORTUGUESE: 0,10%, SPANISH: 0,10%, CROATIAN: 0,10%, POLISH: 0,10%, FINNISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 112 chars)
 Accuracy: 99,70%
@@ -16,4 +16,4 @@ Erroneously classified as SWEDISH: 0,20%, ENGLISH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-89.03333333333335 75.5 91.9 99.7
+89.06666666666666 75.5 92.0 99.7

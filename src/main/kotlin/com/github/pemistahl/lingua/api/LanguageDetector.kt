@@ -108,30 +108,42 @@ class LanguageDetector internal constructor(
     }
 
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        return probabilities
-            .asSequence()
-            .filter { it.value != 0.0 }
-            .maxBy { (_, value) -> value }!!.key
+        return if (probabilities.isEmpty()) Language.UNKNOWN
+        else probabilities.asSequence().filter { it.value != 0.0 }.maxBy { (_, value) -> value }!!.key
     }
 
     internal fun detectLanguageWithRules(text: String): Language {
         val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
 
         for (word in splitText) {
-            if (word.contains('ß')) return GERMAN
-
             if (LATIN_ALPHABET.matches(word)) {
                 filterLanguages(Language::hasLatinAlphabet)
+
+                if (word.contains('ß')) return GERMAN
+                if (word.contains(LATVIAN_CHARACTERS)) return LATVIAN
+                if (word.contains(LITHUANIAN_CHARACTERS)) return LITHUANIAN
+                if (word.contains(CROATIAN_CHARACTERS)) return CROATIAN
+                if (word.contains(HUNGARIAN_CHARACTERS)) return HUNGARIAN
+                if (word.contains(SPANISH_CHARACTERS)) return SPANISH
+                if (word.contains(PORTUGUESE_CHARACTERS)) return PORTUGUESE
+                if (word.contains(DANISH_CHARACTERS)) return DANISH
 
                 if (word.contains(UMLAUTS)) filterLanguages(Language::hasUmlauts)
                 if (word.contains(LITHUANIAN_OR_POLISH_CHARACTERS)) filterLanguages {
                     it in arrayOf(LITHUANIAN, POLISH)
                 }
+                else if (word.contains(ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS)) filterLanguages {
+                    it in arrayOf(ESTONIAN, HUNGARIAN, PORTUGUESE)
+                }
+                else if (word.contains(DANISH_OR_SWEDISH_CHARACTERS)) filterLanguages {
+                    it in arrayOf(DANISH, SWEDISH)
+                }
                 else if (word.contains(LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(LATVIAN, LITHUANIAN)
                 }
-                if (word.contains(LATVIAN_CHARACTERS)) return LATVIAN
-                if (word.contains(LITHUANIAN_CHARACTERS)) return LITHUANIAN
+                else if (word.contains(FRENCH_OR_PORTUGUESE_OR_TURKISH_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, PORTUGUESE, TURKISH)
+                }
                 break
             }
             else if (CYRILLIC_ALPHABET.matches(word)) {
@@ -352,5 +364,13 @@ class LanguageDetector internal constructor(
         private val LITHUANIAN_CHARACTERS = Regex("[ĖĮŲėįų]+")
         private val LITHUANIAN_OR_POLISH_CHARACTERS = Regex("[ĄĘąę]+")
         private val LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[Ūū]+")
+        private val HUNGARIAN_CHARACTERS = Regex("[ŐőŰű]+")
+        private val SPANISH_CHARACTERS = Regex("[Ññ¿¡]+")
+        private val PORTUGUESE_CHARACTERS = Regex("[ã]+")
+        private val ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[õ]+")
+        private val CROATIAN_CHARACTERS = Regex("[Đđ]+")
+        private val DANISH_CHARACTERS = Regex("[ÆæØø]+")
+        private val DANISH_OR_SWEDISH_CHARACTERS = Regex("[Åå]+")
+        private val FRENCH_OR_PORTUGUESE_OR_TURKISH_CHARACTERS = Regex("[Çç]+")
     }
 }
