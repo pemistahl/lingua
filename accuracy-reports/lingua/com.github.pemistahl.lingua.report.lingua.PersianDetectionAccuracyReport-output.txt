@@ -1,6 +1,6 @@
 ##### PERSIAN #####
 
->>> Accuracy on average: 96,07%
+>>> Accuracy on average: 96,10%
 
 >> Detection of 1000 single words (average length: 6 chars)
 Accuracy: 91,40%
@@ -11,9 +11,9 @@ Accuracy: 97,80%
 Erroneously classified as ARABIC: 2,20%
 
 >> Detection of 1000 sentences (average length: 107 chars)
-Accuracy: 99,00%
-Erroneously classified as SWEDISH: 0,30%, ARABIC: 0,30%, ENGLISH: 0,10%, DUTCH: 0,10%, FINNISH: 0,10%, ESTONIAN: 0,10%
+Accuracy: 99,10%
+Erroneously classified as SWEDISH: 0,20%, ARABIC: 0,20%, ENGLISH: 0,10%, LITHUANIAN: 0,10%, DUTCH: 0,10%, FINNISH: 0,10%, TURKISH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-96.06666666666666 91.4 97.8 99.0
+96.09999999999998 91.4 97.8 99.1

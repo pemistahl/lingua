@@ -62,14 +62,14 @@ class LanguageDetector internal constructor(
 
         val allProbabilities = mutableListOf(unigramProbabilities, bigramProbabilities, trigramProbabilities)
 
-        if (trimmedText.length in 4..50) {
+        if (trimmedText.length >= 4) {
             val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
             val quadrigramProbabilities = computeQuadrigramProbabilities(quadrigramTestDataModel)
             if (!quadrigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(quadrigramProbabilities)
             }
         }
-        if (trimmedText.length in 5..50) {
+        if (trimmedText.length >= 5) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             val fivegramProbabilities = computeFivegramProbabilities(fivegramTestDataModel)
             if (!fivegramProbabilities.containsValue(0.0)) {
