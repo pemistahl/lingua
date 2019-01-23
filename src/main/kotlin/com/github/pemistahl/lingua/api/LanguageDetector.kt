@@ -162,6 +162,9 @@ class LanguageDetector internal constructor(
                 else if (word.contains(POLISH_OR_CROATIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(POLISH, CROATIAN)
                 }
+                else if (word.contains(FRENCH_OR_ROMANIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, ROMANIAN)
+                }
                 else if (word.contains(POLISH_OR_PORTUGUESE_OR_HUNGARIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(POLISH, PORTUGUESE, HUNGARIAN)
                 }
@@ -173,6 +176,9 @@ class LanguageDetector internal constructor(
                 }
                 else if (word.contains(CZECH_OR_CROATIAN_OR_LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN)
+                }
+                else if (word.contains(FRENCH_OR_CZECH_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, CZECH, ITALIAN, HUNGARIAN, PORTUGUESE)
                 }
                 break
             }
@@ -407,8 +413,9 @@ class LanguageDetector internal constructor(
         private val LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[Ūū]")
         private val ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[õ]")
         private val CZECH_OR_TURKISH_CHARACTERS = Regex("[Ýý]")
-        private val CZECH_OR_ROMANIAN_CHARACTERS = Regex("[Ďď]")
-        private val CZECH_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[ÁáÚú]")
+        private val CZECH_OR_ROMANIAN_CHARACTERS = Regex("[ăĎď]")
+        private val CZECH_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[ÁáÍíÚú]")
+        private val ITALIAN_OR_LATVIAN_CHARACTERS = Regex("[Òò]")
         private val DANISH_OR_SWEDISH_CHARACTERS = Regex("[Åå]")
         private val FRENCH_OR_LATVIAN_PORTUGUESE_OR_TURKISH_CHARACTERS = Regex("[Çç]")
         private val ROMANIAN_OR_TURKISH_CHARACTERS = Regex("[Şş]")
@@ -416,5 +423,10 @@ class LanguageDetector internal constructor(
         private val POLISH_OR_PORTUGUESE_OR_HUNGARIAN_CHARACTERS = Regex("[Óó]")
         private val POLISH_OR_ROMANIAN_CHARACTERS = Regex("[Żż]")
         private val CZECH_OR_CROATIAN_OR_LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[ČčŠšŽž]")
+        private val FRENCH_OR_HUNGARIAN_CHARACTERS = Regex("[Ûû]")
+        private val FRENCH_OR_PORTUGUESE_CHARACTERS = Regex("[ÀàÊêÔô]")
+        private val FRENCH_OR_ROMANIAN_CHARACTERS = Regex("[Îî]")
+        private val FRENCH_OR_ITALIAN_CHARACTERS = Regex("[ÈèÙù]")
+        private val FRENCH_OR_CZECH_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[Éé]")
     }
 }
