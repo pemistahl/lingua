@@ -282,10 +282,10 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>French</td>
-        <td>91 <img src="images/green.png"></td>
+        <td>92 <img src="images/green.png"></td>
         <td>80 <img src="images/lightgreen.png"></td>
         <td>58 <img src="images/yellow.png"></td>
-        <td>79 <img src="images/lightgreen.png"></td>
+        <td>80 <img src="images/lightgreen.png"></td>
         <td>59 <img src="images/yellow.png"></td>
         <td>23 <img src="images/orange.png"></td>
         <td>96 <img src="images/green.png"></td>
@@ -405,7 +405,7 @@ By looking at the standard deviations of the separate categories, it is remarkab
         <td>85 <img src="images/green.png"></td>
         <td>65 <img src="images/lightgreen.png"></td>
         <td>41 <img src="images/yellow.png"></td>
-        <td>67 <img src="images/lightgreen.png"></td>
+        <td>68 <img src="images/lightgreen.png"></td>
         <td>38 <img src="images/orange.png"></td>
         <td>8 <img src="images/red.png"></td>
         <td>87 <img src="images/green.png"></td>
@@ -417,13 +417,13 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Romanian</td>
-        <td>86 <img src="images/green.png"></td>
+        <td>88 <img src="images/green.png"></td>
         <td>81 <img src="images/green.png"></td>
         <td>57 <img src="images/yellow.png"></td>
-        <td>73 <img src="images/lightgreen.png"></td>
+        <td>77 <img src="images/lightgreen.png"></td>
         <td>62 <img src="images/lightgreen.png"></td>
         <td>26 <img src="images/orange.png"></td>
-        <td>90 <img src="images/green.png"></td>
+        <td>91 <img src="images/green.png"></td>
         <td>82 <img src="images/green.png"></td>
         <td>53 <img src="images/yellow.png"></td>
         <td>95 <img src="images/green.png"></td>
@@ -513,10 +513,10 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Median</td>
-        <td>92.43</td>
+        <td>92.48</td>
         <td>85.85</td>
         <td>63.68</td>
-        <td>83.45</td>
+        <td>83.65</td>
         <td>71.30</td>
         <td>30.35</td>
         <td>95.45</td>
@@ -528,16 +528,16 @@ By looking at the standard deviations of the separate categories, it is remarkab
     </tr>
     <tr>
         <td>Standard Deviation</td>
-        <td>5.42</td>
+        <td>5.35</td>
         <td>9.71</td>
         <td>15.25</td>
-        <td>10.77</td>
+        <td>10.63</td>
         <td>17.01</td>
         <td>21.69</td>
-        <td>5.31</td>
+        <td>5.26</td>
         <td>11.99</td>
         <td>23.29</td>
-        <td>1.56</td>
+        <td>1.54</td>
         <td>1.62</td>
         <td>3.09</td>
     </tr>

@@ -130,6 +130,7 @@ class LanguageDetector internal constructor(
                 if (word.contains(SPANISH_CHARACTERS)) return SPANISH
                 if (word.contains(PORTUGUESE_CHARACTERS)) return PORTUGUESE
                 if (word.contains(DANISH_CHARACTERS)) return DANISH
+                if (word.contains(ROMANIAN_CHARACTERS)) return ROMANIAN
 
                 if (word.contains(UMLAUTS)) filterLanguages(Language::hasUmlauts)
                 if (word.contains(LITHUANIAN_OR_POLISH_CHARACTERS)) filterLanguages {
@@ -162,8 +163,23 @@ class LanguageDetector internal constructor(
                 else if (word.contains(POLISH_OR_CROATIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(POLISH, CROATIAN)
                 }
+                else if (word.contains(ITALIAN_OR_LATVIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(ITALIAN, LATVIAN)
+                }
                 else if (word.contains(FRENCH_OR_ROMANIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(FRENCH, ROMANIAN)
+                }
+                else if (word.contains(FRENCH_OR_PORTUGUESE_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, PORTUGUESE)
+                }
+                else if (word.contains(FRENCH_OR_ITALIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, ITALIAN)
+                }
+                else if (word.contains(FRENCH_OR_ITALIAN_OR_PORTUGUESE_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, ITALIAN, PORTUGUESE)
+                }
+                else if (word.contains(FRENCH_OR_HUNGARIAN_OR_LATVIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, HUNGARIAN, LATVIAN)
                 }
                 else if (word.contains(POLISH_OR_PORTUGUESE_OR_HUNGARIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(POLISH, PORTUGUESE, HUNGARIAN)
@@ -407,13 +423,15 @@ class LanguageDetector internal constructor(
         private val SPANISH_CHARACTERS = Regex("[Ññ¿¡]")
         private val TURKISH_CHARACTERS = Regex("[İıĞğ]")
         private val POLISH_CHARACTERS = Regex("[ŁłŃńŚśŹź]")
+        private val ROMANIAN_CHARACTERS = Regex("[Țţ]")
 
         private val LITHUANIAN_OR_POLISH_CHARACTERS = Regex("[ĄĘąę]")
         private val LATVIAN_OR_TURKISH_CHARACTERS = Regex("[ðþ]")
         private val LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[Ūū]")
+        //private val LATVIAN_OR_PORTUGUESE_OR_ROMANIAN_OR_TURKISH_CHARACTERS = Regex("[Ââ]")
         private val ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[õ]")
         private val CZECH_OR_TURKISH_CHARACTERS = Regex("[Ýý]")
-        private val CZECH_OR_ROMANIAN_CHARACTERS = Regex("[ăĎď]")
+        private val CZECH_OR_ROMANIAN_CHARACTERS = Regex("[ĂăĎď]")
         private val CZECH_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[ÁáÍíÚú]")
         private val ITALIAN_OR_LATVIAN_CHARACTERS = Regex("[Òò]")
         private val DANISH_OR_SWEDISH_CHARACTERS = Regex("[Åå]")
@@ -423,8 +441,9 @@ class LanguageDetector internal constructor(
         private val POLISH_OR_PORTUGUESE_OR_HUNGARIAN_CHARACTERS = Regex("[Óó]")
         private val POLISH_OR_ROMANIAN_CHARACTERS = Regex("[Żż]")
         private val CZECH_OR_CROATIAN_OR_LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[ČčŠšŽž]")
-        private val FRENCH_OR_HUNGARIAN_CHARACTERS = Regex("[Ûû]")
-        private val FRENCH_OR_PORTUGUESE_CHARACTERS = Regex("[ÀàÊêÔô]")
+        private val FRENCH_OR_HUNGARIAN_OR_LATVIAN_CHARACTERS = Regex("[Ûû]")
+        private val FRENCH_OR_ITALIAN_OR_PORTUGUESE_CHARACTERS = Regex("[Àà]")
+        private val FRENCH_OR_PORTUGUESE_CHARACTERS = Regex("[ÊêÔô]")
         private val FRENCH_OR_ROMANIAN_CHARACTERS = Regex("[Îî]")
         private val FRENCH_OR_ITALIAN_CHARACTERS = Regex("[ÈèÙù]")
         private val FRENCH_OR_CZECH_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[Éé]")
