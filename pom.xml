@@ -51,7 +51,7 @@
         <assertj.version>3.11.1</assertj.version>
         <mockk.version>1.9</mockk.version>
         <dokka.version>0.9.17</dokka.version>
-        <jacoco.version>0.8.3-SNAPSHOT</jacoco.version>
+        <jacoco.version>0.8.3</jacoco.version>
 
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <maven.shade.plugin.version>3.2.1</maven.shade.plugin.version>
@@ -392,11 +392,4 @@
             </distributionManagement>
         </profile>
     </profiles>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
