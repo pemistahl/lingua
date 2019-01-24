@@ -1,6 +1,5 @@
 build/
 dist/
-gradle/
 target/
 
 .gradle
