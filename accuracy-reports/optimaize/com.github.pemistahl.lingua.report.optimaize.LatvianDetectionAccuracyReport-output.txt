@@ -1,6 +1,3 @@
-Jan 13, 2019 4:32:29 PM com.github.pemistahl.lingua.report.optimaize.LatvianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### LATVIAN #####
 
 >>> Accuracy on average: 75,47%

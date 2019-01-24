@@ -1,6 +1,3 @@
-Jan 13, 2019 4:26:56 PM com.github.pemistahl.lingua.report.tika.EstonianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### ESTONIAN #####
 
 >>> Accuracy on average: 87,17%

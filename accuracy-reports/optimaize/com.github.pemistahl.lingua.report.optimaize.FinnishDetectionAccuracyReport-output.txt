@@ -1,6 +1,3 @@
-Jan 13, 2019 4:32:18 PM com.github.pemistahl.lingua.report.optimaize.FinnishDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### FINNISH #####
 
 >>> Accuracy on average: 80,23%

@@ -5,7 +5,7 @@
 
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.3.1</version>
 
     <name>Lingua</name>
     <description>A language detection library for Kotlin and Java, suitable for long and short text alike</description>
@@ -289,7 +289,7 @@
             <id>with-dependencies</id>
             <activation>
                 <property>
-                    <name>profile.release</name>
+                    <name>release</name>
                 </property>
             </activation>
             <build>
@@ -334,7 +334,7 @@
             <id>release</id>
             <activation>
                 <property>
-                    <name>profile.release</name>
+                    <name>release</name>
                 </property>
             </activation>
             <build>

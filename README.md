@@ -22,6 +22,8 @@
 * makes use of both statistical and rule-based approaches
 * already outperforms *Apache Tika* and *Optimaize Language Detector* in this respect for more than 20 languages
 * works within every Java 6+ application and on Android
+* no additional training of language models necessary
+* offline usage without having to connect to an external service or API
 * can be used in a REPL for a quick try-out
 * uses only two dependencies:
   * [Gson](https://github.com/google/gson) for reading and writing language models
@@ -101,11 +103,9 @@ Given the generated test data, I have compared the detection results of *Lingua*
 
 #### 4.1.1 <a name="library-comparison-tabular"></a> Tabular Comparison <sup>[Top ▲](#table-of-contents)</sup>
 
-As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 8% higher on average than with *Tika*, for single words it is even 12% higher. 
+As the table below shows, *Lingua* outperforms the other two libraries significantly. All values are rounded percentages. When it comes to detecting the language of entire sentences, all three libraries are nearly equally accurate. It is actually short paragraphs of text where *Lingua* plays to its strengths. Even though *Lingua* is in an early stage of development, detection accuracy for word pairs is already 10% higher on average than with *Tika*, for single words it is even 15% higher. 
 
-It seems that languages with less characteristic letters are harder to identify than those that have, such as English and Dutch. This is probably due to their lack of diacritics and other distinctive letters, basically using the letters A-Z only. Even though English and Dutch are harder to identify for *Lingua* as well, it performs much better than *Apache Tika* with 28% more English and 23% more Dutch words classified correctly. 
-
-By looking at the standard deviations of the separate categories, it is remarkable that *Lingua's* detection quality is much more stable and consistent across the different languages. The accuracy values of *Tika* and *Optimaize* fluctuate in a broader scope than *Lingua's* results. Whereas *Tika's* values for single word detection range between 33% (Spanish) and 95% (Arabic and Belarusian), *Lingua* only ranges between 55% (Spanish) and 97% (Arabic).  
+By looking at the standard deviation of the separate categories, it is remarkable that *Lingua's* detection quality is much more stable and consistent across the different languages. The accuracy values of *Tika* and *Optimaize* fluctuate in a broader scope than *Lingua's* results. Whereas *Tika's* values for single word detection range between 33% (Spanish) and 95% (Arabic and Belarusian), *Lingua* only ranges between 55% (Spanish) and 97% (Arabic).  
 
 <table>
     <tr>
@@ -549,9 +549,7 @@ The following plots even better reflect how *Lingua* performs next to its conten
 
 ##### 4.1.2.1 <a name="library-comparison-graphical-singlewords"></a> Single Words <sup>[Top ▲](#table-of-contents)</sup>
 
-The line plot shows that *Lingua's* detection accuracy for single words is superior except for Latvian. Looking at the report for this language, more than 12% of the words are erroneously classified as Swedish or Turkish. This is probably due to some very specific characters that occur much more often in the other two languages.
-
-As already stated, some languages generally seem harder to identify than others, especially the Romance languages French, Italian, Portuguese and Spanish which are very similar to each other. Also, German and English are difficult to keep apart.
+The line plot shows that *Lingua's* detection accuracy for single words is superior compared to the other two libraries. Some languages generally seem harder to identify than others, especially the Romance languages French, Italian, Portuguese and Spanish which are very similar to each other. Also, Dutch and English are difficult to keep apart.
 
 ![lineplot-singlewords](/images/plots/lineplot-singlewords.png)
 
@@ -561,7 +559,7 @@ The box plot very nicely shows the differences in the deviation of the results, 
 
 ##### 4.1.2.2 <a name="library-comparison-graphical-wordpairs"></a> Word Pairs <sup>[Top ▲](#table-of-contents)</sup>
 
-Comparing the plots for word pairs, they illustrate the same aspects as mentioned for single words above. The detection results for Lithuanian are worse than with *Apache Tika*, showing that Baltic languages obviously need some more care.
+Comparing the plots for word pairs, *Lingua* still performs best, even though *Apache Tika* slowly catches up.
 
 ![lineplot-wordpairs](/images/plots/lineplot-wordpairs.png)
 
@@ -569,13 +567,15 @@ Comparing the plots for word pairs, they illustrate the same aspects as mentione
 
 ##### 4.1.2.3 <a name="library-comparison-graphical-sentences"></a> Sentences <sup>[Top ▲](#table-of-contents)</sup>
 
-As already said, Baltic languages seem to be a problem. This will be fixed in the next minor version update.
+The sentence detection accuracy is approximately the same for all three libraries. Only *Optimaize* significantly drops accuracy for Czech and Russian.
 
 ![lineplot-sentences](/images/plots/lineplot-sentences.png)
 
 ![boxplot-sentences](/images/plots/boxplot-sentences.png)
 
 ##### 4.1.2.4 <a name="library-comparison-graphical-average"></a> Average <sup>[Top ▲](#table-of-contents)</sup>
+
+The two plots below show the averaged accuracy values over all three performed tasks, that is, single word detection, word pair detection and sentence detection.
 
 ![lineplot-average](/images/plots/lineplot-average.png)
 
@@ -601,7 +601,7 @@ com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
 
 ##### GERMAN #####
 
->>> Accuracy on average: 91,10%
+>>> Accuracy on average: 91,13%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 78,50%
@@ -612,11 +612,11 @@ Accuracy: 95,30%
 Erroneously classified as ENGLISH: 0,90%, DANISH: 0,80%, DUTCH: 0,80%, SWEDISH: 0,60%, FRENCH: 0,40%, ESTONIAN: 0,30%, CZECH: 0,20%, TURKISH: 0,10%, LATVIAN: 0,10%, PORTUGUESE: 0,10%, FINNISH: 0,10%, HUNGARIAN: 0,10%, ROMANIAN: 0,10%, SPANISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
-Accuracy: 99,50%
-Erroneously classified as SWEDISH: 0,10%, POLISH: 0,10%, FINNISH: 0,10%, DUTCH: 0,10%, ENGLISH: 0,10%
+Accuracy: 99,60%
+Erroneously classified as DUTCH: 0,20%, SWEDISH: 0,10%, POLISH: 0,10%
 ```
 
-The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The code is contained in an IPython notebook and can be found under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/master/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
+The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The code is contained in a Jupyter notebook and can be found under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/master/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
 
 ## 5. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -625,7 +625,7 @@ The plots have been created with Python and the libraries Pandas, Matplotlib and
 ### 5.1 <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
-implementation 'com.github.pemistahl:lingua:0.3.0'
+implementation 'com.github.pemistahl:lingua:0.3.1'
 ```
 
 ### 5.2 <a name="library-dependency-maven"></a> Using Maven
@@ -634,7 +634,7 @@ implementation 'com.github.pemistahl:lingua:0.3.0'
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
 </dependency>
 ```
 
@@ -648,8 +648,8 @@ cd lingua
 mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
-1. `mvn package` creates `lingua-0.3.0.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.3.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+1. `mvn package` creates `lingua-0.3.1.jar` that contains the compiled sources only.
+2. `mvn package -P with-dependencies` creates `lingua-0.3.1-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ## 7. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -680,10 +680,12 @@ If a string's language cannot be detected reliably because of missing linguistic
 ```java
 /* Java */
 
+import java.util.List;
+import static java.util.Arrays.asList;
+
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder;
 import com.github.pemistahl.lingua.api.LanguageDetector;
 import com.github.pemistahl.lingua.api.Language;
-import static java.util.Arrays.asList;
 
 final LanguageDetector detector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build();
 final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
@@ -703,7 +705,7 @@ LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(Language.SPANISH)
 LanguageDetectorBuilder.fromLanguages(Language.ENGLISH, Language.GERMAN)
 
 // select languages by ISO 639-1 code
-LanguageDetectorBuilder.fromIsoCodes(listOf("en", "de"))
+LanguageDetectorBuilder.fromIsoCodes("en", "de")
 ```
 
 If you build your detector from all built-in language models, this can consume quite a bit of time and memory, depending on your machine. In order to speed up the loading process and save memory, *Lingua* offers an optional [MapDB](https://github.com/jankotek/mapdb) cache that converts the language models to highly efficient [`SortedTableMap`](https://jankotek.gitbooks.io/mapdb/content/sortedtablemap/) instances upon first access. These MapDB files are then stored in your operating system account's user home directory under `[your home directory]/lingua-mapdb-files`. Every subsequent access to the language models will then read them from MapDB. This saves 33% of memory and 66% of loading times, approximately. You can activate the MapDB cache like so:
@@ -718,7 +720,7 @@ val detector = LanguageDetectorBuilder
 ### 7.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.3.0-with-dependencies.jar`
+2. Without Maven: `java -jar lingua-0.3.1-with-dependencies.jar`
 
 Then just play around:
 
@@ -780,8 +782,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-25-orange.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [awesome nlp url]: https://github.com/keon/awesome-nlp#user-content-kotlin
-[lingua version badge]: https://api.bintray.com/packages/pemistahl/nlp-libraries/lingua/images/download.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.3.0%2Flingua-0.3.0-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.3.1-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.3.1%2Flingua-0.3.1-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
@@ -791,10 +793,10 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
 [Apache Tika]: https://tika.apache.org/1.20/detection.html#Language_Detection
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.3.0
-[Jcenter badge]: https://img.shields.io/badge/JCenter-0.3.0-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.3.0/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.3.0-green.svg
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.3.1
+[Jcenter badge]: https://img.shields.io/badge/JCenter-0.3.1-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.3.1/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.3.1-green.svg
 [green-marker]: https://placehold.it/10/008000/000000?text=+
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
 [orange-marker]: https://placehold.it/10/ff8c00/000000?text=+

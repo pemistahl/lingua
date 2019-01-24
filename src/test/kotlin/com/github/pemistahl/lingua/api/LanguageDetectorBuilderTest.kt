@@ -90,7 +90,7 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from iso codes`() {
         run {
-            val builder = LanguageDetectorBuilder.fromIsoCodes(listOf("de", "sv"))
+            val builder = LanguageDetectorBuilder.fromIsoCodes("de", "sv")
             assertThat(builder.languages).isEqualTo(setOf(Language.GERMAN, Language.SWEDISH))
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
@@ -100,12 +100,7 @@ class LanguageDetectorBuilderTest {
         }
         run {
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromIsoCodes(listOf("en"))
-            }.withMessage(errorMessage)
-        }
-        run {
-            assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromIsoCodes(emptyList())
+                LanguageDetectorBuilder.fromIsoCodes("en")
             }.withMessage(errorMessage)
         }
     }

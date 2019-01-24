@@ -1,6 +1,3 @@
-Jan 13, 2019 4:32:10 PM com.github.pemistahl.lingua.report.optimaize.CzechDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### CZECH #####
 
 >>> Accuracy on average: 71,33%

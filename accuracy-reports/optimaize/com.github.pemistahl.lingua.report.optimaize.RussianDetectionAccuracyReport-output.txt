@@ -1,6 +1,3 @@
-Jan 13, 2019 4:32:38 PM com.github.pemistahl.lingua.report.optimaize.RussianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### RUSSIAN #####
 
 >>> Accuracy on average: 63,87%

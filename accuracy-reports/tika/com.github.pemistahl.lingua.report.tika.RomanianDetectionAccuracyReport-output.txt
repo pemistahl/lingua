@@ -1,6 +1,3 @@
-Jan 13, 2019 4:27:21 PM com.github.pemistahl.lingua.report.tika.RomanianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### ROMANIAN #####
 
 >>> Accuracy on average: 80,53%

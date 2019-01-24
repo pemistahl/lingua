@@ -190,11 +190,14 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     companion object {
         private val languageIsoCodesToTest = Language.values().toSet().minus(
             arrayOf(Language.LATIN, Language.UNKNOWN)
-        ).map { it.isoCode }
+        ).map { it.isoCode }.toTypedArray()
 
         internal val linguaDetector by lazy {
             LanguageDetectorBuilder
-                .fromIsoCodes(languageIsoCodesToTest)
+                .fromIsoCodes(
+                    languageIsoCodesToTest[0],
+                    *languageIsoCodesToTest.sliceArray(1 until languageIsoCodesToTest.size)
+                )
                 .build()
         }
 

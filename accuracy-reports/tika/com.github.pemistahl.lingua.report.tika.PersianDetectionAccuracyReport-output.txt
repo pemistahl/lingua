@@ -1,6 +1,3 @@
-Jan 13, 2019 4:27:12 PM com.github.pemistahl.lingua.report.tika.PersianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### PERSIAN #####
 
 >>> Accuracy on average: 85,77%

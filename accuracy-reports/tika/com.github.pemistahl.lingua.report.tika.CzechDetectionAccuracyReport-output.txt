@@ -1,6 +1,3 @@
-Jan 13, 2019 4:26:43 PM com.github.pemistahl.lingua.report.tika.CzechDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### CZECH #####
 
 >>> Accuracy on average: 82,87%

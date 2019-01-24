@@ -1,6 +1,3 @@
-Jan 13, 2019 4:32:37 PM com.github.pemistahl.lingua.report.optimaize.RomanianDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### ROMANIAN #####
 
 >>> Accuracy on average: 57,00%

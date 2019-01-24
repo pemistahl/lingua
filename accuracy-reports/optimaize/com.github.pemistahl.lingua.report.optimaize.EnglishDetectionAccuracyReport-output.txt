@@ -1,6 +1,3 @@
-Jan 13, 2019 4:32:15 PM com.github.pemistahl.lingua.report.optimaize.EnglishDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### ENGLISH #####
 
 >>> Accuracy on average: 43,37%

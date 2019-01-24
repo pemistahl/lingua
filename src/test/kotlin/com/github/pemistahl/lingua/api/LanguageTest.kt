@@ -42,6 +42,7 @@ import com.github.pemistahl.lingua.api.Language.RUSSIAN
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TURKISH
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -90,10 +91,16 @@ class LanguageTest {
         "da, DANISH",     "nl, DUTCH",      "en, ENGLISH",   "et, ESTONIAN", "fi, FINNISH",
         "fr, FRENCH",     "de, GERMAN",     "hu, HUNGARIAN", "it, ITALIAN",  "la, LATIN",
         "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",   "pl, POLISH",   "pt, PORTUGUESE",
-        "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",   "sv, SWEDISH",  "tr, TURKISH",
-        "<unk>, UNKNOWN", "qjd7e, UNKNOWN"
+        "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",   "sv, SWEDISH",  "tr, TURKISH"
     )
     fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
         assertThat(getByIsoCode(isoCode)).isEqualTo(language)
+    }
+
+    @Test
+    fun `assert that exception is thrown for unknown iso code`() {
+        assertThatIllegalArgumentException().isThrownBy {
+            Language.getByIsoCode("dfjkglsdfg")
+        }.withMessage("language with iso code 'dfjkglsdfg' can not be found")
     }
 }

@@ -1,6 +1,3 @@
-Jan 13, 2019 4:26:48 PM com.github.pemistahl.lingua.report.tika.DanishDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### DANISH #####
 
 >>> Accuracy on average: 84,70%

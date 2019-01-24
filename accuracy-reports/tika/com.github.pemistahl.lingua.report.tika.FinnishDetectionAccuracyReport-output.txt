@@ -1,6 +1,3 @@
-Jan 13, 2019 4:26:58 PM com.github.pemistahl.lingua.report.tika.FinnishDetectionAccuracyReport afterAll
-INFORMATION: 
-
 ##### FINNISH #####
 
 >>> Accuracy on average: 94,83%

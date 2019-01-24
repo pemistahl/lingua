@@ -60,7 +60,7 @@ enum class Language(
                     return language
                 }
             }
-            return UNKNOWN
+            throw IllegalArgumentException("language with iso code '$isoCode' can not be found")
         }
     }
 }
