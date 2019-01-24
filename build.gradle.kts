@@ -4,6 +4,7 @@ description = "A natural language detection library for Kotlin and Java, suitabl
 
 plugins {
     kotlin("jvm") version "1.3.20"
+    id("com.adarshr.test-logger") version "1.6.0"
 }
 
 sourceSets {
