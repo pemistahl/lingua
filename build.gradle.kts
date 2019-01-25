@@ -27,9 +27,10 @@ tasks.test {
 }
 
 tasks.jacocoTestReport {
+    dependsOn("test")
     reports {
         xml.isEnabled = true
-        csv.isEnabled = true
+        csv.isEnabled = false
         html.isEnabled = true
     }
 }
