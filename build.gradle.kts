@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 group = "com.github.pemistahl"
 version = "0.4.0-SNAPSHOT"
 description = "A natural language detection library for Kotlin and Java, suitable for long and short text alike"
@@ -5,7 +7,11 @@ description = "A natural language detection library for Kotlin and Java, suitabl
 plugins {
     kotlin("jvm") version "1.3.20"
     id("com.adarshr.test-logger") version "1.6.0"
+    id("org.jetbrains.dokka") version "0.9.17"
+    jacoco
 }
+
+jacoco { toolVersion = "0.8.3" }
 
 sourceSets {
     main {
@@ -16,15 +22,55 @@ sourceSets {
 }
 
 tasks.test {
-    useJUnitPlatform {
-        failFast = true
-    }
-    filter {
-        includeTestsMatching("*Test")
+    useJUnitPlatform { failFast = true }
+    filter { includeTestsMatching("*Test") }
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+        csv.isEnabled = true
+        html.isEnabled = true
     }
 }
 
-task<JavaExec>("runRepl") {
+tasks.dokka {
+    jdkVersion = 6
+    reportUndocumented = false
+}
+
+tasks.register<DokkaTask>("dokkaJavadoc") {
+    jdkVersion = 6
+    reportUndocumented = false
+    outputFormat = "javadoc"
+    outputDirectory = "$buildDir/dokkaJavadoc"
+}
+
+tasks.register<Jar>("dokkaJavadocJar") {
+    dependsOn("dokkaJavadoc")
+    classifier = "javadoc"
+    from("$buildDir/dokkaJavadoc")
+}
+
+tasks.register<Jar>("sourcesJar") {
+    classifier = "sources"
+    from("src/main/kotlin")
+}
+
+tasks.register<Jar>("jarWithDependencies") {
+    classifier = "with-dependencies"
+    dependsOn(configurations.runtimeClasspath)
+    from(sourceSets.main.get().output)
+    from({
+        configurations.runtimeClasspath.get()
+            .filter { it.name.endsWith("jar") }
+            .map { zipTree(it) }
+    })
+    manifest { attributes("Main-Class" to "com.github.pemistahl.lingua.AppKt") }
+    exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
+}
+
+tasks.register<JavaExec>("startLinguaRepl") {
     main = "com.github.pemistahl.lingua.AppKt"
     standardInput = System.`in`
     classpath = sourceSets["main"].runtimeClasspath
