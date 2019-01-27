@@ -35,6 +35,53 @@ tasks.jacocoTestReport {
     }
 }
 
+tasks.register<Test>("accuracyReports") {
+    val allowedDetectors = listOf("Optimaize", "Tika", "Lingua")
+    val detectors = if (project.hasProperty("detectors"))
+        project.property("detectors").toString().split(Regex("\\s*,\\s*"))
+    else allowedDetectors
+
+    detectors.filterNot { it in allowedDetectors }.forEach {
+        throw GradleException(
+            """
+            detector '$it' does not exist
+            supported detectors: ${allowedDetectors.joinToString(", ")}
+            """.trimIndent()
+        )
+    }
+
+    val allowedLanguages = listOf(
+        "Arabic", "Belarusian", "Bulgarian", "Croatian", "Czech", "Danish",
+        "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
+        "Italian", "Latin", "Latvian", "Lithuanian", "Persian", "Polish",
+        "Portuguese", "Romanian", "Russian", "Spanish", "Swedish", "Turkish"
+    )
+
+    val languages = if (project.hasProperty("languages"))
+        project.property("languages").toString().split(Regex("\\s*,\\s*"))
+    else allowedLanguages
+
+    val accuracyReportPackage = "com.github.pemistahl.lingua.report"
+
+    maxHeapSize = "2048m"
+    useJUnitPlatform { failFast = true }
+    testLogging { showStandardStreams = true }
+    testlogger {
+        showPassed = false
+        showSkipped = false
+        showStandardStreams = true
+    }
+    filter {
+        detectors.forEach { detector ->
+            languages.forEach { language ->
+                includeTestsMatching(
+                    "$accuracyReportPackage.${detector.toLowerCase()}.${language}DetectionAccuracyReport"
+                )
+            }
+        }
+    }
+}
+
 tasks.dokka {
     jdkVersion = 6
     reportUndocumented = false
@@ -71,7 +118,7 @@ tasks.register<Jar>("jarWithDependencies") {
     exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
 }
 
-tasks.register<JavaExec>("startLinguaRepl") {
+tasks.register<JavaExec>("startRepl") {
     main = "com.github.pemistahl.lingua.AppKt"
     standardInput = System.`in`
     classpath = sourceSets["main"].runtimeClasspath
