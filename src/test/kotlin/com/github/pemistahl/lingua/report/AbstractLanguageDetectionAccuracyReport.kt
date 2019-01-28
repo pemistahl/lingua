@@ -32,6 +32,8 @@ import org.apache.tika.langdetect.OptimaizeLangDetector
 import org.apache.tika.language.detect.LanguageResult
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import java.nio.file.Files
+import java.nio.file.Paths
 
 abstract class AbstractLanguageDetectionAccuracyReport(
     private val language: Language,
@@ -63,7 +65,20 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
     @AfterAll
     fun afterAll() {
+        val projectRootPath = Paths.get("").toAbsolutePath().toString()
+        val accuracyReportsDirectoryName = "accuracy-reports"
+        val detectorDirectoryName = implementationToUse.name.toLowerCase()
+        val languageReportFileName = "${language.name.toLowerCase().capitalize()}.txt"
+        val accuracyReportsDirectoryPath = Paths.get(projectRootPath, accuracyReportsDirectoryName, detectorDirectoryName)
+        val accuracyReportFilePath = Paths.get(projectRootPath, accuracyReportsDirectoryName, detectorDirectoryName, languageReportFileName)
+
         println(statisticsReport())
+
+        Files.createDirectories(accuracyReportsDirectoryPath)
+        accuracyReportFilePath.toFile().bufferedWriter().use { writer ->
+            writer.write(statisticsReport())
+        }
+
         if (implementationToUse == LINGUA && language == Language.LATIN) {
             linguaDetector.removeLanguageModel(Language.LATIN)
         }

@@ -1,0 +1,19 @@
+##### HUNGARIAN #####
+
+>>> Accuracy on average: 80,67%
+
+>> Detection of 1000 single words (average length: 9 chars)
+Accuracy: 57,50%
+Erroneously classified as UNKNOWN: 41,20%, CZECH: 0,40%, POLISH: 0,30%, DANISH: 0,20%, TURKISH: 0,20%, ITALIAN: 0,10%, FRENCH: 0,10%
+
+>> Detection of 1000 word pairs (average length: 17 chars)
+Accuracy: 85,00%
+Erroneously classified as UNKNOWN: 14,40%, ESTONIAN: 0,40%, ITALIAN: 0,10%, DANISH: 0,10%
+
+>> Detection of 1000 sentences (average length: 116 chars)
+Accuracy: 99,50%
+Erroneously classified as UNKNOWN: 0,50%
+
+>> Exact values to insert in CSV file
+average single-words word-pairs sentences
+80.66666666666667 57.49999999999999 85.0 99.5

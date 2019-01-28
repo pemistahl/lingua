@@ -61,11 +61,14 @@ tasks.register<Test>("accuracyReports") {
         project.property("languages").toString().split(Regex("\\s*,\\s*"))
     else allowedLanguages
 
+    languages.filterNot { it in allowedLanguages }.forEach {
+        throw GradleException("language '$it' is not supported")
+    }
+
     val accuracyReportPackage = "com.github.pemistahl.lingua.report"
 
     maxHeapSize = "2048m"
     useJUnitPlatform { failFast = true }
-    testLogging { showStandardStreams = true }
     testlogger {
         showPassed = false
         showSkipped = false
