@@ -1,14 +1,14 @@
 ##### POLISH #####
 
->>> Accuracy on average: 83,60%
+>>> Accuracy on average: 83,57%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 62,30%
 Erroneously classified as UNKNOWN: 37,50%, FRENCH: 0,10%, HUNGARIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 88,80%
-Erroneously classified as UNKNOWN: 10,70%, HUNGARIAN: 0,20%, CROATIAN: 0,20%, FINNISH: 0,10%
+Accuracy: 88,70%
+Erroneously classified as UNKNOWN: 10,80%, HUNGARIAN: 0,20%, CROATIAN: 0,20%, FINNISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 99 chars)
 Accuracy: 99,70%
@@ -16,4 +16,4 @@ Erroneously classified as UNKNOWN: 0,20%, CROATIAN: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-83.60000000000001 62.3 88.8 99.7
+83.56666666666666 62.3 88.7 99.7

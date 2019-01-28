@@ -30,6 +30,7 @@ import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
+import com.github.pemistahl.lingua.api.Language.ICELANDIC
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
@@ -52,7 +53,7 @@ class LanguageTest {
 
     @Test
     fun `assert that number of currently supported languages is correct`() {
-        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(26)
+        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(27)
     }
 
     @Test
@@ -66,7 +67,7 @@ class LanguageTest {
             .`as`("incorrect or missing language supporting Latin alphabet")
             .containsExactlyInAnyOrder(
                 CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH,
-                FRENCH, GERMAN, HUNGARIAN, ITALIAN, LATIN, LATVIAN, LITHUANIAN,
+                FRENCH, GERMAN, HUNGARIAN, ICELANDIC, ITALIAN, LATIN, LATVIAN, LITHUANIAN,
                 POLISH, PORTUGUESE, ROMANIAN, SPANISH, SWEDISH, TURKISH
             )
     }
@@ -87,11 +88,12 @@ class LanguageTest {
 
     @ParameterizedTest
     @CsvSource(
-        "ar, ARABIC",     "be, BELARUSIAN", "bg, BULGARIAN", "hr, CROATIAN", "cs, CZECH",
-        "da, DANISH",     "nl, DUTCH",      "en, ENGLISH",   "et, ESTONIAN", "fi, FINNISH",
-        "fr, FRENCH",     "de, GERMAN",     "hu, HUNGARIAN", "it, ITALIAN",  "la, LATIN",
-        "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",   "pl, POLISH",   "pt, PORTUGUESE",
-        "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",   "sv, SWEDISH",  "tr, TURKISH"
+        "ar, ARABIC",     "be, BELARUSIAN", "bg, BULGARIAN",  "hr, CROATIAN",  "cs, CZECH",
+        "da, DANISH",     "nl, DUTCH",      "en, ENGLISH",    "et, ESTONIAN",  "fi, FINNISH",
+        "fr, FRENCH",     "de, GERMAN",     "is, ICELANDIC",  "hu, HUNGARIAN", "it, ITALIAN",
+        "la, LATIN",      "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",   "pl, POLISH",
+        "pt, PORTUGUESE", "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",   "sv, SWEDISH",
+        "tr, TURKISH"
     )
     fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
         assertThat(getByIsoCode(isoCode)).isEqualTo(language)

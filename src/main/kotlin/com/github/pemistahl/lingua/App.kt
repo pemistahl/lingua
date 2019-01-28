@@ -31,6 +31,7 @@ import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
+import com.github.pemistahl.lingua.api.Language.ICELANDIC
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
@@ -42,12 +43,29 @@ import com.github.pemistahl.lingua.api.Language.RUSSIAN
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
+import com.github.pemistahl.lingua.internal.util.writeLanguageModelsFromLeipzigCorpusFile
+import com.github.pemistahl.lingua.internal.util.writeTestDataFiles
 import java.io.Console
 import java.util.Scanner
 import kotlin.math.roundToInt
 
 fun main() {
-    runApp()
+    //runApp()
+
+    /*
+    writeLanguageModelsFromLeipzigCorpusFile(
+        inputPath = "/training-data/is/is_1M.txt",
+        outputPath = "C:/Users/pstahl/Documents",
+        language = ICELANDIC
+    )
+
+    writeTestDataFiles(
+        inputPath = "/training-data/is/is_10K.txt",
+        outputPath = "C:/Users/pstahl/Documents/language-testdata",
+        isoCode = "is",
+        charClass = "IsLatin"
+    )
+    */
 }
 
 private fun runApp() {

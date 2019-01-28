@@ -1,6 +1,6 @@
 ##### DUTCH #####
 
->>> Accuracy on average: 51,37%
+>>> Accuracy on average: 51,40%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 14,20%
@@ -11,9 +11,9 @@ Accuracy: 42,30%
 Erroneously classified as UNKNOWN: 54,70%, ENGLISH: 0,70%, ITALIAN: 0,40%, FRENCH: 0,40%, GERMAN: 0,30%, DANISH: 0,30%, CROATIAN: 0,20%, ESTONIAN: 0,20%, POLISH: 0,10%, FINNISH: 0,10%, SWEDISH: 0,10%, SPANISH: 0,10%, LATVIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 107 chars)
-Accuracy: 97,60%
-Erroneously classified as UNKNOWN: 2,10%, ENGLISH: 0,20%, CZECH: 0,10%
+Accuracy: 97,70%
+Erroneously classified as UNKNOWN: 2,10%, ENGLISH: 0,20%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-51.36666666666667 14.2 42.3 97.6
+51.4 14.2 42.3 97.7

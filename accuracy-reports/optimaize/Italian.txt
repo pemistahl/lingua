@@ -1,10 +1,10 @@
 ##### ITALIAN #####
 
->>> Accuracy on average: 53,73%
+>>> Accuracy on average: 53,70%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 15,70%
-Erroneously classified as UNKNOWN: 83,80%, FRENCH: 0,10%, ENGLISH: 0,10%, DUTCH: 0,10%, PORTUGUESE: 0,10%, CROATIAN: 0,10%
+Accuracy: 15,60%
+Erroneously classified as UNKNOWN: 83,90%, FRENCH: 0,10%, ENGLISH: 0,10%, DUTCH: 0,10%, PORTUGUESE: 0,10%, CROATIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 47,10%
@@ -16,4 +16,4 @@ Erroneously classified as UNKNOWN: 1,30%, ENGLISH: 0,20%, FRENCH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-53.73333333333333 15.7 47.099999999999994 98.4
+53.699999999999996 15.6 47.099999999999994 98.4

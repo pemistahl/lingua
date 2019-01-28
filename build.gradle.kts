@@ -1,3 +1,4 @@
+import com.adarshr.gradle.testlogger.theme.ThemeType
 import org.jetbrains.dokka.gradle.DokkaTask
 
 group = "com.github.pemistahl"
@@ -11,18 +12,22 @@ plugins {
     jacoco
 }
 
-jacoco { toolVersion = "0.8.3" }
+jacoco.toolVersion = "0.8.3"
 
 sourceSets {
     main {
         resources {
+            //include("training-data/is/*")
             exclude("training-data/**", "language-models/*/sixgrams.json")
         }
     }
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
+}
+
+tasks.test {
     filter { includeTestsMatching("*Test") }
 }
 
@@ -53,7 +58,7 @@ tasks.register<Test>("accuracyReports") {
     val allowedLanguages = listOf(
         "Arabic", "Belarusian", "Bulgarian", "Croatian", "Czech", "Danish",
         "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
-        "Italian", "Latin", "Latvian", "Lithuanian", "Persian", "Polish",
+        "Icelandic", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", "Polish",
         "Portuguese", "Romanian", "Russian", "Spanish", "Swedish", "Turkish"
     )
 
@@ -67,13 +72,17 @@ tasks.register<Test>("accuracyReports") {
 
     val accuracyReportPackage = "com.github.pemistahl.lingua.report"
 
-    maxHeapSize = "2048m"
-    useJUnitPlatform { failFast = true }
+    maxHeapSize = "3072m"
+    maxParallelForks = Runtime.getRuntime().availableProcessors().div(2).takeIf { it > 0 } ?: 1
+    reports.html.isEnabled = false
+    reports.junitXml.isEnabled = false
+
     testlogger {
+        theme = ThemeType.STANDARD_PARALLEL
         showPassed = false
         showSkipped = false
-        showStandardStreams = true
     }
+
     filter {
         detectors.forEach { detector ->
             languages.forEach { language ->
@@ -85,14 +94,12 @@ tasks.register<Test>("accuracyReports") {
     }
 }
 
-tasks.dokka {
+tasks.withType<DokkaTask> {
     jdkVersion = 6
     reportUndocumented = false
 }
 
 tasks.register<DokkaTask>("dokkaJavadoc") {
-    jdkVersion = 6
-    reportUndocumented = false
     outputFormat = "javadoc"
     outputDirectory = "$buildDir/dokkaJavadoc"
 }
