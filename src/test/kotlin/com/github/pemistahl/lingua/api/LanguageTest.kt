@@ -31,6 +31,7 @@ import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
+import com.github.pemistahl.lingua.api.Language.INDONESIAN
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
@@ -53,7 +54,7 @@ class LanguageTest {
 
     @Test
     fun `assert that number of currently supported languages is correct`() {
-        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(27)
+        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(28)
     }
 
     @Test
@@ -67,8 +68,9 @@ class LanguageTest {
             .`as`("incorrect or missing language supporting Latin alphabet")
             .containsExactlyInAnyOrder(
                 CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH,
-                FRENCH, GERMAN, HUNGARIAN, ICELANDIC, ITALIAN, LATIN, LATVIAN, LITHUANIAN,
-                POLISH, PORTUGUESE, ROMANIAN, SPANISH, SWEDISH, TURKISH
+                FRENCH, GERMAN, HUNGARIAN, ICELANDIC, ITALIAN, INDONESIAN,
+                LATIN, LATVIAN, LITHUANIAN, POLISH, PORTUGUESE, ROMANIAN,
+                SPANISH, SWEDISH, TURKISH
             )
     }
 
