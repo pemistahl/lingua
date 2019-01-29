@@ -1,14 +1,14 @@
 ##### ESTONIAN #####
 
->>> Accuracy on average: 87,07%
+>>> Accuracy on average: 86,23%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 71,50%
-Erroneously classified as FINNISH: 8,40%, DUTCH: 2,50%, ITALIAN: 2,10%, DANISH: 1,70%, LITHUANIAN: 1,50%, SWEDISH: 1,40%, FRENCH: 1,30%, PORTUGUESE: 1,20%, ENGLISH: 1,20%, TURKISH: 1,10%, ROMANIAN: 1,00%, CROATIAN: 1,00%, SPANISH: 1,00%, ICELANDIC: 0,90%, LATVIAN: 0,70%, GERMAN: 0,60%, HUNGARIAN: 0,50%, POLISH: 0,20%, CZECH: 0,20%
+Accuracy: 69,60%
+Erroneously classified as FINNISH: 8,10%, INDONESIAN: 3,80%, DUTCH: 2,50%, ITALIAN: 1,80%, DANISH: 1,70%, LITHUANIAN: 1,40%, SWEDISH: 1,30%, FRENCH: 1,30%, PORTUGUESE: 1,10%, CROATIAN: 1,00%, ROMANIAN: 0,90%, ICELANDIC: 0,90%, ENGLISH: 0,90%, TURKISH: 0,90%, SPANISH: 0,80%, LATVIAN: 0,60%, HUNGARIAN: 0,50%, GERMAN: 0,50%, POLISH: 0,20%, CZECH: 0,20%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 90,10%
-Erroneously classified as FINNISH: 4,00%, DUTCH: 1,00%, ITALIAN: 0,70%, CROATIAN: 0,70%, DANISH: 0,50%, SWEDISH: 0,50%, LITHUANIAN: 0,50%, ENGLISH: 0,50%, PORTUGUESE: 0,40%, ROMANIAN: 0,20%, ICELANDIC: 0,20%, FRENCH: 0,20%, TURKISH: 0,20%, HUNGARIAN: 0,10%, GERMAN: 0,10%, LATVIAN: 0,10%
+Accuracy: 89,50%
+Erroneously classified as FINNISH: 3,80%, INDONESIAN: 1,20%, DUTCH: 1,00%, ITALIAN: 0,60%, CROATIAN: 0,60%, DANISH: 0,50%, LITHUANIAN: 0,50%, ENGLISH: 0,50%, SWEDISH: 0,40%, PORTUGUESE: 0,40%, ROMANIAN: 0,20%, ICELANDIC: 0,20%, FRENCH: 0,20%, HUNGARIAN: 0,10%, GERMAN: 0,10%, LATVIAN: 0,10%, TURKISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 99,60%
@@ -16,4 +16,4 @@ Erroneously classified as FINNISH: 0,30%, ENGLISH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-87.06666666666668 71.5 90.10000000000001 99.6
+86.23333333333333 69.6 89.5 99.6

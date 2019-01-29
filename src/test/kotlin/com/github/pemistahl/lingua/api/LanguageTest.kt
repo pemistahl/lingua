@@ -88,12 +88,12 @@ class LanguageTest {
 
     @ParameterizedTest
     @CsvSource(
-        "ar, ARABIC",     "be, BELARUSIAN", "bg, BULGARIAN",  "hr, CROATIAN",  "cs, CZECH",
-        "da, DANISH",     "nl, DUTCH",      "en, ENGLISH",    "et, ESTONIAN",  "fi, FINNISH",
-        "fr, FRENCH",     "de, GERMAN",     "is, ICELANDIC",  "hu, HUNGARIAN", "it, ITALIAN",
-        "la, LATIN",      "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",   "pl, POLISH",
-        "pt, PORTUGUESE", "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",   "sv, SWEDISH",
-        "tr, TURKISH"
+        "ar, ARABIC",  "be, BELARUSIAN", "bg, BULGARIAN",  "hr, CROATIAN",   "cs, CZECH",
+        "da, DANISH",  "nl, DUTCH",      "en, ENGLISH",    "et, ESTONIAN",   "fi, FINNISH",
+        "fr, FRENCH",  "de, GERMAN",     "id, INDONESIAN", "is, ICELANDIC",  "hu, HUNGARIAN",
+        "it, ITALIAN", "la, LATIN",      "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",
+        "pl, POLISH",  "pt, PORTUGUESE", "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",
+        "sv, SWEDISH", "tr, TURKISH"
     )
     fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
         assertThat(getByIsoCode(isoCode)).isEqualTo(language)

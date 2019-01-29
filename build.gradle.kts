@@ -58,8 +58,8 @@ tasks.register<Test>("accuracyReports") {
     val allowedLanguages = listOf(
         "Arabic", "Belarusian", "Bulgarian", "Croatian", "Czech", "Danish",
         "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
-        "Icelandic", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", "Polish",
-        "Portuguese", "Romanian", "Russian", "Spanish", "Swedish", "Turkish"
+        "Icelandic", "Indonesian", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", 
+        "Polish", "Portuguese", "Romanian", "Russian", "Spanish", "Swedish", "Turkish"
     )
 
     val languages = if (project.hasProperty("languages"))

@@ -38,6 +38,7 @@ enum class Language(
     GERMAN     ("de", true, false, false, false),
     HUNGARIAN  ("hu", true, false, false, false),
     ICELANDIC  ("is", true, false, false, false),
+    INDONESIAN ("id", true, false, false, false),
     ITALIAN    ("it", true, false, false, false),
     LATIN      ("la", true, false, false, false),
     LATVIAN    ("lv", true, false, false, false),

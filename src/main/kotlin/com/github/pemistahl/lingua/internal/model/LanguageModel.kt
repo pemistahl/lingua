@@ -105,21 +105,14 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         linesOfText: Sequence<String>,
         ngramLength: Int,
         language: Language,
+        charClass: String,
         lowerNgramAbsoluteFrequencies: Map<U, Int>,
         areNgramsLowerCase: Boolean = true,
         areNgramsPadded: Boolean = false
     ) {
         val ngramAbsoluteFrequencies = hashMapOf<T, Int>()
         val padding = PAD_CHAR.repeat(ngramLength)
-
-        // Match only cyrillic letters
-        //val regex = Regex("[\\p{L}&&\\p{IsCyrillic}]+")
-
-        // Match only arabic letters
-        //val regex = Regex("[\\p{L}&&\\p{IsArabic}]+")
-
-        // Match only letters of latin alphabet
-        val regex = Regex("[\\p{L}&&\\p{IsLatin}]+")
+        val regex = Regex("""[\p{L}&&\p{$charClass}]+""")
 
         for (line in linesOfText) {
             val lowerCasedLine = if (areNgramsLowerCase)
@@ -210,6 +203,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         inline fun <reified T : Ngram, U : Ngram> fromTrainingData(
             text: Sequence<String>,
             language: Language,
+            charClass: String,
             lowerNgramAbsoluteFrequencies: Map<U, Int>,
             areNgramsLowerCase: Boolean = true,
             areNgramsPadded: Boolean = false
@@ -217,6 +211,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             text,
             getNgramLength<T>(),
             language,
+            charClass,
             lowerNgramAbsoluteFrequencies,
             areNgramsLowerCase,
             areNgramsPadded

@@ -32,6 +32,7 @@ import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
+import com.github.pemistahl.lingua.api.Language.INDONESIAN
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
@@ -54,15 +55,16 @@ fun main() {
 
     /*
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/is/is_1M.txt",
+        inputPath = "/training-data/id/id_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",
-        language = ICELANDIC
+        language = INDONESIAN,
+        charClass = "IsLatin"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/is/is_10K.txt",
+        inputPath = "/training-data/id/id_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "is",
+        isoCode = "id",
         charClass = "IsLatin"
     )
     */

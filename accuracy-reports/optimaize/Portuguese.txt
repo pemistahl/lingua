@@ -1,14 +1,14 @@
 ##### PORTUGUESE #####
 
->>> Accuracy on average: 41,43%
+>>> Accuracy on average: 41,23%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 7,50%
-Erroneously classified as UNKNOWN: 91,80%, HUNGARIAN: 0,20%, ENGLISH: 0,20%, SPANISH: 0,10%, CZECH: 0,10%, FRENCH: 0,10%
+Accuracy: 7,20%
+Erroneously classified as UNKNOWN: 91,80%, INDONESIAN: 0,30%, HUNGARIAN: 0,20%, ENGLISH: 0,20%, SPANISH: 0,10%, CZECH: 0,10%, FRENCH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 22,00%
-Erroneously classified as UNKNOWN: 76,60%, SPANISH: 0,50%, ITALIAN: 0,50%, ENGLISH: 0,20%, HUNGARIAN: 0,10%, LITHUANIAN: 0,10%
+Accuracy: 21,70%
+Erroneously classified as UNKNOWN: 77,00%, SPANISH: 0,50%, ITALIAN: 0,50%, ENGLISH: 0,20%, LITHUANIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 127 chars)
 Accuracy: 94,80%
@@ -16,4 +16,4 @@ Erroneously classified as UNKNOWN: 4,90%, SPANISH: 0,20%, FRENCH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-41.43333333333333 7.5 22.0 94.8
+41.23333333333333 7.199999999999999 21.7 94.8
