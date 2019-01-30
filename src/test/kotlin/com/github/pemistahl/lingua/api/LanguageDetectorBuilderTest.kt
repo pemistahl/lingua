@@ -30,6 +30,7 @@ class LanguageDetectorBuilderTest {
         assertThat(builder.languages).isEqualTo(Language.values().toSet().minus(Language.UNKNOWN))
         assertThat(builder.useMapDBCache).isFalse()
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
+        builder.useMapDBCache = false
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
         )
@@ -43,6 +44,7 @@ class LanguageDetectorBuilderTest {
         )
         assertThat(builder.useMapDBCache).isFalse()
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
+        builder.useMapDBCache = false
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
         )
@@ -57,6 +59,7 @@ class LanguageDetectorBuilderTest {
             )
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
+            builder.useMapDBCache = false
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
             )
@@ -76,6 +79,7 @@ class LanguageDetectorBuilderTest {
             assertThat(builder.languages).isEqualTo(setOf(Language.GERMAN, Language.ENGLISH))
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
+            builder.useMapDBCache = false
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
             )
@@ -94,6 +98,7 @@ class LanguageDetectorBuilderTest {
             assertThat(builder.languages).isEqualTo(setOf(Language.GERMAN, Language.SWEDISH))
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
+            builder.useMapDBCache = false
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
             )
