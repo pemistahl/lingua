@@ -41,6 +41,7 @@ import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
+import com.github.pemistahl.lingua.api.Language.SOMALI
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TURKISH
@@ -54,7 +55,7 @@ class LanguageTest {
 
     @Test
     fun `assert that number of currently supported languages is correct`() {
-        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(28)
+        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(29)
     }
 
     @Test
@@ -70,7 +71,7 @@ class LanguageTest {
                 CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH,
                 FRENCH, GERMAN, HUNGARIAN, ICELANDIC, ITALIAN, INDONESIAN,
                 LATIN, LATVIAN, LITHUANIAN, POLISH, PORTUGUESE, ROMANIAN,
-                SPANISH, SWEDISH, TURKISH
+                SOMALI, SPANISH, SWEDISH, TURKISH
             )
     }
 
@@ -95,7 +96,7 @@ class LanguageTest {
         "fr, FRENCH",  "de, GERMAN",     "id, INDONESIAN", "is, ICELANDIC",  "hu, HUNGARIAN",
         "it, ITALIAN", "la, LATIN",      "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",
         "pl, POLISH",  "pt, PORTUGUESE", "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",
-        "sv, SWEDISH", "tr, TURKISH"
+        "sv, SWEDISH", "tr, TURKISH",    "so, SOMALI"
     )
     fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
         assertThat(getByIsoCode(isoCode)).isEqualTo(language)

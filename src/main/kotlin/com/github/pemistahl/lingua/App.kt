@@ -41,6 +41,7 @@ import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
+import com.github.pemistahl.lingua.api.Language.SOMALI
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
@@ -53,21 +54,19 @@ import kotlin.math.roundToInt
 fun main() {
     //runApp()
 
-    /*
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/id/id_1M.txt",
+        inputPath = "/training-data/so/so_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",
-        language = INDONESIAN,
+        language = SOMALI,
         charClass = "IsLatin"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/id/id_10K.txt",
+        inputPath = "/training-data/so/so_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "id",
+        isoCode = "so",
         charClass = "IsLatin"
     )
-    */
 }
 
 private fun runApp() {

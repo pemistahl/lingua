@@ -12,7 +12,7 @@ Erroneously classified as UNKNOWN: 21,30%, INDONESIAN: 0,30%, CROATIAN: 0,20%
 
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 98,70%
-Erroneously classified as UNKNOWN: 1,10%, INDONESIAN: 0,10%, ITALIAN: 0,10%
+Erroneously classified as UNKNOWN: 1,20%, ITALIAN: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences

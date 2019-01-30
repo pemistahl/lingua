@@ -8,7 +8,7 @@ Erroneously classified as UNKNOWN: 65,20%, ENGLISH: 0,20%, GERMAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 75,80%
-Erroneously classified as UNKNOWN: 23,50%, ESTONIAN: 0,20%, ITALIAN: 0,20%, INDONESIAN: 0,10%, ENGLISH: 0,10%, POLISH: 0,10%
+Erroneously classified as UNKNOWN: 23,40%, ESTONIAN: 0,20%, ITALIAN: 0,20%, INDONESIAN: 0,10%, SOMALI: 0,10%, ENGLISH: 0,10%, POLISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 127 chars)
 Accuracy: 99,10%

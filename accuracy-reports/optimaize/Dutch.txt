@@ -1,19 +1,19 @@
 ##### DUTCH #####
 
->>> Accuracy on average: 51,37%
+>>> Accuracy on average: 51,17%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 14,10%
-Erroneously classified as UNKNOWN: 83,50%, GERMAN: 0,90%, ENGLISH: 0,30%, DANISH: 0,30%, FINNISH: 0,20%, CROATIAN: 0,20%, SPANISH: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%, INDONESIAN: 0,10%
+Accuracy: 13,70%
+Erroneously classified as UNKNOWN: 83,70%, GERMAN: 0,90%, ENGLISH: 0,30%, DANISH: 0,30%, FINNISH: 0,20%, SOMALI: 0,20%, CROATIAN: 0,20%, SPANISH: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%, INDONESIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 42,20%
-Erroneously classified as UNKNOWN: 54,80%, ENGLISH: 0,70%, ITALIAN: 0,40%, FRENCH: 0,40%, GERMAN: 0,30%, DANISH: 0,30%, CROATIAN: 0,20%, ESTONIAN: 0,20%, POLISH: 0,10%, FINNISH: 0,10%, SWEDISH: 0,10%, SPANISH: 0,10%, LATVIAN: 0,10%
+Accuracy: 42,10%
+Erroneously classified as UNKNOWN: 54,90%, ENGLISH: 0,70%, ITALIAN: 0,40%, FRENCH: 0,40%, GERMAN: 0,30%, DANISH: 0,30%, CROATIAN: 0,20%, ESTONIAN: 0,20%, POLISH: 0,10%, FINNISH: 0,10%, SWEDISH: 0,10%, SPANISH: 0,10%, LATVIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 107 chars)
-Accuracy: 97,80%
-Erroneously classified as UNKNOWN: 2,00%, ENGLISH: 0,20%
+Accuracy: 97,70%
+Erroneously classified as UNKNOWN: 2,10%, ENGLISH: 0,20%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-51.36666666666667 14.099999999999998 42.199999999999996 97.8
+51.166666666666664 13.700000000000001 42.1 97.7

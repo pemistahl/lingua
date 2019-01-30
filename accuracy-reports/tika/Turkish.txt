@@ -1,14 +1,14 @@
 ##### TURKISH #####
 
->>> Accuracy on average: 82,83%
+>>> Accuracy on average: 82,40%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 65,50%
-Erroneously classified as INDONESIAN: 6,60%, ICELANDIC: 5,20%, ESTONIAN: 3,20%, DANISH: 3,10%, CROATIAN: 2,10%, DUTCH: 1,90%, ITALIAN: 1,90%, FINNISH: 1,70%, CZECH: 1,50%, HUNGARIAN: 1,20%, GERMAN: 1,20%, PORTUGUESE: 1,10%, SPANISH: 0,70%, ENGLISH: 0,70%, ROMANIAN: 0,70%, SWEDISH: 0,70%, LATVIAN: 0,40%, POLISH: 0,30%, FRENCH: 0,20%, LITHUANIAN: 0,10%
+Accuracy: 64,40%
+Erroneously classified as INDONESIAN: 5,10%, ICELANDIC: 4,90%, SOMALI: 3,40%, ESTONIAN: 3,20%, DANISH: 3,10%, DUTCH: 1,90%, CROATIAN: 1,90%, ITALIAN: 1,90%, FINNISH: 1,70%, CZECH: 1,40%, HUNGARIAN: 1,20%, GERMAN: 1,20%, PORTUGUESE: 1,00%, ENGLISH: 0,70%, ROMANIAN: 0,70%, SWEDISH: 0,70%, SPANISH: 0,60%, LATVIAN: 0,40%, POLISH: 0,30%, FRENCH: 0,20%, LITHUANIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 83,70%
-Erroneously classified as INDONESIAN: 3,90%, ICELANDIC: 3,00%, DANISH: 1,60%, CZECH: 1,40%, ESTONIAN: 1,20%, SWEDISH: 0,90%, ITALIAN: 0,70%, FINNISH: 0,60%, CROATIAN: 0,50%, ENGLISH: 0,50%, LATVIAN: 0,30%, ROMANIAN: 0,30%, DUTCH: 0,30%, HUNGARIAN: 0,30%, GERMAN: 0,20%, LITHUANIAN: 0,20%, POLISH: 0,10%, FRENCH: 0,10%, SPANISH: 0,10%, PORTUGUESE: 0,10%
+Accuracy: 83,50%
+Erroneously classified as INDONESIAN: 3,60%, ICELANDIC: 3,00%, DANISH: 1,60%, CZECH: 1,40%, ESTONIAN: 1,20%, SWEDISH: 0,80%, ITALIAN: 0,70%, SOMALI: 0,60%, FINNISH: 0,60%, CROATIAN: 0,50%, ENGLISH: 0,50%, LATVIAN: 0,30%, ROMANIAN: 0,30%, DUTCH: 0,30%, HUNGARIAN: 0,30%, GERMAN: 0,20%, LITHUANIAN: 0,20%, POLISH: 0,10%, FRENCH: 0,10%, SPANISH: 0,10%, PORTUGUESE: 0,10%
 
 >> Detection of 1000 sentences (average length: 119 chars)
 Accuracy: 99,30%
@@ -16,4 +16,4 @@ Erroneously classified as GERMAN: 0,20%, ICELANDIC: 0,20%, INDONESIAN: 0,20%, CZ
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-82.83333333333333 65.5 83.7 99.3
+82.39999999999999 64.4 83.5 99.3

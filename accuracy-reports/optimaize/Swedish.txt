@@ -4,7 +4,7 @@
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 15,30%
-Erroneously classified as UNKNOWN: 83,80%, FINNISH: 0,40%, DANISH: 0,20%, INDONESIAN: 0,10%, GERMAN: 0,10%, ITALIAN: 0,10%
+Erroneously classified as UNKNOWN: 83,70%, FINNISH: 0,40%, DANISH: 0,20%, INDONESIAN: 0,10%, SOMALI: 0,10%, GERMAN: 0,10%, ITALIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 42,70%
