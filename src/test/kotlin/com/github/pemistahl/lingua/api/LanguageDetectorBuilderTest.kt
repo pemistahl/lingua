@@ -16,53 +16,79 @@
 
 package com.github.pemistahl.lingua.api
 
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
+import io.mockk.just
+import io.mockk.spyk
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(MockKExtension::class)
 class LanguageDetectorBuilderTest {
+
+    @MockK
+    lateinit var detector: LanguageDetector
 
     private val errorMessage = "LanguageDetector needs at least 2 languages to choose from"
 
     @Test
     fun `assert that LanguageDetector can be built from all languages`() {
-        val builder = LanguageDetectorBuilder.fromAllBuiltInLanguages()
+        val builder = spyk(LanguageDetectorBuilder.fromAllBuiltInLanguages())
+
+        every { detector.languages } returns Language.values().toSet().minus(Language.UNKNOWN).toMutableSet()
+        every { detector.isCachedByMapDB } returns false
+        every { detector.loadAllLanguageModels() } just Runs
+        every { builder.instantiateLanguageDetector() } returns detector
+
         assertThat(builder.languages).isEqualTo(Language.values().toSet().minus(Language.UNKNOWN))
         assertThat(builder.useMapDBCache).isFalse()
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-        builder.useMapDBCache = false
-        assertThat(builder.build()).isEqualTo(
-            LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
-        )
+        assertThat(builder.build()).isEqualTo(detector)
     }
 
     @Test
     fun `assert that LanguageDetector can be built from spoken languages`() {
-        val builder = LanguageDetectorBuilder.fromAllBuiltInSpokenLanguages()
-        assertThat(builder.languages).isEqualTo(Language.values().toSet().minus(
-            arrayOf(Language.LATIN, Language.UNKNOWN))
+        val builder = spyk(LanguageDetectorBuilder.fromAllBuiltInSpokenLanguages())
+
+        every { detector.languages } returns Language.values().toSet().minus(
+            arrayOf(Language.LATIN, Language.UNKNOWN)
+        ).toMutableSet()
+        every { detector.isCachedByMapDB } returns false
+        every { detector.loadAllLanguageModels() } just Runs
+        every { builder.instantiateLanguageDetector() } returns detector
+
+        assertThat(builder.languages).isEqualTo(
+            Language.values().toSet().minus(arrayOf(Language.LATIN, Language.UNKNOWN))
         )
         assertThat(builder.useMapDBCache).isFalse()
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-        builder.useMapDBCache = false
-        assertThat(builder.build()).isEqualTo(
-            LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
-        )
+        assertThat(builder.build()).isEqualTo(detector)
     }
 
     @Test
     fun `assert that LanguageDetector can be built from blacklist`() {
         run {
-            val builder = LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(Language.TURKISH, Language.ROMANIAN)
+            val builder = spyk(LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(
+                Language.TURKISH, Language.ROMANIAN
+            ))
+
+            every { detector.languages } returns Language.values().toSet().minus(
+                arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN)
+            ).toMutableSet()
+            every { detector.isCachedByMapDB } returns false
+            every { detector.loadAllLanguageModels() } just Runs
+            every { builder.instantiateLanguageDetector() } returns detector
+
             assertThat(builder.languages).isEqualTo(Language.values().toSet().minus(
                 arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN))
             )
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            builder.useMapDBCache = false
-            assertThat(builder.build()).isEqualTo(
-                LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
-            )
+            assertThat(builder.build()).isEqualTo(detector)
         }
         run {
             val languages = Language.values().toSet().minus(arrayOf(Language.GERMAN, Language.ENGLISH)).toTypedArray()
@@ -75,14 +101,17 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from whitelist`() {
         run {
-            val builder = LanguageDetectorBuilder.fromLanguages(Language.GERMAN, Language.ENGLISH)
+            val builder = spyk(LanguageDetectorBuilder.fromLanguages(Language.GERMAN, Language.ENGLISH))
+
+            every { detector.languages } returns mutableSetOf(Language.GERMAN, Language.ENGLISH)
+            every { detector.isCachedByMapDB } returns false
+            every { detector.loadAllLanguageModels() } just Runs
+            every { builder.instantiateLanguageDetector() } returns detector
+
             assertThat(builder.languages).isEqualTo(setOf(Language.GERMAN, Language.ENGLISH))
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            builder.useMapDBCache = false
-            assertThat(builder.build()).isEqualTo(
-                LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
-            )
+            assertThat(builder.build()).isEqualTo(detector)
         }
         run {
             assertThatIllegalArgumentException().isThrownBy {
@@ -94,14 +123,17 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from iso codes`() {
         run {
-            val builder = LanguageDetectorBuilder.fromIsoCodes("de", "sv")
+            val builder = spyk(LanguageDetectorBuilder.fromIsoCodes("de", "sv"))
+
+            every { detector.languages } returns mutableSetOf(Language.GERMAN, Language.SWEDISH)
+            every { detector.isCachedByMapDB } returns false
+            every { detector.loadAllLanguageModels() } just Runs
+            every { builder.instantiateLanguageDetector() } returns detector
+
             assertThat(builder.languages).isEqualTo(setOf(Language.GERMAN, Language.SWEDISH))
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            builder.useMapDBCache = false
-            assertThat(builder.build()).isEqualTo(
-                LanguageDetector(builder.languages.toMutableSet(), builder.useMapDBCache)
-            )
+            assertThat(builder.build()).isEqualTo(detector)
         }
         run {
             assertThatIllegalArgumentException().isThrownBy {

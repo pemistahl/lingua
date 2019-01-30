@@ -29,7 +29,7 @@ import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
-    private val isCachedByMapDB: Boolean,
+    internal val isCachedByMapDB: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private var languagesSequence = languages.asSequence()
