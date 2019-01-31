@@ -4,6 +4,7 @@ jdk:
     - openjdk8
 before_script:
     - chmod +x gradlew
+    - ./gradlew clean
 script:
     - ./gradlew check
     - ./gradlew jacocoTestReport
