@@ -17,7 +17,7 @@ jacoco.toolVersion = "0.8.3"
 sourceSets {
     main {
         resources {
-            //include("training-data/so/*")
+            //include("training-data/vi/*")
             exclude("training-data/**", "language-models/*/sixgrams.json")
         }
     }
@@ -59,7 +59,8 @@ tasks.register<Test>("accuracyReports") {
         "Arabic", "Belarusian", "Bulgarian", "Croatian", "Czech", "Danish",
         "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
         "Icelandic", "Indonesian", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", 
-        "Polish", "Portuguese", "Romanian", "Russian", "Somali", "Spanish", "Swedish", "Turkish"
+        "Polish", "Portuguese", "Romanian", "Russian", "Somali", "Spanish", "Swedish",
+        "Turkish", "Vietnamese"
     )
 
     val languages = if (project.hasProperty("languages"))

@@ -1,10 +1,10 @@
 ##### CZECH #####
 
->>> Accuracy on average: 70,93%
+>>> Accuracy on average: 70,87%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 47,90%
-Erroneously classified as UNKNOWN: 50,80%, POLISH: 0,40%, CROATIAN: 0,40%, FINNISH: 0,10%, ICELANDIC: 0,10%, INDONESIAN: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%
+Accuracy: 47,70%
+Erroneously classified as UNKNOWN: 51,00%, POLISH: 0,40%, CROATIAN: 0,40%, FINNISH: 0,10%, ICELANDIC: 0,10%, INDONESIAN: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 75,50%
@@ -16,4 +16,4 @@ Erroneously classified as UNKNOWN: 8,60%, CROATIAN: 1,20%, ENGLISH: 0,30%, POLIS
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-70.93333333333334 47.9 75.5 89.4
+70.86666666666666 47.699999999999996 75.5 89.4
