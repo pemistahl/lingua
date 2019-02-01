@@ -125,7 +125,6 @@ class LanguageDetector internal constructor(
                 if (word.contains(TURKISH_CHARACTERS)) return TURKISH
                 if (word.contains(LATVIAN_CHARACTERS)) return LATVIAN
                 if (word.contains(LITHUANIAN_CHARACTERS)) return LITHUANIAN
-                if (word.contains(CROATIAN_CHARACTERS)) return CROATIAN
                 if (word.contains(HUNGARIAN_CHARACTERS)) return HUNGARIAN
                 if (word.contains(SPANISH_CHARACTERS)) return SPANISH
                 if (word.contains(DANISH_CHARACTERS)) return DANISH
@@ -134,6 +133,9 @@ class LanguageDetector internal constructor(
 
                 if (word.contains(PORTUGUESE_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
                     it in arrayOf(PORTUGUESE, VIETNAMESE)
+                }
+                else if (word.contains(CROATIAN_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
+                    it in arrayOf(CROATIAN, VIETNAMESE)
                 }
                 else if (word.contains(ESTONIAN_OR_FINNISH_OR_GERMAN_OR_SWEDISH_CHARACTERS)) filterLanguages {
                     it in arrayOf(ESTONIAN, FINNISH, GERMAN, SWEDISH)
@@ -155,6 +157,9 @@ class LanguageDetector internal constructor(
                 }
                 else if (word.contains(CZECH_OR_ICELANDIC_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
                     it in arrayOf(CZECH, ICELANDIC, HUNGARIAN, PORTUGUESE, VIETNAMESE)
+                }
+                else if (word.contains(CZECH_OR_ROMANIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(CZECH, ROMANIAN)
                 }
                 else if (word.contains(CZECH_OR_ROMANIAN_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
                     it in arrayOf(CZECH, ROMANIAN, VIETNAMESE)
@@ -207,8 +212,8 @@ class LanguageDetector internal constructor(
                 else if (word.contains(CZECH_OR_CROATIAN_OR_LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN)
                 }
-                else if (word.contains(FRENCH_OR_CZECH_OR_ICELANDIC_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, CZECH, ICELANDIC, ITALIAN, HUNGARIAN, PORTUGUESE)
+                else if (word.contains(FRENCH_OR_CZECH_OR_ICELANDIC_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
+                    it in arrayOf(FRENCH, CZECH, ICELANDIC, ITALIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE)
                 }
                 break
             }
@@ -428,7 +433,7 @@ class LanguageDetector internal constructor(
 
         private const val GERMAN_CHARACTERS = "ß"
         private val CZECH_CHARACTERS = Regex("[ĚěŇňŘřŤťŮů]")
-        private val CROATIAN_CHARACTERS = Regex("[Đđ]")
+        private val CROATIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Đđ]")
         private val DANISH_CHARACTERS = Regex("[Øø]")
         private val HUNGARIAN_CHARACTERS = Regex("[ŐőŰű]")
         private val LATVIAN_CHARACTERS = Regex("[ĀĒĢĪĶĻŅāēģīķļņ]")
@@ -447,7 +452,8 @@ class LanguageDetector internal constructor(
         //private val LATVIAN_OR_PORTUGUESE_OR_ROMANIAN_OR_TURKISH_CHARACTERS = Regex("[Ââ]")
         private val ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[Õõ]")
         private val CZECH_OR_TURKISH_OR_ICELANDIC_OR_VIETNAMESE_CHARACTERS = Regex("[Ýý]")
-        private val CZECH_OR_ROMANIAN_OR_VIETNAMESE_CHARACTERS = Regex("[ĂăĎď]")
+        private val CZECH_OR_ROMANIAN_CHARACTERS = Regex("[Ďď]")
+        private val CZECH_OR_ROMANIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Ăă]")
         private val CZECH_OR_ICELANDIC_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[ÁáÍíÚú]")
         private val ITALIAN_OR_LATVIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Òò]")
         private val DANISH_OR_SWEDISH_CHARACTERS = Regex("[Åå]")
@@ -462,7 +468,7 @@ class LanguageDetector internal constructor(
         private val FRENCH_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[ÊêÔô]")
         private val FRENCH_OR_ROMANIAN_CHARACTERS = Regex("[Îî]")
         private val FRENCH_OR_ITALIAN_OR_VIETNAMESE_CHARACTERS = Regex("[ÈèÙù]")
-        private val FRENCH_OR_CZECH_OR_ICELANDIC_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_CHARACTERS = Regex("[Éé]")
+        private val FRENCH_OR_CZECH_OR_ICELANDIC_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[Éé]")
         private val ESTONIAN_OR_FINNISH_OR_GERMAN_OR_SWEDISH_CHARACTERS = Regex("[Ää]")
         private val ESTONIAN_OR_ICELANDIC_OR_FINNISH_OR_GERMAN_OR_HUNGARIAN_OR_SWEDISH_OR_TURKISH_CHARACTERS = Regex("[Öö]")
         private val ESTONIAN_OR_GERMAN_OR_HUNGARIAN_OR_TURKISH_CHARACTERS = Regex("[Üü]")

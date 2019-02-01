@@ -1,14 +1,14 @@
 ##### VIETNAMESE #####
 
->>> Accuracy on average: 84,07%
+>>> Accuracy on average: 88,22%
 
->> Detection of 1000 single words (average length: 4 chars)
-Accuracy: 62,60%
-Erroneously classified as ENGLISH: 3,30%, SOMALI: 3,20%, INDONESIAN: 3,10%, ITALIAN: 3,00%, FRENCH: 2,40%, DANISH: 2,20%, ROMANIAN: 2,20%, DUTCH: 1,90%, PORTUGUESE: 1,70%, FINNISH: 1,60%, ESTONIAN: 1,60%, SWEDISH: 1,50%, ICELANDIC: 1,30%, CZECH: 1,20%, TURKISH: 1,20%, CROATIAN: 1,10%, HUNGARIAN: 1,00%, SPANISH: 1,00%, GERMAN: 0,80%, LITHUANIAN: 0,80%, LATVIAN: 0,80%, POLISH: 0,50%
+>> Detection of 879 single words (average length: 4 chars)
+Accuracy: 71,22%
+Erroneously classified as INDONESIAN: 2,84%, SOMALI: 2,62%, ITALIAN: 2,05%, FRENCH: 1,82%, DUTCH: 1,59%, FINNISH: 1,59%, ROMANIAN: 1,59%, ESTONIAN: 1,48%, PORTUGUESE: 1,37%, ICELANDIC: 1,25%, DANISH: 1,25%, TURKISH: 1,14%, CROATIAN: 1,14%, SWEDISH: 1,14%, CZECH: 1,02%, ENGLISH: 0,91%, LITHUANIAN: 0,91%, HUNGARIAN: 0,91%, SPANISH: 0,68%, LATVIAN: 0,57%, POLISH: 0,46%, GERMAN: 0,46%
 
->> Detection of 1000 word pairs (average length: 12 chars)
-Accuracy: 89,90%
-Erroneously classified as ENGLISH: 3,50%, DANISH: 1,20%, ITALIAN: 0,80%, INDONESIAN: 0,70%, FRENCH: 0,60%, SWEDISH: 0,40%, TURKISH: 0,40%, POLISH: 0,30%, GERMAN: 0,30%, FINNISH: 0,20%, CZECH: 0,20%, DUTCH: 0,20%, ROMANIAN: 0,20%, SOMALI: 0,20%, LATVIAN: 0,20%, SPANISH: 0,20%, ESTONIAN: 0,20%, PORTUGUESE: 0,10%, LITHUANIAN: 0,10%, CROATIAN: 0,10%
+>> Detection of 957 word pairs (average length: 12 chars)
+Accuracy: 93,73%
+Erroneously classified as ENGLISH: 2,19%, DANISH: 0,73%, INDONESIAN: 0,52%, ITALIAN: 0,52%, POLISH: 0,31%, GERMAN: 0,31%, FRENCH: 0,21%, SWEDISH: 0,21%, DUTCH: 0,21%, SOMALI: 0,21%, TURKISH: 0,21%, FINNISH: 0,10%, SPANISH: 0,10%, CZECH: 0,10%, ESTONIAN: 0,10%, LITHUANIAN: 0,10%, CROATIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 120 chars)
 Accuracy: 99,70%
@@ -16,4 +16,4 @@ Erroneously classified as ROMANIAN: 0,10%, ENGLISH: 0,10%, INDONESIAN: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-84.06666666666666 62.6 89.9 99.7
+88.21589996707097 71.21729237770194 93.73040752351098 99.7
