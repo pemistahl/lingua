@@ -24,6 +24,7 @@ enum class Language(
     internal var isExcludedFromDetection: Boolean
 ) {
 
+    AFRIKAANS  ("af", true, false, false, false),
     ARABIC     ("ar", false, false, true, false),
     BELARUSIAN ("be", false, true, false, false),
     BULGARIAN  ("bg", false, true, false, false),

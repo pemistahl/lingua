@@ -1,10 +1,10 @@
 ##### CROATIAN #####
 
->>> Accuracy on average: 69,80%
+>>> Accuracy on average: 69,77%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 34,50%
-Erroneously classified as UNKNOWN: 65,20%, ENGLISH: 0,20%, GERMAN: 0,10%
+Accuracy: 34,40%
+Erroneously classified as UNKNOWN: 65,30%, ENGLISH: 0,20%, GERMAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 75,80%
@@ -16,4 +16,4 @@ Erroneously classified as UNKNOWN: 0,80%, POLISH: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-69.8 34.5 75.8 99.1
+69.76666666666667 34.4 75.8 99.1
