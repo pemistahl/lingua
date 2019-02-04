@@ -127,7 +127,6 @@ class LanguageDetector internal constructor(
                 if (word.contains(LITHUANIAN_CHARACTERS)) return LITHUANIAN
                 if (word.contains(HUNGARIAN_CHARACTERS)) return HUNGARIAN
                 if (word.contains(SPANISH_CHARACTERS)) return SPANISH
-                if (word.contains(DANISH_CHARACTERS)) return DANISH
                 if (word.contains(ROMANIAN_CHARACTERS)) return ROMANIAN
                 if (word.contains(VIETNAMESE_CHARACTERS)) return VIETNAMESE
 
@@ -146,8 +145,11 @@ class LanguageDetector internal constructor(
                 else if (word.contains(ESTONIAN_OR_GERMAN_OR_HUNGARIAN_OR_TURKISH_CHARACTERS)) filterLanguages {
                     it in arrayOf(ESTONIAN, GERMAN, HUNGARIAN, TURKISH)
                 }
-                else if (word.contains(DANISH_OR_ICELANDIC_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, ICELANDIC)
+                else if (word.contains(DANISH_OR_NORWEGIAN_CHARACTERS)) filterLanguages {
+                    it in arrayOf(DANISH, NORWEGIAN)
+                }
+                else if (word.contains(DANISH_OR_NORWEGIAN_OR_ICELANDIC_CHARACTERS)) filterLanguages {
+                    it in arrayOf(DANISH, NORWEGIAN, ICELANDIC)
                 }
                 else if (word.contains(LITHUANIAN_OR_POLISH_CHARACTERS)) filterLanguages {
                     it in arrayOf(LITHUANIAN, POLISH)
@@ -167,8 +169,8 @@ class LanguageDetector internal constructor(
                 else if (word.contains(CZECH_OR_TURKISH_OR_ICELANDIC_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
                     it in arrayOf(CZECH, TURKISH, ICELANDIC, VIETNAMESE)
                 }
-                else if (word.contains(DANISH_OR_SWEDISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, SWEDISH)
+                else if (word.contains(DANISH_OR_NORWEGIAN_OR_SWEDISH_CHARACTERS)) filterLanguages {
+                    it in arrayOf(DANISH, NORWEGIAN, SWEDISH)
                 }
                 else if (word.contains(LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(LATVIAN, LITHUANIAN)
@@ -434,7 +436,6 @@ class LanguageDetector internal constructor(
         private const val GERMAN_CHARACTERS = "ß"
         private val CZECH_CHARACTERS = Regex("[ĚěŇňŘřŤťŮů]")
         private val CROATIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Đđ]")
-        private val DANISH_CHARACTERS = Regex("[Øø]")
         private val HUNGARIAN_CHARACTERS = Regex("[ŐőŰű]")
         private val LATVIAN_CHARACTERS = Regex("[ĀĒĢĪĶĻŅāēģīķļņ]")
         private val LITHUANIAN_CHARACTERS = Regex("[ĖĮŲėįų]")
@@ -445,7 +446,8 @@ class LanguageDetector internal constructor(
         private val ROMANIAN_CHARACTERS = Regex("[Țţ]")
         private val VIETNAMESE_CHARACTERS = Regex("[ÂâẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệÌìỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ]")
 
-        private val DANISH_OR_ICELANDIC_CHARACTERS = Regex("[Ææ]")
+        private val DANISH_OR_NORWEGIAN_CHARACTERS = Regex("[Øø]")
+        private val DANISH_OR_NORWEGIAN_OR_ICELANDIC_CHARACTERS = Regex("[Ææ]")
         private val LITHUANIAN_OR_POLISH_CHARACTERS = Regex("[ĄĘąę]")
         private val LATVIAN_OR_TURKISH_OR_ICELANDIC_CHARACTERS = Regex("[ÐðÞþ]")
         private val LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[Ūū]")
@@ -456,7 +458,7 @@ class LanguageDetector internal constructor(
         private val CZECH_OR_ROMANIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Ăă]")
         private val CZECH_OR_ICELANDIC_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[ÁáÍíÚú]")
         private val ITALIAN_OR_LATVIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Òò]")
-        private val DANISH_OR_SWEDISH_CHARACTERS = Regex("[Åå]")
+        private val DANISH_OR_NORWEGIAN_OR_SWEDISH_CHARACTERS = Regex("[Åå]")
         private val FRENCH_OR_LATVIAN_PORTUGUESE_OR_TURKISH_CHARACTERS = Regex("[Çç]")
         private val ROMANIAN_OR_TURKISH_CHARACTERS = Regex("[Şş]")
         private val POLISH_OR_CROATIAN_CHARACTERS = Regex("[Ćć]")

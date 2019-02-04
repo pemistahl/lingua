@@ -20,6 +20,7 @@ import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAll
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromLanguages
 import com.github.pemistahl.lingua.api.Language.ARABIC
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
+import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CROATIAN
 import com.github.pemistahl.lingua.api.Language.CZECH
@@ -36,6 +37,8 @@ import com.github.pemistahl.lingua.api.Language.INDONESIAN
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
+import com.github.pemistahl.lingua.api.Language.NORWEGIAN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.PERSIAN
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
@@ -52,21 +55,23 @@ import java.util.Scanner
 import kotlin.math.roundToInt
 
 fun main() {
-    //runApp()
+    runApp()
 
+    /*
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/so/so_1M.txt",
+        inputPath = "/training-data/no/no_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",
-        language = SOMALI,
+        language = NORWEGIAN,
         charClass = "IsLatin"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/so/so_10K.txt",
+        inputPath = "/training-data/no/no_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "so",
+        isoCode = "no",
         charClass = "IsLatin"
     )
+    */
 }
 
 private fun runApp() {

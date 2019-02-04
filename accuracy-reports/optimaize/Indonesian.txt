@@ -1,14 +1,14 @@
 ##### INDONESIAN #####
 
->>> Accuracy on average: 69,03%
+>>> Accuracy on average: 68,93%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 32,40%
-Erroneously classified as UNKNOWN: 66,70%, SOMALI: 0,30%, CROATIAN: 0,20%, VIETNAMESE: 0,10%, ICELANDIC: 0,10%, DANISH: 0,10%, ENGLISH: 0,10%
+Accuracy: 32,30%
+Erroneously classified as UNKNOWN: 66,90%, SOMALI: 0,30%, CROATIAN: 0,20%, VIETNAMESE: 0,10%, ICELANDIC: 0,10%, ENGLISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
-Accuracy: 74,90%
-Erroneously classified as UNKNOWN: 24,20%, ENGLISH: 0,30%, FINNISH: 0,20%, SOMALI: 0,10%, DANISH: 0,10%, ITALIAN: 0,10%, POLISH: 0,10%
+Accuracy: 74,70%
+Erroneously classified as UNKNOWN: 24,50%, ENGLISH: 0,30%, FINNISH: 0,20%, SOMALI: 0,10%, ITALIAN: 0,10%, POLISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 105 chars)
 Accuracy: 99,80%
@@ -16,4 +16,4 @@ Erroneously classified as UNKNOWN: 0,20%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-69.03333333333335 32.4 74.9 99.8
+68.93333333333334 32.300000000000004 74.7 99.8

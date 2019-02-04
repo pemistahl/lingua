@@ -17,7 +17,7 @@ jacoco.toolVersion = "0.8.3"
 sourceSets {
     main {
         resources {
-            //include("training-data/af/*")
+            //include("training-data/no/*")
             exclude("training-data/**", "language-models/*/sixgrams.json")
         }
     }
@@ -60,7 +60,7 @@ tasks.register<Test>("accuracyReports") {
         "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
         "Icelandic", "Indonesian", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", 
         "Polish", "Portuguese", "Romanian", "Russian", "Somali", "Spanish", "Swedish",
-        "Turkish", "Vietnamese"
+        "Turkish", "Vietnamese", "Norwegian"
     )
 
     val languages = if (project.hasProperty("languages"))
@@ -74,7 +74,7 @@ tasks.register<Test>("accuracyReports") {
     val accuracyReportPackage = "com.github.pemistahl.lingua.report"
 
     maxHeapSize = "3072m"
-    maxParallelForks = Runtime.getRuntime().availableProcessors().div(2).takeIf { it > 0 } ?: 1
+    //maxParallelForks = Runtime.getRuntime().availableProcessors().div(2).takeIf { it > 0 } ?: 1
     reports.html.isEnabled = false
     reports.junitXml.isEnabled = false
 

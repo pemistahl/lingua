@@ -1,6 +1,6 @@
 ##### RUSSIAN #####
 
->>> Accuracy on average: 94,87%
+>>> Accuracy on average: 94,83%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 88,20%
@@ -11,9 +11,9 @@ Accuracy: 97,60%
 Erroneously classified as BULGARIAN: 1,80%, BELARUSIAN: 0,60%
 
 >> Detection of 1000 sentences (average length: 65 chars)
-Accuracy: 98,80%
-Erroneously classified as BULGARIAN: 0,80%, BELARUSIAN: 0,40%
+Accuracy: 98,70%
+Erroneously classified as BULGARIAN: 0,80%, BELARUSIAN: 0,40%, UNKNOWN: 0,10%
 
 >> Exact values to insert in CSV file
 average single-words word-pairs sentences
-94.86666666666667 88.2 97.6 98.8
+94.83333333333333 88.2 97.6 98.7

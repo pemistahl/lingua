@@ -17,6 +17,10 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.LATIN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
+import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
@@ -79,8 +83,8 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             writer.write(statisticsReport())
         }
 
-        if (implementationToUse == LINGUA && language == Language.LATIN) {
-            linguaDetector.removeLanguageModel(Language.LATIN)
+        if (implementationToUse == LINGUA && language in arrayOf(LATIN, BOKMAL, NYNORSK)) {
+            linguaDetector.removeLanguageModel(language)
         }
     }
 
@@ -142,7 +146,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun computeStatistics(statistics: MutableMap<Language, Int>, element: String) {
         val detectedLanguage = when (implementationToUse) {
             LINGUA -> {
-                if (language == Language.LATIN) linguaDetector.addLanguageModel(Language.LATIN)
+                if (language in arrayOf(LATIN, BOKMAL, NYNORSK)) linguaDetector.addLanguageModel(language)
                 linguaDetector.detectLanguageOf(element)
             }
             OPTIMAIZE -> mapLocaleToLanguage(optimaizeDetector.detect(textObjectFactory.forText(element)))
@@ -190,21 +194,21 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
         return if (!locale.isPresent)
-            Language.UNKNOWN
+            UNKNOWN
         else
             Language.getByIsoCode(locale.get().language)
     }
 
     private fun mapLanguageResultToLanguage(result: LanguageResult): Language {
         return if (result.isUnknown)
-            Language.UNKNOWN
+            UNKNOWN
         else
             Language.getByIsoCode(result.language)
     }
 
     companion object {
         private val languageIsoCodesToTest = Language.values().toSet().minus(
-            arrayOf(Language.LATIN, Language.UNKNOWN)
+            arrayOf(LATIN, BOKMAL, NYNORSK, UNKNOWN)
         ).map { it.isoCode }.toTypedArray()
 
         internal val linguaDetector by lazy {
