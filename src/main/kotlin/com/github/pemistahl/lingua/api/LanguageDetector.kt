@@ -44,10 +44,10 @@ class LanguageDetector internal constructor(
 
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text.trim().toLowerCase()
-        if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return Language.UNKNOWN
+        if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return UNKNOWN
 
         val languageDetectedByRules = detectLanguageWithRules(trimmedText)
-        if (languageDetectedByRules != Language.UNKNOWN) return languageDetectedByRules
+        if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
 
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
@@ -108,7 +108,7 @@ class LanguageDetector internal constructor(
     }
 
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        return if (probabilities.isEmpty()) Language.UNKNOWN
+        return if (probabilities.isEmpty()) UNKNOWN
         else probabilities.asSequence().filter { it.value != 0.0 }.maxBy { (_, value) -> value }!!.key
     }
 
@@ -118,6 +118,8 @@ class LanguageDetector internal constructor(
         for (word in splitText) {
             if (LATIN_ALPHABET.matches(word)) {
                 filterLanguages(Language::hasLatinAlphabet)
+
+                if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) filterLanguages { it != NORWEGIAN }
 
                 if (word.contains(GERMAN_CHARACTERS)) return GERMAN
                 if (word.contains(CZECH_CHARACTERS)) return CZECH
@@ -229,7 +231,7 @@ class LanguageDetector internal constructor(
             }
         }
 
-        return Language.UNKNOWN
+        return UNKNOWN
     }
 
     private fun filterLanguages(func: (Language) -> Boolean) {

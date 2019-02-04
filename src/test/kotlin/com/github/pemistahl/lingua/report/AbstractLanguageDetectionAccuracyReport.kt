@@ -146,7 +146,11 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun computeStatistics(statistics: MutableMap<Language, Int>, element: String) {
         val detectedLanguage = when (implementationToUse) {
             LINGUA -> {
-                if (language in arrayOf(LATIN, BOKMAL, NYNORSK)) linguaDetector.addLanguageModel(language)
+                if (language == LATIN) linguaDetector.addLanguageModel(LATIN)
+                else if (language in arrayOf(BOKMAL, NYNORSK)) {
+                    linguaDetector.addLanguageModel(BOKMAL)
+                    linguaDetector.addLanguageModel(NYNORSK)
+                }
                 linguaDetector.detectLanguageOf(element)
             }
             OPTIMAIZE -> mapLocaleToLanguage(optimaizeDetector.detect(textObjectFactory.forText(element)))

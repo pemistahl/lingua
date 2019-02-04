@@ -60,15 +60,22 @@ tasks.register<Test>("accuracyReports") {
         "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
         "Icelandic", "Indonesian", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", 
         "Polish", "Portuguese", "Romanian", "Russian", "Somali", "Spanish", "Swedish",
-        "Turkish", "Vietnamese", "Norwegian"
+        "Turkish", "Vietnamese", "Norwegian", "Bokmal", "Nynorsk"
     )
 
     val languages = if (project.hasProperty("languages"))
-        project.property("languages").toString().split(Regex("\\s*,\\s*"))
-    else allowedLanguages
+        project.property("languages").toString().split(Regex("\\s*,\\s*")).toMutableList()
+    else allowedLanguages.toMutableList()
 
     languages.filterNot { it in allowedLanguages }.forEach {
         throw GradleException("language '$it' is not supported")
+    }
+
+    with(languages) {
+        if (contains("Norwegian") && (contains("Bokmal") || contains("Nynorsk"))) {
+            remove("Bokmal")
+            remove("Nynorsk")
+        }
     }
 
     val accuracyReportPackage = "com.github.pemistahl.lingua.report"
