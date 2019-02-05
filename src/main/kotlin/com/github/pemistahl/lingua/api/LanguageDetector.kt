@@ -148,10 +148,10 @@ class LanguageDetector internal constructor(
                     it in arrayOf(ESTONIAN, GERMAN, HUNGARIAN, TURKISH)
                 }
                 else if (word.contains(DANISH_OR_NORWEGIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, NORWEGIAN)
+                    it in arrayOf(DANISH, NORWEGIAN, BOKMAL, NYNORSK)
                 }
                 else if (word.contains(DANISH_OR_NORWEGIAN_OR_ICELANDIC_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, NORWEGIAN, ICELANDIC)
+                    it in arrayOf(DANISH, NORWEGIAN, ICELANDIC, BOKMAL, NYNORSK)
                 }
                 else if (word.contains(LITHUANIAN_OR_POLISH_CHARACTERS)) filterLanguages {
                     it in arrayOf(LITHUANIAN, POLISH)
@@ -172,7 +172,7 @@ class LanguageDetector internal constructor(
                     it in arrayOf(CZECH, TURKISH, ICELANDIC, VIETNAMESE)
                 }
                 else if (word.contains(DANISH_OR_NORWEGIAN_OR_SWEDISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, NORWEGIAN, SWEDISH)
+                    it in arrayOf(DANISH, NORWEGIAN, SWEDISH, BOKMAL, NYNORSK)
                 }
                 else if (word.contains(LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
                     it in arrayOf(LATVIAN, LITHUANIAN)

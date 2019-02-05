@@ -64,8 +64,8 @@ tasks.register<Test>("accuracyReports") {
     )
 
     val languages = if (project.hasProperty("languages"))
-        project.property("languages").toString().split(Regex("\\s*,\\s*")).toMutableList()
-    else allowedLanguages.toMutableList()
+        project.property("languages").toString().split(Regex("\\s*,\\s*"))
+    else allowedLanguages
 
     languages.filterNot { it in allowedLanguages }.forEach {
         throw GradleException("language '$it' is not supported")
