@@ -89,8 +89,8 @@ class LanguageDetector internal constructor(
     }
 
     internal fun addLanguageModel(language: Language) {
+        languages.add(language)
         if (!unigramLanguageModels.containsKey(language)) {
-            languages.add(language)
             languagesSequence = languages.asSequence()
             unigramLanguageModels[language] = loadLanguageModel(language, Unigram::class)
             bigramLanguageModels[language] = loadLanguageModel(language, Bigram::class)

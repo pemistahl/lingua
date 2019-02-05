@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.report
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.LATIN
+import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
@@ -83,8 +84,13 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             writer.write(statisticsReport())
         }
 
-        if (implementationToUse == LINGUA && language in arrayOf(LATIN, BOKMAL, NYNORSK)) {
-            linguaDetector.removeLanguageModel(language)
+        if (implementationToUse == LINGUA) {
+            if (language == LATIN) linguaDetector.removeLanguageModel(LATIN)
+            else if (language in arrayOf(BOKMAL, NYNORSK)) {
+                linguaDetector.removeLanguageModel(BOKMAL)
+                linguaDetector.removeLanguageModel(NYNORSK)
+                linguaDetector.addLanguageModel(NORWEGIAN)
+            }
         }
     }
 
@@ -150,6 +156,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 else if (language in arrayOf(BOKMAL, NYNORSK)) {
                     linguaDetector.addLanguageModel(BOKMAL)
                     linguaDetector.addLanguageModel(NYNORSK)
+                    linguaDetector.removeLanguageModel(NORWEGIAN)
                 }
                 linguaDetector.detectLanguageOf(element)
             }

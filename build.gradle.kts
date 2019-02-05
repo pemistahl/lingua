@@ -71,13 +71,6 @@ tasks.register<Test>("accuracyReports") {
         throw GradleException("language '$it' is not supported")
     }
 
-    with(languages) {
-        if (contains("Norwegian") && (contains("Bokmal") || contains("Nynorsk"))) {
-            remove("Bokmal")
-            remove("Nynorsk")
-        }
-    }
-
     val accuracyReportPackage = "com.github.pemistahl.lingua.report"
 
     maxHeapSize = "3072m"
