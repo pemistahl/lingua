@@ -13,7 +13,3 @@ Erroneously classified as UNKNOWN: 47,90%, RUSSIAN: 0,60%, BELARUSIAN: 0,20%
 >> Detection of 1000 sentences (average length: 89 chars)
 Accuracy: 96,80%
 Erroneously classified as UNKNOWN: 2,90%, RUSSIAN: 0,30%
-
->> Exact values to insert in CSV file
-average single-words word-pairs sentences
-57.70000000000001 25.0 51.300000000000004 96.8

@@ -13,7 +13,3 @@ Erroneously classified as UNKNOWN: 52,00%, AFRIKAANS: 0,80%, SWEDISH: 0,70%, FIN
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 98,70%
 Erroneously classified as UNKNOWN: 1,20%, AFRIKAANS: 0,10%
-
->> Exact values to insert in CSV file
-average single-words word-pairs sentences
-55.833333333333336 22.7 46.1 98.7

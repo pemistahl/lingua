@@ -17,7 +17,7 @@ jacoco.toolVersion = "0.8.3"
 sourceSets {
     main {
         resources {
-            //include("training-data/no/*")
+            //include("training-data/ca/*")
             exclude("training-data/**", "language-models/*/sixgrams.json")
         }
     }
@@ -60,7 +60,7 @@ tasks.register<Test>("accuracyReports") {
         "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
         "Icelandic", "Indonesian", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", 
         "Polish", "Portuguese", "Romanian", "Russian", "Somali", "Spanish", "Swedish",
-        "Turkish", "Vietnamese", "Norwegian", "Bokmal", "Nynorsk"
+        "Turkish", "Vietnamese", "Norwegian", "Bokmal", "Nynorsk", "Catalan"
     )
 
     val languages = if (project.hasProperty("languages"))
@@ -151,6 +151,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     testImplementation("org.assertj:assertj-core:3.11.1")
     testImplementation("io.mockk:mockk:1.9")
+    //testImplementation("org.apache.commons:commons-csv:1.6")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
     testImplementation("org.apache.tika:tika-langdetect:1.20")

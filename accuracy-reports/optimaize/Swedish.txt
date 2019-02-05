@@ -1,19 +1,15 @@
 ##### SWEDISH #####
 
->>> Accuracy on average: 47,30%
+>>> Accuracy on average: 47,27%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 13,40%
 Erroneously classified as UNKNOWN: 85,90%, FINNISH: 0,30%, INDONESIAN: 0,10%, SOMALI: 0,10%, GERMAN: 0,10%, DANISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 37,80%
-Erroneously classified as UNKNOWN: 60,90%, CROATIAN: 0,30%, ENGLISH: 0,30%, FINNISH: 0,20%, ITALIAN: 0,20%, FRENCH: 0,10%, CZECH: 0,10%, ROMANIAN: 0,10%
+Accuracy: 37,70%
+Erroneously classified as UNKNOWN: 61,10%, CROATIAN: 0,30%, ENGLISH: 0,30%, FINNISH: 0,20%, ITALIAN: 0,20%, FRENCH: 0,10%, CZECH: 0,10%
 
 >> Detection of 1000 sentences (average length: 90 chars)
 Accuracy: 90,70%
 Erroneously classified as UNKNOWN: 9,00%, NORWEGIAN: 0,30%
-
->> Exact values to insert in CSV file
-average single-words word-pairs sentences
-47.300000000000004 13.4 37.8 90.7

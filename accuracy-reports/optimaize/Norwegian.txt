@@ -13,7 +13,3 @@ Erroneously classified as UNKNOWN: 88,20%, INDONESIAN: 0,30%, FINNISH: 0,30%, RO
 >> Detection of 1000 sentences (average length: 97 chars)
 Accuracy: 80,70%
 Erroneously classified as UNKNOWN: 18,30%, DANISH: 0,40%, SWEDISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, FINNISH: 0,10%
-
->> Exact values to insert in CSV file
-average single-words word-pairs sentences
-31.166666666666668 3.1 9.700000000000001 80.7

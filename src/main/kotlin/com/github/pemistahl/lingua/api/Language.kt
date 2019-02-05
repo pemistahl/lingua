@@ -29,6 +29,7 @@ enum class Language(
     BELARUSIAN ("be", false, true, false, false),
     BOKMAL     ("nb", true, false, false, false),
     BULGARIAN  ("bg", false, true, false, false),
+    CATALAN    ("ca", true, false, false, false),
     CROATIAN   ("hr", true, false, false, false),
     CZECH      ("cs", true, false, false, false),
     DANISH     ("da", true, false, false, false),
