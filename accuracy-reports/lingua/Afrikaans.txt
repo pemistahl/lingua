@@ -13,3 +13,5 @@ Erroneously classified as DUTCH: 11,70%, ENGLISH: 2,00%, GERMAN: 1,40%, FRENCH: 
 >> Detection of 1000 sentences (average length: 102 chars)
 Accuracy: 96,60%
 Erroneously classified as DUTCH: 1,70%, FRENCH: 0,30%, HUNGARIAN: 0,20%, DANISH: 0,20%, ESTONIAN: 0,20%, GERMAN: 0,20%, ENGLISH: 0,10%, CATALAN: 0,10%, NORWEGIAN: 0,10%, TURKISH: 0,10%, PORTUGUESE: 0,10%, ICELANDIC: 0,10%
+
+>> Exact values: 78.73333333333333 60.9 78.7 96.6

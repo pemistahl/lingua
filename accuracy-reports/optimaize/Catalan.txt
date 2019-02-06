@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 81,30%, SPANISH: 0,90%, ENGLISH: 0,50%, FRENC
 >> Detection of 1000 sentences (average length: 103 chars)
 Accuracy: 76,80%
 Erroneously classified as UNKNOWN: 17,00%, SPANISH: 3,80%, ENGLISH: 1,80%, FRENCH: 0,40%, GERMAN: 0,10%, CROATIAN: 0,10%
+
+>> Exact values: 31.7 2.1 16.2 76.8

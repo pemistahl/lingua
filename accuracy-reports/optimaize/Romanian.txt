@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 47,80%, ITALIAN: 0,40%, ENGLISH: 0,20%, GERMA
 >> Detection of 1000 sentences (average length: 118 chars)
 Accuracy: 91,30%
 Erroneously classified as UNKNOWN: 8,00%, CROATIAN: 0,20%, ITALIAN: 0,20%, ENGLISH: 0,10%, INDONESIAN: 0,10%, CATALAN: 0,10%
+
+>> Exact values: 55.73333333333333 24.9 51.0 91.3

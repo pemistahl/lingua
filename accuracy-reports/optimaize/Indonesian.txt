@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 24,90%, FINNISH: 0,20%, ENGLISH: 0,20%, SOMAL
 >> Detection of 1000 sentences (average length: 105 chars)
 Accuracy: 99,80%
 Erroneously classified as UNKNOWN: 0,20%
+
+>> Exact values: 68.7 31.900000000000002 74.4 99.8

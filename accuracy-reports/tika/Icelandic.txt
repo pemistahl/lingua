@@ -13,3 +13,5 @@ Erroneously classified as ENGLISH: 1,00%, INDONESIAN: 0,90%, NORWEGIAN: 0,70%, S
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 99,60%
 Erroneously classified as ENGLISH: 0,30%, NORWEGIAN: 0,10%
+
+>> Exact values: 90.59999999999998 78.4 93.8 99.6

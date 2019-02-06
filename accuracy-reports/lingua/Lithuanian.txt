@@ -13,3 +13,5 @@ Erroneously classified as SWEDISH: 0,50%, ROMANIAN: 0,30%, AFRIKAANS: 0,30%, ENG
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 98,60%
 Erroneously classified as SOMALI: 0,30%, SWEDISH: 0,20%, AFRIKAANS: 0,20%, ICELANDIC: 0,20%, INDONESIAN: 0,10%, CROATIAN: 0,10%, ITALIAN: 0,10%, TURKISH: 0,10%, CATALAN: 0,10%
+
+>> Exact values: 95.3 90.5 96.8 98.6

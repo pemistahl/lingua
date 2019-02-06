@@ -13,3 +13,5 @@ Erroneously classified as BULGARIAN: 1,80%, BELARUSIAN: 0,60%
 >> Detection of 1000 sentences (average length: 65 chars)
 Accuracy: 98,70%
 Erroneously classified as BULGARIAN: 0,80%, BELARUSIAN: 0,40%, UNKNOWN: 0,10%
+
+>> Exact values: 94.83333333333333 88.2 97.6 98.7

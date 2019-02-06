@@ -13,3 +13,5 @@ Erroneously classified as FINNISH: 1,10%, GERMAN: 0,50%, LITHUANIAN: 0,50%, PORT
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 99,60%
 Erroneously classified as ROMANIAN: 0,10%, FINNISH: 0,10%, SOMALI: 0,10%, SWEDISH: 0,10%
+
+>> Exact values: 92.89999999999998 83.89999999999999 95.19999999999999 99.6

@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 76,50%, DUTCH: 0,40%, FINNISH: 0,20%, ENGLISH
 >> Detection of 1000 sentences (average length: 102 chars)
 Accuracy: 93,10%
 Erroneously classified as UNKNOWN: 6,60%, DUTCH: 0,20%, GERMAN: 0,10%
+
+>> Exact values: 39.300000000000004 2.8000000000000003 22.0 93.10000000000001

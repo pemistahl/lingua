@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 13,80%, AFRIKAANS: 0,20%, ESTONIAN: 0,10%
 >> Detection of 1000 sentences (average length: 103 chars)
 Accuracy: 99,50%
 Erroneously classified as UNKNOWN: 0,40%, ESTONIAN: 0,10%
+
+>> Exact values: 79.26666666666667 52.400000000000006 85.9 99.5

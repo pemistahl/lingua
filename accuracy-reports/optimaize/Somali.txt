@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 9,60%, ENGLISH: 0,20%, ITALIAN: 0,10%, INDONE
 >> Detection of 1000 sentences (average length: 124 chars)
 Accuracy: 99,50%
 Erroneously classified as UNKNOWN: 0,40%, TURKISH: 0,10%
+
+>> Exact values: 82.73333333333333 58.9 89.8 99.5

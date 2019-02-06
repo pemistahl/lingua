@@ -13,3 +13,5 @@ Erroneously classified as TURKISH: 1,90%, ENGLISH: 0,50%, FRENCH: 0,40%, FINNISH
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 99,70%
 Erroneously classified as SOMALI: 0,20%, PORTUGUESE: 0,10%
+
+>> Exact values: 91.86666666666666 81.8 94.1 99.7

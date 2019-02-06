@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 21,50%, ROMANIAN: 0,40%, CROATIAN: 0,10%, SOM
 >> Detection of 1000 sentences (average length: 109 chars)
 Accuracy: 96,40%
 Erroneously classified as UNKNOWN: 3,30%, INDONESIAN: 0,10%, CROATIAN: 0,10%, ESTONIAN: 0,10%
+
+>> Exact values: 75.13333333333333 51.2 77.8 96.39999999999999

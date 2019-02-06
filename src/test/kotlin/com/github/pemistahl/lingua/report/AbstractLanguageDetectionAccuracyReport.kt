@@ -125,8 +125,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 report += "$newlines$reportPart"
 
         report += newlines
-        report += ">> Exact values to insert in CSV file\naverage single-words word-pairs sentences\n"
-        report += "$averageAccuracy $singleWordAccuracy $wordPairAccuracy $sentenceAccuracy"
+        report += ">> Exact values: $averageAccuracy $singleWordAccuracy $wordPairAccuracy $sentenceAccuracy"
 
         return report
     }

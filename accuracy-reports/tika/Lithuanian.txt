@@ -13,3 +13,5 @@ Erroneously classified as LATVIAN: 1,40%, INDONESIAN: 1,10%, CROATIAN: 0,80%, ES
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 99,30%
 Erroneously classified as CROATIAN: 0,20%, ROMANIAN: 0,20%, INDONESIAN: 0,10%, PORTUGUESE: 0,10%, ITALIAN: 0,10%
+
+>> Exact values: 89.36666666666667 75.8 93.0 99.3

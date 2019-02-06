@@ -13,3 +13,5 @@ Erroneously classified as VIETNAMESE: 2,10%, SPANISH: 1,10%, ITALIAN: 1,10%, POR
 >> Detection of 1000 sentences (average length: 118 chars)
 Accuracy: 93,90%
 Erroneously classified as PORTUGUESE: 2,00%, VIETNAMESE: 1,30%, CATALAN: 1,10%, SPANISH: 0,70%, AFRIKAANS: 0,30%, SWEDISH: 0,20%, SOMALI: 0,10%, INDONESIAN: 0,10%, ESTONIAN: 0,10%, DANISH: 0,10%, TURKISH: 0,10%
+
+>> Exact values: 85.69999999999999 74.6 88.6 93.89999999999999

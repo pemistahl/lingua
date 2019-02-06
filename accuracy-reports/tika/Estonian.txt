@@ -13,3 +13,5 @@ Erroneously classified as FINNISH: 3,80%, INDONESIAN: 1,20%, NORWEGIAN: 1,00%, A
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 99,60%
 Erroneously classified as FINNISH: 0,30%, ENGLISH: 0,10%
+
+>> Exact values: 84.93333333333332 67.0 88.2 99.6

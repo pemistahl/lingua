@@ -13,3 +13,5 @@ Erroneously classified as AFRIKAANS: 7,40%, GERMAN: 2,50%, ENGLISH: 2,20%, FRENC
 >> Detection of 1000 sentences (average length: 107 chars)
 Accuracy: 96,50%
 Erroneously classified as AFRIKAANS: 1,90%, GERMAN: 0,40%, FRENCH: 0,30%, ITALIAN: 0,20%, CZECH: 0,20%, ENGLISH: 0,20%, CATALAN: 0,10%, NORWEGIAN: 0,10%, HUNGARIAN: 0,10%
+
+>> Exact values: 78.23333333333333 57.199999999999996 81.0 96.5

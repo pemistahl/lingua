@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 73,20%, FRENCH: 0,60%, ROMANIAN: 0,30%, SOMAL
 >> Detection of 999 sentences (average length: 108 chars)
 Accuracy: 97,10%
 Erroneously classified as UNKNOWN: 2,90%
+
+>> Exact values: 42.265699032365696 4.3 25.4 97.09709709709709

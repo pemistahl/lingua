@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 51,00%, ENGLISH: 0,50%, CATALAN: 0,20%, VIETN
 >> Detection of 1000 sentences (average length: 112 chars)
 Accuracy: 97,00%
 Erroneously classified as UNKNOWN: 2,60%, GERMAN: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%
+
+>> Exact values: 54.699999999999996 19.0 48.1 97.0

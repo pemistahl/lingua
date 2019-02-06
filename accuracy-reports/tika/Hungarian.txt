@@ -13,3 +13,5 @@ Erroneously classified as ESTONIAN: 1,70%, DANISH: 1,00%, INDONESIAN: 0,90%, SWE
 >> Detection of 1000 sentences (average length: 116 chars)
 Accuracy: 99,70%
 Erroneously classified as DUTCH: 0,20%, ESTONIAN: 0,10%
+
+>> Exact values: 89.43333333333334 76.9 91.7 99.7

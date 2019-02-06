@@ -1,9 +1,13 @@
-import com.adarshr.gradle.testlogger.theme.ThemeType
 import org.jetbrains.dokka.gradle.DokkaTask
 
 group = "com.github.pemistahl"
 version = "0.4.0-SNAPSHOT"
 description = "A natural language detection library for Kotlin and Java, suitable for long and short text alike"
+
+val supportedDetectors: String by project
+val supportedLanguages: String by project
+val linguaMainClass: String by project
+val csvHeader: String by project
 
 plugins {
     kotlin("jvm") version "1.3.20"
@@ -41,7 +45,7 @@ tasks.jacocoTestReport {
 }
 
 tasks.register<Test>("accuracyReports") {
-    val allowedDetectors = listOf("Optimaize", "Tika", "Lingua")
+    val allowedDetectors = supportedDetectors.split(',')
     val detectors = if (project.hasProperty("detectors"))
         project.property("detectors").toString().split(Regex("\\s*,\\s*"))
     else allowedDetectors
@@ -55,14 +59,7 @@ tasks.register<Test>("accuracyReports") {
         )
     }
 
-    val allowedLanguages = listOf(
-        "Afrikaans", "Arabic", "Belarusian", "Bulgarian", "Croatian", "Czech", "Danish",
-        "Dutch", "English", "Estonian", "Finnish", "French", "German", "Hungarian",
-        "Icelandic", "Indonesian", "Italian", "Latin", "Latvian", "Lithuanian", "Persian", 
-        "Polish", "Portuguese", "Romanian", "Russian", "Somali", "Spanish", "Swedish",
-        "Turkish", "Vietnamese", "Norwegian", "Bokmal", "Nynorsk", "Catalan"
-    )
-
+    val allowedLanguages = supportedLanguages.split(',')
     val languages = if (project.hasProperty("languages"))
         project.property("languages").toString().split(Regex("\\s*,\\s*"))
     else allowedLanguages
@@ -71,15 +68,11 @@ tasks.register<Test>("accuracyReports") {
         throw GradleException("language '$it' is not supported")
     }
 
-    val accuracyReportPackage = "com.github.pemistahl.lingua.report"
-
     maxHeapSize = "3072m"
-    //maxParallelForks = Runtime.getRuntime().availableProcessors().div(2).takeIf { it > 0 } ?: 1
     reports.html.isEnabled = false
     reports.junitXml.isEnabled = false
 
     testlogger {
-        theme = ThemeType.STANDARD_PARALLEL
         showPassed = false
         showSkipped = false
     }
@@ -88,11 +81,57 @@ tasks.register<Test>("accuracyReports") {
         detectors.forEach { detector ->
             languages.forEach { language ->
                 includeTestsMatching(
-                    "$accuracyReportPackage.${detector.toLowerCase()}.${language}DetectionAccuracyReport"
+                    "com.github.pemistahl.lingua.report.${detector.toLowerCase()}.${language}DetectionAccuracyReport"
                 )
             }
         }
     }
+}
+
+tasks.register("writeCsv") {
+    val accuracyReportsDirectoryName = "accuracy-reports"
+    val accuracyReportsDirectory = file(accuracyReportsDirectoryName)
+    if (!accuracyReportsDirectory.exists()) {
+        throw GradleException("directory '$accuracyReportsDirectoryName' does not exist")
+    }
+
+    val detectors = supportedDetectors.split(',')
+    val languages = supportedLanguages.split(',').toMutableList()
+    languages.removeAll("Bokmal,Nynorsk,Latin".split(','))
+
+    val csvFile = file("$accuracyReportsDirectoryName/aggregated-accuracy-values.csv")
+    val stringToSplitAt = ">> Exact values:"
+
+    if (csvFile.exists()) csvFile.delete()
+    csvFile.createNewFile()
+    csvFile.appendText(csvHeader.replace(',', ' '))
+    csvFile.appendText("\n")
+
+    for (language in languages) {
+        csvFile.appendText(language)
+        csvFile.appendText(" ")
+
+        for (detector in detectors) {
+            val languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
+            val languageReportFile = file(languageReportFileName)
+            if (!languageReportFile.exists()) {
+                csvFile.delete()
+                throw GradleException("file '$languageReportFileName' does not exist")
+            }
+
+            for (line in languageReportFile.readLines()) {
+                if (line.startsWith(stringToSplitAt)) {
+                    val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(" ")
+                    csvFile.appendText(accuracyValues)
+                    csvFile.appendText(" ")
+                }
+            }
+        }
+
+        csvFile.appendText("\n")
+    }
+
+    println("file 'aggregated-accuracy-values.csv' was written successfully")
 }
 
 tasks.withType<DokkaTask> {
@@ -125,12 +164,12 @@ tasks.register<Jar>("jarWithDependencies") {
             .filter { it.name.endsWith("jar") }
             .map { zipTree(it) }
     })
-    manifest { attributes("Main-Class" to "com.github.pemistahl.lingua.AppKt") }
+    manifest { attributes("Main-Class" to linguaMainClass) }
     exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
 }
 
 tasks.register<JavaExec>("startRepl") {
-    main = "com.github.pemistahl.lingua.AppKt"
+    main = linguaMainClass
     standardInput = System.`in`
     classpath = sourceSets["main"].runtimeClasspath
 }

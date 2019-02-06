@@ -13,3 +13,5 @@ Erroneously classified as SOMALI: 0,70%, ENGLISH: 0,50%, GERMAN: 0,20%, SWEDISH:
 >> Detection of 1000 sentences (average length: 119 chars)
 Accuracy: 99,80%
 Erroneously classified as SOMALI: 0,10%, VIETNAMESE: 0,10%
+
+>> Exact values: 96.03333333333335 91.0 97.3 99.8

@@ -13,3 +13,5 @@ Erroneously classified as ENGLISH: 5,10%, ITALIAN: 3,10%, CATALAN: 2,80%, ROMANI
 >> Detection of 1000 sentences (average length: 112 chars)
 Accuracy: 98,90%
 Erroneously classified as GERMAN: 0,20%, PORTUGUESE: 0,20%, CATALAN: 0,10%, DUTCH: 0,10%, FINNISH: 0,10%, SPANISH: 0,10%, DANISH: 0,10%, ROMANIAN: 0,10%, ENGLISH: 0,10%
+
+>> Exact values: 78.50000000000001 55.900000000000006 80.7 98.9

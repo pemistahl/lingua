@@ -13,3 +13,5 @@ Erroneously classified as SPANISH: 6,10%, PORTUGUESE: 4,00%, FRENCH: 3,10%, ITAL
 >> Detection of 1000 sentences (average length: 103 chars)
 Accuracy: 87,80%
 Erroneously classified as SPANISH: 6,00%, ENGLISH: 1,60%, FRENCH: 1,40%, PORTUGUESE: 1,10%, ITALIAN: 0,40%, ICELANDIC: 0,30%, INDONESIAN: 0,20%, SOMALI: 0,20%, GERMAN: 0,20%, AFRIKAANS: 0,10%, ROMANIAN: 0,10%, NORWEGIAN: 0,10%, DANISH: 0,10%, FINNISH: 0,10%, CROATIAN: 0,10%, TURKISH: 0,10%, LATVIAN: 0,10%
+
+>> Exact values: 74.53333333333335 57.3 78.5 87.8

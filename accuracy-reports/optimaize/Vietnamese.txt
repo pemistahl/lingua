@@ -13,3 +13,5 @@ Erroneously classified as UNKNOWN: 2,82%, SOMALI: 0,10%, CZECH: 0,10%, ENGLISH: 
 >> Detection of 1000 sentences (average length: 120 chars)
 Accuracy: 99,90%
 Erroneously classified as UNKNOWN: 0,10%
+
+>> Exact values: 88.41737357094541 68.48691695108077 96.86520376175548 99.9

@@ -56,8 +56,9 @@ import java.util.Scanner
 import kotlin.math.roundToInt
 
 fun main() {
-    //runApp()
+    runApp()
 
+    /*
     writeLanguageModelsFromLeipzigCorpusFile(
         inputPath = "/training-data/ca/ca_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",
@@ -71,6 +72,7 @@ fun main() {
         isoCode = "ca",
         charClass = "IsLatin"
     )
+    */
 }
 
 private fun runApp() {

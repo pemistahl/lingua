@@ -13,3 +13,5 @@ Erroneously classified as AFRIKAANS: 5,10%, DANISH: 4,50%, NORWEGIAN: 4,30%, DUT
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99,80%
 Erroneously classified as CZECH: 0,10%, AFRIKAANS: 0,10%
+
+>> Exact values: 74.13333333333333 51.800000000000004 70.8 99.8

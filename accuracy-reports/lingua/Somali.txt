@@ -13,3 +13,5 @@ Erroneously classified as INDONESIAN: 0,70%, ENGLISH: 0,50%, FINNISH: 0,50%, TUR
 >> Detection of 1000 sentences (average length: 124 chars)
 Accuracy: 99,60%
 Erroneously classified as TURKISH: 0,10%, ENGLISH: 0,10%, SWEDISH: 0,10%, ARABIC: 0,10%
+
+>> Exact values: 94.63333333333333 87.6 96.7 99.6

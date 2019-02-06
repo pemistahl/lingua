@@ -13,3 +13,5 @@ Erroneously classified as ITALIAN: 1,20%, INDONESIAN: 1,10%, ESTONIAN: 0,90%, LI
 >> Detection of 1000 sentences (average length: 127 chars)
 Accuracy: 100,00%
 Erroneously classified as 
+
+>> Exact values: 88.5 74.1 91.4 100.0

@@ -13,3 +13,5 @@ Erroneously classified as INDONESIAN: 1,20%, ESTONIAN: 0,80%, ENGLISH: 0,60%, FI
 >> Detection of 1000 sentences (average length: 124 chars)
 Accuracy: 99,80%
 Erroneously classified as INDONESIAN: 0,10%, TURKISH: 0,10%
+
+>> Exact values: 92.10000000000001 81.5 95.0 99.8

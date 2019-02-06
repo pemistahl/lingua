@@ -13,3 +13,5 @@ Erroneously classified as FRENCH: 9,40%, ITALIAN: 3,60%, DUTCH: 3,40%, AFRIKAANS
 >> Detection of 999 sentences (average length: 108 chars)
 Accuracy: 99,10%
 Erroneously classified as ESTONIAN: 0,30%, FRENCH: 0,20%, CATALAN: 0,20%, SPANISH: 0,10%, DANISH: 0,10%
+
+>> Exact values: 65.33303303303303 33.7 63.2 99.09909909909909
