@@ -179,6 +179,7 @@ dependencies {
     implementation(kotlin("reflect"))
 
     implementation("com.google.code.gson:gson:2.8.5")
+    implementation("it.unimi.dsi:fastutil:8.2.2")
     implementation("org.mapdb:mapdb:3.0.7") {
         exclude("org.jetbrains.kotlin:kotlin-stdlib")
     }

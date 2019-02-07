@@ -27,6 +27,7 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import org.mapdb.Serializer
 import org.mapdb.SortedTableMap
 import org.mapdb.volume.MappedFileVol
@@ -323,7 +324,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 }
             }
             else {
-                ngramRelativeFrequencies = hashMapOf()
+                ngramRelativeFrequencies = Object2DoubleOpenHashMap<String>()
 
                 val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
                 for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {

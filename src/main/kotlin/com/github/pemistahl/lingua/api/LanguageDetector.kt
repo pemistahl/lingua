@@ -25,6 +25,7 @@ import com.github.pemistahl.lingua.internal.model.Quadrigram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
+import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
@@ -77,7 +78,7 @@ class LanguageDetector internal constructor(
             }
         }
 
-        val summedUpProbabilities = mutableMapOf<Language, Double>()
+        val summedUpProbabilities = Object2DoubleOpenHashMap<Language>()
         for (language in languagesSequence) {
             summedUpProbabilities[language] = allProbabilities.sumByDouble { it.getOrDefault(language, 0.0) }
         }
@@ -242,7 +243,7 @@ class LanguageDetector internal constructor(
     private fun computeUnigramProbabilities(
         unigramTestDataModel: LanguageModel<Unigram, Unigram>
     ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
+        val probabilities = Object2DoubleOpenHashMap<Language>()
         for (language in languagesSequence) {
             probabilities[language] = lookUpNgramProbabilities(
                 language,
@@ -256,7 +257,7 @@ class LanguageDetector internal constructor(
     private fun computeBigramProbabilities(
         bigramTestDataModel: LanguageModel<Bigram, Bigram>
     ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
+        val probabilities = Object2DoubleOpenHashMap<Language>()
         for (language in languagesSequence) {
             probabilities[language] = lookUpNgramProbabilities(
                 language,
@@ -271,7 +272,7 @@ class LanguageDetector internal constructor(
     private fun computeTrigramProbabilities(
         trigramTestDataModel: LanguageModel<Trigram, Trigram>
     ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
+        val probabilities = Object2DoubleOpenHashMap<Language>()
         for (language in languagesSequence) {
             probabilities[language] = lookUpNgramProbabilities(
                 language,
@@ -287,7 +288,7 @@ class LanguageDetector internal constructor(
     private fun computeQuadrigramProbabilities(
         quadrigramTestDataModel: LanguageModel<Quadrigram, Quadrigram>
     ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
+        val probabilities = Object2DoubleOpenHashMap<Language>()
         for (language in languagesSequence) {
             probabilities[language] = lookUpNgramProbabilities(
                 language,
@@ -304,7 +305,7 @@ class LanguageDetector internal constructor(
     private fun computeFivegramProbabilities(
         fivegramTestDataModel: LanguageModel<Fivegram, Fivegram>
     ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
+        val probabilities = Object2DoubleOpenHashMap<Language>()
         for (language in languagesSequence) {
             probabilities[language] = lookUpNgramProbabilities(
                 language,
