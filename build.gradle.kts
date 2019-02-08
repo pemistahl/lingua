@@ -68,7 +68,7 @@ tasks.register<Test>("accuracyReports") {
         throw GradleException("language '$it' is not supported")
     }
 
-    maxHeapSize = "3072m"
+    maxHeapSize = "4096m"
     reports.html.isEnabled = false
     reports.junitXml.isEnabled = false
 
@@ -89,49 +89,51 @@ tasks.register<Test>("accuracyReports") {
 }
 
 tasks.register("writeCsv") {
-    val accuracyReportsDirectoryName = "accuracy-reports"
-    val accuracyReportsDirectory = file(accuracyReportsDirectoryName)
-    if (!accuracyReportsDirectory.exists()) {
-        throw GradleException("directory '$accuracyReportsDirectoryName' does not exist")
-    }
-
-    val detectors = supportedDetectors.split(',')
-    val languages = supportedLanguages.split(',').toMutableList()
-    languages.removeAll("Bokmal,Nynorsk,Latin".split(','))
-
-    val csvFile = file("$accuracyReportsDirectoryName/aggregated-accuracy-values.csv")
-    val stringToSplitAt = ">> Exact values:"
-
-    if (csvFile.exists()) csvFile.delete()
-    csvFile.createNewFile()
-    csvFile.appendText(csvHeader.replace(',', ' '))
-    csvFile.appendText("\n")
-
-    for (language in languages) {
-        csvFile.appendText(language)
-        csvFile.appendText(" ")
-
-        for (detector in detectors) {
-            val languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
-            val languageReportFile = file(languageReportFileName)
-            if (!languageReportFile.exists()) {
-                csvFile.delete()
-                throw GradleException("file '$languageReportFileName' does not exist")
-            }
-
-            for (line in languageReportFile.readLines()) {
-                if (line.startsWith(stringToSplitAt)) {
-                    val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(" ")
-                    csvFile.appendText(accuracyValues)
-                    csvFile.appendText(" ")
-                }
-            }
+    doLast {
+        val accuracyReportsDirectoryName = "accuracy-reports"
+        val accuracyReportsDirectory = file(accuracyReportsDirectoryName)
+        if (!accuracyReportsDirectory.exists()) {
+            throw GradleException("directory '$accuracyReportsDirectoryName' does not exist")
         }
 
-        csvFile.appendText("\n")
-    }
+        val detectors = supportedDetectors.split(',')
+        val languages = supportedLanguages.split(',').toMutableList()
+        languages.removeAll("Bokmal,Nynorsk,Latin".split(','))
 
-    println("file 'aggregated-accuracy-values.csv' was written successfully")
+        val csvFile = file("$accuracyReportsDirectoryName/aggregated-accuracy-values.csv")
+        val stringToSplitAt = ">> Exact values:"
+
+        if (csvFile.exists()) csvFile.delete()
+        csvFile.createNewFile()
+        csvFile.appendText(csvHeader.replace(',', ' '))
+        csvFile.appendText("\n")
+
+        for (language in languages) {
+            csvFile.appendText(language)
+            csvFile.appendText(" ")
+
+            for (detector in detectors) {
+                val languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
+                val languageReportFile = file(languageReportFileName)
+                if (!languageReportFile.exists()) {
+                    csvFile.delete()
+                    throw GradleException("file '$languageReportFileName' does not exist")
+                }
+
+                for (line in languageReportFile.readLines()) {
+                    if (line.startsWith(stringToSplitAt)) {
+                        val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(" ")
+                        csvFile.appendText(accuracyValues)
+                        csvFile.appendText(" ")
+                    }
+                }
+            }
+
+            csvFile.appendText("\n")
+        }
+
+        println("file 'aggregated-accuracy-values.csv' was written successfully")
+    }
 }
 
 tasks.withType<DokkaTask> {

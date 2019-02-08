@@ -109,8 +109,17 @@ class LanguageDetector internal constructor(
     }
 
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        return if (probabilities.isEmpty()) UNKNOWN
-        else probabilities.asSequence().filter { it.value != 0.0 }.maxBy { (_, value) -> value }!!.key
+        val filteredProbabilities = probabilities.asSequence().filter { it.value != 0.0 }
+        return if (filteredProbabilities.none()) UNKNOWN
+        else filteredProbabilities.maxBy {
+                (_, value) -> value
+        }?.key ?: throw IllegalArgumentException(
+            """
+            most likely language can not be determined.
+            are there invalid probability values?
+            probabilities: $probabilities
+            """.trimIndent()
+        )
     }
 
     internal fun detectLanguageWithRules(text: String): Language {
