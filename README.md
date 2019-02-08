@@ -625,7 +625,7 @@ The plots have been created with Python and the libraries Pandas, Matplotlib and
 ### 5.1 <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
-implementation 'com.github.pemistahl:lingua:0.3.1'
+implementation 'com.github.pemistahl:lingua:0.3.2'
 ```
 
 ### 5.2 <a name="library-dependency-maven"></a> Using Maven
@@ -634,7 +634,7 @@ implementation 'com.github.pemistahl:lingua:0.3.1'
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 
@@ -648,8 +648,8 @@ cd lingua
 mvn install
 ```
 Maven's `package` phase is able to generate two jar files in the `target` directory:
-1. `mvn package` creates `lingua-0.3.1.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.3.1-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+1. `mvn package` creates `lingua-0.3.2.jar` that contains the compiled sources only.
+2. `mvn package -P with-dependencies` creates `lingua-0.3.2-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ## 7. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -720,7 +720,7 @@ val detector = LanguageDetectorBuilder
 ### 7.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.3.1-with-dependencies.jar`
+2. Without Maven: `java -jar lingua-0.3.2-with-dependencies.jar`
 
 Then just play around:
 
@@ -782,8 +782,8 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-25-orange.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [awesome nlp url]: https://github.com/keon/awesome-nlp#user-content-kotlin
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.3.1-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.3.1%2Flingua-0.3.1-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.3.2-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.3.2%2Flingua-0.3.2-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
@@ -793,10 +793,10 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
 [Apache Tika]: https://tika.apache.org/1.20/detection.html#Language_Detection
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.3.1
-[Jcenter badge]: https://img.shields.io/badge/JCenter-0.3.1-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.3.1/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.3.1-green.svg
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.3.2
+[Jcenter badge]: https://img.shields.io/badge/JCenter-0.3.2-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.3.2/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.3.2-green.svg
 [green-marker]: https://placehold.it/10/008000/000000?text=+
 [yellow-marker]: https://placehold.it/10/ffff00/000000?text=+
 [orange-marker]: https://placehold.it/10/ff8c00/000000?text=+

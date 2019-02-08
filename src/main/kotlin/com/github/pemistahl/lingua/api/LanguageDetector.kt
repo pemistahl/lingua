@@ -108,8 +108,9 @@ class LanguageDetector internal constructor(
     }
 
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        return if (probabilities.isEmpty()) Language.UNKNOWN
-        else probabilities.asSequence().filter { it.value != 0.0 }.maxBy { (_, value) -> value }!!.key
+        val filteredProbabilities = probabilities.asSequence().filter { it.value != 0.0 }
+        return if (filteredProbabilities.none()) Language.UNKNOWN
+        else filteredProbabilities.maxBy { (_, value) -> value }!!.key
     }
 
     internal fun detectLanguageWithRules(text: String): Language {
