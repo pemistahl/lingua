@@ -186,14 +186,9 @@ dependencies {
         exclude("org.jetbrains.kotlin:kotlin-stdlib")
     }
 
-    val junitVersion = "5.3.2"
-
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
     testImplementation("org.assertj:assertj-core:3.11.1")
     testImplementation("io.mockk:mockk:1.9")
-    //testImplementation("org.apache.commons:commons-csv:1.6")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
     testImplementation("org.apache.tika:tika-langdetect:1.20")
