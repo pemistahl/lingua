@@ -56,6 +56,10 @@ class LanguageDetector internal constructor(
         val unigramTestDataModel = LanguageModel.fromTestData<Unigram>(textSequence)
         val bigramTestDataModel = LanguageModel.fromTestData<Bigram>(textSequence)
         val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
+        val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
+        val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
+
+        if (trimmedText.length <= 30) filterLanguagesByUniqueFivegrams(fivegramTestDataModel)
 
         val unigramProbabilities = computeUnigramProbabilities(unigramTestDataModel)
         val bigramProbabilities = computeBigramProbabilities(bigramTestDataModel)
@@ -64,14 +68,12 @@ class LanguageDetector internal constructor(
         val allProbabilities = mutableListOf(unigramProbabilities, bigramProbabilities, trigramProbabilities)
 
         if (trimmedText.length >= 4) {
-            val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
             val quadrigramProbabilities = computeQuadrigramProbabilities(quadrigramTestDataModel)
             if (!quadrigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(quadrigramProbabilities)
             }
         }
         if (trimmedText.length >= 5) {
-            val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             val fivegramProbabilities = computeFivegramProbabilities(fivegramTestDataModel)
             if (!fivegramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(fivegramProbabilities)
@@ -243,6 +245,30 @@ class LanguageDetector internal constructor(
         }
 
         return UNKNOWN
+    }
+
+    private fun filterLanguagesByUniqueFivegrams(fivegramTestDataModel: LanguageModel<Fivegram, Fivegram>) {
+        val ngramInLanguageCounts = mutableMapOf<Fivegram, MutableList<Language>>()
+        for (fivegram in fivegramTestDataModel.ngrams) {
+            val supportedLanguages = mutableListOf<Language>()
+            for (language in languagesSequence) {
+                if (fivegramLanguageModels.getValue(language).getRelativeFrequency(fivegram) != null) {
+                    supportedLanguages.add(language)
+                }
+            }
+            ngramInLanguageCounts[fivegram] = supportedLanguages
+        }
+
+        val languagesWithUniqueNgrams = mutableSetOf<Language>()
+        for ((_, languageList) in ngramInLanguageCounts) {
+            if (languageList.size == 1) {
+                languagesWithUniqueNgrams.add(languageList[0])
+            }
+        }
+
+        if (languagesWithUniqueNgrams.isNotEmpty()) filterLanguages {
+            it in languagesWithUniqueNgrams
+        }
     }
 
     private fun filterLanguages(func: (Language) -> Boolean) {
