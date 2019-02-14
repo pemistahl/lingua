@@ -58,6 +58,7 @@ enum class Language(
     SWEDISH    ("sv", true, false, false, false),
     TURKISH    ("tr", true, false, false, false),
     VIETNAMESE ("vi", true, false, false, false),
+    WELSH      ("cy", true, false, false, false),
 
     UNKNOWN    ("<unk>", false, false, false, true);
 

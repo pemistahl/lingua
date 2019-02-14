@@ -1,6 +1,6 @@
 ##### ROMANIAN #####
 
->>> Accuracy on average: 55,73%
+>>> Accuracy on average: 55,70%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 24,90%
@@ -11,7 +11,7 @@ Accuracy: 51,00%
 Erroneously classified as UNKNOWN: 47,80%, ITALIAN: 0,40%, ENGLISH: 0,20%, GERMAN: 0,10%, HUNGARIAN: 0,10%, SOMALI: 0,10%, CATALAN: 0,10%, INDONESIAN: 0,10%, ICELANDIC: 0,10%
 
 >> Detection of 1000 sentences (average length: 118 chars)
-Accuracy: 91,30%
-Erroneously classified as UNKNOWN: 8,00%, CROATIAN: 0,20%, ITALIAN: 0,20%, ENGLISH: 0,10%, INDONESIAN: 0,10%, CATALAN: 0,10%
+Accuracy: 91,20%
+Erroneously classified as UNKNOWN: 8,10%, CROATIAN: 0,20%, ITALIAN: 0,20%, ENGLISH: 0,10%, INDONESIAN: 0,10%, CATALAN: 0,10%
 
->> Exact values: 55.73333333333333 24.9 51.0 91.3
+>> Exact values: 55.70000000000001 24.9 51.0 91.2

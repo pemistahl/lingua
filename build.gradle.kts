@@ -21,7 +21,7 @@ jacoco.toolVersion = "0.8.3"
 sourceSets {
     main {
         resources {
-            //include("training-data/ca/*")
+            //include("training-data/cy/*")
             exclude("training-data/**", "language-models/*/sixgrams.json")
         }
     }

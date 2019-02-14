@@ -1,10 +1,10 @@
 ##### LATVIAN #####
 
->>> Accuracy on average: 75,13%
+>>> Accuracy on average: 75,10%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 51,20%
-Erroneously classified as UNKNOWN: 48,20%, ICELANDIC: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%, INDONESIAN: 0,10%, ESTONIAN: 0,10%
+Accuracy: 51,10%
+Erroneously classified as UNKNOWN: 48,30%, ICELANDIC: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%, INDONESIAN: 0,10%, ESTONIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 77,80%
@@ -14,4 +14,4 @@ Erroneously classified as UNKNOWN: 21,50%, ROMANIAN: 0,40%, CROATIAN: 0,10%, SOM
 Accuracy: 96,40%
 Erroneously classified as UNKNOWN: 3,30%, INDONESIAN: 0,10%, CROATIAN: 0,10%, ESTONIAN: 0,10%
 
->> Exact values: 75.13333333333333 51.2 77.8 96.39999999999999
+>> Exact values: 75.10000000000001 51.1 77.8 96.39999999999999

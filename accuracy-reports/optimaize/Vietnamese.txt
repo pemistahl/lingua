@@ -1,17 +1,17 @@
 ##### VIETNAMESE #####
 
->>> Accuracy on average: 88,42%
+>>> Accuracy on average: 88,16%
 
 >> Detection of 879 single words (average length: 4 chars)
-Accuracy: 68,49%
-Erroneously classified as UNKNOWN: 31,17%, PORTUGUESE: 0,11%, POLISH: 0,11%, SOMALI: 0,11%
+Accuracy: 67,92%
+Erroneously classified as UNKNOWN: 31,74%, PORTUGUESE: 0,11%, POLISH: 0,11%, SOMALI: 0,11%
 
 >> Detection of 957 word pairs (average length: 12 chars)
-Accuracy: 96,87%
-Erroneously classified as UNKNOWN: 2,82%, SOMALI: 0,10%, CZECH: 0,10%, ENGLISH: 0,10%
+Accuracy: 96,66%
+Erroneously classified as UNKNOWN: 3,13%, SOMALI: 0,10%, CZECH: 0,10%
 
 >> Detection of 1000 sentences (average length: 120 chars)
 Accuracy: 99,90%
 Erroneously classified as UNKNOWN: 0,10%
 
->> Exact values: 88.41737357094541 68.48691695108077 96.86520376175548 99.9
+>> Exact values: 88.1581020276913 67.91808873720136 96.65621734587252 99.9
