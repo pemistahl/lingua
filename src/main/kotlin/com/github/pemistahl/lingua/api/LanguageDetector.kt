@@ -234,6 +234,10 @@ class LanguageDetector internal constructor(
                 }
                 break
             }
+            else if (word.contains(GREEK_ALPHABET)) {
+                filterLanguages(Language::hasGreekAlphabet)
+                break
+            }
             else if (CYRILLIC_ALPHABET.matches(word)) {
                 filterLanguages(Language::hasCyrillicAlphabet)
                 break
@@ -469,6 +473,7 @@ class LanguageDetector internal constructor(
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")
         private val LATIN_ALPHABET = Regex("^[\\p{IsLatin}]+$")
+        private val GREEK_ALPHABET = Regex("[\\p{IsGreek}]+")
         private val CYRILLIC_ALPHABET = Regex("^[\\p{IsCyrillic}]+$")
         private val ARABIC_ALPHABET = Regex("^[\\p{IsArabic}]+$")
 

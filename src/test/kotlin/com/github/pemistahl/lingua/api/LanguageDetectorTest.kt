@@ -62,6 +62,15 @@ class LanguageDetectorTest {
     }
 
     @Test
+    fun `assert that languages not supporting Greek characters are excluded for input with Greek characters`() {
+        assertThat(detector.languages.all { it.isExcludedFromDetection }).isFalse()
+        val language = detector.detectLanguageWithRules("η ανίχνευση γλώσσας είναι δύσκολη")
+        assertThat(detector.languages.filterNot { it.hasGreekAlphabet }.all { it.isExcludedFromDetection }).isTrue()
+        assertThat(detector.languages.filter { it.hasGreekAlphabet }.all { it.isExcludedFromDetection }).isFalse()
+        assertThat(language).isEqualTo(Language.UNKNOWN)
+    }
+
+    @Test
     fun `assert that languages not supporting Cyrillic characters are excluded for input with Cyrillic characters`() {
         assertThat(detector.languages.all { it.isExcludedFromDetection }).isFalse()
         val language = detector.detectLanguageWithRules("трудно определить язык")
