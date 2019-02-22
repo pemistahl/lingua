@@ -1,4 +1,5 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import ru.vyarus.gradle.plugin.python.task.PythonTask
 
 group = "com.github.pemistahl"
 version = "0.4.0-SNAPSHOT"
@@ -13,6 +14,7 @@ plugins {
     kotlin("jvm") version "1.3.21"
     id("com.adarshr.test-logger") version "1.6.0"
     id("org.jetbrains.dokka") version "0.9.17"
+    id("ru.vyarus.use-python") version "1.2.0"
     jacoco
 }
 
@@ -136,6 +138,10 @@ tasks.register("writeCsv") {
     }
 }
 
+tasks.register<PythonTask>("drawAccuracyPlots") {
+    command = "src/python/draw_accuracy_plots.py"
+}
+
 tasks.withType<DokkaTask> {
     jdkVersion = 6
     reportUndocumented = false
@@ -197,6 +203,12 @@ dependencies {
 
     testImplementation("org.slf4j:slf4j-api:$slf4jVersion")
     testImplementation("org.slf4j:slf4j-log4j12:$slf4jVersion")
+}
+
+python {
+    pip("matplotlib:3.0.2")
+    pip("seaborn:0.9.0")
+    pip("pandas:0.23.4")
 }
 
 repositories {
