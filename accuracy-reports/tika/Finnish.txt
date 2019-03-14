@@ -1,10 +1,10 @@
 ##### FINNISH #####
 
->>> Accuracy on average: 93,90%
+>>> Accuracy on average: 93,87%
 
 >> Detection of 1000 single words (average length: 10 chars)
-Accuracy: 86,30%
-Erroneously classified as ESTONIAN: 2,20%, INDONESIAN: 2,00%, DUTCH: 1,30%, ITALIAN: 1,00%, CROATIAN: 0,80%, SOMALI: 0,70%, ROMANIAN: 0,60%, NORWEGIAN: 0,60%, AFRIKAANS: 0,50%, CATALAN: 0,40%, SWEDISH: 0,40%, GERMAN: 0,40%, TURKISH: 0,30%, ENGLISH: 0,30%, LATVIAN: 0,30%, PORTUGUESE: 0,30%, FRENCH: 0,30%, LITHUANIAN: 0,30%, ICELANDIC: 0,20%, WELSH: 0,20%, DANISH: 0,20%, POLISH: 0,10%, HUNGARIAN: 0,10%, SPANISH: 0,10%, CZECH: 0,10%
+Accuracy: 86,20%
+Erroneously classified as ESTONIAN: 2,20%, INDONESIAN: 2,00%, DUTCH: 1,30%, ITALIAN: 1,00%, CROATIAN: 0,80%, SOMALI: 0,70%, ROMANIAN: 0,60%, NORWEGIAN: 0,60%, AFRIKAANS: 0,50%, CATALAN: 0,40%, SWEDISH: 0,40%, GERMAN: 0,40%, TURKISH: 0,30%, ENGLISH: 0,30%, LATVIAN: 0,30%, PORTUGUESE: 0,30%, FRENCH: 0,30%, LITHUANIAN: 0,30%, ICELANDIC: 0,20%, WELSH: 0,20%, DANISH: 0,20%, IRISH: 0,10%, POLISH: 0,10%, HUNGARIAN: 0,10%, SPANISH: 0,10%, CZECH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 19 chars)
 Accuracy: 95,50%
@@ -14,4 +14,4 @@ Erroneously classified as ESTONIAN: 1,20%, AFRIKAANS: 0,60%, ITALIAN: 0,30%, DAN
 Accuracy: 99,90%
 Erroneously classified as ESTONIAN: 0,10%
 
->> Exact values: 93.90000000000002 86.3 95.5 99.9
+>> Exact values: 93.86666666666667 86.2 95.5 99.9

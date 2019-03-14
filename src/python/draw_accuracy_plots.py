@@ -32,6 +32,7 @@ def create_lineplot(data, columns, title, ylim, filename):
     ax.set_xlabel('Language', fontsize=38, fontweight='bold')
     ax.set_ylabel('Accuracy (%)', fontsize=38, fontweight='bold')
 
+    plt.tight_layout()
     plt.savefig('images/plots/' + filename, dpi=72)
 
 
@@ -50,6 +51,7 @@ def create_boxplot(data, columns, title, ylim, filename):
     ax.set_ylabel('Accuracy (%)', fontsize=38, fontweight='bold')
     ax.set_xticklabels(['Optimaize', 'Tika', 'Lingua'])
 
+    plt.tight_layout()
     plt.savefig('images/plots/' + filename, dpi=72)
 
 

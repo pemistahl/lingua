@@ -1,17 +1,17 @@
 ##### SOMALI #####
 
->>> Accuracy on average: 82,33%
+>>> Accuracy on average: 81,93%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 57,80%
-Erroneously classified as UNKNOWN: 41,90%, POLISH: 0,10%, FINNISH: 0,10%, ENGLISH: 0,10%
+Accuracy: 56,80%
+Erroneously classified as UNKNOWN: 42,90%, POLISH: 0,10%, FINNISH: 0,10%, ENGLISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
-Accuracy: 89,70%
-Erroneously classified as UNKNOWN: 9,70%, ENGLISH: 0,20%, ITALIAN: 0,10%, WELSH: 0,10%, TURKISH: 0,10%, FINNISH: 0,10%
+Accuracy: 89,50%
+Erroneously classified as UNKNOWN: 9,90%, ENGLISH: 0,20%, ITALIAN: 0,10%, WELSH: 0,10%, TURKISH: 0,10%, FINNISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 124 chars)
 Accuracy: 99,50%
 Erroneously classified as UNKNOWN: 0,40%, TURKISH: 0,10%
 
->> Exact values: 82.33333333333333 57.8 89.7 99.5
+>> Exact values: 81.93333333333334 56.8 89.5 99.5
