@@ -146,14 +146,11 @@ private fun runApp() {
         else -> fromAllBuiltInLanguages()
     }
 
-    val startTime = System.currentTimeMillis()
     val detector = detectorBuilder.build()
-    val endTime = System.currentTimeMillis()
-    val seconds = ((endTime - startTime) / 1000.0).roundToInt()
 
     println(
         """
-        Done. ${detector.numberOfLoadedLanguages} language models loaded in $seconds seconds.
+        Done. ${detector.numberOfLoadedLanguages} language models loaded lazily.
 
         Type some text and press <Enter> to detect its language.
         Type :quit to exit.

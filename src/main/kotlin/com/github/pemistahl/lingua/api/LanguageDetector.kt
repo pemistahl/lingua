@@ -36,11 +36,11 @@ class LanguageDetector internal constructor(
 ) {
     private var languagesSequence = languages.asSequence()
 
-    private lateinit var unigramLanguageModels: MutableMap<Language, LanguageModel<Unigram, Unigram>>
-    private lateinit var bigramLanguageModels: MutableMap<Language, LanguageModel<Bigram, Bigram>>
-    private lateinit var trigramLanguageModels: MutableMap<Language, LanguageModel<Trigram, Trigram>>
-    private lateinit var quadrigramLanguageModels: MutableMap<Language, LanguageModel<Quadrigram, Quadrigram>>
-    private lateinit var fivegramLanguageModels: MutableMap<Language, LanguageModel<Fivegram, Fivegram>>
+    private lateinit var unigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Unigram, Unigram>>>
+    private lateinit var bigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Bigram, Bigram>>>
+    private lateinit var trigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Trigram, Trigram>>>
+    private lateinit var quadrigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Quadrigram, Quadrigram>>>
+    private lateinit var fivegramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Fivegram, Fivegram>>>
 
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
@@ -174,7 +174,7 @@ class LanguageDetector internal constructor(
         for (fivegram in fivegramTestDataModel.ngrams) {
             val supportedLanguages = mutableListOf<Language>()
             for (language in languagesSequence) {
-                if (fivegramLanguageModels.getValue(language).getRelativeFrequency(fivegram) != null) {
+                if (fivegramLanguageModels.getValue(language).value.getRelativeFrequency(fivegram) != null) {
                     supportedLanguages.add(language)
                 }
             }
@@ -304,10 +304,12 @@ class LanguageDetector internal constructor(
     }
 
     private fun <T : Ngram> lookUpNgramProbabilities(
-        languageModels: Map<Language, LanguageModel<T, T>>,
+        languageModels: Map<Language, Lazy<LanguageModel<T, T>>>,
         language: Language,
         ngrams: List<T>
-    ): MutableList<Double?> = ngrams.map { languageModels.getValue(language).getRelativeFrequency(it) }.toMutableList()
+    ): MutableList<Double?> = ngrams.map {
+        languageModels.getValue(language).value.getRelativeFrequency(it)
+    }.toMutableList()
 
     private fun <T : Ngram> lookUpUnigramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
         val unigrams = ngrams.map { if (it is Unigram) it else Unigram(it.value[0].toString()) }
@@ -342,32 +344,29 @@ class LanguageDetector internal constructor(
     private fun <T : Ngram> loadLanguageModel(
         language: Language,
         ngramClass: KClass<T>
-    ): LanguageModel<T, T> {
-        var languageModel: LanguageModel<T, T>? = null
+    ): Lazy<LanguageModel<T, T>> {
+        var languageModel: Lazy<LanguageModel<T, T>>? = null
         val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
         "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
-            languageModel = LanguageModel.fromJson(jsonReader, ngramClass, isCachedByMapDB)
+            languageModel = lazy { LanguageModel.fromJson(jsonReader, ngramClass, isCachedByMapDB) }
         }
         return languageModel!!
     }
 
-    private fun <T : Ngram> loadLanguageModels(
-        languages: Set<Language>,
-        ngramClass: KClass<T>
-    ): MutableMap<Language, LanguageModel<T, T>> {
-        val languageModels = hashMapOf<Language, LanguageModel<T, T>>()
-        for (language in languages) {
+    private fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T, T>>> {
+        val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>>>()
+        for (language in languagesSequence) {
             languageModels[language] = loadLanguageModel(language, ngramClass)
         }
         return languageModels
     }
 
     internal fun loadAllLanguageModels() {
-        unigramLanguageModels = loadLanguageModels(languages, Unigram::class)
-        bigramLanguageModels = loadLanguageModels(languages, Bigram::class)
-        trigramLanguageModels = loadLanguageModels(languages, Trigram::class)
-        quadrigramLanguageModels = loadLanguageModels(languages, Quadrigram::class)
-        fivegramLanguageModels = loadLanguageModels(languages, Fivegram::class)
+        unigramLanguageModels = loadLanguageModels(Unigram::class)
+        bigramLanguageModels = loadLanguageModels(Bigram::class)
+        trigramLanguageModels = loadLanguageModels(Trigram::class)
+        quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
+        fivegramLanguageModels = loadLanguageModels(Fivegram::class)
     }
 
     override fun equals(other: Any?): Boolean {
