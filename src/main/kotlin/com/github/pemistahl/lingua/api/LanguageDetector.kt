@@ -25,6 +25,7 @@ import com.github.pemistahl.lingua.internal.model.Quadrigram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
+import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlin.reflect.KClass
 
@@ -47,8 +48,12 @@ class LanguageDetector internal constructor(
         val trimmedText = text.trim().toLowerCase()
         if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return UNKNOWN
 
-        val languageDetectedByRules = detectLanguageWithRules(trimmedText)
+        val words = if (text.contains(' ')) text.split(" ") else listOf(text)
+
+        val languageDetectedByRules = detectLanguageWithRules(words)
         if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
+
+        filterLanguagesByRules(words)
 
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
@@ -124,121 +129,21 @@ class LanguageDetector internal constructor(
         )
     }
 
-    internal fun detectLanguageWithRules(text: String): Language {
-        val splitText = if (text.contains(' ')) text.split(" ") else listOf(text)
-
-        for (word in splitText) {
-            if (LATIN_ALPHABET.matches(word)) {
-                filterLanguages(Language::hasLatinAlphabet)
-
-                if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) filterLanguages { it != NORWEGIAN }
-
-                if (word.contains(GERMAN_CHARACTERS)) return GERMAN
-                if (word.contains(CZECH_CHARACTERS)) return CZECH
-                if (word.contains(POLISH_CHARACTERS)) return POLISH
-                if (word.contains(TURKISH_CHARACTERS)) return TURKISH
-                if (word.contains(LATVIAN_CHARACTERS)) return LATVIAN
-                if (word.contains(LITHUANIAN_CHARACTERS)) return LITHUANIAN
-                if (word.contains(HUNGARIAN_CHARACTERS)) return HUNGARIAN
-                if (word.contains(SPANISH_CHARACTERS)) return SPANISH
-                if (word.contains(CATALAN_CHARACTERS)) return CATALAN
-                if (word.contains(ROMANIAN_CHARACTERS)) return ROMANIAN
-                if (word.contains(VIETNAMESE_CHARACTERS)) return VIETNAMESE
-
-                if (word.contains(PORTUGUESE_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(PORTUGUESE, VIETNAMESE)
+    internal fun detectLanguageWithRules(words: List<String>): Language {
+        for (word in words) {
+            if (GREEK_ALPHABET.matches(word)) return GREEK
+            else if (LATIN_ALPHABET.matches(word)) {
+                for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
+                    if (word.containsAnyOf(characters)) return language
                 }
-                else if (word.contains(CROATIAN_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(CROATIAN, VIETNAMESE)
-                }
-                else if (word.contains(ESTONIAN_OR_FINNISH_OR_GERMAN_OR_SWEDISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(ESTONIAN, FINNISH, GERMAN, SWEDISH)
-                }
-                else if (word.contains(ESTONIAN_OR_ICELANDIC_OR_FINNISH_OR_GERMAN_OR_HUNGARIAN_OR_SWEDISH_OR_TURKISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(ESTONIAN, ICELANDIC, FINNISH, GERMAN, HUNGARIAN, SWEDISH, TURKISH)
-                }
-                else if (word.contains(ESTONIAN_OR_GERMAN_OR_HUNGARIAN_OR_TURKISH_OR_CATALAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(ESTONIAN, GERMAN, HUNGARIAN, TURKISH, CATALAN)
-                }
-                else if (word.contains(DANISH_OR_NORWEGIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, NORWEGIAN, BOKMAL, NYNORSK)
-                }
-                else if (word.contains(DANISH_OR_NORWEGIAN_OR_ICELANDIC_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, NORWEGIAN, ICELANDIC, BOKMAL, NYNORSK)
-                }
-                else if (word.contains(LITHUANIAN_OR_POLISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(LITHUANIAN, POLISH)
-                }
-                else if (word.contains(ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE)
-                }
-                else if (word.contains(CZECH_OR_ICELANDIC_OR_IRISH_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_OR_CATALAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, VIETNAMESE, CATALAN)
-                }
-                else if (word.contains(CZECH_OR_ROMANIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(CZECH, ROMANIAN)
-                }
-                else if (word.contains(CZECH_OR_ROMANIAN_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(CZECH, ROMANIAN, VIETNAMESE)
-                }
-                else if (word.contains(CZECH_OR_TURKISH_OR_ICELANDIC_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(CZECH, TURKISH, ICELANDIC, VIETNAMESE)
-                }
-                else if (word.contains(DANISH_OR_NORWEGIAN_OR_SWEDISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(DANISH, NORWEGIAN, SWEDISH, BOKMAL, NYNORSK)
-                }
-                else if (word.contains(LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(LATVIAN, LITHUANIAN)
-                }
-                else if (word.contains(LATVIAN_OR_TURKISH_OR_ICELANDIC_CHARACTERS)) filterLanguages {
-                    it in arrayOf(LATVIAN, TURKISH, ICELANDIC)
-                }
-                else if (word.contains(ROMANIAN_OR_TURKISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(ROMANIAN, TURKISH)
-                }
-                else if (word.contains(POLISH_OR_CROATIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(POLISH, CROATIAN)
-                }
-                else if (word.contains(ITALIAN_OR_LATVIAN_OR_VIETNAMESE_OR_CATALAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(ITALIAN, LATVIAN, VIETNAMESE, CATALAN)
-                }
-                else if (word.contains(FRENCH_OR_ROMANIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, ROMANIAN)
-                }
-                else if (word.contains(FRENCH_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, PORTUGUESE, VIETNAMESE)
-                }
-                else if (word.contains(FRENCH_OR_ITALIAN_OR_VIETNAMESE_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, ITALIAN, VIETNAMESE)
-                }
-                else if (word.contains(FRENCH_OR_ITALIAN_OR_PORTUGUESE_OR_VIETNAMESE_OR_CATALAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE, CATALAN)
-                }
-                else if (word.contains(FRENCH_OR_HUNGARIAN_OR_LATVIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, HUNGARIAN, LATVIAN)
-                }
-                else if (word.contains(POLISH_OR_PORTUGUESE_OR_HUNGARIAN_OR_ICELANDIC_OR_VIETNAMESE_OR_CATALAN_OR_IRISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(POLISH, PORTUGUESE, HUNGARIAN, ICELANDIC, VIETNAMESE, CATALAN, IRISH)
-                }
-                else if (word.contains(POLISH_OR_ROMANIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(POLISH, ROMANIAN)
-                }
-                else if (word.contains(FRENCH_OR_LATVIAN_PORTUGUESE_OR_TURKISH_OR_CATALAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, LATVIAN, PORTUGUESE, TURKISH, CATALAN)
-                }
-                else if (word.contains(CZECH_OR_CROATIAN_OR_LATVIAN_OR_LITHUANIAN_CHARACTERS)) filterLanguages {
-                    it in arrayOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN)
-                }
-                else if (word.contains(FRENCH_OR_CZECH_OR_ICELANDIC_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_OR_CATALAN_OR_IRISH_CHARACTERS)) filterLanguages {
-                    it in arrayOf(FRENCH, CZECH, ICELANDIC, ITALIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE, CATALAN, IRISH)
-                }
-                break
             }
-            else if (word.contains(GREEK_ALPHABET)) {
-                filterLanguages(Language::hasGreekAlphabet)
-                break
-            }
-            else if (CYRILLIC_ALPHABET.matches(word)) {
+        }
+        return UNKNOWN
+    }
+
+    internal fun filterLanguagesByRules(words: List<String>) {
+        for (word in words) {
+            if (CYRILLIC_ALPHABET.matches(word)) {
                 filterLanguages(Language::hasCyrillicAlphabet)
                 break
             }
@@ -246,9 +151,22 @@ class LanguageDetector internal constructor(
                 filterLanguages(Language::hasArabicAlphabet)
                 break
             }
-        }
+            else if (LATIN_ALPHABET.matches(word)) {
+                filterLanguages(Language::hasLatinAlphabet)
 
-        return UNKNOWN
+                if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
+                    filterLanguages { it != NORWEGIAN }
+                }
+                val languagesSubset = mutableSetOf<Language>()
+                for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
+                    if (word.containsAnyOf(characters)) {
+                        languagesSubset.addAll(languages)
+                    }
+                }
+                if (languagesSubset.isNotEmpty()) filterLanguages { it in languagesSubset }
+                break
+            }
+        }
     }
 
     private fun filterLanguagesByUniqueFivegrams(fivegramTestDataModel: LanguageModel<Fivegram, Fivegram>) {
@@ -473,51 +391,68 @@ class LanguageDetector internal constructor(
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")
         private val LATIN_ALPHABET = Regex("^[\\p{IsLatin}]+$")
-        private val GREEK_ALPHABET = Regex("[\\p{IsGreek}]+")
+        private val GREEK_ALPHABET = Regex("^[\\p{IsGreek}]+$")
         private val CYRILLIC_ALPHABET = Regex("^[\\p{IsCyrillic}]+$")
         private val ARABIC_ALPHABET = Regex("^[\\p{IsArabic}]+$")
 
-        private const val GERMAN_CHARACTERS = "ß"
-        private val CZECH_CHARACTERS = Regex("[ĚěŇňŘřŤťŮů]")
-        private val CROATIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Đđ]")
-        private val HUNGARIAN_CHARACTERS = Regex("[ŐőŰű]")
-        private val LATVIAN_CHARACTERS = Regex("[ĀĒĢĪĶĻŅāēģīķļņ]")
-        private val LITHUANIAN_CHARACTERS = Regex("[ĖĮŲėįų]")
-        private val PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[Ãã]")
-        private val SPANISH_CHARACTERS = Regex("[Ññ¿¡]")
-        private val CATALAN_CHARACTERS = Regex("[Ïï]")
-        private val TURKISH_CHARACTERS = Regex("[İıĞğ]")
-        private val POLISH_CHARACTERS = Regex("[ŁłŃńŚśŹź]")
-        private val ROMANIAN_CHARACTERS = Regex("[Țţ]")
-        private val VIETNAMESE_CHARACTERS = Regex("[ÂâẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệÌìỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ]")
+        private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
+            "Ïï" to CATALAN,
+            "ĚěŇňŘřŤťŮů" to CZECH,
+            "ß" to GERMAN,
+            "ŐőŰű" to HUNGARIAN,
+            "ĀāĒēĢģĪīĶķĻļŅņ" to LATVIAN,
+            "ĖėĮįŲų" to LITHUANIAN,
+            "ŁłŃńŚśŹź" to POLISH,
+            "Țţ" to ROMANIAN,
+            "Ññ¿¡" to SPANISH,
+            "İıĞğ" to TURKISH,
+            """
+            ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậ
+            ỀềẺẻỂểẼẽỄễẾếẸẹỆệ
+            ỈỉĨĩỊị
+            ƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợ
+            ƯưỪừỦủỬửŨũỮữỨứỤụỰự
+            ỲỳỶỷỸỹỴỵ
+            """.trimIndent() to VIETNAMESE
+        )
 
-        private val DANISH_OR_NORWEGIAN_CHARACTERS = Regex("[Øø]")
-        private val DANISH_OR_NORWEGIAN_OR_ICELANDIC_CHARACTERS = Regex("[Ææ]")
-        private val LITHUANIAN_OR_POLISH_CHARACTERS = Regex("[ĄĘąę]")
-        private val LATVIAN_OR_TURKISH_OR_ICELANDIC_CHARACTERS = Regex("[ÐðÞþ]")
-        private val LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[Ūū]")
-        //private val LATVIAN_OR_PORTUGUESE_OR_ROMANIAN_OR_TURKISH_CHARACTERS = Regex("[Ââ]")
-        private val ESTONIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[Õõ]")
-        private val CZECH_OR_TURKISH_OR_ICELANDIC_OR_VIETNAMESE_CHARACTERS = Regex("[Ýý]")
-        private val CZECH_OR_ROMANIAN_CHARACTERS = Regex("[Ďď]")
-        private val CZECH_OR_ROMANIAN_OR_VIETNAMESE_CHARACTERS = Regex("[Ăă]")
-        private val CZECH_OR_ICELANDIC_OR_IRISH_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_OR_CATALAN_CHARACTERS = Regex("[ÁáÍíÚú]")
-        private val ITALIAN_OR_LATVIAN_OR_VIETNAMESE_OR_CATALAN_CHARACTERS = Regex("[Òò]")
-        private val DANISH_OR_NORWEGIAN_OR_SWEDISH_CHARACTERS = Regex("[Åå]")
-        private val FRENCH_OR_LATVIAN_PORTUGUESE_OR_TURKISH_OR_CATALAN_CHARACTERS = Regex("[Çç]")
-        private val ROMANIAN_OR_TURKISH_CHARACTERS = Regex("[Şş]")
-        private val POLISH_OR_CROATIAN_CHARACTERS = Regex("[Ćć]")
-        private val POLISH_OR_PORTUGUESE_OR_HUNGARIAN_OR_ICELANDIC_OR_VIETNAMESE_OR_CATALAN_OR_IRISH_CHARACTERS = Regex("[Óó]")
-        private val POLISH_OR_ROMANIAN_CHARACTERS = Regex("[Żż]")
-        private val CZECH_OR_CROATIAN_OR_LATVIAN_OR_LITHUANIAN_CHARACTERS = Regex("[ČčŠšŽž]")
-        private val FRENCH_OR_HUNGARIAN_OR_LATVIAN_CHARACTERS = Regex("[Ûû]")
-        private val FRENCH_OR_ITALIAN_OR_PORTUGUESE_OR_VIETNAMESE_OR_CATALAN_CHARACTERS = Regex("[Àà]")
-        private val FRENCH_OR_PORTUGUESE_OR_VIETNAMESE_CHARACTERS = Regex("[ÊêÔô]")
-        private val FRENCH_OR_ROMANIAN_CHARACTERS = Regex("[Îî]")
-        private val FRENCH_OR_ITALIAN_OR_VIETNAMESE_CHARACTERS = Regex("[ÈèÙù]")
-        private val FRENCH_OR_CZECH_OR_ICELANDIC_OR_ITALIAN_OR_HUNGARIAN_OR_PORTUGUESE_OR_VIETNAMESE_OR_CATALAN_OR_IRISH_CHARACTERS = Regex("[Éé]")
-        private val ESTONIAN_OR_FINNISH_OR_GERMAN_OR_SWEDISH_CHARACTERS = Regex("[Ää]")
-        private val ESTONIAN_OR_ICELANDIC_OR_FINNISH_OR_GERMAN_OR_HUNGARIAN_OR_SWEDISH_OR_TURKISH_CHARACTERS = Regex("[Öö]")
-        private val ESTONIAN_OR_GERMAN_OR_HUNGARIAN_OR_TURKISH_OR_CATALAN_CHARACTERS = Regex("[Üü]")
+        private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
+            "Ćć" to setOf(CROATIAN, POLISH),
+            "Ďď" to setOf(CZECH, ROMANIAN),
+            "Đđ" to setOf(CROATIAN, VIETNAMESE),
+            "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
+            "ĄąĘę" to setOf(LITHUANIAN, POLISH),
+            "Ūū" to setOf(LATVIAN, LITHUANIAN),
+            "Şş" to setOf(ROMANIAN, TURKISH),
+            "Żż" to setOf(POLISH, ROMANIAN),
+            "Îî" to setOf(FRENCH, ROMANIAN),
+            "Ìì" to setOf(ITALIAN, VIETNAMESE),
+
+            "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
+            "Ăă" to setOf(CZECH, ROMANIAN, VIETNAMESE),
+            "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
+            "ÊêÔô" to setOf(FRENCH, PORTUGUESE, VIETNAMESE),
+            "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
+
+            "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
+            "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE),
+            "Øø" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK),
+            "Ýý" to setOf(CZECH, ICELANDIC, TURKISH, VIETNAMESE),
+            "ČčŠšŽž" to setOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN),
+            "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SWEDISH),
+
+            "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
+            "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
+            "Çç" to setOf(CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
+            "Üü" to setOf(CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
+            "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
+            "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
+
+            "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, VIETNAMESE),
+            "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, VIETNAMESE),
+            "Öö" to setOf(ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
+
+            "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, VIETNAMESE)
+        )
     }
 }

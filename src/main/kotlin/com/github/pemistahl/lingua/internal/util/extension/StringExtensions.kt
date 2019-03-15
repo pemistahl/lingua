@@ -43,3 +43,10 @@ internal fun String.asLineSequenceResource(
 
     inputStream.bufferedReader(charset).useLines(operation)
 }
+
+internal fun String.containsAnyOf(characters: String): Boolean {
+    for (c in characters) {
+        if (this.contains(c)) return true
+    }
+    return false
+}
