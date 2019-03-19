@@ -1,17 +1,17 @@
 ##### INDONESIAN #####
 
->>> Accuracy on average: 68,63%
+>>> Accuracy on average: 67,57%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 31,80%
-Erroneously classified as UNKNOWN: 67,70%, SOMALI: 0,20%, CROATIAN: 0,20%, WELSH: 0,10%
+Accuracy: 30,50%
+Erroneously classified as UNKNOWN: 69,00%, SOMALI: 0,20%, CROATIAN: 0,20%, WELSH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
-Accuracy: 74,30%
-Erroneously classified as UNKNOWN: 25,00%, FINNISH: 0,20%, ENGLISH: 0,20%, SOMALI: 0,10%, ITALIAN: 0,10%, POLISH: 0,10%
+Accuracy: 72,70%
+Erroneously classified as UNKNOWN: 26,40%, FINNISH: 0,20%, BASQUE: 0,20%, ENGLISH: 0,20%, SOMALI: 0,10%, ITALIAN: 0,10%, POLISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 105 chars)
-Accuracy: 99,80%
-Erroneously classified as UNKNOWN: 0,20%
+Accuracy: 99,50%
+Erroneously classified as UNKNOWN: 0,50%
 
->> Exact values: 68.63333333333333 31.8 74.3 99.8
+>> Exact values: 67.56666666666666 30.5 72.7 99.5

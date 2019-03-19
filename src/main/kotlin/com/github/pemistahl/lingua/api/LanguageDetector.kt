@@ -403,7 +403,7 @@ class LanguageDetector internal constructor(
             "ĖėĮįŲų" to LITHUANIAN,
             "ŁłŃńŚśŹź" to POLISH,
             "Țţ" to ROMANIAN,
-            "Ññ¿¡" to SPANISH,
+            "¿¡" to SPANISH,
             "İıĞğ" to TURKISH,
             """
             ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậ
@@ -426,6 +426,7 @@ class LanguageDetector internal constructor(
             "Żż" to setOf(POLISH, ROMANIAN),
             "Îî" to setOf(FRENCH, ROMANIAN),
             "Ìì" to setOf(ITALIAN, VIETNAMESE),
+            "Ññ" to setOf(BASQUE, SPANISH),
 
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ăă" to setOf(CZECH, ROMANIAN, VIETNAMESE),
@@ -442,10 +443,11 @@ class LanguageDetector internal constructor(
 
             "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
             "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
-            "Çç" to setOf(CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
             "Üü" to setOf(CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
             "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
             "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
+
+            "Çç" to setOf(BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
 
             "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, VIETNAMESE),
             "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, VIETNAMESE),

@@ -115,7 +115,7 @@ create_boxplot(
     data=accuracy_values_data_frame,
     columns=['sentences-optimaize', 'sentences-tika', 'sentences-lingua'],
     title='Sentence Detection',
-    ylim=[80,100],
+    ylim=[88,100],
     filename='boxplot-sentences.png'
 )
 

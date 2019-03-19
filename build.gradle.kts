@@ -139,6 +139,7 @@ tasks.register("writeCsv") {
 }
 
 tasks.register<PythonTask>("drawAccuracyPlots") {
+    dependsOn("writeCsv")
     command = "src/python/draw_accuracy_plots.py"
 }
 
