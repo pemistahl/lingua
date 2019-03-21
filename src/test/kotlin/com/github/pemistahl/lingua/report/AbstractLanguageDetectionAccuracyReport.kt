@@ -103,14 +103,8 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         val (wordPairAccuracy, wordPairAccuracyReport) = getReportData(wordPairsAccuracyValues, wordPairCount, wordPairLengthCount, "word pairs")
         val (sentenceAccuracy, sentenceAccuracyReport) = getReportData(sentencesAccuracyValues, sentenceCount, sentenceLengthCount, "sentences")
 
-        val averageAccuracy = if (singleWordAccuracy != null && wordPairAccuracy != null && sentenceAccuracy != null)
-            (singleWordAccuracy + wordPairAccuracy + sentenceAccuracy) / 3
-        else
-            null
-
-        val averageAccuracyReport = if (averageAccuracy != null)
-            ">>> Accuracy on average: ${formatAccuracy(averageAccuracy)}"
-        else ""
+        val averageAccuracy = (singleWordAccuracy + wordPairAccuracy + sentenceAccuracy) / 3
+        val averageAccuracyReport = ">>> Accuracy on average: ${formatAccuracy(averageAccuracy)}"
 
         val reportParts = arrayOf(
             averageAccuracyReport,
@@ -187,19 +181,17 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return statistics.mapValues { languageCount -> computeAccuracy(languageCount.value, statistics.values.sum()) }
     }
 
-    private fun getReportData(statistics: Map<Language, Double>, count: Int, length: Int, description: String): Pair<Double?, String> {
-        return if (statistics.isNotEmpty()) {
-            Pair(
-                statistics.getValue(language),
-                """
-                >> Detection of $count $description (average length: ${Math.round(length.toDouble() / count)} chars)
-                Accuracy: ${formatAccuracy(statistics.getValue(language))}
-                Erroneously classified as ${formatStatistics(statistics, language)}
-                """.trimIndent()
-            )
-        } else {
-            Pair(null, "")
-        }
+    private fun getReportData(statistics: Map<Language, Double>, count: Int, length: Int, description: String): Pair<Double, String> {
+        val accuracy = statistics[language] ?: 0.0
+
+        return Pair(
+            accuracy,
+            """
+            >> Detection of $count $description (average length: ${Math.round(length.toDouble() / count)} chars)
+            Accuracy: ${formatAccuracy(accuracy)}
+            Erroneously classified as ${formatStatistics(statistics, language)}
+            """.trimIndent()
+        )
     }
 
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {

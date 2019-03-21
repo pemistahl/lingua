@@ -4,14 +4,14 @@
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 50,90%
-Erroneously classified as UNKNOWN: 48,50%, ICELANDIC: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%, INDONESIAN: 0,10%, ESTONIAN: 0,10%
+Erroneously classified as UNKNOWN: 48,60%, ICELANDIC: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%, ESTONIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 77,20%
-Erroneously classified as UNKNOWN: 22,00%, ROMANIAN: 0,40%, CROATIAN: 0,10%, BASQUE: 0,10%, SOMALI: 0,10%, ICELANDIC: 0,10%
+Accuracy: 77,10%
+Erroneously classified as UNKNOWN: 22,10%, ROMANIAN: 0,40%, CROATIAN: 0,10%, BASQUE: 0,10%, SOMALI: 0,10%, ICELANDIC: 0,10%
 
 >> Detection of 1000 sentences (average length: 109 chars)
-Accuracy: 96,40%
-Erroneously classified as UNKNOWN: 3,40%, CROATIAN: 0,10%, ESTONIAN: 0,10%
+Accuracy: 96,50%
+Erroneously classified as UNKNOWN: 3,30%, CROATIAN: 0,10%, ESTONIAN: 0,10%
 
->> Exact values: 74.83333333333333 50.9 77.2 96.39999999999999
+>> Exact values: 74.83333333333333 50.9 77.10000000000001 96.5

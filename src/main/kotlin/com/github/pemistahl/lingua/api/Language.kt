@@ -50,6 +50,7 @@ enum class Language(
     LATIN      ("la", true, false, false, false, false),
     LATVIAN    ("lv", true, false, false, false, false),
     LITHUANIAN ("lt", true, false, false, false, false),
+    MALAY      ("ms", true, false, false, false, false),
     NORWEGIAN  ("no", true, false, false, false, false),
     NYNORSK    ("nn", true, false, false, false, false),
     PERSIAN    ("fa", false, false, false, true, false),

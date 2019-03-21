@@ -107,7 +107,7 @@ create_lineplot(
     data=accuracy_values_data_frame,
     columns=['sentences-lingua', 'sentences-tika', 'sentences-optimaize'],
     title='Sentence Detection',
-    ylim=[75,100],
+    ylim=[10,100],
     filename='lineplot-sentences.png'
 )
 
@@ -115,7 +115,7 @@ create_boxplot(
     data=accuracy_values_data_frame,
     columns=['sentences-optimaize', 'sentences-tika', 'sentences-lingua'],
     title='Sentence Detection',
-    ylim=[88,100],
+    ylim=[75,100],
     filename='boxplot-sentences.png'
 )
 
@@ -124,7 +124,7 @@ create_lineplot(
     data=accuracy_values_data_frame,
     columns=['average-lingua', 'average-tika', 'average-optimaize'],
     title='Average Detection',
-    ylim=[30,100],
+    ylim=[0,100],
     filename='lineplot-average.png'
 )
 
@@ -132,7 +132,7 @@ create_boxplot(
     data=accuracy_values_data_frame,
     columns=['average-optimaize', 'average-tika', 'average-lingua'],
     title='Average Detection',
-    ylim=[30,100],
+    ylim=[0,100],
     filename='boxplot-average.png'
 )
 

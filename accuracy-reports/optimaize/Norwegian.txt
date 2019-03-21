@@ -1,17 +1,17 @@
 ##### NORWEGIAN #####
 
->>> Accuracy on average: 31,17%
+>>> Accuracy on average: 31,20%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 3,10%
-Erroneously classified as UNKNOWN: 94,90%, CROATIAN: 0,30%, GERMAN: 0,30%, WELSH: 0,30%, ESTONIAN: 0,20%, SWEDISH: 0,20%, ENGLISH: 0,10%, BASQUE: 0,10%, AFRIKAANS: 0,10%, FINNISH: 0,10%, INDONESIAN: 0,10%, ROMANIAN: 0,10%, LITHUANIAN: 0,10%
+Erroneously classified as UNKNOWN: 95,10%, CROATIAN: 0,30%, GERMAN: 0,30%, WELSH: 0,30%, ESTONIAN: 0,20%, SWEDISH: 0,20%, ENGLISH: 0,10%, BASQUE: 0,10%, AFRIKAANS: 0,10%, ROMANIAN: 0,10%, LITHUANIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 9,70%
-Erroneously classified as UNKNOWN: 88,30%, INDONESIAN: 0,30%, FINNISH: 0,30%, ROMANIAN: 0,30%, ESTONIAN: 0,20%, DANISH: 0,20%, SWEDISH: 0,20%, FRENCH: 0,10%, ICELANDIC: 0,10%, WELSH: 0,10%, BASQUE: 0,10%, GERMAN: 0,10%
+Erroneously classified as UNKNOWN: 88,60%, FINNISH: 0,30%, ROMANIAN: 0,30%, ESTONIAN: 0,20%, DANISH: 0,20%, SWEDISH: 0,20%, FRENCH: 0,10%, ICELANDIC: 0,10%, WELSH: 0,10%, BASQUE: 0,10%, GERMAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 97 chars)
-Accuracy: 80,70%
-Erroneously classified as UNKNOWN: 18,30%, DANISH: 0,40%, SWEDISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, FINNISH: 0,10%
+Accuracy: 80,80%
+Erroneously classified as UNKNOWN: 18,20%, DANISH: 0,40%, SWEDISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, FINNISH: 0,10%
 
->> Exact values: 31.166666666666668 3.1 9.700000000000001 80.7
+>> Exact values: 31.200000000000003 3.1 9.700000000000001 80.80000000000001
