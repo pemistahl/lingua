@@ -27,6 +27,7 @@ import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
+import java.util.regex.PatternSyntaxException
 import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
@@ -356,10 +357,31 @@ class LanguageDetector internal constructor(
 
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")
-        private val LATIN_ALPHABET = Regex("^[\\p{IsLatin}]+$")
-        private val GREEK_ALPHABET = Regex("^[\\p{IsGreek}]+$")
-        private val CYRILLIC_ALPHABET = Regex("^[\\p{IsCyrillic}]+$")
-        private val ARABIC_ALPHABET = Regex("^[\\p{IsArabic}]+$")
+
+        // Android only supports character classes without Is- prefix
+        private val LATIN_ALPHABET = try {
+            Regex("^[\\p{Latin}]+$")
+        } catch (e: PatternSyntaxException) {
+            Regex("^[\\p{IsLatin}]+$")
+        }
+
+        private val GREEK_ALPHABET = try {
+            Regex("^[\\p{Greek}]+$")
+        } catch (e: PatternSyntaxException) {
+            Regex("^[\\p{IsGreek}]+$")
+        }
+
+        private val CYRILLIC_ALPHABET = try {
+            Regex("^[\\p{Cyrillic}]+$")
+        } catch (e: PatternSyntaxException) {
+            Regex("^[\\p{IsCyrillic}]+$")
+        }
+
+        private val ARABIC_ALPHABET = try {
+            Regex("^[\\p{Arabic}]+$")
+        } catch (e: PatternSyntaxException) {
+            Regex("^[\\p{IsArabic}]+$")
+        }
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
             "Ïï" to CATALAN,
