@@ -295,17 +295,12 @@ class LanguageDetector internal constructor(
     }
 
     private fun <T : Ngram> lookUpQuadrigramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val quadrigrams = ngrams.map {
-            if (it is Quadrigram) it else Quadrigram(it.value.slice(0..3))
-        }.toMutableList()
+        val quadrigrams = ngrams.map { if (it is Quadrigram) it else Quadrigram(it.value.slice(0..3)) }
         return lookUpNgramProbabilities(quadrigramLanguageModels, language, quadrigrams)
     }
 
     private fun <T : Ngram> lookUpFivegramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val fivegrams = ngrams.map {
-            if (it is Fivegram) it else Fivegram(it.value.slice(0..4))
-        }.toMutableList()
-
+        val fivegrams = ngrams.map { if (it is Fivegram) it else Fivegram(it.value.slice(0..4)) }
         return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
     }
 
