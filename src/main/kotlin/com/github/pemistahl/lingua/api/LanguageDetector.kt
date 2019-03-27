@@ -16,7 +16,33 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.*
+import com.github.pemistahl.lingua.api.Language.BASQUE
+import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.CATALAN
+import com.github.pemistahl.lingua.api.Language.CROATIAN
+import com.github.pemistahl.lingua.api.Language.CZECH
+import com.github.pemistahl.lingua.api.Language.DANISH
+import com.github.pemistahl.lingua.api.Language.ESTONIAN
+import com.github.pemistahl.lingua.api.Language.FINNISH
+import com.github.pemistahl.lingua.api.Language.FRENCH
+import com.github.pemistahl.lingua.api.Language.GERMAN
+import com.github.pemistahl.lingua.api.Language.GREEK
+import com.github.pemistahl.lingua.api.Language.HUNGARIAN
+import com.github.pemistahl.lingua.api.Language.ICELANDIC
+import com.github.pemistahl.lingua.api.Language.IRISH
+import com.github.pemistahl.lingua.api.Language.ITALIAN
+import com.github.pemistahl.lingua.api.Language.LATVIAN
+import com.github.pemistahl.lingua.api.Language.LITHUANIAN
+import com.github.pemistahl.lingua.api.Language.NORWEGIAN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
+import com.github.pemistahl.lingua.api.Language.POLISH
+import com.github.pemistahl.lingua.api.Language.PORTUGUESE
+import com.github.pemistahl.lingua.api.Language.ROMANIAN
+import com.github.pemistahl.lingua.api.Language.SPANISH
+import com.github.pemistahl.lingua.api.Language.SWEDISH
+import com.github.pemistahl.lingua.api.Language.TURKISH
+import com.github.pemistahl.lingua.api.Language.UNKNOWN
+import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.internal.model.Bigram
 import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
@@ -26,7 +52,6 @@ import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
-import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import java.util.regex.PatternSyntaxException
 import kotlin.reflect.KClass
 
@@ -63,28 +88,28 @@ class LanguageDetector internal constructor(
 
         if (trimmedText.length >= 1) {
             val unigramTestDataModel = LanguageModel.fromTestData<Unigram>(textSequence)
-            val unigramProbabilities = computeNgramProbabilities(unigramTestDataModel)
+            val unigramProbabilities = computeLanguageProbabilities(unigramTestDataModel)
             if (!unigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(unigramProbabilities)
             }
         }
         if (trimmedText.length >= 2) {
             val bigramTestDataModel = LanguageModel.fromTestData<Bigram>(textSequence)
-            val bigramProbabilities = computeNgramProbabilities(bigramTestDataModel)
+            val bigramProbabilities = computeLanguageProbabilities(bigramTestDataModel)
             if (!bigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(bigramProbabilities)
             }
         }
         if (trimmedText.length >= 3) {
             val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
-            val trigramProbabilities = computeNgramProbabilities(trigramTestDataModel)
+            val trigramProbabilities = computeLanguageProbabilities(trigramTestDataModel)
             if (!trigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(trigramProbabilities)
             }
         }
         if (trimmedText.length >= 4) {
             val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
-            val quadrigramProbabilities = computeNgramProbabilities(quadrigramTestDataModel)
+            val quadrigramProbabilities = computeLanguageProbabilities(quadrigramTestDataModel)
             if (!quadrigramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(quadrigramProbabilities)
             }
@@ -92,13 +117,13 @@ class LanguageDetector internal constructor(
         if (trimmedText.length >= 5) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             if (trimmedText.length <= 30) filterLanguagesByUniqueFivegrams(fivegramTestDataModel)
-            val fivegramProbabilities = computeNgramProbabilities(fivegramTestDataModel)
+            val fivegramProbabilities = computeLanguageProbabilities(fivegramTestDataModel)
             if (!fivegramProbabilities.containsValue(0.0)) {
                 allProbabilities.add(fivegramProbabilities)
             }
         }
 
-        val summedUpProbabilities = Object2DoubleOpenHashMap<Language>()
+        val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
             summedUpProbabilities[language] = allProbabilities.sumByDouble { it.getOrDefault(language, 0.0) }
         }
@@ -210,98 +235,49 @@ class LanguageDetector internal constructor(
         return languagesSequence.filterNot(func).forEach { it.isExcludedFromDetection = true }
     }
 
-    private inline fun <reified T : Ngram> computeNgramProbabilities(
+    private fun <T : Ngram> computeLanguageProbabilities(
         testDataModel: LanguageModel<T, T>
     ): Map<Language, Double> {
-        val lookUpFunctions: Array<(Language, List<T>) -> MutableList<Double?>> = when (T::class) {
-            Unigram::class -> arrayOf(::lookUpUnigramProbabilities)
-            Bigram::class -> arrayOf(::lookUpBigramProbabilities, ::lookUpUnigramProbabilities)
-            Trigram::class -> arrayOf(
-                ::lookUpTrigramProbabilities,
-                ::lookUpBigramProbabilities,
-                ::lookUpUnigramProbabilities
-            )
-            Quadrigram::class -> arrayOf(
-                ::lookUpQuadrigramProbabilities,
-                ::lookUpTrigramProbabilities,
-                ::lookUpBigramProbabilities,
-                ::lookUpUnigramProbabilities
-            )
-            Fivegram::class -> arrayOf(
-                ::lookUpFivegramProbabilities,
-                ::lookUpQuadrigramProbabilities,
-                ::lookUpTrigramProbabilities,
-                ::lookUpBigramProbabilities,
-                ::lookUpUnigramProbabilities
-            )
-            else -> throw IllegalArgumentException(
-                "unsupported ngram type: ${T::class.simpleName}"
-            )
-        }
-        val probabilities = Object2DoubleOpenHashMap<Language>()
+        val probabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
-            probabilities[language] = lookUpNgramProbabilities(language, testDataModel.ngrams, *lookUpFunctions)
+            probabilities[language] = computeSumOfNgramProbabilities(language, testDataModel.ngrams)
         }
         return probabilities
     }
 
-    private fun <T : Ngram> lookUpNgramProbabilities(
+    private fun <T : Ngram> computeSumOfNgramProbabilities(
         language: Language,
-        ngrams: Set<T>,
-        vararg lookUpFunctions: (Language, List<T>) -> MutableList<Double?>
+        ngrams: Set<T>
     ): Double {
-        val ngramsList = ngrams.toMutableList()
-        val probabilities = lookUpFunctions[0](language, ngramsList)
+        val probabilities = mutableListOf<Double>()
 
-        if (lookUpFunctions.size > 1) {
-            for (i in 1 until lookUpFunctions.size) {
-                val indices = mutableListOf<Int>()
-                for ((idx, fraction) in probabilities.withIndex()) {
-                    if (fraction == null) indices.add(idx)
-                }
-                val probs = lookUpFunctions[i](language, ngramsList.filterIndexed {
-                        idx, _ -> indices.contains(idx)
-                })
-                for ((c, idx) in indices.withIndex()) {
-                    probabilities[idx] = probs[c]
+        for (ngram in ngrams) {
+            for (elem in ngram.rangeOfLowerOrderNgrams()) {
+                val probability = lookUpNgramProbability(language, elem)
+                if (probability != null) {
+                    probabilities.add(probability)
+                    break
                 }
             }
         }
-
-        return probabilities.asSequence().filterNotNull().sumByDouble { Math.log(it) }
+        return probabilities.sumByDouble { Math.log(it) }
     }
 
-    private fun <T : Ngram> lookUpNgramProbabilities(
-        languageModels: Map<Language, Lazy<LanguageModel<T, T>>>,
+    private fun <T : Ngram> lookUpNgramProbability(
         language: Language,
-        ngrams: List<T>
-    ): MutableList<Double?> = ngrams.map {
-        languageModels.getValue(language).value.getRelativeFrequency(it)
-    }.toMutableList()
+        ngram: T
+    ): Double? {
+        val languageModels = when (ngram.length) {
+            5 -> fivegramLanguageModels
+            4 -> quadrigramLanguageModels
+            3 -> trigramLanguageModels
+            2 -> bigramLanguageModels
+            1 -> unigramLanguageModels
+            0 -> throw IllegalArgumentException("Zerogram detected")
+            else -> throw IllegalArgumentException("unsupported ngram type detected: $ngram")
+        }
 
-    private fun <T : Ngram> lookUpUnigramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val unigrams = ngrams.map { if (it is Unigram) it else Unigram(it.value[0].toString()) }
-        return lookUpNgramProbabilities(unigramLanguageModels, language, unigrams)
-    }
-
-    private fun <T : Ngram> lookUpBigramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val bigrams = ngrams.map { if (it is Bigram) it else Bigram(it.value.slice(0..1)) }
-        return lookUpNgramProbabilities(bigramLanguageModels, language, bigrams)
-    }
-
-    private fun <T : Ngram> lookUpTrigramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val trigrams = ngrams.map { if (it is Trigram) it else Trigram(it.value.slice(0..2)) }
-        return lookUpNgramProbabilities(trigramLanguageModels, language, trigrams)
-    }
-
-    private fun <T : Ngram> lookUpQuadrigramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val quadrigrams = ngrams.map { if (it is Quadrigram) it else Quadrigram(it.value.slice(0..3)) }
-        return lookUpNgramProbabilities(quadrigramLanguageModels, language, quadrigrams)
-    }
-
-    private fun <T : Ngram> lookUpFivegramProbabilities(language: Language, ngrams: List<T>): MutableList<Double?> {
-        val fivegrams = ngrams.map { if (it is Fivegram) it else Fivegram(it.value.slice(0..4)) }
-        return lookUpNgramProbabilities(fivegramLanguageModels, language, fivegrams)
+        return languageModels.getValue(language).value.getRelativeFrequency(ngram)
     }
 
     private fun <T : Ngram> loadLanguageModel(

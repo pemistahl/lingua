@@ -16,7 +16,7 @@
 
 package com.github.pemistahl.lingua.internal.model
 
-sealed class Ngram(private val length: Int, value: String) : Comparable<Ngram> {
+internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> {
     val value: String = validate(value)
 
     override fun toString() = "${this::class.simpleName}(\"$value\")"
@@ -33,11 +33,10 @@ sealed class Ngram(private val length: Int, value: String) : Comparable<Ngram> {
     override fun compareTo(other: Ngram): Int = when {
         this.value.length > other.value.length -> 1
         this.value.length < other.value.length -> -1
-        //else -> this.value.compareTo(other.value)
         else -> 0
     }
 
-    fun range() = NgramRange(this, Unigram(this.value[0].toString()))
+    fun rangeOfLowerOrderNgrams() = NgramRange(this, Unigram(this.value[0].toString()))
 
     operator fun rangeTo(other: Ngram) = NgramRange(this, other)
 
@@ -61,11 +60,10 @@ sealed class Ngram(private val length: Int, value: String) : Comparable<Ngram> {
     }
 }
 
-class NgramRange(
+internal class NgramRange(
     override val start: Ngram,
     override val endInclusive: Ngram
 ) : ClosedRange<Ngram>, Iterable<Ngram> {
-
     init {
         require(start >= endInclusive) { "$start must be of higher order than $endInclusive" }
     }
@@ -75,8 +73,7 @@ class NgramRange(
     override fun iterator(): Iterator<Ngram> = NgramIterator(start)
 }
 
-class NgramIterator(start: Ngram) : Iterator<Ngram> {
-
+internal class NgramIterator(start: Ngram) : Iterator<Ngram> {
     var current = start
 
     override fun hasNext(): Boolean = current !is Zerogram
@@ -87,10 +84,10 @@ class NgramIterator(start: Ngram) : Iterator<Ngram> {
     }
 }
 
-object Zerogram : Ngram(0, "")
-class Unigram(value: String) : Ngram(1, value)
-class Bigram(value: String) : Ngram(2, value)
-class Trigram(value: String) : Ngram(3, value)
-class Quadrigram(value: String) : Ngram(4, value)
-class Fivegram(value: String) : Ngram(5, value)
-class Sixgram(value: String) : Ngram(6, value)
+internal object Zerogram : Ngram(0, "")
+internal class Unigram(value: String) : Ngram(1, value)
+internal class Bigram(value: String) : Ngram(2, value)
+internal class Trigram(value: String) : Ngram(3, value)
+internal class Quadrigram(value: String) : Ngram(4, value)
+internal class Fivegram(value: String) : Ngram(5, value)
+internal class Sixgram(value: String) : Ngram(6, value)

@@ -148,7 +148,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         this.jsonNgramRelativeFrequencies = emptyMap()
     }
 
-    fun getRelativeFrequency(ngram: T): Double? = jsonNgramRelativeFrequencies[ngram.value]
+    fun <T : Ngram> getRelativeFrequency(ngram: T): Double? = jsonNgramRelativeFrequencies[ngram.value]
 
     fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass, useMapDBCache = false).toJson(
         mapOf(
