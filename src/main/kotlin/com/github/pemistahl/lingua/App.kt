@@ -51,6 +51,7 @@ import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.internal.util.writeLanguageModelsFromLeipzigCorpusFile
 import com.github.pemistahl.lingua.internal.util.writeTestDataFiles
+import com.github.pemistahl.lingua.internal.util.writeUniqueNgramFiles
 import java.io.Console
 import java.util.Scanner
 import kotlin.math.roundToInt
@@ -59,6 +60,8 @@ fun main() {
     runApp()
 
     /*
+    writeUniqueNgramFiles(outputPath = "C:/Users/pstahl/Documents")
+
     writeLanguageModelsFromLeipzigCorpusFile(
         inputPath = "/training-data/ca/ca_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",

@@ -87,45 +87,26 @@ class LanguageDetector internal constructor(
         val allProbabilities = mutableListOf<Map<Language, Double>>()
 
         if (trimmedText.length >= 1) {
-            val unigramTestDataModel = LanguageModel.fromTestData<Unigram>(textSequence)
-            val unigramProbabilities = computeLanguageProbabilities(unigramTestDataModel)
-            if (!unigramProbabilities.containsValue(0.0)) {
-                allProbabilities.add(unigramProbabilities)
-            }
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Unigram>(textSequence))
         }
         if (trimmedText.length >= 2) {
-            val bigramTestDataModel = LanguageModel.fromTestData<Bigram>(textSequence)
-            val bigramProbabilities = computeLanguageProbabilities(bigramTestDataModel)
-            if (!bigramProbabilities.containsValue(0.0)) {
-                allProbabilities.add(bigramProbabilities)
-            }
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Bigram>(textSequence))
         }
         if (trimmedText.length >= 3) {
-            val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
-            val trigramProbabilities = computeLanguageProbabilities(trigramTestDataModel)
-            if (!trigramProbabilities.containsValue(0.0)) {
-                allProbabilities.add(trigramProbabilities)
-            }
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Trigram>(textSequence))
         }
         if (trimmedText.length >= 4) {
-            val quadrigramTestDataModel = LanguageModel.fromTestData<Quadrigram>(textSequence)
-            val quadrigramProbabilities = computeLanguageProbabilities(quadrigramTestDataModel)
-            if (!quadrigramProbabilities.containsValue(0.0)) {
-                allProbabilities.add(quadrigramProbabilities)
-            }
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Quadrigram>(textSequence))
         }
         if (trimmedText.length >= 5) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
             if (trimmedText.length <= 30) filterLanguagesByUniqueFivegrams(fivegramTestDataModel)
-            val fivegramProbabilities = computeLanguageProbabilities(fivegramTestDataModel)
-            if (!fivegramProbabilities.containsValue(0.0)) {
-                allProbabilities.add(fivegramProbabilities)
-            }
+            addNgramProbabilities(allProbabilities, fivegramTestDataModel)
         }
 
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
-            summedUpProbabilities[language] = allProbabilities.sumByDouble { it.getOrDefault(language, 0.0) }
+            summedUpProbabilities[language] = allProbabilities.sumByDouble { it[language] ?: 0.0 }
         }
 
         languagesSequence = languages.asSequence()
@@ -153,17 +134,23 @@ class LanguageDetector internal constructor(
         }
     }
 
+    private fun <T : Ngram> addNgramProbabilities(
+        probabilities: MutableList<Map<Language, Double>>,
+        testDataModel: LanguageModel<T, T>
+    ) {
+        val ngramProbabilities = computeLanguageProbabilities(testDataModel)
+        if (!ngramProbabilities.containsValue(0.0)) {
+            probabilities.add(ngramProbabilities)
+        }
+    }
+
     private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
         val filteredProbabilities = probabilities.asSequence().filter { it.value != 0.0 }
         return if (filteredProbabilities.none()) UNKNOWN
         else filteredProbabilities.maxBy {
                 (_, value) -> value
         }?.key ?: throw IllegalArgumentException(
-            """
-            most likely language can not be determined.
-            are there invalid probability values?
-            probabilities: $probabilities
-            """.trimIndent()
+            "most likely language can not be determined due to some internal error"
         )
     }
 
