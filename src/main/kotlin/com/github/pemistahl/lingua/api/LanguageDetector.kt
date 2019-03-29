@@ -48,10 +48,18 @@ import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
 import com.github.pemistahl.lingua.internal.model.Ngram
 import com.github.pemistahl.lingua.internal.model.Quadrigram
+import com.github.pemistahl.lingua.internal.model.Sixgram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import java.util.regex.PatternSyntaxException
 import kotlin.reflect.KClass
 
@@ -61,6 +69,8 @@ class LanguageDetector internal constructor(
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private var languagesSequence = languages.asSequence()
+
+    private val uniqueNgramsDeserializer: Gson = createUniqueNgramsDeserializer()
 
     private lateinit var unigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Unigram, Unigram>>>
     private lateinit var bigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Bigram, Bigram>>>
@@ -295,6 +305,18 @@ class LanguageDetector internal constructor(
         fivegramLanguageModels = loadLanguageModels(Fivegram::class)
     }
 
+    internal fun <T : Ngram> loadUniqueNgrams(ngramClass: KClass<T>): Map<Language, Set<T>> {
+        var uniqueNgrams: Map<Language, Set<T>>? = null
+        val fileName = "unique${ngramClass.simpleName}s.json"
+        val type = object: TypeToken<Map<Language, Set<T>>>(){}.type
+
+        "/unique-ngrams/$fileName".asJsonResource { jsonReader ->
+            uniqueNgrams = uniqueNgramsDeserializer.fromJson(jsonReader, type)
+        }
+
+        return uniqueNgrams!!
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -402,5 +424,54 @@ class LanguageDetector internal constructor(
 
             "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, VIETNAMESE)
         )
+
+        private fun createUniqueNgramsDeserializer(): Gson {
+            val unigramType = object: TypeToken<Map<Language, Set<Unigram>>>(){}.type
+            val bigramType = object: TypeToken<Map<Language, Set<Bigram>>>(){}.type
+            val trigramType = object: TypeToken<Map<Language, Set<Trigram>>>(){}.type
+            val quadrigramType = object: TypeToken<Map<Language, Set<Quadrigram>>>(){}.type
+            val fivegramType = object: TypeToken<Map<Language, Set<Fivegram>>>(){}.type
+            val sixgramType = object: TypeToken<Map<Language, Set<Sixgram>>>(){}.type
+
+            return GsonBuilder()
+                .registerTypeAdapter(unigramType, UniqueNgramsDeserializer<Unigram>())
+                .registerTypeAdapter(bigramType, UniqueNgramsDeserializer<Bigram>())
+                .registerTypeAdapter(trigramType, UniqueNgramsDeserializer<Trigram>())
+                .registerTypeAdapter(quadrigramType, UniqueNgramsDeserializer<Quadrigram>())
+                .registerTypeAdapter(fivegramType, UniqueNgramsDeserializer<Fivegram>())
+                .registerTypeAdapter(sixgramType, UniqueNgramsDeserializer<Sixgram>())
+                .create()
+        }
+    }
+
+    private class UniqueNgramsDeserializer<T : Ngram> : JsonDeserializer<Map<Language, Set<T>>> {
+        override fun deserialize(
+            json: JsonElement,
+            type: Type,
+            context: JsonDeserializationContext
+        ): Map<Language, Set<T>> {
+            val uniqueNgrams = mutableMapOf<Language, Set<T>>()
+
+            for ((languageJsonElem, ngramsJsonArray) in json.asJsonObject.entrySet()) {
+                val language = Language.valueOf(languageJsonElem)
+                val ngrams = ngramsJsonArray.asJsonArray.map { ngramJsonElem ->
+                    val ngramValue = ngramJsonElem.asString
+                    val ngram = when (ngramValue.length) {
+                        1 -> Unigram(ngramValue)
+                        2 -> Bigram(ngramValue)
+                        3 -> Trigram(ngramValue)
+                        4 -> Quadrigram(ngramValue)
+                        5 -> Fivegram(ngramValue)
+                        6 -> Sixgram(ngramValue)
+                        else -> throw IllegalArgumentException("unsupported ngram detected: $ngramValue")
+                    }
+                    @Suppress("UNCHECKED_CAST")
+                    ngram as T
+                }.toSet()
+
+                uniqueNgrams[language] = ngrams
+            }
+            return uniqueNgrams
+        }
     }
 }
