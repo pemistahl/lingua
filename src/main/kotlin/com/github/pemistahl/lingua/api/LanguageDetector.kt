@@ -71,6 +71,7 @@ class LanguageDetector internal constructor(
     private var languagesSequence = languages.asSequence()
 
     private val uniqueNgramsDeserializer: Gson = createUniqueNgramsDeserializer()
+    private val uniqueFivegrams: Map<Language, Set<Fivegram>> by lazy { loadUniqueNgrams(Fivegram::class) }
 
     private lateinit var unigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Unigram, Unigram>>>
     private lateinit var bigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Bigram, Bigram>>>
@@ -110,7 +111,7 @@ class LanguageDetector internal constructor(
         }
         if (trimmedText.length >= 5) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
-            if (trimmedText.length <= 30) filterLanguagesByUniqueFivegrams(fivegramTestDataModel)
+            //if (trimmedText.length <= 30) filterLanguagesByUniqueFivegrams(fivegramTestDataModel)
             addNgramProbabilities(allProbabilities, fivegramTestDataModel)
         }
 
@@ -205,6 +206,22 @@ class LanguageDetector internal constructor(
     }
 
     private fun filterLanguagesByUniqueFivegrams(fivegramTestDataModel: LanguageModel<Fivegram, Fivegram>) {
+        val languagesWithUniqueFivegrams = mutableSetOf<Language>()
+
+        for (language in languagesSequence) {
+            if (uniqueFivegrams.containsKey(language)) {
+                val uniqueNgrams = uniqueFivegrams.getValue(language)
+                val uniqueNgramsIntersection = fivegramTestDataModel.ngrams.intersect(uniqueNgrams)
+                if (uniqueNgramsIntersection.isNotEmpty()) languagesWithUniqueFivegrams.add(language)
+            }
+        }
+
+        if (languagesWithUniqueFivegrams.isNotEmpty()) filterLanguages {
+            it in languagesWithUniqueFivegrams
+        }
+
+
+        /*
         val ngramInLanguageCounts = mutableMapOf<Fivegram, MutableList<Language>>()
         for (fivegram in fivegramTestDataModel.ngrams) {
             val supportedLanguages = mutableListOf<Language>()
@@ -226,6 +243,7 @@ class LanguageDetector internal constructor(
         if (languagesWithUniqueNgrams.isNotEmpty()) filterLanguages {
             it in languagesWithUniqueNgrams
         }
+        */
     }
 
     private fun filterLanguages(func: (Language) -> Boolean) {

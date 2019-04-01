@@ -88,8 +88,10 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
             for (i in 0..ngramLine.length - ngramLength) {
                 val textSlice = ngramLine.slice(i until i + ngramLength)
-                val ngram = getNgramInstance<T>(ngramLength, textSlice)
-                ngrams.add(ngram)
+                if (!textSlice.contains(' ')) {
+                    val ngram = getNgramInstance<T>(ngramLength, textSlice)
+                    ngrams.add(ngram)
+                }
             }
         }
 
