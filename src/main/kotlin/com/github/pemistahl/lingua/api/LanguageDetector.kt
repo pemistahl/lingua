@@ -61,6 +61,7 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 import java.util.regex.PatternSyntaxException
+import kotlin.math.absoluteValue
 import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
@@ -104,14 +105,16 @@ class LanguageDetector internal constructor(
             addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Bigram>(textSequence))
         }
         if (trimmedText.length >= 3) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Trigram>(textSequence))
+            val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
+            //filterLanguagesByUniqueNgrams(trigramTestDataModel)
+            addNgramProbabilities(allProbabilities, trigramTestDataModel)
         }
         if (trimmedText.length >= 4) {
             addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Quadrigram>(textSequence))
         }
         if (trimmedText.length >= 5) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
-            //if (trimmedText.length <= 30) filterLanguagesByUniqueFivegrams(fivegramTestDataModel)
+            //if (trimmedText.length <= 30) filterLanguagesByUniqueNgrams(fivegramTestDataModel)
             addNgramProbabilities(allProbabilities, fivegramTestDataModel)
         }
 
@@ -124,6 +127,20 @@ class LanguageDetector internal constructor(
         languagesSequence.forEach { it.isExcludedFromDetection = false }
 
         return getMostLikelyLanguage(summedUpProbabilities)
+    }
+
+    private fun computeConfidenceScores(probabilities: Map<Language, Double>): Map<Language, Double> {
+        val sortedProbabilities = probabilities.toList().sortedBy { (_, value) -> value }.reversed().toMap()
+        var invertedProbabilitiesList = sortedProbabilities.keys.zip(sortedProbabilities.values.map { it.absoluteValue }.reversed())
+
+        if (invertedProbabilitiesList.size > 5) {
+            invertedProbabilitiesList = invertedProbabilitiesList.slice(0..4)
+        }
+
+        val invertedProbabilities = invertedProbabilitiesList.toMap()
+        val factor = 1.0 / invertedProbabilities.values.sum()
+
+        return invertedProbabilities.mapValues { it.value * factor }
     }
 
     internal fun addLanguageModel(language: Language) {
@@ -205,21 +222,20 @@ class LanguageDetector internal constructor(
         }
     }
 
-    private fun filterLanguagesByUniqueFivegrams(fivegramTestDataModel: LanguageModel<Fivegram, Fivegram>) {
-        val languagesWithUniqueFivegrams = mutableSetOf<Language>()
+    private fun <T : Ngram> filterLanguagesByUniqueNgrams(ngramTestDataModel: LanguageModel<T, T>) {
+        val languagesWithUniqueNgrams = mutableSetOf<Language>()
 
         for (language in languagesSequence) {
             if (uniqueFivegrams.containsKey(language)) {
                 val uniqueNgrams = uniqueFivegrams.getValue(language)
-                val uniqueNgramsIntersection = fivegramTestDataModel.ngrams.intersect(uniqueNgrams)
-                if (uniqueNgramsIntersection.isNotEmpty()) languagesWithUniqueFivegrams.add(language)
+                val uniqueNgramsIntersection = ngramTestDataModel.ngrams.intersect(uniqueNgrams)
+                if (uniqueNgramsIntersection.isNotEmpty()) languagesWithUniqueNgrams.add(language)
             }
         }
 
-        if (languagesWithUniqueFivegrams.isNotEmpty()) filterLanguages {
-            it in languagesWithUniqueFivegrams
+        if (languagesWithUniqueNgrams.isNotEmpty()) filterLanguages {
+            it in languagesWithUniqueNgrams
         }
-
 
         /*
         val ngramInLanguageCounts = mutableMapOf<Fivegram, MutableList<Language>>()
