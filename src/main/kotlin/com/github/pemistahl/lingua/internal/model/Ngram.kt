@@ -19,7 +19,7 @@ package com.github.pemistahl.lingua.internal.model
 internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> {
     val value: String = validate(value)
 
-    override fun toString() = "${this::class.simpleName}(\"$value\")"
+    override fun toString() = value
 
     override fun hashCode() = value.hashCode()
 

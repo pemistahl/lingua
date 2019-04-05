@@ -1,17 +1,17 @@
 ##### IRISH #####
 
->>> Accuracy on average: 80,57%
+>>> Accuracy on average: 80,43%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 58,60%
-Erroneously classified as UNKNOWN: 40,50%, ENGLISH: 0,30%, CZECH: 0,20%, WELSH: 0,10%, FRENCH: 0,10%, FINNISH: 0,10%, HUNGARIAN: 0,10%
+Accuracy: 58,30%
+Erroneously classified as UNKNOWN: 40,80%, ENGLISH: 0,30%, CZECH: 0,20%, WELSH: 0,10%, FRENCH: 0,10%, FINNISH: 0,10%, HUNGARIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 85,50%
-Erroneously classified as UNKNOWN: 14,00%, ENGLISH: 0,40%, SPANISH: 0,10%
+Accuracy: 85,40%
+Erroneously classified as UNKNOWN: 14,00%, ENGLISH: 0,40%, SPANISH: 0,10%, TAGALOG: 0,10%
 
 >> Detection of 1000 sentences (average length: 113 chars)
 Accuracy: 97,60%
 Erroneously classified as UNKNOWN: 1,90%, ENGLISH: 0,40%, FRENCH: 0,10%
 
->> Exact values: 80.56666666666666 58.599999999999994 85.5 97.6
+>> Exact values: 80.43333333333332 58.3 85.39999999999999 97.6

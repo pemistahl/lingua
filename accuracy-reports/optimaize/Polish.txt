@@ -1,17 +1,17 @@
 ##### POLISH #####
 
->>> Accuracy on average: 82,50%
+>>> Accuracy on average: 82,40%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 60,60%
-Erroneously classified as UNKNOWN: 39,20%, WELSH: 0,10%, HUNGARIAN: 0,10%
+Accuracy: 60,40%
+Erroneously classified as UNKNOWN: 39,40%, WELSH: 0,10%, HUNGARIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 87,20%
-Erroneously classified as UNKNOWN: 12,30%, HUNGARIAN: 0,20%, CROATIAN: 0,20%, FINNISH: 0,10%
+Accuracy: 87,10%
+Erroneously classified as UNKNOWN: 12,40%, HUNGARIAN: 0,20%, CROATIAN: 0,20%, FINNISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 99 chars)
 Accuracy: 99,70%
 Erroneously classified as CROATIAN: 0,10%, UNKNOWN: 0,10%, CATALAN: 0,10%
 
->> Exact values: 82.5 60.6 87.2 99.7
+>> Exact values: 82.39999999999999 60.4 87.1 99.7

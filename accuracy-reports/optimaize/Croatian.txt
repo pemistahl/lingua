@@ -1,17 +1,17 @@
 ##### CROATIAN #####
 
->>> Accuracy on average: 69,17%
+>>> Accuracy on average: 69,03%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 33,60%
-Erroneously classified as UNKNOWN: 66,00%, ENGLISH: 0,20%, GERMAN: 0,10%, BASQUE: 0,10%
+Erroneously classified as UNKNOWN: 65,90%, ENGLISH: 0,20%, TAGALOG: 0,10%, GERMAN: 0,10%, BASQUE: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 74,90%
-Erroneously classified as UNKNOWN: 24,60%, ESTONIAN: 0,20%, SOMALI: 0,10%, ENGLISH: 0,10%, POLISH: 0,10%
+Accuracy: 74,50%
+Erroneously classified as UNKNOWN: 24,90%, ESTONIAN: 0,20%, SOMALI: 0,10%, TAGALOG: 0,10%, ENGLISH: 0,10%, POLISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 127 chars)
 Accuracy: 99,00%
 Erroneously classified as UNKNOWN: 0,90%, POLISH: 0,10%
 
->> Exact values: 69.16666666666667 33.6 74.9 99.0
+>> Exact values: 69.03333333333333 33.6 74.5 99.0

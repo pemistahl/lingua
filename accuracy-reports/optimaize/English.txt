@@ -1,17 +1,17 @@
 ##### ENGLISH #####
 
->>> Accuracy on average: 40,87%
+>>> Accuracy on average: 40,73%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 2,60%
-Erroneously classified as UNKNOWN: 96,60%, FRENCH: 0,20%, WELSH: 0,20%, SOMALI: 0,10%, ROMANIAN: 0,10%, AFRIKAANS: 0,10%, IRISH: 0,10%
+Accuracy: 2,50%
+Erroneously classified as UNKNOWN: 96,50%, FRENCH: 0,20%, WELSH: 0,20%, TAGALOG: 0,20%, SOMALI: 0,10%, ROMANIAN: 0,10%, AFRIKAANS: 0,10%, IRISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 23,20%
-Erroneously classified as UNKNOWN: 75,30%, FRENCH: 0,60%, ROMANIAN: 0,30%, WELSH: 0,20%, PORTUGUESE: 0,10%, ITALIAN: 0,10%, DUTCH: 0,10%, GERMAN: 0,10%
+Accuracy: 22,90%
+Erroneously classified as UNKNOWN: 75,30%, FRENCH: 0,60%, ROMANIAN: 0,30%, TAGALOG: 0,30%, WELSH: 0,20%, PORTUGUESE: 0,10%, ITALIAN: 0,10%, DUTCH: 0,10%, GERMAN: 0,10%
 
 >> Detection of 999 sentences (average length: 108 chars)
 Accuracy: 96,80%
 Erroneously classified as UNKNOWN: 3,20%
 
->> Exact values: 40.865598932265605 2.6 23.200000000000003 96.7967967967968
+>> Exact values: 40.732265598932266 2.5 22.900000000000002 96.7967967967968

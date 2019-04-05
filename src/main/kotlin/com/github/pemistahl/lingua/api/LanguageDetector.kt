@@ -71,8 +71,8 @@ class LanguageDetector internal constructor(
 ) {
     private var languagesSequence = languages.asSequence()
 
-    private val uniqueNgramsDeserializer: Gson = createUniqueNgramsDeserializer()
-    private val uniqueFivegrams: Map<Language, Set<Fivegram>> by lazy { loadUniqueNgrams(Fivegram::class) }
+    //private val uniqueNgramsDeserializer: Gson = createUniqueNgramsDeserializer()
+    //private val uniqueFivegrams: Map<Language, Set<Fivegram>> by lazy { loadUniqueNgrams(Fivegram::class) }
 
     private lateinit var unigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Unigram, Unigram>>>
     private lateinit var bigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Bigram, Bigram>>>
@@ -222,6 +222,7 @@ class LanguageDetector internal constructor(
         }
     }
 
+    /*
     private fun <T : Ngram> filterLanguagesByUniqueNgrams(ngramTestDataModel: LanguageModel<T, T>) {
         val languagesWithUniqueNgrams = mutableSetOf<Language>()
 
@@ -237,7 +238,7 @@ class LanguageDetector internal constructor(
             it in languagesWithUniqueNgrams
         }
 
-        /*
+        // OLD
         val ngramInLanguageCounts = mutableMapOf<Fivegram, MutableList<Language>>()
         for (fivegram in fivegramTestDataModel.ngrams) {
             val supportedLanguages = mutableListOf<Language>()
@@ -259,8 +260,8 @@ class LanguageDetector internal constructor(
         if (languagesWithUniqueNgrams.isNotEmpty()) filterLanguages {
             it in languagesWithUniqueNgrams
         }
-        */
     }
+    */
 
     private fun filterLanguages(func: (Language) -> Boolean) {
         return languagesSequence.filterNot(func).forEach { it.isExcludedFromDetection = true }
@@ -339,6 +340,7 @@ class LanguageDetector internal constructor(
         fivegramLanguageModels = loadLanguageModels(Fivegram::class)
     }
 
+    /*
     internal fun <T : Ngram> loadUniqueNgrams(ngramClass: KClass<T>): Map<Language, Set<T>> {
         var uniqueNgrams: Map<Language, Set<T>>? = null
         val fileName = "unique${ngramClass.simpleName}s.json"
@@ -350,6 +352,7 @@ class LanguageDetector internal constructor(
 
         return uniqueNgrams!!
     }
+    */
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
