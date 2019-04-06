@@ -38,6 +38,7 @@ import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
+import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TURKISH
@@ -83,6 +84,8 @@ class LanguageDetector internal constructor(
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
     fun detectLanguageOf(text: String): Language {
+        resetLanguageFilter()
+
         val trimmedText = text.trim().toLowerCase()
         if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return UNKNOWN
 
@@ -92,8 +95,6 @@ class LanguageDetector internal constructor(
         if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
 
         filterLanguagesByRules(words)
-
-        languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
 
         val textSequence = trimmedText.lineSequence()
         val allProbabilities = mutableListOf<Map<Language, Double>>()
@@ -106,7 +107,6 @@ class LanguageDetector internal constructor(
         }
         if (trimmedText.length >= 3) {
             val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
-            //filterLanguagesByUniqueNgrams(trigramTestDataModel)
             addNgramProbabilities(allProbabilities, trigramTestDataModel)
         }
         if (trimmedText.length >= 4) {
@@ -114,22 +114,23 @@ class LanguageDetector internal constructor(
         }
         if (trimmedText.length >= 5) {
             val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
-            //if (trimmedText.length <= 30) filterLanguagesByUniqueNgrams(fivegramTestDataModel)
             addNgramProbabilities(allProbabilities, fivegramTestDataModel)
         }
 
-        val summedUpProbabilities = hashMapOf<Language, Double>()
-        for (language in languagesSequence) {
-            summedUpProbabilities[language] = allProbabilities.sumByDouble { it[language] ?: 0.0 }
-        }
-
-        languagesSequence = languages.asSequence()
-        languagesSequence.forEach { it.isExcludedFromDetection = false }
-
-        return getMostLikelyLanguage(summedUpProbabilities)
+        return getMostLikelyLanguage(allProbabilities)
     }
 
-    private fun computeConfidenceScores(probabilities: Map<Language, Double>): Map<Language, Double> {
+    internal fun resetLanguageFilter() {
+        languagesSequence = languages.asSequence()
+        languagesSequence.forEach { it.isExcludedFromDetection = false }
+    }
+
+    internal fun applyLanguageFilter(func: (Language) -> Boolean) {
+        languagesSequence.filterNot(func).forEach { it.isExcludedFromDetection = true }
+        languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
+    }
+
+    internal fun computeConfidenceScores(probabilities: Map<Language, Double>): Map<Language, Double> {
         val sortedProbabilities = probabilities.toList().sortedBy { (_, value) -> value }.reversed().toMap()
         var invertedProbabilitiesList = sortedProbabilities.keys.zip(sortedProbabilities.values.map { it.absoluteValue }.reversed())
 
@@ -172,8 +173,13 @@ class LanguageDetector internal constructor(
         }
     }
 
-    private fun getMostLikelyLanguage(probabilities: Map<Language, Double>): Language {
-        val filteredProbabilities = probabilities.asSequence().filter { it.value != 0.0 }
+    internal fun getMostLikelyLanguage(probabilities: List<Map<Language, Double>>): Language {
+        val summedUpProbabilities = hashMapOf<Language, Double>()
+        for (language in languagesSequence) {
+            summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
+        }
+
+        val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
         return if (filteredProbabilities.none()) UNKNOWN
         else filteredProbabilities.maxBy {
                 (_, value) -> value
@@ -197,18 +203,18 @@ class LanguageDetector internal constructor(
     internal fun filterLanguagesByRules(words: List<String>) {
         for (word in words) {
             if (CYRILLIC_ALPHABET.matches(word)) {
-                filterLanguages(Language::hasCyrillicAlphabet)
+                applyLanguageFilter(Language::hasCyrillicAlphabet)
                 break
             }
             else if (ARABIC_ALPHABET.matches(word)) {
-                filterLanguages(Language::hasArabicAlphabet)
+                applyLanguageFilter(Language::hasArabicAlphabet)
                 break
             }
             else if (LATIN_ALPHABET.matches(word)) {
-                filterLanguages(Language::hasLatinAlphabet)
+                applyLanguageFilter(Language::hasLatinAlphabet)
 
                 if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    filterLanguages { it != NORWEGIAN }
+                    applyLanguageFilter { it != NORWEGIAN }
                 }
                 val languagesSubset = mutableSetOf<Language>()
                 for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
@@ -216,7 +222,7 @@ class LanguageDetector internal constructor(
                         languagesSubset.addAll(languages)
                     }
                 }
-                if (languagesSubset.isNotEmpty()) filterLanguages { it in languagesSubset }
+                if (languagesSubset.isNotEmpty()) applyLanguageFilter { it in languagesSubset }
                 break
             }
         }
@@ -234,7 +240,7 @@ class LanguageDetector internal constructor(
             }
         }
 
-        if (languagesWithUniqueNgrams.isNotEmpty()) filterLanguages {
+        if (languagesWithUniqueNgrams.isNotEmpty()) applyLanguageFilter {
             it in languagesWithUniqueNgrams
         }
 
@@ -257,15 +263,11 @@ class LanguageDetector internal constructor(
             }
         }
 
-        if (languagesWithUniqueNgrams.isNotEmpty()) filterLanguages {
+        if (languagesWithUniqueNgrams.isNotEmpty()) applyLanguageFilter {
             it in languagesWithUniqueNgrams
         }
     }
     */
-
-    private fun filterLanguages(func: (Language) -> Boolean) {
-        return languagesSequence.filterNot(func).forEach { it.isExcludedFromDetection = true }
-    }
 
     private fun <T : Ngram> computeLanguageProbabilities(
         testDataModel: LanguageModel<T, T>
@@ -402,13 +404,14 @@ class LanguageDetector internal constructor(
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
             "Ïï" to CATALAN,
-            "ĚěŇňŘřŤťŮů" to CZECH,
+            "ĚěŘřŮů" to CZECH,
             "ß" to GERMAN,
             "ŐőŰű" to HUNGARIAN,
             "ĀāĒēĢģĪīĶķĻļŅņ" to LATVIAN,
             "ĖėĮįŲų" to LITHUANIAN,
             "ŁłŃńŚśŹź" to POLISH,
             "Țţ" to ROMANIAN,
+            "ĹĺĽľŔŕ" to SLOVAK,
             "¿¡" to SPANISH,
             "İıĞğ" to TURKISH,
             """
@@ -423,7 +426,6 @@ class LanguageDetector internal constructor(
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),
-            "Ďď" to setOf(CZECH, ROMANIAN),
             "Đđ" to setOf(CROATIAN, VIETNAMESE),
             "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
             "ĄąĘę" to setOf(LITHUANIAN, POLISH),
@@ -433,20 +435,23 @@ class LanguageDetector internal constructor(
             "Îî" to setOf(FRENCH, ROMANIAN),
             "Ìì" to setOf(ITALIAN, VIETNAMESE),
             "Ññ" to setOf(BASQUE, SPANISH),
+            "ŇňŤť" to setOf(CZECH, SLOVAK),
 
+            "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ăă" to setOf(CZECH, ROMANIAN, VIETNAMESE),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
-            "ÊêÔô" to setOf(FRENCH, PORTUGUESE, VIETNAMESE),
+            "Êê" to setOf(FRENCH, PORTUGUESE, VIETNAMESE),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
 
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
             "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE),
+            "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
             "Øø" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK),
-            "Ýý" to setOf(CZECH, ICELANDIC, TURKISH, VIETNAMESE),
-            "ČčŠšŽž" to setOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN),
-            "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SWEDISH),
 
+            "ČčŠšŽž" to setOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK),
+            "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
+            "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
             "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
             "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
             "Üü" to setOf(CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
@@ -455,11 +460,12 @@ class LanguageDetector internal constructor(
 
             "Çç" to setOf(BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
 
-            "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, VIETNAMESE),
-            "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, VIETNAMESE),
             "Öö" to setOf(ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
 
-            "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, VIETNAMESE)
+            "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE),
+            "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE),
+
+            "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
         )
 
         private fun createUniqueNgramsDeserializer(): Gson {

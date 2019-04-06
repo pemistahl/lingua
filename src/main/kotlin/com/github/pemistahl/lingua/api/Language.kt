@@ -58,6 +58,7 @@ enum class Language(
     PORTUGUESE ("pt", true, false, false, false, false),
     ROMANIAN   ("ro", true, false, false, false, false),
     RUSSIAN    ("ru", false, false, true, false, false),
+    SLOVAK     ("sk", true, false, false, false, false),
     SOMALI     ("so", true, false, false, false, false),
     SPANISH    ("es", true, false, false, false, false),
     SWEDISH    ("sv", true, false, false, false, false),
@@ -69,13 +70,10 @@ enum class Language(
     UNKNOWN    ("<unk>", false, false, false, false, true);
 
     companion object {
-        fun getByIsoCode(isoCode: String): Language {
-            for (language in Language.values()) {
-                if (isoCode == language.isoCode) {
-                    return language
-                }
-            }
-            throw IllegalArgumentException("language with iso code '$isoCode' can not be found")
-        }
+        fun getByIsoCode(isoCode: String) = Language.values().find {
+            it.isoCode == isoCode
+        } ?: throw IllegalArgumentException(
+            "language with iso code '$isoCode' can not be found"
+        )
     }
 }

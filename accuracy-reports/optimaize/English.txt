@@ -4,7 +4,7 @@
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 2,50%
-Erroneously classified as UNKNOWN: 96,50%, FRENCH: 0,20%, WELSH: 0,20%, TAGALOG: 0,20%, SOMALI: 0,10%, ROMANIAN: 0,10%, AFRIKAANS: 0,10%, IRISH: 0,10%
+Erroneously classified as UNKNOWN: 96,60%, FRENCH: 0,20%, TAGALOG: 0,20%, WELSH: 0,10%, SOMALI: 0,10%, ROMANIAN: 0,10%, AFRIKAANS: 0,10%, IRISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 22,90%

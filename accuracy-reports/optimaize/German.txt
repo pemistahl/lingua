@@ -8,7 +8,7 @@ Erroneously classified as UNKNOWN: 77,60%, BASQUE: 0,30%, SWEDISH: 0,20%, WELSH:
 
 >> Detection of 1000 word pairs (average length: 18 chars)
 Accuracy: 45,30%
-Erroneously classified as UNKNOWN: 52,70%, AFRIKAANS: 0,80%, SWEDISH: 0,70%, BASQUE: 0,20%, FINNISH: 0,10%, CZECH: 0,10%, ENGLISH: 0,10%
+Erroneously classified as UNKNOWN: 52,80%, AFRIKAANS: 0,80%, SWEDISH: 0,70%, BASQUE: 0,20%, FINNISH: 0,10%, ENGLISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 98,70%

@@ -1,17 +1,17 @@
 ##### ESTONIAN #####
 
->>> Accuracy on average: 61,33%
+>>> Accuracy on average: 61,30%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 23,40%
 Erroneously classified as UNKNOWN: 75,90%, SOMALI: 0,20%, TAGALOG: 0,20%, FINNISH: 0,20%, SWEDISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 63,00%
-Erroneously classified as UNKNOWN: 36,50%, FINNISH: 0,20%, SOMALI: 0,20%, ICELANDIC: 0,10%
+Accuracy: 62,90%
+Erroneously classified as UNKNOWN: 36,60%, FINNISH: 0,20%, SOMALI: 0,20%, ICELANDIC: 0,10%
 
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 97,60%
 Erroneously classified as UNKNOWN: 2,30%, FINNISH: 0,10%
 
->> Exact values: 61.333333333333336 23.400000000000002 63.0 97.6
+>> Exact values: 61.29999999999999 23.400000000000002 62.9 97.6

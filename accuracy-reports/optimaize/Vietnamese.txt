@@ -8,7 +8,7 @@ Erroneously classified as UNKNOWN: 34,24%, TAGALOG: 0,23%, PORTUGUESE: 0,11%, PO
 
 >> Detection of 957 word pairs (average length: 12 chars)
 Accuracy: 95,40%
-Erroneously classified as UNKNOWN: 4,39%, TAGALOG: 0,10%, CZECH: 0,10%
+Erroneously classified as UNKNOWN: 4,49%, TAGALOG: 0,10%
 
 >> Detection of 1000 sentences (average length: 120 chars)
 Accuracy: 99,90%

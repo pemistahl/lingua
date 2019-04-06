@@ -1,10 +1,10 @@
 ##### DUTCH #####
 
->>> Accuracy on average: 38,73%
+>>> Accuracy on average: 38,70%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 5,80%
-Erroneously classified as UNKNOWN: 91,70%, GERMAN: 0,80%, WELSH: 0,20%, IRISH: 0,20%, AFRIKAANS: 0,20%, CROATIAN: 0,20%, SPANISH: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%, TAGALOG: 0,10%, DANISH: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%, FINNISH: 0,10%
+Accuracy: 5,70%
+Erroneously classified as UNKNOWN: 91,80%, GERMAN: 0,80%, WELSH: 0,20%, IRISH: 0,20%, AFRIKAANS: 0,20%, CROATIAN: 0,20%, SPANISH: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%, TAGALOG: 0,10%, DANISH: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%, FINNISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 19,00%
@@ -14,4 +14,4 @@ Erroneously classified as UNKNOWN: 76,60%, AFRIKAANS: 2,10%, ENGLISH: 0,40%, IRI
 Accuracy: 91,40%
 Erroneously classified as UNKNOWN: 7,80%, AFRIKAANS: 0,60%, ENGLISH: 0,20%
 
->> Exact values: 38.733333333333334 5.800000000000001 19.0 91.4
+>> Exact values: 38.7 5.7 19.0 91.4
