@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua
 
+import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllBuiltInLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromLanguages
 import com.github.pemistahl.lingua.api.Language.ARABIC
@@ -63,16 +64,16 @@ fun main() {
     //writeUniqueNgramFiles(outputPath = "C:/Users/pstahl/Documents")
 
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/sl/sl_1M.txt",
+        inputPath = "/training-data/sq/sq_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",
-        language = SLOVENE,
+        language = ALBANIAN,
         charClass = "IsLatin"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/sl/sl_10K.txt",
+        inputPath = "/training-data/sq/sq_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "sl",
+        isoCode = "sq",
         charClass = "IsLatin"
     )
 }

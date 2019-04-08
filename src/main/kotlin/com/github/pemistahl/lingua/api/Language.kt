@@ -26,6 +26,7 @@ enum class Language(
 ) {
 
     AFRIKAANS  ("af", true, false, false, false, false),
+    ALBANIAN   ("sq", true, false, false, false, false),
     ARABIC     ("ar", false, false, false, true, false),
     BASQUE     ("eu", true, false, false, false, false),
     BELARUSIAN ("be", false, false, true, false, false),

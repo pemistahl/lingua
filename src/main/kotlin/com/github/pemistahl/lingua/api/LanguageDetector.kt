@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua.api
 
+import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CATALAN
@@ -175,10 +176,16 @@ class LanguageDetector internal constructor(
     }
 
     internal fun getMostLikelyLanguage(probabilities: List<Map<Language, Double>>): Language {
+        //for (elem in probabilities) {
+        //    println(elem.toList().sortedByDescending { it.second }.toMap())
+        //}
+
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
         }
+
+        //println("TOTAL: ${summedUpProbabilities.toList().sortedByDescending { it.second }.toMap()}")
 
         val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
         return if (filteredProbabilities.none()) UNKNOWN
@@ -404,6 +411,7 @@ class LanguageDetector internal constructor(
         }
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
+            "Ëë" to ALBANIAN,
             "Ïï" to CATALAN,
             "ĚěŘřŮů" to CZECH,
             "ß" to GERMAN,
@@ -458,9 +466,9 @@ class LanguageDetector internal constructor(
             "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
             "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
 
-            "Çç" to setOf(BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
             "ČčŠšŽž" to setOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
 
+            "Çç" to setOf(ALBANIAN, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
             "Öö" to setOf(ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
 
             "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE),

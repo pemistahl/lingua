@@ -1,17 +1,17 @@
 ##### LITHUANIAN #####
 
->>> Accuracy on average: 72,03%
+>>> Accuracy on average: 71,97%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 40,60%
 Erroneously classified as UNKNOWN: 59,30%, TAGALOG: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 77,20%
-Erroneously classified as UNKNOWN: 22,70%, TAGALOG: 0,10%
+Accuracy: 77,10%
+Erroneously classified as UNKNOWN: 22,80%, TAGALOG: 0,10%
 
 >> Detection of 1000 sentences (average length: 108 chars)
-Accuracy: 98,30%
-Erroneously classified as UNKNOWN: 1,60%, ITALIAN: 0,10%
+Accuracy: 98,20%
+Erroneously classified as UNKNOWN: 1,60%, ITALIAN: 0,10%, ALBANIAN: 0,10%
 
->> Exact values: 72.03333333333335 40.6 77.2 98.3
+>> Exact values: 71.96666666666668 40.6 77.10000000000001 98.2

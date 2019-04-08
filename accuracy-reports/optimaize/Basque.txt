@@ -1,10 +1,10 @@
 ##### BASQUE #####
 
->>> Accuracy on average: 66,10%
+>>> Accuracy on average: 66,07%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 33,10%
-Erroneously classified as UNKNOWN: 65,80%, SOMALI: 0,30%, SPANISH: 0,20%, ITALIAN: 0,20%, POLISH: 0,20%, FINNISH: 0,10%, PORTUGUESE: 0,10%
+Accuracy: 33,00%
+Erroneously classified as UNKNOWN: 65,90%, SOMALI: 0,30%, SPANISH: 0,20%, ITALIAN: 0,20%, POLISH: 0,20%, FINNISH: 0,10%, PORTUGUESE: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 69,90%
@@ -14,4 +14,4 @@ Erroneously classified as UNKNOWN: 28,60%, FRENCH: 0,30%, IRISH: 0,20%, SPANISH:
 Accuracy: 95,30%
 Erroneously classified as UNKNOWN: 3,90%, ENGLISH: 0,30%, LITHUANIAN: 0,20%, ITALIAN: 0,10%, WELSH: 0,10%, ROMANIAN: 0,10%
 
->> Exact values: 66.10000000000001 33.1 69.89999999999999 95.3
+>> Exact values: 66.06666666666666 33.0 69.89999999999999 95.3
