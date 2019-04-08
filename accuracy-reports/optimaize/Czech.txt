@@ -1,17 +1,17 @@
 ##### CZECH #####
 
->>> Accuracy on average: 49,80%
+>>> Accuracy on average: 49,43%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 21,00%
-Erroneously classified as UNKNOWN: 77,60%, POLISH: 0,30%, CROATIAN: 0,30%, WELSH: 0,20%, SLOVAK: 0,20%, ICELANDIC: 0,10%, BASQUE: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%
+Accuracy: 20,90%
+Erroneously classified as UNKNOWN: 78,10%, POLISH: 0,30%, WELSH: 0,20%, SLOVAK: 0,20%, CROATIAN: 0,10%, ICELANDIC: 0,10%, ENGLISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 47,40%
-Erroneously classified as UNKNOWN: 50,60%, SLOVAK: 0,90%, CROATIAN: 0,70%, POLISH: 0,20%, HUNGARIAN: 0,10%, ICELANDIC: 0,10%
+Accuracy: 46,50%
+Erroneously classified as UNKNOWN: 52,40%, SLOVAK: 0,70%, POLISH: 0,20%, HUNGARIAN: 0,10%, ICELANDIC: 0,10%
 
 >> Detection of 1000 sentences (average length: 93 chars)
-Accuracy: 81,00%
-Erroneously classified as UNKNOWN: 15,90%, SLOVAK: 1,50%, CROATIAN: 1,00%, POLISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, ESTONIAN: 0,10%
+Accuracy: 80,90%
+Erroneously classified as UNKNOWN: 16,00%, SLOVAK: 1,30%, SLOVENE: 0,90%, CROATIAN: 0,30%, POLISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, ESTONIAN: 0,10%
 
->> Exact values: 49.800000000000004 21.0 47.4 81.0
+>> Exact values: 49.43333333333334 20.9 46.5 80.9

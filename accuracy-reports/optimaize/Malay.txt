@@ -1,6 +1,6 @@
 ##### MALAY #####
 
->>> Accuracy on average: 3,70%
+>>> Accuracy on average: 3,77%
 
 >> Detection of 1000 single words (average length: 7 chars)
 Accuracy: 0,00%
@@ -8,10 +8,10 @@ Erroneously classified as UNKNOWN: 98,30%, SOMALI: 0,60%, TAGALOG: 0,40%, WELSH:
 
 >> Detection of 1000 word pairs (average length: 15 chars)
 Accuracy: 0,20%
-Erroneously classified as UNKNOWN: 96,20%, TAGALOG: 1,00%, SOMALI: 0,70%, ENGLISH: 0,70%, INDONESIAN: 0,50%, ITALIAN: 0,30%, WELSH: 0,20%, BASQUE: 0,10%, CROATIAN: 0,10%
+Erroneously classified as UNKNOWN: 96,30%, TAGALOG: 1,00%, SOMALI: 0,70%, ENGLISH: 0,70%, INDONESIAN: 0,50%, ITALIAN: 0,30%, WELSH: 0,20%, BASQUE: 0,10%
 
 >> Detection of 1000 sentences (average length: 116 chars)
-Accuracy: 10,90%
-Erroneously classified as UNKNOWN: 46,90%, INDONESIAN: 40,10%, ENGLISH: 1,90%, WELSH: 0,10%, CATALAN: 0,10%
+Accuracy: 11,10%
+Erroneously classified as UNKNOWN: 46,70%, INDONESIAN: 40,10%, ENGLISH: 1,90%, WELSH: 0,10%, CATALAN: 0,10%
 
->> Exact values: 3.6999999999999997 0.0 0.2 10.9
+>> Exact values: 3.766666666666666 0.0 0.2 11.1

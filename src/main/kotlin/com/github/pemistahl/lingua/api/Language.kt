@@ -59,6 +59,7 @@ enum class Language(
     ROMANIAN   ("ro", true, false, false, false, false),
     RUSSIAN    ("ru", false, false, true, false, false),
     SLOVAK     ("sk", true, false, false, false, false),
+    SLOVENE    ("sl", true, false, false, false, false),
     SOMALI     ("so", true, false, false, false, false),
     SPANISH    ("es", true, false, false, false, false),
     SWEDISH    ("sv", true, false, false, false, false),

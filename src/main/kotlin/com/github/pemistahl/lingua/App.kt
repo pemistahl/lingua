@@ -45,6 +45,7 @@ import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
+import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SOMALI
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
@@ -57,25 +58,23 @@ import java.util.Scanner
 import kotlin.math.roundToInt
 
 fun main() {
-    runApp()
+    //runApp()
 
-    /*
-    writeUniqueNgramFiles(outputPath = "C:/Users/pstahl/Documents")
+    //writeUniqueNgramFiles(outputPath = "C:/Users/pstahl/Documents")
 
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/ca/ca_1M.txt",
+        inputPath = "/training-data/sl/sl_1M.txt",
         outputPath = "C:/Users/pstahl/Documents",
-        language = CATALAN,
+        language = SLOVENE,
         charClass = "IsLatin"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/ca/ca_10K.txt",
+        inputPath = "/training-data/sl/sl_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "ca",
+        isoCode = "sl",
         charClass = "IsLatin"
     )
-    */
 }
 
 private fun runApp() {

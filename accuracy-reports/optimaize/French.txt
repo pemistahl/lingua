@@ -1,6 +1,6 @@
 ##### FRENCH #####
 
->>> Accuracy on average: 54,40%
+>>> Accuracy on average: 54,37%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 18,50%
@@ -11,7 +11,7 @@ Accuracy: 47,70%
 Erroneously classified as UNKNOWN: 51,40%, ENGLISH: 0,50%, CATALAN: 0,20%, VIETNAMESE: 0,10%, GERMAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 112 chars)
-Accuracy: 97,00%
-Erroneously classified as UNKNOWN: 2,60%, GERMAN: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%
+Accuracy: 96,90%
+Erroneously classified as UNKNOWN: 2,70%, GERMAN: 0,20%, ROMANIAN: 0,10%, ENGLISH: 0,10%
 
->> Exact values: 54.4 18.5 47.699999999999996 97.0
+>> Exact values: 54.36666666666665 18.5 47.699999999999996 96.89999999999999
