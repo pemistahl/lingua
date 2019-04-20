@@ -232,7 +232,6 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 Trigram::class -> 3
                 Quadrigram::class -> 4
                 Fivegram::class -> 5
-                Sixgram::class -> 6
                 else -> throw IllegalArgumentException(
                     "unsupported ngram type: ${T::class.simpleName}"
                 )
@@ -245,7 +244,6 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 3 -> Trigram(value)
                 4 -> Quadrigram(value)
                 5 -> Fivegram(value)
-                6 -> Sixgram(value)
                 else -> throw IllegalArgumentException(
                     "unsupported ngram length: $ngramLength"
                 )

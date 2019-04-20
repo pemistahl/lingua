@@ -51,20 +51,11 @@ import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
 import com.github.pemistahl.lingua.internal.model.Ngram
 import com.github.pemistahl.lingua.internal.model.Quadrigram
-import com.github.pemistahl.lingua.internal.model.Sixgram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 import java.util.regex.PatternSyntaxException
-import kotlin.math.absoluteValue
 import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
@@ -74,14 +65,11 @@ class LanguageDetector internal constructor(
 ) {
     private var languagesSequence = languages.asSequence()
 
-    //private val uniqueNgramsDeserializer: Gson = createUniqueNgramsDeserializer()
-    //private val uniqueFivegrams: Map<Language, Set<Fivegram>> by lazy { loadUniqueNgrams(Fivegram::class) }
-
-    private lateinit var unigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Unigram, Unigram>>>
-    private lateinit var bigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Bigram, Bigram>>>
-    private lateinit var trigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Trigram, Trigram>>>
-    private lateinit var quadrigramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Quadrigram, Quadrigram>>>
-    private lateinit var fivegramLanguageModels: MutableMap<Language, Lazy<LanguageModel<Fivegram, Fivegram>>>
+    private val unigramLanguageModels = loadLanguageModels(Unigram::class)
+    private val bigramLanguageModels = loadLanguageModels(Bigram::class)
+    private val trigramLanguageModels = loadLanguageModels(Trigram::class)
+    private val quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
+    private val fivegramLanguageModels = loadLanguageModels(Fivegram::class)
 
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
@@ -132,29 +120,15 @@ class LanguageDetector internal constructor(
         languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
     }
 
-    internal fun computeConfidenceScores(probabilities: Map<Language, Double>): Map<Language, Double> {
-        val sortedProbabilities = probabilities.toList().sortedBy { (_, value) -> value }.reversed().toMap()
-        var invertedProbabilitiesList = sortedProbabilities.keys.zip(sortedProbabilities.values.map { it.absoluteValue }.reversed())
-
-        if (invertedProbabilitiesList.size > 5) {
-            invertedProbabilitiesList = invertedProbabilitiesList.slice(0..4)
-        }
-
-        val invertedProbabilities = invertedProbabilitiesList.toMap()
-        val factor = 1.0 / invertedProbabilities.values.sum()
-
-        return invertedProbabilities.mapValues { it.value * factor }
-    }
-
     internal fun addLanguageModel(language: Language) {
         languages.add(language)
         if (!unigramLanguageModels.containsKey(language)) {
             languagesSequence = languages.asSequence()
-            unigramLanguageModels[language] = loadLanguageModel(language, Unigram::class)
-            bigramLanguageModels[language] = loadLanguageModel(language, Bigram::class)
-            trigramLanguageModels[language] = loadLanguageModel(language, Trigram::class)
-            quadrigramLanguageModels[language] = loadLanguageModel(language, Quadrigram::class)
-            fivegramLanguageModels[language] = loadLanguageModel(language, Fivegram::class)
+            unigramLanguageModels[language] = lazy { loadLanguageModel(language, Unigram::class) }
+            bigramLanguageModels[language] = lazy { loadLanguageModel(language, Bigram::class) }
+            trigramLanguageModels[language] = lazy { loadLanguageModel(language, Trigram::class) }
+            quadrigramLanguageModels[language] = lazy { loadLanguageModel(language, Quadrigram::class) }
+            fivegramLanguageModels[language] = lazy { loadLanguageModel(language, Fivegram::class) }
         }
     }
 
@@ -165,7 +139,7 @@ class LanguageDetector internal constructor(
         }
     }
 
-    private fun <T : Ngram> addNgramProbabilities(
+    internal fun <T : Ngram> addNgramProbabilities(
         probabilities: MutableList<Map<Language, Double>>,
         testDataModel: LanguageModel<T, T>
     ) {
@@ -176,16 +150,10 @@ class LanguageDetector internal constructor(
     }
 
     internal fun getMostLikelyLanguage(probabilities: List<Map<Language, Double>>): Language {
-        //for (elem in probabilities) {
-        //    println(elem.toList().sortedByDescending { it.second }.toMap())
-        //}
-
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
         }
-
-        //println("TOTAL: ${summedUpProbabilities.toList().sortedByDescending { it.second }.toMap()}")
 
         val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
         return if (filteredProbabilities.none()) UNKNOWN
@@ -211,15 +179,15 @@ class LanguageDetector internal constructor(
     internal fun filterLanguagesByRules(words: List<String>) {
         for (word in words) {
             if (CYRILLIC_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::hasCyrillicAlphabet)
+                applyLanguageFilter(Language::usesCyrillicAlphabet)
                 break
             }
             else if (ARABIC_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::hasArabicAlphabet)
+                applyLanguageFilter(Language::usesArabicAlphabet)
                 break
             }
             else if (LATIN_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::hasLatinAlphabet)
+                applyLanguageFilter(Language::usesLatinAlphabet)
 
                 if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
                     applyLanguageFilter { it != NORWEGIAN }
@@ -236,48 +204,7 @@ class LanguageDetector internal constructor(
         }
     }
 
-    /*
-    private fun <T : Ngram> filterLanguagesByUniqueNgrams(ngramTestDataModel: LanguageModel<T, T>) {
-        val languagesWithUniqueNgrams = mutableSetOf<Language>()
-
-        for (language in languagesSequence) {
-            if (uniqueFivegrams.containsKey(language)) {
-                val uniqueNgrams = uniqueFivegrams.getValue(language)
-                val uniqueNgramsIntersection = ngramTestDataModel.ngrams.intersect(uniqueNgrams)
-                if (uniqueNgramsIntersection.isNotEmpty()) languagesWithUniqueNgrams.add(language)
-            }
-        }
-
-        if (languagesWithUniqueNgrams.isNotEmpty()) applyLanguageFilter {
-            it in languagesWithUniqueNgrams
-        }
-
-        // OLD
-        val ngramInLanguageCounts = mutableMapOf<Fivegram, MutableList<Language>>()
-        for (fivegram in fivegramTestDataModel.ngrams) {
-            val supportedLanguages = mutableListOf<Language>()
-            for (language in languagesSequence) {
-                if (fivegramLanguageModels.getValue(language).value.getRelativeFrequency(fivegram) != null) {
-                    supportedLanguages.add(language)
-                }
-            }
-            ngramInLanguageCounts[fivegram] = supportedLanguages
-        }
-
-        val languagesWithUniqueNgrams = mutableSetOf<Language>()
-        for ((_, languageList) in ngramInLanguageCounts) {
-            if (languageList.size == 1) {
-                languagesWithUniqueNgrams.add(languageList[0])
-            }
-        }
-
-        if (languagesWithUniqueNgrams.isNotEmpty()) applyLanguageFilter {
-            it in languagesWithUniqueNgrams
-        }
-    }
-    */
-
-    private fun <T : Ngram> computeLanguageProbabilities(
+    internal fun <T : Ngram> computeLanguageProbabilities(
         testDataModel: LanguageModel<T, T>
     ): Map<Language, Double> {
         val probabilities = hashMapOf<Language, Double>()
@@ -287,7 +214,7 @@ class LanguageDetector internal constructor(
         return probabilities
     }
 
-    private fun <T : Ngram> computeSumOfNgramProbabilities(
+    internal fun <T : Ngram> computeSumOfNgramProbabilities(
         language: Language,
         ngrams: Set<T>
     ): Double {
@@ -305,7 +232,7 @@ class LanguageDetector internal constructor(
         return probabilities.sumByDouble { Math.log(it) }
     }
 
-    private fun <T : Ngram> lookUpNgramProbability(
+    internal fun <T : Ngram> lookUpNgramProbability(
         language: Language,
         ngram: T
     ): Double? {
@@ -322,65 +249,35 @@ class LanguageDetector internal constructor(
         return languageModels.getValue(language).value.getRelativeFrequency(ngram)
     }
 
-    private fun <T : Ngram> loadLanguageModel(
+    internal fun <T : Ngram> loadLanguageModel(
         language: Language,
         ngramClass: KClass<T>
-    ): Lazy<LanguageModel<T, T>> {
-        var languageModel: Lazy<LanguageModel<T, T>>? = null
+    ): LanguageModel<T, T> {
+        var languageModel: LanguageModel<T, T>? = null
         val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
         "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
-            languageModel = lazy { LanguageModel.fromJson(jsonReader, ngramClass, isCachedByMapDB) }
+            languageModel = LanguageModel.fromJson(jsonReader, ngramClass, isCachedByMapDB)
         }
         return languageModel!!
     }
 
-    private fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T, T>>> {
+    internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T, T>>> {
         val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>>>()
         for (language in languagesSequence) {
-            languageModels[language] = loadLanguageModel(language, ngramClass)
+            languageModels[language] = lazy { loadLanguageModel(language, ngramClass) }
         }
         return languageModels
     }
 
-    internal fun loadAllLanguageModels() {
-        unigramLanguageModels = loadLanguageModels(Unigram::class)
-        bigramLanguageModels = loadLanguageModels(Bigram::class)
-        trigramLanguageModels = loadLanguageModels(Trigram::class)
-        quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
-        fivegramLanguageModels = loadLanguageModels(Fivegram::class)
+    override fun equals(other: Any?) = when {
+        this === other -> true
+        other !is LanguageDetector -> false
+        languages != other.languages -> false
+        isCachedByMapDB != other.isCachedByMapDB -> false
+        else -> true
     }
 
-    /*
-    internal fun <T : Ngram> loadUniqueNgrams(ngramClass: KClass<T>): Map<Language, Set<T>> {
-        var uniqueNgrams: Map<Language, Set<T>>? = null
-        val fileName = "unique${ngramClass.simpleName}s.json"
-        val type = object: TypeToken<Map<Language, Set<T>>>(){}.type
-
-        "/unique-ngrams/$fileName".asJsonResource { jsonReader ->
-            uniqueNgrams = uniqueNgramsDeserializer.fromJson(jsonReader, type)
-        }
-
-        return uniqueNgrams!!
-    }
-    */
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as LanguageDetector
-
-        if (languages != other.languages) return false
-        if (isCachedByMapDB != other.isCachedByMapDB) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = languages.hashCode()
-        result = 31 * result + isCachedByMapDB.hashCode()
-        return result
-    }
+    override fun hashCode() = 31 * languages.hashCode() + isCachedByMapDB.hashCode()
 
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")
@@ -476,54 +373,5 @@ class LanguageDetector internal constructor(
 
             "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
         )
-
-        private fun createUniqueNgramsDeserializer(): Gson {
-            val unigramType = object: TypeToken<Map<Language, Set<Unigram>>>(){}.type
-            val bigramType = object: TypeToken<Map<Language, Set<Bigram>>>(){}.type
-            val trigramType = object: TypeToken<Map<Language, Set<Trigram>>>(){}.type
-            val quadrigramType = object: TypeToken<Map<Language, Set<Quadrigram>>>(){}.type
-            val fivegramType = object: TypeToken<Map<Language, Set<Fivegram>>>(){}.type
-            val sixgramType = object: TypeToken<Map<Language, Set<Sixgram>>>(){}.type
-
-            return GsonBuilder()
-                .registerTypeAdapter(unigramType, UniqueNgramsDeserializer<Unigram>())
-                .registerTypeAdapter(bigramType, UniqueNgramsDeserializer<Bigram>())
-                .registerTypeAdapter(trigramType, UniqueNgramsDeserializer<Trigram>())
-                .registerTypeAdapter(quadrigramType, UniqueNgramsDeserializer<Quadrigram>())
-                .registerTypeAdapter(fivegramType, UniqueNgramsDeserializer<Fivegram>())
-                .registerTypeAdapter(sixgramType, UniqueNgramsDeserializer<Sixgram>())
-                .create()
-        }
-    }
-
-    private class UniqueNgramsDeserializer<T : Ngram> : JsonDeserializer<Map<Language, Set<T>>> {
-        override fun deserialize(
-            json: JsonElement,
-            type: Type,
-            context: JsonDeserializationContext
-        ): Map<Language, Set<T>> {
-            val uniqueNgrams = mutableMapOf<Language, Set<T>>()
-
-            for ((languageJsonElem, ngramsJsonArray) in json.asJsonObject.entrySet()) {
-                val language = Language.valueOf(languageJsonElem)
-                val ngrams = ngramsJsonArray.asJsonArray.map { ngramJsonElem ->
-                    val ngramValue = ngramJsonElem.asString
-                    val ngram = when (ngramValue.length) {
-                        1 -> Unigram(ngramValue)
-                        2 -> Bigram(ngramValue)
-                        3 -> Trigram(ngramValue)
-                        4 -> Quadrigram(ngramValue)
-                        5 -> Fivegram(ngramValue)
-                        6 -> Sixgram(ngramValue)
-                        else -> throw IllegalArgumentException("unsupported ngram detected: $ngramValue")
-                    }
-                    @Suppress("UNCHECKED_CAST")
-                    ngram as T
-                }.toSet()
-
-                uniqueNgrams[language] = ngrams
-            }
-            return uniqueNgrams
-        }
     }
 }

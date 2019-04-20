@@ -26,7 +26,6 @@ import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CROATIAN
 import com.github.pemistahl.lingua.api.Language.CZECH
-import com.github.pemistahl.lingua.api.Language.Companion.getByIsoCode
 import com.github.pemistahl.lingua.api.Language.DANISH
 import com.github.pemistahl.lingua.api.Language.DUTCH
 import com.github.pemistahl.lingua.api.Language.ENGLISH
@@ -69,8 +68,27 @@ import org.junit.jupiter.params.provider.CsvSource
 class LanguageTest {
 
     @Test
-    fun `assert that number of currently supported languages is correct`() {
-        assertThat(Language.values().count()).`as`("wrong number of supported languages").isEqualTo(44)
+    fun `assert that all supported languages are available`() {
+        assertThat(Language.all()).containsExactly(
+            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
+            CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
+            FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
+            IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
+            PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+        )
+    }
+
+    @Test
+    fun `assert that all supported spoken languages are available`() {
+        assertThat(Language.allSpokenOnes()).containsExactly(
+            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
+            CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
+            FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
+            IRISH, ITALIAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
+            PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+        )
     }
 
     @Test
@@ -79,60 +97,90 @@ class LanguageTest {
     }
 
     @Test
-    fun `assert that certain languages support Latin alphabet`() {
-        assertThat(Language.values().filter { it.hasLatinAlphabet })
-            .`as`("incorrect or missing language supporting Latin alphabet")
-            .containsExactlyInAnyOrder(
-                CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH,
-                FRENCH, GERMAN, HUNGARIAN, ICELANDIC, ITALIAN, INDONESIAN,
-                LATIN, LATVIAN, LITHUANIAN, POLISH, PORTUGUESE, ROMANIAN,
-                SOMALI, SPANISH, SWEDISH, TURKISH, VIETNAMESE, AFRIKAANS,
-                BOKMAL, NYNORSK, NORWEGIAN, CATALAN, WELSH, IRISH, BASQUE,
-                MALAY, TAGALOG, SLOVAK, SLOVENE, ALBANIAN
+    fun `assert that certain languages use Latin alphabet`() {
+        assertThat(Language.values().filter { it.usesLatinAlphabet })
+            .containsExactly(
+                AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN, CZECH,
+                DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN,
+                HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
+                LITHUANIAN, MALAY, NORWEGIAN, NYNORSK, POLISH, PORTUGUESE,
+                ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWEDISH, TAGALOG,
+                TURKISH, VIETNAMESE, WELSH
             )
     }
 
     @Test
     fun `assert that certain languages support Greek alphabet`() {
-        assertThat(Language.values().filter { it.hasGreekAlphabet })
-            .`as`("incorrect or missing language supporting Greek alphabet")
-            .containsExactlyInAnyOrder(GREEK)
+        assertThat(Language.values().filter { it.usesGreekAlphabet })
+            .containsExactly(GREEK)
     }
 
     @Test
     fun `assert that certain languages support Cyrillic alphabet`() {
-        assertThat(Language.values().filter { it.hasCyrillicAlphabet })
-            .`as`("incorrect or missing language supporting Cyrillic alphabet")
-            .containsExactlyInAnyOrder(BELARUSIAN, BULGARIAN, RUSSIAN)
+        assertThat(Language.values().filter { it.usesCyrillicAlphabet })
+            .containsExactly(BELARUSIAN, BULGARIAN, RUSSIAN)
     }
 
     @Test
     fun `assert that certain languages support Arabic alphabet`() {
-        assertThat(Language.values().filter { it.hasArabicAlphabet })
-            .`as`("incorrect or missing language supporting Arabic alphabet")
-            .containsExactlyInAnyOrder(ARABIC, PERSIAN)
+        assertThat(Language.values().filter { it.usesArabicAlphabet })
+            .containsExactly(ARABIC, PERSIAN)
     }
 
     @ParameterizedTest
     @CsvSource(
-        "ar, ARABIC",  "be, BELARUSIAN", "bg, BULGARIAN",  "hr, CROATIAN",   "cs, CZECH",
-        "da, DANISH",  "nl, DUTCH",      "en, ENGLISH",    "et, ESTONIAN",   "fi, FINNISH",
-        "fr, FRENCH",  "de, GERMAN",     "id, INDONESIAN", "is, ICELANDIC",  "hu, HUNGARIAN",
-        "it, ITALIAN", "la, LATIN",      "lv, LATVIAN",    "lt, LITHUANIAN", "fa, PERSIAN",
-        "pl, POLISH",  "pt, PORTUGUESE", "ro, ROMANIAN",   "ru, RUSSIAN",    "es, SPANISH",
-        "sv, SWEDISH", "tr, TURKISH",    "so, SOMALI",     "vi, VIETNAMESE", "af, AFRIKAANS",
-        "nb, BOKMAL",  "nn, NYNORSK",    "no, NORWEGIAN",  "ca, CATALAN",    "cy, WELSH",
-        "el, GREEK", "ga, IRISH", "eu, BASQUE", "ms, MALAY", "tl, TAGALOG", "sk, SLOVAK",
-        "sl, SLOVENE", "sq, ALBANIAN"
+        "af, AFRIKAANS",
+        "sq, ALBANIAN",
+        "ar, ARABIC",
+        "eu, BASQUE",
+        "be, BELARUSIAN",
+        "nb, BOKMAL",
+        "bg, BULGARIAN",
+        "ca, CATALAN",
+        "hr, CROATIAN",
+        "cs, CZECH",
+        "da, DANISH",
+        "nl, DUTCH",
+        "en, ENGLISH",
+        "et, ESTONIAN",
+        "fi, FINNISH",
+        "fr, FRENCH",
+        "de, GERMAN",
+        "el, GREEK",
+        "hu, HUNGARIAN",
+        "is, ICELANDIC",
+        "id, INDONESIAN",
+        "ga, IRISH",
+        "it, ITALIAN",
+        "la, LATIN",
+        "lv, LATVIAN",
+        "lt, LITHUANIAN",
+        "ms, MALAY",
+        "no, NORWEGIAN",
+        "nn, NYNORSK",
+        "fa, PERSIAN",
+        "pl, POLISH",
+        "pt, PORTUGUESE",
+        "ro, ROMANIAN",
+        "ru, RUSSIAN",
+        "sk, SLOVAK",
+        "sl, SLOVENE",
+        "so, SOMALI",
+        "es, SPANISH",
+        "sv, SWEDISH",
+        "tl, TAGALOG",
+        "tr, TURKISH",
+        "vi, VIETNAMESE",
+        "cy, WELSH"
     )
     fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
-        assertThat(getByIsoCode(isoCode)).isEqualTo(language)
+        assertThat(Language.getByIsoCode(isoCode)).isEqualTo(language)
     }
 
     @Test
     fun `assert that exception is thrown for unknown iso code`() {
         assertThatIllegalArgumentException().isThrownBy {
-            getByIsoCode("dfjkglsdfg")
+            Language.getByIsoCode("dfjkglsdfg")
         }.withMessage("language with iso code 'dfjkglsdfg' can not be found")
     }
 }

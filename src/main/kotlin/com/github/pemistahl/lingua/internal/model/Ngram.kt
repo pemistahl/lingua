@@ -23,14 +23,14 @@ internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> 
 
     override fun hashCode() = value.hashCode()
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Ngram) return false
-        if (value != other.value) return false
-        return true
+    override fun equals(other: Any?) = when {
+        this === other -> true
+        other !is Ngram -> false
+        value != other.value -> false
+        else -> true
     }
 
-    override fun compareTo(other: Ngram): Int = when {
+    override fun compareTo(other: Ngram) = when {
         this.value.length > other.value.length -> 1
         this.value.length < other.value.length -> -1
         else -> 0
@@ -38,17 +38,14 @@ internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> 
 
     fun rangeOfLowerOrderNgrams() = NgramRange(this, Unigram(this.value[0].toString()))
 
-    operator fun rangeTo(other: Ngram) = NgramRange(this, other)
-
     operator fun dec(): Ngram = when (this) {
-        is Sixgram -> Fivegram(this.value.slice(0..4))
         is Fivegram -> Quadrigram(this.value.slice(0..3))
         is Quadrigram -> Trigram(this.value.slice(0..2))
         is Trigram -> Bigram(this.value.slice(0..1))
         is Bigram -> Unigram(this.value[0].toString())
         is Unigram -> Zerogram
         is Zerogram -> throw IllegalStateException(
-            "$this is ngram type of lowest order and can not be decreased"
+            "Zerogram is ngram type of lowest order and can not be decremented"
         )
     }
 
@@ -65,16 +62,28 @@ internal class NgramRange(
     override val endInclusive: Ngram
 ) : ClosedRange<Ngram>, Iterable<Ngram> {
     init {
-        require(start >= endInclusive) { "$start must be of higher order than $endInclusive" }
+        require(start >= endInclusive) {
+            "'$start' must be of higher order than '$endInclusive'"
+        }
     }
 
     override fun contains(value: Ngram): Boolean = value <= start && value >= endInclusive
 
     override fun iterator(): Iterator<Ngram> = NgramIterator(start)
+
+    override fun equals(other: Any?) = when {
+        this === other -> true
+        other !is NgramRange -> false
+        start != other.start -> false
+        endInclusive != other.endInclusive -> false
+        else -> true
+    }
+
+    override fun hashCode() = 31 * start.hashCode() + endInclusive.hashCode()
 }
 
-internal class NgramIterator(start: Ngram) : Iterator<Ngram> {
-    var current = start
+internal class NgramIterator(private val start: Ngram) : Iterator<Ngram> {
+    private var current = start
 
     override fun hasNext(): Boolean = current !is Zerogram
 
@@ -82,6 +91,15 @@ internal class NgramIterator(start: Ngram) : Iterator<Ngram> {
         if (!hasNext()) throw NoSuchElementException()
         return current--
     }
+
+    override fun equals(other: Any?) = when {
+        this === other -> true
+        other !is NgramIterator -> false
+        start != other.start -> false
+        else -> true
+    }
+
+    override fun hashCode() = start.hashCode()
 }
 
 internal object Zerogram : Ngram(0, "")
@@ -90,4 +108,3 @@ internal class Bigram(value: String) : Ngram(2, value)
 internal class Trigram(value: String) : Ngram(3, value)
 internal class Quadrigram(value: String) : Ngram(4, value)
 internal class Fivegram(value: String) : Ngram(5, value)
-internal class Sixgram(value: String) : Ngram(6, value)

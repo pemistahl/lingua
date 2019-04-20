@@ -18,10 +18,10 @@ package com.github.pemistahl.lingua.api
 
 enum class Language(
     val isoCode: String,
-    internal val hasLatinAlphabet: Boolean,
-    internal val hasGreekAlphabet: Boolean,
-    internal val hasCyrillicAlphabet: Boolean,
-    internal val hasArabicAlphabet: Boolean,
+    internal val usesLatinAlphabet: Boolean,
+    internal val usesGreekAlphabet: Boolean,
+    internal val usesCyrillicAlphabet: Boolean,
+    internal val usesArabicAlphabet: Boolean,
     internal var isExcludedFromDetection: Boolean
 ) {
 
@@ -72,10 +72,18 @@ enum class Language(
     UNKNOWN    ("<unk>", false, false, false, false, true);
 
     companion object {
-        fun getByIsoCode(isoCode: String) = Language.values().find {
+        fun all() = filterOutLanguages(UNKNOWN, BOKMAL, NYNORSK)
+
+        fun allSpokenOnes() = filterOutLanguages(UNKNOWN, BOKMAL, LATIN, NYNORSK)
+
+        fun getByIsoCode(isoCode: String) = values().find {
             it.isoCode == isoCode
         } ?: throw IllegalArgumentException(
             "language with iso code '$isoCode' can not be found"
         )
+
+        private fun filterOutLanguages(
+            vararg languages: Language
+        ) = values().filterNot { it in languages }.toTypedArray()
     }
 }

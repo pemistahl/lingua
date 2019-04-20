@@ -23,8 +23,7 @@ jacoco.toolVersion = "0.8.3"
 sourceSets {
     main {
         resources {
-            //include("training-data/cy/*")
-            exclude("training-data/**", "language-models/*/sixgrams.json")
+            exclude("training-data/**")
         }
     }
 }
@@ -193,9 +192,9 @@ dependencies {
         exclude("org.jetbrains.kotlin:kotlin-stdlib")
     }
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
     testImplementation("org.assertj:assertj-core:3.11.1")
-    testImplementation("io.mockk:mockk:1.9")
+    testImplementation("io.mockk:mockk:1.9.3")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
     testImplementation("org.apache.tika:tika-langdetect:1.20")

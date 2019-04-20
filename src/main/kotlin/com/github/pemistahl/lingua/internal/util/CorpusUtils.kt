@@ -23,7 +23,6 @@ import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
 import com.github.pemistahl.lingua.internal.model.Ngram
 import com.github.pemistahl.lingua.internal.model.Quadrigram
-import com.github.pemistahl.lingua.internal.model.Sixgram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.model.Zerogram
@@ -36,7 +35,6 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.lang.reflect.Type
-import java.time.chrono.JapaneseEra.values
 import kotlin.random.Random
 
 internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: String, charClass: String) {
@@ -171,17 +169,6 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
             writer.write(fivegramModel.toJson(Fivegram::class))
         }
     }
-    println("Done.\n")
-
-    println("Writing sixgrams...")
-    lateinit var sixgramModel: LanguageModel<Sixgram, Fivegram>
-    inputPath.asLineSequenceResource { lines ->
-        sixgramModel = LanguageModel.fromTrainingData(lines, language, charClass, fivegramModel.ngramAbsoluteFrequencies)
-        File("$outputPath/sixgrams.json").bufferedWriter().use { writer ->
-            writer.write(sixgramModel.toJson(Sixgram::class))
-        }
-    }
-
 
     println("Done.")
 }

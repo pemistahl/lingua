@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua
 
+import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllBuiltInLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromLanguages
@@ -80,7 +81,7 @@ fun main() {
 
 private fun runApp() {
 
-    val supportedLanguages = LanguageDetectorBuilder.supportedLanguages().count()
+    val supportedLanguages = Language.all().count()
 
     println(
         """
