@@ -32,6 +32,12 @@ internal class Fraction(
         this.denominator = den
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Fraction) return false
+        return numerator == other.numerator && denominator == other.denominator
+    }
+
     override fun compareTo(other: Fraction): Int {
         val n0d = numerator.toLong() * other.denominator
         val d0n = denominator.toLong() * other.numerator
@@ -40,15 +46,6 @@ internal class Fraction(
             n0d > d0n ->  1
             else      ->  0
         }
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other is Fraction) {
-            return (numerator == other.numerator) &&
-                (denominator == other.denominator)
-        }
-        return false
     }
 
     override fun hashCode() = 37 * (37 * 17 + numerator) + denominator
@@ -73,7 +70,7 @@ internal class Fraction(
         var num = numerator
         var den = denominator
 
-        if (den == 0) throw ArithmeticException("zero denominator in fraction $this")
+        if (den == 0) throw ArithmeticException("zero denominator in fraction '$num/$den'")
         if (den < 0) {
             if (num == Int.MIN_VALUE || den == Int.MIN_VALUE) {
                 throw ArithmeticException("overflow in fraction $this, cannot negate")

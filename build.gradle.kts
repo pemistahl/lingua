@@ -11,7 +11,7 @@ val linguaMainClass: String by project
 val csvHeader: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.21"
+    kotlin("jvm") version "1.3.30"
     id("com.adarshr.test-logger") version "1.6.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("ru.vyarus.use-python") version "1.2.0"
