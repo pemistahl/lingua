@@ -63,6 +63,50 @@ class FractionTest {
     }
 
     @Test
+    fun `assert that toFloat() implementation of Fraction is correct`() {
+        assertThat(fraction1.toFloat()).isEqualTo(1.0f / 12)
+        assertThat(fraction2.toFloat()).isEqualTo(7.0f / 3)
+        assertThat(fraction3.toFloat()).isEqualTo(0.0f)
+        assertThat(fraction4.toFloat()).isEqualTo(-0.2f)
+        assertThat(fraction5.toFloat()).isEqualTo(-2.6f)
+    }
+
+    @Test
+    fun `assert that toInt() implementation of Fraction is correct`() {
+        assertThat(fraction1.toInt()).isEqualTo(0)
+        assertThat(fraction2.toInt()).isEqualTo(2)
+        assertThat(fraction3.toInt()).isEqualTo(0)
+        assertThat(fraction4.toInt()).isEqualTo(0)
+        assertThat(fraction5.toInt()).isEqualTo(-2)
+    }
+
+    @Test
+    fun `assert that toLong() implementation of Fraction is correct`() {
+        assertThat(fraction1.toLong()).isEqualTo(0)
+        assertThat(fraction2.toLong()).isEqualTo(2)
+        assertThat(fraction3.toLong()).isEqualTo(0)
+        assertThat(fraction4.toLong()).isEqualTo(0)
+        assertThat(fraction5.toLong()).isEqualTo(-2)
+    }
+    @Test
+    fun `assert that toShort() implementation of Fraction is correct`() {
+        assertThat(fraction1.toShort()).isEqualTo(0)
+        assertThat(fraction2.toShort()).isEqualTo(2)
+        assertThat(fraction3.toShort()).isEqualTo(0)
+        assertThat(fraction4.toShort()).isEqualTo(0)
+        assertThat(fraction5.toShort()).isEqualTo(-2)
+    }
+
+    @Test
+    fun `assert that toByte() implementation of Fraction is correct`() {
+        assertThat(fraction1.toByte()).isEqualTo(0)
+        assertThat(fraction2.toByte()).isEqualTo(2)
+        assertThat(fraction3.toByte()).isEqualTo(0)
+        assertThat(fraction4.toByte()).isEqualTo(0)
+        assertThat(fraction5.toByte()).isEqualTo(-2)
+    }
+
+    @Test
     fun `assert that Fraction comparisons work correctly`() {
         val comparisons = listOf(
             fraction1 > fraction3,
