@@ -55,6 +55,36 @@ internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> 
         }
         return value
     }
+
+    internal companion object {
+
+        inline fun <reified T : Ngram> getLength(): Int = when (T::class) {
+            Unigram::class -> 1
+            Bigram::class -> 2
+            Trigram::class -> 3
+            Quadrigram::class -> 4
+            Fivegram::class -> 5
+            else -> throw IllegalArgumentException(
+                "unsupported ngram type: ${T::class.simpleName}"
+            )
+        }
+
+        fun <T : Ngram> getInstance(ngramLength: Int, value: String): T {
+            val ngram = when (ngramLength) {
+                1 -> Unigram(value)
+                2 -> Bigram(value)
+                3 -> Trigram(value)
+                4 -> Quadrigram(value)
+                5 -> Fivegram(value)
+                else -> throw IllegalArgumentException(
+                    "unsupported ngram length: $ngramLength"
+                )
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            return ngram as T
+        }
+    }
 }
 
 internal class NgramRange(

@@ -96,15 +96,13 @@ class LanguageDetector internal constructor(
             addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Bigram>(textSequence))
         }
         if (trimmedText.length >= 3) {
-            val trigramTestDataModel = LanguageModel.fromTestData<Trigram>(textSequence)
-            addNgramProbabilities(allProbabilities, trigramTestDataModel)
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Trigram>(textSequence))
         }
         if (trimmedText.length >= 4) {
             addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Quadrigram>(textSequence))
         }
         if (trimmedText.length >= 5) {
-            val fivegramTestDataModel = LanguageModel.fromTestData<Fivegram>(textSequence)
-            addNgramProbabilities(allProbabilities, fivegramTestDataModel)
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Fivegram>(textSequence))
         }
 
         return getMostLikelyLanguage(allProbabilities)
