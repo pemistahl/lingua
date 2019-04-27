@@ -30,15 +30,10 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
     val ngramAbsoluteFrequencies: Map<T, Int>
     val ngrams: Set<T>
-        get() = if (ngramRelativeFrequencies.isNotEmpty()) {
-            ngramRelativeFrequencies.keys
-        } else {
-            field
-        }
 
-    private val language: Language
-    private val ngramRelativeFrequencies: Map<T, Fraction>
-    private val jsonNgramRelativeFrequencies: Map<String, Double>
+    internal val language: Language
+    internal val ngramRelativeFrequencies: Map<T, Fraction>
+    internal val jsonNgramRelativeFrequencies: Map<String, Double>
 
     internal constructor(
         language: Language,
@@ -71,39 +66,28 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
         this.jsonNgramRelativeFrequencies = emptyMap()
     }
 
-    fun <T : Ngram> getRelativeFrequency(ngram: T): Double? = jsonNgramRelativeFrequencies[ngram.value]
+    fun <T : Ngram> getRelativeFrequency(ngram: T): Double = jsonNgramRelativeFrequencies[ngram.value] ?: 0.0
 
-    fun <T : Ngram> toJson(ngramClass: KClass<T>): String = getGson(ngramClass, useMapDBCache = false).toJson(
-        mapOf("language" to language, "ngrams" to ngramRelativeFrequencies.inverse())
-    )
+    fun toJson(): String {
+        val languageModelDeserializer = lazy { registerLanguageModelDeserializer(useMapDBCache = false) }
+        return languageModelDeserializer.value.toJson(
+            mapOf("language" to language, "ngrams" to ngramRelativeFrequencies.inverse())
+        )
+    }
 
     internal companion object {
 
-        inline fun <reified T : Ngram> fromTestData(text: Sequence<String>): LanguageModel<T, T> {
-            val ngrams = hashSetOf<T>()
-            val ngramLength = Ngram.getLength<T>()
+        private val LETTER_REGEX = Regex("\\p{L}+")
 
-            for (line in text) {
-                val lowerCasedLine = line.toLowerCase()
-
-                for (i in 0..lowerCasedLine.length - ngramLength) {
-                    val textSlice = lowerCasedLine.slice(i until i + ngramLength)
-                    if (!textSlice.contains(' ')) {
-                        ngrams.add(Ngram.getInstance(ngramLength, textSlice))
-                    }
-                }
-            }
-            return LanguageModel(ngrams)
-        }
-
-        inline fun <reified T : Ngram, U : Ngram> fromTrainingData(
+        fun <T : Ngram, U : Ngram> fromTrainingData(
             text: Sequence<String>,
             language: Language,
+            ngramClass: KClass<T>,
             charClass: String,
             lowerNgramAbsoluteFrequencies: Map<U, Int>
         ): LanguageModel<T, U> {
             val ngramAbsoluteFrequencies = hashMapOf<T, Int>()
-            val ngramLength = Ngram.getLength<T>()
+            val ngramLength = Ngram.getLength(ngramClass)
             val regex = Regex("""[\p{L}&&\p{$charClass}]+""")
 
             for (line in text) {
@@ -112,11 +96,9 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                 for (i in 0..lowerCasedLine.length - ngramLength) {
                     val textSlice = lowerCasedLine.slice(i until i + ngramLength)
                     if (regex.matches(textSlice)) {
-                        ngramAbsoluteFrequencies.merge(
-                            Ngram.getInstance(ngramLength, textSlice),
-                            1,
-                            Int::plus
-                        )
+                        val ngram = Ngram.getInstance(textSlice)
+                        @Suppress("UNCHECKED_CAST")
+                        ngramAbsoluteFrequencies.merge(ngram as T, 1, Int::plus)
                     }
                 }
             }
@@ -129,7 +111,37 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             return LanguageModel(language, ngramAbsoluteFrequencies, ngramRelativeFrequencies)
         }
 
-        internal fun <T : Ngram, U : Ngram> computeConditionalProbabilities(
+        fun <T : Ngram> fromTestData(text: Sequence<String>, ngramClass: KClass<T>): LanguageModel<T, T> {
+            if (ngramClass == Zerogram::class) {
+                @Suppress("UNCHECKED_CAST")
+                return LanguageModel(setOf(Zerogram as T))
+            }
+
+            val ngrams = hashSetOf<T>()
+            val ngramLength = Ngram.getLength(ngramClass)
+
+            for (line in text) {
+                val lowerCasedLine = line.toLowerCase()
+
+                for (i in 0..lowerCasedLine.length - ngramLength) {
+                    val textSlice = lowerCasedLine.slice(i until i + ngramLength)
+                    if (LETTER_REGEX.matches(textSlice)) {
+                        val ngram = Ngram.getInstance(textSlice)
+                        @Suppress("UNCHECKED_CAST")
+                        ngrams.add(ngram as T)
+                    }
+                }
+            }
+            return LanguageModel(ngrams)
+        }
+
+        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>, useMapDBCache: Boolean): LanguageModel<T, T> {
+            val languageModelDeserializer = lazy { registerLanguageModelDeserializer(useMapDBCache) }
+            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
+            return languageModelDeserializer.value.fromJson(json, type)
+        }
+
+        private fun <T : Ngram, U : Ngram> computeConditionalProbabilities(
             ngramLength: Int,
             ngrams: Map<T, Int>,
             lowerNgramAbsoluteFrequencies: Map<U, Int>
@@ -150,8 +162,6 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
                     lowerNgramAbsoluteFrequencies.getValue(Trigram(ngram.value.slice(0..2)) as U)
                 else if (ngramLength == 5)
                     lowerNgramAbsoluteFrequencies.getValue(Quadrigram(ngram.value.slice(0..3)) as U)
-                else if (ngramLength == 6)
-                    lowerNgramAbsoluteFrequencies.getValue(Fivegram(ngram.value.slice(0..4)) as U)
                 else totalNgramFrequency
                 ngramProbabilities[ngram] = frequency over denominator
             }
@@ -159,17 +169,33 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             return ngramProbabilities
         }
 
-        fun <T : Ngram> fromJson(json: JsonReader, ngramClass: KClass<T>, useMapDBCache: Boolean): LanguageModel<T, T> {
-            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
-            return getGson(ngramClass, useMapDBCache).fromJson(json, type)
-        }
+        private fun registerLanguageModelDeserializer(useMapDBCache: Boolean): Gson {
+            val unigramType = TypeToken.getParameterized(LanguageModel::class.java, Unigram::class.java).type
+            val bigramType = TypeToken.getParameterized(LanguageModel::class.java, Bigram::class.java).type
+            val trigramType = TypeToken.getParameterized(LanguageModel::class.java, Trigram::class.java).type
+            val quadrigramType = TypeToken.getParameterized(LanguageModel::class.java, Quadrigram::class.java).type
+            val fivegramType = TypeToken.getParameterized(LanguageModel::class.java, Fivegram::class.java).type
 
-        private fun <T : Ngram> getGson(ngramClass: KClass<T>, useMapDBCache: Boolean): Gson {
-            val type = TypeToken.getParameterized(LanguageModel::class.java, ngramClass.java).type
             return GsonBuilder()
                 .registerTypeAdapter(
-                    type,
-                    LanguageModelDeserializer<T>(useMapDBCache)
+                    unigramType,
+                    LanguageModelDeserializer<Unigram>(useMapDBCache)
+                )
+                .registerTypeAdapter(
+                    bigramType,
+                    LanguageModelDeserializer<Bigram>(useMapDBCache)
+                )
+                .registerTypeAdapter(
+                    trigramType,
+                    LanguageModelDeserializer<Trigram>(useMapDBCache)
+                )
+                .registerTypeAdapter(
+                    quadrigramType,
+                    LanguageModelDeserializer<Quadrigram>(useMapDBCache)
+                )
+                .registerTypeAdapter(
+                    fivegramType,
+                    LanguageModelDeserializer<Fivegram>(useMapDBCache)
                 )
                 .create()
         }

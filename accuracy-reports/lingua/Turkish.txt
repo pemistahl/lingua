@@ -12,6 +12,6 @@ Erroneously classified as TAGALOG: 0,70%, ENGLISH: 0,30%, MALAY: 0,30%, NORWEGIA
 
 >> Detection of 1000 sentences (average length: 119 chars)
 Accuracy: 99,90%
-Erroneously classified as SLOVENE: 0,10%
+Erroneously classified as MALAY: 0,10%
 
 >> Exact values: 95.86666666666667 89.8 97.89999999999999 99.9

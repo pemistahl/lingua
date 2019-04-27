@@ -12,6 +12,6 @@ Erroneously classified as INDONESIAN: 46,10%, ENGLISH: 4,10%, TAGALOG: 2,40%, AL
 
 >> Detection of 1000 sentences (average length: 116 chars)
 Accuracy: 26,40%
-Erroneously classified as INDONESIAN: 70,90%, ENGLISH: 1,30%, TAGALOG: 0,70%, CATALAN: 0,20%, LATVIAN: 0,20%, GERMAN: 0,10%, NORWEGIAN: 0,10%, TURKISH: 0,10%
+Erroneously classified as INDONESIAN: 71,10%, ENGLISH: 1,00%, TAGALOG: 0,80%, LATVIAN: 0,20%, CATALAN: 0,10%, GERMAN: 0,10%, BASQUE: 0,10%, NORWEGIAN: 0,10%, TURKISH: 0,10%
 
 >> Exact values: 31.5 28.799999999999997 39.300000000000004 26.400000000000002

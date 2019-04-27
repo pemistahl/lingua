@@ -16,6 +16,8 @@
 
 package com.github.pemistahl.lingua.internal.model
 
+import kotlin.reflect.KClass
+
 internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> {
     val value: String = validate(value)
 
@@ -58,31 +60,28 @@ internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> 
 
     internal companion object {
 
-        inline fun <reified T : Ngram> getLength(): Int = when (T::class) {
+        fun <T : Ngram> getLength(ngramClass: KClass<T>): Int = when (ngramClass) {
+            Zerogram::class -> 0
             Unigram::class -> 1
             Bigram::class -> 2
             Trigram::class -> 3
             Quadrigram::class -> 4
             Fivegram::class -> 5
             else -> throw IllegalArgumentException(
-                "unsupported ngram type: ${T::class.simpleName}"
+                "unsupported ngram type: ${ngramClass.simpleName}"
             )
         }
 
-        fun <T : Ngram> getInstance(ngramLength: Int, value: String): T {
-            val ngram = when (ngramLength) {
-                1 -> Unigram(value)
-                2 -> Bigram(value)
-                3 -> Trigram(value)
-                4 -> Quadrigram(value)
-                5 -> Fivegram(value)
-                else -> throw IllegalArgumentException(
-                    "unsupported ngram length: $ngramLength"
-                )
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            return ngram as T
+        fun getInstance(value: String) = when (val ngramLength = value.length) {
+            0 -> Zerogram
+            1 -> Unigram(value)
+            2 -> Bigram(value)
+            3 -> Trigram(value)
+            4 -> Quadrigram(value)
+            5 -> Fivegram(value)
+            else -> throw IllegalArgumentException(
+                "unsupported ngram length: $ngramLength"
+            )
         }
     }
 }

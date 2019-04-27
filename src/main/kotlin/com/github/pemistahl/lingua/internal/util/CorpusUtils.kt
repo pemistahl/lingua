@@ -124,9 +124,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Writing unigrams...")
     lateinit var unigramModel: LanguageModel<Unigram, Unigram>
     inputPath.asLineSequenceResource { lines ->
-        unigramModel = LanguageModel.fromTrainingData(lines, language, charClass, emptyMap())
+        unigramModel = LanguageModel.fromTrainingData(lines, language, Unigram::class, charClass, emptyMap())
         File("$outputPath/unigrams.json").bufferedWriter().use { writer ->
-            writer.write(unigramModel.toJson(Unigram::class))
+            writer.write(unigramModel.toJson())
         }
     }
     println("Done.\n")
@@ -134,9 +134,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Writing bigrams...")
     lateinit var bigramModel: LanguageModel<Bigram, Unigram>
     inputPath.asLineSequenceResource { lines ->
-        bigramModel = LanguageModel.fromTrainingData(lines, language, charClass, unigramModel.ngramAbsoluteFrequencies)
+        bigramModel = LanguageModel.fromTrainingData(lines, language, Bigram::class, charClass, unigramModel.ngramAbsoluteFrequencies)
         File("$outputPath/bigrams.json").bufferedWriter().use { writer ->
-            writer.write(bigramModel.toJson(Bigram::class))
+            writer.write(bigramModel.toJson())
         }
     }
     println("Done.\n")
@@ -144,9 +144,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Writing trigrams...")
     lateinit var trigramModel: LanguageModel<Trigram, Bigram>
     inputPath.asLineSequenceResource { lines ->
-        trigramModel = LanguageModel.fromTrainingData(lines, language, charClass, bigramModel.ngramAbsoluteFrequencies)
+        trigramModel = LanguageModel.fromTrainingData(lines, language, Trigram::class, charClass, bigramModel.ngramAbsoluteFrequencies)
         File("$outputPath/trigrams.json").bufferedWriter().use { writer ->
-            writer.write(trigramModel.toJson(Trigram::class))
+            writer.write(trigramModel.toJson())
         }
     }
     println("Done.\n")
@@ -154,9 +154,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Writing quadrigrams...")
     lateinit var quadrigramModel: LanguageModel<Quadrigram, Trigram>
     inputPath.asLineSequenceResource { lines ->
-        quadrigramModel = LanguageModel.fromTrainingData(lines, language, charClass, trigramModel.ngramAbsoluteFrequencies)
+        quadrigramModel = LanguageModel.fromTrainingData(lines, language, Quadrigram::class, charClass, trigramModel.ngramAbsoluteFrequencies)
         File("$outputPath/quadrigrams.json").bufferedWriter().use { writer ->
-            writer.write(quadrigramModel.toJson(Quadrigram::class))
+            writer.write(quadrigramModel.toJson())
         }
     }
     println("Done.\n")
@@ -164,9 +164,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Writing fivegrams...")
     lateinit var fivegramModel: LanguageModel<Fivegram, Quadrigram>
     inputPath.asLineSequenceResource { lines ->
-        fivegramModel = LanguageModel.fromTrainingData(lines, language, charClass, quadrigramModel.ngramAbsoluteFrequencies)
+        fivegramModel = LanguageModel.fromTrainingData(lines, language, Fivegram::class, charClass, quadrigramModel.ngramAbsoluteFrequencies)
         File("$outputPath/fivegrams.json").bufferedWriter().use { writer ->
-            writer.write(fivegramModel.toJson(Fivegram::class))
+            writer.write(fivegramModel.toJson())
         }
     }
 

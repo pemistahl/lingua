@@ -12,6 +12,6 @@ Erroneously classified as CZECH: 6,50%, TAGALOG: 0,80%, ENGLISH: 0,40%, SLOVENE:
 
 >> Detection of 1000 sentences (average length: 101 chars)
 Accuracy: 98,60%
-Erroneously classified as CZECH: 0,90%, TAGALOG: 0,20%, POLISH: 0,10%, SOMALI: 0,10%, SLOVENE: 0,10%
+Erroneously classified as CZECH: 1,00%, POLISH: 0,10%, TAGALOG: 0,10%, SOMALI: 0,10%, SLOVENE: 0,10%
 
 >> Exact values: 84.3 64.60000000000001 89.7 98.6

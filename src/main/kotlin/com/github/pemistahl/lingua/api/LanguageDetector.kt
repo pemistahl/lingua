@@ -90,19 +90,19 @@ class LanguageDetector internal constructor(
         val allProbabilities = mutableListOf<Map<Language, Double>>()
 
         if (trimmedText.length >= 1) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Unigram>(textSequence))
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Unigram::class))
         }
         if (trimmedText.length >= 2) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Bigram>(textSequence))
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Bigram::class))
         }
         if (trimmedText.length >= 3) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Trigram>(textSequence))
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Trigram::class))
         }
         if (trimmedText.length >= 4) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Quadrigram>(textSequence))
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Quadrigram::class))
         }
         if (trimmedText.length >= 5) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData<Fivegram>(textSequence))
+            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Fivegram::class))
         }
 
         return getMostLikelyLanguage(allProbabilities)
@@ -221,7 +221,7 @@ class LanguageDetector internal constructor(
         for (ngram in ngrams) {
             for (elem in ngram.rangeOfLowerOrderNgrams()) {
                 val probability = lookUpNgramProbability(language, elem)
-                if (probability != null) {
+                if (probability > 0) {
                     probabilities.add(probability)
                     break
                 }
@@ -233,7 +233,7 @@ class LanguageDetector internal constructor(
     internal fun <T : Ngram> lookUpNgramProbability(
         language: Language,
         ngram: T
-    ): Double? {
+    ): Double {
         val languageModels = when (ngram.length) {
             5 -> fivegramLanguageModels
             4 -> quadrigramLanguageModels

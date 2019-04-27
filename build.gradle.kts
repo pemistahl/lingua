@@ -193,7 +193,7 @@ dependencies {
     }
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation("org.assertj:assertj-core:3.12.2")
     testImplementation("io.mockk:mockk:1.9.3")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
@@ -213,4 +213,6 @@ python {
 
 repositories {
     jcenter()
+
+    //maven(uri("https://oss.sonatype.org/content/repositories/snapshots"))
 }

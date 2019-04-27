@@ -235,4 +235,28 @@ class NgramTest {
             }
         }
     }
+
+    @Test
+    fun `assert that Ngram length can be determined correctly`() {
+        assertThat(Ngram.getLength(Zerogram::class)).isEqualTo(0)
+        assertThat(Ngram.getLength(Unigram::class)).isEqualTo(1)
+        assertThat(Ngram.getLength(Bigram::class)).isEqualTo(2)
+        assertThat(Ngram.getLength(Trigram::class)).isEqualTo(3)
+        assertThat(Ngram.getLength(Quadrigram::class)).isEqualTo(4)
+        assertThat(Ngram.getLength(Fivegram::class)).isEqualTo(5)
+    }
+
+    @Test
+    fun `assert that Ngram instance can be created correctly`() {
+        assertThat(Ngram.getInstance("")).isEqualTo(Zerogram)
+        assertThat(Ngram.getInstance("q")).isEqualTo(unigram)
+        assertThat(Ngram.getInstance("qw")).isEqualTo(bigram)
+        assertThat(Ngram.getInstance("qwe")).isEqualTo(trigram)
+        assertThat(Ngram.getInstance("qwer")).isEqualTo(quadrigram)
+        assertThat(Ngram.getInstance("qwert")).isEqualTo(fivegram)
+
+        assertThatIllegalArgumentException().isThrownBy {
+            Ngram.getInstance("qwertz")
+        }.withMessage("unsupported ngram length: 6")
+    }
 }

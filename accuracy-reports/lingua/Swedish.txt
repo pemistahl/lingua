@@ -12,6 +12,6 @@ Erroneously classified as DANISH: 2,80%, NORWEGIAN: 2,20%, GERMAN: 0,90%, ENGLIS
 
 >> Detection of 1000 sentences (average length: 90 chars)
 Accuracy: 98,90%
-Erroneously classified as UNKNOWN: 0,30%, LITHUANIAN: 0,20%, GERMAN: 0,10%, CROATIAN: 0,10%, SLOVAK: 0,10%, DANISH: 0,10%, TAGALOG: 0,10%, ENGLISH: 0,10%
+Erroneously classified as UNKNOWN: 0,30%, LITHUANIAN: 0,20%, GERMAN: 0,10%, CROATIAN: 0,10%, SLOVAK: 0,10%, DANISH: 0,10%, WELSH: 0,10%, ENGLISH: 0,10%
 
 >> Exact values: 85.76666666666665 69.1 89.3 98.9
