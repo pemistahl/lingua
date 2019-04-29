@@ -65,17 +65,20 @@ import com.github.pemistahl.lingua.internal.model.Ngram
 import com.github.pemistahl.lingua.internal.model.Quadrigram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
+import com.github.pemistahl.lingua.internal.model.Zerogram
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
+import java.lang.Math.log
 
 @ExtendWith(MockKExtension::class)
 class LanguageDetectorTest {
@@ -125,51 +128,70 @@ class LanguageDetectorTest {
     fun beforeAll() {
         // UNIGRAMS
         // English
-        every { unigramLanguageModelForEnglish.getRelativeFrequency(Unigram("a")) } returns 0.01
-        every { unigramLanguageModelForEnglish.getRelativeFrequency(Unigram("l")) } returns 0.02
-        every { unigramLanguageModelForEnglish.getRelativeFrequency(Unigram("t")) } returns 0.03
-        every { unigramLanguageModelForEnglish.getRelativeFrequency(Unigram("e")) } returns 0.04
-        every { unigramLanguageModelForEnglish.getRelativeFrequency(Unigram("r")) } returns 0.05
+        with (unigramLanguageModelForEnglish) {
+            every { getRelativeFrequency(Unigram("a")) } returns 0.01
+            every { getRelativeFrequency(Unigram("l")) } returns 0.02
+            every { getRelativeFrequency(Unigram("t")) } returns 0.03
+            every { getRelativeFrequency(Unigram("e")) } returns 0.04
+            every { getRelativeFrequency(Unigram("r")) } returns 0.05
+        }
 
         // German
-        every { unigramLanguageModelForGerman.getRelativeFrequency(Unigram("a")) } returns 0.06
-        every { unigramLanguageModelForGerman.getRelativeFrequency(Unigram("l")) } returns 0.07
-        every { unigramLanguageModelForGerman.getRelativeFrequency(Unigram("t")) } returns 0.08
-        every { unigramLanguageModelForGerman.getRelativeFrequency(Unigram("e")) } returns 0.09
-        every { unigramLanguageModelForGerman.getRelativeFrequency(Unigram("r")) } returns 0.1
+        with (unigramLanguageModelForGerman) {
+            every { getRelativeFrequency(Unigram("a")) } returns 0.06
+            every { getRelativeFrequency(Unigram("l")) } returns 0.07
+            every { getRelativeFrequency(Unigram("t")) } returns 0.08
+            every { getRelativeFrequency(Unigram("e")) } returns 0.09
+            every { getRelativeFrequency(Unigram("r")) } returns 0.1
+        }
 
         // BIGRAMS
         // English
-        every { bigramLanguageModelForEnglish.getRelativeFrequency(Bigram("al")) } returns 0.11
-        every { bigramLanguageModelForEnglish.getRelativeFrequency(Bigram("lt")) } returns 0.12
-        every { bigramLanguageModelForEnglish.getRelativeFrequency(Bigram("te")) } returns 0.13
-        every { bigramLanguageModelForEnglish.getRelativeFrequency(Bigram("er")) } returns 0.14
+        with (bigramLanguageModelForEnglish) {
+            every { getRelativeFrequency(Bigram("al")) } returns 0.11
+            every { getRelativeFrequency(Bigram("lt")) } returns 0.12
+            every { getRelativeFrequency(Bigram("te")) } returns 0.13
+            every { getRelativeFrequency(Bigram("er")) } returns 0.14
+        }
 
         // German
-        every { bigramLanguageModelForGerman.getRelativeFrequency(Bigram("al")) } returns 0.15
-        every { bigramLanguageModelForGerman.getRelativeFrequency(Bigram("lt")) } returns 0.16
-        every { bigramLanguageModelForGerman.getRelativeFrequency(Bigram("te")) } returns 0.17
-        every { bigramLanguageModelForGerman.getRelativeFrequency(Bigram("er")) } returns 0.18
+        with (bigramLanguageModelForGerman) {
+            every { getRelativeFrequency(Bigram("al")) } returns 0.15
+            every { getRelativeFrequency(Bigram("lt")) } returns 0.16
+            every { getRelativeFrequency(Bigram("te")) } returns 0.17
+            every { getRelativeFrequency(Bigram("er")) } returns 0.18
+        }
 
         // TRIGRAMS
         // English
-        every { trigramLanguageModelForEnglish.getRelativeFrequency(Trigram("alt")) } returns 0.19
-        every { trigramLanguageModelForEnglish.getRelativeFrequency(Trigram("lte")) } returns 0.2
-        every { trigramLanguageModelForEnglish.getRelativeFrequency(Trigram("ter")) } returns 0.21
+        with (trigramLanguageModelForEnglish) {
+            every { getRelativeFrequency(Trigram("alt")) } returns 0.19
+            every { getRelativeFrequency(Trigram("lte")) } returns 0.2
+            every { getRelativeFrequency(Trigram("ter")) } returns 0.21
+
+            // unknown trigrams in model
+            every { getRelativeFrequency(Trigram("tez")) } returns 0.0
+        }
 
         // German
-        every { trigramLanguageModelForGerman.getRelativeFrequency(Trigram("alt")) } returns 0.22
-        every { trigramLanguageModelForGerman.getRelativeFrequency(Trigram("lte")) } returns 0.23
-        every { trigramLanguageModelForGerman.getRelativeFrequency(Trigram("ter")) } returns 0.24
+        with (trigramLanguageModelForGerman) {
+            every { getRelativeFrequency(Trigram("alt")) } returns 0.22
+            every { getRelativeFrequency(Trigram("lte")) } returns 0.23
+            every { getRelativeFrequency(Trigram("ter")) } returns 0.24
+        }
 
         // QUADRIGRAMS
         // English
-        every { quadrigramLanguageModelForEnglish.getRelativeFrequency(Quadrigram("alte")) } returns 0.25
-        every { quadrigramLanguageModelForEnglish.getRelativeFrequency(Quadrigram("lter")) } returns 0.26
+        with (quadrigramLanguageModelForEnglish) {
+            every { getRelativeFrequency(Quadrigram("alte")) } returns 0.25
+            every { getRelativeFrequency(Quadrigram("lter")) } returns 0.26
+        }
 
         // German
-        every { quadrigramLanguageModelForGerman.getRelativeFrequency(Quadrigram("alte")) } returns 0.27
-        every { quadrigramLanguageModelForGerman.getRelativeFrequency(Quadrigram("lter")) } returns 0.28
+        with (quadrigramLanguageModelForGerman) {
+            every { getRelativeFrequency(Quadrigram("alte")) } returns 0.27
+            every { getRelativeFrequency(Quadrigram("lter")) } returns 0.28
+        }
 
         // FIVEGRAMS
         // English
@@ -259,6 +281,30 @@ class LanguageDetectorTest {
             "language '$language', ngram '$ngram'"
         ).isEqualTo(
             expectedProbability
+        )
+    }
+
+    @Test
+    fun `assert that ngram probability lookup does not work for Zerogram`() {
+        assertThatIllegalArgumentException().isThrownBy {
+            detectorForEnglishAndGerman.lookUpNgramProbability(ENGLISH, Zerogram)
+        }.withMessage(
+            "Zerogram detected"
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("ngramProbabilitySumProvider")
+    internal fun `assert that sum of ngram probabilities can be computed correctly`(
+        ngrams: Set<Ngram>,
+        expectedSumOfProbabilities: Double
+    ) {
+        assertThat(
+            detectorForEnglishAndGerman.computeSumOfNgramProbabilities(ENGLISH, ngrams)
+        ).`as`(
+            "ngrams $ngrams"
+        ).isEqualTo(
+            expectedSumOfProbabilities
         )
     }
 
@@ -405,5 +451,17 @@ class LanguageDetectorTest {
         arguments(GERMAN, Trigram("alt"), 0.22),
         arguments(GERMAN, Quadrigram("lter"), 0.28),
         arguments(GERMAN, Fivegram("alter"), 0.30)
+    )
+
+    private fun ngramProbabilitySumProvider() = listOf(
+        arguments(
+            setOf(Unigram("a"), Unigram("l"), Unigram("t"), Unigram("e"), Unigram("r")),
+            log(0.01) + log(0.02) + log(0.03) + log(0.04) + log(0.05)
+        ),
+        arguments(
+            // back off unknown Trigram("tez") to known Bigram("te")
+            setOf(Trigram("alt"), Trigram("lte"), Trigram("tez")),
+            log(0.19) + log(0.2) + log(0.13)
+        )
     )
 }
