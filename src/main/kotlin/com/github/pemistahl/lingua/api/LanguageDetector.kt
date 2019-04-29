@@ -65,11 +65,11 @@ class LanguageDetector internal constructor(
 ) {
     private var languagesSequence = languages.asSequence()
 
-    private val unigramLanguageModels = loadLanguageModels(Unigram::class)
-    private val bigramLanguageModels = loadLanguageModels(Bigram::class)
-    private val trigramLanguageModels = loadLanguageModels(Trigram::class)
-    private val quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
-    private val fivegramLanguageModels = loadLanguageModels(Fivegram::class)
+    internal val unigramLanguageModels = loadLanguageModels(Unigram::class)
+    internal val bigramLanguageModels = loadLanguageModels(Bigram::class)
+    internal val trigramLanguageModels = loadLanguageModels(Trigram::class)
+    internal val quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
+    internal val fivegramLanguageModels = loadLanguageModels(Fivegram::class)
 
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
@@ -185,11 +185,16 @@ class LanguageDetector internal constructor(
                 break
             }
             else if (LATIN_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::usesLatinAlphabet)
-
-                if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    applyLanguageFilter { it != NORWEGIAN }
+                if (languages.contains(NORWEGIAN)) {
+                    applyLanguageFilter { it.usesLatinAlphabet && it !in setOf(BOKMAL, NYNORSK) }
                 }
+                else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
+                    applyLanguageFilter { it.usesLatinAlphabet && it != NORWEGIAN }
+                }
+                else {
+                    applyLanguageFilter(Language::usesLatinAlphabet)
+                }
+
                 val languagesSubset = mutableSetOf<Language>()
                 for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
                     if (word.containsAnyOf(characters)) {
@@ -340,10 +345,10 @@ class LanguageDetector internal constructor(
             "Ìì" to setOf(ITALIAN, VIETNAMESE),
             "Ññ" to setOf(BASQUE, SPANISH),
             "ŇňŤť" to setOf(CZECH, SLOVAK),
+            "Ăă" to setOf(ROMANIAN, VIETNAMESE),
 
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
-            "Ăă" to setOf(CZECH, ROMANIAN, VIETNAMESE),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
             "Êê" to setOf(FRENCH, PORTUGUESE, VIETNAMESE),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),

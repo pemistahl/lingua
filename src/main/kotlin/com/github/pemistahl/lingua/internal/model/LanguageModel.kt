@@ -33,7 +33,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
 
     internal val language: Language
     internal val ngramRelativeFrequencies: Map<T, Fraction>
-    internal val jsonNgramRelativeFrequencies: Map<String, Double>
+    internal var jsonNgramRelativeFrequencies: Map<String, Double>
 
     internal constructor(
         language: Language,

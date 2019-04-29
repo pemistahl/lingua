@@ -377,4 +377,18 @@ class LanguageModelTest {
         {"language":"ENGLISH","ngrams":{"3/100":"a c p u y","1/100":"b g l m","1/20":"d r","7/50":"e","1/50":"f w","1/25":"h","3/50":"i","1/10":"n o s","13/100":"t"}}
         """.trimIndent())
     }
+
+    @Test
+    fun `assert that relative frequency can be correctly retrieved from unigram language model`() {
+        val model = LanguageModel.fromTrainingData(
+            text = text.lineSequence(),
+            language = Language.ENGLISH,
+            ngramClass = Unigram::class,
+            charClass = "IsLatin",
+            lowerNgramAbsoluteFrequencies = emptyMap()
+        )
+        model.jsonNgramRelativeFrequencies = mapOf("a" to 0.03)
+        assertThat(model.getRelativeFrequency(Unigram("a"))).isEqualTo(0.03)
+        assertThat(model.getRelativeFrequency(Unigram("z"))).isEqualTo(0.0)
+    }
 }

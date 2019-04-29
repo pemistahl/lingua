@@ -1,4 +1,5 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
 
 group = "com.github.pemistahl"
@@ -9,6 +10,7 @@ val supportedDetectors: String by project
 val supportedLanguages: String by project
 val linguaMainClass: String by project
 val csvHeader: String by project
+val compileTestKotlin: KotlinCompile by tasks
 
 plugins {
     kotlin("jvm") version "1.3.31"
@@ -27,6 +29,8 @@ sourceSets {
         }
     }
 }
+
+compileTestKotlin.kotlinOptions.jvmTarget = "1.8"
 
 tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
@@ -213,6 +217,4 @@ python {
 
 repositories {
     jcenter()
-
-    //maven(uri("https://oss.sonatype.org/content/repositories/snapshots"))
 }
