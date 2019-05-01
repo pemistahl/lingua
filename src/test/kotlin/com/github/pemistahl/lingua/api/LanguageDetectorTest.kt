@@ -112,6 +112,8 @@ class LanguageDetectorTest {
     @MockK
     private lateinit var unigramTestDataLanguageModel: LanguageModel<Unigram, Unigram>
     @MockK
+    private lateinit var trigramTestDataLanguageModel: LanguageModel<Trigram, Trigram>
+    @MockK
     private lateinit var quadrigramTestDataLanguageModel: LanguageModel<Quadrigram, Quadrigram>
 
     @SpyK
@@ -141,7 +143,20 @@ class LanguageDetectorTest {
     @Test
     fun `assert that strings without letters return unknown language`() {
         val invalidStrings = listOf("", " \n  \t;", "3<856%)§")
-        assertThat(detectorForAllLanguages.detectLanguagesOf(invalidStrings)).allMatch { it == UNKNOWN }
+        assertThat(
+            detectorForAllLanguages.detectLanguagesOf(invalidStrings)
+        ).allMatch {
+            it == UNKNOWN
+        }
+    }
+
+    @Test
+    fun `assert that language of German noun 'Alter' can be detected correctly`() {
+        assertThat(
+            detectorForEnglishAndGerman.detectLanguageOf("Alter")
+        ).isEqualTo(
+            GERMAN
+        )
     }
 
     @ParameterizedTest
@@ -249,7 +264,37 @@ class LanguageDetectorTest {
     ) {
         assertThat(
             detectorForEnglishAndGerman.getMostLikelyLanguage(probabilitiesList)
-        ).isEqualTo(expectedLanguage)
+        ).isEqualTo(
+            expectedLanguage
+        )
+    }
+
+    @Test
+    fun `assert that ngram probabilities are correctly added to probabilities list`() {
+        val probabilitiesList = mutableListOf(
+            mapOf(ENGLISH to 0.1, GERMAN to 0.2),
+            mapOf(ENGLISH to 0.3, GERMAN to 0.4)
+        )
+
+        every {
+            detectorForEnglishAndGerman.computeLanguageProbabilities(trigramTestDataLanguageModel)
+        } returns
+            mapOf(ENGLISH to 0.5, GERMAN to 0.6)
+
+        detectorForEnglishAndGerman.addNgramProbabilities(
+            probabilitiesList,
+            trigramTestDataLanguageModel
+        )
+
+        assertThat(
+            probabilitiesList
+        ).isEqualTo(
+            mutableListOf(
+                mapOf(ENGLISH to 0.1, GERMAN to 0.2),
+                mapOf(ENGLISH to 0.3, GERMAN to 0.4),
+                mapOf(ENGLISH to 0.5, GERMAN to 0.6)
+            )
+        )
     }
 
     private fun defineBehaviorOfUnigramLanguageModels() {

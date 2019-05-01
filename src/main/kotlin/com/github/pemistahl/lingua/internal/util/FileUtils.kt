@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.internal.util.extension
+package com.github.pemistahl.lingua.internal.util
 
 import com.github.pemistahl.lingua.api.LanguageDetector
+import com.google.gson.stream.JsonReader
 import java.io.FileNotFoundException
+import java.io.InputStreamReader
 import java.nio.charset.Charset
 
-internal fun String.asLineSequenceResource(
-    charset: Charset = Charsets.UTF_8,
-    operation: (Sequence<String>) -> Unit
-) {
-    val inputStream =
-        LanguageDetector::class.java.getResourceAsStream(this)
-            ?: throw FileNotFoundException("the file '$this' could not be found")
-
-    inputStream.bufferedReader(charset).useLines(operation)
-}
-
-internal fun String.containsAnyOf(characters: String): Boolean {
-    for (c in characters) {
-        if (this.contains(c)) return true
-    }
-    return false
+internal fun readJsonResource(
+    relativeFilePath: String,
+    charset: Charset = Charsets.UTF_8
+): JsonReader {
+    val inputStream = LanguageDetector::class.java.getResourceAsStream(
+        relativeFilePath
+    ) ?: throw FileNotFoundException(
+        "the file '$relativeFilePath' could not be found"
+    )
+    return JsonReader(InputStreamReader(inputStream, charset))
 }

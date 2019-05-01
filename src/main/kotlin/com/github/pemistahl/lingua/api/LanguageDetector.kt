@@ -53,8 +53,8 @@ import com.github.pemistahl.lingua.internal.model.Ngram
 import com.github.pemistahl.lingua.internal.model.Quadrigram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
-import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
+import com.github.pemistahl.lingua.internal.util.readJsonResource
 import java.util.regex.PatternSyntaxException
 import kotlin.reflect.KClass
 
@@ -256,12 +256,11 @@ class LanguageDetector internal constructor(
         language: Language,
         ngramClass: KClass<T>
     ): LanguageModel<T, T> {
-        var languageModel: LanguageModel<T, T>? = null
-        val fileName = "${ngramClass.simpleName!!.toLowerCase()}s.json"
-        "/language-models/${language.isoCode}/$fileName".asJsonResource { jsonReader ->
-            languageModel = LanguageModel.fromJson(jsonReader, ngramClass, isCachedByMapDB)
-        }
-        return languageModel!!
+        val fileName = "${ngramClass.simpleName?.toLowerCase()}s.json"
+        val jsonResource = readJsonResource(
+            "/language-models/${language.isoCode}/$fileName"
+        )
+        return LanguageModel.fromJson(jsonResource, ngramClass, isCachedByMapDB)
     }
 
     internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T, T>>> {

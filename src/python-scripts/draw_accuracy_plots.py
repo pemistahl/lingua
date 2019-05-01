@@ -58,6 +58,31 @@ def create_boxplot(data, columns, title, ylim, filename):
     plt.savefig('images/plots/' + filename, dpi=72)
 
 
+def create_barplot(data, columns, title, ylim, filename):
+    filtered_data = data.loc[:, columns]
+
+    plt.figure(figsize=(32,12))
+    plt.title(title, fontsize=45, fontweight='bold')
+    plt.xticks(fontsize=35)
+    plt.yticks(fontsize=35)
+    plt.grid(color='#A6A6A6')
+
+    ax = sns.barplot(
+        data=filtered_data,
+        palette=['red', 'orange', 'green'],
+        errwidth=7.0,
+        ci='sd',
+        capsize=.1
+    )
+    ax.set_ylim(ylim)
+    ax.set_xlabel('Classifier', fontsize=38, fontweight='bold')
+    ax.set_ylabel('Mean Accuracy (%)', fontsize=38, fontweight='bold')
+    ax.set_xticklabels(['Optimaize', 'Tika', 'Lingua'])
+
+    plt.tight_layout()
+    plt.savefig('images/plots/' + filename, dpi=72)
+
+
 sns.set()
 sns.set_style('whitegrid')
 
@@ -88,6 +113,14 @@ create_boxplot(
     filename='boxplot-singlewords.png'
 )
 
+create_barplot(
+    data=accuracy_values_data_frame,
+    columns=['single-words-optimaize', 'single-words-tika', 'single-words-lingua'],
+    title='Single Word Detection',
+    ylim=[0,100],
+    filename='barplot-singlewords.png'
+)
+
 # WORD PAIR DETECTION ACCURACY #
 create_lineplot(
     data=accuracy_values_data_frame,
@@ -103,6 +136,14 @@ create_boxplot(
     title='Word Pair Detection',
     ylim=[0,100],
     filename='boxplot-wordpairs.png'
+)
+
+create_barplot(
+    data=accuracy_values_data_frame,
+    columns=['word-pairs-optimaize', 'word-pairs-tika', 'word-pairs-lingua'],
+    title='Word Pair Detection',
+    ylim=[0,100],
+    filename='barplot-wordpairs.png'
 )
 
 # SENTENCE DETECTION ACCURACY #
@@ -122,6 +163,14 @@ create_boxplot(
     filename='boxplot-sentences.png'
 )
 
+create_barplot(
+    data=accuracy_values_data_frame,
+    columns=['sentences-optimaize', 'sentences-tika', 'sentences-lingua'],
+    title='Sentence Detection',
+    ylim=[0,100],
+    filename='barplot-sentences.png'
+)
+
 # AVERAGE DETECTION ACCURACY #
 create_lineplot(
     data=accuracy_values_data_frame,
@@ -139,4 +188,12 @@ create_boxplot(
     filename='boxplot-average.png'
 )
 
-print("All plots created successfully!")
+create_barplot(
+    data=accuracy_values_data_frame,
+    columns=['average-optimaize', 'average-tika', 'average-lingua'],
+    title='Average Detection',
+    ylim=[0,100],
+    filename='barplot-average.png'
+)
+
+print("All plots created successfully")

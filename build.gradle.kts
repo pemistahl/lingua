@@ -4,7 +4,7 @@ import ru.vyarus.gradle.plugin.python.task.PythonTask
 
 group = "com.github.pemistahl"
 version = "0.4.0-SNAPSHOT"
-description = "A natural language detection library for Kotlin and Java, suitable for long and short text alike"
+description = "A natural language detection library for Java and other JVM languages, suitable for long and short text alike"
 
 val supportedDetectors: String by project
 val supportedLanguages: String by project
@@ -49,7 +49,7 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.register<Test>("accuracyReports") {
+tasks.register<Test>("writeAccuracyReports") {
     val allowedDetectors = supportedDetectors.split(',')
     val detectors = if (project.hasProperty("detectors"))
         project.property("detectors").toString().split(Regex("\\s*,\\s*"))
@@ -93,7 +93,7 @@ tasks.register<Test>("accuracyReports") {
     }
 }
 
-tasks.register("writeCsv") {
+tasks.register("writeAggregatedAccuracyReport") {
     doLast {
         val accuracyReportsDirectoryName = "accuracy-reports"
         val accuracyReportsDirectory = file(accuracyReportsDirectoryName)
@@ -137,13 +137,16 @@ tasks.register("writeCsv") {
             csvFile.appendText("\n")
         }
 
-        println("file 'aggregated-accuracy-values.csv' was written successfully")
+        println("file 'aggregated-accuracy-values.csv' written successfully")
     }
 }
 
 tasks.register<PythonTask>("drawAccuracyPlots") {
-    dependsOn("writeCsv")
-    command = "src/python/draw_accuracy_plots.py"
+    command = "src/python-scripts/draw_accuracy_plots.py"
+}
+
+tasks.register<PythonTask>("writeAccuracyTable") {
+    command = "src/python-scripts/write_accuracy_table.py"
 }
 
 tasks.withType<DokkaTask> {

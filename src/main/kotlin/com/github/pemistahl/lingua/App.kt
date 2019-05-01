@@ -60,23 +60,7 @@ import java.util.Scanner
 import kotlin.math.roundToInt
 
 fun main() {
-    //runApp()
-
-    //writeUniqueNgramFiles(outputPath = "C:/Users/pstahl/Documents")
-
-    writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/sq/sq_1M.txt",
-        outputPath = "C:/Users/pstahl/Documents",
-        language = ALBANIAN,
-        charClass = "IsLatin"
-    )
-
-    writeTestDataFiles(
-        inputPath = "/training-data/sq/sq_10K.txt",
-        outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "sq",
-        charClass = "IsLatin"
-    )
+    runApp()
 }
 
 private fun runApp() {

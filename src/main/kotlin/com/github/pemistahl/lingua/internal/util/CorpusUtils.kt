@@ -26,7 +26,6 @@ import com.github.pemistahl.lingua.internal.model.Quadrigram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.model.Zerogram
-import com.github.pemistahl.lingua.internal.util.extension.asJsonResource
 import com.github.pemistahl.lingua.internal.util.extension.asLineSequenceResource
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
@@ -184,13 +183,14 @@ internal fun writeUniqueNgramFiles(outputPath: String) {
         val inputJsonFileName = "${ngramSubclass.simpleName?.toLowerCase()}s.json"
         val outputJsonFileName = "unique${ngramSubclass.simpleName}s.json"
         val uniqueNgrams = mutableMapOf<String, Language>()
-        var ngrams: Set<String>? = null
 
         for (language in Language.values().filter { it != UNKNOWN }) {
-            "/language-models/${language.isoCode}/$inputJsonFileName".asJsonResource { jsonReader ->
-                ngrams = gson.fromJson(jsonReader, ngramType)
-            }
-            for (ngram in ngrams!!) {
+            val jsonResource = readJsonResource(
+                "/language-models/${language.isoCode}/$inputJsonFileName"
+            )
+            val ngrams: Set<String> = gson.fromJson(jsonResource, ngramType)
+
+            for (ngram in ngrams) {
                 if (uniqueNgrams.containsKey(ngram)) {
                     uniqueNgrams.remove(ngram)
                     continue
