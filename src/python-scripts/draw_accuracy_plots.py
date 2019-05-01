@@ -26,7 +26,7 @@ def create_lineplot(data, columns, title, ylim, filename):
     plt.figure(figsize=(32,12))
     plt.title(title, fontsize=45, fontweight='bold')
     plt.xticks(rotation=90, fontsize=35)
-    plt.yticks(rotation=90, fontsize=35)
+    plt.yticks(fontsize=35)
     plt.grid(color='#A6A6A6')
 
     ax = sns.lineplot(data=filtered_data, linewidth=5, palette=['green', 'orange', 'red'])
