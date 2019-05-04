@@ -2,21 +2,44 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
 
-group = "com.github.pemistahl"
-version = "0.4.0-SNAPSHOT"
-description = "A natural language detection library for Java and other JVM languages, suitable for long and short text alike"
-
-val supportedDetectors: String by project
-val supportedLanguages: String by project
+val linguaTaskGroup: String by project
+val linguaGroupId: String by project
+val linguaArtifactId: String by project
+val linguaVersion: String by project
+val linguaName: String by project
+val linguaDescription: String by project
+val linguaLicenseId: String by project
+val linguaLicenseName: String by project
+val linguaLicenseUrl: String by project
+val linguaRepositoryName: String by project
+val linguaWebsiteUrl: String by project
+val linguaVcsUrl: String by project
+val linguaIssueTrackerUrl: String by project
+val linguaDeveloperId: String by project
+val linguaDeveloperName: String by project
+val linguaDeveloperEmail: String by project
+val linguaDeveloperUrl: String by project
+val linguaScmConnection: String by project
+val linguaScmDeveloperConnection: String by project
+val linguaScmUrl: String by project
+val linguaSupportedDetectors: String by project
+val linguaSupportedLanguages: String by project
 val linguaMainClass: String by project
-val csvHeader: String by project
+val linguaCsvHeader: String by project
+
 val compileTestKotlin: KotlinCompile by tasks
+
+group = linguaGroupId
+version = linguaVersion
+description = linguaDescription
 
 plugins {
     kotlin("jvm") version "1.3.31"
     id("com.adarshr.test-logger") version "1.6.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("ru.vyarus.use-python") version "1.2.0"
+    id("com.jfrog.bintray") version "1.8.4"
+    `maven-publish`
     jacoco
 }
 
@@ -50,7 +73,10 @@ tasks.jacocoTestReport {
 }
 
 tasks.register<Test>("writeAccuracyReports") {
-    val allowedDetectors = supportedDetectors.split(',')
+    group = linguaTaskGroup
+    description = "Runs Lingua on provided test data, reports detection accuracy for each language and writes results to files."
+
+    val allowedDetectors = linguaSupportedDetectors.split(',')
     val detectors = if (project.hasProperty("detectors"))
         project.property("detectors").toString().split(Regex("\\s*,\\s*"))
     else allowedDetectors
@@ -64,7 +90,7 @@ tasks.register<Test>("writeAccuracyReports") {
         )
     }
 
-    val allowedLanguages = supportedLanguages.split(',')
+    val allowedLanguages = linguaSupportedLanguages.split(',')
     val languages = if (project.hasProperty("languages"))
         project.property("languages").toString().split(Regex("\\s*,\\s*"))
     else allowedLanguages
@@ -86,7 +112,7 @@ tasks.register<Test>("writeAccuracyReports") {
         detectors.forEach { detector ->
             languages.forEach { language ->
                 includeTestsMatching(
-                    "com.github.pemistahl.lingua.report.${detector.toLowerCase()}.${language}DetectionAccuracyReport"
+                    "$linguaGroupId.$linguaArtifactId.report.${detector.toLowerCase()}.${language}DetectionAccuracyReport"
                 )
             }
         }
@@ -94,6 +120,9 @@ tasks.register<Test>("writeAccuracyReports") {
 }
 
 tasks.register("writeAggregatedAccuracyReport") {
+    group = linguaTaskGroup
+    description = "Creates a table from all accuracy detection reports and writes it to a CSV file."
+
     doLast {
         val accuracyReportsDirectoryName = "accuracy-reports"
         val accuracyReportsDirectory = file(accuracyReportsDirectoryName)
@@ -101,8 +130,8 @@ tasks.register("writeAggregatedAccuracyReport") {
             throw GradleException("directory '$accuracyReportsDirectoryName' does not exist")
         }
 
-        val detectors = supportedDetectors.split(',')
-        val languages = supportedLanguages.split(',').toMutableList()
+        val detectors = linguaSupportedDetectors.split(',')
+        val languages = linguaSupportedLanguages.split(',').toMutableList()
         languages.removeAll("Bokmal,Nynorsk,Latin".split(','))
 
         val csvFile = file("$accuracyReportsDirectoryName/aggregated-accuracy-values.csv")
@@ -110,7 +139,7 @@ tasks.register("writeAggregatedAccuracyReport") {
 
         if (csvFile.exists()) csvFile.delete()
         csvFile.createNewFile()
-        csvFile.appendText(csvHeader.replace(',', ' '))
+        csvFile.appendText(linguaCsvHeader.replace(',', ' '))
         csvFile.appendText("\n")
 
         for (language in languages) {
@@ -142,10 +171,14 @@ tasks.register("writeAggregatedAccuracyReport") {
 }
 
 tasks.register<PythonTask>("drawAccuracyPlots") {
+    group = linguaTaskGroup
+    description = "Draws plots showing the results of the accuracy detection reports."
     command = "src/python-scripts/draw_accuracy_plots.py"
 }
 
 tasks.register<PythonTask>("writeAccuracyTable") {
+    group = linguaTaskGroup
+    description = "Creates HTML table from all accuracy detection results and writes it to a markdown file."
     command = "src/python-scripts/write_accuracy_table.py"
 }
 
@@ -160,17 +193,23 @@ tasks.register<DokkaTask>("dokkaJavadoc") {
 }
 
 tasks.register<Jar>("dokkaJavadocJar") {
+    group = "Build"
+    description = "Assembles a jar archive containing Javadoc documentation."
     dependsOn("dokkaJavadoc")
     classifier = "javadoc"
     from("$buildDir/dokkaJavadoc")
 }
 
 tasks.register<Jar>("sourcesJar") {
+    group = "Build"
+    description = "Assembles a jar archive containing the main source code."
     classifier = "sources"
     from("src/main/kotlin")
 }
 
 tasks.register<Jar>("jarWithDependencies") {
+    group = "Build"
+    description = "Assembles a jar archive containing the main classes and all external dependencies."
     classifier = "with-dependencies"
     dependsOn(configurations.runtimeClasspath)
     from(sourceSets.main.get().output)
@@ -183,7 +222,9 @@ tasks.register<Jar>("jarWithDependencies") {
     exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
 }
 
-tasks.register<JavaExec>("startRepl") {
+tasks.register<JavaExec>("runLinguaOnConsole") {
+    group = linguaTaskGroup
+    description = "Starts a REPL (read-evaluate-print loop) to try Lingua on the command line."
     main = linguaMainClass
     standardInput = System.`in`
     classpath = sourceSets["main"].runtimeClasspath
@@ -216,6 +257,74 @@ python {
     pip("matplotlib:3.0.2")
     pip("seaborn:0.9.0")
     pip("pandas:0.23.4")
+}
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    setPublications("linguaPublication")
+
+    dryRun = true
+    publish = false
+
+    with(pkg) {
+        repo = linguaRepositoryName
+        name = linguaArtifactId
+        desc = linguaDescription
+        websiteUrl = linguaWebsiteUrl
+        issueTrackerUrl = linguaIssueTrackerUrl
+        vcsUrl = linguaVcsUrl
+
+        setLicenses(linguaLicenseId)
+
+        with(version) {
+            name = linguaVersion
+            desc = linguaDescription
+            vcsTag = "v$linguaVersion"
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("linguaPublication") {
+            groupId = linguaGroupId
+            artifactId = linguaArtifactId
+            version = linguaVersion
+
+            from(components["kotlin"])
+
+            artifact(tasks["sourcesJar"])
+            artifact(tasks["jarWithDependencies"])
+            artifact(tasks["dokkaJavadocJar"])
+
+            pom {
+                name.set(linguaName)
+                description.set(linguaDescription)
+                url.set(linguaWebsiteUrl)
+
+                licenses {
+                    license {
+                        name.set(linguaLicenseName)
+                        url.set(linguaLicenseUrl)
+                    }
+                }
+                developers {
+                    developer {
+                        id.set(linguaDeveloperId)
+                        name.set(linguaDeveloperName)
+                        email.set(linguaDeveloperEmail)
+                        url.set(linguaDeveloperUrl)
+                    }
+                }
+                scm {
+                    connection.set(linguaScmConnection)
+                    developerConnection.set(linguaScmDeveloperConnection)
+                    url.set(linguaScmUrl)
+                }
+            }
+        }
+    }
 }
 
 repositories {
