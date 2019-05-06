@@ -1,7 +1,7 @@
 [![lingua](images/logo.png)][translate-lingua] 
 
 # language detection done right [![awesome nlp badge][awesome nlp badge]][awesome nlp url]
-*Lingua* is a language detection library for Kotlin and Java, suitable for long and short text alike.
+*Lingua* is a language detection library for Java and other JVM languages, suitable for long and short text alike.
 
 ---
 [![supported languages][supported languages badge]](#supported-languages)
@@ -18,7 +18,7 @@
 [![license badge][license badge]][license url]
 ---
 ### Quick Info
-* this library tries to solve language detection of very short words and phrases, even shorter than tweets for instance
+* this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
 * already outperforms *Apache Tika* and *Optimaize Language Detector* in this respect for more than 40 languages
 * works within every Java 6+ application and on Android
@@ -107,17 +107,17 @@ The table below shows the averaged accuracy values over all three performed task
 
 ![lineplot-average-rotated](/images/plots/lineplot-average-rotated.png)
 
-### 5. <a name="report-generation"></a> Test Report Generation <sup>[Top ▲](#table-of-contents)</sup>
+More detailed graphical statistics are available in the file [`ACCURACY_PLOTS.md`](https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md).
 
-If you want to reproduce the accuracy results above, you can generate the test reports yourself:
+### 5. <a name="report-generation"></a> Test Report and Plot Generation <sup>[Top ▲](#table-of-contents)</sup>
 
-- `mvn test -P accuracy-reports -D detector=lingua` generates reports for *Lingua*
-- `mvn test -P accuracy-reports -D detector=tika` generates reports for *Apache Tika*
-- `mvn test -P accuracy-reports -D detector=optimaize` generates reports for *Optimaize*
+If you want to reproduce the accuracy results above, you can generate the test reports yourself for all three classifiers and all languages by doing:
 
-If you just want to create a report for a specific language, you can do so as well:
+    ./gradlew writeAccuracyReports
+    
+You can also restrict the classifiers and languages to generate reports for by passing arguments to the Gradle task. The following task generates reports for *Lingua* and the languages English and German only:
 
-- `mvn test -P accuracy-reports -D detector=lingua -D language=German`
+    ./gradlew writeAccuracyReports -Pdetectors=Lingua -Planguages=English,German
 
 For each detector and language, a test report file is then written into [`/accuracy-reports`](https://github.com/pemistahl/lingua/tree/master/accuracy-reports), to be found next to the `src` directory. 
 As an example, here is the current output of the *Lingua* German report:
@@ -127,22 +127,28 @@ com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
 
 ##### GERMAN #####
 
->>> Accuracy on average: 91,13%
+>>> Accuracy on average: 89,87%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 78,50%
-Erroneously classified as DANISH: 3,50%, ENGLISH: 3,30%, DUTCH: 2,80%, SWEDISH: 2,10%, ITALIAN: 1,90%, FRENCH: 1,70%, ESTONIAN: 0,90%, LITHUANIAN: 0,80%, FINNISH: 0,80%, PORTUGUESE: 0,80%, CROATIAN: 0,80%, POLISH: 0,60%, SPANISH: 0,50%, ROMANIAN: 0,30%, TURKISH: 0,30%, LATVIAN: 0,20%, CZECH: 0,20%
+Accuracy: 75,10%
+Erroneously classified as DUTCH: 2,50%, DANISH: 2,50%, ENGLISH: 2,30%, NORWEGIAN: 2,10%, ITALIAN: 1,60%, SWEDISH: 1,40%, FRENCH: 1,40%, BASQUE: 1,20%, WELSH: 1,00%, AFRIKAANS: 0,90%, PORTUGUESE: 0,80%, ALBANIAN: 0,70%, FINNISH: 0,70%, ESTONIAN: 0,60%, SPANISH: 0,50%, IRISH: 0,50%, TAGALOG: 0,40%, CROATIAN: 0,40%, POLISH: 0,40%, SOMALI: 0,30%, LITHUANIAN: 0,30%, INDONESIAN: 0,30%, ROMANIAN: 0,30%, TURKISH: 0,30%, CATALAN: 0,30%, SLOVENE: 0,30%, ICELANDIC: 0,30%, LATVIAN: 0,20%, MALAY: 0,20%, CZECH: 0,10%, SLOVAK: 0,10%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 95,30%
-Erroneously classified as ENGLISH: 0,90%, DANISH: 0,80%, DUTCH: 0,80%, SWEDISH: 0,60%, FRENCH: 0,40%, ESTONIAN: 0,30%, CZECH: 0,20%, TURKISH: 0,10%, LATVIAN: 0,10%, PORTUGUESE: 0,10%, FINNISH: 0,10%, HUNGARIAN: 0,10%, ROMANIAN: 0,10%, SPANISH: 0,10%
+Accuracy: 94,80%
+Erroneously classified as DUTCH: 1,10%, ENGLISH: 0,80%, DANISH: 0,60%, SWEDISH: 0,50%, TAGALOG: 0,40%, FRENCH: 0,40%, WELSH: 0,30%, NORWEGIAN: 0,30%, TURKISH: 0,20%, IRISH: 0,20%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, INDONESIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
-Accuracy: 99,60%
-Erroneously classified as DUTCH: 0,20%, SWEDISH: 0,10%, POLISH: 0,10%
+Accuracy: 99,70%
+Erroneously classified as DUTCH: 0,20%, DANISH: 0,10%
 ```
 
-The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The code is contained in a Jupyter notebook and can be found under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/master/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
+The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The plots can be redrawn after modifying the test reports by executing the following Gradle task:
+
+    ./gradlew drawAccuracyPlots
+    
+The detailed table in the file [`ACCURACY_TABLE.md`](https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md) containing all accuracy values can be written with:
+
+    ./gradlew writeAccuracyTable
 
 ## 6. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -166,16 +172,17 @@ implementation 'com.github.pemistahl:lingua:0.4.0'
 
 ## 7. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
-*Lingua* uses Maven to build. A switch to Gradle is planned for the future.
+*Lingua* uses Gradle to build.
 
 ```
 git clone https://github.com/pemistahl/lingua.git
 cd lingua
-mvn install
+./gradlew build
 ```
-Maven's `package` phase is able to generate two jar files in the `target` directory:
-1. `mvn package` creates `lingua-0.4.0.jar` that contains the compiled sources only.
-2. `mvn package -P with-dependencies` creates `lingua-0.4.0-with-dependencies.jar` that additionally contains all dependencies needed to use the library. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+Several jar archives can be created from the project.
+1. `./gradlew jar` assembles `lingua-0.4.0.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-0.4.0-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-0.4.0-with-dependencies.jar` containing the compiled sources and all external dependencies needed at runtime. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ## 8. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -245,8 +252,8 @@ val detector = LanguageDetectorBuilder
 
 ### 8.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
-1. With Maven: `mvn exec:java`
-2. Without Maven: `java -jar lingua-0.4.0-with-dependencies.jar`
+1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
+2. Without Gradle: `java -jar lingua-0.4.0-with-dependencies.jar`
 
 Then just play around:
 
@@ -254,27 +261,33 @@ Then just play around:
 This is Lingua.
 Select the language models to load.
 
-1: all 25 supported languages
-2: French, Italian, Spanish, Portuguese
-3: Dutch, English, German
+1: Afrikaans, Dutch
+2: Arabic, Persian
+3: Basque, Catalan, Spanish
 4: Belarusian, Bulgarian, Russian
-5: Danish, Finnish, Swedish
-6: Estonian, Latvian, Lithuanian
-7: Czech, Polish
-8: Croatian, Hungarian, Romanian
-9: Arabic, Persian
+5: Bokmal, Nynorsk
+6: Croatian, Romanian
+7: Czech, Polish, Slovak, Slovene
+8: Danish, Icelandic, Norwegian, Swedish
+9: English, Dutch, German
+10: English, Irish, Welsh
+11: Estonian, Latvian, Lithuanian
+12: Finnish, Hungarian
+13: French, Italian, Spanish, Portuguese
+14: Indonesian, Malay, Tagalog
+15: all 41 supported languages
 
-Type a number (default: 1) and press <Enter>.
+Type a number and press <Enter>.
 Type :quit to exit.
 
-> 3
+> 9
 Loading language models...
-Done. 3 language models loaded in 2 seconds.
+Done. 3 language models loaded lazily.
 
 Type some text and press <Enter> to detect its language.
 Type :quit to exit.
 
-> Sprachen sind schon toll.
+> Sprachen sind schon toll
 GERMAN
 > languages are great
 ENGLISH

@@ -171,12 +171,14 @@ tasks.register("writeAggregatedAccuracyReport") {
 }
 
 tasks.register<PythonTask>("drawAccuracyPlots") {
+    dependsOn("writeAggregatedAccuracyReport")
     group = linguaTaskGroup
     description = "Draws plots showing the results of the accuracy detection reports."
     command = "src/python-scripts/draw_accuracy_plots.py"
 }
 
 tasks.register<PythonTask>("writeAccuracyTable") {
+    dependsOn("writeAggregatedAccuracyReport")
     group = linguaTaskGroup
     description = "Creates HTML table from all accuracy detection results and writes it to a markdown file."
     command = "src/python-scripts/write_accuracy_table.py"

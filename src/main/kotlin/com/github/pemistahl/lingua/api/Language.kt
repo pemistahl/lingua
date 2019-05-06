@@ -24,7 +24,6 @@ enum class Language(
     internal val usesArabicAlphabet: Boolean,
     internal var isExcludedFromDetection: Boolean
 ) {
-
     AFRIKAANS  ("af", true, false, false, false, false),
     ALBANIAN   ("sq", true, false, false, false, false),
     ARABIC     ("ar", false, false, false, true, false),
