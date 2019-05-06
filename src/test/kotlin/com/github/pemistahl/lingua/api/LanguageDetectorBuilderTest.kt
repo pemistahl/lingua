@@ -34,7 +34,6 @@ class LanguageDetectorBuilderTest {
             LanguageDetector(Language.all().toMutableSet(), isCachedByMapDB = false)
         )
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-        builder.useMapDBCache = false
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.all().toMutableSet(), isCachedByMapDB = true)
         )
@@ -50,7 +49,6 @@ class LanguageDetectorBuilderTest {
             LanguageDetector(Language.allSpokenOnes().toMutableSet(), isCachedByMapDB = false)
         )
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-        builder.useMapDBCache = false
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.allSpokenOnes().toMutableSet(), isCachedByMapDB = true)
         )
@@ -71,7 +69,6 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(expectedLanguages.toMutableSet(), isCachedByMapDB = false)
             )
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            builder.useMapDBCache = false
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), isCachedByMapDB = true)
             )
@@ -96,7 +93,6 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(expectedLanguages.toMutableSet(), isCachedByMapDB = false)
             )
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            builder.useMapDBCache = false
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), isCachedByMapDB = true)
             )
@@ -120,7 +116,6 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(expectedLanguages.toMutableSet(), isCachedByMapDB = false)
             )
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            builder.useMapDBCache = false
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), isCachedByMapDB = true)
             )
