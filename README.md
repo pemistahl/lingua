@@ -3,7 +3,7 @@
 # language detection done right
 *Lingua* is a language detection library for Java and other JVM languages, suitable for long and short text alike.
 
-#### Awarded as awesome ![awesome nlp badge][awesome nlp badge]
+#### Awarded as awesome ![awesome nlp badge]
 - [awesome-nlp](https://github.com/keon/awesome-nlp#user-content-kotlin)
 - [awesome-java](https://github.com/akullpp/awesome-java#natural-language-processing)
 - [awesome-kotlin](https://github.com/KotlinBy/awesome-kotlin#libraries-frameworks-misc)
@@ -146,7 +146,7 @@ Accuracy: 99,70%
 Erroneously classified as DUTCH: 0,20%, DANISH: 0,10%
 ```
 
-The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. The plots can be redrawn after modifying the test reports by executing the following Gradle task:
+The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. If you have Python installed, you can redraw the plots after modifying the test reports by executing the following Gradle task:
 
     ./gradlew drawAccuracyPlots
     
