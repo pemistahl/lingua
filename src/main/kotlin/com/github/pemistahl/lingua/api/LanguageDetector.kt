@@ -65,9 +65,12 @@ class LanguageDetector internal constructor(
 
         val textSequence = trimmedText.lineSequence()
         val allProbabilities = mutableListOf<Map<Language, Double>>()
+        val unigramCountsOfInputText = mutableMapOf<Language, Int>()
 
         if (trimmedText.length >= 1) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Unigram::class))
+            val unigramLanguageModel = LanguageModel.fromTestData(textSequence, Unigram::class)
+            addNgramProbabilities(allProbabilities, unigramLanguageModel)
+            countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel)
         }
         if (trimmedText.length >= 2) {
             addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Bigram::class))
@@ -82,7 +85,7 @@ class LanguageDetector internal constructor(
             addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Fivegram::class))
         }
 
-        return getMostLikelyLanguage(allProbabilities)
+        return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText)
     }
 
     internal fun resetLanguageFilter() {
@@ -114,6 +117,20 @@ class LanguageDetector internal constructor(
         }
     }
 
+    internal fun countUnigramsOfInputText(
+        unigramCounts: MutableMap<Language, Int>,
+        unigramLanguageModel: LanguageModel<Unigram, Unigram>
+    ) {
+        for (language in languagesSequence) {
+            for (unigram in unigramLanguageModel.ngrams) {
+                val probability = lookUpNgramProbability(language, unigram)
+                if (probability > 0) {
+                    unigramCounts.merge(language, 1, Int::plus)
+                }
+            }
+        }
+    }
+
     internal fun <T : Ngram> addNgramProbabilities(
         probabilities: MutableList<Map<Language, Double>>,
         testDataModel: LanguageModel<T, T>
@@ -124,11 +141,22 @@ class LanguageDetector internal constructor(
         }
     }
 
-    internal fun getMostLikelyLanguage(probabilities: List<Map<Language, Double>>): Language {
+    internal fun getMostLikelyLanguage(
+        probabilities: List<Map<Language, Double>>,
+        unigramCountsOfInputText: Map<Language, Int>
+    ): Language {
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
+
+            if (unigramCountsOfInputText.containsKey(language)) {
+                summedUpProbabilities[language] = summedUpProbabilities.getValue(language) / unigramCountsOfInputText.getValue(language)
+            }
         }
+
+        //println(probabilities)
+        //println(unigramCountsOfInputText)
+        //println(summedUpProbabilities.toList().sortedByDescending { it.second }.toMap())
 
         val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
         return if (filteredProbabilities.none()) UNKNOWN
@@ -271,33 +299,33 @@ class LanguageDetector internal constructor(
 
         // Android only supports character classes without Is- prefix
         private val LATIN_ALPHABET = try {
-            Regex("^[\\p{Latin}]+$")
+            Regex("^[\\p{Latin}\\s]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsLatin}]+$")
+            Regex("^[\\p{IsLatin}\\s]+$")
         }
 
         private val GREEK_ALPHABET = try {
-            Regex("^[\\p{Greek}]+$")
+            Regex("^[\\p{Greek}\\s]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsGreek}]+$")
+            Regex("^[\\p{IsGreek}\\s]+$")
         }
 
         private val CYRILLIC_ALPHABET = try {
-            Regex("^[\\p{Cyrillic}]+$")
+            Regex("^[\\p{Cyrillic}\\s]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsCyrillic}]+$")
+            Regex("^[\\p{IsCyrillic}\\s]+$")
         }
 
         private val ARABIC_ALPHABET = try {
-            Regex("^[\\p{Arabic}]+$")
+            Regex("^[\\p{Arabic}\\s]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsArabic}]+$")
+            Regex("^[\\p{IsArabic}\\s]+$")
         }
 
         private val CHINESE_ALPHABET = try {
-            Regex("^[\\p{Han}]+$")
+            Regex("^[\\p{Han}\\s]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsHan}]+$")
+            Regex("^[\\p{IsHan}\\s]+$")
         }
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(

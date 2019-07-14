@@ -263,7 +263,7 @@ class LanguageDetectorTest {
         expectedLanguage: Language
     ) {
         assertThat(
-            detectorForEnglishAndGerman.getMostLikelyLanguage(probabilitiesList)
+            detectorForEnglishAndGerman.getMostLikelyLanguage(probabilitiesList, emptyMap())
         ).isEqualTo(
             expectedLanguage
         )

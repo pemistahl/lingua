@@ -1,17 +1,17 @@
 ##### GERMAN #####
 
->>> Accuracy on average: 89,83%
+>>> Accuracy on average: 89,87%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 75,10%
 Erroneously classified as DUTCH: 2,50%, DANISH: 2,50%, ENGLISH: 2,30%, NORWEGIAN: 2,10%, ITALIAN: 1,60%, SWEDISH: 1,40%, FRENCH: 1,40%, BASQUE: 1,20%, WELSH: 1,00%, AFRIKAANS: 0,90%, PORTUGUESE: 0,80%, ALBANIAN: 0,70%, FINNISH: 0,70%, ESTONIAN: 0,60%, SPANISH: 0,50%, IRISH: 0,50%, TAGALOG: 0,40%, CROATIAN: 0,40%, POLISH: 0,40%, SOMALI: 0,30%, LITHUANIAN: 0,30%, INDONESIAN: 0,30%, ROMANIAN: 0,30%, TURKISH: 0,30%, CATALAN: 0,30%, SLOVENE: 0,30%, ICELANDIC: 0,30%, LATVIAN: 0,20%, MALAY: 0,20%, CZECH: 0,10%, SLOVAK: 0,10%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 94,80%
-Erroneously classified as DUTCH: 1,10%, ENGLISH: 0,80%, DANISH: 0,60%, SWEDISH: 0,50%, TAGALOG: 0,40%, FRENCH: 0,40%, WELSH: 0,30%, NORWEGIAN: 0,30%, TURKISH: 0,20%, IRISH: 0,20%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, INDONESIAN: 0,10%
+Accuracy: 94,90%
+Erroneously classified as DUTCH: 1,10%, ENGLISH: 0,80%, DANISH: 0,60%, SWEDISH: 0,50%, FRENCH: 0,40%, TAGALOG: 0,30%, WELSH: 0,30%, NORWEGIAN: 0,30%, TURKISH: 0,20%, IRISH: 0,20%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, INDONESIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99,60%
 Erroneously classified as DUTCH: 0,20%, PORTUGUESE: 0,10%, ALBANIAN: 0,10%
 
->> Exact values: 89.83333333333333 75.1 94.8 99.6
+>> Exact values: 89.86666666666667 75.1 94.89999999999999 99.6
