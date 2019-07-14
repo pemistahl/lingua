@@ -31,7 +31,7 @@ def create_lineplot(data, columns, title, ylim, filename):
 
     ax = sns.lineplot(data=filtered_data, linewidth=5, palette=['green', 'orange', 'red'])
     ax.set_ylim(ylim)
-    ax.legend(labels=['Lingua 0.4.0', 'Tika 1.20', 'Optimaize 0.6'], fontsize=28, loc='lower left')
+    ax.legend(labels=['Lingua 0.5.0', 'Tika 1.21', 'Optimaize 0.6'], fontsize=28, loc='lower left')
     ax.set_xlabel('Language', fontsize=38, fontweight='bold')
     ax.set_ylabel('Accuracy (%)', fontsize=38, fontweight='bold')
 
@@ -52,7 +52,7 @@ def create_boxplot(data, columns, title, ylim, filename):
     ax.set_ylim(ylim)
     ax.set_xlabel('Classifier', fontsize=38, fontweight='bold')
     ax.set_ylabel('Accuracy (%)', fontsize=38, fontweight='bold')
-    ax.set_xticklabels(['Optimaize 0.6', 'Tika 1.20', 'Lingua 0.4.0'])
+    ax.set_xticklabels(['Optimaize 0.6', 'Tika 1.21', 'Lingua 0.5.0'])
 
     plt.tight_layout()
     plt.savefig('images/plots/' + filename, dpi=72)
@@ -77,7 +77,7 @@ def create_barplot(data, columns, title, ylim, filename):
     ax.set_ylim(ylim)
     ax.set_xlabel('Classifier', fontsize=38, fontweight='bold')
     ax.set_ylabel('Mean Accuracy (%)', fontsize=38, fontweight='bold')
-    ax.set_xticklabels(['Optimaize 0.6', 'Tika 1.20', 'Lingua 0.4.0'])
+    ax.set_xticklabels(['Optimaize 0.6', 'Tika 1.21', 'Lingua 0.5.0'])
 
     plt.tight_layout()
     plt.savefig('images/plots/' + filename, dpi=72)

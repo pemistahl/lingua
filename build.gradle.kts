@@ -50,7 +50,7 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.3.31"
+    kotlin("jvm") version "1.3.41"
     id("com.adarshr.test-logger") version "1.6.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("ru.vyarus.use-python") version "1.2.0"
@@ -258,12 +258,12 @@ dependencies {
         exclude("org.jetbrains.kotlin:kotlin-stdlib")
     }
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.5.0")
     testImplementation("org.assertj:assertj-core:3.12.2")
     testImplementation("io.mockk:mockk:1.9.3")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    testImplementation("org.apache.tika:tika-langdetect:1.20")
+    testImplementation("org.apache.tika:tika-langdetect:1.21")
 
     val slf4jVersion = "1.7.25"
 
@@ -272,9 +272,9 @@ dependencies {
 }
 
 python {
-    pip("matplotlib:3.0.2")
+    pip("matplotlib:3.1.1")
     pip("seaborn:0.9.0")
-    pip("pandas:0.23.4")
+    pip("pandas:0.24.2")
 }
 
 bintray {
