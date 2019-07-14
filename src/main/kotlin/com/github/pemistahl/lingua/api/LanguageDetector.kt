@@ -27,6 +27,7 @@ import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.readJsonResource
 import java.util.regex.PatternSyntaxException
+import kotlin.math.ceil
 import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
@@ -168,17 +169,35 @@ class LanguageDetector internal constructor(
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
+        val languageCounts = mutableMapOf<Language, Int>()
+        val minimalRequiredWordCount = ceil(words.joinToString(separator = "").length / 2.0)
+
+        //println("WORD COUNT: ${words.count()}")
+        //println("MINIMAL COUNT: $minimalRequiredWordCount")
+
         for (word in words) {
             when {
-                GREEK_ALPHABET.matches(word) -> return GREEK
-                CHINESE_ALPHABET.matches(word) -> return CHINESE
+                GREEK_ALPHABET.matches(word) -> languageCounts.merge(GREEK, word.length, Int::plus)
+                CHINESE_ALPHABET.matches(word) -> languageCounts.merge(CHINESE, word.length, Int::plus)
                 LATIN_ALPHABET.matches(word) ->
                     for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
-                        if (word.containsAnyOf(characters)) return language
+                        if (word.containsAnyOf(characters)) {
+                            languageCounts.merge(language, word.length, Int::plus)
+                        }
                     }
             }
         }
-        return UNKNOWN
+
+        //println("LANGUAGE COUNTS: $languageCounts")
+
+        val filteredLanguageCounts = languageCounts.filter { it.value >= minimalRequiredWordCount }
+
+        //println("FILTERED LANGUAGE COUNTS: $filteredLanguageCounts")
+
+        return if (filteredLanguageCounts.isNotEmpty())
+            languageCounts.toList().sortedByDescending { it.second }.first().first
+        else
+            UNKNOWN
     }
 
     internal fun filterLanguagesByRules(words: List<String>) {
@@ -299,33 +318,33 @@ class LanguageDetector internal constructor(
 
         // Android only supports character classes without Is- prefix
         private val LATIN_ALPHABET = try {
-            Regex("^[\\p{Latin}\\s]+$")
+            Regex("^[\\p{Latin}]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsLatin}\\s]+$")
+            Regex("^[\\p{IsLatin}]+$")
         }
 
         private val GREEK_ALPHABET = try {
-            Regex("^[\\p{Greek}\\s]+$")
+            Regex("^[\\p{Greek}]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsGreek}\\s]+$")
+            Regex("^[\\p{IsGreek}]+$")
         }
 
         private val CYRILLIC_ALPHABET = try {
-            Regex("^[\\p{Cyrillic}\\s]+$")
+            Regex("^[\\p{Cyrillic}]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsCyrillic}\\s]+$")
+            Regex("^[\\p{IsCyrillic}]+$")
         }
 
         private val ARABIC_ALPHABET = try {
-            Regex("^[\\p{Arabic}\\s]+$")
+            Regex("^[\\p{Arabic}]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsArabic}\\s]+$")
+            Regex("^[\\p{IsArabic}]+$")
         }
 
         private val CHINESE_ALPHABET = try {
-            Regex("^[\\p{Han}\\s]+$")
+            Regex("^[\\p{Han}]+$")
         } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsHan}\\s]+$")
+            Regex("^[\\p{IsHan}]+$")
         }
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
