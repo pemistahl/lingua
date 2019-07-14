@@ -1,6 +1,6 @@
 ##### SLOVAK #####
 
->>> Accuracy on average: 84,30%
+>>> Accuracy on average: 84,27%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 64,60%
@@ -11,7 +11,7 @@ Accuracy: 89,70%
 Erroneously classified as CZECH: 6,50%, TAGALOG: 0,80%, ENGLISH: 0,40%, SLOVENE: 0,40%, CROATIAN: 0,40%, CATALAN: 0,30%, AFRIKAANS: 0,20%, MALAY: 0,20%, POLISH: 0,20%, ALBANIAN: 0,10%, INDONESIAN: 0,10%, SWEDISH: 0,10%, BASQUE: 0,10%, WELSH: 0,10%, SPANISH: 0,10%, ITALIAN: 0,10%, LITHUANIAN: 0,10%, HUNGARIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 101 chars)
-Accuracy: 98,60%
-Erroneously classified as CZECH: 1,00%, POLISH: 0,10%, TAGALOG: 0,10%, SOMALI: 0,10%, SLOVENE: 0,10%
+Accuracy: 98,50%
+Erroneously classified as CZECH: 1,00%, TAGALOG: 0,20%, POLISH: 0,10%, SOMALI: 0,10%, SLOVENE: 0,10%
 
->> Exact values: 84.3 64.60000000000001 89.7 98.6
+>> Exact values: 84.26666666666667 64.60000000000001 89.7 98.5

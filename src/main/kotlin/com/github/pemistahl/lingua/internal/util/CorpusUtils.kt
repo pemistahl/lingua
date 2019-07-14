@@ -37,7 +37,9 @@ import java.lang.reflect.Type
 import kotlin.random.Random
 
 internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: String, charClass: String) {
-    val wordRegex = Regex("""[\p{L}&&\p{$charClass}]{5,}""")
+    val wordRegex = Regex("""[\p{L}&&\p{$charClass}]+""")
+    val punctuation = Regex("""\p{P}+""")
+    val numbers = Regex("""\p{N}+""")
     val whitespaceRegex = Regex("""\s+""")
     val words = mutableSetOf<String>()
     val wordPairs = mutableSetOf<String>()
@@ -49,7 +51,13 @@ internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: 
     File("$outputPath/sentences/$isoCode.txt").bufferedWriter().use { writer ->
         inputPath.asLineSequenceResource { lines ->
             for ((idx, line) in lines.withIndex()) {
-                if (randomLineNumbers.contains(idx) && lineCounter < 1000) {
+                val cleanedLine = line
+                    .split("\t")[1]
+                    .replace(whitespaceRegex, " ")
+                    .replace("\"", "")
+                    .replace(punctuation, "")
+                    .replace(numbers, "")
+                if (wordRegex.matches(cleanedLine) && randomLineNumbers.contains(idx) && lineCounter < 1000) {
                     writer.write(line.split("\t")[1].replace(whitespaceRegex, " ").replace("\"", ""))
                     writer.newLine()
                     lineCounter++
@@ -59,6 +67,7 @@ internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: 
     }
     println("Done.\n")
 
+    /*
     lineCounter = 0
 
     println("Creating words and word pairs...")
@@ -112,6 +121,7 @@ internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: 
         }
     }
     println("Done.\n")
+    */
 }
 
 internal fun writeLanguageModelsFromLeipzigCorpusFile(

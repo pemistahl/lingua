@@ -16,36 +16,7 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.ALBANIAN
-import com.github.pemistahl.lingua.api.Language.BASQUE
-import com.github.pemistahl.lingua.api.Language.BOKMAL
-import com.github.pemistahl.lingua.api.Language.CATALAN
-import com.github.pemistahl.lingua.api.Language.CROATIAN
-import com.github.pemistahl.lingua.api.Language.CZECH
-import com.github.pemistahl.lingua.api.Language.DANISH
-import com.github.pemistahl.lingua.api.Language.ESTONIAN
-import com.github.pemistahl.lingua.api.Language.FINNISH
-import com.github.pemistahl.lingua.api.Language.FRENCH
-import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.GREEK
-import com.github.pemistahl.lingua.api.Language.HUNGARIAN
-import com.github.pemistahl.lingua.api.Language.ICELANDIC
-import com.github.pemistahl.lingua.api.Language.IRISH
-import com.github.pemistahl.lingua.api.Language.ITALIAN
-import com.github.pemistahl.lingua.api.Language.LATVIAN
-import com.github.pemistahl.lingua.api.Language.LITHUANIAN
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
-import com.github.pemistahl.lingua.api.Language.NYNORSK
-import com.github.pemistahl.lingua.api.Language.POLISH
-import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.ROMANIAN
-import com.github.pemistahl.lingua.api.Language.SLOVAK
-import com.github.pemistahl.lingua.api.Language.SLOVENE
-import com.github.pemistahl.lingua.api.Language.SPANISH
-import com.github.pemistahl.lingua.api.Language.SWEDISH
-import com.github.pemistahl.lingua.api.Language.TURKISH
-import com.github.pemistahl.lingua.api.Language.UNKNOWN
-import com.github.pemistahl.lingua.api.Language.VIETNAMESE
+import com.github.pemistahl.lingua.api.Language.*
 import com.github.pemistahl.lingua.internal.model.Bigram
 import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
@@ -76,10 +47,16 @@ class LanguageDetector internal constructor(
     fun detectLanguageOf(text: String): Language {
         resetLanguageFilter()
 
-        val trimmedText = text.trim().toLowerCase()
+        val trimmedText = text
+            .trim()
+            .toLowerCase()
+            .replace(PUNCTUATION, "")
+            .replace(NUMBERS, "")
+            .replace(MULTIPLE_WHITESPACE, " ")
+
         if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return UNKNOWN
 
-        val words = if (text.contains(' ')) text.split(" ") else listOf(text)
+        val words = if (trimmedText.contains(' ')) trimmedText.split(" ") else listOf(trimmedText)
 
         val languageDetectedByRules = detectLanguageWithRules(words)
         if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
@@ -164,11 +141,13 @@ class LanguageDetector internal constructor(
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
         for (word in words) {
-            if (GREEK_ALPHABET.matches(word)) return GREEK
-            else if (LATIN_ALPHABET.matches(word)) {
-                for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
-                    if (word.containsAnyOf(characters)) return language
-                }
+            when {
+                GREEK_ALPHABET.matches(word) -> return GREEK
+                CHINESE_ALPHABET.matches(word) -> return CHINESE
+                LATIN_ALPHABET.matches(word) ->
+                    for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
+                        if (word.containsAnyOf(characters)) return language
+                    }
             }
         }
         return UNKNOWN
@@ -249,22 +228,25 @@ class LanguageDetector internal constructor(
             else -> throw IllegalArgumentException("unsupported ngram type detected: $ngram")
         }
 
-        return languageModels.getValue(language).value.getRelativeFrequency(ngram)
+        return languageModels.getValue(language).value?.getRelativeFrequency(ngram) ?: 0.0
     }
 
     internal fun <T : Ngram> loadLanguageModel(
         language: Language,
         ngramClass: KClass<T>
-    ): LanguageModel<T, T> {
+    ): LanguageModel<T, T>? {
         val fileName = "${ngramClass.simpleName?.toLowerCase()}s.json"
         val jsonResource = readJsonResource(
             "/language-models/${language.isoCode}/$fileName"
         )
-        return LanguageModel.fromJson(jsonResource, ngramClass, isCachedByMapDB)
+        return if (jsonResource != null)
+            LanguageModel.fromJson(jsonResource, ngramClass, isCachedByMapDB)
+        else
+            null
     }
 
-    internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T, T>>> {
-        val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>>>()
+    internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T,T>?>> {
+        val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>?>>()
         for (language in languagesSequence) {
             languageModels[language] = lazy { loadLanguageModel(language, ngramClass) }
         }
@@ -283,6 +265,9 @@ class LanguageDetector internal constructor(
 
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")
+        private val PUNCTUATION = Regex("\\p{P}")
+        private val NUMBERS = Regex("\\p{N}")
+        private val MULTIPLE_WHITESPACE = Regex("\\s+")
 
         // Android only supports character classes without Is- prefix
         private val LATIN_ALPHABET = try {
@@ -307,6 +292,12 @@ class LanguageDetector internal constructor(
             Regex("^[\\p{Arabic}]+$")
         } catch (e: PatternSyntaxException) {
             Regex("^[\\p{IsArabic}]+$")
+        }
+
+        private val CHINESE_ALPHABET = try {
+            Regex("^[\\p{Han}]+$")
+        } catch (e: PatternSyntaxException) {
+            Regex("^[\\p{IsHan}]+$")
         }
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(

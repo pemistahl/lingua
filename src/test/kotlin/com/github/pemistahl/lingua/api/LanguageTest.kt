@@ -24,6 +24,7 @@ import com.github.pemistahl.lingua.api.Language.BELARUSIAN
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
+import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.CROATIAN
 import com.github.pemistahl.lingua.api.Language.CZECH
 import com.github.pemistahl.lingua.api.Language.DANISH
@@ -71,7 +72,7 @@ class LanguageTest {
     fun `assert that all supported languages are available`() {
         assertThat(Language.all()).containsExactly(
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
-            CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
+            CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
@@ -83,7 +84,7 @@ class LanguageTest {
     fun `assert that all supported spoken languages are available`() {
         assertThat(Language.allSpokenOnes()).containsExactly(
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
-            CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
+            CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
@@ -127,6 +128,12 @@ class LanguageTest {
             .containsExactly(ARABIC, PERSIAN)
     }
 
+    @Test
+    fun `assert that certain languages support Chinese alphabet`() {
+        assertThat(Language.values().filter { it.usesChineseAlphabet })
+            .containsExactly(CHINESE)
+    }
+
     @ParameterizedTest
     @CsvSource(
         "af, AFRIKAANS",
@@ -137,6 +144,7 @@ class LanguageTest {
         "nb, BOKMAL",
         "bg, BULGARIAN",
         "ca, CATALAN",
+        "zh, CHINESE",
         "hr, CROATIAN",
         "cs, CZECH",
         "da, DANISH",

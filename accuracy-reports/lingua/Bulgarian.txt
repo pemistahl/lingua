@@ -1,6 +1,6 @@
 ##### BULGARIAN #####
 
->>> Accuracy on average: 94,13%
+>>> Accuracy on average: 94,10%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 87,10%
@@ -11,7 +11,7 @@ Accuracy: 96,10%
 Erroneously classified as RUSSIAN: 3,90%
 
 >> Detection of 1000 sentences (average length: 89 chars)
-Accuracy: 99,20%
-Erroneously classified as RUSSIAN: 0,50%, GERMAN: 0,20%, LITHUANIAN: 0,10%
+Accuracy: 99,10%
+Erroneously classified as RUSSIAN: 0,50%, GERMAN: 0,20%, LITHUANIAN: 0,10%, TURKISH: 0,10%
 
->> Exact values: 94.13333333333333 87.1 96.1 99.2
+>> Exact values: 94.09999999999998 87.1 96.1 99.1

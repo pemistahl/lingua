@@ -17,11 +17,7 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.api.Language.BOKMAL
-import com.github.pemistahl.lingua.api.Language.LATIN
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
-import com.github.pemistahl.lingua.api.Language.NYNORSK
-import com.github.pemistahl.lingua.api.Language.UNKNOWN
+import com.github.pemistahl.lingua.api.Language.*
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
@@ -195,17 +191,19 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
-        return if (!locale.isPresent)
-            UNKNOWN
-        else
-            Language.getByIsoCode(locale.get().language)
+        return when {
+            !locale.isPresent -> UNKNOWN
+            locale.get().language.startsWith("zh") -> CHINESE
+            else -> Language.getByIsoCode(locale.get().language)
+        }
     }
 
     private fun mapLanguageResultToLanguage(result: LanguageResult): Language {
-        return if (result.isUnknown)
-            UNKNOWN
-        else
-            Language.getByIsoCode(result.language)
+        return when {
+            result.isUnknown -> UNKNOWN
+            result.language.startsWith("zh") -> CHINESE
+            else -> Language.getByIsoCode(result.language)
+        }
     }
 
     companion object {
@@ -227,7 +225,12 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val optimaizeDetector by lazy {
-            val languageLocales = languageIsoCodesToTest.map { LdLocale.fromString(it) }
+            val languageLocales = languageIsoCodesToTest.map {
+                when (it) {
+                    "zh" -> LdLocale.fromString("$it-CN")
+                    else -> LdLocale.fromString(it)
+                }
+            }
             val languageProfiles = LanguageProfileReader().readBuiltIn(languageLocales)
             com.optimaize.langdetect.LanguageDetectorBuilder
                 .create(NgramExtractors.standard())
@@ -236,8 +239,14 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val tikaDetector by lazy {
-            OptimaizeLangDetector()
-                .loadModels(languageIsoCodesToTest.toSet())
+            OptimaizeLangDetector().loadModels(
+                languageIsoCodesToTest.map {
+                    when (it) {
+                        "zh" -> "$it-CN"
+                        else -> it
+                    }
+                }.toSet()
+            )
         }
 
         const val CSV_FILE_ENCODING = "UTF-8"

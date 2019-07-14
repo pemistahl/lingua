@@ -18,18 +18,17 @@ package com.github.pemistahl.lingua.internal.util
 
 import com.github.pemistahl.lingua.api.LanguageDetector
 import com.google.gson.stream.JsonReader
-import java.io.FileNotFoundException
+import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 
 internal fun readJsonResource(
     relativeFilePath: String,
     charset: Charset = Charsets.UTF_8
-): JsonReader {
-    val inputStream = LanguageDetector::class.java.getResourceAsStream(
-        relativeFilePath
-    ) ?: throw FileNotFoundException(
-        "the file '$relativeFilePath' could not be found"
-    )
-    return JsonReader(InputStreamReader(inputStream, charset))
+): JsonReader? {
+    val inputStream: InputStream? = LanguageDetector::class.java.getResourceAsStream(relativeFilePath)
+    return if (inputStream != null)
+        JsonReader(InputStreamReader(inputStream, charset))
+    else
+        null
 }

@@ -1,6 +1,6 @@
 ##### SWEDISH #####
 
->>> Accuracy on average: 85,77%
+>>> Accuracy on average: 85,87%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 69,10%
@@ -11,7 +11,7 @@ Accuracy: 89,30%
 Erroneously classified as DANISH: 2,80%, NORWEGIAN: 2,20%, GERMAN: 0,90%, ENGLISH: 0,50%, TAGALOG: 0,50%, DUTCH: 0,50%, FRENCH: 0,50%, CROATIAN: 0,40%, ESTONIAN: 0,40%, AFRIKAANS: 0,30%, CATALAN: 0,30%, ALBANIAN: 0,20%, WELSH: 0,20%, FINNISH: 0,20%, PORTUGUESE: 0,10%, SLOVAK: 0,10%, SPANISH: 0,10%, ICELANDIC: 0,10%, LATVIAN: 0,10%, ROMANIAN: 0,10%, TURKISH: 0,10%, SOMALI: 0,10%
 
 >> Detection of 1000 sentences (average length: 90 chars)
-Accuracy: 98,90%
-Erroneously classified as UNKNOWN: 0,30%, LITHUANIAN: 0,20%, GERMAN: 0,10%, CROATIAN: 0,10%, SLOVAK: 0,10%, DANISH: 0,10%, WELSH: 0,10%, ENGLISH: 0,10%
+Accuracy: 99,20%
+Erroneously classified as LITHUANIAN: 0,20%, GERMAN: 0,10%, CROATIAN: 0,10%, SLOVAK: 0,10%, ALBANIAN: 0,10%, WELSH: 0,10%, ENGLISH: 0,10%
 
->> Exact values: 85.76666666666665 69.1 89.3 98.9
+>> Exact values: 85.86666666666666 69.1 89.3 99.2
