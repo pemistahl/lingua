@@ -16,50 +16,7 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.AFRIKAANS
-import com.github.pemistahl.lingua.api.Language.ALBANIAN
-import com.github.pemistahl.lingua.api.Language.ARABIC
-import com.github.pemistahl.lingua.api.Language.BASQUE
-import com.github.pemistahl.lingua.api.Language.BELARUSIAN
-import com.github.pemistahl.lingua.api.Language.BOKMAL
-import com.github.pemistahl.lingua.api.Language.BULGARIAN
-import com.github.pemistahl.lingua.api.Language.CATALAN
-import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.CROATIAN
-import com.github.pemistahl.lingua.api.Language.CZECH
-import com.github.pemistahl.lingua.api.Language.DANISH
-import com.github.pemistahl.lingua.api.Language.DUTCH
-import com.github.pemistahl.lingua.api.Language.ENGLISH
-import com.github.pemistahl.lingua.api.Language.ESTONIAN
-import com.github.pemistahl.lingua.api.Language.FINNISH
-import com.github.pemistahl.lingua.api.Language.FRENCH
-import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.GREEK
-import com.github.pemistahl.lingua.api.Language.HUNGARIAN
-import com.github.pemistahl.lingua.api.Language.ICELANDIC
-import com.github.pemistahl.lingua.api.Language.INDONESIAN
-import com.github.pemistahl.lingua.api.Language.IRISH
-import com.github.pemistahl.lingua.api.Language.ITALIAN
-import com.github.pemistahl.lingua.api.Language.LATIN
-import com.github.pemistahl.lingua.api.Language.LATVIAN
-import com.github.pemistahl.lingua.api.Language.LITHUANIAN
-import com.github.pemistahl.lingua.api.Language.MALAY
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
-import com.github.pemistahl.lingua.api.Language.NYNORSK
-import com.github.pemistahl.lingua.api.Language.PERSIAN
-import com.github.pemistahl.lingua.api.Language.POLISH
-import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.ROMANIAN
-import com.github.pemistahl.lingua.api.Language.RUSSIAN
-import com.github.pemistahl.lingua.api.Language.SOMALI
-import com.github.pemistahl.lingua.api.Language.SPANISH
-import com.github.pemistahl.lingua.api.Language.SWEDISH
-import com.github.pemistahl.lingua.api.Language.TAGALOG
-import com.github.pemistahl.lingua.api.Language.TURKISH
-import com.github.pemistahl.lingua.api.Language.VIETNAMESE
-import com.github.pemistahl.lingua.api.Language.WELSH
-import com.github.pemistahl.lingua.api.Language.SLOVAK
-import com.github.pemistahl.lingua.api.Language.SLOVENE
+import com.github.pemistahl.lingua.api.Language.*
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -74,7 +31,7 @@ class LanguageTest {
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
-            IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
+            IRISH, ITALIAN, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
         )
@@ -86,7 +43,7 @@ class LanguageTest {
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
-            IRISH, ITALIAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
+            IRISH, ITALIAN, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
         )
