@@ -179,6 +179,7 @@ class LanguageDetector internal constructor(
             when {
                 GREEK_ALPHABET.matches(word) -> languageCounts.merge(GREEK, word.length, Int::plus)
                 CHINESE_ALPHABET.matches(word) -> languageCounts.merge(CHINESE, word.length, Int::plus)
+                KOREAN_ALPHABET.matches(word) -> languageCounts.merge(KOREAN, word.length, Int::plus)
                 LATIN_ALPHABET.matches(word) ->
                     for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
                         if (word.containsAnyOf(characters)) {
@@ -316,36 +317,12 @@ class LanguageDetector internal constructor(
         private val NUMBERS = Regex("\\p{N}")
         private val MULTIPLE_WHITESPACE = Regex("\\s+")
 
-        // Android only supports character classes without Is- prefix
-        private val LATIN_ALPHABET = try {
-            Regex("^[\\p{Latin}]+$")
-        } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsLatin}]+$")
-        }
-
-        private val GREEK_ALPHABET = try {
-            Regex("^[\\p{Greek}]+$")
-        } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsGreek}]+$")
-        }
-
-        private val CYRILLIC_ALPHABET = try {
-            Regex("^[\\p{Cyrillic}]+$")
-        } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsCyrillic}]+$")
-        }
-
-        private val ARABIC_ALPHABET = try {
-            Regex("^[\\p{Arabic}]+$")
-        } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsArabic}]+$")
-        }
-
-        private val CHINESE_ALPHABET = try {
-            Regex("^[\\p{Han}]+$")
-        } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsHan}]+$")
-        }
+        private val LATIN_ALPHABET = createRegexFromCharacterClasses("Latin")
+        private val GREEK_ALPHABET = createRegexFromCharacterClasses("Greek")
+        private val CYRILLIC_ALPHABET = createRegexFromCharacterClasses("Cyrillic")
+        private val ARABIC_ALPHABET = createRegexFromCharacterClasses("Arabic")
+        private val CHINESE_ALPHABET = createRegexFromCharacterClasses("Han")
+        private val KOREAN_ALPHABET = createRegexFromCharacterClasses("Hangul")
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
             "Ëë" to ALBANIAN,
@@ -413,5 +390,17 @@ class LanguageDetector internal constructor(
 
             "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
         )
+
+        private fun createRegexFromCharacterClasses(vararg charClasses: String): Regex {
+            val charClassesWithoutPrefix = charClasses.joinToString(separator = "") { "\\p{$it}" }
+            val charClassesWithPrefix = charClasses.joinToString(separator = "") { "\\p{Is$it}" }
+
+            return try {
+                // Android only supports character classes without Is- prefix
+                Regex("^[$charClassesWithoutPrefix]+$")
+            } catch (e: PatternSyntaxException) {
+                Regex("^[$charClassesWithPrefix]+$")
+            }
+        }
     }
 }
