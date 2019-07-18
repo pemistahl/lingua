@@ -28,6 +28,7 @@ import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.readJsonResource
 import java.util.regex.PatternSyntaxException
 import kotlin.math.ceil
+import kotlin.math.ln
 import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
@@ -179,6 +180,7 @@ class LanguageDetector internal constructor(
             when {
                 GREEK_ALPHABET.matches(word) -> languageCounts.merge(GREEK, word.length, Int::plus)
                 CHINESE_ALPHABET.matches(word) -> languageCounts.merge(CHINESE, word.length, Int::plus)
+                JAPANESE_ALPHABET.matches(word) -> languageCounts.merge(JAPANESE, word.length, Int::plus)
                 KOREAN_ALPHABET.matches(word) -> languageCounts.merge(KOREAN, word.length, Int::plus)
                 LATIN_ALPHABET.matches(word) ->
                     for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
@@ -211,6 +213,12 @@ class LanguageDetector internal constructor(
                 applyLanguageFilter(Language::usesArabicAlphabet)
                 break
             }
+            /*
+            else if (CHINESE_ALPHABET.matches(word) || JAPANESE_ALPHABET.matches(word)) {
+                applyLanguageFilter(Language::usesChineseAlphabet)
+                break
+            }
+            */
             else if (LATIN_ALPHABET.matches(word)) {
                 if (languages.contains(NORWEGIAN)) {
                     applyLanguageFilter { it.usesLatinAlphabet && it !in setOf(BOKMAL, NYNORSK) }
@@ -259,7 +267,7 @@ class LanguageDetector internal constructor(
                 }
             }
         }
-        return probabilities.sumByDouble { Math.log(it) }
+        return probabilities.sumByDouble { ln(it) }
     }
 
     internal fun <T : Ngram> lookUpNgramProbability(
@@ -323,6 +331,7 @@ class LanguageDetector internal constructor(
         private val ARABIC_ALPHABET = createRegexFromCharacterClasses("Arabic")
         private val CHINESE_ALPHABET = createRegexFromCharacterClasses("Han")
         private val KOREAN_ALPHABET = createRegexFromCharacterClasses("Hangul")
+        private val JAPANESE_ALPHABET = createRegexFromCharacterClasses("Hiragana", "Katakana", "Han")
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
             "Ëë" to ALBANIAN,

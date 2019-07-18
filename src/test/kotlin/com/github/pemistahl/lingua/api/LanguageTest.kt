@@ -31,7 +31,7 @@ class LanguageTest {
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
-            IRISH, ITALIAN, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
+            IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
         )
@@ -43,7 +43,7 @@ class LanguageTest {
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
-            IRISH, ITALIAN, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
+            IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
         )
@@ -88,7 +88,7 @@ class LanguageTest {
     @Test
     fun `assert that certain languages support Chinese alphabet`() {
         assertThat(Language.values().filter { it.usesChineseAlphabet })
-            .containsExactly(CHINESE)
+            .containsExactly(CHINESE, JAPANESE)
     }
 
     @ParameterizedTest
@@ -117,6 +117,7 @@ class LanguageTest {
         "id, INDONESIAN",
         "ga, IRISH",
         "it, ITALIAN",
+        "ja, JAPANESE",
         "la, LATIN",
         "lv, LATVIAN",
         "lt, LITHUANIAN",

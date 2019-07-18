@@ -49,6 +49,7 @@ enum class Language(
     INDONESIAN ("id", true, false, false, false, false, false),
     IRISH      ("ga", true, false, false, false, false, false),
     ITALIAN    ("it", true, false, false, false, false, false),
+    JAPANESE   ("ja", false, false, false, false, true, false),
     KOREAN     ("ko", false, false, false, false, false, false),
     LATIN      ("la", true, false, false, false, false, false),
     LATVIAN    ("lv", true, false, false, false, false, false),
