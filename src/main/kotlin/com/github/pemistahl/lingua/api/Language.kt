@@ -68,6 +68,7 @@ enum class Language(
     SPANISH    ("es", true, false, false, false, false, false),
     SWEDISH    ("sv", true, false, false, false, false, false),
     TAGALOG    ("tl", true, false, false, false, false, false),
+    TAMIL      ("ta", false, false, false, false, false, false),
     THAI       ("th", false, false, false, false, false, false),
     TURKISH    ("tr", true, false, false, false, false, false),
     VIETNAMESE ("vi", true, false, false, false, false, false),
