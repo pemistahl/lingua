@@ -16,9 +16,55 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.*
-import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
+import com.github.pemistahl.lingua.api.Language.AFRIKAANS
+import com.github.pemistahl.lingua.api.Language.ALBANIAN
+import com.github.pemistahl.lingua.api.Language.ARABIC
+import com.github.pemistahl.lingua.api.Language.BASQUE
+import com.github.pemistahl.lingua.api.Language.BELARUSIAN
+import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.BULGARIAN
+import com.github.pemistahl.lingua.api.Language.CATALAN
+import com.github.pemistahl.lingua.api.Language.CHINESE
+import com.github.pemistahl.lingua.api.Language.CROATIAN
+import com.github.pemistahl.lingua.api.Language.CZECH
+import com.github.pemistahl.lingua.api.Language.DANISH
+import com.github.pemistahl.lingua.api.Language.DUTCH
+import com.github.pemistahl.lingua.api.Language.ENGLISH
+import com.github.pemistahl.lingua.api.Language.ESTONIAN
+import com.github.pemistahl.lingua.api.Language.FINNISH
+import com.github.pemistahl.lingua.api.Language.FRENCH
+import com.github.pemistahl.lingua.api.Language.GERMAN
+import com.github.pemistahl.lingua.api.Language.GREEK
+import com.github.pemistahl.lingua.api.Language.HUNGARIAN
+import com.github.pemistahl.lingua.api.Language.ICELANDIC
+import com.github.pemistahl.lingua.api.Language.INDONESIAN
+import com.github.pemistahl.lingua.api.Language.IRISH
+import com.github.pemistahl.lingua.api.Language.ITALIAN
+import com.github.pemistahl.lingua.api.Language.JAPANESE
+import com.github.pemistahl.lingua.api.Language.KOREAN
+import com.github.pemistahl.lingua.api.Language.LATIN
+import com.github.pemistahl.lingua.api.Language.LATVIAN
+import com.github.pemistahl.lingua.api.Language.LITHUANIAN
+import com.github.pemistahl.lingua.api.Language.MALAY
+import com.github.pemistahl.lingua.api.Language.NORWEGIAN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
+import com.github.pemistahl.lingua.api.Language.PERSIAN
+import com.github.pemistahl.lingua.api.Language.POLISH
+import com.github.pemistahl.lingua.api.Language.PORTUGUESE
+import com.github.pemistahl.lingua.api.Language.ROMANIAN
+import com.github.pemistahl.lingua.api.Language.RUSSIAN
+import com.github.pemistahl.lingua.api.Language.SLOVAK
+import com.github.pemistahl.lingua.api.Language.SLOVENE
+import com.github.pemistahl.lingua.api.Language.SOMALI
+import com.github.pemistahl.lingua.api.Language.SPANISH
+import com.github.pemistahl.lingua.api.Language.SWEDISH
+import com.github.pemistahl.lingua.api.Language.TAGALOG
+import com.github.pemistahl.lingua.api.Language.THAI
+import com.github.pemistahl.lingua.api.Language.TURKISH
+import com.github.pemistahl.lingua.api.Language.VIETNAMESE
+import com.github.pemistahl.lingua.api.Language.WELSH
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -33,7 +79,7 @@ class LanguageTest {
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, THAI, TURKISH, VIETNAMESE, WELSH
         )
     }
 
@@ -45,7 +91,7 @@ class LanguageTest {
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, THAI, TURKISH, VIETNAMESE, WELSH
         )
     }
 
@@ -135,6 +181,7 @@ class LanguageTest {
         "es, SPANISH",
         "sv, SWEDISH",
         "tl, TAGALOG",
+        "th, THAI",
         "tr, TURKISH",
         "vi, VIETNAMESE",
         "cy, WELSH"

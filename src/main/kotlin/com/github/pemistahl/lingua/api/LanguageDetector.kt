@@ -156,10 +156,6 @@ class LanguageDetector internal constructor(
             }
         }
 
-        //println(probabilities)
-        //println(unigramCountsOfInputText)
-        //println(summedUpProbabilities.toList().sortedByDescending { it.second }.toMap())
-
         val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
         return if (filteredProbabilities.none()) UNKNOWN
         else filteredProbabilities.maxBy {
@@ -170,35 +166,33 @@ class LanguageDetector internal constructor(
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
-        val languageCounts = mutableMapOf<Language, Int>()
-        val minimalRequiredWordCount = ceil(words.joinToString(separator = "").length / 2.0)
-
-        //println("WORD COUNT: ${words.count()}")
-        //println("MINIMAL COUNT: $minimalRequiredWordCount")
+        val languageCharCounts = mutableMapOf<Language, Int>()
+        val minimalRequiredCharCount = ceil(words.joinToString(separator = "").length / 2.0)
 
         for (word in words) {
             when {
-                GREEK_ALPHABET.matches(word) -> languageCounts.merge(GREEK, word.length, Int::plus)
-                CHINESE_ALPHABET.matches(word) -> languageCounts.merge(CHINESE, word.length, Int::plus)
-                JAPANESE_ALPHABET.matches(word) -> languageCounts.merge(JAPANESE, word.length, Int::plus)
-                KOREAN_ALPHABET.matches(word) -> languageCounts.merge(KOREAN, word.length, Int::plus)
-                LATIN_ALPHABET.matches(word) ->
+                GREEK_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
+                CHINESE_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
+                JAPANESE_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
+                KOREAN_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
+                THAI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, THAI)
+                LATIN_ALPHABET.matches(word) -> {
                     for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
                         if (word.containsAnyOf(characters)) {
-                            languageCounts.merge(language, word.length, Int::plus)
+                            languageCharCounts.addCharCount(word, language)
                         }
                     }
+                }
             }
         }
 
-        //println("LANGUAGE COUNTS: $languageCounts")
+        val languagesWithMinimumRequiredCharCountExist = languageCharCounts
+            .asSequence()
+            .filter { it.value >= minimalRequiredCharCount }
+            .count() > 0
 
-        val filteredLanguageCounts = languageCounts.filter { it.value >= minimalRequiredWordCount }
-
-        //println("FILTERED LANGUAGE COUNTS: $filteredLanguageCounts")
-
-        return if (filteredLanguageCounts.isNotEmpty())
-            languageCounts.toList().sortedByDescending { it.second }.first().first
+        return if (languagesWithMinimumRequiredCharCountExist)
+            languageCharCounts.toList().sortedByDescending { it.second }.first().first
         else
             UNKNOWN
     }
@@ -213,12 +207,10 @@ class LanguageDetector internal constructor(
                 applyLanguageFilter(Language::usesArabicAlphabet)
                 break
             }
-            /*
             else if (CHINESE_ALPHABET.matches(word) || JAPANESE_ALPHABET.matches(word)) {
                 applyLanguageFilter(Language::usesChineseAlphabet)
                 break
             }
-            */
             else if (LATIN_ALPHABET.matches(word)) {
                 if (languages.contains(NORWEGIAN)) {
                     applyLanguageFilter { it.usesLatinAlphabet && it !in setOf(BOKMAL, NYNORSK) }
@@ -309,6 +301,10 @@ class LanguageDetector internal constructor(
         return languageModels
     }
 
+    private fun MutableMap<Language, Int>.addCharCount(word: String, language: Language) {
+        this.merge(language, word.length, Int::plus)
+    }
+
     override fun equals(other: Any?) = when {
         this === other -> true
         other !is LanguageDetector -> false
@@ -325,13 +321,14 @@ class LanguageDetector internal constructor(
         private val NUMBERS = Regex("\\p{N}")
         private val MULTIPLE_WHITESPACE = Regex("\\s+")
 
-        private val LATIN_ALPHABET = createRegexFromCharacterClasses("Latin")
-        private val GREEK_ALPHABET = createRegexFromCharacterClasses("Greek")
-        private val CYRILLIC_ALPHABET = createRegexFromCharacterClasses("Cyrillic")
-        private val ARABIC_ALPHABET = createRegexFromCharacterClasses("Arabic")
-        private val CHINESE_ALPHABET = createRegexFromCharacterClasses("Han")
-        private val KOREAN_ALPHABET = createRegexFromCharacterClasses("Hangul")
-        private val JAPANESE_ALPHABET = createRegexFromCharacterClasses("Hiragana", "Katakana", "Han")
+        private val LATIN_ALPHABET = "Latin".asRegex()
+        private val GREEK_ALPHABET = "Greek".asRegex()
+        private val CYRILLIC_ALPHABET = "Cyrillic".asRegex()
+        private val ARABIC_ALPHABET = "Arabic".asRegex()
+        private val CHINESE_ALPHABET = "Han".asRegex()
+        private val KOREAN_ALPHABET = "Hangul".asRegex()
+        private val JAPANESE_ALPHABET = "Hiragana, Katakana, Han".asRegex()
+        private val THAI_ALPHABET = "Thai".asRegex()
 
         private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
             "Ëë" to ALBANIAN,
@@ -400,7 +397,9 @@ class LanguageDetector internal constructor(
             "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
         )
 
-        private fun createRegexFromCharacterClasses(vararg charClasses: String): Regex {
+        private fun String.asRegex(): Regex {
+            val splitRegex = Regex("""\s*,\s*""")
+            val charClasses = this.split(splitRegex)
             val charClassesWithoutPrefix = charClasses.joinToString(separator = "") { "\\p{$it}" }
             val charClassesWithPrefix = charClasses.joinToString(separator = "") { "\\p{Is$it}" }
 
