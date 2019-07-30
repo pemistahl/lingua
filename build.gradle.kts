@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import com.adarshr.gradle.testlogger.theme.ThemeType
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
@@ -51,7 +52,7 @@ description = linguaDescription
 
 plugins {
     kotlin("jvm") version "1.3.41"
-    id("com.adarshr.test-logger") version "1.6.0"
+    id("com.adarshr.test-logger") version "1.7.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("ru.vyarus.use-python") version "1.2.0"
     id("com.jfrog.bintray") version "1.8.4"
@@ -115,11 +116,34 @@ tasks.register<Test>("writeAccuracyReports") {
         throw GradleException("language '$it' is not supported")
     }
 
+    val availableCpuCores = Runtime.getRuntime().availableProcessors()
+    val cpuCoresRepr = if (project.hasProperty("cpuCores"))
+        project.property("cpuCores").toString()
+    else "1"
+
+    val cpuCores = try {
+        cpuCoresRepr.toInt()
+    } catch (e: NumberFormatException) {
+        throw GradleException("'$cpuCoresRepr' is not a valid value for argument -PcpuCores")
+    }
+
+    if (cpuCores !in 1..availableCpuCores) {
+        throw GradleException(
+            """
+            $cpuCores cpu cores are not supported
+            minimum: 1
+            maximum: $availableCpuCores
+            """.trimIndent()
+        )
+    }
+
     maxHeapSize = "4096m"
+    maxParallelForks = cpuCores
     reports.html.isEnabled = false
     reports.junitXml.isEnabled = false
 
     testlogger {
+        theme = ThemeType.STANDARD_PARALLEL
         showPassed = false
         showSkipped = false
     }
