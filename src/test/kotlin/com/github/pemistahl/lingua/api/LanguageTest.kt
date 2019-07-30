@@ -115,12 +115,6 @@ class LanguageTest {
     }
 
     @Test
-    fun `assert that certain languages support Greek alphabet`() {
-        assertThat(Language.values().filter { it.usesGreekAlphabet })
-            .containsExactly(GREEK)
-    }
-
-    @Test
     fun `assert that certain languages support Cyrillic alphabet`() {
         assertThat(Language.values().filter { it.usesCyrillicAlphabet })
             .containsExactly(BELARUSIAN, BULGARIAN, RUSSIAN)

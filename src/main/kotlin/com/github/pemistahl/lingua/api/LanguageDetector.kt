@@ -37,6 +37,7 @@ class LanguageDetector internal constructor(
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private var languagesSequence = languages.asSequence()
+    private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
 
     internal val unigramLanguageModels = loadLanguageModels(Unigram::class)
     internal val bigramLanguageModels = loadLanguageModels(Bigram::class)
@@ -177,12 +178,10 @@ class LanguageDetector internal constructor(
                 KOREAN_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
                 THAI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, THAI)
                 TAMIL_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
-                LATIN_ALPHABET.matches(word) -> {
-                    for ((characters, language) in CHARS_TO_SINGLE_LANGUAGE_MAPPING) {
-                        if (word.containsAnyOf(characters)) {
-                            languageCharCounts.addCharCount(word, language)
-                        }
-                    }
+                LATIN_ALPHABET.matches(word) -> languagesWithUniqueCharacters.filter {
+                    word.containsAnyOf(it.uniqueCharacters)
+                }.forEach {
+                    languageCharCounts.addCharCount(word, it)
                 }
             }
         }
@@ -331,29 +330,6 @@ class LanguageDetector internal constructor(
         private val JAPANESE_ALPHABET = "Hiragana, Katakana, Han".asRegex()
         private val THAI_ALPHABET = "Thai".asRegex()
         private val TAMIL_ALPHABET = "Tamil".asRegex()
-
-        private val CHARS_TO_SINGLE_LANGUAGE_MAPPING = mapOf(
-            "Ëë" to ALBANIAN,
-            "Ïï" to CATALAN,
-            "ĚěŘřŮů" to CZECH,
-            "ß" to GERMAN,
-            "ŐőŰű" to HUNGARIAN,
-            "ĀāĒēĢģĪīĶķĻļŅņ" to LATVIAN,
-            "ĖėĮįŲų" to LITHUANIAN,
-            "ŁłŃńŚśŹź" to POLISH,
-            "Țţ" to ROMANIAN,
-            "ĹĺĽľŔŕ" to SLOVAK,
-            "¿¡" to SPANISH,
-            "İıĞğ" to TURKISH,
-            """
-            ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậ
-            ỀềẺẻỂểẼẽỄễẾếẸẹỆệ
-            ỈỉĨĩỊị
-            ƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợ
-            ƯưỪừỦủỬửŨũỮữỨứỤụỰự
-            ỲỳỶỷỸỹỴỵ
-            """.trimIndent() to VIETNAMESE
-        )
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),
