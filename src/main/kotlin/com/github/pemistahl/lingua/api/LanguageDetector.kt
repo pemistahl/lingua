@@ -178,6 +178,7 @@ class LanguageDetector internal constructor(
                 KOREAN_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
                 THAI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, THAI)
                 TAMIL_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
+                TELUGU_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TELUGU)
                 LATIN_ALPHABET.matches(word) -> languagesWithUniqueCharacters.filter {
                     word.containsAnyOf(it.uniqueCharacters)
                 }.forEach {
@@ -330,6 +331,7 @@ class LanguageDetector internal constructor(
         private val JAPANESE_ALPHABET = "Hiragana, Katakana, Han".asRegex()
         private val THAI_ALPHABET = "Thai".asRegex()
         private val TAMIL_ALPHABET = "Tamil".asRegex()
+        private val TELUGU_ALPHABET = "Telugu".asRegex()
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),
