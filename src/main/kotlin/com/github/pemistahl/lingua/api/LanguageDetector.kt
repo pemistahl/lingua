@@ -179,6 +179,7 @@ class LanguageDetector internal constructor(
                 THAI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, THAI)
                 TAMIL_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
                 BENGALI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, BENGALI)
+                TELUGU_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TELUGU)
                 LATIN_ALPHABET.matches(word) -> languagesWithUniqueCharacters.filter {
                     word.containsAnyOf(it.uniqueCharacters)
                 }.forEach {
@@ -332,6 +333,7 @@ class LanguageDetector internal constructor(
         private val THAI_ALPHABET = "Thai".asRegex()
         private val TAMIL_ALPHABET = "Tamil".asRegex()
         private val BENGALI_ALPHABET = "Bengali".asRegex()
+        private val TELUGU_ALPHABET = "Telugu".asRegex()
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),

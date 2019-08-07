@@ -70,6 +70,7 @@ enum class Language(
     SWEDISH    ("sv", "", true, false, false, false, false),
     TAGALOG    ("tl", "", true, false, false, false, false),
     TAMIL      ("ta", "", false, false, false, false, false),
+    TELUGU     ("te", "", false, false, false, false, false),
     THAI       ("th", "", false, false, false, false, false),
     TURKISH    ("tr", "İıĞğ", true, false, false, false, false),
     VIETNAMESE ("vi", "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ", true, false, false, false, false),

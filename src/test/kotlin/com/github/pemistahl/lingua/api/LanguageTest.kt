@@ -61,6 +61,7 @@ import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TAGALOG
 import com.github.pemistahl.lingua.api.Language.TAMIL
+import com.github.pemistahl.lingua.api.Language.TELUGU
 import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
@@ -81,7 +82,7 @@ class LanguageTest {
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, THAI, TURKISH, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, VIETNAMESE, WELSH
         )
     }
 
@@ -93,7 +94,7 @@ class LanguageTest {
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, THAI, TURKISH, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, VIETNAMESE, WELSH
         )
     }
 
@@ -179,6 +180,7 @@ class LanguageTest {
         "sv, SWEDISH",
         "tl, TAGALOG",
         "ta, TAMIL",
+        "te, TELUGU",
         "th, THAI",
         "tr, TURKISH",
         "vi, VIETNAMESE",
