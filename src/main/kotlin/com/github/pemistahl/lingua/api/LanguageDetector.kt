@@ -16,7 +16,44 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.*
+import com.github.pemistahl.lingua.api.Language.ALBANIAN
+import com.github.pemistahl.lingua.api.Language.BASQUE
+import com.github.pemistahl.lingua.api.Language.BENGALI
+import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.CATALAN
+import com.github.pemistahl.lingua.api.Language.CHINESE
+import com.github.pemistahl.lingua.api.Language.CROATIAN
+import com.github.pemistahl.lingua.api.Language.CZECH
+import com.github.pemistahl.lingua.api.Language.DANISH
+import com.github.pemistahl.lingua.api.Language.ESTONIAN
+import com.github.pemistahl.lingua.api.Language.FINNISH
+import com.github.pemistahl.lingua.api.Language.FRENCH
+import com.github.pemistahl.lingua.api.Language.GERMAN
+import com.github.pemistahl.lingua.api.Language.GREEK
+import com.github.pemistahl.lingua.api.Language.HUNGARIAN
+import com.github.pemistahl.lingua.api.Language.ICELANDIC
+import com.github.pemistahl.lingua.api.Language.IRISH
+import com.github.pemistahl.lingua.api.Language.ITALIAN
+import com.github.pemistahl.lingua.api.Language.JAPANESE
+import com.github.pemistahl.lingua.api.Language.KOREAN
+import com.github.pemistahl.lingua.api.Language.LATVIAN
+import com.github.pemistahl.lingua.api.Language.LITHUANIAN
+import com.github.pemistahl.lingua.api.Language.NORWEGIAN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
+import com.github.pemistahl.lingua.api.Language.POLISH
+import com.github.pemistahl.lingua.api.Language.PORTUGUESE
+import com.github.pemistahl.lingua.api.Language.ROMANIAN
+import com.github.pemistahl.lingua.api.Language.SLOVAK
+import com.github.pemistahl.lingua.api.Language.SLOVENE
+import com.github.pemistahl.lingua.api.Language.SPANISH
+import com.github.pemistahl.lingua.api.Language.SWEDISH
+import com.github.pemistahl.lingua.api.Language.TAMIL
+import com.github.pemistahl.lingua.api.Language.TELUGU
+import com.github.pemistahl.lingua.api.Language.THAI
+import com.github.pemistahl.lingua.api.Language.TURKISH
+import com.github.pemistahl.lingua.api.Language.UNKNOWN
+import com.github.pemistahl.lingua.api.Language.VIETNAMESE
+import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.model.Bigram
 import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
@@ -26,7 +63,6 @@ import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.readJsonResource
-import java.util.regex.PatternSyntaxException
 import kotlin.math.ceil
 import kotlin.math.ln
 import kotlin.reflect.KClass
@@ -172,15 +208,15 @@ class LanguageDetector internal constructor(
 
         for (word in words) {
             when {
-                GREEK_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
-                CHINESE_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
-                JAPANESE_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
-                KOREAN_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
-                THAI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, THAI)
-                TAMIL_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
-                BENGALI_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, BENGALI)
-                TELUGU_ALPHABET.matches(word) -> languageCharCounts.addCharCount(word, TELUGU)
-                LATIN_ALPHABET.matches(word) -> languagesWithUniqueCharacters.filter {
+                Alphabet.BENGALI.matches(word) -> languageCharCounts.addCharCount(word, BENGALI)
+                Alphabet.CHINESE.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
+                Alphabet.GREEK.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
+                Alphabet.JAPANESE.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
+                Alphabet.KOREAN.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
+                Alphabet.TAMIL.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
+                Alphabet.TELUGU.matches(word) -> languageCharCounts.addCharCount(word, TELUGU)
+                Alphabet.THAI.matches(word) -> languageCharCounts.addCharCount(word, THAI)
+                Alphabet.LATIN.matches(word) -> languagesWithUniqueCharacters.filter {
                     word.containsAnyOf(it.uniqueCharacters)
                 }.forEach {
                     languageCharCounts.addCharCount(word, it)
@@ -201,27 +237,27 @@ class LanguageDetector internal constructor(
 
     internal fun filterLanguagesByRules(words: List<String>) {
         for (word in words) {
-            if (CYRILLIC_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::usesCyrillicAlphabet)
+            if (Alphabet.CYRILLIC.matches(word)) {
+                applyLanguageFilter { it.alphabet == Alphabet.CYRILLIC }
                 break
             }
-            else if (ARABIC_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::usesArabicAlphabet)
+            else if (Alphabet.ARABIC.matches(word)) {
+                applyLanguageFilter { it.alphabet == Alphabet.ARABIC }
                 break
             }
-            else if (CHINESE_ALPHABET.matches(word) || JAPANESE_ALPHABET.matches(word)) {
-                applyLanguageFilter(Language::usesChineseAlphabet)
+            else if (Alphabet.CHINESE.matches(word) || Alphabet.JAPANESE.matches(word)) {
+                applyLanguageFilter { it.alphabet == Alphabet.CHINESE }
                 break
             }
-            else if (LATIN_ALPHABET.matches(word)) {
+            else if (Alphabet.LATIN.matches(word)) {
                 if (languages.contains(NORWEGIAN)) {
-                    applyLanguageFilter { it.usesLatinAlphabet && it !in setOf(BOKMAL, NYNORSK) }
+                    applyLanguageFilter { it.alphabet == Alphabet.LATIN && it !in setOf(BOKMAL, NYNORSK) }
                 }
                 else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    applyLanguageFilter { it.usesLatinAlphabet && it != NORWEGIAN }
+                    applyLanguageFilter { it.alphabet == Alphabet.LATIN && it != NORWEGIAN }
                 }
                 else {
-                    applyLanguageFilter(Language::usesLatinAlphabet)
+                    applyLanguageFilter{ it.alphabet == Alphabet.LATIN }
                 }
 
                 val languagesSubset = mutableSetOf<Language>()
@@ -323,18 +359,6 @@ class LanguageDetector internal constructor(
         private val NUMBERS = Regex("\\p{N}")
         private val MULTIPLE_WHITESPACE = Regex("\\s+")
 
-        private val LATIN_ALPHABET = "Latin".asRegex()
-        private val GREEK_ALPHABET = "Greek".asRegex()
-        private val CYRILLIC_ALPHABET = "Cyrillic".asRegex()
-        private val ARABIC_ALPHABET = "Arabic".asRegex()
-        private val CHINESE_ALPHABET = "Han".asRegex()
-        private val KOREAN_ALPHABET = "Hangul".asRegex()
-        private val JAPANESE_ALPHABET = "Hiragana, Katakana, Han".asRegex()
-        private val THAI_ALPHABET = "Thai".asRegex()
-        private val TAMIL_ALPHABET = "Tamil".asRegex()
-        private val BENGALI_ALPHABET = "Bengali".asRegex()
-        private val TELUGU_ALPHABET = "Telugu".asRegex()
-
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),
             "Đđ" to setOf(CROATIAN, VIETNAMESE),
@@ -378,19 +402,5 @@ class LanguageDetector internal constructor(
 
             "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
         )
-
-        private fun String.asRegex(): Regex {
-            val splitRegex = Regex("""\s*,\s*""")
-            val charClasses = this.split(splitRegex)
-            val charClassesWithoutPrefix = charClasses.joinToString(separator = "") { "\\p{$it}" }
-            val charClassesWithPrefix = charClasses.joinToString(separator = "") { "\\p{Is$it}" }
-
-            return try {
-                // Android only supports character classes without Is- prefix
-                Regex("^[$charClassesWithoutPrefix]+$")
-            } catch (e: PatternSyntaxException) {
-                Regex("^[$charClassesWithPrefix]+$")
-            }
-        }
     }
 }

@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.internal.util.extension
 import com.github.pemistahl.lingua.api.LanguageDetector
 import java.io.FileNotFoundException
 import java.nio.charset.Charset
+import java.util.regex.PatternSyntaxException
 
 internal fun String.asLineSequenceResource(
     charset: Charset = Charsets.UTF_8,
@@ -36,4 +37,18 @@ internal fun String.containsAnyOf(characters: String): Boolean {
         if (this.contains(c)) return true
     }
     return false
+}
+
+internal fun String.asRegex(): Regex {
+    val splitRegex = Regex("""\s*,\s*""")
+    val charClasses = this.split(splitRegex)
+    val charClassesWithoutPrefix = charClasses.joinToString(separator = "") { "\\p{$it}" }
+    val charClassesWithPrefix = charClasses.joinToString(separator = "") { "\\p{Is$it}" }
+
+    return try {
+        // Android only supports character classes without Is- prefix
+        Regex("^[$charClassesWithoutPrefix]+$")
+    } catch (e: PatternSyntaxException) {
+        Regex("^[$charClassesWithPrefix]+$")
+    }
 }

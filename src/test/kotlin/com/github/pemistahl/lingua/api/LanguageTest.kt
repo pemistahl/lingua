@@ -66,6 +66,7 @@ import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
+import com.github.pemistahl.lingua.internal.Alphabet
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
@@ -105,7 +106,7 @@ class LanguageTest {
 
     @Test
     fun `assert that certain languages use Latin alphabet`() {
-        assertThat(Language.values().filter { it.usesLatinAlphabet })
+        assertThat(Language.values().filter { it.alphabet == Alphabet.LATIN })
             .containsExactly(
                 AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN, CZECH,
                 DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN,
@@ -118,20 +119,20 @@ class LanguageTest {
 
     @Test
     fun `assert that certain languages support Cyrillic alphabet`() {
-        assertThat(Language.values().filter { it.usesCyrillicAlphabet })
+        assertThat(Language.values().filter { it.alphabet == Alphabet.CYRILLIC })
             .containsExactly(BELARUSIAN, BULGARIAN, RUSSIAN)
     }
 
     @Test
     fun `assert that certain languages support Arabic alphabet`() {
-        assertThat(Language.values().filter { it.usesArabicAlphabet })
+        assertThat(Language.values().filter { it.alphabet == Alphabet.ARABIC })
             .containsExactly(ARABIC, PERSIAN)
     }
 
     @Test
     fun `assert that certain languages support Chinese alphabet`() {
-        assertThat(Language.values().filter { it.usesChineseAlphabet })
-            .containsExactly(CHINESE, JAPANESE)
+        assertThat(Language.values().filter { it.alphabet == Alphabet.CHINESE })
+            .containsExactly(CHINESE)
     }
 
     @ParameterizedTest
