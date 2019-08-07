@@ -36,6 +36,7 @@ import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.GREEK
+import com.github.pemistahl.lingua.api.Language.HEBREW
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
 import com.github.pemistahl.lingua.api.Language.INDONESIAN
@@ -80,7 +81,7 @@ class LanguageTest {
         assertThat(Language.all()).containsExactly(
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
-            FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
+            FINNISH, FRENCH, GERMAN, GREEK, HEBREW, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, VIETNAMESE, WELSH
@@ -92,7 +93,7 @@ class LanguageTest {
         assertThat(Language.allSpokenOnes()).containsExactly(
             AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
-            FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
+            FINNISH, FRENCH, GERMAN, GREEK, HEBREW, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, VIETNAMESE, WELSH
@@ -157,6 +158,7 @@ class LanguageTest {
         "fr, FRENCH",
         "de, GERMAN",
         "el, GREEK",
+        "he, HEBREW",
         "hu, HUNGARIAN",
         "is, ICELANDIC",
         "id, INDONESIAN",

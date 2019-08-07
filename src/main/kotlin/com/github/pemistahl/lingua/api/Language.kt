@@ -44,6 +44,7 @@ enum class Language(
     FRENCH     ("fr", Alphabet.LATIN, "", false),
     GERMAN     ("de", Alphabet.LATIN, "ß", false),
     GREEK      ("el", Alphabet.GREEK, "", false),
+    HEBREW     ("he", Alphabet.HEBREW, "", false),
     HUNGARIAN  ("hu", Alphabet.LATIN, "ŐőŰű", false),
     ICELANDIC  ("is", Alphabet.LATIN, "", false),
     INDONESIAN ("id", Alphabet.LATIN, "", false),
