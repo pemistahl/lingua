@@ -30,6 +30,7 @@ enum class Language(
     ARABIC     ("ar", "", false, false, true, false, false),
     BASQUE     ("eu", "", true, false, false, false, false),
     BELARUSIAN ("be", "", false, true, false, false, false),
+    BENGALI    ("bn", "", false, false, false, false, false),
     BOKMAL     ("nb", "", true, false, false, false, false),
     BULGARIAN  ("bg", "", false, true, false, false, false),
     CATALAN    ("ca", "Ïï", true, false, false, false, false),

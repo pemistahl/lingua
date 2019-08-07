@@ -21,6 +21,7 @@ import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.ARABIC
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
+import com.github.pemistahl.lingua.api.Language.BENGALI
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
@@ -75,7 +76,7 @@ class LanguageTest {
     @Test
     fun `assert that all supported languages are available`() {
         assertThat(Language.all()).containsExactly(
-            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
+            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
@@ -87,7 +88,7 @@ class LanguageTest {
     @Test
     fun `assert that all supported spoken languages are available`() {
         assertThat(Language.allSpokenOnes()).containsExactly(
-            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BULGARIAN,
+            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
@@ -139,6 +140,7 @@ class LanguageTest {
         "ar, ARABIC",
         "eu, BASQUE",
         "be, BELARUSIAN",
+        "bn, BENGALI",
         "nb, BOKMAL",
         "bg, BULGARIAN",
         "ca, CATALAN",

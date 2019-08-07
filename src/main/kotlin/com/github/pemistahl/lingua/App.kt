@@ -26,25 +26,23 @@ import java.io.Console
 import java.util.Scanner
 
 fun main() {
-    runApp()
+    //runApp()
 
     /*
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/zh/zh_1M.txt",
+        inputPath = "/training-data/bn/bn_1M.txt",
         outputPath = "C:/Users/pstahl/Documents/language-models",
-        language = CHINESE,
-        charClass = "IsHan"
+        language = BENGALI,
+        charClass = "IsBengali"
     )
     */
 
-    /*
     writeTestDataFiles(
-        inputPath = "/training-data/zh/zh_10K.txt",
+        inputPath = "/training-data/bn/bn_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "zh",
-        charClass = "IsHan"
+        isoCode = "bn",
+        charClass = "IsBengali"
     )
-    */
 }
 
 private fun runApp() {

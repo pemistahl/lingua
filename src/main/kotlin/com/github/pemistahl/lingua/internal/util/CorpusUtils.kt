@@ -37,7 +37,7 @@ import java.lang.reflect.Type
 import kotlin.random.Random
 
 internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: String, charClass: String) {
-    val wordRegex = Regex("""[\p{L}&&\p{$charClass}]{5,}""")
+    val wordRegex = Regex("""[\p{$charClass}]{5,}""")
     //val punctuation = Regex("""\p{P}+""")
     //val numbers = Regex("""\p{N}+""")
     val whitespaceRegex = Regex("""\s+""")
