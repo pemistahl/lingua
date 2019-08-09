@@ -22,6 +22,7 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
+import org.mapdb.DBException
 import org.mapdb.Serializer
 import org.mapdb.SortedTableMap
 import org.mapdb.volume.MappedFileVol
@@ -68,36 +69,39 @@ internal class LanguageModelDeserializer<T : Ngram>(
             Files.createDirectories(mapdbDirectoryPath)
         }
 
-        return if (Files.exists(mapdbFilePath)) {
-            val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), true)
-            SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
-        }
-        else {
-            val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), false)
-            val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
-                .create(volume, Serializer.STRING, Serializer.DOUBLE)
-                .pageSize(1*1024) // page size of 1KB
-                .nodeSize(1)
-                .createFromSink()
-
-            val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
-            val tempMap = hashMapOf<String, Double>()
-
-            for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
-                val fractionParts = fractionLiteral.split('/').map { it.toInt() }
-                val probability = fractionParts[0].toDouble() / fractionParts[1]
-
-                for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                    tempMap[ngramJsonElem] = probability
-                }
+        if (Files.exists(mapdbFilePath)) {
+            try {
+                val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), true)
+                return SortedTableMap.open(volume, Serializer.STRING, Serializer.DOUBLE)
+            } catch (e: DBException.DataCorruption) {
+                // try to recreate the database
+                Files.delete(mapdbFilePath)
             }
-
-            for ((key, value) in tempMap.toList().sortedBy { it.first }) {
-                sink.put(key, value)
-            }
-
-            sink.create()
         }
+        val volume = MappedFileVol.FACTORY.makeVolume(mapdbFilePath.toString(), false)
+        val sink: SortedTableMap.Sink<String, Double> = SortedTableMap
+            .create(volume, Serializer.STRING, Serializer.DOUBLE)
+            .pageSize(1 * 1024) // page size of 1KB
+            .nodeSize(1)
+            .createFromSink()
+
+        val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
+        val tempMap = hashMapOf<String, Double>()
+
+        for ((fractionLiteral, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
+            val fractionParts = fractionLiteral.split('/').map { it.toInt() }
+            val probability = fractionParts[0].toDouble() / fractionParts[1]
+
+            for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
+                tempMap[ngramJsonElem] = probability
+            }
+        }
+
+        for ((key, value) in tempMap.toList().sortedBy { it.first }) {
+            sink.put(key, value)
+        }
+
+        return sink.create()
     }
 
     internal fun loadNgramsIntoMemory(jsonObj: JsonObject): Map<String, Double> {
