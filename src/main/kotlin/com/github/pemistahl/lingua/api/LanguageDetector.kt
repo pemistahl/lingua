@@ -73,7 +73,6 @@ class LanguageDetector internal constructor(
     internal val isCachedByMapDB: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
-    private var languagesSequence = languages.asSequence()
     private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
 
     internal val unigramLanguageModels = loadLanguageModels(Unigram::class)
@@ -85,8 +84,6 @@ class LanguageDetector internal constructor(
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
     fun detectLanguageOf(text: String): Language {
-        resetLanguageFilter()
-
         val trimmedText = text
             .trim()
             .toLowerCase()
@@ -101,7 +98,7 @@ class LanguageDetector internal constructor(
         val languageDetectedByRules = detectLanguageWithRules(words)
         if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
 
-        filterLanguagesByRules(words)
+        val languagesSequence = filterLanguagesByRules(words)
 
         val textSequence = trimmedText.lineSequence()
         val allProbabilities = mutableListOf<Map<Language, Double>>()
@@ -109,39 +106,28 @@ class LanguageDetector internal constructor(
 
         if (trimmedText.length >= 1) {
             val unigramLanguageModel = LanguageModel.fromTestData(textSequence, Unigram::class)
-            addNgramProbabilities(allProbabilities, unigramLanguageModel)
-            countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel)
+            addNgramProbabilities(allProbabilities, languagesSequence, unigramLanguageModel)
+            countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel, languagesSequence)
         }
         if (trimmedText.length >= 2) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Bigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Bigram::class))
         }
         if (trimmedText.length >= 3) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Trigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Trigram::class))
         }
         if (trimmedText.length >= 4) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Quadrigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Quadrigram::class))
         }
         if (trimmedText.length >= 5) {
-            addNgramProbabilities(allProbabilities, LanguageModel.fromTestData(textSequence, Fivegram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Fivegram::class))
         }
 
-        return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText)
-    }
-
-    internal fun resetLanguageFilter() {
-        languagesSequence = languages.asSequence()
-        languagesSequence.forEach { it.isExcludedFromDetection = false }
-    }
-
-    internal fun applyLanguageFilter(func: (Language) -> Boolean) {
-        languagesSequence.filterNot(func).forEach { it.isExcludedFromDetection = true }
-        languagesSequence = languagesSequence.filterNot { it.isExcludedFromDetection }
+        return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText, languagesSequence)
     }
 
     internal fun addLanguageModel(language: Language) {
         languages.add(language)
         if (!unigramLanguageModels.containsKey(language)) {
-            languagesSequence = languages.asSequence()
             unigramLanguageModels[language] = lazy { loadLanguageModel(language, Unigram::class) }
             bigramLanguageModels[language] = lazy { loadLanguageModel(language, Bigram::class) }
             trigramLanguageModels[language] = lazy { loadLanguageModel(language, Trigram::class) }
@@ -153,13 +139,13 @@ class LanguageDetector internal constructor(
     internal fun removeLanguageModel(language: Language) {
         if (languages.contains(language)) {
             languages.remove(language)
-            languagesSequence = languages.asSequence()
         }
     }
 
     internal fun countUnigramsOfInputText(
         unigramCounts: MutableMap<Language, Int>,
-        unigramLanguageModel: LanguageModel<Unigram, Unigram>
+        unigramLanguageModel: LanguageModel<Unigram, Unigram>,
+        languagesSequence: Sequence<Language>
     ) {
         for (language in languagesSequence) {
             for (unigram in unigramLanguageModel.ngrams) {
@@ -173,9 +159,10 @@ class LanguageDetector internal constructor(
 
     internal fun <T : Ngram> addNgramProbabilities(
         probabilities: MutableList<Map<Language, Double>>,
+        languagesSequence: Sequence<Language>,
         testDataModel: LanguageModel<T, T>
     ) {
-        val ngramProbabilities = computeLanguageProbabilities(testDataModel)
+        val ngramProbabilities = computeLanguageProbabilities(testDataModel, languagesSequence)
         if (!ngramProbabilities.containsValue(0.0)) {
             probabilities.add(ngramProbabilities)
         }
@@ -183,7 +170,8 @@ class LanguageDetector internal constructor(
 
     internal fun getMostLikelyLanguage(
         probabilities: List<Map<Language, Double>>,
-        unigramCountsOfInputText: Map<Language, Int>
+        unigramCountsOfInputText: Map<Language, Int>,
+        languagesSequence: Sequence<Language>
     ): Language {
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -237,29 +225,21 @@ class LanguageDetector internal constructor(
             UNKNOWN
     }
 
-    internal fun filterLanguagesByRules(words: List<String>) {
+    internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
         for (word in words) {
             if (Alphabet.CYRILLIC.matches(word)) {
-                applyLanguageFilter { it.alphabet == Alphabet.CYRILLIC }
-                break
-            }
-            else if (Alphabet.ARABIC.matches(word)) {
-                applyLanguageFilter { it.alphabet == Alphabet.ARABIC }
-                break
-            }
-            else if (Alphabet.CHINESE.matches(word) || Alphabet.JAPANESE.matches(word)) {
-                applyLanguageFilter { it.alphabet == Alphabet.CHINESE }
-                break
-            }
-            else if (Alphabet.LATIN.matches(word)) {
-                if (languages.contains(NORWEGIAN)) {
-                    applyLanguageFilter { it.alphabet == Alphabet.LATIN && it !in setOf(BOKMAL, NYNORSK) }
-                }
-                else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    applyLanguageFilter { it.alphabet == Alphabet.LATIN && it != NORWEGIAN }
-                }
-                else {
-                    applyLanguageFilter{ it.alphabet == Alphabet.LATIN }
+                return languages.asSequence().filter { it.alphabet == Alphabet.CYRILLIC }
+            } else if (Alphabet.ARABIC.matches(word)) {
+                return languages.asSequence().filter { it.alphabet == Alphabet.ARABIC }
+            } else if (Alphabet.CHINESE.matches(word) || Alphabet.JAPANESE.matches(word)) {
+                return languages.asSequence().filter { it.alphabet == Alphabet.CHINESE }
+            } else if (Alphabet.LATIN.matches(word)) {
+                val temp = if (languages.contains(NORWEGIAN)) {
+                    languages.asSequence().filter { it.alphabet == Alphabet.LATIN && it !in setOf(BOKMAL, NYNORSK) }
+                } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
+                    languages.asSequence().filter { it.alphabet == Alphabet.LATIN && it != NORWEGIAN }
+                } else {
+                    languages.asSequence().filter { it.alphabet == Alphabet.LATIN }
                 }
 
                 val languagesSubset = mutableSetOf<Language>()
@@ -268,14 +248,15 @@ class LanguageDetector internal constructor(
                         languagesSubset.addAll(languages)
                     }
                 }
-                if (languagesSubset.isNotEmpty()) applyLanguageFilter { it in languagesSubset }
-                break
+                return if (languagesSubset.isNotEmpty()) temp.filter { it in languagesSubset } else temp
             }
         }
+        return languages.asSequence()
     }
 
     internal fun <T : Ngram> computeLanguageProbabilities(
-        testDataModel: LanguageModel<T, T>
+        testDataModel: LanguageModel<T, T>,
+        languagesSequence: Sequence<Language>
     ): Map<Language, Double> {
         val probabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
@@ -335,7 +316,7 @@ class LanguageDetector internal constructor(
 
     internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T,T>?>> {
         val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>?>>()
-        for (language in languagesSequence) {
+        for (language in languages) {
             languageModels[language] = lazy { loadLanguageModel(language, ngramClass) }
         }
         return languageModels

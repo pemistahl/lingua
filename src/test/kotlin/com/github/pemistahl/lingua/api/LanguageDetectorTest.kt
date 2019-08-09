@@ -180,27 +180,13 @@ class LanguageDetectorTest {
         word: String,
         expectedLanguages: List<Language>
     ) {
-        val unexpectedLanguages = Language.all().filterNot { it in expectedLanguages }
         val assertionErrorDescription = "word '$word'"
 
-        detectorForAllLanguages.resetLanguageFilter()
-        detectorForAllLanguages.filterLanguagesByRules(listOf(word))
-
         assertThat(
-            expectedLanguages
+            detectorForAllLanguages.filterLanguagesByRules(listOf(word)).toList()
         ).`as`(
             assertionErrorDescription
-        ).allMatch {
-            it.isExcludedFromDetection == false
-        }
-
-        assertThat(
-            unexpectedLanguages
-        ).`as`(
-            assertionErrorDescription
-        ).allMatch {
-            it.isExcludedFromDetection == true
-        }
+        ).containsExactlyInAnyOrderElementsOf(expectedLanguages)
     }
 
     @ParameterizedTest
@@ -250,7 +236,8 @@ class LanguageDetectorTest {
         expectedProbabilitiesMap: Map<Language, Double>
     ) {
         assertThat(
-            detectorForEnglishAndGerman.computeLanguageProbabilities(testDataModel)
+            detectorForEnglishAndGerman.computeLanguageProbabilities(testDataModel,
+                detectorForEnglishAndGerman.languages.asSequence())
         ).isEqualTo(
             expectedProbabilitiesMap
         )
@@ -263,7 +250,8 @@ class LanguageDetectorTest {
         expectedLanguage: Language
     ) {
         assertThat(
-            detectorForEnglishAndGerman.getMostLikelyLanguage(probabilitiesList, emptyMap())
+            detectorForEnglishAndGerman.getMostLikelyLanguage(probabilitiesList, emptyMap(),
+                detectorForEnglishAndGerman.languages.asSequence())
         ).isEqualTo(
             expectedLanguage
         )
@@ -276,13 +264,17 @@ class LanguageDetectorTest {
             mapOf(ENGLISH to 0.3, GERMAN to 0.4)
         )
 
+        val languagesSequence = detectorForEnglishAndGerman.languages.asSequence()
+
         every {
-            detectorForEnglishAndGerman.computeLanguageProbabilities(trigramTestDataLanguageModel)
+            detectorForEnglishAndGerman.computeLanguageProbabilities(trigramTestDataLanguageModel,
+                languagesSequence)
         } returns
             mapOf(ENGLISH to 0.5, GERMAN to 0.6)
 
         detectorForEnglishAndGerman.addNgramProbabilities(
             probabilitiesList,
+            languagesSequence,
             trigramTestDataLanguageModel
         )
 
