@@ -18,9 +18,16 @@ package com.github.pemistahl.lingua.api
 
 class LanguageDetectorBuilder private constructor(
     internal val languages: Array<Language>,
-    internal var useMapDBCache: Boolean
+    internal var minimumRelativeDistance: Double = 0.0,
+    internal var useMapDBCache: Boolean = false
 ) {
-    fun build() = LanguageDetector(languages.toMutableSet(), useMapDBCache)
+    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance, useMapDBCache)
+
+    fun withMinimumRelativeDistance(distance: Double): LanguageDetectorBuilder {
+        require(distance in 0.0..0.99) { "minimum relative distance must lie in between 0.0 and 0.99" }
+        this.minimumRelativeDistance = distance
+        return this
+    }
 
     fun withMapDBCache(): LanguageDetectorBuilder {
         this.useMapDBCache = true
@@ -29,23 +36,23 @@ class LanguageDetectorBuilder private constructor(
 
     companion object {
         @JvmStatic
-        fun fromAllBuiltInLanguages() = LanguageDetectorBuilder(Language.all(), false)
+        fun fromAllBuiltInLanguages() = LanguageDetectorBuilder(Language.all())
 
         @JvmStatic
-        fun fromAllBuiltInSpokenLanguages() = LanguageDetectorBuilder(Language.allSpokenOnes(), false)
+        fun fromAllBuiltInSpokenLanguages() = LanguageDetectorBuilder(Language.allSpokenOnes())
 
         @JvmStatic
         fun fromAllBuiltInLanguagesWithout(language: Language, vararg languages: Language): LanguageDetectorBuilder {
             val languagesToLoad = Language.values().toMutableList()
             languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, language, *languages))
             require(languagesToLoad.size > 1) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetectorBuilder(languagesToLoad.toTypedArray(), false)
+            return LanguageDetectorBuilder(languagesToLoad.toTypedArray())
         }
 
         @JvmStatic
         fun fromLanguages(language: Language, vararg languages: Language): LanguageDetectorBuilder {
             require(languages.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetectorBuilder(arrayOf(language, *languages), false)
+            return LanguageDetectorBuilder(arrayOf(language, *languages))
         }
 
         @JvmStatic
@@ -53,7 +60,7 @@ class LanguageDetectorBuilder private constructor(
             require(isoCodes.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
             val languages = mutableListOf(Language.getByIsoCode(isoCode))
             languages.addAll(isoCodes.map { Language.getByIsoCode(it) })
-            return LanguageDetectorBuilder(languages.toTypedArray(), false)
+            return LanguageDetectorBuilder(languages.toTypedArray())
         }
 
         private const val MISSING_LANGUAGE_MESSAGE = "LanguageDetector needs at least 2 languages to choose from"

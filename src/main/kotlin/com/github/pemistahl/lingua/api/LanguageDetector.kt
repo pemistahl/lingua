@@ -70,6 +70,7 @@ import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
+    internal val minimumRelativeDistance: Double,
     internal val isCachedByMapDB: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
@@ -195,12 +196,20 @@ class LanguageDetector internal constructor(
         }
 
         val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
-        return if (filteredProbabilities.none()) UNKNOWN
-        else filteredProbabilities.maxBy {
-                (_, value) -> value
-        }?.key ?: throw IllegalArgumentException(
-            "most likely language can not be determined due to some internal error"
-        )
+
+        return when {
+            filteredProbabilities.none() -> UNKNOWN
+            filteredProbabilities.singleOrNull() != null -> filteredProbabilities.first().key
+            else -> {
+                val mostLikelyLanguage = filteredProbabilities.maxBy { it.value }!!
+                val secondMostLikelyLanguage = filteredProbabilities.filterNot { it.key == mostLikelyLanguage.key }.maxBy { it.value }!!
+                when {
+                    mostLikelyLanguage.value == secondMostLikelyLanguage.value -> UNKNOWN
+                    1.0 - (mostLikelyLanguage.value / secondMostLikelyLanguage.value) >= minimumRelativeDistance -> mostLikelyLanguage.key
+                    else -> UNKNOWN
+                }
+            }
+        }
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {

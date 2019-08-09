@@ -119,11 +119,13 @@ class LanguageDetectorTest {
     @SpyK
     private var detectorForEnglishAndGerman = LanguageDetector(
         languages = mutableSetOf(ENGLISH, GERMAN),
+        minimumRelativeDistance = 0.0,
         isCachedByMapDB = false
     )
 
     private val detectorForAllLanguages = LanguageDetector(
         languages = Language.all().toMutableSet(),
+        minimumRelativeDistance = 0.0,
         isCachedByMapDB = false
     )
 
