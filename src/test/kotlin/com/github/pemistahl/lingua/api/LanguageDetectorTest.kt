@@ -183,13 +183,13 @@ class LanguageDetectorTest {
         word: String,
         expectedLanguages: List<Language>
     ) {
-        val assertionErrorDescription = "word '$word'"
-
         assertThat(
             detectorForAllLanguages.filterLanguagesByRules(listOf(word)).toList()
         ).`as`(
-            assertionErrorDescription
-        ).containsExactlyInAnyOrderElementsOf(expectedLanguages)
+            "word '$word'"
+        ).containsExactlyInAnyOrderElementsOf(
+            expectedLanguages
+        )
     }
 
     @ParameterizedTest
@@ -239,8 +239,10 @@ class LanguageDetectorTest {
         expectedProbabilitiesMap: Map<Language, Double>
     ) {
         assertThat(
-            detectorForEnglishAndGerman.computeLanguageProbabilities(testDataModel,
-                detectorForEnglishAndGerman.languages.asSequence())
+            detectorForEnglishAndGerman.computeLanguageProbabilities(
+                testDataModel,
+                detectorForEnglishAndGerman.languages.asSequence()
+            )
         ).isEqualTo(
             expectedProbabilitiesMap
         )
@@ -253,8 +255,11 @@ class LanguageDetectorTest {
         expectedLanguage: Language
     ) {
         assertThat(
-            detectorForEnglishAndGerman.getMostLikelyLanguage(probabilitiesList, emptyMap(),
-                detectorForEnglishAndGerman.languages.asSequence())
+            detectorForEnglishAndGerman.getMostLikelyLanguage(
+                probabilitiesList,
+                emptyMap(),
+                detectorForEnglishAndGerman.languages.asSequence()
+            )
         ).isEqualTo(
             expectedLanguage
         )

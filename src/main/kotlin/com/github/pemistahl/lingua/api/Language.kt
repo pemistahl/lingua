@@ -97,6 +97,6 @@ enum class Language(
 
         private fun filterOutLanguages(
             vararg languages: Language
-        ) = values().filterNot { it in languages }.toTypedArray()
+        ) = values().filterNot { it in languages }
     }
 }

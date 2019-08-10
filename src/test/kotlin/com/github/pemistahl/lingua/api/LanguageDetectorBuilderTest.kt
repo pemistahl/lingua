@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 
 class LanguageDetectorBuilderTest {
 
-    private val errorMessage = "LanguageDetector needs at least 2 languages to choose from"
+    private val minimumLanguagesErrorMessage = "LanguageDetector needs at least 2 languages to choose from"
 
     @Test
     fun `assert that LanguageDetector can be built from all languages`() {
@@ -34,10 +34,12 @@ class LanguageDetectorBuilderTest {
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
         )
+
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
         )
+
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
@@ -54,10 +56,12 @@ class LanguageDetectorBuilderTest {
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
         )
+
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
         )
+
         assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
@@ -72,17 +76,20 @@ class LanguageDetectorBuilderTest {
             )
             val expectedLanguages = Language.values().toSet().minus(
                 arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN)
-            )
-            assertThat(builder.languages).isEqualTo(expectedLanguages.toTypedArray())
+            ).toList()
+
+            assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
             )
+
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
             )
+
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
@@ -92,7 +99,7 @@ class LanguageDetectorBuilderTest {
             val languages = Language.values().toSet().minus(arrayOf(Language.GERMAN, Language.ENGLISH)).toTypedArray()
             assertThatIllegalArgumentException().isThrownBy {
                 LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(Language.GERMAN, *languages)
-            }.withMessage(errorMessage)
+            }.withMessage(minimumLanguagesErrorMessage)
         }
     }
 
@@ -100,18 +107,20 @@ class LanguageDetectorBuilderTest {
     fun `assert that LanguageDetector can be built from whitelist`() {
         run {
             val builder = LanguageDetectorBuilder.fromLanguages(Language.GERMAN, Language.ENGLISH)
-            val expectedLanguages = setOf(Language.GERMAN, Language.ENGLISH)
+            val expectedLanguages = listOf(Language.GERMAN, Language.ENGLISH)
 
-            assertThat(builder.languages).isEqualTo(expectedLanguages.toTypedArray())
+            assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
             )
+
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
             )
+
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
@@ -120,7 +129,7 @@ class LanguageDetectorBuilderTest {
         run {
             assertThatIllegalArgumentException().isThrownBy {
                 LanguageDetectorBuilder.fromLanguages(Language.GERMAN)
-            }.withMessage(errorMessage)
+            }.withMessage(minimumLanguagesErrorMessage)
         }
     }
 
@@ -128,18 +137,20 @@ class LanguageDetectorBuilderTest {
     fun `assert that LanguageDetector can be built from iso codes`() {
         run {
             val builder = LanguageDetectorBuilder.fromIsoCodes("de", "sv")
-            val expectedLanguages = setOf(Language.GERMAN, Language.SWEDISH)
+            val expectedLanguages = listOf(Language.GERMAN, Language.SWEDISH)
 
-            assertThat(builder.languages).isEqualTo(expectedLanguages.toTypedArray())
+            assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
             assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
             )
+
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
             )
+
             assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
@@ -148,6 +159,21 @@ class LanguageDetectorBuilderTest {
         run {
             assertThatIllegalArgumentException().isThrownBy {
                 LanguageDetectorBuilder.fromIsoCodes("en")
+            }.withMessage(minimumLanguagesErrorMessage)
+        }
+    }
+
+    @Test
+    fun `assert that LanguageDetector can not be built from invalid minimum relative distance value`() {
+        val errorMessage = "minimum relative distance must lie in between 0.0 and 0.99"
+        run {
+            assertThatIllegalArgumentException().isThrownBy {
+                LanguageDetectorBuilder.fromAllBuiltInLanguages().withMinimumRelativeDistance(-2.3)
+            }.withMessage(errorMessage)
+        }
+        run {
+            assertThatIllegalArgumentException().isThrownBy {
+                LanguageDetectorBuilder.fromAllBuiltInLanguages().withMinimumRelativeDistance(1.7)
             }.withMessage(errorMessage)
         }
     }

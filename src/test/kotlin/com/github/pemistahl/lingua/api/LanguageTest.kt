@@ -68,6 +68,7 @@ import com.github.pemistahl.lingua.api.Language.TAMIL
 import com.github.pemistahl.lingua.api.Language.TELUGU
 import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
+import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
@@ -76,7 +77,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.MethodSource
 
 class LanguageTest {
 
@@ -105,7 +108,7 @@ class LanguageTest {
     }
 
     @Test
-    fun `assert that certain languages use Latin alphabet`() {
+    fun `assert that certain languages support Latin alphabet`() {
         assertThat(Language.values().filter { it.alphabets.contains(Alphabet.LATIN) })
             .containsExactly(
                 AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN, CZECH,
@@ -117,22 +120,19 @@ class LanguageTest {
             )
     }
 
-    @Test
-    fun `assert that certain languages support Cyrillic alphabet`() {
-        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.CYRILLIC) })
-            .containsExactly(BELARUSIAN, BULGARIAN, RUSSIAN)
-    }
-
-    @Test
-    fun `assert that certain languages support Arabic alphabet`() {
-        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.ARABIC) })
-            .containsExactly(ARABIC, PERSIAN, URDU)
-    }
-
-    @Test
-    fun `assert that certain languages support Han alphabet`() {
-        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.HAN) })
-            .containsExactly(CHINESE, JAPANESE)
+    @ParameterizedTest
+    @MethodSource("filteredLanguagesProvider")
+    internal fun `assert that languages support correct alphabets`(
+        alphabet: Alphabet,
+        expectedLanguages: List<Language>
+    ) {
+        assertThat(
+            Language.values().filter { it.alphabets.contains(alphabet) }
+        ).`as`(
+            "alphabet '$alphabet'"
+        ).containsExactlyElementsOf(
+            expectedLanguages
+        )
     }
 
     @ParameterizedTest
@@ -202,4 +202,23 @@ class LanguageTest {
             Language.getByIsoCode("dfjkglsdfg")
         }.withMessage("language with iso code 'dfjkglsdfg' can not be found")
     }
+
+    private fun filteredLanguagesProvider() = listOf(
+        arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
+        arguments(Alphabet.BENGALI, listOf(BENGALI)),
+        arguments(Alphabet.DEVANAGARI, listOf(HINDI)),
+        arguments(Alphabet.GREEK, listOf(GREEK)),
+        arguments(Alphabet.GUJARATI, listOf(GUJARATI)),
+        arguments(Alphabet.GURMUKHI, listOf(PUNJABI)),
+        arguments(Alphabet.HAN, listOf(CHINESE, JAPANESE)),
+        arguments(Alphabet.HANGUL, listOf(KOREAN)),
+        arguments(Alphabet.HEBREW, listOf(HEBREW)),
+        arguments(Alphabet.HIRAGANA, listOf(JAPANESE)),
+        arguments(Alphabet.KATAKANA, listOf(JAPANESE)),
+        arguments(Alphabet.LATIN, listOf(AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, NYNORSK, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH)),
+        arguments(Alphabet.TAMIL, listOf(TAMIL)),
+        arguments(Alphabet.TELUGU, listOf(TELUGU)),
+        arguments(Alphabet.THAI, listOf(THAI)),
+        arguments(Alphabet.NONE, listOf(UNKNOWN))
+    )
 }

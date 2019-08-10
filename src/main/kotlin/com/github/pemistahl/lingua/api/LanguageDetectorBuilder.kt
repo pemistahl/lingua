@@ -17,7 +17,7 @@
 package com.github.pemistahl.lingua.api
 
 class LanguageDetectorBuilder private constructor(
-    internal val languages: Array<Language>,
+    internal val languages: List<Language>,
     internal var minimumRelativeDistance: Double = 0.0,
     internal var useMapDBCache: Boolean = false
 ) {
@@ -46,13 +46,13 @@ class LanguageDetectorBuilder private constructor(
             val languagesToLoad = Language.values().toMutableList()
             languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, language, *languages))
             require(languagesToLoad.size > 1) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetectorBuilder(languagesToLoad.toTypedArray())
+            return LanguageDetectorBuilder(languagesToLoad)
         }
 
         @JvmStatic
         fun fromLanguages(language: Language, vararg languages: Language): LanguageDetectorBuilder {
             require(languages.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetectorBuilder(arrayOf(language, *languages))
+            return LanguageDetectorBuilder(listOf(language, *languages))
         }
 
         @JvmStatic
@@ -60,7 +60,7 @@ class LanguageDetectorBuilder private constructor(
             require(isoCodes.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
             val languages = mutableListOf(Language.getByIsoCode(isoCode))
             languages.addAll(isoCodes.map { Language.getByIsoCode(it) })
-            return LanguageDetectorBuilder(languages.toTypedArray())
+            return LanguageDetectorBuilder(languages)
         }
 
         private const val MISSING_LANGUAGE_MESSAGE = "LanguageDetector needs at least 2 languages to choose from"
