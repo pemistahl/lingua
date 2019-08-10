@@ -337,6 +337,21 @@
 		<td>100 <img src="images/green.png"></td>
 	</tr>
 	<tr>
+		<td>Hindi</td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>100 <img src="images/green.png"></td>
+	</tr>
+	<tr>
 		<td>Hungarian</td>
 		<td>95 <img src="images/green.png"></td>
 		<td>88 <img src="images/green.png"></td>
@@ -792,11 +807,11 @@
 	<tr>
 		<td><strong>Mean</strong></td>
 		<td><strong>89</strong> <img src="images/green.png"></td>
-		<td><strong>80</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>65</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>81</strong> <img src="images/green.png"></td>
+		<td><strong>66</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>79</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>64</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>42</strong> <img src="images/yellow.png"></td>
+		<td><strong>65</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>43</strong> <img src="images/yellow.png"></td>
 		<td><strong>92</strong> <img src="images/green.png"></td>
 		<td><strong>81</strong> <img src="images/green.png"></td>
 		<td><strong>61</strong> <img src="images/lightgreen.png"></td>
@@ -809,32 +824,32 @@
 	</tr>
 	<tr>
 		<td>Median</td>
-		<td>91.43</td>
-		<td>82.63</td>
-		<td>66.07</td>
-		<td>81.3</td>
-		<td>64.7</td>
-		<td>34.4</td>
-		<td>95.8</td>
-		<td>85.9</td>
-		<td>69.7</td>
-		<td>99.3</td>
+		<td>91.93</td>
+		<td>82.67</td>
+		<td>67.83</td>
+		<td>81.49</td>
+		<td>64.8</td>
+		<td>36.15</td>
+		<td>95.81</td>
+		<td>86.35</td>
+		<td>69.8</td>
+		<td>99.35</td>
 		<td>99.2</td>
-		<td>97.4</td>
+		<td>97.5</td>
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>11.8</td>
-		<td>17.23</td>
-		<td>25.42</td>
-		<td>17.42</td>
-		<td>25.47</td>
-		<td>35.5</td>
-		<td>11.04</td>
-		<td>20.0</td>
-		<td>33.52</td>
-		<td>10.47</td>
-		<td>11.24</td>
-		<td>14.22</td>
+		<td>11.78</td>
+		<td>17.28</td>
+		<td>25.62</td>
+		<td>17.49</td>
+		<td>25.71</td>
+		<td>36.06</td>
+		<td>10.99</td>
+		<td>19.99</td>
+		<td>33.63</td>
+		<td>10.37</td>
+		<td>11.14</td>
+		<td>14.11</td>
 	</tr>
 </table>

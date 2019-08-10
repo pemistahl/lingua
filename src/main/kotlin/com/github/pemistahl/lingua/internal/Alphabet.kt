@@ -19,20 +19,21 @@ package com.github.pemistahl.lingua.internal
 import com.github.pemistahl.lingua.internal.util.extension.asRegex
 
 internal enum class Alphabet(private val regex: Regex) {
-    ARABIC   ("Arabic".asRegex()),
-    BENGALI  ("Bengali".asRegex()),
-    CHINESE  ("Han".asRegex()),
-    CYRILLIC ("Cyrillic".asRegex()),
-    GREEK    ("Greek".asRegex()),
-    GUJARATI ("Gujarati".asRegex()),
-    GURMUKHI ("Gurmukhi".asRegex()),
-    HEBREW   ("Hebrew".asRegex()),
-    JAPANESE ("Hiragana, Katakana, Han".asRegex()),
-    KOREAN   ("Hangul".asRegex()),
-    LATIN    ("Latin".asRegex()),
-    TAMIL    ("Tamil".asRegex()),
-    TELUGU   ("Telugu".asRegex()),
-    THAI     ("Thai".asRegex()),
+    ARABIC     ("Arabic".asRegex()),
+    BENGALI    ("Bengali".asRegex()),
+    CHINESE    ("Han".asRegex()),
+    CYRILLIC   ("Cyrillic".asRegex()),
+    DEVANAGARI ("Devanagari".asRegex()),
+    GREEK      ("Greek".asRegex()),
+    GUJARATI   ("Gujarati".asRegex()),
+    GURMUKHI   ("Gurmukhi".asRegex()),
+    HEBREW     ("Hebrew".asRegex()),
+    JAPANESE   ("Hiragana, Katakana, Han".asRegex()),
+    KOREAN     ("Hangul".asRegex()),
+    LATIN      ("Latin".asRegex()),
+    TAMIL      ("Tamil".asRegex()),
+    TELUGU     ("Telugu".asRegex()),
+    THAI       ("Thai".asRegex()),
 
     NONE     (Regex(""));
 

@@ -45,6 +45,7 @@ enum class Language(
     GREEK      ("el", Alphabet.GREEK, ""),
     GUJARATI   ("gu", Alphabet.GUJARATI, ""),
     HEBREW     ("he", Alphabet.HEBREW, ""),
+    HINDI      ("hi", Alphabet.DEVANAGARI, ""),
     HUNGARIAN  ("hu", Alphabet.LATIN, "ŐőŰű"),
     ICELANDIC  ("is", Alphabet.LATIN, ""),
     INDONESIAN ("id", Alphabet.LATIN, ""),
