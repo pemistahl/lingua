@@ -17,23 +17,14 @@
 package com.github.pemistahl.lingua.internal.util
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.internal.model.Bigram
 import com.github.pemistahl.lingua.internal.model.Fivegram
 import com.github.pemistahl.lingua.internal.model.LanguageModel
-import com.github.pemistahl.lingua.internal.model.Ngram
 import com.github.pemistahl.lingua.internal.model.Quadrigram
 import com.github.pemistahl.lingua.internal.model.Trigram
 import com.github.pemistahl.lingua.internal.model.Unigram
-import com.github.pemistahl.lingua.internal.model.Zerogram
 import com.github.pemistahl.lingua.internal.util.extension.asLineSequenceResource
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.reflect.TypeToken
 import java.io.File
-import java.lang.reflect.Type
 import kotlin.random.Random
 
 internal fun writeTestDataFiles(inputPath: String, outputPath: String, isoCode: String, charClass: String) {
@@ -172,68 +163,4 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     }
 
     println("Done.")
-}
-
-internal fun writeUniqueNgramFiles(outputPath: String) {
-    val ngramSubclasses = Ngram::class.sealedSubclasses.filterNot { it == Zerogram::class }
-    val ngramType = TypeToken.getParameterized(Set::class.java, String::class.java).type
-    val gson = GsonBuilder()
-        .registerTypeAdapter(ngramType, NgramsDeserializer())
-        .create()
-
-    for (ngramSubclass in ngramSubclasses) {
-        val inputJsonFileName = "${ngramSubclass.simpleName?.toLowerCase()}s.json"
-        val outputJsonFileName = "unique${ngramSubclass.simpleName}s.json"
-        val uniqueNgrams = mutableMapOf<String, Language>()
-
-        for (language in Language.values().filter { it != UNKNOWN }) {
-            val jsonResource = readJsonResource(
-                "/language-models/${language.isoCode}/$inputJsonFileName"
-            )
-            val ngrams: Set<String> = gson.fromJson(jsonResource, ngramType)
-
-            for (ngram in ngrams) {
-                if (uniqueNgrams.containsKey(ngram)) {
-                    uniqueNgrams.remove(ngram)
-                    continue
-                }
-                uniqueNgrams[ngram] = language
-            }
-        }
-
-        val languageToUniqueNgrams = mutableMapOf<Language, MutableSet<String>>()
-        for ((ngram, language) in uniqueNgrams) {
-            if (!languageToUniqueNgrams.containsKey(language)) {
-                languageToUniqueNgrams[language] = mutableSetOf()
-            }
-            languageToUniqueNgrams[language]?.add(ngram)
-        }
-
-        File("$outputPath/$outputJsonFileName").bufferedWriter().use { writer ->
-            writer.write(gson.toJson(languageToUniqueNgrams))
-        }
-    }
-
-    println("Done.")
-}
-
-private class NgramsDeserializer : JsonDeserializer<Set<String>> {
-    override fun deserialize(
-        json: JsonElement,
-        type: Type,
-        context: JsonDeserializationContext
-    ): Set<String> {
-
-        val ngrams = mutableSetOf<String>()
-
-        val jsonObj = json.asJsonObject
-        val ngramsJsonObj = jsonObj["ngrams"].asJsonObject
-
-        for ((_, ngramsJsonElem) in ngramsJsonObj.entrySet()) {
-            for (ngramJsonElem in ngramsJsonElem.asString.split(' ')) {
-                ngrams.add(ngramJsonElem)
-            }
-        }
-        return ngrams
-    }
 }

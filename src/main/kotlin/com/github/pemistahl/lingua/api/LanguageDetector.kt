@@ -30,6 +30,7 @@ import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.GREEK
+import com.github.pemistahl.lingua.api.Language.GUJARATI
 import com.github.pemistahl.lingua.api.Language.HEBREW
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
@@ -209,6 +210,7 @@ class LanguageDetector internal constructor(
                 Alphabet.BENGALI.matches(word) -> languageCharCounts.addCharCount(word, BENGALI)
                 Alphabet.CHINESE.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
                 Alphabet.GREEK.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
+                Alphabet.GUJARATI.matches(word) -> languageCharCounts.addCharCount(word, GUJARATI)
                 Alphabet.HEBREW.matches(word) -> languageCharCounts.addCharCount(word, HEBREW)
                 Alphabet.JAPANESE.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
                 Alphabet.KOREAN.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
@@ -339,11 +341,12 @@ class LanguageDetector internal constructor(
         this === other -> true
         other !is LanguageDetector -> false
         languages != other.languages -> false
+        minimumRelativeDistance != other.minimumRelativeDistance -> false
         isCachedByMapDB != other.isCachedByMapDB -> false
         else -> true
     }
 
-    override fun hashCode() = 31 * languages.hashCode() + isCachedByMapDB.hashCode()
+    override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isCachedByMapDB.hashCode()
 
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")
