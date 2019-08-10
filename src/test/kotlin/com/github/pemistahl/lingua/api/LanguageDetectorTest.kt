@@ -56,6 +56,7 @@ import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TAGALOG
 import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
+import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
 import com.github.pemistahl.lingua.internal.model.Bigram
@@ -507,7 +508,7 @@ class LanguageDetectorTest {
     )
 
     private fun filteredLanguagesProvider() = listOf(
-        arguments("والموضوع", listOf(ARABIC, PERSIAN)),
+        arguments("والموضوع", listOf(ARABIC, PERSIAN, URDU)),
         arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
         arguments("prihvaćanju", listOf(CROATIAN, POLISH)),
         arguments("nađete", listOf(CROATIAN, VIETNAMESE)),

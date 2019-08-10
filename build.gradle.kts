@@ -299,6 +299,7 @@ python {
     pip("matplotlib:3.1.1")
     pip("seaborn:0.9.0")
     pip("pandas:0.24.2")
+    pip("numpy:1.17.0")
 }
 
 bintray {

@@ -53,15 +53,15 @@
 	</tr>
 	<tr>
 		<td>Arabic</td>
-		<td>99 <img src="images/green.png"></td>
 		<td>98 <img src="images/green.png"></td>
-		<td>91 <img src="images/green.png"></td>
 		<td>97 <img src="images/green.png"></td>
-		<td>95 <img src="images/green.png"></td>
-		<td>77 <img src="images/lightgreen.png"></td>
-		<td>100 <img src="images/green.png"></td>
-		<td>99 <img src="images/green.png"></td>
+		<td>89 <img src="images/green.png"></td>
 		<td>96 <img src="images/green.png"></td>
+		<td>94 <img src="images/green.png"></td>
+		<td>72 <img src="images/lightgreen.png"></td>
+		<td>99 <img src="images/green.png"></td>
+		<td>99 <img src="images/green.png"></td>
+		<td>94 <img src="images/green.png"></td>
 		<td>100 <img src="images/green.png"></td>
 		<td>100 <img src="images/green.png"></td>
 		<td>100 <img src="images/green.png"></td>
@@ -503,15 +503,15 @@
 	</tr>
 	<tr>
 		<td>Persian</td>
-		<td>96 <img src="images/green.png"></td>
-		<td>86 <img src="images/green.png"></td>
-		<td>73 <img src="images/lightgreen.png"></td>
-		<td>92 <img src="images/green.png"></td>
-		<td>73 <img src="images/lightgreen.png"></td>
-		<td>49 <img src="images/yellow.png"></td>
-		<td>99 <img src="images/green.png"></td>
-		<td>85 <img src="images/green.png"></td>
-		<td>72 <img src="images/lightgreen.png"></td>
+		<td>90 <img src="images/green.png"></td>
+		<td>81 <img src="images/green.png"></td>
+		<td>62 <img src="images/lightgreen.png"></td>
+		<td>77 <img src="images/lightgreen.png"></td>
+		<td>65 <img src="images/lightgreen.png"></td>
+		<td>29 <img src="images/orange.png"></td>
+		<td>94 <img src="images/green.png"></td>
+		<td>79 <img src="images/lightgreen.png"></td>
+		<td>58 <img src="images/yellow.png"></td>
 		<td>99 <img src="images/green.png"></td>
 		<td>99 <img src="images/green.png"></td>
 		<td>99 <img src="images/green.png"></td>
@@ -727,6 +727,21 @@
 		<td>96 <img src="images/green.png"></td>
 	</tr>
 	<tr>
+		<td>Urdu</td>
+		<td>88 <img src="images/green.png"></td>
+		<td>83 <img src="images/green.png"></td>
+		<td>72 <img src="images/lightgreen.png"></td>
+		<td>80 <img src="images/lightgreen.png"></td>
+		<td>68 <img src="images/lightgreen.png"></td>
+		<td>49 <img src="images/yellow.png"></td>
+		<td>94 <img src="images/green.png"></td>
+		<td>84 <img src="images/green.png"></td>
+		<td>71 <img src="images/lightgreen.png"></td>
+		<td>90 <img src="images/green.png"></td>
+		<td>96 <img src="images/green.png"></td>
+		<td>96 <img src="images/green.png"></td>
+	</tr>
+	<tr>
 		<td>Vietnamese</td>
 		<td>92 <img src="images/green.png"></td>
 		<td>85 <img src="images/green.png"></td>
@@ -763,7 +778,7 @@
 		<td><strong>Mean</strong></td>
 		<td><strong>89</strong> <img src="images/green.png"></td>
 		<td><strong>80</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>65</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>64</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>79</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>63</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>41</strong> <img src="images/yellow.png"></td>
@@ -779,32 +794,32 @@
 	</tr>
 	<tr>
 		<td>Median</td>
-		<td>92.43</td>
-		<td>82.7</td>
-		<td>66.07</td>
-		<td>81.68</td>
-		<td>63.82</td>
-		<td>34.4</td>
-		<td>95.82</td>
-		<td>85.9</td>
-		<td>69.7</td>
-		<td>99.3</td>
-		<td>99.2</td>
-		<td>97.4</td>
+		<td>90.68</td>
+		<td>82.07</td>
+		<td>64.97</td>
+		<td>81.25</td>
+		<td>64.26</td>
+		<td>33.7</td>
+		<td>95.35</td>
+		<td>85.05</td>
+		<td>68.3</td>
+		<td>99.25</td>
+		<td>99.15</td>
+		<td>97.15</td>
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>12.0</td>
-		<td>17.37</td>
-		<td>25.48</td>
-		<td>17.62</td>
-		<td>25.51</td>
-		<td>35.28</td>
-		<td>11.25</td>
-		<td>20.22</td>
-		<td>33.76</td>
-		<td>10.63</td>
-		<td>11.45</td>
-		<td>14.47</td>
+		<td>11.82</td>
+		<td>17.17</td>
+		<td>25.18</td>
+		<td>17.33</td>
+		<td>25.19</td>
+		<td>34.86</td>
+		<td>11.09</td>
+		<td>20.01</td>
+		<td>33.38</td>
+		<td>10.56</td>
+		<td>11.34</td>
+		<td>14.33</td>
 	</tr>
 </table>

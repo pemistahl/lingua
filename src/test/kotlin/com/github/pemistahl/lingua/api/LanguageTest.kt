@@ -66,6 +66,7 @@ import com.github.pemistahl.lingua.api.Language.TAMIL
 import com.github.pemistahl.lingua.api.Language.TELUGU
 import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
+import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
 import com.github.pemistahl.lingua.internal.Alphabet
@@ -85,7 +86,7 @@ class LanguageTest {
             FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
         )
     }
 
@@ -97,7 +98,7 @@ class LanguageTest {
             FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
         )
     }
 
@@ -123,7 +124,7 @@ class LanguageTest {
     @Test
     fun `assert that certain languages support Arabic alphabet`() {
         assertThat(Language.values().filter { it.alphabet == Alphabet.ARABIC })
-            .containsExactly(ARABIC, PERSIAN)
+            .containsExactly(ARABIC, PERSIAN, URDU)
     }
 
     @Test
@@ -183,6 +184,7 @@ class LanguageTest {
         "te, TELUGU",
         "th, THAI",
         "tr, TURKISH",
+        "ur, URDU",
         "vi, VIETNAMESE",
         "cy, WELSH"
     )

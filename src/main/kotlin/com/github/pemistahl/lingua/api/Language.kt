@@ -73,6 +73,7 @@ enum class Language(
     TELUGU     ("te", Alphabet.TELUGU, ""),
     THAI       ("th", Alphabet.THAI, ""),
     TURKISH    ("tr", Alphabet.LATIN, "İıĞğ"),
+    URDU       ("ur", Alphabet.ARABIC, ""),
     VIETNAMESE ("vi", Alphabet.LATIN, "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH      ("cy", Alphabet.LATIN, ""),
 
