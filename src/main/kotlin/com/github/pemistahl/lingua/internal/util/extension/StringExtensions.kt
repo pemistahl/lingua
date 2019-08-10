@@ -39,16 +39,9 @@ internal fun String.containsAnyOf(characters: String): Boolean {
     return false
 }
 
-internal fun String.asRegex(): Regex {
-    val splitRegex = Regex("""\s*,\s*""")
-    val charClasses = this.split(splitRegex)
-    val charClassesWithoutPrefix = charClasses.joinToString(separator = "") { "\\p{$it}" }
-    val charClassesWithPrefix = charClasses.joinToString(separator = "") { "\\p{Is$it}" }
-
-    return try {
-        // Android only supports character classes without Is- prefix
-        Regex("^[$charClassesWithoutPrefix]+$")
-    } catch (e: PatternSyntaxException) {
-        Regex("^[$charClassesWithPrefix]+$")
-    }
+internal fun String.asRegex() = try {
+    // Android only supports character classes without Is- prefix
+    Regex("\\p{$this}+")
+} catch (e: PatternSyntaxException) {
+    Regex("\\p{Is$this}+")
 }

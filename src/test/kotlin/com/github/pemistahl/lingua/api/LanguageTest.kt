@@ -106,7 +106,7 @@ class LanguageTest {
 
     @Test
     fun `assert that certain languages use Latin alphabet`() {
-        assertThat(Language.values().filter { it.alphabet == Alphabet.LATIN })
+        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.LATIN) })
             .containsExactly(
                 AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN, CZECH,
                 DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN,
@@ -119,20 +119,20 @@ class LanguageTest {
 
     @Test
     fun `assert that certain languages support Cyrillic alphabet`() {
-        assertThat(Language.values().filter { it.alphabet == Alphabet.CYRILLIC })
+        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.CYRILLIC) })
             .containsExactly(BELARUSIAN, BULGARIAN, RUSSIAN)
     }
 
     @Test
     fun `assert that certain languages support Arabic alphabet`() {
-        assertThat(Language.values().filter { it.alphabet == Alphabet.ARABIC })
+        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.ARABIC) })
             .containsExactly(ARABIC, PERSIAN, URDU)
     }
 
     @Test
-    fun `assert that certain languages support Chinese alphabet`() {
-        assertThat(Language.values().filter { it.alphabet == Alphabet.CHINESE })
-            .containsExactly(CHINESE)
+    fun `assert that certain languages support Han alphabet`() {
+        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.HAN) })
+            .containsExactly(CHINESE, JAPANESE)
     }
 
     @ParameterizedTest

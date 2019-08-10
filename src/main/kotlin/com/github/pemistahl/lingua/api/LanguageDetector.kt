@@ -210,17 +210,17 @@ class LanguageDetector internal constructor(
         for (word in words) {
             when {
                 Alphabet.BENGALI.matches(word) -> languageCharCounts.addCharCount(word, BENGALI)
-                Alphabet.CHINESE.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
+                Alphabet.HAN.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
                 Alphabet.DEVANAGARI.matches(word) -> languageCharCounts.addCharCount(word, HINDI)
                 Alphabet.GREEK.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
                 Alphabet.GUJARATI.matches(word) -> languageCharCounts.addCharCount(word, GUJARATI)
                 Alphabet.GURMUKHI.matches(word) -> languageCharCounts.addCharCount(word, PUNJABI)
                 Alphabet.HEBREW.matches(word) -> languageCharCounts.addCharCount(word, HEBREW)
-                Alphabet.JAPANESE.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
-                Alphabet.KOREAN.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
+                Alphabet.HANGUL.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
                 Alphabet.TAMIL.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
                 Alphabet.TELUGU.matches(word) -> languageCharCounts.addCharCount(word, TELUGU)
                 Alphabet.THAI.matches(word) -> languageCharCounts.addCharCount(word, THAI)
+                JAPANESE_CHARACTER_SET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
                 Alphabet.LATIN.matches(word) -> languagesWithUniqueCharacters.filter {
                     word.containsAnyOf(it.uniqueCharacters)
                 }.forEach {
@@ -243,18 +243,18 @@ class LanguageDetector internal constructor(
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
         for (word in words) {
             if (Alphabet.CYRILLIC.matches(word)) {
-                return languages.asSequence().filter { it.alphabet == Alphabet.CYRILLIC }
+                return languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
             } else if (Alphabet.ARABIC.matches(word)) {
-                return languages.asSequence().filter { it.alphabet == Alphabet.ARABIC }
-            } else if (Alphabet.CHINESE.matches(word) || Alphabet.JAPANESE.matches(word)) {
-                return languages.asSequence().filter { it.alphabet == Alphabet.CHINESE }
+                return languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
+            } else if (Alphabet.HAN.matches(word)) {
+                return languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
             } else if (Alphabet.LATIN.matches(word)) {
                 val temp = if (languages.contains(NORWEGIAN)) {
-                    languages.asSequence().filter { it.alphabet == Alphabet.LATIN && it !in setOf(BOKMAL, NYNORSK) }
+                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK) }
                 } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    languages.asSequence().filter { it.alphabet == Alphabet.LATIN && it != NORWEGIAN }
+                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
                 } else {
-                    languages.asSequence().filter { it.alphabet == Alphabet.LATIN }
+                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) }
                 }
 
                 val languagesSubset = mutableSetOf<Language>()
@@ -357,6 +357,7 @@ class LanguageDetector internal constructor(
         private val PUNCTUATION = Regex("\\p{P}")
         private val NUMBERS = Regex("\\p{N}")
         private val MULTIPLE_WHITESPACE = Regex("\\s+")
+        private val JAPANESE_CHARACTER_SET = Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),
