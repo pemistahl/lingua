@@ -54,6 +54,7 @@ import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.PERSIAN
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
+import com.github.pemistahl.lingua.api.Language.PUNJABI
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
 import com.github.pemistahl.lingua.api.Language.SLOVAK
@@ -85,7 +86,7 @@ class LanguageTest {
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
-            PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
+            PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
         )
     }
@@ -97,7 +98,7 @@ class LanguageTest {
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
-            PERSIAN, POLISH, PORTUGUESE, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
+            PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
         )
     }
@@ -172,6 +173,7 @@ class LanguageTest {
         "fa, PERSIAN",
         "pl, POLISH",
         "pt, PORTUGUESE",
+        "pa, PUNJABI",
         "ro, ROMANIAN",
         "ru, RUSSIAN",
         "sk, SLOVAK",

@@ -25,6 +25,7 @@ internal enum class Alphabet(private val regex: Regex) {
     CYRILLIC ("Cyrillic".asRegex()),
     GREEK    ("Greek".asRegex()),
     GUJARATI ("Gujarati".asRegex()),
+    GURMUKHI ("Gurmukhi".asRegex()),
     HEBREW   ("Hebrew".asRegex()),
     JAPANESE ("Hiragana, Katakana, Han".asRegex()),
     KOREAN   ("Hangul".asRegex()),

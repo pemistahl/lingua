@@ -61,6 +61,7 @@ enum class Language(
     PERSIAN    ("fa", Alphabet.ARABIC, ""),
     POLISH     ("pl", Alphabet.LATIN, "ŁłŃńŚśŹź"),
     PORTUGUESE ("pt", Alphabet.LATIN, ""),
+    PUNJABI    ("pa", Alphabet.GURMUKHI, ""),
     ROMANIAN   ("ro", Alphabet.LATIN, "Țţ"),
     RUSSIAN    ("ru", Alphabet.CYRILLIC, ""),
     SLOVAK     ("sk", Alphabet.LATIN, "ĹĺĽľŔŕ"),

@@ -44,6 +44,7 @@ import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
+import com.github.pemistahl.lingua.api.Language.PUNJABI
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
@@ -211,6 +212,7 @@ class LanguageDetector internal constructor(
                 Alphabet.CHINESE.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
                 Alphabet.GREEK.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
                 Alphabet.GUJARATI.matches(word) -> languageCharCounts.addCharCount(word, GUJARATI)
+                Alphabet.GURMUKHI.matches(word) -> languageCharCounts.addCharCount(word, PUNJABI)
                 Alphabet.HEBREW.matches(word) -> languageCharCounts.addCharCount(word, HEBREW)
                 Alphabet.JAPANESE.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
                 Alphabet.KOREAN.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
