@@ -22,7 +22,7 @@ enum class Language(
     val isoCode: String,
     internal val alphabet: Alphabet,
     internal val uniqueCharacters: String,
-    internal var isExcludedFromDetection: Boolean
+    internal val isExcludedFromDetection: Boolean
 ) {
     AFRIKAANS  ("af", Alphabet.LATIN, "", false),
     ALBANIAN   ("sq", Alphabet.LATIN, "Ëë", false),
