@@ -60,7 +60,7 @@ plugins {
     jacoco
 }
 
-jacoco.toolVersion = "0.8.3"
+jacoco.toolVersion = "0.8.4"
 
 sourceSets {
     main {
