@@ -193,7 +193,7 @@ create_barplot(
     data=accuracy_values_data_frame,
     columns=['average-optimaize', 'average-tika', 'average-lingua'],
     title='Average Detection',
-    ylim=[0,100],
+    ylim=[0,105],
     filename='barplot-average.png'
 )
 

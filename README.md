@@ -1,4 +1,4 @@
-[![lingua](images/logo.png)][translate-lingua] 
+![lingua](images/logo.png) 
 
 # language detection done right
 *Lingua* is a language detection library for Java and other JVM languages, suitable for long and short text alike.
@@ -24,7 +24,7 @@
 ### Quick Info
 * this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
-* already outperforms *Apache Tika* and *Optimaize Language Detector* in this respect for more than 40 languages
+* already outperforms *Apache Tika* and *Optimaize Language Detector* in this respect for more than 50 languages
 * works within every Java 6+ application and on Android
 * no additional training of language models necessary
 * offline usage without having to connect to an external service or API
@@ -68,32 +68,37 @@ So far, two other comprehensive open source libraries working on the JVM for thi
 
 ## 3. <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
-Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 43 languages are supported:
+Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 55 languages are supported:
 
 | Language   | ISO 639-1 code | Language   | ISO 639-1 code |
 | --------   | -------------- | --------   | -------------- |
-| Afrikaans  | *af*           | Latin      | *la*           |
-| Albanian   | *sq*           | Latvian    | *lv*           |
-| Arabic     | *ar*           | Lithuanian | *lt*           |
-| Basque     | *eu*           | Malay      | *ms*           |
-| Belarusian | *be*           | Norwegian  | *no*           |
-| Bokmal     | *nb*           | Nynorsk    | *nn*           |
-| Bulgarian  | *bg*           | Persian    | *fa*           |
-| Catalan    | *ca*           | Polish     | *pl*           |
+| Afrikaans  | *af*           | Japanese   | *ja*           |
+| Albanian   | *sq*           | Korean     | *ko*           |
+| Arabic     | *ar*           | Latin      | *la*           |
+| Basque     | *eu*           | Latvian    | *lv*           |
+| Belarusian | *be*           | Lithuanian | *lt*           |
+| Bengali    | *bn*           | Malay      | *ms*           |
+| Bokmal     | *nb*           | Norwegian  | *no*           |
+| Bulgarian  | *bg*           | Nynorsk    | *nn*           |
+| Catalan    | *ca*           | Persian    | *fa*           |
+| Chinese    | *zh*           | Polish     | *pl*           |
 | Croatian   | *hr*           | Portuguese | *pt*           |
-| Czech      | *cs*           | Romanian   | *ro*           |
-| Danish     | *da*           | Russian    | *ru*           |
-| Dutch      | *nl*           | Slovak     | *sk*           |
-| English    | *en*           | Slovene    | *sl*           |
-| Estonian   | *et*           | Somali     | *so*           |
-| Finnish    | *fi*           | Spanish    | *es*           |
-| French     | *fr*           | Swedish    | *sv*           |
-| German     | *de*           | Tagalog    | *tl*           |
-| Greek      | *el*           | Turkish    | *tr*           |
-| Hungarian  | *hu*           | Vietnamese | *vi*           |
-| Icelandic  | *is*           | Welsh      | *cy*           |
-| Indonesian | *id*           |            |                |
-| Irish      | *ga*           |            |                |
+| Czech      | *cs*           | Punjabi    | *pa*           |
+| Danish     | *da*           | Romanian   | *ro*           |
+| Dutch      | *nl*           | Russian    | *ru*           |
+| English    | *en*           | Slovak     | *sk*           |
+| Estonian   | *et*           | Slovene    | *sl*           |
+| Finnish    | *fi*           | Somali     | *so*           |
+| French     | *fr*           | Spanish    | *es*           |
+| German     | *de*           | Swedish    | *sv*           |
+| Greek      | *el*           | Tagalog    | *tl*           |
+| Gujarati   | *gu*           | Tamil      | *ta*           |
+| Hebrew     | *he*           | Telugu     | *te*           |
+| Hindi      | *hi*           | Thai       | *th*           |
+| Hungarian  | *hu*           | Turkish    | *tr*           |
+| Icelandic  | *is*           | Urdu       | *ur*           |
+| Indonesian | *id*           | Vietnamese | *vi*           |
+| Irish      | *ga*           | Welsh      | *cy*           |
 | Italian    | *it*           |            |                |
 
 ## 4. <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
@@ -105,7 +110,7 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 
 Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
-Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 40 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Bokmal, Latin and Nynorsk are currently only supported by *Lingua*, so they are left out both in the decision process and in the comparison. All other 40 are indeed part of the decision process, that is, each classifier might theoretically return one of these 40 languages as the result.
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 52 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Bokmal, Latin and Nynorsk are currently only supported by *Lingua*, so they are left out both in the decision process and in the comparison. All other 52 are indeed part of the decision process, that is, each classifier might theoretically return one of these 52 languages as the result.
 
 The table below shows the averaged accuracy values over all three performed tasks, that is, single word detection, word pair detection and sentence detection.
 
@@ -123,6 +128,10 @@ You can also restrict the classifiers and languages to generate reports for by p
 
     ./gradlew writeAccuracyReports -Pdetectors=Lingua -Planguages=English,German
 
+By default, only a single CPU core is used for report generation. If you have a multi-core CPU in your machine, you can fork as many processes as you have CPU cores. This speeds up report generation significantly. However, be aware that forking more than one process can consume a lot of RAM. You do it like this:
+
+    ./gradlew writeAccuracyReports -PcpuCores=2
+
 For each detector and language, a test report file is then written into [`/accuracy-reports`](https://github.com/pemistahl/lingua/tree/master/accuracy-reports), to be found next to the `src` directory. 
 As an example, here is the current output of the *Lingua* German report:
 
@@ -131,22 +140,22 @@ com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
 
 ##### GERMAN #####
 
->>> Accuracy on average: 89,87%
+>>> Accuracy on average: 89,90%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 75,10%
 Erroneously classified as DUTCH: 2,50%, DANISH: 2,50%, ENGLISH: 2,30%, NORWEGIAN: 2,10%, ITALIAN: 1,60%, SWEDISH: 1,40%, FRENCH: 1,40%, BASQUE: 1,20%, WELSH: 1,00%, AFRIKAANS: 0,90%, PORTUGUESE: 0,80%, ALBANIAN: 0,70%, FINNISH: 0,70%, ESTONIAN: 0,60%, SPANISH: 0,50%, IRISH: 0,50%, TAGALOG: 0,40%, CROATIAN: 0,40%, POLISH: 0,40%, SOMALI: 0,30%, LITHUANIAN: 0,30%, INDONESIAN: 0,30%, ROMANIAN: 0,30%, TURKISH: 0,30%, CATALAN: 0,30%, SLOVENE: 0,30%, ICELANDIC: 0,30%, LATVIAN: 0,20%, MALAY: 0,20%, CZECH: 0,10%, SLOVAK: 0,10%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 94,80%
-Erroneously classified as DUTCH: 1,10%, ENGLISH: 0,80%, DANISH: 0,60%, SWEDISH: 0,50%, TAGALOG: 0,40%, FRENCH: 0,40%, WELSH: 0,30%, NORWEGIAN: 0,30%, TURKISH: 0,20%, IRISH: 0,20%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, INDONESIAN: 0,10%
+Accuracy: 94,90%
+Erroneously classified as DUTCH: 1,10%, ENGLISH: 0,80%, DANISH: 0,60%, SWEDISH: 0,50%, FRENCH: 0,40%, TAGALOG: 0,30%, WELSH: 0,30%, NORWEGIAN: 0,30%, TURKISH: 0,20%, IRISH: 0,20%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, INDONESIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99,70%
-Erroneously classified as DUTCH: 0,20%, DANISH: 0,10%
+Erroneously classified as DUTCH: 0,20%, PORTUGUESE: 0,10%
 ```
 
-The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. If you have Python installed, you can redraw the plots after modifying the test reports by executing the following Gradle task:
+The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. If you have a global Python 3 installation and the `python3` command available on your command line, you can redraw the plots after modifying the test reports by executing the following Gradle task:
 
     ./gradlew drawAccuracyPlots
     
@@ -161,7 +170,11 @@ The detailed table in the file [`ACCURACY_TABLE.md`](https://github.com/pemistah
 ### 6.1 <a name="library-dependency-gradle"></a> Using Gradle
 
 ```
-implementation 'com.github.pemistahl:lingua:0.4.0'
+// Groovy syntax
+implementation 'com.github.pemistahl:lingua:0.5.0'
+
+// Kotlin syntax
+implementation("com.github.pemistahl:lingua:0.5.0")
 ```
 
 ### 6.2 <a name="library-dependency-maven"></a> Using Maven
@@ -170,7 +183,7 @@ implementation 'com.github.pemistahl:lingua:0.4.0'
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
 </dependency>
 ```
 
@@ -184,9 +197,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-0.4.0.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-0.4.0-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-0.4.0-with-dependencies.jar` containing the compiled sources and all external dependencies needed at runtime. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+1. `./gradlew jar` assembles `lingua-0.5.0.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-0.5.0-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-0.5.0-with-dependencies.jar` containing the compiled sources and all external dependencies needed at runtime. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ## 8. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -202,7 +215,7 @@ import com.github.pemistahl.lingua.api.LanguageDetector
 import com.github.pemistahl.lingua.api.Language
 
 println(Language.all())
-// [ARABIC, BELARUSIAN, BULGARIAN, ...]
+// [AFRIKAANS, ALBANIAN, ARABIC, ...]
 
 val detector: LanguageDetector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build()
 val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are awesome")
@@ -212,7 +225,18 @@ val languages: List<Language> = detector.detectLanguagesOf(texts = listOf("langu
 // [ENGLISH, ENGLISH, ENGLISH]
 ```
 
-If a string's language cannot be detected reliably because of missing linguistic information, `Language.UNKNOWN` is returned. The public API of *Lingua* never returns `null` somewhere, so it is safe to be used from within Java code as well.
+By default, *Lingua* returns the most likely language for a given input text. However, there are certain words that are spelled the same in more than one language. The word *prologue*, for instance, is both a valid English and French word. *Lingua* would output either English or French which might be wrong in the given context. For cases like that, it is possible to specify a minimum relative distance that the logarithmized and summed up probabilities for each possible language have to satisfy. It can be stated in the following way:
+
+```kotlin
+val detector = LanguageDetectorBuilder
+    .fromAllBuiltInLanguages()
+    .withMinimumRelativeDistance(0.25) // minimum: 0.00 maximum: 0.99 default: 0.00
+    .build()
+```
+
+Be aware that the distance between the language probabilities is dependent on the length of the input text. The longer the input text, the larger the distance between the languages. So if you want to classify very short text phrases, do not set the minimum relative distance too high. Otherwise you will get most results returned as `Language.UNKNOWN` which is the return value for cases where language detection is not reliably possible. 
+
+The public API of *Lingua* never returns `null` somewhere, so it is safe to be used from within Java code as well.
 
 ```java
 /* Java */
@@ -259,7 +283,7 @@ val detector = LanguageDetectorBuilder
 ### 8.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-0.4.0-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-0.5.0-with-dependencies.jar`
 
 Then just play around:
 
@@ -267,36 +291,48 @@ Then just play around:
 This is Lingua.
 Select the language models to load.
 
-1: Afrikaans, Dutch
-2: Arabic, Persian
-3: Basque, Catalan, Spanish
-4: Belarusian, Bulgarian, Russian
-5: Bokmal, Nynorsk
-6: Croatian, Romanian
-7: Czech, Polish, Slovak, Slovene
-8: Danish, Icelandic, Norwegian, Swedish
-9: English, Dutch, German
-10: English, Irish, Welsh
-11: Estonian, Latvian, Lithuanian
-12: Finnish, Hungarian
-13: French, Italian, Spanish, Portuguese
-14: Indonesian, Malay, Tagalog
-15: all 41 supported languages
+----
+1: enter language iso codes manually
+----
+2: all 53 supported languages
+----
+3: Afrikaans, Dutch
+4: Arabic, Persian
+5: Basque, Catalan, Spanish
+6: Belarusian, Bulgarian, Russian
+7: Bokmal, Nynorsk
+8: Croatian, Romanian
+9: Czech, Polish, Slovak, Slovene
+10: Danish, Icelandic, Norwegian, Swedish
+11: English, Dutch, German
+12: English, Irish, Welsh
+13: Estonian, Latvian, Lithuanian
+14: Finnish, Hungarian
+15: French, Italian, Spanish, Portuguese
+16: Indonesian, Malay, Tagalog
+17: Chinese, Japanese, Korean, Thai
+18: Bengali, Gujarati, Hindi, Punjabi, Urdu, Tamil, Telugu
 
 Type a number and press <Enter>.
 Type :quit to exit.
 
-> 9
+> 1
+List some language iso codes separated by spaces and press <Enter>.
+Type :quit to exit.
+
+> en de fr
 Loading language models...
 Done. 3 language models loaded lazily.
 
 Type some text and press <Enter> to detect its language.
 Type :quit to exit.
 
-> Sprachen sind schon toll
-GERMAN
-> languages are great
+> languages
 ENGLISH
+> sont
+FRENCH
+> fantastisch
+GERMAN
 > :quit
 Bye! Ciao! Tschüss! Salut!
 ```
@@ -310,7 +346,7 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 - accuracy improvements
 - more unit tests
 - API documentation
-- for version 1.0.0: public API stability, Gradle build, multiplatform support
+- for version 1.0.0: public API stability, multiplatform support
 
 [change log]: https://github.com/pemistahl/lingua/releases
 [change log badge]: https://img.shields.io/badge/change%20log-what's%20new%3F-yellow.svg
@@ -324,10 +360,10 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
-[supported languages badge]: https://img.shields.io/badge/supported%20languages-43-yellow.svg
+[supported languages badge]: https://img.shields.io/badge/supported%20languages-55-yellow.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.4.0-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.4.0%2Flingua-0.4.0-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.5.0-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.5.0%2Flingua-0.5.0-with-dependencies.jar
 [Kotlin version badge]: https://img.shields.io/badge/Kotlin-1.3-blue.svg?logo=kotlin
 [Kotlin url]: https://kotlinlang.org/docs/reference/whatsnew13.html
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
@@ -335,10 +371,9 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
-[Apache Tika]: https://tika.apache.org/1.20/detection.html#Language_Detection
+[Apache Tika]: https://tika.apache.org/1.21/detection.html#Language_Detection
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.4.0
-[Jcenter badge]: https://img.shields.io/badge/JCenter-0.4.0-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.4.0/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.4.0-green.svg
-[translate-lingua]: https://translate.google.com/?hl=en#view=home&op=translate&sl=en&tl=la&text=tongue
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.5.0
+[Jcenter badge]: https://img.shields.io/badge/JCenter-0.5.0-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.5.0/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.5.0-green.svg
