@@ -16,55 +16,9 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.ALBANIAN
-import com.github.pemistahl.lingua.api.Language.BASQUE
-import com.github.pemistahl.lingua.api.Language.BENGALI
-import com.github.pemistahl.lingua.api.Language.BOKMAL
-import com.github.pemistahl.lingua.api.Language.CATALAN
-import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.CROATIAN
-import com.github.pemistahl.lingua.api.Language.CZECH
-import com.github.pemistahl.lingua.api.Language.DANISH
-import com.github.pemistahl.lingua.api.Language.ESTONIAN
-import com.github.pemistahl.lingua.api.Language.FINNISH
-import com.github.pemistahl.lingua.api.Language.FRENCH
-import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.GREEK
-import com.github.pemistahl.lingua.api.Language.GUJARATI
-import com.github.pemistahl.lingua.api.Language.HEBREW
-import com.github.pemistahl.lingua.api.Language.HINDI
-import com.github.pemistahl.lingua.api.Language.HUNGARIAN
-import com.github.pemistahl.lingua.api.Language.ICELANDIC
-import com.github.pemistahl.lingua.api.Language.IRISH
-import com.github.pemistahl.lingua.api.Language.ITALIAN
-import com.github.pemistahl.lingua.api.Language.JAPANESE
-import com.github.pemistahl.lingua.api.Language.KOREAN
-import com.github.pemistahl.lingua.api.Language.LATVIAN
-import com.github.pemistahl.lingua.api.Language.LITHUANIAN
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
-import com.github.pemistahl.lingua.api.Language.NYNORSK
-import com.github.pemistahl.lingua.api.Language.POLISH
-import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.PUNJABI
-import com.github.pemistahl.lingua.api.Language.ROMANIAN
-import com.github.pemistahl.lingua.api.Language.SLOVAK
-import com.github.pemistahl.lingua.api.Language.SLOVENE
-import com.github.pemistahl.lingua.api.Language.SPANISH
-import com.github.pemistahl.lingua.api.Language.SWEDISH
-import com.github.pemistahl.lingua.api.Language.TAMIL
-import com.github.pemistahl.lingua.api.Language.TELUGU
-import com.github.pemistahl.lingua.api.Language.THAI
-import com.github.pemistahl.lingua.api.Language.TURKISH
-import com.github.pemistahl.lingua.api.Language.UNKNOWN
-import com.github.pemistahl.lingua.api.Language.VIETNAMESE
+import com.github.pemistahl.lingua.api.Language.*
 import com.github.pemistahl.lingua.internal.Alphabet
-import com.github.pemistahl.lingua.internal.model.Bigram
-import com.github.pemistahl.lingua.internal.model.Fivegram
-import com.github.pemistahl.lingua.internal.model.LanguageModel
-import com.github.pemistahl.lingua.internal.model.Ngram
-import com.github.pemistahl.lingua.internal.model.Quadrigram
-import com.github.pemistahl.lingua.internal.model.Trigram
-import com.github.pemistahl.lingua.internal.model.Unigram
+import com.github.pemistahl.lingua.internal.model.*
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.readJsonResource
 import kotlin.math.ceil
@@ -79,11 +33,11 @@ class LanguageDetector internal constructor(
 ) {
     private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
 
-    internal val unigramLanguageModels = loadLanguageModels(Unigram::class)
-    internal val bigramLanguageModels = loadLanguageModels(Bigram::class)
-    internal val trigramLanguageModels = loadLanguageModels(Trigram::class)
-    internal val quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
-    internal val fivegramLanguageModels = loadLanguageModels(Fivegram::class)
+    internal val unigramLanguageModels = loadLanguageModels<Unigram>()
+    internal val bigramLanguageModels = loadLanguageModels<Bigram>()
+    internal val trigramLanguageModels = loadLanguageModels<Trigram>()
+    internal val quadrigramLanguageModels = loadLanguageModels<Quadrigram>()
+    internal val fivegramLanguageModels = loadLanguageModels<Fivegram>()
 
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
@@ -109,21 +63,21 @@ class LanguageDetector internal constructor(
         val unigramCountsOfInputText = mutableMapOf<Language, Int>()
 
         if (trimmedText.length >= 1) {
-            val unigramLanguageModel = LanguageModel.fromTestData(textSequence, Unigram::class)
+            val unigramLanguageModel = LanguageModel.fromTestData<Unigram>(textSequence)
             addNgramProbabilities(allProbabilities, languagesSequence, unigramLanguageModel)
             countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel, languagesSequence)
         }
         if (trimmedText.length >= 2) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Bigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData<Bigram>(textSequence))
         }
         if (trimmedText.length >= 3) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Trigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData<Trigram>(textSequence))
         }
         if (trimmedText.length >= 4) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Quadrigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData<Quadrigram>(textSequence))
         }
         if (trimmedText.length >= 5) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Fivegram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData<Fivegram>(textSequence))
         }
 
         return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText, languagesSequence)
@@ -132,11 +86,11 @@ class LanguageDetector internal constructor(
     internal fun addLanguageModel(language: Language) {
         languages.add(language)
         if (!unigramLanguageModels.containsKey(language)) {
-            unigramLanguageModels[language] = lazy { loadLanguageModel(language, Unigram::class) }
-            bigramLanguageModels[language] = lazy { loadLanguageModel(language, Bigram::class) }
-            trigramLanguageModels[language] = lazy { loadLanguageModel(language, Trigram::class) }
-            quadrigramLanguageModels[language] = lazy { loadLanguageModel(language, Quadrigram::class) }
-            fivegramLanguageModels[language] = lazy { loadLanguageModel(language, Fivegram::class) }
+            unigramLanguageModels[language] = lazy { loadLanguageModel<Unigram>(language) }
+            bigramLanguageModels[language] = lazy { loadLanguageModel<Bigram>(language) }
+            trigramLanguageModels[language] = lazy { loadLanguageModel<Trigram>(language) }
+            quadrigramLanguageModels[language] = lazy { loadLanguageModel<Quadrigram>(language) }
+            fivegramLanguageModels[language] = lazy { loadLanguageModel<Fivegram>(language) }
         }
     }
 
@@ -229,41 +183,36 @@ class LanguageDetector internal constructor(
             }
         }
 
-        val languagesWithMinimumRequiredCharCountExist = languageCharCounts
+        return languageCharCounts
             .asSequence()
             .filter { it.value >= minimalRequiredCharCount }
-            .count() > 0
-
-        return if (languagesWithMinimumRequiredCharCountExist)
-            languageCharCounts.toList().sortedByDescending { it.second }.first().first
-        else
-            UNKNOWN
+            .maxBy { it.value }?.key
+            ?: UNKNOWN
     }
 
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
         for (word in words) {
-            if (Alphabet.CYRILLIC.matches(word)) {
-                return languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
-            } else if (Alphabet.ARABIC.matches(word)) {
-                return languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
-            } else if (Alphabet.HAN.matches(word)) {
-                return languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
-            } else if (Alphabet.LATIN.matches(word)) {
-                val temp = if (languages.contains(NORWEGIAN)) {
-                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK) }
-                } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
-                } else {
-                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) }
-                }
-
-                val languagesSubset = mutableSetOf<Language>()
-                for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
-                    if (word.containsAnyOf(characters)) {
-                        languagesSubset.addAll(languages)
+            when {
+                Alphabet.CYRILLIC.matches(word) -> return languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
+                Alphabet.ARABIC.matches(word) -> return languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
+                Alphabet.HAN.matches(word) -> return languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
+                Alphabet.LATIN.matches(word) -> {
+                    val temp = if (languages.contains(NORWEGIAN)) {
+                        languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK) }
+                    } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
+                        languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
+                    } else {
+                        languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) }
                     }
+
+                    val languagesSubset = mutableSetOf<Language>()
+                    for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
+                        if (word.containsAnyOf(characters)) {
+                            languagesSubset.addAll(languages)
+                        }
+                    }
+                    return if (languagesSubset.isNotEmpty()) temp.filter { it in languagesSubset } else temp
                 }
-                return if (languagesSubset.isNotEmpty()) temp.filter { it in languagesSubset } else temp
             }
         }
         return languages.asSequence()
@@ -315,6 +264,10 @@ class LanguageDetector internal constructor(
         return languageModels.getValue(language).value?.getRelativeFrequency(ngram) ?: 0.0
     }
 
+    internal inline fun <reified T : Ngram> loadLanguageModel(language: Language): LanguageModel<T, T>? {
+        return loadLanguageModel(language, T::class)
+    }
+
     internal fun <T : Ngram> loadLanguageModel(
         language: Language,
         ngramClass: KClass<T>
@@ -329,7 +282,11 @@ class LanguageDetector internal constructor(
             null
     }
 
-    internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T,T>?>> {
+    internal inline fun <reified T : Ngram> loadLanguageModels(): MutableMap<Language, Lazy<LanguageModel<T, T>?>> {
+        return loadLanguageModels(T::class)
+    }
+
+    internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T, T>?>> {
         val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>?>>()
         for (language in languages) {
             languageModels[language] = lazy { loadLanguageModel(language, ngramClass) }
@@ -353,11 +310,11 @@ class LanguageDetector internal constructor(
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isCachedByMapDB.hashCode()
 
     internal companion object {
-        private val NO_LETTER = Regex("^[^\\p{L}]+$")
-        private val PUNCTUATION = Regex("\\p{P}")
-        private val NUMBERS = Regex("\\p{N}")
-        private val MULTIPLE_WHITESPACE = Regex("\\s+")
-        private val JAPANESE_CHARACTER_SET = Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
+        private val NO_LETTER = """^[^\p{L}]+$""".toRegex()
+        private val PUNCTUATION = """\p{P}""".toRegex()
+        private val NUMBERS = """\p{N}""".toRegex()
+        private val MULTIPLE_WHITESPACE = """\s+""".toRegex()
+        private val JAPANESE_CHARACTER_SET = """^[\p{IsHiragana}\p{IsKatakana}\p{IsHan}]+$""".toRegex()
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(CROATIAN, POLISH),

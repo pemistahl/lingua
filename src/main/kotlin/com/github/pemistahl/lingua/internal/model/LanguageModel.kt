@@ -111,6 +111,10 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             return LanguageModel(language, ngramAbsoluteFrequencies, ngramRelativeFrequencies)
         }
 
+        inline fun <reified T : Ngram> fromTestData(text: Sequence<String>): LanguageModel<T, T> {
+            return fromTestData(text, T::class)
+        }
+
         fun <T : Ngram> fromTestData(text: Sequence<String>, ngramClass: KClass<T>): LanguageModel<T, T> {
             if (ngramClass == Zerogram::class) {
                 @Suppress("UNCHECKED_CAST")
@@ -145,8 +149,7 @@ internal class LanguageModel<T : Ngram, U : Ngram> {
             ngramLength: Int,
             ngrams: Map<T, Int>,
             lowerNgramAbsoluteFrequencies: Map<U, Int>
-        ): Map<T, Fraction>
-        {
+        ): Map<T, Fraction> {
             val ngramProbabilities = hashMapOf<T, Fraction>()
             val totalNgramFrequency = ngrams.values.sum()
 
