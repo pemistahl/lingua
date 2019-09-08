@@ -268,8 +268,8 @@ class LanguageDetectorTest {
     @Test
     fun `assert that ngram probabilities are correctly added to probabilities list`() {
         val probabilitiesList = mutableListOf(
-            mapOf(ENGLISH to 0.1, GERMAN to 0.2),
-            mapOf(ENGLISH to 0.3, GERMAN to 0.4)
+            mapOf(ENGLISH to -0.1, GERMAN to -0.2),
+            mapOf(ENGLISH to -0.3, GERMAN to -0.4)
         )
 
         val languagesSequence = detectorForEnglishAndGerman.languages.asSequence()
@@ -278,7 +278,7 @@ class LanguageDetectorTest {
             detectorForEnglishAndGerman.computeLanguageProbabilities(trigramTestDataLanguageModel,
                 languagesSequence)
         } returns
-            mapOf(ENGLISH to 0.5, GERMAN to 0.6)
+            mapOf(ENGLISH to -0.5, GERMAN to -0.6)
 
         detectorForEnglishAndGerman.addNgramProbabilities(
             probabilitiesList,
@@ -290,9 +290,9 @@ class LanguageDetectorTest {
             probabilitiesList
         ).isEqualTo(
             mutableListOf(
-                mapOf(ENGLISH to 0.1, GERMAN to 0.2),
-                mapOf(ENGLISH to 0.3, GERMAN to 0.4),
-                mapOf(ENGLISH to 0.5, GERMAN to 0.6)
+                mapOf(ENGLISH to -0.1, GERMAN to -0.2),
+                mapOf(ENGLISH to -0.3, GERMAN to -0.4),
+                mapOf(ENGLISH to -0.5, GERMAN to -0.6)
             )
         )
     }

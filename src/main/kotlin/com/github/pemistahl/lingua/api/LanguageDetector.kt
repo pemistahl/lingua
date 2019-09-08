@@ -102,7 +102,7 @@ class LanguageDetector internal constructor(
         val languageDetectedByRules = detectLanguageWithRules(words)
         if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
 
-        val languagesSequence = filterLanguagesByRules(words)
+        var languagesSequence = filterLanguagesByRules(words)
 
         val textSequence = trimmedText.lineSequence()
         val allProbabilities = mutableListOf<Map<Language, Double>>()
@@ -111,19 +111,24 @@ class LanguageDetector internal constructor(
         if (trimmedText.length >= 1) {
             val unigramLanguageModel = LanguageModel.fromTestData(textSequence, Unigram::class)
             addNgramProbabilities(allProbabilities, languagesSequence, unigramLanguageModel)
+            languagesSequence = languagesSequence.filter { it in allProbabilities[0].keys }
             countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel, languagesSequence)
         }
         if (trimmedText.length >= 2) {
             addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Bigram::class))
+            languagesSequence = languagesSequence.filter { it in allProbabilities[1].keys }
         }
         if (trimmedText.length >= 3) {
             addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Trigram::class))
+            languagesSequence = languagesSequence.filter { it in allProbabilities[2].keys }
         }
         if (trimmedText.length >= 4) {
             addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Quadrigram::class))
+            languagesSequence = languagesSequence.filter { it in allProbabilities[3].keys }
         }
         if (trimmedText.length >= 5) {
             addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Fivegram::class))
+            languagesSequence = languagesSequence.filter { it in allProbabilities[4].keys }
         }
 
         return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText, languagesSequence)
@@ -166,10 +171,8 @@ class LanguageDetector internal constructor(
         languagesSequence: Sequence<Language>,
         testDataModel: LanguageModel<T, T>
     ) {
-        val ngramProbabilities = computeLanguageProbabilities(testDataModel, languagesSequence)
-        if (!ngramProbabilities.containsValue(0.0)) {
-            probabilities.add(ngramProbabilities)
-        }
+        val ngramProbabilities = computeLanguageProbabilities(testDataModel, languagesSequence).filter { it.value < 0.0 }
+        probabilities.add(ngramProbabilities)
     }
 
     internal fun getMostLikelyLanguage(
