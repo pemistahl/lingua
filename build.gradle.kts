@@ -51,7 +51,7 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.3.41"
+    kotlin("jvm") version "1.3.50"
     id("com.adarshr.test-logger") version "1.7.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("ru.vyarus.use-python") version "1.2.0"
