@@ -16,70 +16,189 @@
 
 package com.github.pemistahl.lingua.api
 
+import com.github.pemistahl.lingua.api.IsoCode639_1.AF
+import com.github.pemistahl.lingua.api.IsoCode639_1.AR
+import com.github.pemistahl.lingua.api.IsoCode639_1.BE
+import com.github.pemistahl.lingua.api.IsoCode639_1.BG
+import com.github.pemistahl.lingua.api.IsoCode639_1.BN
+import com.github.pemistahl.lingua.api.IsoCode639_1.CA
+import com.github.pemistahl.lingua.api.IsoCode639_1.CS
+import com.github.pemistahl.lingua.api.IsoCode639_1.CY
+import com.github.pemistahl.lingua.api.IsoCode639_1.DA
+import com.github.pemistahl.lingua.api.IsoCode639_1.DE
+import com.github.pemistahl.lingua.api.IsoCode639_1.EL
+import com.github.pemistahl.lingua.api.IsoCode639_1.EN
+import com.github.pemistahl.lingua.api.IsoCode639_1.ES
+import com.github.pemistahl.lingua.api.IsoCode639_1.ET
+import com.github.pemistahl.lingua.api.IsoCode639_1.EU
+import com.github.pemistahl.lingua.api.IsoCode639_1.FA
+import com.github.pemistahl.lingua.api.IsoCode639_1.FI
+import com.github.pemistahl.lingua.api.IsoCode639_1.FR
+import com.github.pemistahl.lingua.api.IsoCode639_1.GA
+import com.github.pemistahl.lingua.api.IsoCode639_1.GU
+import com.github.pemistahl.lingua.api.IsoCode639_1.HE
+import com.github.pemistahl.lingua.api.IsoCode639_1.HI
+import com.github.pemistahl.lingua.api.IsoCode639_1.HR
+import com.github.pemistahl.lingua.api.IsoCode639_1.HU
+import com.github.pemistahl.lingua.api.IsoCode639_1.ID
+import com.github.pemistahl.lingua.api.IsoCode639_1.IS
+import com.github.pemistahl.lingua.api.IsoCode639_1.IT
+import com.github.pemistahl.lingua.api.IsoCode639_1.JA
+import com.github.pemistahl.lingua.api.IsoCode639_1.KO
+import com.github.pemistahl.lingua.api.IsoCode639_1.LA
+import com.github.pemistahl.lingua.api.IsoCode639_1.LT
+import com.github.pemistahl.lingua.api.IsoCode639_1.LV
+import com.github.pemistahl.lingua.api.IsoCode639_1.MS
+import com.github.pemistahl.lingua.api.IsoCode639_1.NB
+import com.github.pemistahl.lingua.api.IsoCode639_1.NL
+import com.github.pemistahl.lingua.api.IsoCode639_1.NN
+import com.github.pemistahl.lingua.api.IsoCode639_1.NO
+import com.github.pemistahl.lingua.api.IsoCode639_1.PA
+import com.github.pemistahl.lingua.api.IsoCode639_1.PL
+import com.github.pemistahl.lingua.api.IsoCode639_1.PT
+import com.github.pemistahl.lingua.api.IsoCode639_1.RO
+import com.github.pemistahl.lingua.api.IsoCode639_1.RU
+import com.github.pemistahl.lingua.api.IsoCode639_1.SK
+import com.github.pemistahl.lingua.api.IsoCode639_1.SL
+import com.github.pemistahl.lingua.api.IsoCode639_1.SO
+import com.github.pemistahl.lingua.api.IsoCode639_1.SQ
+import com.github.pemistahl.lingua.api.IsoCode639_1.SV
+import com.github.pemistahl.lingua.api.IsoCode639_1.TA
+import com.github.pemistahl.lingua.api.IsoCode639_1.TE
+import com.github.pemistahl.lingua.api.IsoCode639_1.TH
+import com.github.pemistahl.lingua.api.IsoCode639_1.TL
+import com.github.pemistahl.lingua.api.IsoCode639_1.TR
+import com.github.pemistahl.lingua.api.IsoCode639_1.UR
+import com.github.pemistahl.lingua.api.IsoCode639_1.VI
+import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
+import com.github.pemistahl.lingua.api.IsoCode639_3.AFR
+import com.github.pemistahl.lingua.api.IsoCode639_3.ARA
+import com.github.pemistahl.lingua.api.IsoCode639_3.BEL
+import com.github.pemistahl.lingua.api.IsoCode639_3.BEN
+import com.github.pemistahl.lingua.api.IsoCode639_3.BUL
+import com.github.pemistahl.lingua.api.IsoCode639_3.CAT
+import com.github.pemistahl.lingua.api.IsoCode639_3.CES
+import com.github.pemistahl.lingua.api.IsoCode639_3.CYM
+import com.github.pemistahl.lingua.api.IsoCode639_3.DAN
+import com.github.pemistahl.lingua.api.IsoCode639_3.DEU
+import com.github.pemistahl.lingua.api.IsoCode639_3.ELL
+import com.github.pemistahl.lingua.api.IsoCode639_3.ENG
+import com.github.pemistahl.lingua.api.IsoCode639_3.EST
+import com.github.pemistahl.lingua.api.IsoCode639_3.EUS
+import com.github.pemistahl.lingua.api.IsoCode639_3.FAS
+import com.github.pemistahl.lingua.api.IsoCode639_3.FIN
+import com.github.pemistahl.lingua.api.IsoCode639_3.FRA
+import com.github.pemistahl.lingua.api.IsoCode639_3.GLE
+import com.github.pemistahl.lingua.api.IsoCode639_3.GUJ
+import com.github.pemistahl.lingua.api.IsoCode639_3.HEB
+import com.github.pemistahl.lingua.api.IsoCode639_3.HIN
+import com.github.pemistahl.lingua.api.IsoCode639_3.HRV
+import com.github.pemistahl.lingua.api.IsoCode639_3.HUN
+import com.github.pemistahl.lingua.api.IsoCode639_3.IND
+import com.github.pemistahl.lingua.api.IsoCode639_3.ISL
+import com.github.pemistahl.lingua.api.IsoCode639_3.ITA
+import com.github.pemistahl.lingua.api.IsoCode639_3.JPN
+import com.github.pemistahl.lingua.api.IsoCode639_3.KOR
+import com.github.pemistahl.lingua.api.IsoCode639_3.LAT
+import com.github.pemistahl.lingua.api.IsoCode639_3.LAV
+import com.github.pemistahl.lingua.api.IsoCode639_3.LIT
+import com.github.pemistahl.lingua.api.IsoCode639_3.MSA
+import com.github.pemistahl.lingua.api.IsoCode639_3.NLD
+import com.github.pemistahl.lingua.api.IsoCode639_3.NNO
+import com.github.pemistahl.lingua.api.IsoCode639_3.NOB
+import com.github.pemistahl.lingua.api.IsoCode639_3.NOR
+import com.github.pemistahl.lingua.api.IsoCode639_3.PAN
+import com.github.pemistahl.lingua.api.IsoCode639_3.POL
+import com.github.pemistahl.lingua.api.IsoCode639_3.POR
+import com.github.pemistahl.lingua.api.IsoCode639_3.RON
+import com.github.pemistahl.lingua.api.IsoCode639_3.RUS
+import com.github.pemistahl.lingua.api.IsoCode639_3.SLK
+import com.github.pemistahl.lingua.api.IsoCode639_3.SLV
+import com.github.pemistahl.lingua.api.IsoCode639_3.SOM
+import com.github.pemistahl.lingua.api.IsoCode639_3.SPA
+import com.github.pemistahl.lingua.api.IsoCode639_3.SQI
+import com.github.pemistahl.lingua.api.IsoCode639_3.SWE
+import com.github.pemistahl.lingua.api.IsoCode639_3.TAM
+import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
+import com.github.pemistahl.lingua.api.IsoCode639_3.TGL
+import com.github.pemistahl.lingua.api.IsoCode639_3.THA
+import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
+import com.github.pemistahl.lingua.api.IsoCode639_3.URD
+import com.github.pemistahl.lingua.api.IsoCode639_3.VIE
+import com.github.pemistahl.lingua.api.IsoCode639_3.ZHO
 import com.github.pemistahl.lingua.internal.Alphabet
+import com.github.pemistahl.lingua.internal.Alphabet.CYRILLIC
+import com.github.pemistahl.lingua.internal.Alphabet.DEVANAGARI
+import com.github.pemistahl.lingua.internal.Alphabet.GURMUKHI
+import com.github.pemistahl.lingua.internal.Alphabet.HAN
+import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
+import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
+import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
+import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 enum class Language(
     val isoCode: IsoCode639_1,
+    val isoCode639_3: IsoCode639_3,
     internal val alphabets: Set<Alphabet>,
     internal val uniqueCharacters: String
 ) {
-    AFRIKAANS  (IsoCode639_1.AF, setOf(Alphabet.LATIN), ""),
-    ALBANIAN   (IsoCode639_1.SQ, setOf(Alphabet.LATIN), "Ëë"),
-    ARABIC     (IsoCode639_1.AR, setOf(Alphabet.ARABIC), ""),
-    BASQUE     (IsoCode639_1.EU, setOf(Alphabet.LATIN), ""),
-    BELARUSIAN (IsoCode639_1.BE, setOf(Alphabet.CYRILLIC), ""),
-    BENGALI    (IsoCode639_1.BN, setOf(Alphabet.BENGALI), ""),
-    BOKMAL     (IsoCode639_1.NB, setOf(Alphabet.LATIN), ""),
-    BULGARIAN  (IsoCode639_1.BG, setOf(Alphabet.CYRILLIC), ""),
-    CATALAN    (IsoCode639_1.CA, setOf(Alphabet.LATIN), "Ïï"),
-    CHINESE    (IsoCode639_1.ZH, setOf(Alphabet.HAN), ""),
-    CROATIAN   (IsoCode639_1.HR, setOf(Alphabet.LATIN), ""),
-    CZECH      (IsoCode639_1.CS, setOf(Alphabet.LATIN), "ĚěŘřŮů"),
-    DANISH     (IsoCode639_1.DA, setOf(Alphabet.LATIN), ""),
-    DUTCH      (IsoCode639_1.NL, setOf(Alphabet.LATIN), ""),
-    ENGLISH    (IsoCode639_1.EN, setOf(Alphabet.LATIN), ""),
-    ESTONIAN   (IsoCode639_1.ET, setOf(Alphabet.LATIN), ""),
-    FINNISH    (IsoCode639_1.FI, setOf(Alphabet.LATIN), ""),
-    FRENCH     (IsoCode639_1.FR, setOf(Alphabet.LATIN), ""),
-    GERMAN     (IsoCode639_1.DE, setOf(Alphabet.LATIN), "ß"),
-    GREEK      (IsoCode639_1.EL, setOf(Alphabet.GREEK), ""),
-    GUJARATI   (IsoCode639_1.GU, setOf(Alphabet.GUJARATI), ""),
-    HEBREW     (IsoCode639_1.HE, setOf(Alphabet.HEBREW), ""),
-    HINDI      (IsoCode639_1.HI, setOf(Alphabet.DEVANAGARI), ""),
-    HUNGARIAN  (IsoCode639_1.HU, setOf(Alphabet.LATIN), "ŐőŰű"),
-    ICELANDIC  (IsoCode639_1.IS, setOf(Alphabet.LATIN), ""),
-    INDONESIAN (IsoCode639_1.ID, setOf(Alphabet.LATIN), ""),
-    IRISH      (IsoCode639_1.GA, setOf(Alphabet.LATIN), ""),
-    ITALIAN    (IsoCode639_1.IT, setOf(Alphabet.LATIN), ""),
-    JAPANESE   (IsoCode639_1.JA, setOf(Alphabet.HIRAGANA, Alphabet.KATAKANA, Alphabet.HAN), ""),
-    KOREAN     (IsoCode639_1.KO, setOf(Alphabet.HANGUL), ""),
-    LATIN      (IsoCode639_1.LA, setOf(Alphabet.LATIN), ""),
-    LATVIAN    (IsoCode639_1.LV, setOf(Alphabet.LATIN), "ĀāĒēĢģĪīĶķĻļŅņ"),
-    LITHUANIAN (IsoCode639_1.LT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
-    MALAY      (IsoCode639_1.MS, setOf(Alphabet.LATIN), ""),
-    NORWEGIAN  (IsoCode639_1.NO, setOf(Alphabet.LATIN), ""),
-    NYNORSK    (IsoCode639_1.NN, setOf(Alphabet.LATIN), ""),
-    PERSIAN    (IsoCode639_1.FA, setOf(Alphabet.ARABIC), ""),
-    POLISH     (IsoCode639_1.PL, setOf(Alphabet.LATIN), "ŁłŃńŚśŹź"),
-    PORTUGUESE (IsoCode639_1.PT, setOf(Alphabet.LATIN), ""),
-    PUNJABI    (IsoCode639_1.PA, setOf(Alphabet.GURMUKHI), ""),
-    ROMANIAN   (IsoCode639_1.RO, setOf(Alphabet.LATIN), "Țţ"),
-    RUSSIAN    (IsoCode639_1.RU, setOf(Alphabet.CYRILLIC), ""),
-    SLOVAK     (IsoCode639_1.SK, setOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
-    SLOVENE    (IsoCode639_1.SL, setOf(Alphabet.LATIN), ""),
-    SOMALI     (IsoCode639_1.SO, setOf(Alphabet.LATIN), ""),
-    SPANISH    (IsoCode639_1.ES, setOf(Alphabet.LATIN), "¿¡"),
-    SWEDISH    (IsoCode639_1.SV, setOf(Alphabet.LATIN), ""),
-    TAGALOG    (IsoCode639_1.TL, setOf(Alphabet.LATIN), ""),
-    TAMIL      (IsoCode639_1.TA, setOf(Alphabet.TAMIL), ""),
-    TELUGU     (IsoCode639_1.TE, setOf(Alphabet.TELUGU), ""),
-    THAI       (IsoCode639_1.TH, setOf(Alphabet.THAI), ""),
-    TURKISH    (IsoCode639_1.TR, setOf(Alphabet.LATIN), "İıĞğ"),
-    URDU       (IsoCode639_1.UR, setOf(Alphabet.ARABIC), ""),
-    VIETNAMESE (IsoCode639_1.VI, setOf(Alphabet.LATIN), "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
-    WELSH      (IsoCode639_1.CY, setOf(Alphabet.LATIN), ""),
+    AFRIKAANS  (AF, AFR, setOf(Alphabet.LATIN), ""),
+    ALBANIAN   (SQ, SQI, setOf(Alphabet.LATIN), "Ëë"),
+    ARABIC     (AR, ARA, setOf(Alphabet.ARABIC), ""),
+    BASQUE     (EU, EUS, setOf(Alphabet.LATIN), ""),
+    BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
+    BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),
+    BOKMAL     (NB, NOB, setOf(Alphabet.LATIN), ""),
+    BULGARIAN  (BG, BUL, setOf(CYRILLIC), ""),
+    CATALAN    (CA, CAT, setOf(Alphabet.LATIN), "Ïï"),
+    CHINESE    (ZH, ZHO, setOf(HAN), ""),
+    CROATIAN   (HR, HRV, setOf(Alphabet.LATIN), ""),
+    CZECH      (CS, CES, setOf(Alphabet.LATIN), "ĚěŘřŮů"),
+    DANISH     (DA, DAN, setOf(Alphabet.LATIN), ""),
+    DUTCH      (NL, NLD, setOf(Alphabet.LATIN), ""),
+    ENGLISH    (EN, ENG, setOf(Alphabet.LATIN), ""),
+    ESTONIAN   (ET, EST, setOf(Alphabet.LATIN), ""),
+    FINNISH    (FI, FIN, setOf(Alphabet.LATIN), ""),
+    FRENCH     (FR, FRA, setOf(Alphabet.LATIN), ""),
+    GERMAN     (DE, DEU, setOf(Alphabet.LATIN), "ß"),
+    GREEK      (EL, ELL, setOf(Alphabet.GREEK), ""),
+    GUJARATI   (GU, GUJ, setOf(Alphabet.GUJARATI), ""),
+    HEBREW     (HE, HEB, setOf(Alphabet.HEBREW), ""),
+    HINDI      (HI, HIN, setOf(DEVANAGARI), ""),
+    HUNGARIAN  (HU, HUN, setOf(Alphabet.LATIN), "ŐőŰű"),
+    ICELANDIC  (IS, ISL, setOf(Alphabet.LATIN), ""),
+    INDONESIAN (ID, IND, setOf(Alphabet.LATIN), ""),
+    IRISH      (GA, GLE, setOf(Alphabet.LATIN), ""),
+    ITALIAN    (IT, ITA, setOf(Alphabet.LATIN), ""),
+    JAPANESE   (JA, JPN, setOf(HIRAGANA, KATAKANA, HAN), ""),
+    KOREAN     (KO, KOR, setOf(HANGUL), ""),
+    LATIN      (LA, LAT, setOf(Alphabet.LATIN), ""),
+    LATVIAN    (LV, LAV, setOf(Alphabet.LATIN), "ĀāĒēĢģĪīĶķĻļŅņ"),
+    LITHUANIAN (LT, LIT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
+    MALAY      (MS, MSA, setOf(Alphabet.LATIN), ""),
+    NORWEGIAN  (NO, NOR, setOf(Alphabet.LATIN), ""),
+    NYNORSK    (NN, NNO, setOf(Alphabet.LATIN), ""),
+    PERSIAN    (FA, FAS, setOf(Alphabet.ARABIC), ""),
+    POLISH     (PL, POL, setOf(Alphabet.LATIN), "ŁłŃńŚśŹź"),
+    PORTUGUESE (PT, POR, setOf(Alphabet.LATIN), ""),
+    PUNJABI    (PA, PAN, setOf(GURMUKHI), ""),
+    ROMANIAN   (RO, RON, setOf(Alphabet.LATIN), "Țţ"),
+    RUSSIAN    (RU, RUS, setOf(CYRILLIC), ""),
+    SLOVAK     (SK, SLK, setOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
+    SLOVENE    (SL, SLV, setOf(Alphabet.LATIN), ""),
+    SOMALI     (SO, SOM, setOf(Alphabet.LATIN), ""),
+    SPANISH    (ES, SPA, setOf(Alphabet.LATIN), "¿¡"),
+    SWEDISH    (SV, SWE, setOf(Alphabet.LATIN), ""),
+    TAGALOG    (TL, TGL, setOf(Alphabet.LATIN), ""),
+    TAMIL      (TA, TAM, setOf(Alphabet.TAMIL), ""),
+    TELUGU     (TE, TEL, setOf(Alphabet.TELUGU), ""),
+    THAI       (TH, THA, setOf(Alphabet.THAI), ""),
+    TURKISH    (TR, TUR, setOf(Alphabet.LATIN), "İıĞğ"),
+    URDU       (UR, URD, setOf(Alphabet.ARABIC), ""),
+    VIETNAMESE (VI, VIE, setOf(Alphabet.LATIN), "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
+    WELSH      (CY, CYM, setOf(Alphabet.LATIN), ""),
 
-    UNKNOWN    (IsoCode639_1.UNKNOWN, setOf(Alphabet.NONE), "");
+    UNKNOWN    (IsoCode639_1.UNKNOWN, IsoCode639_3.UNKNOWN, setOf(NONE), "");
 
     companion object {
         @JvmStatic

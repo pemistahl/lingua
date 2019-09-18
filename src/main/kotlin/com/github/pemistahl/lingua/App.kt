@@ -71,7 +71,7 @@ import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAll
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromLanguages
 import java.io.Console
-import java.util.*
+import java.util.Scanner
 
 fun main() {
     runApp()
