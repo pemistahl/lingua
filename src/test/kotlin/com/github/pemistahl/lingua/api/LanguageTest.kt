@@ -74,7 +74,6 @@ import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
 import com.github.pemistahl.lingua.internal.Alphabet
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
@@ -137,70 +136,63 @@ class LanguageTest {
 
     @ParameterizedTest
     @CsvSource(
-        "af, AFRIKAANS",
-        "sq, ALBANIAN",
-        "ar, ARABIC",
-        "eu, BASQUE",
-        "be, BELARUSIAN",
-        "bn, BENGALI",
-        "nb, BOKMAL",
-        "bg, BULGARIAN",
-        "ca, CATALAN",
-        "zh, CHINESE",
-        "hr, CROATIAN",
-        "cs, CZECH",
-        "da, DANISH",
-        "nl, DUTCH",
-        "en, ENGLISH",
-        "et, ESTONIAN",
-        "fi, FINNISH",
-        "fr, FRENCH",
-        "de, GERMAN",
-        "el, GREEK",
-        "gu, GUJARATI",
-        "he, HEBREW",
-        "hi, HINDI",
-        "hu, HUNGARIAN",
-        "is, ICELANDIC",
-        "id, INDONESIAN",
-        "ga, IRISH",
-        "it, ITALIAN",
-        "ja, JAPANESE",
-        "la, LATIN",
-        "lv, LATVIAN",
-        "lt, LITHUANIAN",
-        "ms, MALAY",
-        "no, NORWEGIAN",
-        "nn, NYNORSK",
-        "fa, PERSIAN",
-        "pl, POLISH",
-        "pt, PORTUGUESE",
-        "pa, PUNJABI",
-        "ro, ROMANIAN",
-        "ru, RUSSIAN",
-        "sk, SLOVAK",
-        "sl, SLOVENE",
-        "so, SOMALI",
-        "es, SPANISH",
-        "sv, SWEDISH",
-        "tl, TAGALOG",
-        "ta, TAMIL",
-        "te, TELUGU",
-        "th, THAI",
-        "tr, TURKISH",
-        "ur, URDU",
-        "vi, VIETNAMESE",
-        "cy, WELSH"
+        "AF, AFRIKAANS",
+        "SQ, ALBANIAN",
+        "AR, ARABIC",
+        "EU, BASQUE",
+        "BE, BELARUSIAN",
+        "BN, BENGALI",
+        "NB, BOKMAL",
+        "BG, BULGARIAN",
+        "CA, CATALAN",
+        "ZH, CHINESE",
+        "HR, CROATIAN",
+        "CS, CZECH",
+        "DA, DANISH",
+        "NL, DUTCH",
+        "EN, ENGLISH",
+        "ET, ESTONIAN",
+        "FI, FINNISH",
+        "FR, FRENCH",
+        "DE, GERMAN",
+        "EL, GREEK",
+        "GU, GUJARATI",
+        "HE, HEBREW",
+        "HI, HINDI",
+        "HU, HUNGARIAN",
+        "IS, ICELANDIC",
+        "ID, INDONESIAN",
+        "GA, IRISH",
+        "IT, ITALIAN",
+        "JA, JAPANESE",
+        "LA, LATIN",
+        "LV, LATVIAN",
+        "LT, LITHUANIAN",
+        "MS, MALAY",
+        "NO, NORWEGIAN",
+        "NN, NYNORSK",
+        "FA, PERSIAN",
+        "PL, POLISH",
+        "PT, PORTUGUESE",
+        "PA, PUNJABI",
+        "RO, ROMANIAN",
+        "RU, RUSSIAN",
+        "SK, SLOVAK",
+        "SL, SLOVENE",
+        "SO, SOMALI",
+        "ES, SPANISH",
+        "SV, SWEDISH",
+        "TL, TAGALOG",
+        "TA, TAMIL",
+        "TE, TELUGU",
+        "TH, THAI",
+        "TR, TURKISH",
+        "UR, URDU",
+        "VI, VIETNAMESE",
+        "CY, WELSH"
     )
-    fun `assert that correct language is returned for iso code`(isoCode: String, language: Language) {
+    fun `assert that correct language is returned for iso code`(isoCode: IsoCode639_1, language: Language) {
         assertThat(Language.getByIsoCode(isoCode)).isEqualTo(language)
-    }
-
-    @Test
-    fun `assert that exception is thrown for unknown iso code`() {
-        assertThatIllegalArgumentException().isThrownBy {
-            Language.getByIsoCode("dfjkglsdfg")
-        }.withMessage("language with iso code 'dfjkglsdfg' can not be found")
     }
 
     private fun filteredLanguagesProvider() = listOf(

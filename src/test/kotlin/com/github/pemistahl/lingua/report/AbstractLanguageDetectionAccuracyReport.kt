@@ -16,8 +16,14 @@
 
 package com.github.pemistahl.lingua.report
 
+import com.github.pemistahl.lingua.api.IsoCode639_1
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.api.Language.*
+import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.CHINESE
+import com.github.pemistahl.lingua.api.Language.LATIN
+import com.github.pemistahl.lingua.api.Language.NORWEGIAN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
+import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
@@ -194,7 +200,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             !locale.isPresent -> UNKNOWN
             locale.get().language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode(locale.get().language)
+            else -> Language.getByIsoCode(IsoCode639_1.valueOf(locale.get().language.toUpperCase()))
         }
     }
 
@@ -202,7 +208,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             result.isUnknown -> UNKNOWN
             result.language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode(result.language)
+            else -> Language.getByIsoCode(IsoCode639_1.valueOf(result.language.toUpperCase()))
         }
     }
 
@@ -225,7 +231,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val optimaizeDetector by lazy {
-            val languageLocales = languageIsoCodesToTest.map {
+            val languageLocales = languageIsoCodesToTest.map { it.toString() }.map {
                 when (it) {
                     "zh" -> LdLocale.fromString("$it-CN")
                     else -> LdLocale.fromString(it)
@@ -240,7 +246,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         private val tikaDetector by lazy {
             OptimaizeLangDetector().loadModels(
-                languageIsoCodesToTest.map {
+                languageIsoCodesToTest.map { it.toString() }.map {
                     when (it) {
                         "zh" -> "$it-CN"
                         else -> it

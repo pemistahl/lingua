@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua
 
+import com.github.pemistahl.lingua.api.IsoCode639_1
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ARABIC
@@ -70,7 +71,7 @@ import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAll
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromLanguages
 import java.io.Console
-import java.util.Scanner
+import java.util.*
 
 fun main() {
     runApp()
@@ -168,7 +169,7 @@ private fun runApp() {
             }
 
             if (isoCodesList.isNotEmpty()) {
-                val isoCodesArray = isoCodesList.toTypedArray()
+                val isoCodesArray = isoCodesList.map { IsoCode639_1.valueOf(it.toUpperCase()) }.toTypedArray()
                 val isoCodesLength = isoCodesArray.size
 
                 try {

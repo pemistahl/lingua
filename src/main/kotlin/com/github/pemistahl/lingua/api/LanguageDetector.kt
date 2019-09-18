@@ -323,9 +323,8 @@ class LanguageDetector internal constructor(
         ngramClass: KClass<T>
     ): LanguageModel<T, T>? {
         val fileName = "${ngramClass.simpleName?.toLowerCase()}s.json"
-        val jsonResource = readJsonResource(
-            "/language-models/${language.isoCode}/$fileName"
-        )
+        val filePath = "/language-models/${language.isoCode}/$fileName"
+        val jsonResource = readJsonResource(filePath)
         return if (jsonResource != null)
             LanguageModel.fromJson(jsonResource, ngramClass, isCachedByMapDB)
         else

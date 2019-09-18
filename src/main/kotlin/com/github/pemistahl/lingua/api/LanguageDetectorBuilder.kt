@@ -56,7 +56,7 @@ class LanguageDetectorBuilder private constructor(
         }
 
         @JvmStatic
-        fun fromIsoCodes(isoCode: String, vararg isoCodes: String): LanguageDetectorBuilder {
+        fun fromIsoCodes(isoCode: IsoCode639_1, vararg isoCodes: IsoCode639_1): LanguageDetectorBuilder {
             require(isoCodes.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
             val languages = mutableListOf(Language.getByIsoCode(isoCode))
             languages.addAll(isoCodes.map { Language.getByIsoCode(it) })

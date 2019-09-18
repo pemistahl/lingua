@@ -80,7 +80,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.MethodSource
-import java.lang.Math.log
+import kotlin.math.ln
 
 @ExtendWith(MockKExtension::class)
 class LanguageDetectorTest {
@@ -577,17 +577,17 @@ class LanguageDetectorTest {
     private fun ngramProbabilitySumProvider() = listOf(
         arguments(
             setOf(Unigram("a"), Unigram("l"), Unigram("t"), Unigram("e"), Unigram("r")),
-            log(0.01) + log(0.02) + log(0.03) + log(0.04) + log(0.05)
+            ln(0.01) + ln(0.02) + ln(0.03) + ln(0.04) + ln(0.05)
         ),
         arguments(
             // back off unknown Trigram("tez") to known Bigram("te")
             setOf(Trigram("alt"), Trigram("lte"), Trigram("tez")),
-            log(0.19) + log(0.2) + log(0.13)
+            ln(0.19) + ln(0.2) + ln(0.13)
         ),
         arguments(
             // back off unknown Fivegram("aquas") to known Unigram("a")
             setOf(Fivegram("aquas")),
-            log(0.01)
+            ln(0.01)
         )
     )
 
@@ -595,39 +595,39 @@ class LanguageDetectorTest {
         arguments(
             unigramTestDataLanguageModel,
             mapOf(
-                ENGLISH to log(0.01) + log(0.02) + log(0.03) + log(0.04) + log(0.05),
-                GERMAN to log(0.06) + log(0.07) + log(0.08) + log(0.09) + log(0.1)
+                ENGLISH to ln(0.01) + ln(0.02) + ln(0.03) + ln(0.04) + ln(0.05),
+                GERMAN to ln(0.06) + ln(0.07) + ln(0.08) + ln(0.09) + ln(0.1)
             )
         ),
         arguments(
             quadrigramTestDataLanguageModel,
             mapOf(
-                ENGLISH to log(0.25) + log(0.26),
-                GERMAN to log(0.27) + log(0.28)
+                ENGLISH to ln(0.25) + ln(0.26),
+                GERMAN to ln(0.27) + ln(0.28)
             )
         )
     )
 
     private fun probabilitiesListProvider(): List<Arguments> {
         val unigramProbabilities = mapOf(
-            ENGLISH to log(0.01) + log(0.02) + log(0.03) + log(0.04) + log(0.05),
-            GERMAN to log(0.06) + log(0.07) + log(0.08) + log(0.09) + log(0.1)
+            ENGLISH to ln(0.01) + ln(0.02) + ln(0.03) + ln(0.04) + ln(0.05),
+            GERMAN to ln(0.06) + ln(0.07) + ln(0.08) + ln(0.09) + ln(0.1)
         )
         val bigramProbabilities = mapOf(
-            ENGLISH to log(0.11) + log(0.12) + log(0.13) + log(0.14),
-            GERMAN to log(0.15) + log(0.16) + log(0.17) + log(0.18)
+            ENGLISH to ln(0.11) + ln(0.12) + ln(0.13) + ln(0.14),
+            GERMAN to ln(0.15) + ln(0.16) + ln(0.17) + ln(0.18)
         )
         val trigramProbabilities = mapOf(
-            ENGLISH to log(0.19) + log(0.2) + log(0.21),
-            GERMAN to log(0.22) + log(0.23) + log(0.24)
+            ENGLISH to ln(0.19) + ln(0.2) + ln(0.21),
+            GERMAN to ln(0.22) + ln(0.23) + ln(0.24)
         )
         val quadrigramProbabilities = mapOf(
-            ENGLISH to log(0.25) + log(0.26),
-            GERMAN to log(0.27) + log(0.28)
+            ENGLISH to ln(0.25) + ln(0.26),
+            GERMAN to ln(0.27) + ln(0.28)
         )
         val fivegramProbabilities = mapOf(
-            ENGLISH to log(0.29),
-            GERMAN to log(0.3)
+            ENGLISH to ln(0.29),
+            GERMAN to ln(0.3)
         )
 
         return listOf(
