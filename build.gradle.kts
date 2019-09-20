@@ -179,12 +179,11 @@ tasks.register("writeAggregatedAccuracyReport") {
 
         if (csvFile.exists()) csvFile.delete()
         csvFile.createNewFile()
-        csvFile.appendText(linguaCsvHeader.replace(',', ' '))
+        csvFile.appendText(linguaCsvHeader)
         csvFile.appendText("\n")
 
         for (language in languages) {
             csvFile.appendText(language)
-            csvFile.appendText(" ")
 
             for (detector in detectors) {
                 val languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
@@ -196,9 +195,9 @@ tasks.register("writeAggregatedAccuracyReport") {
 
                 for (line in languageReportFile.readLines()) {
                     if (line.startsWith(stringToSplitAt)) {
-                        val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(" ")
+                        val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(",")
+                        csvFile.appendText(",")
                         csvFile.appendText(accuracyValues)
-                        csvFile.appendText(" ")
                     }
                 }
             }
@@ -298,7 +297,7 @@ dependencies {
 python {
     pip("matplotlib:3.1.1")
     pip("seaborn:0.9.0")
-    pip("pandas:0.24.2")
+    pip("pandas:0.25.1")
     pip("numpy:1.17.0")
 }
 
