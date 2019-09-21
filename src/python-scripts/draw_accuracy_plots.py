@@ -12,183 +12,108 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from math import floor
+
 import matplotlib
 import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
 import numpy as np
+import pandas as pd
+import seaborn as sns
+from matplotlib.patches import Patch
 
 matplotlib.use('TkAgg')
 sns.set()
 sns.set_style('whitegrid')
 
 
-def create_lineplot(data, columns, title, ylim, filename):
-    filtered_data = data.loc[:, columns]
+class AccuracyPlotDrawer(object):
+    __dpi = 50
+    __ticks_fontsize = 35
+    __label_fontsize = 38
+    __title_fontsize = 45
+    __fontweight = 'bold'
+    __hue = 'classifier'
+    __grid_color = '#474747'
+    __plot_filepath = 'images/plots/'
+    __plot_titles = ('Single Word Detection', 'Word Pair Detection', 'Sentence Detection', 'Average Detection')
+    __column_prefixes = ('single-words', 'word-pairs', 'sentences', 'average')
+    __column_suffixes = ('optimaize', 'tika', 'lingua')
+    __legend_labels = ('Optimaize 0.6', 'Tika 1.21', 'Lingua 0.5.0')
+    __hatches = ('/', '.', 'O')
+    __palette = ('#ff5280', '#ffc400', '#41c46b')
+    __ticks = np.arange(0, 101, 10)
+    __legend_handles = [Patch(facecolor=color, edgecolor='black', label=label, hatch=hatch)
+                        for color, label, hatch in zip(__palette, __legend_labels, __hatches)]
 
-    plt.figure(figsize=(45, 16))
-    plt.title(title, fontsize=45, fontweight='bold')
-    plt.xticks(rotation=90, fontsize=35)
-    plt.yticks(fontsize=35, ticks=np.arange(0, 101, 10))
-    plt.grid(color='#A6A6A6')
+    def __init__(self, filepath):
+        self.__dataframe = self.__read_into_dataframe(filepath)
 
-    ax = sns.lineplot(data=filtered_data, linewidth=5, palette=['green', 'orange', 'red'])
-    ax.set_ylim(ylim)
-    ax.legend(labels=['Lingua 0.5.0', 'Tika 1.21', 'Optimaize 0.6'], fontsize=28, loc='lower left')
-    ax.set_xlabel('Language', fontsize=38, fontweight='bold')
-    ax.set_ylabel('Accuracy (%)', fontsize=38, fontweight='bold')
+    def __read_into_dataframe(self, filepath):
+        frame = pd.read_csv(filepath_or_buffer=filepath)
+        return pd.melt(frame=frame, id_vars='language', value_name='accuracy', var_name=self.__hue)
 
-    plt.tight_layout()
-    plt.savefig('images/plots/' + filename, dpi=72)
+    def draw_all_barplots(self):
+        for title, prefix in zip(self.__plot_titles, self.__column_prefixes):
+            columns = [prefix + '-' + suffix for suffix in self.__column_suffixes]
+            self.draw_barplot(columns, title, xlim=(0, 100), filename='barplot-' + prefix + '.png')
+
+    def draw_all_boxplots(self):
+        for title, prefix in zip(self.__plot_titles, self.__column_prefixes):
+            columns = [prefix + '-' + suffix for suffix in self.__column_suffixes]
+            self.draw_boxplot(columns, title, ylim=(0, 100), filename='boxplot-' + prefix + '.png')
+
+    def draw_barplot(self, columns, title, xlim, filename):
+        row_filter = self.__dataframe[self.__hue].isin(columns)
+        data = self.__dataframe[row_filter]
+
+        plt.figure(figsize=(16, 100))
+        plt.title(title + '\n', fontsize=self.__title_fontsize, fontweight=self.__fontweight)
+        plt.xticks(fontsize=self.__ticks_fontsize, ticks=self.__ticks)
+        plt.yticks(fontsize=self.__ticks_fontsize)
+        plt.grid(color=self.__grid_color)
+
+        axes = sns.barplot(data=data, x='accuracy', y='language', hue=self.__hue, palette=self.__palette)
+
+        axes.set_xlabel('Accuracy (%)\n', fontsize=self.__label_fontsize, fontweight=self.__fontweight)
+        axes.set_ylabel('Language', fontsize=self.__label_fontsize, fontweight=self.__fontweight)
+        axes.set_xlim(xlim)
+        axes.xaxis.tick_top()
+        axes.xaxis.set_label_position('top')
+        axes.tick_params(axis='both', which='major', labelsize=self.__label_fontsize)
+        axes.tick_params(axis='both', which='minor', labelsize=self.__label_fontsize)
+        axes.legend(handles=self.__legend_handles, fontsize=28, loc='upper left')
+
+        language_count = len(axes.patches) / len(self.__legend_labels)
+        for i, current_bar in enumerate(axes.patches):
+            current_bar.set_edgecolor(self.__grid_color)
+            current_bar.set_hatch(self.__hatches[floor(i / language_count)])
+
+        plt.tight_layout()
+        plt.savefig(self.__plot_filepath + filename, dpi=self.__dpi)
+
+    def draw_boxplot(self, columns, title, ylim, filename):
+        row_filter = self.__dataframe[self.__hue].isin(columns)
+        data = self.__dataframe[row_filter]
+
+        plt.figure(figsize=(24, 12))
+        plt.title(title, fontsize=self.__title_fontsize, fontweight=self.__fontweight)
+        plt.xticks(fontsize=self.__ticks_fontsize)
+        plt.yticks(fontsize=self.__ticks_fontsize, ticks=self.__ticks)
+        plt.grid(self.__grid_color)
+
+        axes = sns.boxplot(data=data, x='classifier', y='accuracy', linewidth=5, palette=self.__palette)
+
+        axes.set_ylim(ylim)
+        axes.set_xlabel('Classifier', fontsize=self.__label_fontsize, fontweight=self.__fontweight)
+        axes.set_ylabel('Accuracy (%)', fontsize=self.__label_fontsize, fontweight=self.__fontweight)
+        axes.set_xticklabels(self.__legend_labels)
+
+        plt.tight_layout()
+        plt.savefig(self.__plot_filepath + filename, dpi=self.__dpi)
 
 
-def create_boxplot(data, columns, title, ylim, filename):
-    filtered_data = data.loc[:, columns]
-
-    plt.figure(figsize=(32,12))
-    plt.title(title, fontsize=45, fontweight='bold')
-    plt.xticks(fontsize=35)
-    plt.yticks(fontsize=35)
-    plt.grid(color='#A6A6A6')
-
-    ax = sns.boxplot(data=filtered_data, linewidth=5, palette=['red', 'orange', 'green'])
-    ax.set_ylim(ylim)
-    ax.set_xlabel('Classifier', fontsize=38, fontweight='bold')
-    ax.set_ylabel('Accuracy (%)', fontsize=38, fontweight='bold')
-    ax.set_xticklabels(['Optimaize 0.6', 'Tika 1.21', 'Lingua 0.5.0'])
-
-    plt.tight_layout()
-    plt.savefig('images/plots/' + filename, dpi=72)
-
-
-def create_barplot(data, columns, title, ylim, filename):
-    filtered_data = data.loc[:, columns]
-
-    plt.figure(figsize=(32,12))
-    plt.title(title, fontsize=45, fontweight='bold')
-    plt.xticks(fontsize=35)
-    plt.yticks(fontsize=35)
-    plt.grid(color='#A6A6A6')
-
-    ax = sns.barplot(
-        data=filtered_data,
-        palette=['red', 'orange', 'green'],
-        errwidth=7.0,
-        ci='sd',
-        capsize=.1
-    )
-    ax.set_ylim(ylim)
-    ax.set_xlabel('Classifier', fontsize=38, fontweight='bold')
-    ax.set_ylabel('Mean Accuracy (%)', fontsize=38, fontweight='bold')
-    ax.set_xticklabels(['Optimaize 0.6', 'Tika 1.21', 'Lingua 0.5.0'])
-
-    plt.tight_layout()
-    plt.savefig('images/plots/' + filename, dpi=72)
-
-
-accuracy_values_data_frame = pd.read_csv(
-    filepath_or_buffer='accuracy-reports/aggregated-accuracy-values.csv'
-).set_index('language')
-
-
-# SINGLE WORD DETECTION ACCURACY #
-create_lineplot(
-    data=accuracy_values_data_frame,
-    columns=['single-words-lingua', 'single-words-tika', 'single-words-optimaize'],
-    title='Single Word Detection',
-    ylim=[0,100],
-    filename='lineplot-singlewords.png'
-)
-
-create_boxplot(
-    data=accuracy_values_data_frame,
-    columns=['single-words-optimaize', 'single-words-tika', 'single-words-lingua'],
-    title='Single Word Detection',
-    ylim=[0,100],
-    filename='boxplot-singlewords.png'
-)
-
-create_barplot(
-    data=accuracy_values_data_frame,
-    columns=['single-words-optimaize', 'single-words-tika', 'single-words-lingua'],
-    title='Single Word Detection',
-    ylim=[0,100],
-    filename='barplot-singlewords.png'
-)
-
-# WORD PAIR DETECTION ACCURACY #
-create_lineplot(
-    data=accuracy_values_data_frame,
-    columns=['word-pairs-lingua', 'word-pairs-tika', 'word-pairs-optimaize'],
-    title='Word Pair Detection',
-    ylim=[0,100],
-    filename='lineplot-wordpairs.png'
-)
-
-create_boxplot(
-    data=accuracy_values_data_frame,
-    columns=['word-pairs-optimaize', 'word-pairs-tika', 'word-pairs-lingua'],
-    title='Word Pair Detection',
-    ylim=[0,100],
-    filename='boxplot-wordpairs.png'
-)
-
-create_barplot(
-    data=accuracy_values_data_frame,
-    columns=['word-pairs-optimaize', 'word-pairs-tika', 'word-pairs-lingua'],
-    title='Word Pair Detection',
-    ylim=[0,120],
-    filename='barplot-wordpairs.png'
-)
-
-# SENTENCE DETECTION ACCURACY #
-create_lineplot(
-    data=accuracy_values_data_frame,
-    columns=['sentences-lingua', 'sentences-tika', 'sentences-optimaize'],
-    title='Sentence Detection',
-    ylim=[10,100],
-    filename='lineplot-sentences.png'
-)
-
-create_boxplot(
-    data=accuracy_values_data_frame,
-    columns=['sentences-optimaize', 'sentences-tika', 'sentences-lingua'],
-    title='Sentence Detection',
-    ylim=[75,100],
-    filename='boxplot-sentences.png'
-)
-
-create_barplot(
-    data=accuracy_values_data_frame,
-    columns=['sentences-optimaize', 'sentences-tika', 'sentences-lingua'],
-    title='Sentence Detection',
-    ylim=[0,120],
-    filename='barplot-sentences.png'
-)
-
-# AVERAGE DETECTION ACCURACY #
-create_lineplot(
-    data=accuracy_values_data_frame,
-    columns=['average-lingua', 'average-tika', 'average-optimaize'],
-    title='Average Detection',
-    ylim=[0,100],
-    filename='lineplot-average.png'
-)
-
-create_boxplot(
-    data=accuracy_values_data_frame,
-    columns=['average-optimaize', 'average-tika', 'average-lingua'],
-    title='Average Detection',
-    ylim=[0,100],
-    filename='boxplot-average.png'
-)
-
-create_barplot(
-    data=accuracy_values_data_frame,
-    columns=['average-optimaize', 'average-tika', 'average-lingua'],
-    title='Average Detection',
-    ylim=[0,105],
-    filename='barplot-average.png'
-)
+drawer = AccuracyPlotDrawer(filepath='accuracy-reports/aggregated-accuracy-values.csv')
+drawer.draw_all_barplots()
+drawer.draw_all_boxplots()
 
 print("All plots created successfully")

@@ -17,6 +17,9 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
+import com.github.pemistahl.lingua.api.IsoCode639_1.LA
+import com.github.pemistahl.lingua.api.IsoCode639_1.NB
+import com.github.pemistahl.lingua.api.IsoCode639_1.NN
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CHINESE
@@ -41,6 +44,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlin.math.roundToInt
 
 abstract class AbstractLanguageDetectionAccuracyReport(
     private val language: Language,
@@ -189,7 +193,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return Pair(
             accuracy,
             """
-            >> Detection of $count $description (average length: ${Math.round(length.toDouble() / count)} chars)
+            >> Detection of $count $description (average length: ${(length.toDouble() / count).roundToInt()} chars)
             Accuracy: ${formatAccuracy(accuracy)}
             Erroneously classified as ${formatStatistics(statistics, language)}
             """.trimIndent()
@@ -213,9 +217,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = Language.values().toSet().minus(
-            arrayOf(LATIN, BOKMAL, NYNORSK, UNKNOWN)
-        ).map { it.isoCode }.toTypedArray()
+        private val languageIsoCodesToTest = Language.values().toSet().minus(arrayOf(UNKNOWN)).map {
+            it.isoCode
+        }.toTypedArray()
 
         internal val linguaDetector by lazy {
             LanguageDetectorBuilder
@@ -231,7 +235,11 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val optimaizeDetector by lazy {
-            val languageLocales = languageIsoCodesToTest.map { it.toString() }.map {
+            val languageLocales = languageIsoCodesToTest.filterNot {
+                it in arrayOf(LA, NB, NN)
+            }.map {
+                it.toString()
+            }.map {
                 when (it) {
                     "zh" -> LdLocale.fromString("$it-CN")
                     else -> LdLocale.fromString(it)
@@ -246,7 +254,11 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         private val tikaDetector by lazy {
             OptimaizeLangDetector().loadModels(
-                languageIsoCodesToTest.map { it.toString() }.map {
+                languageIsoCodesToTest.filterNot {
+                    it in arrayOf(LA, NB, NN)
+                }.map {
+                    it.toString()
+                }.map {
                     when (it) {
                         "zh" -> "$it-CN"
                         else -> it

@@ -110,11 +110,11 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 
 Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
-Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 52 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Bokmal, Latin and Nynorsk are currently only supported by *Lingua*, so they are left out both in the decision process and in the comparison. All other 52 are indeed part of the decision process, that is, each classifier might theoretically return one of these 52 languages as the result.
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 55 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Bokmal, Latin and Nynorsk are currently only supported by *Lingua*. The other two classifiers might theoretically return one of the remaining 52 languages as the result.
 
 The table below shows the averaged accuracy values over all three performed tasks, that is, single word detection, word pair detection and sentence detection.
 
-![lineplot-average-rotated](/images/plots/lineplot-average-rotated.png)
+![barplot-average](/images/plots/barplot-average.png)
 
 More detailed graphical statistics are available in the file [`ACCURACY_PLOTS.md`](https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md).
 
@@ -352,12 +352,6 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [change log badge]: https://img.shields.io/badge/change%20log-what's%20new%3F-yellow.svg
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
-[codebeat badge]: https://codebeat.co/badges/92a1d221-35b8-4e96-8d40-ed101b6f128e
-[codebeat url]: https://codebeat.co/projects/github-com-pemistahl-lingua-master
-[Codacy Badge]: https://api.codacy.com/project/badge/Grade/1d09ea5efbe348058ac163962c5c5264
-[codacy url]: https://www.codacy.com/app/pemistahl/lingua?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pemistahl/lingua&amp;utm_campaign=Badge_Grade
-[maintainability badge]: https://api.codeclimate.com/v1/badges/15822c202592b047f793/maintainability
-[maintainability url]: https://codeclimate.com/github/pemistahl/lingua/maintainability
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-55-yellow.svg

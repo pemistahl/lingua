@@ -111,8 +111,7 @@ def get_square_color(accuracy_value):
 
 
 accuracy_values_data_frame = pd.read_csv(
-    filepath_or_buffer='accuracy-reports/aggregated-accuracy-values.csv',
-    delim_whitespace=True
+    filepath_or_buffer='accuracy-reports/aggregated-accuracy-values.csv'
 ).set_index('language')
 
 accuracy_values_data_frame = accuracy_values_data_frame.reindex(

@@ -171,8 +171,7 @@ tasks.register("writeAggregatedAccuracyReport") {
         }
 
         val detectors = linguaSupportedDetectors.split(',')
-        val languages = linguaSupportedLanguages.split(',').toMutableList()
-        languages.removeAll("Bokmal,Nynorsk,Latin".split(','))
+        val languages = linguaSupportedLanguages.split(',')
 
         val csvFile = file("$accuracyReportsDirectoryName/aggregated-accuracy-values.csv")
         val stringToSplitAt = ">> Exact values:"
@@ -188,17 +187,18 @@ tasks.register("writeAggregatedAccuracyReport") {
             for (detector in detectors) {
                 val languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
                 val languageReportFile = file(languageReportFileName)
-                if (!languageReportFile.exists()) {
-                    csvFile.delete()
-                    throw GradleException("file '$languageReportFileName' does not exist")
-                }
 
-                for (line in languageReportFile.readLines()) {
-                    if (line.startsWith(stringToSplitAt)) {
-                        val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(",")
-                        csvFile.appendText(",")
-                        csvFile.appendText(accuracyValues)
+                if (languageReportFile.exists()) {
+                    for (line in languageReportFile.readLines()) {
+                        if (line.startsWith(stringToSplitAt)) {
+                            val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(",")
+                            csvFile.appendText(",")
+                            csvFile.appendText(accuracyValues)
+                        }
                     }
+                }
+                else {
+                    csvFile.appendText(",0.0,0.0,0.0,0.0")
                 }
             }
 
