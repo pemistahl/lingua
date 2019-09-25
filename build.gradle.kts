@@ -276,17 +276,17 @@ dependencies {
     implementation(kotlin("reflect"))
 
     implementation("com.google.code.gson:gson:2.8.5")
-    implementation("it.unimi.dsi:fastutil:8.2.2")
+    implementation("it.unimi.dsi:fastutil:8.3.0")
     implementation("org.mapdb:mapdb:3.0.7") {
         exclude("org.jetbrains.kotlin:kotlin-stdlib")
     }
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.5.0")
-    testImplementation("org.assertj:assertj-core:3.12.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
+    testImplementation("org.assertj:assertj-core:3.13.2")
     testImplementation("io.mockk:mockk:1.9.3")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    testImplementation("org.apache.tika:tika-langdetect:1.21")
+    testImplementation("org.apache.tika:tika-langdetect:1.22")
 
     val slf4jVersion = "1.7.25"
 

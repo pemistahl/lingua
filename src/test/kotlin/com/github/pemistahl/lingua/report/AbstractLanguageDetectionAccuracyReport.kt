@@ -217,7 +217,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = Language.values().toSet().minus(arrayOf(UNKNOWN)).map {
+        private val languageIsoCodesToTest = Language.values().toSet().minus(
+            arrayOf(LATIN, BOKMAL, NYNORSK, UNKNOWN)
+        ).map {
             it.isoCode
         }.toTypedArray()
 
@@ -235,9 +237,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val optimaizeDetector by lazy {
-            val languageLocales = languageIsoCodesToTest.filterNot {
-                it in arrayOf(LA, NB, NN)
-            }.map {
+            val languageLocales = languageIsoCodesToTest.map {
                 it.toString()
             }.map {
                 when (it) {
@@ -254,9 +254,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         private val tikaDetector by lazy {
             OptimaizeLangDetector().loadModels(
-                languageIsoCodesToTest.filterNot {
-                    it in arrayOf(LA, NB, NN)
-                }.map {
+                languageIsoCodesToTest.map {
                     it.toString()
                 }.map {
                     when (it) {
