@@ -21,33 +21,37 @@ def write_comparison_table(data, filename):
     rounded_median_data = data.median().round(2)
     rounded_std_data = data.std().round(2)
     column_names = (
-        'average-lingua', 'average-tika', 'average-optimaize',
-        'single-words-lingua', 'single-words-tika', 'single-words-optimaize',
-        'word-pairs-lingua', 'word-pairs-tika', 'word-pairs-optimaize',
-        'sentences-lingua', 'sentences-tika', 'sentences-optimaize'
+        'average-lingua', 'average-tika', 'average-opennlp', 'average-optimaize',
+        'single-words-lingua', 'single-words-tika', 'single-words-opennlp', 'single-words-optimaize',
+        'word-pairs-lingua', 'word-pairs-tika', 'word-pairs-opennlp', 'word-pairs-optimaize',
+        'sentences-lingua', 'sentences-tika', 'sentences-opennlp', 'sentences-optimaize'
     )
 
     table = """<table>
     <tr>
         <th>Language</th>
-        <th colspan="3">Average</th>
-        <th colspan="3">Single Words</th>
-        <th colspan="3">Word Pairs</th>
-        <th colspan="3">Sentences</th>
+        <th colspan="4">Average</th>
+        <th colspan="4">Single Words</th>
+        <th colspan="4">Word Pairs</th>
+        <th colspan="4">Sentences</th>
     </tr>
     <tr>
         <th></th>
         <th>Lingua</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
         <th>Optimaize</th>
         <th>Lingua</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
         <th>Optimaize</th>
         <th>Lingua</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
         <th>Optimaize</th>
         <th>Lingua</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
         <th>Optimaize</th>
     </tr>
     """
@@ -63,7 +67,7 @@ def write_comparison_table(data, filename):
 
         table += "\t</tr>\n"
 
-    table += "\t<tr>\n\t\t<td colspan=\"9\"></td>\n\t</tr>\n"
+    table += "\t<tr>\n\t\t<td colspan=\"12\"></td>\n\t</tr>\n"
     table += "\t<tr>\n\t\t<td><strong>Mean</strong></td>\n"
 
     for column in column_names:
@@ -73,7 +77,7 @@ def write_comparison_table(data, filename):
 
     table += "\t</tr>\n"
 
-    table += "\t<tr>\n\t\t<td colspan=\"9\"></td>\n\t</tr>\n"
+    table += "\t<tr>\n\t\t<td colspan=\"12\"></td>\n\t</tr>\n"
     table += "\t<tr>\n\t\t<td>Median</td>\n"
 
     for column in column_names:

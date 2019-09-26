@@ -136,7 +136,7 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from iso codes`() {
         run {
-            val builder = LanguageDetectorBuilder.fromIsoCodes(IsoCode639_1.DE, IsoCode639_1.SV)
+            val builder = LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.DE, IsoCode639_1.SV)
             val expectedLanguages = listOf(Language.GERMAN, Language.SWEDISH)
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
@@ -158,7 +158,7 @@ class LanguageDetectorBuilderTest {
         }
         run {
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromIsoCodes(IsoCode639_1.EN)
+                LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.EN)
             }.withMessage(minimumLanguagesErrorMessage)
         }
     }

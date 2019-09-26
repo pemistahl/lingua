@@ -68,7 +68,7 @@ import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.WELSH
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllBuiltInLanguages
-import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes
+import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes639_1
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromLanguages
 import java.io.Console
 import java.util.Scanner
@@ -153,7 +153,7 @@ private fun runApp() {
         while (true) {
             println(
                 """
-                List some language iso codes separated by spaces and press <Enter>.
+                List some language iso 639-1 codes separated by spaces and press <Enter>.
                 Type :quit to exit.
                 
                 """.trimIndent()
@@ -170,10 +170,9 @@ private fun runApp() {
 
             if (isoCodesList.isNotEmpty()) {
                 val isoCodesArray = isoCodesList.map { IsoCode639_1.valueOf(it.toUpperCase()) }.toTypedArray()
-                val isoCodesLength = isoCodesArray.size
 
                 try {
-                    detectorBuilder = fromIsoCodes(isoCodesArray[0], *isoCodesArray.sliceArray(1 until isoCodesLength))
+                    detectorBuilder = fromIsoCodes639_1(*isoCodesArray)
                     println("Loading language models...")
                     break
                 } catch (e: IllegalArgumentException) {

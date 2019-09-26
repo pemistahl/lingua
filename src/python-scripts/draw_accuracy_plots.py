@@ -37,10 +37,10 @@ class AccuracyPlotDrawer(object):
     __plot_filepath = 'images/plots/'
     __plot_titles = ('Single Word Detection', 'Word Pair Detection', 'Sentence Detection', 'Average Detection')
     __column_prefixes = ('single-words', 'word-pairs', 'sentences', 'average')
-    __column_suffixes = ('optimaize', 'tika', 'lingua')
-    __legend_labels = ('Optimaize 0.6', 'Tika 1.21', 'Lingua 0.5.0')
-    __hatches = ('/', '.', 'O')
-    __palette = ('#ff5280', '#ffc400', '#41c46b')
+    __column_suffixes = ('optimaize', 'opennlp', 'tika', 'lingua')
+    __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.1', 'Tika 1.22', 'Lingua 0.6.0-SNAPSHOT')
+    __hatches = ('/', '+', '.', 'O')
+    __palette = ('#b259ff', '#ff6347', '#ffc400', '#41c46b')
     __ticks = np.arange(0, 101, 10)
     __legend_handles = [Patch(facecolor=color, edgecolor='black', label=label, hatch=hatch)
                         for color, label, hatch in zip(__palette, __legend_labels, __hatches)]

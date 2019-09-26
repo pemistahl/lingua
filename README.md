@@ -24,7 +24,7 @@
 ### Quick Info
 * this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
-* already outperforms *Apache Tika* and *Optimaize Language Detector* in this respect for more than 50 languages
+* already outperforms *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* in this respect for more than 50 languages
 * works within every Java 6+ application and on Android
 * no additional training of language models necessary
 * offline usage without having to connect to an external service or API
@@ -58,7 +58,7 @@ Its task is simple: It tells you which language some provided textual data is wr
 ## 2. <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
 Language detection is often done as part of large machine learning frameworks or natural language processing applications. In cases where you don't need the full-fledged functionality of those systems or don't want to learn the ropes of those, a small flexible library comes in handy. 
 
-So far, two other comprehensive open source libraries working on the JVM for this task are [Apache Tika] and [Optimaize Language Detector]. Unfortunately, especially the latter has three major drawbacks:
+So far, three other comprehensive open source libraries working on the JVM for this task are [Apache Tika], [Apache OpenNLP] and [Optimaize Language Detector]. Unfortunately, especially the latter has three major drawbacks:
  
 1. Detection only works with quite lengthy text fragments. For very short text snippets such as Twitter messages, it doesn't provide adequate results.
 2. The more languages take part in the decision process, the less accurate are the detection results.
@@ -110,13 +110,11 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 
 Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
-Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 55 languages. *Tika* actually uses a heavily optimized version of *Optimaize* internally. Bokmal, Latin and Nynorsk are currently only supported by *Lingua*. The other two classifiers might theoretically return one of the remaining 52 languages as the result.
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 55 languages. Bokmal, Latin and Nynorsk are currently only supported by *Apache OpenNLP* and *Lingua*. For the other two classifiers, Bokmal and Nynorsk are both mapped to Norwegian. *Apache OpenNLP* does not allow to restrict the set of languages that take part in the decision process. So this classifier might theoretically return one of its 103 supported languages as its result. *Apache Tika* and *Optimaize Language Detector* have been configured so that the set of examinable languages is equal to the set supported by *Lingua*. This restriction makes the detection results more comparable to each other.
 
-The table below shows the averaged accuracy values over all three performed tasks, that is, single word detection, word pair detection and sentence detection.
+The table below shows the accuracy values for single word detection and *Lingua's* distinctive performance. More detailed graphical statistics are available in the file [ACCURACY_PLOTS.md]. The table in [ACCURACY_TABLE.md] lists all values separately and also reports mean, median and standard deviation.
 
-![barplot-average](/images/plots/barplot-average.png)
-
-More detailed graphical statistics are available in the file [`ACCURACY_PLOTS.md`](https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md).
+![barplot-single-words](/images/plots/barplot-single-words.png)
 
 ### 5. <a name="report-generation"></a> Test Report and Plot Generation <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -159,7 +157,7 @@ The plots have been created with Python and the libraries Pandas, Matplotlib and
 
     ./gradlew drawAccuracyPlots
     
-The detailed table in the file [`ACCURACY_TABLE.md`](https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md) containing all accuracy values can be written with:
+The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy values can be written with:
 
     ./gradlew writeAccuracyTable
 
@@ -213,6 +211,8 @@ The API is pretty straightforward and can be used in both Kotlin and Java code.
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetector
 import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.api.IsoCode639_1
+import com.github.pemistahl.lingua.api.IsoCode639_3
 
 println(Language.all())
 // [AFRIKAANS, ALBANIAN, ARABIC, ...]
@@ -247,6 +247,8 @@ import static java.util.Arrays.asList;
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder;
 import com.github.pemistahl.lingua.api.LanguageDetector;
 import com.github.pemistahl.lingua.api.Language;
+import com.github.pemistahl.lingua.api.IsoCode639_1;
+import com.github.pemistahl.lingua.api.IsoCode639_3;
 
 final LanguageDetector detector = LanguageDetectorBuilder.fromAllBuiltInLanguages().build();
 final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
@@ -266,7 +268,10 @@ LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(Language.SPANISH)
 LanguageDetectorBuilder.fromLanguages(Language.ENGLISH, Language.GERMAN)
 
 // select languages by ISO 639-1 code
-LanguageDetectorBuilder.fromIsoCodes("en", "de")
+LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.EN, IsoCode639_3.DE)
+
+// select languages by ISO 639-3 code
+LanguageDetectorBuilder.fromIsoCodes639_3(IsoCode639_3.ENG, IsoCode639_3.DEU)
 ```
 
 If you build your detector from all built-in language models, this can consume quite a bit of time and memory, depending on your machine. In order to speed up the loading process and save memory, *Lingua* offers an optional [MapDB](https://github.com/jankotek/mapdb) cache that converts the language models to highly efficient [`SortedTableMap`](https://jankotek.gitbooks.io/mapdb/content/sortedtablemap/) instances upon first access. These MapDB files are then stored in your operating system account's user home directory under `[your home directory]/lingua-mapdb-files`. Every subsequent access to the language models will then read them from MapDB. This saves 33% of memory and 66% of loading times, approximately. You can activate the MapDB cache like so:
@@ -365,9 +370,12 @@ In case you want to contribute something to *Lingua* even though it's in a very 
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
-[Apache Tika]: https://tika.apache.org/1.21/detection.html#Language_Detection
+[Apache Tika]: https://tika.apache.org/1.22/detection.html#Language_Detection
+[Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
 [Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.5.0
 [Jcenter badge]: https://img.shields.io/badge/JCenter-0.5.0-green.svg
 [Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.5.0/jar
 [Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.5.0-green.svg
+[ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/v0.6.0-dev/ACCURACY_PLOTS.md
+[ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/v0.6.0-dev/ACCURACY_TABLE.md

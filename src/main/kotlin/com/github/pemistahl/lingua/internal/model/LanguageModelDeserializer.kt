@@ -61,7 +61,7 @@ internal class LanguageModelDeserializer<T : Ngram>(
         val ngramClass = (type as ParameterizedType).actualTypeArguments[0] as Class<T>
 
         val userHomeDirectory = System.getProperty("user.home")
-        val mapdbDirectoryPath = Paths.get(userHomeDirectory, "lingua-mapdb-files", language.isoCode.toString())
+        val mapdbDirectoryPath = Paths.get(userHomeDirectory, "lingua-mapdb-files", language.isoCode639_1.toString())
         val mapdbFileName = "${ngramClass.simpleName}s_$language.mapdb"
         val mapdbFilePath = Paths.get(mapdbDirectoryPath.toString(), mapdbFileName)
 

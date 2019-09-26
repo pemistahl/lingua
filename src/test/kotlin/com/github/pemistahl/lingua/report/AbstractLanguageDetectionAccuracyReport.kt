@@ -17,18 +17,16 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
-import com.github.pemistahl.lingua.api.IsoCode639_1.LA
-import com.github.pemistahl.lingua.api.IsoCode639_1.NB
-import com.github.pemistahl.lingua.api.IsoCode639_1.NN
+import com.github.pemistahl.lingua.api.IsoCode639_3
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPENNLP
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.TIKA
 import com.google.common.base.Optional
@@ -36,6 +34,8 @@ import com.optimaize.langdetect.i18n.LdLocale
 import com.optimaize.langdetect.ngram.NgramExtractors
 import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
+import opennlp.tools.langdetect.LanguageDetectorME
+import opennlp.tools.langdetect.LanguageDetectorModel
 import org.apache.log4j.Level
 import org.apache.log4j.Logger
 import org.apache.tika.langdetect.OptimaizeLangDetector
@@ -90,13 +90,10 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             writer.write(statisticsReport())
         }
 
-        if (implementationToUse == LINGUA) {
-            if (language == LATIN) linguaDetector.removeLanguageModel(LATIN)
-            else if (language in arrayOf(BOKMAL, NYNORSK)) {
-                linguaDetector.removeLanguageModel(BOKMAL)
-                linguaDetector.removeLanguageModel(NYNORSK)
-                linguaDetector.addLanguageModel(NORWEGIAN)
-            }
+        if (implementationToUse == LINGUA && language in arrayOf(BOKMAL, NYNORSK)) {
+            linguaDetector.removeLanguageModel(BOKMAL)
+            linguaDetector.removeLanguageModel(NYNORSK)
+            linguaDetector.addLanguageModel(NORWEGIAN)
         }
     }
 
@@ -105,9 +102,24 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         val wordPairsAccuracyValues = mapCountsToAccuracy(wordPairsStatistics)
         val sentencesAccuracyValues = mapCountsToAccuracy(sentencesStatistics)
 
-        val (singleWordAccuracy, singleWordAccuracyReport) = getReportData(singleWordsAccuracyValues, wordCount, wordLengthCount, "single words")
-        val (wordPairAccuracy, wordPairAccuracyReport) = getReportData(wordPairsAccuracyValues, wordPairCount, wordPairLengthCount, "word pairs")
-        val (sentenceAccuracy, sentenceAccuracyReport) = getReportData(sentencesAccuracyValues, sentenceCount, sentenceLengthCount, "sentences")
+        val (singleWordAccuracy, singleWordAccuracyReport) = getReportData(
+            singleWordsAccuracyValues,
+            wordCount,
+            wordLengthCount,
+            "single words"
+        )
+        val (wordPairAccuracy, wordPairAccuracyReport) = getReportData(
+            wordPairsAccuracyValues,
+            wordPairCount,
+            wordPairLengthCount,
+            "word pairs"
+        )
+        val (sentenceAccuracy, sentenceAccuracyReport) = getReportData(
+            sentencesAccuracyValues,
+            sentenceCount,
+            sentenceLengthCount,
+            "sentences"
+        )
 
         val averageAccuracy = (singleWordAccuracy + wordPairAccuracy + sentenceAccuracy) / 3
         val averageAccuracyReport = ">>> Accuracy on average: ${formatAccuracy(averageAccuracy)}"
@@ -151,8 +163,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun computeStatistics(statistics: MutableMap<Language, Int>, element: String) {
         val detectedLanguage = when (implementationToUse) {
             LINGUA -> {
-                if (language == LATIN) linguaDetector.addLanguageModel(LATIN)
-                else if (language in arrayOf(BOKMAL, NYNORSK)) {
+                if (language in arrayOf(BOKMAL, NYNORSK)) {
                     linguaDetector.addLanguageModel(BOKMAL)
                     linguaDetector.addLanguageModel(NYNORSK)
                     linguaDetector.removeLanguageModel(NORWEGIAN)
@@ -165,6 +176,16 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 val detectedLanguage = mapLanguageResultToLanguage(tikaDetector.detect())
                 tikaDetector.reset()
                 detectedLanguage
+            }
+            OPENNLP -> {
+                val detectedLanguage = opennlpDetector.predictLanguage(element)
+                val isoCode = try {
+                    val isoCode = detectedLanguage.lang.toUpperCase()
+                    IsoCode639_3.valueOf(mapOpenNlpIsoCodeToLinguaIsoCode(isoCode))
+                } catch (e: IllegalArgumentException) {
+                    IsoCode639_3.UNKNOWN
+                }
+                Language.getByIsoCode639_3(isoCode)
             }
         }
         statistics.merge(detectedLanguage, 1, Int::plus)
@@ -184,10 +205,17 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     private fun mapCountsToAccuracy(statistics: Map<Language, Int>): Map<Language, Double> {
-        return statistics.mapValues { languageCount -> computeAccuracy(languageCount.value, statistics.values.sum()) }
+        return statistics.mapValues { languageCount ->
+            computeAccuracy(languageCount.value, statistics.values.sum())
+        }
     }
 
-    private fun getReportData(statistics: Map<Language, Double>, count: Int, length: Int, description: String): Pair<Double, String> {
+    private fun getReportData(
+        statistics: Map<Language, Double>,
+        count: Int,
+        length: Int,
+        description: String
+    ): Pair<Double, String> {
         val accuracy = statistics[language] ?: 0.0
 
         return Pair(
@@ -200,11 +228,22 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         )
     }
 
+    private fun mapOpenNlpIsoCodeToLinguaIsoCode(isoCode: String): String {
+        return when (isoCode) {
+            "CMN", "NAN" -> "ZHO" // map Mandarin and Min Nan to Chinese
+            "LVS" -> "LAV" // map Standard Latvian to Latvian
+            "NDS" -> "DEU" // map Low German to German
+            "PES" -> "FAS" // map Iranian Persian to Persian
+            "PNB" -> "PAN" // map Western Punjabi to Punjabi
+            else -> isoCode
+        }
+    }
+
     private fun mapLocaleToLanguage(locale: Optional<LdLocale>): Language {
         return when {
             !locale.isPresent -> UNKNOWN
             locale.get().language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode(IsoCode639_1.valueOf(locale.get().language.toUpperCase()))
+            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(locale.get().language.toUpperCase()))
         }
     }
 
@@ -212,23 +251,20 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             result.isUnknown -> UNKNOWN
             result.language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode(IsoCode639_1.valueOf(result.language.toUpperCase()))
+            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(result.language.toUpperCase()))
         }
     }
 
     companion object {
         private val languageIsoCodesToTest = Language.values().toSet().minus(
-            arrayOf(LATIN, BOKMAL, NYNORSK, UNKNOWN)
+            arrayOf(BOKMAL, NYNORSK, UNKNOWN)
         ).map {
-            it.isoCode
+            it.isoCode639_1
         }.toTypedArray()
 
         internal val linguaDetector by lazy {
             LanguageDetectorBuilder
-                .fromIsoCodes(
-                    languageIsoCodesToTest[0],
-                    *languageIsoCodesToTest.sliceArray(1 until languageIsoCodesToTest.size)
-                )
+                .fromIsoCodes639_1(*languageIsoCodesToTest)
                 .build()
         }
 
@@ -237,7 +273,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val optimaizeDetector by lazy {
-            val languageLocales = languageIsoCodesToTest.map {
+            val languageLocales = languageIsoCodesToTest.filterNot {
+                it == IsoCode639_1.LA
+            }.map {
                 it.toString()
             }.map {
                 when (it) {
@@ -254,7 +292,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         private val tikaDetector by lazy {
             OptimaizeLangDetector().loadModels(
-                languageIsoCodesToTest.map {
+                languageIsoCodesToTest.filterNot {
+                    it == IsoCode639_1.LA
+                }.map {
                     it.toString()
                 }.map {
                     when (it) {
@@ -263,6 +303,13 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                     }
                 }.toSet()
             )
+        }
+
+        private val opennlpDetector by lazy {
+            val languageModel = LanguageDetectorModel(
+                this::class.java.getResourceAsStream("/opennlp-training-data/langdetect-183.bin")
+            )
+            LanguageDetectorME(languageModel)
         }
 
         const val CSV_FILE_ENCODING = "UTF-8"

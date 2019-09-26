@@ -42,24 +42,30 @@ class LanguageDetectorBuilder private constructor(
         fun fromAllBuiltInSpokenLanguages() = LanguageDetectorBuilder(Language.allSpokenOnes())
 
         @JvmStatic
-        fun fromAllBuiltInLanguagesWithout(language: Language, vararg languages: Language): LanguageDetectorBuilder {
+        fun fromAllBuiltInLanguagesWithout(vararg languages: Language): LanguageDetectorBuilder {
             val languagesToLoad = Language.values().toMutableList()
-            languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, language, *languages))
-            require(languagesToLoad.size > 1) { MISSING_LANGUAGE_MESSAGE }
+            languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, *languages))
+            require(languagesToLoad.size >= 2) { MISSING_LANGUAGE_MESSAGE }
             return LanguageDetectorBuilder(languagesToLoad)
         }
 
         @JvmStatic
-        fun fromLanguages(language: Language, vararg languages: Language): LanguageDetectorBuilder {
-            require(languages.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetectorBuilder(listOf(language, *languages))
+        fun fromLanguages(vararg languages: Language): LanguageDetectorBuilder {
+            require(languages.size >= 2) { MISSING_LANGUAGE_MESSAGE }
+            return LanguageDetectorBuilder(listOf(*languages))
         }
 
         @JvmStatic
-        fun fromIsoCodes(isoCode: IsoCode639_1, vararg isoCodes: IsoCode639_1): LanguageDetectorBuilder {
-            require(isoCodes.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            val languages = mutableListOf(Language.getByIsoCode(isoCode))
-            languages.addAll(isoCodes.map { Language.getByIsoCode(it) })
+        fun fromIsoCodes639_1(vararg isoCodes: IsoCode639_1): LanguageDetectorBuilder {
+            require(isoCodes.size >= 2) { MISSING_LANGUAGE_MESSAGE }
+            val languages = isoCodes.map { Language.getByIsoCode639_1(it) }
+            return LanguageDetectorBuilder(languages)
+        }
+
+        @JvmStatic
+        fun fromIsoCodes639_3(vararg isoCodes: IsoCode639_3): LanguageDetectorBuilder {
+            require(isoCodes.size >= 2) { MISSING_LANGUAGE_MESSAGE }
+            val languages = isoCodes.map { Language.getByIsoCode639_3(it) }
             return LanguageDetectorBuilder(languages)
         }
 

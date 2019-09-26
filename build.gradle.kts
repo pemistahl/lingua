@@ -286,6 +286,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.9.3")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
+    testImplementation("org.apache.opennlp:opennlp-tools:1.9.1")
     testImplementation("org.apache.tika:tika-langdetect:1.22")
 
     val slf4jVersion = "1.7.25"

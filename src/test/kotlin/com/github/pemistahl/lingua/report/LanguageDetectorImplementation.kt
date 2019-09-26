@@ -20,5 +20,6 @@ enum class LanguageDetectorImplementation {
 
     LINGUA,
     OPTIMAIZE,
-    TIKA
+    TIKA,
+    OPENNLP
 }

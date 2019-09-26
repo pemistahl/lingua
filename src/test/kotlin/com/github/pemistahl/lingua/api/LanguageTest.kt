@@ -192,7 +192,7 @@ class LanguageTest {
         "CY, WELSH"
     )
     fun `assert that correct language is returned for iso code`(isoCode: IsoCode639_1, language: Language) {
-        assertThat(Language.getByIsoCode(isoCode)).isEqualTo(language)
+        assertThat(Language.getByIsoCode639_1(isoCode)).isEqualTo(language)
     }
 
     private fun filteredLanguagesProvider() = listOf(

@@ -1,0 +1,17 @@
+##### NORWEGIAN #####
+
+>>> Accuracy on average: 0,00%
+
+>> Detection of 1000 single words (average length: 8 chars)
+Accuracy: 0,00%
+Erroneously classified as UNKNOWN: 33,60%, NYNORSK: 25,10%, BOKMAL: 18,60%, LATIN: 3,60%, BASQUE: 3,20%, SWEDISH: 2,90%, DANISH: 2,00%, FINNISH: 1,90%, ITALIAN: 1,50%, AFRIKAANS: 1,00%, DUTCH: 0,90%, CHINESE: 0,80%, GERMAN: 0,60%, ESTONIAN: 0,50%, SLOVENE: 0,40%, TURKISH: 0,40%, ICELANDIC: 0,30%, CROATIAN: 0,30%, LITHUANIAN: 0,30%, PORTUGUESE: 0,30%, WELSH: 0,30%, MALAY: 0,30%, INDONESIAN: 0,20%, LATVIAN: 0,20%, TAGALOG: 0,20%, SPANISH: 0,20%, ALBANIAN: 0,10%, CZECH: 0,10%, IRISH: 0,10%, POLISH: 0,10%
+
+>> Detection of 1000 word pairs (average length: 16 chars)
+Accuracy: 0,00%
+Erroneously classified as NYNORSK: 47,50%, BOKMAL: 24,10%, UNKNOWN: 13,60%, DANISH: 2,70%, SWEDISH: 2,70%, LATIN: 2,40%, ITALIAN: 1,20%, BASQUE: 1,00%, AFRIKAANS: 0,80%, DUTCH: 0,80%, GERMAN: 0,60%, FINNISH: 0,40%, MALAY: 0,30%, ENGLISH: 0,30%, ESTONIAN: 0,20%, TURKISH: 0,20%, ICELANDIC: 0,20%, CHINESE: 0,20%, PORTUGUESE: 0,20%, SPANISH: 0,10%, TAGALOG: 0,10%, CROATIAN: 0,10%, SLOVENE: 0,10%, WELSH: 0,10%, ALBANIAN: 0,10%
+
+>> Detection of 1000 sentences (average length: 97 chars)
+Accuracy: 0,00%
+Erroneously classified as NYNORSK: 91,50%, BOKMAL: 7,70%, ENGLISH: 0,20%, SPANISH: 0,10%, SWEDISH: 0,10%, GERMAN: 0,10%, PORTUGUESE: 0,10%, DANISH: 0,10%, FINNISH: 0,10%
+
+>> Exact values: 0.0 0.0 0.0 0.0

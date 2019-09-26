@@ -1,0 +1,17 @@
+##### CHINESE #####
+
+>>> Accuracy on average: 77,93%
+
+>> Detection of 1000 single words (average length: 1 chars)
+Accuracy: 39,60%
+Erroneously classified as TURKISH: 59,70%, MALAY: 0,10%, ENGLISH: 0,10%, BASQUE: 0,10%, KOREAN: 0,10%, UNKNOWN: 0,10%, JAPANESE: 0,10%, PERSIAN: 0,10%
+
+>> Detection of 1000 word pairs (average length: 2 chars)
+Accuracy: 94,20%
+Erroneously classified as TURKISH: 4,60%, PERSIAN: 0,60%, JAPANESE: 0,30%, UNKNOWN: 0,20%, MALAY: 0,10%
+
+>> Detection of 729 sentences (average length: 48 chars)
+Accuracy: 100,00%
+Erroneously classified as 
+
+>> Exact values: 77.93333333333332 39.6 94.19999999999999 100.0

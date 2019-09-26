@@ -137,7 +137,7 @@ import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 enum class Language(
-    val isoCode: IsoCode639_1,
+    val isoCode639_1: IsoCode639_1,
     val isoCode639_3: IsoCode639_3,
     internal val alphabets: Set<Alphabet>,
     internal val uniqueCharacters: String
@@ -208,7 +208,10 @@ enum class Language(
         fun allSpokenOnes() = filterOutLanguages(UNKNOWN, BOKMAL, LATIN, NYNORSK)
 
         @JvmStatic
-        fun getByIsoCode(isoCode: IsoCode639_1) = values().find { it.isoCode == isoCode }!!
+        fun getByIsoCode639_1(isoCode: IsoCode639_1) = values().find { it.isoCode639_1 == isoCode }!!
+
+        @JvmStatic
+        fun getByIsoCode639_3(isoCode: IsoCode639_3) = values().find { it.isoCode639_3 == isoCode }!!
 
         private fun filterOutLanguages(
             vararg languages: Language
