@@ -30,19 +30,13 @@ class LanguageDetectorBuilderTest {
 
         assertThat(builder.languages).isEqualTo(Language.all())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
-        assertThat(builder.useMapDBCache).isFalse()
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
+            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.0)
         )
 
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
-        )
-
-        assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-        assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
+            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.2)
         )
     }
 
@@ -52,19 +46,13 @@ class LanguageDetectorBuilderTest {
 
         assertThat(builder.languages).isEqualTo(Language.allSpokenOnes())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
-        assertThat(builder.useMapDBCache).isFalse()
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
+            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.0)
         )
 
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
-        )
-
-        assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-        assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
+            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.2)
         )
     }
 
@@ -80,19 +68,13 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
-            assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0)
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
-            )
-
-            assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
             )
         }
         run {
@@ -111,19 +93,13 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
-            assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0)
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
-            )
-
-            assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
-            assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
             )
         }
         run {
@@ -141,19 +117,17 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
-            assertThat(builder.useMapDBCache).isFalse()
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0, isCachedByMapDB = false)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0)
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = false)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
             )
 
-            assertThat(builder.withMapDBCache().useMapDBCache).isTrue()
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2, isCachedByMapDB = true)
+                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
             )
         }
         run {

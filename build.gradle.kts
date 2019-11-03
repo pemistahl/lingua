@@ -52,6 +52,7 @@ description = linguaDescription
 
 plugins {
     kotlin("jvm") version "1.3.50"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.50"
     id("com.adarshr.test-logger") version "1.7.0"
     id("org.jetbrains.dokka") version "0.9.17"
     id("ru.vyarus.use-python") version "1.2.0"
@@ -273,13 +274,7 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation(kotlin("reflect"))
-
-    implementation("com.google.code.gson:gson:2.8.5")
-    implementation("it.unimi.dsi:fastutil:8.3.0")
-    implementation("org.mapdb:mapdb:3.0.7") {
-        exclude("org.jetbrains.kotlin:kotlin-stdlib")
-    }
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
     testImplementation("org.assertj:assertj-core:3.13.2")

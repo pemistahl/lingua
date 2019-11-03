@@ -18,19 +18,13 @@ package com.github.pemistahl.lingua.api
 
 class LanguageDetectorBuilder private constructor(
     internal val languages: List<Language>,
-    internal var minimumRelativeDistance: Double = 0.0,
-    internal var useMapDBCache: Boolean = false
+    internal var minimumRelativeDistance: Double = 0.0
 ) {
-    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance, useMapDBCache)
+    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance)
 
     fun withMinimumRelativeDistance(distance: Double): LanguageDetectorBuilder {
         require(distance in 0.0..0.99) { "minimum relative distance must lie in between 0.0 and 0.99" }
         this.minimumRelativeDistance = distance
-        return this
-    }
-
-    fun withMapDBCache(): LanguageDetectorBuilder {
-        this.useMapDBCache = true
         return this
     }
 

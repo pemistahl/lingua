@@ -58,32 +58,25 @@ import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.internal.Alphabet
-import com.github.pemistahl.lingua.internal.model.Bigram
-import com.github.pemistahl.lingua.internal.model.Fivegram
-import com.github.pemistahl.lingua.internal.model.LanguageModel
 import com.github.pemistahl.lingua.internal.model.Ngram
-import com.github.pemistahl.lingua.internal.model.Quadrigram
-import com.github.pemistahl.lingua.internal.model.Trigram
-import com.github.pemistahl.lingua.internal.model.Unigram
+import com.github.pemistahl.lingua.internal.model.TestDataLanguageModel
+import com.github.pemistahl.lingua.internal.model.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
-import com.github.pemistahl.lingua.internal.util.readJsonResource
 import kotlin.math.ceil
 import kotlin.math.ln
-import kotlin.reflect.KClass
 
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
-    internal val isCachedByMapDB: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
 
-    internal val unigramLanguageModels = loadLanguageModels(Unigram::class)
-    internal val bigramLanguageModels = loadLanguageModels(Bigram::class)
-    internal val trigramLanguageModels = loadLanguageModels(Trigram::class)
-    internal val quadrigramLanguageModels = loadLanguageModels(Quadrigram::class)
-    internal val fivegramLanguageModels = loadLanguageModels(Fivegram::class)
+    internal val unigramLanguageModels = loadLanguageModels(ngramLength = 1)
+    internal val bigramLanguageModels = loadLanguageModels(ngramLength = 2)
+    internal val trigramLanguageModels = loadLanguageModels(ngramLength = 3)
+    internal val quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
+    internal val fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
 
     fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
 
@@ -109,25 +102,25 @@ class LanguageDetector internal constructor(
         val unigramCountsOfInputText = mutableMapOf<Language, Int>()
 
         if (trimmedText.length >= 1) {
-            val unigramLanguageModel = LanguageModel.fromTestData(textSequence, Unigram::class)
+            val unigramLanguageModel = TestDataLanguageModel.fromText(textSequence, ngramLength = 1)
             addNgramProbabilities(allProbabilities, languagesSequence, unigramLanguageModel)
             languagesSequence = languagesSequence.filter { it in allProbabilities[0].keys }
             countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel, languagesSequence)
         }
         if (trimmedText.length >= 2) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Bigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 2))
             languagesSequence = languagesSequence.filter { it in allProbabilities[1].keys }
         }
         if (trimmedText.length >= 3) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Trigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 3))
             languagesSequence = languagesSequence.filter { it in allProbabilities[2].keys }
         }
         if (trimmedText.length >= 4) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Quadrigram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 4))
             languagesSequence = languagesSequence.filter { it in allProbabilities[3].keys }
         }
         if (trimmedText.length >= 5) {
-            addNgramProbabilities(allProbabilities, languagesSequence, LanguageModel.fromTestData(textSequence, Fivegram::class))
+            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 5))
             languagesSequence = languagesSequence.filter { it in allProbabilities[4].keys }
         }
 
@@ -137,11 +130,11 @@ class LanguageDetector internal constructor(
     internal fun addLanguageModel(language: Language) {
         languages.add(language)
         if (!unigramLanguageModels.containsKey(language)) {
-            unigramLanguageModels[language] = lazy { loadLanguageModel(language, Unigram::class) }
-            bigramLanguageModels[language] = lazy { loadLanguageModel(language, Bigram::class) }
-            trigramLanguageModels[language] = lazy { loadLanguageModel(language, Trigram::class) }
-            quadrigramLanguageModels[language] = lazy { loadLanguageModel(language, Quadrigram::class) }
-            fivegramLanguageModels[language] = lazy { loadLanguageModel(language, Fivegram::class) }
+            unigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 1) }
+            bigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 2) }
+            trigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 3) }
+            quadrigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 4) }
+            fivegramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 5) }
         }
     }
 
@@ -153,7 +146,7 @@ class LanguageDetector internal constructor(
 
     internal fun countUnigramsOfInputText(
         unigramCounts: MutableMap<Language, Int>,
-        unigramLanguageModel: LanguageModel<Unigram, Unigram>,
+        unigramLanguageModel: TestDataLanguageModel,
         languagesSequence: Sequence<Language>
     ) {
         for (language in languagesSequence) {
@@ -166,12 +159,12 @@ class LanguageDetector internal constructor(
         }
     }
 
-    internal fun <T : Ngram> addNgramProbabilities(
+    internal fun addNgramProbabilities(
         probabilities: MutableList<Map<Language, Double>>,
         languagesSequence: Sequence<Language>,
-        testDataModel: LanguageModel<T, T>
+        testDataModel: TestDataLanguageModel
     ) {
-        val ngramProbabilities = computeLanguageProbabilities(testDataModel, languagesSequence).filter { it.value < 0.0 }
+        val ngramProbabilities = computeLanguageProbabilities(testDataModel, languagesSequence)
         probabilities.add(ngramProbabilities)
     }
 
@@ -272,20 +265,20 @@ class LanguageDetector internal constructor(
         return languages.asSequence()
     }
 
-    internal fun <T : Ngram> computeLanguageProbabilities(
-        testDataModel: LanguageModel<T, T>,
+    internal fun computeLanguageProbabilities(
+        testDataModel: TestDataLanguageModel,
         languagesSequence: Sequence<Language>
     ): Map<Language, Double> {
         val probabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
             probabilities[language] = computeSumOfNgramProbabilities(language, testDataModel.ngrams)
         }
-        return probabilities
+        return probabilities.filter { it.value < 0.0 }
     }
 
-    internal fun <T : Ngram> computeSumOfNgramProbabilities(
+    internal fun computeSumOfNgramProbabilities(
         language: Language,
-        ngrams: Set<T>
+        ngrams: Set<Ngram>
     ): Double {
         val probabilities = mutableListOf<Double>()
 
@@ -301,40 +294,38 @@ class LanguageDetector internal constructor(
         return probabilities.sumByDouble { ln(it) }
     }
 
-    internal fun <T : Ngram> lookUpNgramProbability(
+    internal fun lookUpNgramProbability(
         language: Language,
-        ngram: T
+        ngram: Ngram
     ): Double {
-        val languageModels = when (ngram.length) {
+        val languageModels = when (ngram.value.length) {
             5 -> fivegramLanguageModels
             4 -> quadrigramLanguageModels
             3 -> trigramLanguageModels
             2 -> bigramLanguageModels
             1 -> unigramLanguageModels
             0 -> throw IllegalArgumentException("Zerogram detected")
-            else -> throw IllegalArgumentException("unsupported ngram type detected: $ngram")
+            else -> throw IllegalArgumentException("unsupported ngram length detected: ${ngram.value.length}")
         }
 
-        return languageModels.getValue(language).value?.getRelativeFrequency(ngram) ?: 0.0
+        return languageModels.getValue(language).value.getRelativeFrequency(ngram)
     }
 
-    internal fun <T : Ngram> loadLanguageModel(
+    internal fun loadLanguageModel(
         language: Language,
-        ngramClass: KClass<T>
-    ): LanguageModel<T, T>? {
-        val fileName = "${ngramClass.simpleName?.toLowerCase()}s.json"
+        ngramLength: Int
+    ): TrainingDataLanguageModel {
+        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
         val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val jsonResource = readJsonResource(filePath)
-        return if (jsonResource != null)
-            LanguageModel.fromJson(jsonResource, ngramClass, isCachedByMapDB)
-        else
-            null
+        val inputStream = LanguageDetector::class.java.getResourceAsStream(filePath)
+        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+        return TrainingDataLanguageModel.fromJson(jsonContent)
     }
 
-    internal fun <T : Ngram> loadLanguageModels(ngramClass: KClass<T>): MutableMap<Language, Lazy<LanguageModel<T,T>?>> {
-        val languageModels = hashMapOf<Language, Lazy<LanguageModel<T, T>?>>()
+    internal fun loadLanguageModels(ngramLength: Int): MutableMap<Language, Lazy<TrainingDataLanguageModel>> {
+        val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
         for (language in languages) {
-            languageModels[language] = lazy { loadLanguageModel(language, ngramClass) }
+            languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
         }
         return languageModels
     }
@@ -348,11 +339,10 @@ class LanguageDetector internal constructor(
         other !is LanguageDetector -> false
         languages != other.languages -> false
         minimumRelativeDistance != other.minimumRelativeDistance -> false
-        isCachedByMapDB != other.isCachedByMapDB -> false
         else -> true
     }
 
-    override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isCachedByMapDB.hashCode()
+    override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
 
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")

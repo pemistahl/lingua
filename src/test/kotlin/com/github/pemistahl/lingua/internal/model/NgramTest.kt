@@ -24,52 +24,13 @@ import org.junit.jupiter.api.Test
 
 class NgramTest {
 
-    private val unigram = Unigram("q")
-    private val bigram = Bigram("qw")
-    private val trigram = Trigram("qwe")
-    private val quadrigram = Quadrigram("qwer")
-    private val fivegram = Fivegram("qwert")
+    private val zerogram = Ngram("")
+    private val unigram = Ngram("q")
+    private val bigram = Ngram("qw")
+    private val trigram = Ngram("qwe")
+    private val quadrigram = Ngram("qwer")
+    private val fivegram = Ngram("qwert")
     private val ngrams = listOf(unigram, bigram, trigram, quadrigram, fivegram)
-
-    @Test
-    fun `assert that Unigram is of correct length`() {
-        assertThat(unigram.value).isEqualTo("q")
-        assertThatIllegalArgumentException()
-            .isThrownBy { Unigram("qw") }
-            .withMessage("value 'qw' must be of length 1 for type Unigram but is 2")
-    }
-
-    @Test
-    fun `assert that Bigram is of correct length`() {
-        assertThat(bigram.value).isEqualTo("qw")
-        assertThatIllegalArgumentException()
-            .isThrownBy { Bigram("q") }
-            .withMessage("value 'q' must be of length 2 for type Bigram but is 1")
-    }
-
-    @Test
-    fun `assert that Trigram is of correct length`() {
-        assertThat(trigram.value).isEqualTo("qwe")
-        assertThatIllegalArgumentException()
-            .isThrownBy { Trigram("qwer") }
-            .withMessage("value 'qwer' must be of length 3 for type Trigram but is 4")
-    }
-
-    @Test
-    fun `assert that Quadrigram is of correct length`() {
-        assertThat(Quadrigram("qwer").value).isEqualTo("qwer")
-        assertThatIllegalArgumentException()
-            .isThrownBy { Quadrigram("qwe") }
-            .withMessage("value 'qwe' must be of length 4 for type Quadrigram but is 3")
-    }
-
-    @Test
-    fun `assert that Fivegram is of correct length`() {
-        assertThat(Fivegram("qwert").value).isEqualTo("qwert")
-        assertThatIllegalArgumentException()
-            .isThrownBy { Fivegram("") }
-            .withMessage("value '' must be of length 5 for type Fivegram but is 0")
-    }
 
     @Test
     fun `assert that toString() implementation of Ngram is its value`() {
@@ -78,40 +39,7 @@ class NgramTest {
         assertThat(trigram.toString()).isEqualTo("qwe")
         assertThat(bigram.toString()).isEqualTo("qw")
         assertThat(unigram.toString()).isEqualTo("q")
-        assertThat(Zerogram.toString()).isEqualTo("")
-    }
-
-    @Test
-    fun `assert that Ngram equality checks work correctly`() {
-        assertThat(fivegram).isEqualTo(Fivegram("qwert"))
-        assertThat(fivegram).isNotEqualTo(Fivegram("abcde"))
-        assertThat(fivegram).isNotEqualTo(Zerogram)
-
-        assertThat(quadrigram).isEqualTo(Quadrigram("qwer"))
-        assertThat(quadrigram).isNotEqualTo(Quadrigram("abcd"))
-        assertThat(quadrigram).isNotEqualTo(fivegram)
-        assertThat(quadrigram).isNotEqualTo(Zerogram)
-
-        assertThat(trigram).isEqualTo(Trigram("qwe"))
-        assertThat(trigram).isNotEqualTo(Trigram("abc"))
-        assertThat(trigram).isNotEqualTo(quadrigram)
-        assertThat(trigram).isNotEqualTo(fivegram)
-        assertThat(trigram).isNotEqualTo(Zerogram)
-
-        assertThat(bigram).isEqualTo(Bigram("qw"))
-        assertThat(bigram).isNotEqualTo(Bigram("ab"))
-        assertThat(bigram).isNotEqualTo(trigram)
-        assertThat(bigram).isNotEqualTo(quadrigram)
-        assertThat(bigram).isNotEqualTo(fivegram)
-        assertThat(bigram).isNotEqualTo(Zerogram)
-
-        assertThat(unigram).isEqualTo(Unigram("q"))
-        assertThat(unigram).isNotEqualTo(Unigram("a"))
-        assertThat(unigram).isNotEqualTo(bigram)
-        assertThat(unigram).isNotEqualTo(trigram)
-        assertThat(unigram).isNotEqualTo(quadrigram)
-        assertThat(unigram).isNotEqualTo(fivegram)
-        assertThat(unigram).isNotEqualTo(Zerogram)
+        assertThat(zerogram.toString()).isEqualTo("")
     }
 
     @Test
@@ -121,41 +49,41 @@ class NgramTest {
             fivegram > trigram,
             fivegram > bigram,
             fivegram > unigram,
-            fivegram > Zerogram,
+            fivegram > zerogram,
 
             quadrigram > trigram,
             quadrigram > bigram,
             quadrigram > unigram,
-            quadrigram > Zerogram,
+            quadrigram > zerogram,
 
             trigram > bigram,
             trigram > unigram,
-            trigram > Zerogram,
+            trigram > zerogram,
 
             bigram > unigram,
-            bigram > Zerogram,
+            bigram > zerogram,
 
-            unigram > Zerogram,
+            unigram > zerogram,
 
             quadrigram < fivegram,
             trigram < fivegram,
             bigram < fivegram,
             unigram < fivegram,
-            Zerogram < fivegram,
+            zerogram < fivegram,
 
             trigram < quadrigram,
             bigram < quadrigram,
             unigram < quadrigram,
-            Zerogram < trigram,
+            zerogram < trigram,
 
             bigram < trigram,
             unigram < trigram,
-            Zerogram < trigram,
+            zerogram < trigram,
 
             unigram < bigram,
-            Zerogram < bigram,
+            zerogram < bigram,
 
-            Zerogram < unigram
+            zerogram < unigram
         )
 
         for (comparison in comparisons) {
@@ -178,7 +106,7 @@ class NgramTest {
         assertThat(unigram).isEqualTo(this.unigram)
 
         val zerogram = unigram.dec()
-        assertThat(zerogram).isEqualTo(Zerogram)
+        assertThat(zerogram).isEqualTo(zerogram)
 
         assertThatIllegalStateException().isThrownBy {
             zerogram.dec()
@@ -198,7 +126,7 @@ class NgramTest {
             assertThat(contains(bigram)).isTrue()
 
             assertThat(contains(unigram)).isFalse()
-            assertThat(contains(Zerogram)).isFalse()
+            assertThat(contains(zerogram)).isFalse()
 
             assertThat(iterator()).isEqualTo(NgramIterator(fivegram))
         }
@@ -234,29 +162,5 @@ class NgramTest {
                 next()
             }
         }
-    }
-
-    @Test
-    fun `assert that Ngram length can be determined correctly`() {
-        assertThat(Ngram.getLength(Zerogram::class)).isEqualTo(0)
-        assertThat(Ngram.getLength(Unigram::class)).isEqualTo(1)
-        assertThat(Ngram.getLength(Bigram::class)).isEqualTo(2)
-        assertThat(Ngram.getLength(Trigram::class)).isEqualTo(3)
-        assertThat(Ngram.getLength(Quadrigram::class)).isEqualTo(4)
-        assertThat(Ngram.getLength(Fivegram::class)).isEqualTo(5)
-    }
-
-    @Test
-    fun `assert that Ngram instance can be created correctly`() {
-        assertThat(Ngram.getInstance("")).isEqualTo(Zerogram)
-        assertThat(Ngram.getInstance("q")).isEqualTo(unigram)
-        assertThat(Ngram.getInstance("qw")).isEqualTo(bigram)
-        assertThat(Ngram.getInstance("qwe")).isEqualTo(trigram)
-        assertThat(Ngram.getInstance("qwer")).isEqualTo(quadrigram)
-        assertThat(Ngram.getInstance("qwert")).isEqualTo(fivegram)
-
-        assertThatIllegalArgumentException().isThrownBy {
-            Ngram.getInstance("qwertz")
-        }.withMessage("unsupported ngram length: 6")
     }
 }

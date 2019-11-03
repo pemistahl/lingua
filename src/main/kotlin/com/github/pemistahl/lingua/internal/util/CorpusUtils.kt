@@ -17,12 +17,7 @@
 package com.github.pemistahl.lingua.internal.util
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.internal.model.Bigram
-import com.github.pemistahl.lingua.internal.model.Fivegram
-import com.github.pemistahl.lingua.internal.model.LanguageModel
-import com.github.pemistahl.lingua.internal.model.Quadrigram
-import com.github.pemistahl.lingua.internal.model.Trigram
-import com.github.pemistahl.lingua.internal.model.Unigram
+import com.github.pemistahl.lingua.internal.model.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.asLineSequenceResource
 import java.io.File
 import kotlin.random.Random
@@ -114,9 +109,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     charClass: String
 ) {
     println("Writing unigrams...")
-    lateinit var unigramModel: LanguageModel<Unigram, Unigram>
+    lateinit var unigramModel: TrainingDataLanguageModel
     inputPath.asLineSequenceResource { lines ->
-        unigramModel = LanguageModel.fromTrainingData(lines, language, Unigram::class, charClass, emptyMap())
+        unigramModel = TrainingDataLanguageModel.fromText(lines, language, 1, charClass, emptyMap())
         File("$outputPath/unigrams.json").bufferedWriter().use { writer ->
             writer.write(unigramModel.toJson())
         }
@@ -124,9 +119,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Done.\n")
 
     println("Writing bigrams...")
-    lateinit var bigramModel: LanguageModel<Bigram, Unigram>
+    lateinit var bigramModel: TrainingDataLanguageModel
     inputPath.asLineSequenceResource { lines ->
-        bigramModel = LanguageModel.fromTrainingData(lines, language, Bigram::class, charClass, unigramModel.ngramAbsoluteFrequencies)
+        bigramModel = TrainingDataLanguageModel.fromText(lines, language, 2, charClass, unigramModel.absoluteFrequencies)
         File("$outputPath/bigrams.json").bufferedWriter().use { writer ->
             writer.write(bigramModel.toJson())
         }
@@ -134,9 +129,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Done.\n")
 
     println("Writing trigrams...")
-    lateinit var trigramModel: LanguageModel<Trigram, Bigram>
+    lateinit var trigramModel: TrainingDataLanguageModel
     inputPath.asLineSequenceResource { lines ->
-        trigramModel = LanguageModel.fromTrainingData(lines, language, Trigram::class, charClass, bigramModel.ngramAbsoluteFrequencies)
+        trigramModel = TrainingDataLanguageModel.fromText(lines, language, 3, charClass, bigramModel.absoluteFrequencies)
         File("$outputPath/trigrams.json").bufferedWriter().use { writer ->
             writer.write(trigramModel.toJson())
         }
@@ -144,9 +139,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Done.\n")
 
     println("Writing quadrigrams...")
-    lateinit var quadrigramModel: LanguageModel<Quadrigram, Trigram>
+    lateinit var quadrigramModel: TrainingDataLanguageModel
     inputPath.asLineSequenceResource { lines ->
-        quadrigramModel = LanguageModel.fromTrainingData(lines, language, Quadrigram::class, charClass, trigramModel.ngramAbsoluteFrequencies)
+        quadrigramModel = TrainingDataLanguageModel.fromText(lines, language, 4, charClass, trigramModel.absoluteFrequencies)
         File("$outputPath/quadrigrams.json").bufferedWriter().use { writer ->
             writer.write(quadrigramModel.toJson())
         }
@@ -154,9 +149,9 @@ internal fun writeLanguageModelsFromLeipzigCorpusFile(
     println("Done.\n")
 
     println("Writing fivegrams...")
-    lateinit var fivegramModel: LanguageModel<Fivegram, Quadrigram>
+    lateinit var fivegramModel: TrainingDataLanguageModel
     inputPath.asLineSequenceResource { lines ->
-        fivegramModel = LanguageModel.fromTrainingData(lines, language, Fivegram::class, charClass, quadrigramModel.ngramAbsoluteFrequencies)
+        fivegramModel = TrainingDataLanguageModel.fromText(lines, language, 5, charClass, quadrigramModel.absoluteFrequencies)
         File("$outputPath/fivegrams.json").bufferedWriter().use { writer ->
             writer.write(fivegramModel.toJson())
         }

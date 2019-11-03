@@ -16,21 +16,24 @@
 
 package com.github.pemistahl.lingua.internal.model
 
-import kotlin.reflect.KClass
+import kotlinx.serialization.Decoder
+import kotlinx.serialization.Encoder
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialDescriptor
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.internal.StringDescriptor
+import kotlinx.serialization.withName
 
-internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> {
-    val value: String = validate(value)
+@Serializable
+internal data class Ngram(val value: String) : Comparable<Ngram> {
+    init {
+        require(value.length in 0..5) {
+            "length of ngram '$value' is not in range 0..5"
+        }
+    }
 
     override fun toString() = value
-
-    override fun hashCode() = value.hashCode()
-
-    override fun equals(other: Any?) = when {
-        this === other -> true
-        other !is Ngram -> false
-        value != other.value -> false
-        else -> true
-    }
 
     override fun compareTo(other: Ngram) = when {
         this.value.length > other.value.length -> 1
@@ -38,55 +41,40 @@ internal sealed class Ngram(val length: Int, value: String) : Comparable<Ngram> 
         else -> 0
     }
 
-    fun rangeOfLowerOrderNgrams() = NgramRange(this, Unigram(this.value[0].toString()))
+    fun rangeOfLowerOrderNgrams() = NgramRange(this, Ngram(this.value[0].toString()))
 
-    operator fun dec(): Ngram = when (this) {
-        is Fivegram -> Quadrigram(this.value.slice(0..3))
-        is Quadrigram -> Trigram(this.value.slice(0..2))
-        is Trigram -> Bigram(this.value.slice(0..1))
-        is Bigram -> Unigram(this.value[0].toString())
-        is Unigram -> Zerogram
-        is Zerogram -> throw IllegalStateException(
+    operator fun dec(): Ngram = when {
+        this.value.length > 1 -> Ngram(this.value.slice(0..this.value.length-2))
+        this.value.length == 1 -> Ngram("")
+        else -> throw IllegalStateException(
             "Zerogram is ngram type of lowest order and can not be decremented"
         )
     }
 
-    private fun validate(value: String): String {
-        require(value.length == this.length) {
-            "value '$value' must be of length $length for type ${this::class.simpleName} but is ${value.length}"
-        }
-        return value
-    }
+    @Serializer(forClass = Ngram::class)
+    companion object : KSerializer<Ngram> {
+        override val descriptor: SerialDescriptor = StringDescriptor.withName("Ngram")
 
-    internal companion object {
-
-        fun <T : Ngram> getLength(ngramClass: KClass<T>): Int = when (ngramClass) {
-            Zerogram::class -> 0
-            Unigram::class -> 1
-            Bigram::class -> 2
-            Trigram::class -> 3
-            Quadrigram::class -> 4
-            Fivegram::class -> 5
-            else -> throw IllegalArgumentException(
-                "unsupported ngram type: ${ngramClass.simpleName}"
-            )
+        override fun serialize(encoder: Encoder, obj: Ngram) {
+            encoder.encodeString(obj.toString())
         }
 
-        fun getInstance(value: String) = when (val ngramLength = value.length) {
-            0 -> Zerogram
-            1 -> Unigram(value)
-            2 -> Bigram(value)
-            3 -> Trigram(value)
-            4 -> Quadrigram(value)
-            5 -> Fivegram(value)
-            else -> throw IllegalArgumentException(
-                "unsupported ngram length: $ngramLength"
-            )
+        override fun deserialize(decoder: Decoder): Ngram {
+            return Ngram(decoder.decodeString())
+        }
+
+        fun getNgramNameByLength(ngramLength: Int) = when (ngramLength) {
+            1 -> "unigram"
+            2 -> "bigram"
+            3 -> "trigram"
+            4 -> "quadrigram"
+            5 -> "fivegram"
+            else -> throw IllegalArgumentException("ngram length $ngramLength is not in range 1..5")
         }
     }
 }
 
-internal class NgramRange(
+internal data class NgramRange(
     override val start: Ngram,
     override val endInclusive: Ngram
 ) : ClosedRange<Ngram>, Iterable<Ngram> {
@@ -99,41 +87,15 @@ internal class NgramRange(
     override fun contains(value: Ngram): Boolean = value <= start && value >= endInclusive
 
     override fun iterator(): Iterator<Ngram> = NgramIterator(start)
-
-    override fun equals(other: Any?) = when {
-        this === other -> true
-        other !is NgramRange -> false
-        start != other.start -> false
-        endInclusive != other.endInclusive -> false
-        else -> true
-    }
-
-    override fun hashCode() = 31 * start.hashCode() + endInclusive.hashCode()
 }
 
-internal class NgramIterator(private val start: Ngram) : Iterator<Ngram> {
+internal data class NgramIterator(private val start: Ngram) : Iterator<Ngram> {
     private var current = start
 
-    override fun hasNext(): Boolean = current !is Zerogram
+    override fun hasNext(): Boolean = current.value.isNotEmpty()
 
     override fun next(): Ngram {
         if (!hasNext()) throw NoSuchElementException()
         return current--
     }
-
-    override fun equals(other: Any?) = when {
-        this === other -> true
-        other !is NgramIterator -> false
-        start != other.start -> false
-        else -> true
-    }
-
-    override fun hashCode() = start.hashCode()
 }
-
-internal object Zerogram : Ngram(0, "")
-internal class Unigram(value: String) : Ngram(1, value)
-internal class Bigram(value: String) : Ngram(2, value)
-internal class Trigram(value: String) : Ngram(3, value)
-internal class Quadrigram(value: String) : Ngram(4, value)
-internal class Fivegram(value: String) : Ngram(5, value)
