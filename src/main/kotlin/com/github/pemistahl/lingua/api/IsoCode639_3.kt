@@ -45,6 +45,7 @@ enum class IsoCode639_3 {
     ISL,
     ITA,
     JPN,
+    KAT,
     KOR,
     LAT,
     LAV,

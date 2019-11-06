@@ -35,6 +35,7 @@ import com.github.pemistahl.lingua.api.Language.ENGLISH
 import com.github.pemistahl.lingua.api.Language.ESTONIAN
 import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
+import com.github.pemistahl.lingua.api.Language.GEORGIAN
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.GREEK
 import com.github.pemistahl.lingua.api.Language.GUJARATI
@@ -88,7 +89,7 @@ class LanguageTest {
         assertThat(Language.all()).containsExactly(
             AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
-            FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
+            FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
@@ -100,7 +101,7 @@ class LanguageTest {
         assertThat(Language.allSpokenOnes()).containsExactly(
             AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
-            FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
+            FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
@@ -156,6 +157,7 @@ class LanguageTest {
         "ET, ESTONIAN",
         "FI, FINNISH",
         "FR, FRENCH",
+        "KA, GEORGIAN",
         "DE, GERMAN",
         "EL, GREEK",
         "GU, GUJARATI",
@@ -202,6 +204,7 @@ class LanguageTest {
         arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
         arguments(Alphabet.BENGALI, listOf(BENGALI)),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI)),
+        arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
         arguments(Alphabet.GREEK, listOf(GREEK)),
         arguments(Alphabet.GUJARATI, listOf(GUJARATI)),
         arguments(Alphabet.GURMUKHI, listOf(PUNJABI)),

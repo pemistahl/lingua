@@ -14,68 +14,9 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.api
+package com.github.pemistahl.lingua.report.opennlp
 
-enum class IsoCode639_1 {
-    AF,
-    AR,
-    BE,
-    BG,
-    BN,
-    CA,
-    CS,
-    CY,
-    DA,
-    DE,
-    EL,
-    EN,
-    ES,
-    ET,
-    EU,
-    FA,
-    FI,
-    FR,
-    GA,
-    GU,
-    HE,
-    HI,
-    HR,
-    HU,
-    HY,
-    ID,
-    IS,
-    IT,
-    JA,
-    KA,
-    KO,
-    LA,
-    LT,
-    LV,
-    MS,
-    NB,
-    NL,
-    NN,
-    NO,
-    PA,
-    PL,
-    PT,
-    RO,
-    RU,
-    SK,
-    SL,
-    SO,
-    SQ,
-    SV,
-    TA,
-    TE,
-    TH,
-    TL,
-    TR,
-    UR,
-    VI,
-    ZH,
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPENNLP
+import com.github.pemistahl.lingua.report.config.AbstractGeorgianDetectionAccuracyReport
 
-    UNKNOWN;
-
-    override fun toString() = this.name.toLowerCase()
-}
+class GeorgianDetectionAccuracyReport : AbstractGeorgianDetectionAccuracyReport(OPENNLP)

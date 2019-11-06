@@ -274,7 +274,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         private val optimaizeDetector by lazy {
             val languageLocales = languageIsoCodesToTest.filterNot {
-                it in setOf(IsoCode639_1.HY, IsoCode639_1.LA)
+                it in setOf(IsoCode639_1.HY, IsoCode639_1.KA, IsoCode639_1.LA)
             }.map {
                 it.toString()
             }.map {
@@ -293,7 +293,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         private val tikaDetector by lazy {
             OptimaizeLangDetector().loadModels(
                 languageIsoCodesToTest.filterNot {
-                    it in setOf(IsoCode639_1.HY, IsoCode639_1.LA)
+                    it in setOf(IsoCode639_1.HY, IsoCode639_1.KA, IsoCode639_1.LA)
                 }.map {
                     it.toString()
                 }.map {

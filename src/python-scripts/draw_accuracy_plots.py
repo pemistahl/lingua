@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from math import floor
-
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from math import floor
 from matplotlib.patches import Patch
 
 matplotlib.use('TkAgg')
@@ -27,7 +26,7 @@ sns.set_style('whitegrid')
 
 
 class AccuracyPlotDrawer(object):
-    __dpi = 50
+    __dpi = 40
     __ticks_fontsize = 35
     __label_fontsize = 38
     __title_fontsize = 45
