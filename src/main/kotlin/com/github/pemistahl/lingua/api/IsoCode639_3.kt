@@ -40,6 +40,7 @@ enum class IsoCode639_3 {
     HIN,
     HRV,
     HUN,
+    HYE,
     IND,
     ISL,
     ITA,

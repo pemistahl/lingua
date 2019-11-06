@@ -21,6 +21,7 @@ import com.github.pemistahl.lingua.internal.util.extension.asRegex
 
 internal enum class Alphabet(private val regex: Regex) {
     ARABIC     ("Arabic".asRegex()),
+    ARMENIAN   ("Armenian".asRegex()),
     BENGALI    ("Bengali".asRegex()),
     CYRILLIC   ("Cyrillic".asRegex()),
     DEVANAGARI ("Devanagari".asRegex()),

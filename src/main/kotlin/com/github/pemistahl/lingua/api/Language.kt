@@ -40,6 +40,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.HE
 import com.github.pemistahl.lingua.api.IsoCode639_1.HI
 import com.github.pemistahl.lingua.api.IsoCode639_1.HR
 import com.github.pemistahl.lingua.api.IsoCode639_1.HU
+import com.github.pemistahl.lingua.api.IsoCode639_1.HY
 import com.github.pemistahl.lingua.api.IsoCode639_1.ID
 import com.github.pemistahl.lingua.api.IsoCode639_1.IS
 import com.github.pemistahl.lingua.api.IsoCode639_1.IT
@@ -94,6 +95,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.HEB
 import com.github.pemistahl.lingua.api.IsoCode639_3.HIN
 import com.github.pemistahl.lingua.api.IsoCode639_3.HRV
 import com.github.pemistahl.lingua.api.IsoCode639_3.HUN
+import com.github.pemistahl.lingua.api.IsoCode639_3.HYE
 import com.github.pemistahl.lingua.api.IsoCode639_3.IND
 import com.github.pemistahl.lingua.api.IsoCode639_3.ISL
 import com.github.pemistahl.lingua.api.IsoCode639_3.ITA
@@ -145,6 +147,7 @@ enum class Language(
     AFRIKAANS  (AF, AFR, setOf(Alphabet.LATIN), ""),
     ALBANIAN   (SQ, SQI, setOf(Alphabet.LATIN), "Ëë"),
     ARABIC     (AR, ARA, setOf(Alphabet.ARABIC), ""),
+    ARMENIAN   (HY, HYE, setOf(Alphabet.ARMENIAN), ""),
     BASQUE     (EU, EUS, setOf(Alphabet.LATIN), ""),
     BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
     BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),

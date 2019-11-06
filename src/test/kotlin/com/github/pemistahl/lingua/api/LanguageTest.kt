@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.api
 import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.ARABIC
+import com.github.pemistahl.lingua.api.Language.ARMENIAN
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
 import com.github.pemistahl.lingua.api.Language.BENGALI
@@ -85,7 +86,7 @@ class LanguageTest {
     @Test
     fun `assert that all supported languages are available`() {
         assertThat(Language.all()).containsExactly(
-            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
+            AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
@@ -97,7 +98,7 @@ class LanguageTest {
     @Test
     fun `assert that all supported spoken languages are available`() {
         assertThat(Language.allSpokenOnes()).containsExactly(
-            AFRIKAANS, ALBANIAN, ARABIC, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
+            AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, BASQUE, BELARUSIAN, BENGALI, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN,
             FINNISH, FRENCH, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN,
@@ -139,6 +140,7 @@ class LanguageTest {
         "AF, AFRIKAANS",
         "SQ, ALBANIAN",
         "AR, ARABIC",
+        "HY, ARMENIAN",
         "EU, BASQUE",
         "BE, BELARUSIAN",
         "BN, BENGALI",
@@ -197,6 +199,7 @@ class LanguageTest {
 
     private fun filteredLanguagesProvider() = listOf(
         arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
+        arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
         arguments(Alphabet.BENGALI, listOf(BENGALI)),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI)),
         arguments(Alphabet.GREEK, listOf(GREEK)),
@@ -207,7 +210,14 @@ class LanguageTest {
         arguments(Alphabet.HEBREW, listOf(HEBREW)),
         arguments(Alphabet.HIRAGANA, listOf(JAPANESE)),
         arguments(Alphabet.KATAKANA, listOf(JAPANESE)),
-        arguments(Alphabet.LATIN, listOf(AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, NYNORSK, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH)),
+        arguments(Alphabet.LATIN, listOf(
+            AFRIKAANS, ALBANIAN, BASQUE, BOKMAL, CATALAN, CROATIAN,
+            CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH,
+            GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
+            LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, NYNORSK,
+            POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI,
+            SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+        )),
         arguments(Alphabet.TAMIL, listOf(TAMIL)),
         arguments(Alphabet.TELUGU, listOf(TELUGU)),
         arguments(Alphabet.THAI, listOf(THAI)),
