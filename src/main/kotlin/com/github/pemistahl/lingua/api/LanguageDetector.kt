@@ -18,7 +18,6 @@ package com.github.pemistahl.lingua.api
 
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.BASQUE
-import com.github.pemistahl.lingua.api.Language.BENGALI
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CHINESE
@@ -29,31 +28,22 @@ import com.github.pemistahl.lingua.api.Language.ESTONIAN
 import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
 import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.GREEK
-import com.github.pemistahl.lingua.api.Language.GUJARATI
-import com.github.pemistahl.lingua.api.Language.HEBREW
-import com.github.pemistahl.lingua.api.Language.HINDI
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
 import com.github.pemistahl.lingua.api.Language.IRISH
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.JAPANESE
-import com.github.pemistahl.lingua.api.Language.KOREAN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.PUNJABI
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
-import com.github.pemistahl.lingua.api.Language.TAMIL
-import com.github.pemistahl.lingua.api.Language.TELUGU
-import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
@@ -71,6 +61,7 @@ class LanguageDetector internal constructor(
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
+    private val alphabetsSupportingExactlyOneLanguage = Alphabet.allSupportingExactlyOneLanguage().filterValues { it in languages }
 
     internal val unigramLanguageModels = loadLanguageModels(ngramLength = 1)
     internal val bigramLanguageModels = loadLanguageModels(ngramLength = 2)
@@ -101,27 +92,12 @@ class LanguageDetector internal constructor(
         val allProbabilities = mutableListOf<Map<Language, Double>>()
         val unigramCountsOfInputText = mutableMapOf<Language, Int>()
 
-        if (trimmedText.length >= 1) {
-            val unigramLanguageModel = TestDataLanguageModel.fromText(textSequence, ngramLength = 1)
-            addNgramProbabilities(allProbabilities, languagesSequence, unigramLanguageModel)
-            languagesSequence = languagesSequence.filter { it in allProbabilities[0].keys }
-            countUnigramsOfInputText(unigramCountsOfInputText, unigramLanguageModel, languagesSequence)
-        }
-        if (trimmedText.length >= 2) {
-            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 2))
-            languagesSequence = languagesSequence.filter { it in allProbabilities[1].keys }
-        }
-        if (trimmedText.length >= 3) {
-            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 3))
-            languagesSequence = languagesSequence.filter { it in allProbabilities[2].keys }
-        }
-        if (trimmedText.length >= 4) {
-            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 4))
-            languagesSequence = languagesSequence.filter { it in allProbabilities[3].keys }
-        }
-        if (trimmedText.length >= 5) {
-            addNgramProbabilities(allProbabilities, languagesSequence, TestDataLanguageModel.fromText(textSequence, ngramLength = 5))
-            languagesSequence = languagesSequence.filter { it in allProbabilities[4].keys }
+        for (i in 1..5) {
+            if (trimmedText.length < i) continue
+            val testDataModel = TestDataLanguageModel.fromText(textSequence, ngramLength = i)
+            addNgramProbabilities(allProbabilities, languagesSequence, testDataModel)
+            languagesSequence = languagesSequence.filter { it in allProbabilities[i-1].keys }
+            if (i == 1) countUnigramsOfInputText(unigramCountsOfInputText, testDataModel, languagesSequence)
         }
 
         return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText, languagesSequence)
@@ -200,27 +176,26 @@ class LanguageDetector internal constructor(
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
-        val languageCharCounts = mutableMapOf<Language, Int>()
         val minimalRequiredCharCount = ceil(words.joinToString(separator = "").length / 2.0)
+        val languageCharCounts = mutableMapOf<Language, Int>()
 
         for (word in words) {
-            when {
-                Alphabet.BENGALI.matches(word) -> languageCharCounts.addCharCount(word, BENGALI)
-                Alphabet.HAN.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
-                Alphabet.DEVANAGARI.matches(word) -> languageCharCounts.addCharCount(word, HINDI)
-                Alphabet.GREEK.matches(word) -> languageCharCounts.addCharCount(word, GREEK)
-                Alphabet.GUJARATI.matches(word) -> languageCharCounts.addCharCount(word, GUJARATI)
-                Alphabet.GURMUKHI.matches(word) -> languageCharCounts.addCharCount(word, PUNJABI)
-                Alphabet.HEBREW.matches(word) -> languageCharCounts.addCharCount(word, HEBREW)
-                Alphabet.HANGUL.matches(word) -> languageCharCounts.addCharCount(word, KOREAN)
-                Alphabet.TAMIL.matches(word) -> languageCharCounts.addCharCount(word, TAMIL)
-                Alphabet.TELUGU.matches(word) -> languageCharCounts.addCharCount(word, TELUGU)
-                Alphabet.THAI.matches(word) -> languageCharCounts.addCharCount(word, THAI)
-                JAPANESE_CHARACTER_SET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
-                Alphabet.LATIN.matches(word) -> languagesWithUniqueCharacters.filter {
-                    word.containsAnyOf(it.uniqueCharacters)
-                }.forEach {
-                    languageCharCounts.addCharCount(word, it)
+            var isMatch = false
+            for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
+                if (alphabet.matches(word)) {
+                    languageCharCounts.addCharCount(word, language)
+                    isMatch = true
+                }
+            }
+            if (!isMatch) {
+                when {
+                    Alphabet.HAN.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
+                    JAPANESE_CHARACTER_SET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
+                    Alphabet.LATIN.matches(word) -> languagesWithUniqueCharacters.filter {
+                        word.containsAnyOf(it.uniqueCharacters)
+                    }.forEach {
+                        languageCharCounts.addCharCount(word, it)
+                    }
                 }
             }
         }
@@ -231,7 +206,7 @@ class LanguageDetector internal constructor(
             .count() > 0
 
         return if (languagesWithMinimumRequiredCharCountExist)
-            languageCharCounts.toList().sortedByDescending { it.second }.first().first
+            languageCharCounts.toList().maxBy { it.second }!!.first
         else
             UNKNOWN
     }

@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua.internal
 
+import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.util.extension.asRegex
 
 internal enum class Alphabet(private val regex: Regex) {
@@ -36,7 +37,30 @@ internal enum class Alphabet(private val regex: Regex) {
     TELUGU     ("Telugu".asRegex()),
     THAI       ("Thai".asRegex()),
 
-    NONE     (Regex(""));
+    NONE       (Regex(""));
 
     fun matches(input: CharSequence) = this.regex.matches(input)
+
+    fun supportedLanguages(): Set<Language> {
+        val languages = mutableSetOf<Language>()
+        for (language in Language.values()) {
+            if (language.alphabets.contains(this)) {
+                languages.add(language)
+            }
+        }
+        return languages
+    }
+
+    companion object {
+        fun allSupportingExactlyOneLanguage(): Map<Alphabet, Language> {
+            val alphabets = mutableMapOf<Alphabet, Language>()
+            for (alphabet in values().filterNot { it == NONE }) {
+                val supportedLanguages = alphabet.supportedLanguages()
+                if (supportedLanguages.size == 1) {
+                    alphabets[alphabet] = supportedLanguages.first()
+                }
+            }
+            return alphabets
+        }
+    }
 }
