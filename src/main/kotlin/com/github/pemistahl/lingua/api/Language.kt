@@ -18,6 +18,7 @@ package com.github.pemistahl.lingua.api
 
 import com.github.pemistahl.lingua.api.IsoCode639_1.AF
 import com.github.pemistahl.lingua.api.IsoCode639_1.AR
+import com.github.pemistahl.lingua.api.IsoCode639_1.AZ
 import com.github.pemistahl.lingua.api.IsoCode639_1.BE
 import com.github.pemistahl.lingua.api.IsoCode639_1.BG
 import com.github.pemistahl.lingua.api.IsoCode639_1.BN
@@ -75,6 +76,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.VI
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
 import com.github.pemistahl.lingua.api.IsoCode639_3.AFR
 import com.github.pemistahl.lingua.api.IsoCode639_3.ARA
+import com.github.pemistahl.lingua.api.IsoCode639_3.AZE
 import com.github.pemistahl.lingua.api.IsoCode639_3.BEL
 import com.github.pemistahl.lingua.api.IsoCode639_3.BEN
 import com.github.pemistahl.lingua.api.IsoCode639_3.BUL
@@ -150,6 +152,7 @@ enum class Language(
     ALBANIAN   (SQ, SQI, setOf(Alphabet.LATIN), "Ëë"),
     ARABIC     (AR, ARA, setOf(Alphabet.ARABIC), ""),
     ARMENIAN   (HY, HYE, setOf(Alphabet.ARMENIAN), ""),
+    AZERBAIJANI (AZ, AZE, setOf(Alphabet.LATIN), "Әə"),
     BASQUE     (EU, EUS, setOf(Alphabet.LATIN), ""),
     BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
     BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),
@@ -199,7 +202,7 @@ enum class Language(
     TAMIL      (TA, TAM, setOf(Alphabet.TAMIL), ""),
     TELUGU     (TE, TEL, setOf(Alphabet.TELUGU), ""),
     THAI       (TH, THA, setOf(Alphabet.THAI), ""),
-    TURKISH    (TR, TUR, setOf(Alphabet.LATIN), "İıĞğ"),
+    TURKISH    (TR, TUR, setOf(Alphabet.LATIN), ""),
     URDU       (UR, URD, setOf(Alphabet.ARABIC), ""),
     VIETNAMESE (VI, VIE, setOf(Alphabet.LATIN), "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH      (CY, CYM, setOf(Alphabet.LATIN), ""),

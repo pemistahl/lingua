@@ -102,6 +102,25 @@
 		<td>0 <img src="images/red.png"></td>
 	</tr>
 	<tr>
+		<td>Azerbaijani</td>
+		<td>90 <img src="images/green.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>82 <img src="images/green.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>78 <img src="images/lightgreen.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>60 <img src="images/yellow.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>93 <img src="images/green.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>86 <img src="images/green.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>100 <img src="images/green.png"></td>
+		<td>0 <img src="images/red.png"></td>
+		<td>99 <img src="images/green.png"></td>
+		<td>0 <img src="images/red.png"></td>
+	</tr>
+	<tr>
 		<td>Basque</td>
 		<td>85 <img src="images/green.png"></td>
 		<td>83 <img src="images/green.png"></td>
@@ -696,7 +715,7 @@
 		<td>23 <img src="images/orange.png"></td>
 		<td>19 <img src="images/red.png"></td>
 		<td>4 <img src="images/red.png"></td>
-		<td>29 <img src="images/orange.png"></td>
+		<td>28 <img src="images/orange.png"></td>
 		<td>20 <img src="images/red.png"></td>
 		<td>10 <img src="images/red.png"></td>
 		<td>0 <img src="images/red.png"></td>
@@ -829,7 +848,7 @@
 		<td>78 <img src="images/lightgreen.png"></td>
 		<td>67 <img src="images/lightgreen.png"></td>
 		<td>55 <img src="images/yellow.png"></td>
-		<td>72 <img src="images/lightgreen.png"></td>
+		<td>71 <img src="images/lightgreen.png"></td>
 		<td>57 <img src="images/yellow.png"></td>
 		<td>34 <img src="images/orange.png"></td>
 		<td>24 <img src="images/orange.png"></td>
@@ -905,7 +924,7 @@
 		<td>91 <img src="images/green.png"></td>
 		<td>69 <img src="images/lightgreen.png"></td>
 		<td>80 <img src="images/lightgreen.png"></td>
-		<td>86 <img src="images/green.png"></td>
+		<td>85 <img src="images/green.png"></td>
 		<td>79 <img src="images/lightgreen.png"></td>
 		<td>35 <img src="images/orange.png"></td>
 		<td>52 <img src="images/yellow.png"></td>
@@ -943,7 +962,7 @@
 		<td>68 <img src="images/lightgreen.png"></td>
 		<td>69 <img src="images/lightgreen.png"></td>
 		<td>47 <img src="images/yellow.png"></td>
-		<td>69 <img src="images/lightgreen.png"></td>
+		<td>68 <img src="images/lightgreen.png"></td>
 		<td>40 <img src="images/orange.png"></td>
 		<td>41 <img src="images/yellow.png"></td>
 		<td>13 <img src="images/red.png"></td>
@@ -1034,15 +1053,15 @@
 	</tr>
 	<tr>
 		<td>Turkish</td>
-		<td>96 <img src="images/green.png"></td>
+		<td>94 <img src="images/green.png"></td>
 		<td>82 <img src="images/green.png"></td>
 		<td>72 <img src="images/lightgreen.png"></td>
 		<td>70 <img src="images/lightgreen.png"></td>
-		<td>89 <img src="images/green.png"></td>
+		<td>86 <img src="images/green.png"></td>
 		<td>62 <img src="images/lightgreen.png"></td>
 		<td>48 <img src="images/yellow.png"></td>
 		<td>43 <img src="images/yellow.png"></td>
-		<td>98 <img src="images/green.png"></td>
+		<td>97 <img src="images/green.png"></td>
 		<td>83 <img src="images/green.png"></td>
 		<td>71 <img src="images/lightgreen.png"></td>
 		<td>70 <img src="images/lightgreen.png"></td>
@@ -1114,61 +1133,61 @@
 	<tr>
 		<td><strong>Mean</strong></td>
 		<td><strong>88</strong> <img src="images/green.png"></td>
-		<td><strong>73</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>72</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>60</strong> <img src="images/yellow.png"></td>
-		<td><strong>78</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>73</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>59</strong> <img src="images/yellow.png"></td>
+		<td><strong>78</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>58</strong> <img src="images/yellow.png"></td>
 		<td><strong>52</strong> <img src="images/yellow.png"></td>
 		<td><strong>39</strong> <img src="images/orange.png"></td>
 		<td><strong>91</strong> <img src="images/green.png"></td>
-		<td><strong>74</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>73</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>72</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>56</strong> <img src="images/yellow.png"></td>
+		<td><strong>55</strong> <img src="images/yellow.png"></td>
 		<td><strong>96</strong> <img src="images/green.png"></td>
-		<td><strong>88</strong> <img src="images/green.png"></td>
+		<td><strong>86</strong> <img src="images/green.png"></td>
 		<td><strong>93</strong> <img src="images/green.png"></td>
-		<td><strong>85</strong> <img src="images/green.png"></td>
+		<td><strong>83</strong> <img src="images/green.png"></td>
 	</tr>
 	<tr>
 		<td colspan="12"></td>
 	</tr>
 	<tr>
 		<td>Median</td>
-		<td>91.1</td>
-		<td>81.07</td>
-		<td>71.63</td>
-		<td>61.67</td>
-		<td>80.89</td>
-		<td>62.5</td>
-		<td>43.0</td>
-		<td>28.7</td>
-		<td>95.4</td>
-		<td>83.8</td>
-		<td>73.5</td>
-		<td>62.6</td>
+		<td>90.73</td>
+		<td>80.72</td>
+		<td>72.07</td>
+		<td>61.43</td>
+		<td>80.04</td>
+		<td>60.4</td>
+		<td>43.8</td>
+		<td>26.85</td>
+		<td>94.95</td>
+		<td>83.7</td>
+		<td>74.0</td>
+		<td>62.3</td>
 		<td>99.0</td>
-		<td>99.1</td>
-		<td>98.8</td>
+		<td>99.05</td>
+		<td>98.9</td>
 		<td>96.8</td>
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>12.64</td>
-		<td>28.28</td>
-		<td>21.27</td>
-		<td>30.83</td>
-		<td>18.8</td>
-		<td>30.71</td>
-		<td>29.62</td>
-		<td>36.53</td>
-		<td>12.09</td>
-		<td>29.94</td>
-		<td>23.83</td>
-		<td>36.57</td>
-		<td>10.37</td>
+		<td>12.52</td>
+		<td>29.65</td>
+		<td>21.12</td>
+		<td>31.56</td>
+		<td>18.63</td>
+		<td>31.41</td>
 		<td>29.38</td>
-		<td>17.29</td>
-		<td>29.77</td>
+		<td>36.58</td>
+		<td>11.98</td>
+		<td>31.22</td>
+		<td>23.69</td>
+		<td>36.99</td>
+		<td>10.29</td>
+		<td>31.3</td>
+		<td>17.15</td>
+		<td>31.54</td>
 	</tr>
 </table>

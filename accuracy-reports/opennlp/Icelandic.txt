@@ -8,7 +8,7 @@ Erroneously classified as UNKNOWN: 27,50%, NYNORSK: 4,70%, LATIN: 2,60%, SWEDISH
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 75,80%
-Erroneously classified as UNKNOWN: 16,40%, NYNORSK: 3,40%, LATIN: 0,80%, SWEDISH: 0,50%, FINNISH: 0,50%, BOKMAL: 0,40%, ENGLISH: 0,30%, PORTUGUESE: 0,30%, CHINESE: 0,30%, ESTONIAN: 0,20%, GERMAN: 0,20%, LATVIAN: 0,20%, BASQUE: 0,20%, MALAY: 0,10%, AFRIKAANS: 0,10%, CZECH: 0,10%, ITALIAN: 0,10%, DANISH: 0,10%
+Erroneously classified as UNKNOWN: 16,10%, NYNORSK: 3,40%, LATIN: 0,80%, SWEDISH: 0,50%, FINNISH: 0,50%, BOKMAL: 0,40%, ENGLISH: 0,30%, PORTUGUESE: 0,30%, AZERBAIJANI: 0,30%, CHINESE: 0,30%, ESTONIAN: 0,20%, GERMAN: 0,20%, LATVIAN: 0,20%, BASQUE: 0,20%, MALAY: 0,10%, AFRIKAANS: 0,10%, CZECH: 0,10%, ITALIAN: 0,10%, DANISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 99,00%

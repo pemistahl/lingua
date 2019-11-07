@@ -17,6 +17,7 @@
 package com.github.pemistahl.lingua.api
 
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
+import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CATALAN
@@ -332,14 +333,15 @@ class LanguageDetector internal constructor(
             "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
             "ĄąĘę" to setOf(LITHUANIAN, POLISH),
             "Ūū" to setOf(LATVIAN, LITHUANIAN),
-            "Şş" to setOf(ROMANIAN, TURKISH),
             "Żż" to setOf(POLISH, ROMANIAN),
             "Îî" to setOf(FRENCH, ROMANIAN),
             "Ìì" to setOf(ITALIAN, VIETNAMESE),
             "Ññ" to setOf(BASQUE, SPANISH),
             "ŇňŤť" to setOf(CZECH, SLOVAK),
             "Ăă" to setOf(ROMANIAN, VIETNAMESE),
+            "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
 
+            "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
@@ -355,15 +357,14 @@ class LanguageDetector internal constructor(
             "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
             "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
             "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
-            "Üü" to setOf(CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
             "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
             "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
 
             "ČčŠšŽž" to setOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
+            "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
 
-            "Çç" to setOf(ALBANIAN, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
-            "Öö" to setOf(ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
-
+            "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
+            "Öö" to setOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
             "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE),
             "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE),
 

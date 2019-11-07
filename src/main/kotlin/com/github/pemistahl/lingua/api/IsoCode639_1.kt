@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.api
 enum class IsoCode639_1 {
     AF,
     AR,
+    AZ,
     BE,
     BG,
     BN,

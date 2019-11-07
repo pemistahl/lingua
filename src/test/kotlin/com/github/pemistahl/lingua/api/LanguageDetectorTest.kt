@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.api
 import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.ARABIC
+import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
@@ -437,6 +438,7 @@ class LanguageDetectorTest {
         arguments("сопротивление", UNKNOWN),
         arguments("house", UNKNOWN),
         arguments("hashemidëve", ALBANIAN),
+        arguments("məhərrəm", AZERBAIJANI),
         arguments("substituïts", CATALAN),
         arguments("rozdělit", CZECH),
         arguments("tvořen", CZECH),
@@ -463,8 +465,6 @@ class LanguageDetectorTest {
         arguments("podĺa", SLOVAK),
         arguments("pohľade", SLOVAK),
         arguments("mŕtvych", SLOVAK),
-        arguments("mihrabın", TURKISH),
-        arguments("uğramayan", TURKISH),
         arguments("cằm", VIETNAMESE),
         arguments("thần", VIETNAMESE),
         arguments("chẳng", VIETNAMESE),
@@ -524,7 +524,7 @@ class LanguageDetectorTest {
         arguments("wystąpią", listOf(LITHUANIAN, POLISH)),
         arguments("budowę", listOf(LITHUANIAN, POLISH)),
         arguments("nebūsime", listOf(LATVIAN, LITHUANIAN)),
-        arguments("afişate", listOf(ROMANIAN, TURKISH)),
+        arguments("afişate", listOf(AZERBAIJANI, ROMANIAN, TURKISH)),
         arguments("kradzieżami", listOf(POLISH, ROMANIAN)),
         arguments("înviat", listOf(FRENCH, ROMANIAN)),
         arguments("venerdì", listOf(ITALIAN, VIETNAMESE)),
@@ -547,20 +547,24 @@ class LanguageDetectorTest {
         arguments("päralt", listOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH)),
         arguments("labâk", listOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)),
         arguments("pràctiques", listOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE)),
-        arguments("überrascht", listOf(CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH)),
+        arguments("überrascht", listOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH)),
         arguments("indebærer", listOf(DANISH, ICELANDIC, NORWEGIAN)),
         arguments("måned", listOf(DANISH, NORWEGIAN, SWEDISH)),
         arguments("zaručen", listOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
         arguments("zkouškou", listOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
         arguments("navržen", listOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
-        arguments("façonnage", listOf(ALBANIAN, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH)),
-        arguments("höher", listOf(ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH)),
+        arguments("façonnage", listOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH)),
+        arguments("höher", listOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH)),
         arguments("catedráticos", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("política", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("música", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("contradicció", listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("només", listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("house", listOf(AFRIKAANS, ALBANIAN, BASQUE, CATALAN, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH))
+        arguments("house", listOf(AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, CROATIAN, CZECH, DANISH,
+            DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN,
+            LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH,
+            SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+        ))
     )
 
     private fun ngramProbabilityProvider() = listOf(

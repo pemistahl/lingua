@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.api
 enum class IsoCode639_3 {
     AFR,
     ARA,
+    AZE,
     BEL,
     BEN,
     BUL,
