@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua.api
 
+import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
@@ -213,15 +214,30 @@ class LanguageDetector internal constructor(
     }
 
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
+        val detectedAlphabets = mutableMapOf<Alphabet, Int>()
+        val alphabets = listOf(Alphabet.CYRILLIC, Alphabet.ARABIC, Alphabet.HAN, Alphabet.LATIN)
+
         for (word in words) {
-            if (Alphabet.CYRILLIC.matches(word)) {
-                return languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
-            } else if (Alphabet.ARABIC.matches(word)) {
-                return languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
-            } else if (Alphabet.HAN.matches(word)) {
-                return languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
-            } else if (Alphabet.LATIN.matches(word)) {
-                val temp = if (languages.contains(NORWEGIAN)) {
+            for (alphabet in alphabets) {
+                if (alphabet.matches(word)) {
+                    detectedAlphabets.merge(alphabet, 1, Int::plus)
+                    break
+                }
+            }
+        }
+
+        if (detectedAlphabets.isEmpty()) {
+            return languages.asSequence()
+        }
+
+        val mostFrequentAlphabet = detectedAlphabets.entries.sortedByDescending { it.value }.first().key
+
+        return when (mostFrequentAlphabet) {
+            Alphabet.CYRILLIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
+            Alphabet.ARABIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
+            Alphabet.HAN -> languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
+            Alphabet.LATIN -> {
+                val filteredLanguages = if (languages.contains(NORWEGIAN)) {
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK) }
                 } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
@@ -229,16 +245,28 @@ class LanguageDetector internal constructor(
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) }
                 }
 
-                val languagesSubset = mutableSetOf<Language>()
-                for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
-                    if (word.containsAnyOf(characters)) {
-                        languagesSubset.addAll(languages)
+                val languageCounts = mutableMapOf<Language, Int>()
+                for (word in words) {
+                    for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
+                        if (word.containsAnyOf(characters)) {
+                            for (language in languages) {
+                                languageCounts.merge(language, 1, Int::plus)
+                            }
+                            break
+                        }
                     }
                 }
-                return if (languagesSubset.isNotEmpty()) temp.filter { it in languagesSubset } else temp
+
+                val languagesSubset = languageCounts.filterValues { it >= words.size / 2 }.keys
+
+                if (languagesSubset.isNotEmpty()) {
+                    filteredLanguages.filter { it in languagesSubset }
+                } else {
+                    filteredLanguages
+                }
             }
+            else -> languages.asSequence()
         }
-        return languages.asSequence()
     }
 
     internal fun computeLanguageProbabilities(
@@ -345,7 +373,7 @@ class LanguageDetector internal constructor(
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
-            "Êê" to setOf(FRENCH, PORTUGUESE, VIETNAMESE),
+            "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
 
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),

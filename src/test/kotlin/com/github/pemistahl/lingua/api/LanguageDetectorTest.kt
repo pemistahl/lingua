@@ -536,7 +536,7 @@ class LanguageDetectorTest {
         arguments("minjaverðir", listOf(ICELANDIC, LATVIAN, TURKISH)),
         arguments("þagnarskyldu", listOf(ICELANDIC, LATVIAN, TURKISH)),
         arguments("nebûtu", listOf(FRENCH, HUNGARIAN, LATVIAN)),
-        arguments("forêt", listOf(FRENCH, PORTUGUESE, VIETNAMESE)),
+        arguments("forêt", listOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE)),
         arguments("succèdent", listOf(FRENCH, ITALIAN, VIETNAMESE)),
         arguments("où", listOf(FRENCH, ITALIAN, VIETNAMESE)),
         arguments("tõeliseks", listOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE)),
