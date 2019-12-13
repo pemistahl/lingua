@@ -50,16 +50,15 @@ class LanguageDetectorBuilder private constructor(
         }
 
         @JvmStatic
-        fun fromLanguages(language: Language, vararg languages: Language): LanguageDetectorBuilder {
-            require(languages.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            return LanguageDetectorBuilder(listOf(language, *languages))
+        fun fromLanguages(vararg languages: Language): LanguageDetectorBuilder {
+            require(languages.size >= 2) { MISSING_LANGUAGE_MESSAGE }
+            return LanguageDetectorBuilder(languages.toList())
         }
 
         @JvmStatic
-        fun fromIsoCodes(isoCode: String, vararg isoCodes: String): LanguageDetectorBuilder {
-            require(isoCodes.isNotEmpty()) { MISSING_LANGUAGE_MESSAGE }
-            val languages = mutableListOf(Language.getByIsoCode(isoCode))
-            languages.addAll(isoCodes.map { Language.getByIsoCode(it) })
+        fun fromIsoCodes(vararg isoCodes: String): LanguageDetectorBuilder {
+            require(isoCodes.size >= 2) { MISSING_LANGUAGE_MESSAGE }
+            val languages = isoCodes.map { Language.getByIsoCode(it) }
             return LanguageDetectorBuilder(languages)
         }
 
