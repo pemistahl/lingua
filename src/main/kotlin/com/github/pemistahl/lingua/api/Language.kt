@@ -52,6 +52,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.KO
 import com.github.pemistahl.lingua.api.IsoCode639_1.LA
 import com.github.pemistahl.lingua.api.IsoCode639_1.LT
 import com.github.pemistahl.lingua.api.IsoCode639_1.LV
+import com.github.pemistahl.lingua.api.IsoCode639_1.MK
 import com.github.pemistahl.lingua.api.IsoCode639_1.MS
 import com.github.pemistahl.lingua.api.IsoCode639_1.NB
 import com.github.pemistahl.lingua.api.IsoCode639_1.NL
@@ -110,6 +111,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.KOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.LAT
 import com.github.pemistahl.lingua.api.IsoCode639_3.LAV
 import com.github.pemistahl.lingua.api.IsoCode639_3.LIT
+import com.github.pemistahl.lingua.api.IsoCode639_3.MKD
 import com.github.pemistahl.lingua.api.IsoCode639_3.MSA
 import com.github.pemistahl.lingua.api.IsoCode639_3.NLD
 import com.github.pemistahl.lingua.api.IsoCode639_3.NNO
@@ -187,6 +189,7 @@ enum class Language(
     LATIN      (LA, LAT, setOf(Alphabet.LATIN), ""),
     LATVIAN    (LV, LAV, setOf(Alphabet.LATIN), "ĀāĒēĢģĪīĶķĻļŅņ"),
     LITHUANIAN (LT, LIT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
+    MACEDONIAN (MK, MKD, setOf(CYRILLIC), "ЃѓЉљЊњЌќЏџ"),
     MALAY      (MS, MSA, setOf(Alphabet.LATIN), ""),
     NORWEGIAN  (NO, NOR, setOf(Alphabet.LATIN), ""),
     NYNORSK    (NN, NNO, setOf(Alphabet.LATIN), ""),

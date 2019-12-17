@@ -12,6 +12,6 @@ Erroneously classified as UNKNOWN: 100,00%
 
 >> Detection of 1000 sentences (average length: 122 chars)
 Accuracy: 0,00%
-Erroneously classified as ESTONIAN: 74,60%, UNKNOWN: 23,50%, ENGLISH: 0,80%, RUSSIAN: 0,40%, WELSH: 0,20%, PORTUGUESE: 0,20%, BULGARIAN: 0,10%, ARABIC: 0,10%, BASQUE: 0,10%
+Erroneously classified as ESTONIAN: 74,50%, UNKNOWN: 23,70%, ENGLISH: 0,80%, RUSSIAN: 0,40%, WELSH: 0,20%, PORTUGUESE: 0,20%, ARABIC: 0,10%, BASQUE: 0,10%
 
 >> Exact values: 0.0 0.0 0.0 0.0

@@ -1,17 +1,17 @@
 ##### RUSSIAN #####
 
->>> Accuracy on average: 63,87%
+>>> Accuracy on average: 62,40%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 34,40%
-Erroneously classified as UNKNOWN: 64,40%, BELARUSIAN: 1,00%, BULGARIAN: 0,20%
+Accuracy: 33,50%
+Erroneously classified as UNKNOWN: 65,40%, BELARUSIAN: 0,90%, BULGARIAN: 0,20%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 66,90%
-Erroneously classified as UNKNOWN: 32,70%, BELARUSIAN: 0,40%
+Accuracy: 64,00%
+Erroneously classified as UNKNOWN: 35,60%, BELARUSIAN: 0,40%
 
 >> Detection of 1000 sentences (average length: 65 chars)
-Accuracy: 90,30%
-Erroneously classified as UNKNOWN: 9,40%, BELARUSIAN: 0,20%, BULGARIAN: 0,10%
+Accuracy: 89,70%
+Erroneously classified as UNKNOWN: 10,00%, BELARUSIAN: 0,20%, BULGARIAN: 0,10%
 
->> Exact values: 63.866666666666674 34.4 66.9 90.3
+>> Exact values: 62.4 33.5 64.0 89.7

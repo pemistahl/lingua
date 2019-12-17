@@ -43,6 +43,7 @@ import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
+import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MALAY
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.PERSIAN
@@ -464,6 +465,11 @@ class LanguageDetectorTest {
         arguments("mergelės", LITHUANIAN),
         arguments("įrengus", LITHUANIAN),
         arguments("slegiamų", LITHUANIAN),
+        arguments("припаѓа", MACEDONIAN),
+        arguments("набљудувач", MACEDONIAN),
+        arguments("затоплување", MACEDONIAN),
+        arguments("ќерка", MACEDONIAN),
+        arguments("џамиите", MACEDONIAN),
         arguments("zmieniły", POLISH),
         arguments("państwowych", POLISH),
         arguments("mniejszości", POLISH),
@@ -524,7 +530,14 @@ class LanguageDetectorTest {
 
     private fun filteredLanguagesProvider() = listOf(
         arguments("والموضوع", listOf(ARABIC, PERSIAN, URDU)),
-        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
+        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN)),
+        arguments("раскрывае", listOf(BELARUSIAN, RUSSIAN)),
+        arguments("чэрвеня", listOf(BELARUSIAN, RUSSIAN)),
+        arguments("плаваща", listOf(BULGARIAN, RUSSIAN)),
+        arguments("довършат", listOf(BULGARIAN, RUSSIAN)),
+        arguments("хвалить", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
+        arguments("людях", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
+        arguments("десятков", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
         arguments("prihvaćanju", listOf(CROATIAN, POLISH)),
         arguments("nađete", listOf(CROATIAN, VIETNAMESE)),
         arguments("visão", listOf(PORTUGUESE, VIETNAMESE)),

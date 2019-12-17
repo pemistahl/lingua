@@ -4,11 +4,11 @@
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 0,00%
-Erroneously classified as ESTONIAN: 54,80%, UNKNOWN: 45,20%
+Erroneously classified as ESTONIAN: 53,20%, UNKNOWN: 46,80%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 0,00%
-Erroneously classified as ESTONIAN: 98,30%, UNKNOWN: 1,70%
+Erroneously classified as ESTONIAN: 98,20%, UNKNOWN: 1,80%
 
 >> Detection of 1000 sentences (average length: 102 chars)
 Accuracy: 0,00%

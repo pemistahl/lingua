@@ -20,7 +20,9 @@ import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
+import com.github.pemistahl.lingua.api.Language.BELARUSIAN
 import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.CROATIAN
@@ -42,6 +44,7 @@ import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
+import com.github.pemistahl.lingua.api.Language.RUSSIAN
 import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SPANISH
@@ -193,7 +196,7 @@ class LanguageDetector internal constructor(
                 when {
                     Alphabet.HAN.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
                     JAPANESE_CHARACTER_SET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
-                    Alphabet.LATIN.matches(word) -> languagesWithUniqueCharacters.filter {
+                    Alphabet.LATIN.matches(word) || Alphabet.CYRILLIC.matches(word) -> languagesWithUniqueCharacters.filter {
                         word.containsAnyOf(it.uniqueCharacters)
                     }.forEach {
                         languageCharCounts.addCharCount(word, it)
@@ -231,41 +234,40 @@ class LanguageDetector internal constructor(
         }
 
         val mostFrequentAlphabet = detectedAlphabets.entries.sortedByDescending { it.value }.first().key
-
-        return when (mostFrequentAlphabet) {
+        val filteredLanguages = when (mostFrequentAlphabet) {
             Alphabet.CYRILLIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
             Alphabet.ARABIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
             Alphabet.HAN -> languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
             Alphabet.LATIN -> {
-                val filteredLanguages = if (languages.contains(NORWEGIAN)) {
+                if (languages.contains(NORWEGIAN)) {
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK) }
                 } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
                 } else {
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) }
                 }
-
-                val languageCounts = mutableMapOf<Language, Int>()
-                for (word in words) {
-                    for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
-                        if (word.containsAnyOf(characters)) {
-                            for (language in languages) {
-                                languageCounts.merge(language, 1, Int::plus)
-                            }
-                            break
-                        }
-                    }
-                }
-
-                val languagesSubset = languageCounts.filterValues { it >= words.size / 2 }.keys
-
-                if (languagesSubset.isNotEmpty()) {
-                    filteredLanguages.filter { it in languagesSubset }
-                } else {
-                    filteredLanguages
-                }
             }
             else -> languages.asSequence()
+        }
+
+        val languageCounts = mutableMapOf<Language, Int>()
+        for (word in words) {
+            for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
+                if (word.containsAnyOf(characters)) {
+                    for (language in languages) {
+                        languageCounts.merge(language, 1, Int::plus)
+                    }
+                    break
+                }
+            }
+        }
+
+        val languagesSubset = languageCounts.filterValues { it >= words.size / 2 }.keys
+
+        return if (languagesSubset.isNotEmpty()) {
+            filteredLanguages.filter { it in languagesSubset }
+        } else {
+            filteredLanguages
         }
     }
 
@@ -368,14 +370,17 @@ class LanguageDetector internal constructor(
             "ŇňŤť" to setOf(CZECH, SLOVAK),
             "Ăă" to setOf(ROMANIAN, VIETNAMESE),
             "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
+            "ЫыЭэ" to setOf(BELARUSIAN, RUSSIAN),
+            "ЩщЪъ" to setOf(BULGARIAN, RUSSIAN),
 
             "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
-            "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
+            "ЬьЮюЯя" to setOf(BELARUSIAN, BULGARIAN, RUSSIAN),
 
+            "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
             "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE),
             "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
