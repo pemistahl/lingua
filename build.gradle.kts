@@ -53,8 +53,8 @@ description = linguaDescription
 plugins {
     kotlin("jvm") version "1.3.61"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61"
-    id("com.adarshr.test-logger") version "1.7.0"
-    id("org.jetbrains.dokka") version "0.9.17"
+    id("com.adarshr.test-logger") version "2.0.0"
+    id("org.jetbrains.dokka") version "0.10.0"
     id("ru.vyarus.use-python") version "1.2.0"
     id("com.jfrog.bintray") version "1.8.4"
     `maven-publish`
@@ -225,8 +225,10 @@ tasks.register<PythonTask>("writeAccuracyTable") {
 }
 
 tasks.withType<DokkaTask> {
-    jdkVersion = 6
-    reportUndocumented = false
+    configuration {
+        jdkVersion = 6
+        reportUndocumented = false
+    }
 }
 
 tasks.register<DokkaTask>("dokkaJavadoc") {
@@ -274,15 +276,15 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
-    testImplementation("org.assertj:assertj-core:3.13.2")
+    testImplementation("org.assertj:assertj-core:3.14.0")
     testImplementation("io.mockk:mockk:1.9.3")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
     testImplementation("org.apache.opennlp:opennlp-tools:1.9.1")
-    testImplementation("org.apache.tika:tika-langdetect:1.22")
+    testImplementation("org.apache.tika:tika-langdetect:1.23")
 
     val slf4jVersion = "1.7.25"
 
@@ -293,7 +295,7 @@ dependencies {
 python {
     pip("matplotlib:3.1.1")
     pip("seaborn:0.9.0")
-    pip("pandas:0.25.1")
+    pip("pandas:0.25.3")
     pip("numpy:1.17.0")
 }
 
