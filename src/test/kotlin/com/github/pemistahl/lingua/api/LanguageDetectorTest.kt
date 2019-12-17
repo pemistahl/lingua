@@ -60,9 +60,9 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
-import com.github.pemistahl.lingua.internal.model.Ngram
-import com.github.pemistahl.lingua.internal.model.TestDataLanguageModel
-import com.github.pemistahl.lingua.internal.model.TrainingDataLanguageModel
+import com.github.pemistahl.lingua.internal.Ngram
+import com.github.pemistahl.lingua.internal.TestDataLanguageModel
+import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK

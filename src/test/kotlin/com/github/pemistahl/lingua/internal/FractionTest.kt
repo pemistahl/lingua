@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.internal.math
+package com.github.pemistahl.lingua.internal
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType

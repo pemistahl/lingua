@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.internal.model
+package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.internal.math.Fraction
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.Test

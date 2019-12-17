@@ -50,9 +50,9 @@ import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.internal.Alphabet
-import com.github.pemistahl.lingua.internal.model.Ngram
-import com.github.pemistahl.lingua.internal.model.TestDataLanguageModel
-import com.github.pemistahl.lingua.internal.model.TrainingDataLanguageModel
+import com.github.pemistahl.lingua.internal.Ngram
+import com.github.pemistahl.lingua.internal.TestDataLanguageModel
+import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import kotlin.math.ceil
 import kotlin.math.ln

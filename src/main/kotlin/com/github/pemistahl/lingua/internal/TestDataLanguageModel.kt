@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.internal.model
+package com.github.pemistahl.lingua.internal
 
 internal data class TestDataLanguageModel(val ngrams: Set<Ngram>) {
 

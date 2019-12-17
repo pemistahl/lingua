@@ -17,7 +17,7 @@
 package com.github.pemistahl.lingua.internal.util
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.internal.model.TrainingDataLanguageModel
+import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.asLineSequenceResource
 import java.io.File
 import kotlin.random.Random
