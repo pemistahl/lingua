@@ -12,6 +12,6 @@ Erroneously classified as
 
 >> Detection of 1000 sentences (average length: 92 chars)
 Accuracy: 99,80%
-Erroneously classified as UNKNOWN: 0,20%
+Erroneously classified as ESPERANTO: 0,10%, UNKNOWN: 0,10%
 
 >> Exact values: 99.93333333333334 100.0 100.0 99.8

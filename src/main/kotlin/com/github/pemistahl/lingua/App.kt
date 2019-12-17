@@ -26,6 +26,22 @@ import java.util.Scanner
 
 fun main() {
     runApp()
+
+    /*
+    writeLanguageModelsFromLeipzigCorpusFile(
+        inputPath = "/training-data/eo/eo_1M.txt",
+        outputPath = "C:/Users/pstahl/Documents/language-models",
+        language = Language.ESPERANTO,
+        charClass = "IsLatin"
+    )
+
+    writeTestDataFiles(
+        inputPath = "/training-data/eo/eo_10K.txt",
+        outputPath = "C:/Users/pstahl/Documents/language-testdata",
+        isoCode = "eo",
+        charClass = "IsLatin"
+    )
+    */
 }
 
 private fun runApp() {

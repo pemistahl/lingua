@@ -29,6 +29,7 @@ import com.github.pemistahl.lingua.api.Language.CZECH
 import com.github.pemistahl.lingua.api.Language.DANISH
 import com.github.pemistahl.lingua.api.Language.DUTCH
 import com.github.pemistahl.lingua.api.Language.ENGLISH
+import com.github.pemistahl.lingua.api.Language.ESPERANTO
 import com.github.pemistahl.lingua.api.Language.ESTONIAN
 import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
@@ -443,6 +444,12 @@ class LanguageDetectorTest {
         arguments("rozdělit", CZECH),
         arguments("tvořen", CZECH),
         arguments("subjektů", CZECH),
+        arguments("nesufiĉecon", ESPERANTO),
+        arguments("intermiksiĝis", ESPERANTO),
+        arguments("monaĥinoj", ESPERANTO),
+        arguments("kreitaĵoj", ESPERANTO),
+        arguments("ŝpinante", ESPERANTO),
+        arguments("apenaŭ", ESPERANTO),
         arguments("groß", GERMAN),
         arguments("σχέδια", GREEK),
         arguments("fekvő", HUNGARIAN),
@@ -561,7 +568,7 @@ class LanguageDetectorTest {
         arguments("contradicció", listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("només", listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("house", listOf(AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, CROATIAN, CZECH, DANISH,
-            DUTCH, ENGLISH, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN,
+            DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN,
             LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH,
             SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
         ))

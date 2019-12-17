@@ -29,6 +29,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.DA
 import com.github.pemistahl.lingua.api.IsoCode639_1.DE
 import com.github.pemistahl.lingua.api.IsoCode639_1.EL
 import com.github.pemistahl.lingua.api.IsoCode639_1.EN
+import com.github.pemistahl.lingua.api.IsoCode639_1.EO
 import com.github.pemistahl.lingua.api.IsoCode639_1.ES
 import com.github.pemistahl.lingua.api.IsoCode639_1.ET
 import com.github.pemistahl.lingua.api.IsoCode639_1.EU
@@ -87,6 +88,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.DAN
 import com.github.pemistahl.lingua.api.IsoCode639_3.DEU
 import com.github.pemistahl.lingua.api.IsoCode639_3.ELL
 import com.github.pemistahl.lingua.api.IsoCode639_3.ENG
+import com.github.pemistahl.lingua.api.IsoCode639_3.EPO
 import com.github.pemistahl.lingua.api.IsoCode639_3.EST
 import com.github.pemistahl.lingua.api.IsoCode639_3.EUS
 import com.github.pemistahl.lingua.api.IsoCode639_3.FAS
@@ -165,6 +167,7 @@ enum class Language(
     DANISH     (DA, DAN, setOf(Alphabet.LATIN), ""),
     DUTCH      (NL, NLD, setOf(Alphabet.LATIN), ""),
     ENGLISH    (EN, ENG, setOf(Alphabet.LATIN), ""),
+    ESPERANTO  (EO, EPO, setOf(Alphabet.LATIN), "ĈĉĜĝĤĥĴĵŜŝŬŭ"),
     ESTONIAN   (ET, EST, setOf(Alphabet.LATIN), ""),
     FINNISH    (FI, FIN, setOf(Alphabet.LATIN), ""),
     FRENCH     (FR, FRA, setOf(Alphabet.LATIN), ""),

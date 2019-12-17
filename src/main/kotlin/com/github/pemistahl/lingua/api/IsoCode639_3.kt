@@ -30,6 +30,7 @@ enum class IsoCode639_3 {
     DEU,
     ELL,
     ENG,
+    EPO,
     EST,
     EUS,
     FAS,

@@ -30,6 +30,7 @@ enum class IsoCode639_1 {
     DE,
     EL,
     EN,
+    EO,
     ES,
     ET,
     EU,
