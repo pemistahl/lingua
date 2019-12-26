@@ -262,6 +262,10 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             it.isoCode639_1
         }.toTypedArray()
 
+        private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
+            it in setOf(IsoCode639_1.AZ, IsoCode639_1.EO, IsoCode639_1.HY, IsoCode639_1.KA, IsoCode639_1.LA)
+        }.map { it.toString() }
+
         internal val linguaDetector by lazy {
             LanguageDetectorBuilder
                 .fromIsoCodes639_1(*languageIsoCodesToTest)
@@ -273,11 +277,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }
 
         private val optimaizeDetector by lazy {
-            val languageLocales = languageIsoCodesToTest.filterNot {
-                it in setOf(IsoCode639_1.AZ, IsoCode639_1.EO, IsoCode639_1.HY, IsoCode639_1.KA, IsoCode639_1.LA)
-            }.map {
-                it.toString()
-            }.map {
+            val languageLocales = filteredIsoCodesForTikaAndOptimaize.map {
                 when (it) {
                     "zh" -> LdLocale.fromString("$it-CN")
                     else -> LdLocale.fromString(it)
@@ -292,11 +292,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
         private val tikaDetector by lazy {
             OptimaizeLangDetector().loadModels(
-                languageIsoCodesToTest.filterNot {
-                    it in setOf(IsoCode639_1.AZ, IsoCode639_1.EO, IsoCode639_1.HY, IsoCode639_1.KA, IsoCode639_1.LA)
-                }.map {
-                    it.toString()
-                }.map {
+                filteredIsoCodesForTikaAndOptimaize.map {
                     when (it) {
                         "zh" -> "$it-CN"
                         else -> it

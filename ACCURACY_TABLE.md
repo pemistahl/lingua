@@ -85,40 +85,40 @@
 	<tr>
 		<td>Armenian</td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>Azerbaijani</td>
 		<td>90 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>82 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>78 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>60 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>94 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>86 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>99 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>Basque</td>
@@ -180,21 +180,21 @@
 	<tr>
 		<td>Bokmal</td>
 		<td>58 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>66 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>39 <img src="images/orange.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>42 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>59 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>69 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>75 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>87 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>Bulgarian</td>
@@ -351,21 +351,21 @@
 	<tr>
 		<td>Esperanto</td>
 		<td>86 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>76 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>70 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>50 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>88 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>78 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>99 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>Estonian</td>
@@ -427,21 +427,21 @@
 	<tr>
 		<td>Georgian</td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>100 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>German</td>
@@ -674,21 +674,21 @@
 	<tr>
 		<td>Latin</td>
 		<td>88 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>70 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>75 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>43 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>93 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>71 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>97 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>96 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>Latvian</td>
@@ -770,39 +770,39 @@
 		<td>Norwegian</td>
 		<td>74 <img src="images/lightgreen.png"></td>
 		<td>60 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>31 <img src="images/orange.png"></td>
 		<td>50 <img src="images/yellow.png"></td>
 		<td>32 <img src="images/orange.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>3 <img src="images/red.png"></td>
 		<td>76 <img src="images/lightgreen.png"></td>
 		<td>54 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>9 <img src="images/red.png"></td>
 		<td>96 <img src="images/green.png"></td>
 		<td>95 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>81 <img src="images/green.png"></td>
 	</tr>
 	<tr>
 		<td>Nynorsk</td>
 		<td>66 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>55 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>42 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>24 <img src="images/orange.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>66 <img src="images/lightgreen.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>47 <img src="images/yellow.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>91 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 		<td>92 <img src="images/green.png"></td>
-		<td>0 <img src="images/red.png"></td>
+		<td>unsupported <img src="images/grey.png"></td>
 	</tr>
 	<tr>
 		<td>Persian</td>
@@ -1171,21 +1171,21 @@
 	<tr>
 		<td><strong>Mean</strong></td>
 		<td><strong>88</strong> <img src="images/green.png"></td>
-		<td><strong>71</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>73</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>58</strong> <img src="images/yellow.png"></td>
+		<td><strong>80</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>74</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>65</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>77</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>57</strong> <img src="images/yellow.png"></td>
+		<td><strong>64</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>52</strong> <img src="images/yellow.png"></td>
-		<td><strong>37</strong> <img src="images/orange.png"></td>
+		<td><strong>42</strong> <img src="images/yellow.png"></td>
 		<td><strong>91</strong> <img src="images/green.png"></td>
-		<td><strong>71</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>72</strong> <img src="images/lightgreen.png"></td>
-		<td><strong>54</strong> <img src="images/yellow.png"></td>
+		<td><strong>81</strong> <img src="images/green.png"></td>
+		<td><strong>74</strong> <img src="images/lightgreen.png"></td>
+		<td><strong>61</strong> <img src="images/lightgreen.png"></td>
 		<td><strong>96</strong> <img src="images/green.png"></td>
-		<td><strong>85</strong> <img src="images/green.png"></td>
-		<td><strong>94</strong> <img src="images/green.png"></td>
-		<td><strong>82</strong> <img src="images/green.png"></td>
+		<td><strong>96</strong> <img src="images/green.png"></td>
+		<td><strong>95</strong> <img src="images/green.png"></td>
+		<td><strong>93</strong> <img src="images/green.png"></td>
 	</tr>
 	<tr>
 		<td colspan="12"></td>
@@ -1193,39 +1193,39 @@
 	<tr>
 		<td>Median</td>
 		<td>89.55</td>
-		<td>79.68</td>
-		<td>72.07</td>
-		<td>61.15</td>
+		<td>82.63</td>
+		<td>72.5</td>
+		<td>66.07</td>
 		<td>78.15</td>
-		<td>57.9</td>
-		<td>43.8</td>
-		<td>24.25</td>
+		<td>64.7</td>
+		<td>44.6</td>
+		<td>33.5</td>
 		<td>94.45</td>
-		<td>83.1</td>
-		<td>74.0</td>
-		<td>59.85</td>
+		<td>85.9</td>
+		<td>74.5</td>
+		<td>69.7</td>
 		<td>99.1</td>
-		<td>98.95</td>
-		<td>98.9</td>
-		<td>96.6</td>
+		<td>99.2</td>
+		<td>99.0</td>
+		<td>97.6</td>
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
 		<td>12.29</td>
-		<td>30.56</td>
-		<td>20.77</td>
-		<td>31.96</td>
+		<td>17.12</td>
+		<td>18.62</td>
+		<td>25.5</td>
 		<td>18.35</td>
-		<td>31.69</td>
-		<td>28.94</td>
-		<td>36.4</td>
+		<td>25.44</td>
+		<td>28.38</td>
+		<td>35.9</td>
 		<td>11.82</td>
-		<td>32.05</td>
-		<td>23.31</td>
-		<td>37.11</td>
+		<td>19.83</td>
+		<td>21.46</td>
+		<td>33.52</td>
 		<td>10.04</td>
-		<td>32.75</td>
-		<td>16.89</td>
-		<td>32.85</td>
+		<td>11.04</td>
+		<td>11.69</td>
+		<td>13.98</td>
 	</tr>
 </table>

@@ -199,7 +199,7 @@ tasks.register("writeAggregatedAccuracyReport") {
                     }
                 }
                 else {
-                    csvFile.appendText(",0.0,0.0,0.0,0.0")
+                    csvFile.appendText(",NaN,NaN,NaN,NaN")
                 }
             }
 

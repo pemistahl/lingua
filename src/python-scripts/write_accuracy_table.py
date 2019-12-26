@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import math
 import pandas as pd
 
 
 def write_comparison_table(data, filename):
-    rounded_data = data.round().astype(int)
     rounded_mean_data = data.mean().round().astype(int)
     rounded_median_data = data.median().round(2)
     rounded_std_data = data.std().round(2)
@@ -56,14 +56,20 @@ def write_comparison_table(data, filename):
     </tr>
     """
 
-    for language in rounded_data.index:
-        language_data = rounded_data.loc[language]
+    for language in data.index:
+        language_data = data.loc[language]
         table += "\t<tr>\n\t\t<td>" + language + "</td>\n"
 
         for column in column_names:
             accuracy_value = language_data.loc[[column]][0]
+            if not math.isnan(accuracy_value):
+                accuracy_value = int(round(accuracy_value))
+                accuracy_str = str(accuracy_value)
+            else:
+                accuracy_str = "unsupported"
+
             color = get_square_color(accuracy_value)
-            table += "\t\t<td>" + str(accuracy_value) + " <img src=\"images/" + color + ".png\"></td>\n"
+            table += "\t\t<td>" + accuracy_str + " <img src=\"images/" + color + ".png\"></td>\n"
 
         table += "\t</tr>\n"
 
@@ -100,7 +106,9 @@ def write_comparison_table(data, filename):
 
 
 def get_square_color(accuracy_value):
-    if 0 <= accuracy_value <= 20:
+    if math.isnan(accuracy_value):
+        return "grey"
+    elif 0 <= accuracy_value <= 20:
         return "red"
     elif 21 <= accuracy_value <= 40:
         return "orange"
