@@ -74,6 +74,7 @@ import com.github.pemistahl.lingua.api.Language.TAMIL
 import com.github.pemistahl.lingua.api.Language.TELUGU
 import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
+import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
@@ -96,7 +97,7 @@ class LanguageTest {
             FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH
         )
     }
 
@@ -108,7 +109,7 @@ class LanguageTest {
             FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, URDU, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH
         )
     }
 
@@ -199,6 +200,7 @@ class LanguageTest {
         "TE, TELUGU",
         "TH, THAI",
         "TR, TURKISH",
+        "UK, UKRAINIAN",
         "UR, URDU",
         "VI, VIETNAMESE",
         "CY, WELSH"
@@ -211,7 +213,7 @@ class LanguageTest {
         arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
         arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
         arguments(Alphabet.BENGALI, listOf(BENGALI)),
-        arguments(Alphabet.CYRILLIC, listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN, SERBIAN)),
+        arguments(Alphabet.CYRILLIC, listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN, SERBIAN, UKRAINIAN)),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI)),
         arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
         arguments(Alphabet.GREEK, listOf(GREEK)),

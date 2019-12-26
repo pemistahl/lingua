@@ -74,6 +74,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.TE
 import com.github.pemistahl.lingua.api.IsoCode639_1.TH
 import com.github.pemistahl.lingua.api.IsoCode639_1.TL
 import com.github.pemistahl.lingua.api.IsoCode639_1.TR
+import com.github.pemistahl.lingua.api.IsoCode639_1.UK
 import com.github.pemistahl.lingua.api.IsoCode639_1.UR
 import com.github.pemistahl.lingua.api.IsoCode639_1.VI
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
@@ -135,6 +136,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
 import com.github.pemistahl.lingua.api.IsoCode639_3.TGL
 import com.github.pemistahl.lingua.api.IsoCode639_3.THA
 import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
+import com.github.pemistahl.lingua.api.IsoCode639_3.UKR
 import com.github.pemistahl.lingua.api.IsoCode639_3.URD
 import com.github.pemistahl.lingua.api.IsoCode639_3.VIE
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZHO
@@ -160,7 +162,7 @@ enum class Language(
     ARMENIAN   (HY, HYE, setOf(Alphabet.ARMENIAN), ""),
     AZERBAIJANI (AZ, AZE, setOf(Alphabet.LATIN), "Әə"),
     BASQUE     (EU, EUS, setOf(Alphabet.LATIN), ""),
-    BELARUSIAN (BE, BEL, setOf(CYRILLIC), "Іі"),
+    BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
     BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),
     BOKMAL     (NB, NOB, setOf(Alphabet.LATIN), ""),
     BULGARIAN  (BG, BUL, setOf(CYRILLIC), ""),
@@ -212,6 +214,7 @@ enum class Language(
     TELUGU     (TE, TEL, setOf(Alphabet.TELUGU), ""),
     THAI       (TH, THA, setOf(Alphabet.THAI), ""),
     TURKISH    (TR, TUR, setOf(Alphabet.LATIN), ""),
+    UKRAINIAN  (UK, UKR, setOf(CYRILLIC), "ҐґЄєЇї"),
     URDU       (UR, URD, setOf(Alphabet.ARABIC), ""),
     VIETNAMESE (VI, VIE, setOf(Alphabet.LATIN), "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH      (CY, CYM, setOf(Alphabet.LATIN), ""),

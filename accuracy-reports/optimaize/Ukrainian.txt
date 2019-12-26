@@ -1,0 +1,17 @@
+##### UKRAINIAN #####
+
+>>> Accuracy on average: 67,60%
+
+>> Detection of 1000 single words (average length: 8 chars)
+Accuracy: 39,30%
+Erroneously classified as UNKNOWN: 60,00%, RUSSIAN: 0,40%, BELARUSIAN: 0,20%, SERBIAN: 0,10%
+
+>> Detection of 1000 word pairs (average length: 17 chars)
+Accuracy: 69,00%
+Erroneously classified as UNKNOWN: 30,20%, RUSSIAN: 0,60%, BELARUSIAN: 0,20%
+
+>> Detection of 1000 sentences (average length: 108 chars)
+Accuracy: 94,50%
+Erroneously classified as UNKNOWN: 4,70%, RUSSIAN: 0,70%, BELARUSIAN: 0,10%
+
+>> Exact values: 67.60000000000001 39.300000000000004 69.0 94.5

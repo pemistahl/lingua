@@ -1,17 +1,17 @@
 ##### MACEDONIAN #####
 
->>> Accuracy on average: 46,13%
+>>> Accuracy on average: 46,03%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 10,00%
-Erroneously classified as UNKNOWN: 89,70%, BELARUSIAN: 0,10%, SERBIAN: 0,10%, RUSSIAN: 0,10%
+Accuracy: 9,80%
+Erroneously classified as UNKNOWN: 89,90%, BELARUSIAN: 0,10%, SERBIAN: 0,10%, RUSSIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 31,60%
-Erroneously classified as UNKNOWN: 67,80%, SERBIAN: 0,40%, RUSSIAN: 0,10%, BULGARIAN: 0,10%
+Accuracy: 31,50%
+Erroneously classified as UNKNOWN: 67,90%, SERBIAN: 0,40%, RUSSIAN: 0,10%, BULGARIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 120 chars)
 Accuracy: 96,80%
 Erroneously classified as UNKNOWN: 3,20%
 
->> Exact values: 46.13333333333333 10.0 31.6 96.8
+>> Exact values: 46.03333333333333 9.8 31.5 96.8

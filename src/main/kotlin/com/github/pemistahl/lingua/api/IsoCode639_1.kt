@@ -75,6 +75,7 @@ enum class IsoCode639_1 {
     TH,
     TL,
     TR,
+    UK,
     UR,
     VI,
     ZH,

@@ -75,6 +75,7 @@ enum class IsoCode639_3 {
     TGL,
     THA,
     TUR,
+    UKR,
     URD,
     VIE,
     ZHO,
