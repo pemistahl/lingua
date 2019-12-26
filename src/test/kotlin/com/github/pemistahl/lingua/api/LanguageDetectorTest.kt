@@ -51,6 +51,7 @@ import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
+import com.github.pemistahl.lingua.api.Language.SERBIAN
 import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SOMALI
@@ -441,6 +442,7 @@ class LanguageDetectorTest {
         arguments("house", UNKNOWN),
         arguments("hashemidëve", ALBANIAN),
         arguments("məhərrəm", AZERBAIJANI),
+        arguments("павінен", BELARUSIAN),
         arguments("substituïts", CATALAN),
         arguments("rozdělit", CZECH),
         arguments("tvořen", CZECH),
@@ -466,8 +468,7 @@ class LanguageDetectorTest {
         arguments("įrengus", LITHUANIAN),
         arguments("slegiamų", LITHUANIAN),
         arguments("припаѓа", MACEDONIAN),
-        arguments("набљудувач", MACEDONIAN),
-        arguments("затоплување", MACEDONIAN),
+        arguments("ѕидови", MACEDONIAN),
         arguments("ќерка", MACEDONIAN),
         arguments("џамиите", MACEDONIAN),
         arguments("zmieniły", POLISH),
@@ -475,6 +476,8 @@ class LanguageDetectorTest {
         arguments("mniejszości", POLISH),
         arguments("groźne", POLISH),
         arguments("ialomiţa", ROMANIAN),
+        arguments("наслеђивања", SERBIAN),
+        arguments("неисквареношћу", SERBIAN),
         arguments("podĺa", SLOVAK),
         arguments("pohľade", SLOVAK),
         arguments("mŕtvych", SLOVAK),
@@ -530,14 +533,20 @@ class LanguageDetectorTest {
 
     private fun filteredLanguagesProvider() = listOf(
         arguments("والموضوع", listOf(ARABIC, PERSIAN, URDU)),
-        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN)),
+        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN, SERBIAN)),
         arguments("раскрывае", listOf(BELARUSIAN, RUSSIAN)),
-        arguments("чэрвеня", listOf(BELARUSIAN, RUSSIAN)),
+        arguments("этот", listOf(BELARUSIAN, RUSSIAN)),
+        arguments("огнём", listOf(BELARUSIAN, RUSSIAN)),
         arguments("плаваща", listOf(BULGARIAN, RUSSIAN)),
         arguments("довършат", listOf(BULGARIAN, RUSSIAN)),
         arguments("хвалить", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
         arguments("людях", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
         arguments("десятков", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
+        arguments("толстой", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
+        arguments("очень", listOf(BELARUSIAN, BULGARIAN, RUSSIAN)),
+        arguments("затоплување", listOf(MACEDONIAN, SERBIAN)),
+        arguments("ректасцензија", listOf(MACEDONIAN, SERBIAN)),
+        arguments("набљудувач", listOf(MACEDONIAN, SERBIAN)),
         arguments("prihvaćanju", listOf(CROATIAN, POLISH)),
         arguments("nađete", listOf(CROATIAN, VIETNAMESE)),
         arguments("visão", listOf(PORTUGUESE, VIETNAMESE)),

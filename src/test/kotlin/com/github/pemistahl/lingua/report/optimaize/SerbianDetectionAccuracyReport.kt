@@ -14,72 +14,9 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.api
+package com.github.pemistahl.lingua.report.optimaize
 
-enum class IsoCode639_1 {
-    AF,
-    AR,
-    AZ,
-    BE,
-    BG,
-    BN,
-    CA,
-    CS,
-    CY,
-    DA,
-    DE,
-    EL,
-    EN,
-    EO,
-    ES,
-    ET,
-    EU,
-    FA,
-    FI,
-    FR,
-    GA,
-    GU,
-    HE,
-    HI,
-    HR,
-    HU,
-    HY,
-    ID,
-    IS,
-    IT,
-    JA,
-    KA,
-    KO,
-    LA,
-    LT,
-    LV,
-    MK,
-    MS,
-    NB,
-    NL,
-    NN,
-    NO,
-    PA,
-    PL,
-    PT,
-    RO,
-    RU,
-    SK,
-    SL,
-    SO,
-    SQ,
-    SR,
-    SV,
-    TA,
-    TE,
-    TH,
-    TL,
-    TR,
-    UR,
-    VI,
-    ZH,
+import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
+import com.github.pemistahl.lingua.report.config.AbstractSerbianDetectionAccuracyReport
 
-    UNKNOWN;
-
-    override fun toString() = this.name.toLowerCase()
-}
+class SerbianDetectionAccuracyReport : AbstractSerbianDetectionAccuracyReport(OPTIMAIZE)

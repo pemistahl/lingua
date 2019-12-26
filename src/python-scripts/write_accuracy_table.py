@@ -66,10 +66,10 @@ def write_comparison_table(data, filename):
                 accuracy_value = int(round(accuracy_value))
                 accuracy_str = str(accuracy_value)
             else:
-                accuracy_str = "unsupported"
+                accuracy_str = "-"
 
             color = get_square_color(accuracy_value)
-            table += "\t\t<td>" + accuracy_str + " <img src=\"images/" + color + ".png\"></td>\n"
+            table += "\t\t<td><img src=\"images/" + color + ".png\"> " + accuracy_str + "</td>\n"
 
         table += "\t</tr>\n"
 
@@ -79,7 +79,7 @@ def write_comparison_table(data, filename):
     for column in column_names:
         accuracy_value = rounded_mean_data.loc[[column]][0]
         color = get_square_color(accuracy_value)
-        table += "\t\t<td><strong>" + str(accuracy_value) + "</strong> <img src=\"images/" + color + ".png\"></td>\n"
+        table += "\t\t<td><img src=\"images/" + color + ".png\"> <strong>" + str(accuracy_value) + "</strong></td>\n"
 
     table += "\t</tr>\n"
 

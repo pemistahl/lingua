@@ -39,12 +39,14 @@ import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.JAPANESE
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
+import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
+import com.github.pemistahl.lingua.api.Language.SERBIAN
 import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SPANISH
@@ -370,15 +372,16 @@ class LanguageDetector internal constructor(
             "ŇňŤť" to setOf(CZECH, SLOVAK),
             "Ăă" to setOf(ROMANIAN, VIETNAMESE),
             "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
-            "ЫыЭэ" to setOf(BELARUSIAN, RUSSIAN),
+            "ЁёЫыЭэ" to setOf(BELARUSIAN, RUSSIAN),
             "ЩщЪъ" to setOf(BULGARIAN, RUSSIAN),
+            "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
 
             "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
-            "ЬьЮюЯя" to setOf(BELARUSIAN, BULGARIAN, RUSSIAN),
+            "ЙйЬьЮюЧчЯя" to setOf(BELARUSIAN, BULGARIAN, RUSSIAN),
 
             "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),

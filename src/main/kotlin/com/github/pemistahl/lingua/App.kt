@@ -21,27 +21,27 @@ import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllBuiltInLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes639_1
+import com.github.pemistahl.lingua.internal.util.writeLanguageModelsFromLeipzigCorpusFile
+import com.github.pemistahl.lingua.internal.util.writeTestDataFiles
 import java.io.Console
 import java.util.Scanner
 
 fun main() {
-    runApp()
+    //runApp()
 
-    /*
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/eo/eo_1M.txt",
+        inputPath = "/training-data/sr/sr_1M.txt",
         outputPath = "C:/Users/pstahl/Documents/language-models",
-        language = Language.ESPERANTO,
-        charClass = "IsLatin"
+        language = Language.SERBIAN,
+        charClass = "IsCyrillic"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/eo/eo_10K.txt",
+        inputPath = "/training-data/sr/sr_10K.txt",
         outputPath = "C:/Users/pstahl/Documents/language-testdata",
-        isoCode = "eo",
-        charClass = "IsLatin"
+        isoCode = "sr",
+        charClass = "IsCyrillic"
     )
-    */
 }
 
 private fun runApp() {

@@ -67,6 +67,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.SK
 import com.github.pemistahl.lingua.api.IsoCode639_1.SL
 import com.github.pemistahl.lingua.api.IsoCode639_1.SO
 import com.github.pemistahl.lingua.api.IsoCode639_1.SQ
+import com.github.pemistahl.lingua.api.IsoCode639_1.SR
 import com.github.pemistahl.lingua.api.IsoCode639_1.SV
 import com.github.pemistahl.lingua.api.IsoCode639_1.TA
 import com.github.pemistahl.lingua.api.IsoCode639_1.TE
@@ -127,6 +128,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.SLV
 import com.github.pemistahl.lingua.api.IsoCode639_3.SOM
 import com.github.pemistahl.lingua.api.IsoCode639_3.SPA
 import com.github.pemistahl.lingua.api.IsoCode639_3.SQI
+import com.github.pemistahl.lingua.api.IsoCode639_3.SRP
 import com.github.pemistahl.lingua.api.IsoCode639_3.SWE
 import com.github.pemistahl.lingua.api.IsoCode639_3.TAM
 import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
@@ -158,7 +160,7 @@ enum class Language(
     ARMENIAN   (HY, HYE, setOf(Alphabet.ARMENIAN), ""),
     AZERBAIJANI (AZ, AZE, setOf(Alphabet.LATIN), "Әə"),
     BASQUE     (EU, EUS, setOf(Alphabet.LATIN), ""),
-    BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
+    BELARUSIAN (BE, BEL, setOf(CYRILLIC), "Іі"),
     BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),
     BOKMAL     (NB, NOB, setOf(Alphabet.LATIN), ""),
     BULGARIAN  (BG, BUL, setOf(CYRILLIC), ""),
@@ -189,7 +191,7 @@ enum class Language(
     LATIN      (LA, LAT, setOf(Alphabet.LATIN), ""),
     LATVIAN    (LV, LAV, setOf(Alphabet.LATIN), "ĀāĒēĢģĪīĶķĻļŅņ"),
     LITHUANIAN (LT, LIT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
-    MACEDONIAN (MK, MKD, setOf(CYRILLIC), "ЃѓЉљЊњЌќЏџ"),
+    MACEDONIAN (MK, MKD, setOf(CYRILLIC), "ЃѓЅѕЌќЏџ"),
     MALAY      (MS, MSA, setOf(Alphabet.LATIN), ""),
     NORWEGIAN  (NO, NOR, setOf(Alphabet.LATIN), ""),
     NYNORSK    (NN, NNO, setOf(Alphabet.LATIN), ""),
@@ -199,6 +201,7 @@ enum class Language(
     PUNJABI    (PA, PAN, setOf(GURMUKHI), ""),
     ROMANIAN   (RO, RON, setOf(Alphabet.LATIN), "Țţ"),
     RUSSIAN    (RU, RUS, setOf(CYRILLIC), ""),
+    SERBIAN    (SR, SRP, setOf(CYRILLIC), "ЂђЋћ"),
     SLOVAK     (SK, SLK, setOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
     SLOVENE    (SL, SLV, setOf(Alphabet.LATIN), ""),
     SOMALI     (SO, SOM, setOf(Alphabet.LATIN), ""),
