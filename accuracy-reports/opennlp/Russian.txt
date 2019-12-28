@@ -8,10 +8,10 @@ Erroneously classified as UNKNOWN: 50,70%, BULGARIAN: 14,40%, UKRAINIAN: 4,30%, 
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 43,00%
-Erroneously classified as UNKNOWN: 29,30%, BULGARIAN: 15,30%, SERBIAN: 3,50%, UKRAINIAN: 3,50%, MACEDONIAN: 3,00%, BELARUSIAN: 2,30%, MONGOLIAN: 0,10%
+Erroneously classified as UNKNOWN: 29,20%, BULGARIAN: 15,30%, SERBIAN: 3,50%, UKRAINIAN: 3,50%, MACEDONIAN: 3,00%, BELARUSIAN: 2,30%, KAZAKH: 0,10%, MONGOLIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 65 chars)
 Accuracy: 86,30%
-Erroneously classified as BULGARIAN: 5,00%, UNKNOWN: 3,50%, UKRAINIAN: 1,80%, SERBIAN: 1,40%, MACEDONIAN: 1,40%, BELARUSIAN: 0,60%
+Erroneously classified as BULGARIAN: 5,00%, UNKNOWN: 3,40%, UKRAINIAN: 1,80%, SERBIAN: 1,40%, MACEDONIAN: 1,40%, BELARUSIAN: 0,60%, KAZAKH: 0,10%
 
 >> Exact values: 49.63333333333333 19.6 43.0 86.3

@@ -22,6 +22,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.BS
 import com.github.pemistahl.lingua.api.IsoCode639_1.EO
 import com.github.pemistahl.lingua.api.IsoCode639_1.HY
 import com.github.pemistahl.lingua.api.IsoCode639_1.KA
+import com.github.pemistahl.lingua.api.IsoCode639_1.KK
 import com.github.pemistahl.lingua.api.IsoCode639_1.LA
 import com.github.pemistahl.lingua.api.IsoCode639_1.MN
 import com.github.pemistahl.lingua.api.IsoCode639_3
@@ -270,7 +271,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }.toTypedArray()
 
         private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
-            it in setOf(AZ, BS, EO, HY, KA, LA, MN)
+            it in setOf(AZ, BS, EO, HY, KA, KK, LA, MN)
         }.map { it.toString() }
 
         internal val linguaDetector by lazy {

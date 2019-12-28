@@ -4,7 +4,7 @@
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 61,80%
-Erroneously classified as UNKNOWN: 29,30%, MACEDONIAN: 5,40%, SERBIAN: 1,90%, RUSSIAN: 0,80%, UKRAINIAN: 0,40%, BELARUSIAN: 0,40%
+Erroneously classified as UNKNOWN: 29,10%, MACEDONIAN: 5,40%, SERBIAN: 1,90%, RUSSIAN: 0,80%, UKRAINIAN: 0,40%, BELARUSIAN: 0,40%, KAZAKH: 0,20%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 87,10%

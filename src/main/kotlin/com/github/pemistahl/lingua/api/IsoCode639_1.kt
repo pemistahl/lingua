@@ -50,6 +50,7 @@ enum class IsoCode639_1 {
     IT,
     JA,
     KA,
+    KK,
     KO,
     LA,
     LT,

@@ -49,6 +49,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.IS
 import com.github.pemistahl.lingua.api.IsoCode639_1.IT
 import com.github.pemistahl.lingua.api.IsoCode639_1.JA
 import com.github.pemistahl.lingua.api.IsoCode639_1.KA
+import com.github.pemistahl.lingua.api.IsoCode639_1.KK
 import com.github.pemistahl.lingua.api.IsoCode639_1.KO
 import com.github.pemistahl.lingua.api.IsoCode639_1.LA
 import com.github.pemistahl.lingua.api.IsoCode639_1.LT
@@ -112,6 +113,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.ISL
 import com.github.pemistahl.lingua.api.IsoCode639_3.ITA
 import com.github.pemistahl.lingua.api.IsoCode639_3.JPN
 import com.github.pemistahl.lingua.api.IsoCode639_3.KAT
+import com.github.pemistahl.lingua.api.IsoCode639_3.KAZ
 import com.github.pemistahl.lingua.api.IsoCode639_3.KOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.LAT
 import com.github.pemistahl.lingua.api.IsoCode639_3.LAV
@@ -152,7 +154,6 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
-import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 enum class Language(
@@ -165,7 +166,7 @@ enum class Language(
     ALBANIAN   (SQ, SQI, setOf(Alphabet.LATIN), "Ëë"),
     ARABIC     (AR, ARA, setOf(Alphabet.ARABIC), ""),
     ARMENIAN   (HY, HYE, setOf(Alphabet.ARMENIAN), ""),
-    AZERBAIJANI (AZ, AZE, setOf(Alphabet.LATIN), "Әə"),
+    AZERBAIJANI (AZ, AZE, setOf(Alphabet.LATIN), "Əə"),
     BASQUE     (EU, EUS, setOf(Alphabet.LATIN), ""),
     BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
     BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),
@@ -195,6 +196,7 @@ enum class Language(
     IRISH      (GA, GLE, setOf(Alphabet.LATIN), ""),
     ITALIAN    (IT, ITA, setOf(Alphabet.LATIN), ""),
     JAPANESE   (JA, JPN, setOf(HIRAGANA, KATAKANA, HAN), ""),
+    KAZAKH     (KK, KAZ, setOf(CYRILLIC), "ӘәҒғҚқҢңҰұ"),
     KOREAN     (KO, KOR, setOf(HANGUL), ""),
     LATIN      (LA, LAT, setOf(Alphabet.LATIN), ""),
     LATVIAN    (LV, LAV, setOf(Alphabet.LATIN), "ĀāĒēĢģĪīĶķĻļŅņ"),
