@@ -22,6 +22,7 @@ import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
 import com.github.pemistahl.lingua.api.Language.BOKMAL
+import com.github.pemistahl.lingua.api.Language.BOSNIAN
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CHINESE
@@ -361,8 +362,8 @@ class LanguageDetector internal constructor(
         private val JAPANESE_CHARACTER_SET = Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
-            "Ćć" to setOf(CROATIAN, POLISH),
-            "Đđ" to setOf(CROATIAN, VIETNAMESE),
+            "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
+            "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
             "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
             "ĄąĘę" to setOf(LITHUANIAN, POLISH),
             "Ūū" to setOf(LATVIAN, LITHUANIAN),
@@ -398,7 +399,7 @@ class LanguageDetector internal constructor(
             "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
             "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
 
-            "ČčŠšŽž" to setOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
+            "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
             "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
 
             "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),

@@ -17,6 +17,12 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
+import com.github.pemistahl.lingua.api.IsoCode639_1.AZ
+import com.github.pemistahl.lingua.api.IsoCode639_1.BS
+import com.github.pemistahl.lingua.api.IsoCode639_1.EO
+import com.github.pemistahl.lingua.api.IsoCode639_1.HY
+import com.github.pemistahl.lingua.api.IsoCode639_1.KA
+import com.github.pemistahl.lingua.api.IsoCode639_1.LA
 import com.github.pemistahl.lingua.api.IsoCode639_3
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.BOKMAL
@@ -263,7 +269,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }.toTypedArray()
 
         private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
-            it in setOf(IsoCode639_1.AZ, IsoCode639_1.EO, IsoCode639_1.HY, IsoCode639_1.KA, IsoCode639_1.LA)
+            it in setOf(AZ, BS, EO, HY, KA, LA)
         }.map { it.toString() }
 
         internal val linguaDetector by lazy {

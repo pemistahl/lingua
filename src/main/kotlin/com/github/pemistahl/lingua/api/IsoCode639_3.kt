@@ -22,6 +22,7 @@ enum class IsoCode639_3 {
     AZE,
     BEL,
     BEN,
+    BOS,
     BUL,
     CAT,
     CES,

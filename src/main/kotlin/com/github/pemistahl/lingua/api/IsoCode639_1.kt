@@ -23,6 +23,7 @@ enum class IsoCode639_1 {
     BE,
     BG,
     BN,
+    BS,
     CA,
     CS,
     CY,

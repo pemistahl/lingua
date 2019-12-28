@@ -22,6 +22,7 @@ import com.github.pemistahl.lingua.api.Language.ARABIC
 import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
+import com.github.pemistahl.lingua.api.Language.BOSNIAN
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CROATIAN
@@ -551,8 +552,8 @@ class LanguageDetectorTest {
         arguments("затоплување", listOf(MACEDONIAN, SERBIAN)),
         arguments("ректасцензија", listOf(MACEDONIAN, SERBIAN)),
         arguments("набљудувач", listOf(MACEDONIAN, SERBIAN)),
-        arguments("prihvaćanju", listOf(CROATIAN, POLISH)),
-        arguments("nađete", listOf(CROATIAN, VIETNAMESE)),
+        arguments("prihvaćanju", listOf(BOSNIAN, CROATIAN, POLISH)),
+        arguments("nađete", listOf(BOSNIAN, CROATIAN, VIETNAMESE)),
         arguments("visão", listOf(PORTUGUESE, VIETNAMESE)),
         arguments("wystąpią", listOf(LITHUANIAN, POLISH)),
         arguments("budowę", listOf(LITHUANIAN, POLISH)),
@@ -583,9 +584,9 @@ class LanguageDetectorTest {
         arguments("überrascht", listOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH)),
         arguments("indebærer", listOf(DANISH, ICELANDIC, NORWEGIAN)),
         arguments("måned", listOf(DANISH, NORWEGIAN, SWEDISH)),
-        arguments("zaručen", listOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
-        arguments("zkouškou", listOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
-        arguments("navržen", listOf(CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
+        arguments("zaručen", listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
+        arguments("zkouškou", listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
+        arguments("navržen", listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
         arguments("façonnage", listOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH)),
         arguments("höher", listOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH)),
         arguments("catedráticos", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
@@ -593,7 +594,7 @@ class LanguageDetectorTest {
         arguments("música", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("contradicció", listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE)),
         arguments("només", listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("house", listOf(AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, CROATIAN, CZECH, DANISH,
+        arguments("house", listOf(AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
             DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN,
             LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH,
             SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH

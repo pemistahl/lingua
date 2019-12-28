@@ -22,6 +22,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.AZ
 import com.github.pemistahl.lingua.api.IsoCode639_1.BE
 import com.github.pemistahl.lingua.api.IsoCode639_1.BG
 import com.github.pemistahl.lingua.api.IsoCode639_1.BN
+import com.github.pemistahl.lingua.api.IsoCode639_1.BS
 import com.github.pemistahl.lingua.api.IsoCode639_1.CA
 import com.github.pemistahl.lingua.api.IsoCode639_1.CS
 import com.github.pemistahl.lingua.api.IsoCode639_1.CY
@@ -83,6 +84,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.ARA
 import com.github.pemistahl.lingua.api.IsoCode639_3.AZE
 import com.github.pemistahl.lingua.api.IsoCode639_3.BEL
 import com.github.pemistahl.lingua.api.IsoCode639_3.BEN
+import com.github.pemistahl.lingua.api.IsoCode639_3.BOS
 import com.github.pemistahl.lingua.api.IsoCode639_3.BUL
 import com.github.pemistahl.lingua.api.IsoCode639_3.CAT
 import com.github.pemistahl.lingua.api.IsoCode639_3.CES
@@ -148,6 +150,7 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
+import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 enum class Language(
@@ -165,6 +168,7 @@ enum class Language(
     BELARUSIAN (BE, BEL, setOf(CYRILLIC), ""),
     BENGALI    (BN, BEN, setOf(Alphabet.BENGALI), ""),
     BOKMAL     (NB, NOB, setOf(Alphabet.LATIN), ""),
+    BOSNIAN    (BS, BOS, setOf(Alphabet.LATIN), ""),
     BULGARIAN  (BG, BUL, setOf(CYRILLIC), ""),
     CATALAN    (CA, CAT, setOf(Alphabet.LATIN), "Ïï"),
     CHINESE    (ZH, ZHO, setOf(HAN), ""),
