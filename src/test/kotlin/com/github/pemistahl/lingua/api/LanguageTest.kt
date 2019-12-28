@@ -56,6 +56,7 @@ import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MALAY
+import com.github.pemistahl.lingua.api.Language.MONGOLIAN
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.PERSIAN
@@ -96,7 +97,7 @@ class LanguageTest {
             AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOSNIAN, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
-            IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, NORWEGIAN,
+            IRISH, ITALIAN, JAPANESE, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MONGOLIAN, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH
         )
@@ -108,7 +109,7 @@ class LanguageTest {
             AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOSNIAN, BULGARIAN,
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
-            IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, NORWEGIAN,
+            IRISH, ITALIAN, JAPANESE, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MONGOLIAN, NORWEGIAN,
             PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH
         )
@@ -183,6 +184,7 @@ class LanguageTest {
         "LT, LITHUANIAN",
         "MK, MACEDONIAN",
         "MS, MALAY",
+        "MN, MONGOLIAN",
         "NO, NORWEGIAN",
         "NN, NYNORSK",
         "FA, PERSIAN",
@@ -215,7 +217,7 @@ class LanguageTest {
         arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
         arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
         arguments(Alphabet.BENGALI, listOf(BENGALI)),
-        arguments(Alphabet.CYRILLIC, listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN, SERBIAN, UKRAINIAN)),
+        arguments(Alphabet.CYRILLIC, listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN)),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI)),
         arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
         arguments(Alphabet.GREEK, listOf(GREEK)),

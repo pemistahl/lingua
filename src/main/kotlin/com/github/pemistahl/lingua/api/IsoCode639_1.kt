@@ -55,6 +55,7 @@ enum class IsoCode639_1 {
     LT,
     LV,
     MK,
+    MN,
     MS,
     NB,
     NL,

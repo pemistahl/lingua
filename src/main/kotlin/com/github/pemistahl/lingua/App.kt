@@ -30,17 +30,17 @@ fun main() {
     //runApp()
 
     writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/bs/bs_1M.txt",
+        inputPath = "/training-data/mn/mn_1M.txt",
         outputPath = "/Users/pemistahl/Documents/language-models",
-        language = Language.BOSNIAN,
-        charClass = "IsLatin"
+        language = Language.MONGOLIAN,
+        charClass = "IsCyrillic"
     )
 
     writeTestDataFiles(
-        inputPath = "/training-data/bs/bs_10K.txt",
+        inputPath = "/training-data/mn/mn_10K.txt",
         outputPath = "/Users/pemistahl/Documents/language-testdata",
-        isoCode = "bs",
-        charClass = "IsLatin"
+        isoCode = "mn",
+        charClass = "IsCyrillic"
     )
 }
 

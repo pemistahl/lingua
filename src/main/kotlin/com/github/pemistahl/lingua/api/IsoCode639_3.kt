@@ -54,6 +54,7 @@ enum class IsoCode639_3 {
     LAV,
     LIT,
     MKD,
+    MON,
     MSA,
     NLD,
     NNO,

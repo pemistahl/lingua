@@ -46,6 +46,7 @@ import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MALAY
+import com.github.pemistahl.lingua.api.Language.MONGOLIAN
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.PERSIAN
 import com.github.pemistahl.lingua.api.Language.POLISH
@@ -472,6 +473,8 @@ class LanguageDetectorTest {
         arguments("ѕидови", MACEDONIAN),
         arguments("ќерка", MACEDONIAN),
         arguments("џамиите", MACEDONIAN),
+        arguments("үндсэн", MONGOLIAN),
+        arguments("дөхөж", MONGOLIAN),
         arguments("zmieniły", POLISH),
         arguments("państwowych", POLISH),
         arguments("mniejszości", POLISH),
@@ -537,17 +540,17 @@ class LanguageDetectorTest {
 
     private fun filteredLanguagesProvider() = listOf(
         arguments("والموضوع", listOf(ARABIC, PERSIAN, URDU)),
-        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, RUSSIAN, SERBIAN, UKRAINIAN)),
-        arguments("раскрывае", listOf(BELARUSIAN, RUSSIAN)),
-        arguments("этот", listOf(BELARUSIAN, RUSSIAN)),
-        arguments("огнём", listOf(BELARUSIAN, RUSSIAN)),
-        arguments("плаваща", listOf(BULGARIAN, RUSSIAN)),
-        arguments("довършат", listOf(BULGARIAN, RUSSIAN)),
-        arguments("хвалить", listOf(BELARUSIAN, BULGARIAN, RUSSIAN, UKRAINIAN)),
-        arguments("людях", listOf(BELARUSIAN, BULGARIAN, RUSSIAN, UKRAINIAN)),
-        arguments("десятков", listOf(BELARUSIAN, BULGARIAN, RUSSIAN, UKRAINIAN)),
-        arguments("толстой", listOf(BELARUSIAN, BULGARIAN, RUSSIAN, UKRAINIAN)),
-        arguments("очень", listOf(BELARUSIAN, BULGARIAN, RUSSIAN, UKRAINIAN)),
+        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN)),
+        arguments("раскрывае", listOf(BELARUSIAN, MONGOLIAN, RUSSIAN)),
+        arguments("этот", listOf(BELARUSIAN, MONGOLIAN, RUSSIAN)),
+        arguments("огнём", listOf(BELARUSIAN, MONGOLIAN, RUSSIAN)),
+        arguments("плаваща", listOf(BULGARIAN, MONGOLIAN, RUSSIAN)),
+        arguments("довършат", listOf(BULGARIAN, MONGOLIAN, RUSSIAN)),
+        arguments("хвалить", listOf(BELARUSIAN, BULGARIAN, MONGOLIAN, RUSSIAN, UKRAINIAN)),
+        arguments("людях", listOf(BELARUSIAN, BULGARIAN, MONGOLIAN, RUSSIAN, UKRAINIAN)),
+        arguments("десятков", listOf(BELARUSIAN, BULGARIAN, MONGOLIAN, RUSSIAN, UKRAINIAN)),
+        arguments("толстой", listOf(BELARUSIAN, BULGARIAN, MONGOLIAN, RUSSIAN, UKRAINIAN)),
+        arguments("очень", listOf(BELARUSIAN, BULGARIAN, MONGOLIAN, RUSSIAN, UKRAINIAN)),
         arguments("павінен", listOf(BELARUSIAN, UKRAINIAN)),
         arguments("затоплување", listOf(MACEDONIAN, SERBIAN)),
         arguments("ректасцензија", listOf(MACEDONIAN, SERBIAN)),
