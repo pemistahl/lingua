@@ -17,36 +17,17 @@
 package com.github.pemistahl.lingua
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
-import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllBuiltInLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes639_1
-import com.github.pemistahl.lingua.internal.util.writeLanguageModelsFromLeipzigCorpusFile
-import com.github.pemistahl.lingua.internal.util.writeTestDataFiles
 import java.io.Console
 import java.util.Scanner
 
 fun main() {
-    //runApp()
-
-    writeLanguageModelsFromLeipzigCorpusFile(
-        inputPath = "/training-data/mn/mn_1M.txt",
-        outputPath = "/Users/pemistahl/Documents/language-models",
-        language = Language.MONGOLIAN,
-        charClass = "IsCyrillic"
-    )
-
-    writeTestDataFiles(
-        inputPath = "/training-data/mn/mn_10K.txt",
-        outputPath = "/Users/pemistahl/Documents/language-testdata",
-        isoCode = "mn",
-        charClass = "IsCyrillic"
-    )
+    runApp()
 }
 
 private fun runApp() {
-
-    val supportedLanguages = Language.all().count()
 
     println(
         """
@@ -54,7 +35,7 @@ private fun runApp() {
         Select the language models to load.
 
         1: enter language iso codes manually
-        2: all $supportedLanguages supported languages
+        2: all supported languages
 
         Type a number and press <Enter>.
         Type :quit to exit.
