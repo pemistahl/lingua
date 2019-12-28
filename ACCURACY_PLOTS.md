@@ -2,7 +2,7 @@
 
 ### <a name="table-of-contents"></a> Table of Contents
 
-Each section contains two plots. The bar plot shows the detailed accuracy results for each supported language. Below it, the box plot illustrates the distributions of the accuracy values for each classifier. The boxes themselves represent the areas which the middle 50 % of data lie within. Within the colored boxes, the horizontal lines mark the median of the distributions.   
+Each section contains two plots. The bar plot shows the detailed accuracy results for each supported language. The box plot illustrates the distributions of the accuracy values for each classifier. The boxes themselves represent the areas which the middle 50 % of data lie within. Within the colored boxes, the horizontal lines mark the median of the distributions.   
 
 1. [Single Word Detection](#single-word-detection)
 2. [Word Pair Detection](#word-pair-detection)
@@ -15,11 +15,10 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![barplot-single-words](/images/plots/barplot-single-words.png)
-
+![boxplot-single-words](/images/plots/boxplot-single-words.png)
 <br/>
 
-![boxplot-single-words](/images/plots/boxplot-single-words.png)
+![barplot-single-words](/images/plots/barplot-single-words.png)
 
 <br/><br/>
 
@@ -27,11 +26,11 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![barplot-word-pairs](/images/plots/barplot-word-pairs.png)
+![boxplot-word-pairs](/images/plots/boxplot-word-pairs.png)
 
 <br/>
 
-![boxplot-word-pairs](/images/plots/boxplot-word-pairs.png)
+![barplot-word-pairs](/images/plots/barplot-word-pairs.png)
 
 <br/><br/>
 
@@ -39,11 +38,11 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![barplot-sentences](/images/plots/barplot-sentences.png)
+![boxplot-sentences](/images/plots/boxplot-sentences.png)
 
 <br/>
 
-![boxplot-sentences](/images/plots/boxplot-sentences.png)
+![barplot-sentences](/images/plots/barplot-sentences.png)
 
 <br/><br/>
 
@@ -51,8 +50,8 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![barplot-average](/images/plots/barplot-average.png)
+![boxplot-average](/images/plots/boxplot-average.png)
 
 <br/>
 
-![boxplot-average](/images/plots/boxplot-average.png)
+![barplot-average](/images/plots/barplot-average.png)
