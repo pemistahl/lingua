@@ -54,6 +54,7 @@ enum class IsoCode639_3 {
     LAT,
     LAV,
     LIT,
+    MAR,
     MKD,
     MON,
     MSA,

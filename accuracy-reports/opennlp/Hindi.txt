@@ -4,14 +4,14 @@
 
 >> Detection of 1000 single words (average length: 6 chars)
 Accuracy: 27,50%
-Erroneously classified as UNKNOWN: 72,50%
+Erroneously classified as UNKNOWN: 56,50%, MARATHI: 16,00%
 
 >> Detection of 1000 word pairs (average length: 14 chars)
 Accuracy: 49,10%
-Erroneously classified as UNKNOWN: 50,90%
+Erroneously classified as UNKNOWN: 34,70%, MARATHI: 16,20%
 
 >> Detection of 1000 sentences (average length: 81 chars)
 Accuracy: 98,80%
-Erroneously classified as UNKNOWN: 1,10%, ENGLISH: 0,10%
+Erroneously classified as UNKNOWN: 0,80%, MARATHI: 0,30%, ENGLISH: 0,10%
 
 >> Exact values: 58.46666666666667 27.500000000000004 49.1 98.8

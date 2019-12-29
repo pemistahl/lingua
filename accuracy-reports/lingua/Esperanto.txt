@@ -1,6 +1,6 @@
 ##### ESPERANTO #####
 
->>> Accuracy on average: 85,50%
+>>> Accuracy on average: 85,53%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 69,50%
@@ -11,7 +11,7 @@ Accuracy: 88,40%
 Erroneously classified as LATIN: 1,20%, PORTUGUESE: 1,20%, ITALIAN: 1,00%, BASQUE: 0,90%, SPANISH: 0,80%, GERMAN: 0,50%, BOSNIAN: 0,50%, TURKISH: 0,50%, FRENCH: 0,40%, ENGLISH: 0,30%, CROATIAN: 0,30%, SOMALI: 0,30%, TAGALOG: 0,30%, FINNISH: 0,30%, CATALAN: 0,30%, INDONESIAN: 0,30%, SWEDISH: 0,20%, HUNGARIAN: 0,20%, LITHUANIAN: 0,20%, WELSH: 0,20%, ROMANIAN: 0,20%, NORWEGIAN: 0,20%, MALAY: 0,20%, ESTONIAN: 0,20%, POLISH: 0,20%, CZECH: 0,20%, DUTCH: 0,10%, DANISH: 0,10%, ALBANIAN: 0,10%, SLOVAK: 0,10%, SLOVENE: 0,10%
 
 >> Detection of 1000 sentences (average length: 101 chars)
-Accuracy: 98,60%
-Erroneously classified as LATIN: 0,30%, ITALIAN: 0,20%, UNKNOWN: 0,20%, PORTUGUESE: 0,20%, INDONESIAN: 0,20%, TAGALOG: 0,10%, LITHUANIAN: 0,10%, MALAY: 0,10%
+Accuracy: 98,70%
+Erroneously classified as LATIN: 0,30%, ITALIAN: 0,20%, PORTUGUESE: 0,20%, INDONESIAN: 0,20%, TAGALOG: 0,10%, LITHUANIAN: 0,10%, MALAY: 0,10%, ESTONIAN: 0,10%
 
->> Exact values: 85.5 69.5 88.4 98.6
+>> Exact values: 85.53333333333335 69.5 88.4 98.7

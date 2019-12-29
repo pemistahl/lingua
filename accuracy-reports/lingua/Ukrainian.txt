@@ -12,6 +12,6 @@ Erroneously classified as RUSSIAN: 1,20%, BULGARIAN: 0,60%, MACEDONIAN: 0,30%, B
 
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 93,70%
-Erroneously classified as KAZAKH: 4,80%, RUSSIAN: 0,70%, MACEDONIAN: 0,20%, BULGARIAN: 0,20%, BELARUSIAN: 0,20%, UNKNOWN: 0,10%, MONGOLIAN: 0,10%
+Erroneously classified as KAZAKH: 4,80%, RUSSIAN: 0,80%, MACEDONIAN: 0,20%, BULGARIAN: 0,20%, BELARUSIAN: 0,20%, MONGOLIAN: 0,10%
 
 >> Exact values: 91.76666666666667 84.3 97.3 93.7

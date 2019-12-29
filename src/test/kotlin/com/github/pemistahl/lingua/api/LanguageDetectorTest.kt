@@ -47,6 +47,7 @@ import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MALAY
+import com.github.pemistahl.lingua.api.Language.MARATHI
 import com.github.pemistahl.lingua.api.Language.MONGOLIAN
 import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.PERSIAN
@@ -479,6 +480,7 @@ class LanguageDetectorTest {
         arguments("ѕидови", MACEDONIAN),
         arguments("ќерка", MACEDONIAN),
         arguments("џамиите", MACEDONIAN),
+        arguments("मिळते", MARATHI),
         arguments("үндсэн", MONGOLIAN),
         arguments("дөхөж", MONGOLIAN),
         arguments("zmieniły", POLISH),

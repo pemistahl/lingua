@@ -107,7 +107,10 @@ class LanguageDetector internal constructor(
             if (trimmedText.length < i) continue
             val testDataModel = TestDataLanguageModel.fromText(textSequence, ngramLength = i)
             addNgramProbabilities(allProbabilities, languagesSequence, testDataModel)
-            languagesSequence = languagesSequence.filter { it in allProbabilities[i-1].keys }
+            val languageKeys = allProbabilities.last().keys
+            if (languageKeys.isNotEmpty()) {
+                languagesSequence = languagesSequence.filter { it in languageKeys }
+            }
             if (i == 1) countUnigramsOfInputText(unigramCountsOfInputText, testDataModel, languagesSequence)
         }
 
@@ -202,8 +205,10 @@ class LanguageDetector internal constructor(
                 when {
                     Alphabet.HAN.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
                     JAPANESE_CHARACTER_SET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
-                    Alphabet.LATIN.matches(word) || Alphabet.CYRILLIC.matches(word) -> languagesWithUniqueCharacters.filter {
-                        word.containsAnyOf(it.uniqueCharacters)
+                    Alphabet.LATIN.matches(word) ||
+                        Alphabet.CYRILLIC.matches(word) ||
+                        Alphabet.DEVANAGARI.matches(word) -> languagesWithUniqueCharacters.filter {
+                            word.containsAnyOf(it.uniqueCharacters)
                     }.forEach {
                         languageCharCounts.addCharCount(word, it)
                     }
@@ -224,7 +229,7 @@ class LanguageDetector internal constructor(
 
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
         val detectedAlphabets = mutableMapOf<Alphabet, Int>()
-        val alphabets = listOf(Alphabet.CYRILLIC, Alphabet.ARABIC, Alphabet.HAN, Alphabet.LATIN)
+        val alphabets = listOf(Alphabet.CYRILLIC, Alphabet.ARABIC, Alphabet.HAN, Alphabet.LATIN, Alphabet.DEVANAGARI)
 
         for (word in words) {
             for (alphabet in alphabets) {
@@ -242,6 +247,7 @@ class LanguageDetector internal constructor(
         val mostFrequentAlphabet = detectedAlphabets.entries.sortedByDescending { it.value }.first().key
         val filteredLanguages = when (mostFrequentAlphabet) {
             Alphabet.CYRILLIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
+            Alphabet.DEVANAGARI -> languages.asSequence().filter { it.alphabets.contains(Alphabet.DEVANAGARI) }
             Alphabet.ARABIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
             Alphabet.HAN -> languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
             Alphabet.LATIN -> {
