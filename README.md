@@ -163,7 +163,7 @@ The box plot below shows the distribution of the averaged accuracy values for al
 
 ![boxplot-average](/images/plots/boxplot-average.png)
 
-### 5. <a name="why-is-it-better"></a> Why is it better than other libraries? <sup>[Top ▲](#table-of-contents)</sup>
+## 5. <a name="why-is-it-better"></a> Why is it better than other libraries? <sup>[Top ▲](#table-of-contents)</sup>
 
 Every language detector uses a probabilistic [n-gram](https://en.wikipedia.org/wiki/N-gram) model trained on the character distribution in some training corpus. Most libraries only use n-grams of size 3 (trigrams) which is satisfactory for detecting the language of longer text fragments consisting of multiple sentences. For short phrases or single words, however, trigrams are not enough. The shorter the input text is, the less n-grams are available. The probabilities estimated from such few n-grams are not reliable. This is why *Lingua* makes use of n-grams of sizes 1 up to 5 which results in much more accurate prediction of the correct language.  
 
@@ -171,7 +171,7 @@ A second important difference is that *Lingua* does not only use such a statisti
 
 In general, it is always a good idea to restrict the set of languages to be considered in the classification process using the respective [api methods](#library-use-programmatic). If you know beforehand that certain languages are never to occur in an input text, do not let those take part in the classifcation process. The filtering mechanism of the rule-based engine is quite good, however, filtering based on your own knowledge of the input text is always preferable.
 
-### 6. <a name="report-generation"></a> Test report and plot generation <sup>[Top ▲](#table-of-contents)</sup>
+## 6. <a name="report-generation"></a> Test report and plot generation <sup>[Top ▲](#table-of-contents)</sup>
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself for all four classifiers and all languages by doing:
 
