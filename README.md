@@ -8,6 +8,7 @@
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
 [![license badge][license badge]][license url]
 
+[![javadoc](https://javadoc.io/badge2/com.github.pemistahl/lingua/javadoc.svg)](https://javadoc.io/doc/com.github.pemistahl/lingua)
 [![Maven Central][Maven Central badge]][Maven Central]
 [![Jcenter][Jcenter badge]][Jcenter]
 [![Download][lingua version badge]][lingua download url]
