@@ -1,3 +1,26 @@
+## Lingua 0.6.0 (released on 05 Jan 2020)
+
+### Languages
+
+- added 11 new languages: Armenian, Bosnian, Azerbaijani, Esperanto, Georgian, Kazakh, Macedonian, Marathi, Mongolian, Serbian, Ukrainian 
+
+### Features
+
+There are some breaking changes in this release:
+
+- The support for MapDB has been removed. It did not provide enough advantages over Kotlin's lazy loading of language models. It used a lot of disc space and language detection became slow. With the long-term goal of creating a multiplatform library, only those features will be implemented in the future that support JavaScript as well.
+- The dependency on the fastutil library has been removed. It did not provide enough advantages over Kotlin's lazy loading of language models. 
+- The method `LanguageDetector.detectLanguagesOf(text: Iterable<String>)` has been removed because the sorting order of the returned languages was undefined for input collections such as a HashSet. From now on, the method `LanguageDetector.detectLanguageOf(text: String)` will be the only one to be used.
+- The `LanguageDetector` can now be built with the following additional methods:
+  - `LanguageDetectorBuilder.fromIsoCodes639_1(vararg isoCodes: IsoCode639_1)`
+  - `LanguageDetectorBuilder.fromIsoCodes639_3(vararg isoCodes: IsoCode639_3)`
+  - the following method has been removed: `LanguageDetectorBuilder.fromIsoCodes(isoCode: String, vararg isoCodes: String)`  
+- The Gson library has been replaced with kotlinx-serialization for the loading of the json language models. This results in a significant reduction of code and makes reflection obsolete, so the dependency on kotlin-reflect could be removed.
+
+### Improvements
+
+- The overall detection algorithm has been improved again several times to fix several detection bugs.
+
 ## Lingua 0.5.0 (released on 12 Aug 2019)
 
 ### Languages

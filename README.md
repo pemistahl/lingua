@@ -5,18 +5,18 @@
 [![ci build status][travis ci badge]][travis ci url]
 [![codecov][codecov badge]][codecov url]
 [![supported languages][supported languages badge]](#supported-languages)
+[![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
+[![license badge][license badge]][license url]
 
 [![Maven Central][Maven Central badge]][Maven Central]
 [![Jcenter][Jcenter badge]][Jcenter]
 [![Download][lingua version badge]][lingua download url]
 
-[![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
-[![license badge][license badge]][license url]
 ---
 ### Quick Info
 * this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
-* already outperforms *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* in this respect for more than 60 languages
+* outperforms *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* for more than 60 languages
 * works within every Java 6+ application and on Android
 * no additional training of language models necessary
 * offline usage without having to connect to an external service or API
@@ -57,7 +57,7 @@ So far, three other comprehensive open source libraries working on the JVM for t
 
 ## 3. <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
 
-Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 65 languages are supported:
+Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, getting detection right for a small set of languages first before adding new ones. Currently, the following 66 languages are supported:
 
 - A
   - Afrikaans
@@ -113,6 +113,7 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 - M
   - Macedonian
   - Malay
+  - Marathi
   - Mongolian
 - N
   - Norwegian
@@ -155,7 +156,7 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 
 Both the language models and the test data have been created from separate documents of the [Wortschatz corpora] offered by Leipzig University, Germany. Data crawled from various news websites have been used for training, each corpus comprising one million sentences. For testing, corpora made of arbitrarily chosen websites have been used, each comprising ten thousand sentences. From each test corpus, a random unsorted subset of 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
-Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 65 languages. Bokmal, Latin and Nynorsk are currently only supported by *Apache OpenNLP* and *Lingua*. For the other two classifiers, Bokmal and Nynorsk are both mapped to Norwegian. *Apache OpenNLP* does not allow to restrict the set of languages that take part in the decision process. So this classifier might theoretically return one of its 103 supported languages as its result. *Apache Tika* and *Optimaize Language Detector* have been configured so that the set of examinable languages is equal to the set supported by *Lingua*. This restriction makes the detection results more comparable to each other.
+Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* using parameterized JUnit tests running over the data of 66 languages. Bokmal, Latin and Nynorsk are currently only supported by *Apache OpenNLP* and *Lingua*. For the other two classifiers, Bokmal and Nynorsk are both mapped to Norwegian. *Apache OpenNLP* does not allow to restrict the set of languages that take part in the decision process. So this classifier might theoretically return one of its 103 supported languages as its result. *Apache Tika* and *Optimaize Language Detector* have been configured so that the set of examinable languages is equal to the set supported by *Lingua*. This restriction makes the detection results more comparable to each other.
 
 The box plot below shows the distribution of the averaged accuracy values for all three performed tasks: Single word detection, word pair detection and sentence detection. *Lingua* clearly outperforms its contenders. Bar plots for each language and further box plots for the separate detection tasks can be found in the file [ACCURACY_PLOTS.md]. Detailed statistics including mean, median and standard deviation values for each language and classifier are available in the file [ACCURACY_TABLE.md]. 
 
@@ -271,9 +272,6 @@ import com.github.pemistahl.lingua.api.IsoCode639_3
 val detector: LanguageDetector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build()
 val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are awesome")
 // ENGLISH
-
-val languages: List<Language> = detector.detectLanguagesOf(texts = listOf("languages", "Sprachen", "langues"))
-// [ENGLISH, GERMAN, FRENCH]
 ```
 
 By default, *Lingua* returns the most likely language for a given input text. However, there are certain words that are spelled the same in more than one language. The word *prologue*, for instance, is both a valid English and French word. *Lingua* would output either English or French which might be wrong in the given context. For cases like that, it is possible to specify a minimum relative distance that the logarithmized and summed up probabilities for each possible language have to satisfy. It can be stated in the following way:
@@ -293,14 +291,11 @@ The public API of *Lingua* never returns `null` somewhere, so it is safe to be u
 /* Java */
 
 import java.util.List;
-import static java.util.Arrays.asList;
-
 import static com.github.pemistahl.lingua.api.Language.*;
 import com.github.pemistahl.lingua.api.*;
 
 final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build();
 final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
-final List<Language> languages = detector.detectLanguagesOf(asList("languages", "Sprachen", "langues"));
 ```
 
 There might be classification tasks where you know beforehand that your language data is definitely not written in Latin, for instance (what a surprise :-). The detection accuracy can become better in such cases if you exclude certain languages from the decision process or just explicitly include relevant languages:
@@ -380,7 +375,7 @@ In case you want to contribute something to *Lingua*, then I encourage you to do
 [travis ci url]: https://travis-ci.org/pemistahl/lingua
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
-[supported languages badge]: https://img.shields.io/badge/supported%20languages-65-yellow.svg
+[supported languages badge]: https://img.shields.io/badge/supported%20languages-66-yellow.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.6.0-blue.svg
 [lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.6.0%2Flingua-0.6.0-with-dependencies.jar
