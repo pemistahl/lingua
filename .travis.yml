@@ -1,13 +1,35 @@
 dist: trusty
+
 language: java
+
 jdk:
-    - oraclejdk8
-    - openjdk8
+  - oraclejdk8
+  - openjdk8
+
 before_script:
-    - chmod +x gradlew
-    - ./gradlew clean
+  - chmod +x gradlew
+  - ./gradlew clean
+
 script:
-    - ./gradlew check
-    - ./gradlew jacocoTestReport
+  - ./gradlew check
+  - ./gradlew jacocoTestReport
+
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
+
+before_deploy:
+  - ./gradlew jar
+  - ./gradlew sourcesJar
+  - ./gradlew jarWithDependencies
+  - ./gradlew dokkaJavadocJar
+
+deploy:
+  - provider: releases
+    skip_cleanup: true
+    on:
+      tags: true
+      branch: master
+    file_glob: true
+    file: build/libs/*.jar
+    api_key:
+      secure: iUJkFsOtXXyXzRJJH/UokuYSjUCqYJGVDQyaF7Ean2RkB5s/2OdO4nCMrBTp0VD2Lg8QUgDYh2Lg+mhXuPr1AICnmqvcVaFqyx6HVg+hiEBc3Q6qxRoslsi/U7PfCDuZRSZeJ/1ykdA+bORDrp0idext+mvias72I7emZWKc2GjtSUvkZr+7eePF3RWBmP5wR5c5jigep6iDk+yY1ol6zEik3Sm79VlTnIohzF88edmksKjLaT5kfAh5/p2jHJU8t4HQJQG5znCavm8DSTtOTpxlq7uDIeoaA+NudTJCm2G23mskF2WULBAtZbShIZmRYk5yTlgR0PIaYRQLvH6We/nAPsf3xFtl9wgYPHzeR90Q4qBYTFV8582IZT5ToDFc5mlpzX5E0IMDhxvYSzMWuH0nNw7RSt81wQtnXj+2UNBdyMHidY5UgVXxCN+TjH9XV6oz1v5sO1aLsJgxv2vHKhj144TaDYiirqRj0z9isdFs9kMx+ncx/+m98gzea4vLnFUFGk9JrXeYnEcpQS7VyTLLB8qZn8LI5jYsvhWiGvAOAN2TgMLUk4erSnmrs9eEtgD0Uxoay43kARQZIPjHd1G+mZQUaOoaF+3YxycOtqbSL2h6uZssReYtwZdtZTBhCmzot0YSeSl076tU8+RuqhdsHNn+WEd5DnSbY2B0DOs=
