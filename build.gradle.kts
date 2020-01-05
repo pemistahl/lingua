@@ -228,6 +228,15 @@ tasks.withType<DokkaTask> {
     configuration {
         jdkVersion = 6
         reportUndocumented = false
+        perPackageOption {
+            prefix = "com.github.pemistahl.lingua.app"
+            suppress = true
+        }
+
+        perPackageOption {
+            prefix = "com.github.pemistahl.lingua.internal"
+            suppress = true
+        }
     }
 }
 

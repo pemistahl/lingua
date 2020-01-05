@@ -158,6 +158,9 @@ import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
+/**
+ * The supported detectable languages.
+ */
 enum class Language(
     val isoCode639_1: IsoCode639_1,
     val isoCode639_3: IsoCode639_3,
@@ -231,18 +234,35 @@ enum class Language(
     VIETNAMESE (VI, VIE, setOf(Alphabet.LATIN), "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH      (CY, CYM, setOf(Alphabet.LATIN), ""),
 
+    /**
+     * The imaginary unknown language.
+     *
+     * This value is returned if no language can be detected reliably.
+     */
     UNKNOWN    (IsoCode639_1.UNKNOWN, IsoCode639_3.UNKNOWN, setOf(NONE), "");
 
     companion object {
+        /**
+         * Returns a list of all supported languages.
+         */
         @JvmStatic
         fun all() = filterOutLanguages(UNKNOWN, BOKMAL, NYNORSK)
 
+        /**
+         * Returns a list of all supported languages that are still spoken today.
+         */
         @JvmStatic
         fun allSpokenOnes() = filterOutLanguages(UNKNOWN, BOKMAL, LATIN, NYNORSK)
 
+        /**
+         * Returns the language for the given ISO 639-1 code.
+         */
         @JvmStatic
         fun getByIsoCode639_1(isoCode: IsoCode639_1) = values().find { it.isoCode639_1 == isoCode }!!
 
+        /**
+         * Returns the language for the given ISO 639-3 code.
+         */
         @JvmStatic
         fun getByIsoCode639_3(isoCode: IsoCode639_3) = values().find { it.isoCode639_3 == isoCode }!!
 

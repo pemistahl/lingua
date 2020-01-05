@@ -66,6 +66,9 @@ import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import kotlin.math.ceil
 import kotlin.math.ln
 
+/**
+ * Detects the language of given input text.
+ */
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
@@ -80,8 +83,12 @@ class LanguageDetector internal constructor(
     internal val quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
     internal val fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
 
-    fun detectLanguagesOf(texts: Iterable<String>): List<Language> = texts.map { detectLanguageOf(it) }
-
+    /**
+     * Detects the language of given input text.
+     *
+     * @param text The input text to detect the language for.
+     * @return The identified language or [Language.UNKNOWN].
+     */
     fun detectLanguageOf(text: String): Language {
         val trimmedText = text
             .trim()

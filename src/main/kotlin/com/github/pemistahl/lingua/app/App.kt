@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua
+package com.github.pemistahl.lingua.app
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
