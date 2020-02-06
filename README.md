@@ -193,7 +193,7 @@ com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
 
 ##### GERMAN #####
 
->>> Accuracy on average: 89,47%
+>>> Accuracy on average: 89,43%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 74,30%
@@ -204,8 +204,8 @@ Accuracy: 94,40%
 Erroneously classified as DUTCH: 0,90%, LATIN: 0,80%, ENGLISH: 0,70%, SWEDISH: 0,60%, DANISH: 0,60%, FRENCH: 0,40%, NORWEGIAN: 0,30%, TURKISH: 0,20%, TAGALOG: 0,20%, WELSH: 0,20%, IRISH: 0,20%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, ICELANDIC: 0,10%, AFRIKAANS: 0,10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
-Accuracy: 99,70%
-Erroneously classified as DUTCH: 0,20%, LATIN: 0,10%
+Accuracy: 99,60%
+Erroneously classified as DUTCH: 0,20%, LATIN: 0,10%, ALBANIAN: 0,10%
 ```
 
 The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. If you have a global Python 3 installation and the `python3` command available on your command line, you can redraw the plots after modifying the test reports by executing the following Gradle task:
@@ -224,10 +224,10 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:0.6.0'
+implementation 'com.github.pemistahl:lingua:0.6.1'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:0.6.0")
+implementation("com.github.pemistahl:lingua:0.6.1")
 ```
 
 ### 7.2 <a name="library-dependency-maven"></a> Using Maven
@@ -236,7 +236,7 @@ implementation("com.github.pemistahl:lingua:0.6.0")
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
 </dependency>
 ```
 
@@ -250,9 +250,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-0.6.0.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-0.6.0-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-0.6.0-with-dependencies.jar` containing the compiled sources and all external dependencies needed at runtime. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
+1. `./gradlew jar` assembles `lingua-0.6.1.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-0.6.1-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-0.6.1-with-dependencies.jar` containing the compiled sources and all external dependencies needed at runtime. This jar file can be included in projects without dependency management systems. You should be able to use it in your Android project as well by putting it in your project's `lib` folder. This jar file can also be used to run *Lingua* in standalone mode (see below).
 
 ## 9. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
 *Lingua* can be used programmatically in your own code or in standalone mode.
@@ -263,12 +263,8 @@ The API is pretty straightforward and can be used in both Kotlin and Java code.
 ```kotlin
 /* Kotlin */
 
-import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
-import com.github.pemistahl.lingua.api.LanguageDetector
-import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.api.*
 import com.github.pemistahl.lingua.api.Language.*
-import com.github.pemistahl.lingua.api.IsoCode639_1
-import com.github.pemistahl.lingua.api.IsoCode639_3
 
 val detector: LanguageDetector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build()
 val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are awesome")
@@ -291,9 +287,10 @@ The public API of *Lingua* never returns `null` somewhere, so it is safe to be u
 ```java
 /* Java */
 
-import java.util.List;
-import static com.github.pemistahl.lingua.api.Language.*;
 import com.github.pemistahl.lingua.api.*;
+import java.util.List;
+
+import static com.github.pemistahl.lingua.api.Language.*;
 
 final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build();
 final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
@@ -326,7 +323,7 @@ LanguageDetectorBuilder.fromIsoCodes639_3(IsoCode639_3.ENG, IsoCode639_3.DEU)
 ### 9.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-0.6.0-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-0.6.1-with-dependencies.jar`
 
 Then just play around:
 
@@ -378,8 +375,8 @@ In case you want to contribute something to *Lingua*, then I encourage you to do
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-66-yellow.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.6.0-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.6.0%2Flingua-0.6.0-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-0.6.1-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F0.6.1%2Flingua-0.6.1-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -388,9 +385,9 @@ In case you want to contribute something to *Lingua*, then I encourage you to do
 [Apache Tika]: https://tika.apache.org/1.23/detection.html#Language_Detection
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.6.0
-[Jcenter badge]: https://img.shields.io/badge/JCenter-0.6.0-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.6.0/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.6.0-green.svg
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/0.6.1
+[Jcenter badge]: https://img.shields.io/badge/JCenter-0.6.1-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/0.6.1/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-0.6.1-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md

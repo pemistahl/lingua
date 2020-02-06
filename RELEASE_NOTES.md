@@ -1,3 +1,11 @@
+## Lingua 0.6.1 (released on 06 Feb 2020)
+
+### Bug Fixes
+
+- The rule-based engine did not take language subset filtering from public api into account (#23).
+- It was possible to pass through `Language.UNKNOWN` within the public api (#24).
+- Fixed a bug in the rule-based engine's alphabet detection algorithm which could be misled by single characters (#25). 
+
 ## Lingua 0.6.0 (released on 05 Jan 2020)
 
 ### Languages
