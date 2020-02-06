@@ -229,10 +229,13 @@ class LanguageDetector internal constructor(
             .filter { it.value >= minimalRequiredCharCount }
             .count() > 0
 
-        return if (languagesWithMinimumRequiredCharCountExist)
-            languageCharCounts.toList().maxBy { it.second }!!.first
-        else
+        return if (languagesWithMinimumRequiredCharCountExist) {
+            val language = languageCharCounts.toList().maxBy { it.second }!!.first
+            if (language in languages) language else UNKNOWN
+        }
+        else {
             UNKNOWN
+        }
     }
 
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
