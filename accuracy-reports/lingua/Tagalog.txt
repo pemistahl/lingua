@@ -1,6 +1,6 @@
 ##### TAGALOG #####
 
->>> Accuracy on average: 81,10%
+>>> Accuracy on average: 80,73%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 58,50%
@@ -11,7 +11,7 @@ Accuracy: 86,20%
 Erroneously classified as ENGLISH: 3,30%, LATIN: 2,40%, MALAY: 1,00%, ESPERANTO: 0,80%, SPANISH: 0,70%, INDONESIAN: 0,70%, GERMAN: 0,50%, TURKISH: 0,50%, ITALIAN: 0,40%, BASQUE: 0,40%, FRENCH: 0,40%, AFRIKAANS: 0,30%, HUNGARIAN: 0,30%, WELSH: 0,30%, ALBANIAN: 0,30%, PORTUGUESE: 0,20%, CATALAN: 0,20%, ROMANIAN: 0,20%, VIETNAMESE: 0,10%, ICELANDIC: 0,10%, SOMALI: 0,10%, FINNISH: 0,10%, DANISH: 0,10%, AZERBAIJANI: 0,10%, LITHUANIAN: 0,10%, LATVIAN: 0,10%, NORWEGIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 123 chars)
-Accuracy: 98,60%
-Erroneously classified as LATIN: 0,50%, ENGLISH: 0,40%, ESPERANTO: 0,30%, GERMAN: 0,10%, FRENCH: 0,10%
+Accuracy: 97,50%
+Erroneously classified as CHINESE: 0,40%, ENGLISH: 0,40%, LATIN: 0,40%, LATVIAN: 0,30%, ESPERANTO: 0,30%, GREEK: 0,20%, POLISH: 0,20%, HEBREW: 0,10%, GERMAN: 0,10%, FRENCH: 0,10%
 
->> Exact values: 81.1 58.5 86.2 98.6
+>> Exact values: 80.73333333333333 58.5 86.2 97.5

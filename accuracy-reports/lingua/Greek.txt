@@ -1,6 +1,6 @@
 ##### GREEK #####
 
->>> Accuracy on average: 99,90%
+>>> Accuracy on average: 100,00%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 100,00%
@@ -11,7 +11,7 @@ Accuracy: 100,00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 122 chars)
-Accuracy: 99,70%
-Erroneously classified as ENGLISH: 0,20%, NORWEGIAN: 0,10%
+Accuracy: 100,00%
+Erroneously classified as 
 
->> Exact values: 99.89999999999999 100.0 100.0 99.7
+>> Exact values: 100.0 100.0 100.0 100.0

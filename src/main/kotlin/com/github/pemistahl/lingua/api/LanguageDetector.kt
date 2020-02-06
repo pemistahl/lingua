@@ -197,33 +197,34 @@ class LanguageDetector internal constructor(
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
-        val minimalRequiredCharCount = ceil(words.joinToString(separator = "").length / 2.0)
+        val characters = words.flatMap { word -> word.map { it.toString() } }
+        val minimalRequiredCharCount = ceil(characters.size / 1.5)
         val languageCharCounts = mutableMapOf<Language, Int>()
 
-        for (word in words) {
+        for (character in characters) {
             var isMatch = false
             for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
-                if (alphabet.matches(word)) {
-                    languageCharCounts.addCharCount(word, language)
+                if (alphabet.matches(character)) {
+                    languageCharCounts.addCharCount(language)
                     isMatch = true
                 }
             }
             if (!isMatch) {
                 when {
-                    Alphabet.HAN.matches(word) -> languageCharCounts.addCharCount(word, CHINESE)
-                    JAPANESE_CHARACTER_SET.matches(word) -> languageCharCounts.addCharCount(word, JAPANESE)
-                    Alphabet.LATIN.matches(word) ||
-                        Alphabet.CYRILLIC.matches(word) ||
-                        Alphabet.DEVANAGARI.matches(word) -> languagesWithUniqueCharacters.filter {
-                            word.containsAnyOf(it.uniqueCharacters)
+                    Alphabet.HAN.matches(character) -> languageCharCounts.addCharCount(CHINESE)
+                    JAPANESE_CHARACTER_SET.matches(character) -> languageCharCounts.addCharCount(JAPANESE)
+                    Alphabet.LATIN.matches(character) ||
+                        Alphabet.CYRILLIC.matches(character) ||
+                        Alphabet.DEVANAGARI.matches(character) -> languagesWithUniqueCharacters.filter {
+                            it.uniqueCharacters.contains(character)
                     }.forEach {
-                        languageCharCounts.addCharCount(word, it)
+                        languageCharCounts.addCharCount(it)
                     }
                 }
             }
         }
 
-        val languagesWithMinimumRequiredCharCountExist = languageCharCounts
+        val languagesWithMinimumRequiredCharCountExist = languageCharCounts.size == 1 || languageCharCounts
             .asSequence()
             .filter { it.value >= minimalRequiredCharCount }
             .count() > 0
@@ -355,8 +356,8 @@ class LanguageDetector internal constructor(
         return languageModels
     }
 
-    private fun MutableMap<Language, Int>.addCharCount(word: String, language: Language) {
-        this.merge(language, word.length, Int::plus)
+    private fun MutableMap<Language, Int>.addCharCount(language: Language) {
+        this.merge(language, 1, Int::plus)
     }
 
     override fun equals(other: Any?) = when {

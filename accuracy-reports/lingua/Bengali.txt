@@ -1,6 +1,6 @@
 ##### BENGALI #####
 
->>> Accuracy on average: 99,97%
+>>> Accuracy on average: 100,00%
 
 >> Detection of 1000 single words (average length: 7 chars)
 Accuracy: 100,00%
@@ -11,7 +11,7 @@ Accuracy: 100,00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 87 chars)
-Accuracy: 99,90%
-Erroneously classified as GERMAN: 0,10%
+Accuracy: 100,00%
+Erroneously classified as 
 
->> Exact values: 99.96666666666665 100.0 100.0 99.9
+>> Exact values: 100.0 100.0 100.0 100.0

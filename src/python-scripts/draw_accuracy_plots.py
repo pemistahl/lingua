@@ -38,7 +38,7 @@ class AccuracyPlotDrawer(object):
     __plot_titles = ('Single Word Detection', 'Word Pair Detection', 'Sentence Detection', 'Average Detection')
     __column_prefixes = ('single-words', 'word-pairs', 'sentences', 'average')
     __column_suffixes = ('optimaize', 'opennlp', 'tika', 'lingua')
-    __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.1', 'Tika 1.23', 'Lingua 0.6.0')
+    __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.1', 'Tika 1.23', 'Lingua 0.6.1')
     __hatches = ('/', '+', '.', 'O')
     __palette = ('#b259ff', '#ff6347', '#ffc400', '#41c46b')
     __ticks = np.arange(0, 101, 10)

@@ -7,11 +7,11 @@ Accuracy: 77,90%
 Erroneously classified as TURKISH: 8,70%, BASQUE: 1,00%, LATIN: 1,00%, TAGALOG: 0,90%, ESPERANTO: 0,90%, ALBANIAN: 0,80%, SOMALI: 0,80%, ENGLISH: 0,70%, LITHUANIAN: 0,70%, DANISH: 0,60%, ESTONIAN: 0,50%, MALAY: 0,50%, SWEDISH: 0,40%, INDONESIAN: 0,40%, BOSNIAN: 0,40%, PORTUGUESE: 0,30%, ITALIAN: 0,30%, SLOVENE: 0,30%, ROMANIAN: 0,30%, CROATIAN: 0,30%, SPANISH: 0,30%, FINNISH: 0,30%, WELSH: 0,30%, LATVIAN: 0,30%, NORWEGIAN: 0,20%, DUTCH: 0,20%, FRENCH: 0,10%, IRISH: 0,10%, GERMAN: 0,10%, POLISH: 0,10%, HUNGARIAN: 0,10%, ICELANDIC: 0,10%, AFRIKAANS: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 93,90%
-Erroneously classified as TURKISH: 4,30%, LATIN: 0,40%, ITALIAN: 0,30%, ALBANIAN: 0,20%, ESPERANTO: 0,20%, BASQUE: 0,20%, POLISH: 0,10%, GERMAN: 0,10%, DANISH: 0,10%, INDONESIAN: 0,10%, SOMALI: 0,10%
+Accuracy: 94,10%
+Erroneously classified as TURKISH: 4,20%, LATIN: 0,40%, ITALIAN: 0,30%, ALBANIAN: 0,20%, ESPERANTO: 0,20%, BASQUE: 0,20%, GERMAN: 0,10%, DANISH: 0,10%, INDONESIAN: 0,10%, SOMALI: 0,10%
 
 >> Detection of 1000 sentences (average length: 107 chars)
-Accuracy: 99,60%
-Erroneously classified as TURKISH: 0,30%, TAGALOG: 0,10%
+Accuracy: 99,40%
+Erroneously classified as KAZAKH: 0,40%, TURKISH: 0,20%
 
->> Exact values: 90.46666666666665 77.9 93.89999999999999 99.6
+>> Exact values: 90.46666666666665 77.9 94.1 99.4

@@ -1,6 +1,6 @@
 ##### ALBANIAN #####
 
->>> Accuracy on average: 88,53%
+>>> Accuracy on average: 88,50%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 70,40%
@@ -8,10 +8,10 @@ Erroneously classified as LATIN: 3,30%, ESPERANTO: 2,10%, BASQUE: 1,70%, ITALIAN
 
 >> Detection of 1000 word pairs (average length: 15 chars)
 Accuracy: 95,30%
-Erroneously classified as LATIN: 0,70%, ENGLISH: 0,60%, ITALIAN: 0,60%, ESPERANTO: 0,50%, FRENCH: 0,30%, BASQUE: 0,30%, INDONESIAN: 0,20%, NORWEGIAN: 0,20%, WELSH: 0,20%, CATALAN: 0,20%, ESTONIAN: 0,10%, GERMAN: 0,10%, SWEDISH: 0,10%, MALAY: 0,10%, CROATIAN: 0,10%, SLOVENE: 0,10%, ROMANIAN: 0,10%, SLOVAK: 0,10%, LITHUANIAN: 0,10%
+Erroneously classified as ENGLISH: 0,60%, ITALIAN: 0,60%, LATIN: 0,60%, ESPERANTO: 0,50%, FRENCH: 0,30%, BASQUE: 0,30%, INDONESIAN: 0,20%, NORWEGIAN: 0,20%, WELSH: 0,20%, LITHUANIAN: 0,20%, CATALAN: 0,20%, ESTONIAN: 0,10%, GERMAN: 0,10%, SWEDISH: 0,10%, MALAY: 0,10%, CROATIAN: 0,10%, SLOVENE: 0,10%, ROMANIAN: 0,10%, SLOVAK: 0,10%
 
 >> Detection of 1000 sentences (average length: 118 chars)
-Accuracy: 99,90%
-Erroneously classified as CATALAN: 0,10%
+Accuracy: 99,80%
+Erroneously classified as LITHUANIAN: 0,10%, GREEK: 0,10%
 
->> Exact values: 88.53333333333335 70.39999999999999 95.3 99.9
+>> Exact values: 88.5 70.39999999999999 95.3 99.8

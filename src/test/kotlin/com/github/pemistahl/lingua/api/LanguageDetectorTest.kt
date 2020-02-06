@@ -41,6 +41,7 @@ import com.github.pemistahl.lingua.api.Language.ICELANDIC
 import com.github.pemistahl.lingua.api.Language.INDONESIAN
 import com.github.pemistahl.lingua.api.Language.IRISH
 import com.github.pemistahl.lingua.api.Language.ITALIAN
+import com.github.pemistahl.lingua.api.Language.JAPANESE
 import com.github.pemistahl.lingua.api.Language.KAZAKH
 import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
@@ -462,6 +463,7 @@ class LanguageDetectorTest {
         arguments("σχέδια", GREEK),
         arguments("fekvő", HUNGARIAN),
         arguments("meggyűrűzni", HUNGARIAN),
+        arguments("ヴェダイkqヤモンド", JAPANESE),
         arguments("әлем", KAZAKH),
         arguments("шаруашылығы", KAZAKH),
         arguments("ақын", KAZAKH),

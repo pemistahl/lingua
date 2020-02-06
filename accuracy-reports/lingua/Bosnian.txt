@@ -1,6 +1,6 @@
 ##### BOSNIAN #####
 
->>> Accuracy on average: 35,63%
+>>> Accuracy on average: 35,60%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 30,20%
@@ -11,7 +11,7 @@ Accuracy: 35,10%
 Erroneously classified as CROATIAN: 54,10%, SLOVENE: 4,90%, ESPERANTO: 0,90%, ENGLISH: 0,80%, ALBANIAN: 0,50%, LATIN: 0,40%, NORWEGIAN: 0,30%, CZECH: 0,30%, GERMAN: 0,30%, LITHUANIAN: 0,20%, ITALIAN: 0,20%, INDONESIAN: 0,20%, SWEDISH: 0,20%, BASQUE: 0,20%, MALAY: 0,20%, AFRIKAANS: 0,20%, TAGALOG: 0,20%, POLISH: 0,20%, DANISH: 0,10%, SLOVAK: 0,10%, TURKISH: 0,10%, ESTONIAN: 0,10%, ROMANIAN: 0,10%, CATALAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 105 chars)
-Accuracy: 41,60%
-Erroneously classified as CROATIAN: 57,10%, SLOVENE: 0,40%, WELSH: 0,20%, LATIN: 0,10%, CZECH: 0,10%, ESPERANTO: 0,10%, FRENCH: 0,10%, MALAY: 0,10%, TAGALOG: 0,10%, SLOVAK: 0,10%
+Accuracy: 41,50%
+Erroneously classified as CROATIAN: 57,10%, SLOVENE: 0,40%, WELSH: 0,20%, LATIN: 0,10%, CZECH: 0,10%, ESPERANTO: 0,10%, FRENCH: 0,10%, MALAY: 0,10%, LATVIAN: 0,10%, HUNGARIAN: 0,10%, SLOVAK: 0,10%
 
->> Exact values: 35.63333333333333 30.2 35.099999999999994 41.6
+>> Exact values: 35.6 30.2 35.099999999999994 41.5

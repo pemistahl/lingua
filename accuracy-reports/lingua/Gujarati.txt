@@ -1,6 +1,6 @@
 ##### GUJARATI #####
 
->>> Accuracy on average: 99,93%
+>>> Accuracy on average: 99,97%
 
 >> Detection of 1000 single words (average length: 7 chars)
 Accuracy: 99,90%
@@ -11,7 +11,7 @@ Accuracy: 100,00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 96 chars)
-Accuracy: 99,90%
-Erroneously classified as GERMAN: 0,10%
+Accuracy: 100,00%
+Erroneously classified as 
 
->> Exact values: 99.93333333333334 99.9 100.0 99.9
+>> Exact values: 99.96666666666665 99.9 100.0 100.0

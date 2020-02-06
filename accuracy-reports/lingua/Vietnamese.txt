@@ -1,17 +1,17 @@
 ##### VIETNAMESE #####
 
->>> Accuracy on average: 92,07%
+>>> Accuracy on average: 92,93%
 
 >> Detection of 879 single words (average length: 4 chars)
 Accuracy: 80,77%
 Erroneously classified as IRISH: 2,62%, TAGALOG: 1,82%, LATIN: 1,14%, ENGLISH: 0,91%, ROMANIAN: 0,91%, ICELANDIC: 0,91%, ITALIAN: 0,80%, PORTUGUESE: 0,80%, LITHUANIAN: 0,80%, GERMAN: 0,80%, MALAY: 0,68%, ESTONIAN: 0,68%, FRENCH: 0,57%, CATALAN: 0,57%, DUTCH: 0,57%, WELSH: 0,46%, BASQUE: 0,46%, SOMALI: 0,46%, HUNGARIAN: 0,46%, SWEDISH: 0,34%, ESPERANTO: 0,34%, CROATIAN: 0,34%, TURKISH: 0,23%, BOSNIAN: 0,23%, AFRIKAANS: 0,23%, CZECH: 0,23%, SLOVENE: 0,23%, POLISH: 0,23%, INDONESIAN: 0,11%, SPANISH: 0,11%, FINNISH: 0,11%, ALBANIAN: 0,11%
 
 >> Detection of 957 word pairs (average length: 12 chars)
-Accuracy: 96,03%
-Erroneously classified as TAGALOG: 1,15%, ENGLISH: 0,52%, IRISH: 0,31%, DUTCH: 0,31%, DANISH: 0,21%, GERMAN: 0,21%, FRENCH: 0,21%, INDONESIAN: 0,21%, ITALIAN: 0,21%, CATALAN: 0,10%, SOMALI: 0,10%, AFRIKAANS: 0,10%, PORTUGUESE: 0,10%, ESTONIAN: 0,10%, SWEDISH: 0,10%
+Accuracy: 98,01%
+Erroneously classified as ENGLISH: 0,42%, TAGALOG: 0,31%, DUTCH: 0,31%, IRISH: 0,21%, GERMAN: 0,10%, FRENCH: 0,10%, CATALAN: 0,10%, SOMALI: 0,10%, ITALIAN: 0,10%, PORTUGUESE: 0,10%, INDONESIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 120 chars)
-Accuracy: 99,40%
-Erroneously classified as IRISH: 0,10%, AFRIKAANS: 0,10%, ICELANDIC: 0,10%, GERMAN: 0,10%, PORTUGUESE: 0,10%, ENGLISH: 0,10%
+Accuracy: 100,00%
+Erroneously classified as 
 
->> Exact values: 92.06762148969987 80.773606370876 96.02925809822361 99.4
+>> Exact values: 92.9294118066626 80.773606370876 98.01462904911182 100.0
