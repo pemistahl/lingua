@@ -63,6 +63,7 @@ import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
+import java.util.zip.GZIPInputStream
 import kotlin.math.ceil
 import kotlin.math.ln
 
@@ -346,8 +347,8 @@ class LanguageDetector internal constructor(
     ): TrainingDataLanguageModel {
         val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
         val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val inputStream = LanguageDetector::class.java.getResourceAsStream(filePath)
-        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+        val gzipStream = GZIPInputStream(LanguageDetector::class.java.getResourceAsStream(filePath))
+        val jsonContent = gzipStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
         return TrainingDataLanguageModel.fromJson(jsonContent)
     }
 
