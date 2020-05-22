@@ -51,8 +51,8 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.3.61"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61"
+    kotlin("jvm") version "1.3.72"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.72"
     id("com.adarshr.test-logger") version "2.0.0"
     id("org.jetbrains.dokka") version "0.10.0"
     id("ru.vyarus.use-python") version "1.2.0"
@@ -285,7 +285,7 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
     testImplementation("org.assertj:assertj-core:3.14.0")
