@@ -63,6 +63,7 @@ import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
+import java.util.regex.PatternSyntaxException
 import kotlin.math.ceil
 import kotlin.math.ln
 
@@ -378,7 +379,11 @@ class LanguageDetector internal constructor(
         private val PUNCTUATION = Regex("\\p{P}")
         private val NUMBERS = Regex("\\p{N}")
         private val MULTIPLE_WHITESPACE = Regex("\\s+")
-        private val JAPANESE_CHARACTER_SET = Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
+        private val JAPANESE_CHARACTER_SET = try {
+            Regex("^[\\p{Hiragana}\\p{Katakana}\\p{Han}]+$")
+        } catch (e: PatternSyntaxException) {
+            Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
+        }
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
             "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
