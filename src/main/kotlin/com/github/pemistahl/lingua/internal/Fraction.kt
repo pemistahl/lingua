@@ -19,11 +19,10 @@ package com.github.pemistahl.lingua.internal
 import kotlinx.serialization.Decoder
 import kotlinx.serialization.Encoder
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialDescriptor
+import kotlinx.serialization.PrimitiveDescriptor
+import kotlinx.serialization.PrimitiveKind
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
-import kotlinx.serialization.internal.StringDescriptor
-import kotlinx.serialization.withName
 
 @Serializable
 internal data class Fraction(
@@ -180,10 +179,10 @@ internal data class Fraction(
 
     @Serializer(forClass = Fraction::class)
     companion object : KSerializer<Fraction> {
-        override val descriptor: SerialDescriptor = StringDescriptor.withName("Fraction")
+        override val descriptor = PrimitiveDescriptor("Fraction", PrimitiveKind.STRING)
 
-        override fun serialize(encoder: Encoder, obj: Fraction) {
-            encoder.encodeString(obj.toString())
+        override fun serialize(encoder: Encoder, value: Fraction) {
+            encoder.encodeString(value.toString())
         }
 
         override fun deserialize(decoder: Decoder): Fraction {

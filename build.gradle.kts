@@ -51,17 +51,17 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.3.61"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.61"
+    kotlin("jvm") version "1.3.72"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.3.72"
     id("com.adarshr.test-logger") version "2.0.0"
-    id("org.jetbrains.dokka") version "0.10.0"
-    id("ru.vyarus.use-python") version "1.2.0"
-    id("com.jfrog.bintray") version "1.8.4"
+    id("org.jetbrains.dokka") version "0.10.1"
+    id("ru.vyarus.use-python") version "2.2.0"
+    id("com.jfrog.bintray") version "1.8.5"
     `maven-publish`
     jacoco
 }
 
-jacoco.toolVersion = "0.8.4"
+jacoco.toolVersion = "0.8.5"
 
 sourceSets {
     main {
@@ -285,15 +285,15 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
-    testImplementation("org.assertj:assertj-core:3.14.0")
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
+    testImplementation("org.assertj:assertj-core:3.16.1")
+    testImplementation("io.mockk:mockk:1.10.0")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    testImplementation("org.apache.opennlp:opennlp-tools:1.9.1")
-    testImplementation("org.apache.tika:tika-langdetect:1.23")
+    testImplementation("org.apache.opennlp:opennlp-tools:1.9.2")
+    testImplementation("org.apache.tika:tika-langdetect:1.24.1")
 
     val slf4jVersion = "1.7.25"
 
@@ -302,10 +302,10 @@ dependencies {
 }
 
 python {
-    pip("matplotlib:3.1.1")
-    pip("seaborn:0.9.0")
-    pip("pandas:0.25.3")
-    pip("numpy:1.17.0")
+    pip("matplotlib:3.2.1")
+    pip("seaborn:0.10.1")
+    pip("pandas:1.0.3")
+    pip("numpy:1.18.0")
 }
 
 bintray {

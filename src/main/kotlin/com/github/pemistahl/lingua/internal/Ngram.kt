@@ -19,11 +19,10 @@ package com.github.pemistahl.lingua.internal
 import kotlinx.serialization.Decoder
 import kotlinx.serialization.Encoder
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialDescriptor
+import kotlinx.serialization.PrimitiveDescriptor
+import kotlinx.serialization.PrimitiveKind
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
-import kotlinx.serialization.internal.StringDescriptor
-import kotlinx.serialization.withName
 
 @Serializable
 internal data class Ngram(val value: String) : Comparable<Ngram> {
@@ -53,10 +52,10 @@ internal data class Ngram(val value: String) : Comparable<Ngram> {
 
     @Serializer(forClass = Ngram::class)
     companion object : KSerializer<Ngram> {
-        override val descriptor: SerialDescriptor = StringDescriptor.withName("Ngram")
+        override val descriptor = PrimitiveDescriptor("Ngram", PrimitiveKind.STRING)
 
-        override fun serialize(encoder: Encoder, obj: Ngram) {
-            encoder.encodeString(obj.toString())
+        override fun serialize(encoder: Encoder, value: Ngram) {
+            encoder.encodeString(value.toString())
         }
 
         override fun deserialize(decoder: Decoder): Ngram {
@@ -84,7 +83,7 @@ internal data class NgramRange(
         }
     }
 
-    override fun contains(value: Ngram): Boolean = value <= start && value >= endInclusive
+    override fun contains(value: Ngram): Boolean = value in endInclusive..start
 
     override fun iterator(): Iterator<Ngram> = NgramIterator(start)
 }
