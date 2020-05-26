@@ -252,6 +252,7 @@ class LanguageDetectorTest {
         )
     }
 
+    /*
     @ParameterizedTest
     @MethodSource("probabilitiesListProvider")
     fun `assert that most likely language can be computed correctly`(
@@ -268,6 +269,7 @@ class LanguageDetectorTest {
             expectedLanguage
         )
     }
+    */
 
     @Test
     fun `assert that ngram probabilities are correctly added to probabilities list`() {

@@ -63,6 +63,8 @@ import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
+import java.util.SortedMap
+import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
 import kotlin.math.ceil
 import kotlin.math.ln
@@ -91,38 +93,82 @@ class LanguageDetector internal constructor(
      * @return The identified language or [Language.UNKNOWN].
      */
     fun detectLanguageOf(text: String): Language {
-        val trimmedText = text
-            .trim()
-            .toLowerCase()
-            .replace(PUNCTUATION, "")
-            .replace(NUMBERS, "")
-            .replace(MULTIPLE_WHITESPACE, " ")
+        val confidenceValues = computeLanguageConfidenceValues(text)
 
-        if (trimmedText.isEmpty() || NO_LETTER.matches(trimmedText)) return UNKNOWN
+        if (confidenceValues.isEmpty()) return UNKNOWN
+        if (confidenceValues.size == 1) return confidenceValues.firstKey()
 
-        val words = if (trimmedText.contains(' ')) trimmedText.split(" ") else listOf(trimmedText)
+        val mostLikelyLanguage = confidenceValues.firstKey()
+        val mostLikelyLanguageProbability = confidenceValues.getValue(mostLikelyLanguage)
 
+        val secondMostLikelyLanguage = confidenceValues.filterNot {
+            it.key == mostLikelyLanguage
+        }.maxBy { it.value }!!.key
+        val secondMostLikelyLanguageProbability = confidenceValues.getValue(secondMostLikelyLanguage)
+
+        if (mostLikelyLanguageProbability == secondMostLikelyLanguageProbability) return UNKNOWN
+        if ((mostLikelyLanguageProbability - secondMostLikelyLanguageProbability) >= minimumRelativeDistance) {
+            return mostLikelyLanguage
+        }
+
+        return UNKNOWN
+    }
+
+    fun computeLanguageConfidenceValues(text: String): SortedMap<Language, Double> {
+        val values = TreeMap<Language, Double>()
+        val cleanedUpText = cleanUpInputText(text)
+
+        if (cleanedUpText.isEmpty() || NO_LETTER.matches(cleanedUpText)) return values
+
+        val words = splitTextIntoWords(cleanedUpText)
         val languageDetectedByRules = detectLanguageWithRules(words)
-        if (languageDetectedByRules != UNKNOWN) return languageDetectedByRules
 
-        var languagesSequence = filterLanguagesByRules(words)
+        if (languageDetectedByRules != UNKNOWN) {
+            values[languageDetectedByRules] = 1.0
+            return values
+        }
 
-        val textSequence = trimmedText.lineSequence()
+        val textSequence = cleanedUpText.lineSequence()
         val allProbabilities = mutableListOf<Map<Language, Double>>()
         val unigramCountsOfInputText = mutableMapOf<Language, Int>()
+        var languagesSequence = languages.asSequence()
 
         for (i in 1..5) {
-            if (trimmedText.length < i) continue
+            if (cleanedUpText.length < i) continue
+
             val testDataModel = TestDataLanguageModel.fromText(textSequence, ngramLength = i)
+
             addNgramProbabilities(allProbabilities, languagesSequence, testDataModel)
+
             val languageKeys = allProbabilities.last().keys
+
             if (languageKeys.isNotEmpty()) {
                 languagesSequence = languagesSequence.filter { it in languageKeys }
             }
+
             if (i == 1) countUnigramsOfInputText(unigramCountsOfInputText, testDataModel, languagesSequence)
         }
 
-        return getMostLikelyLanguage(allProbabilities, unigramCountsOfInputText, languagesSequence)
+        val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCountsOfInputText, languagesSequence)
+        val highestProbability = summedUpProbabilities.maxBy { it.value }!!.value
+        val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
+
+        return confidenceValues.toSortedMap(compareByDescending { confidenceValues[it] })
+    }
+
+    internal fun cleanUpInputText(text: String): String {
+        return text.trim().toLowerCase()
+            .replace(PUNCTUATION, "")
+            .replace(NUMBERS, "")
+            .replace(MULTIPLE_WHITESPACE, " ")
+    }
+
+    internal fun splitTextIntoWords(text: String): List<String> {
+        return if (text.contains(' ')) {
+            text.split(' ')
+        } else {
+            listOf(text)
+        }
     }
 
     internal fun addLanguageModel(language: Language) {
@@ -166,11 +212,11 @@ class LanguageDetector internal constructor(
         probabilities.add(ngramProbabilities)
     }
 
-    internal fun getMostLikelyLanguage(
+    internal fun sumUpProbabilities(
         probabilities: List<Map<Language, Double>>,
         unigramCountsOfInputText: Map<Language, Int>,
         languagesSequence: Sequence<Language>
-    ): Language {
+    ): Map<Language, Double> {
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in languagesSequence) {
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
@@ -179,22 +225,7 @@ class LanguageDetector internal constructor(
                 summedUpProbabilities[language] = summedUpProbabilities.getValue(language) / unigramCountsOfInputText.getValue(language)
             }
         }
-
-        val filteredProbabilities = summedUpProbabilities.asSequence().filter { it.value != 0.0 }
-
-        return when {
-            filteredProbabilities.none() -> UNKNOWN
-            filteredProbabilities.singleOrNull() != null -> filteredProbabilities.first().key
-            else -> {
-                val mostLikelyLanguage = filteredProbabilities.maxBy { it.value }!!
-                val secondMostLikelyLanguage = filteredProbabilities.filterNot { it.key == mostLikelyLanguage.key }.maxBy { it.value }!!
-                when {
-                    mostLikelyLanguage.value == secondMostLikelyLanguage.value -> UNKNOWN
-                    1.0 - (mostLikelyLanguage.value / secondMostLikelyLanguage.value) >= minimumRelativeDistance -> mostLikelyLanguage.key
-                    else -> UNKNOWN
-                }
-            }
-        }
+        return summedUpProbabilities.filter { it.value != 0.0 }
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
