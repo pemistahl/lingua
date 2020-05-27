@@ -128,7 +128,6 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val textSequence = cleanedUpText.lineSequence()
         val allProbabilities = mutableListOf<Map<Language, Double>>()
         val unigramCountsOfInputText = mutableMapOf<Language, Int>()
         var languagesSequence = languages.asSequence()
@@ -136,7 +135,7 @@ class LanguageDetector internal constructor(
         for (i in 1..5) {
             if (cleanedUpText.length < i) continue
 
-            val testDataModel = TestDataLanguageModel.fromText(textSequence, ngramLength = i)
+            val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
 
             addNgramProbabilities(allProbabilities, languagesSequence, testDataModel)
 

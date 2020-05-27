@@ -21,19 +21,16 @@ internal data class TestDataLanguageModel(val ngrams: Set<Ngram>) {
     companion object {
         private val LETTER_REGEX = Regex("\\p{L}+")
 
-        fun fromText(text: Sequence<String>, ngramLength: Int): TestDataLanguageModel {
+        fun fromText(text: String, ngramLength: Int): TestDataLanguageModel {
             require(ngramLength in 1..5) {
                 "ngram length $ngramLength is not in range 1..5"
             }
             val ngrams = hashSetOf<Ngram>()
-            for (line in text) {
-                val lowerCasedLine = line.toLowerCase()
-                for (i in 0..lowerCasedLine.length - ngramLength) {
-                    val textSlice = lowerCasedLine.slice(i until i + ngramLength)
-                    if (LETTER_REGEX.matches(textSlice)) {
-                        val ngram = Ngram(textSlice)
-                        ngrams.add(ngram)
-                    }
+            for (i in 0..text.length - ngramLength) {
+                val textSlice = text.slice(i until i + ngramLength)
+                if (LETTER_REGEX.matches(textSlice)) {
+                    val ngram = Ngram(textSlice)
+                    ngrams.add(ngram)
                 }
             }
             return TestDataLanguageModel(ngrams)

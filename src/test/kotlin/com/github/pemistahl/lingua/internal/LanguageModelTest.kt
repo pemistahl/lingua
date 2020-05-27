@@ -27,7 +27,7 @@ class LanguageModelTest {
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.trimIndent()
+        """.toLowerCase().trimIndent()
 
     private val expectedUnigramAbsoluteFrequencies = mapOf(
         "a" to 3,  "b" to 1,  "c" to 3,  "d" to 5, "e" to 14,
@@ -249,7 +249,7 @@ class LanguageModelTest {
 
     @Test
     fun `assert that unigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text.lineSequence(), ngramLength = 1)
+        val model = TestDataLanguageModel.fromText(text, ngramLength = 1)
 
         assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
             setOf(
@@ -261,7 +261,7 @@ class LanguageModelTest {
 
     @Test
     fun `assert that bigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text.lineSequence(), ngramLength = 2)
+        val model = TestDataLanguageModel.fromText(text, ngramLength = 2)
 
         assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
             setOf(
@@ -277,7 +277,7 @@ class LanguageModelTest {
 
     @Test
     fun `assert that trigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text.lineSequence(), ngramLength = 3)
+        val model = TestDataLanguageModel.fromText(text, ngramLength = 3)
 
         assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
             setOf(
@@ -293,7 +293,7 @@ class LanguageModelTest {
 
     @Test
     fun `assert that quadrigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text.lineSequence(), ngramLength = 4)
+        val model = TestDataLanguageModel.fromText(text, ngramLength = 4)
 
         assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
             setOf(
@@ -308,7 +308,7 @@ class LanguageModelTest {
 
     @Test
     fun `assert that fivegram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text.lineSequence(), ngramLength = 5)
+        val model = TestDataLanguageModel.fromText(text, ngramLength = 5)
 
         assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
             setOf(
