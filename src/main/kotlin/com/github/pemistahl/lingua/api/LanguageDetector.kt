@@ -136,9 +136,7 @@ class LanguageDetector internal constructor(
             if (cleanedUpText.length < i) continue
 
             val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-
-            addNgramProbabilities(allProbabilities, languagesSequence, testDataModel)
-
+            allProbabilities.add(computeLanguageProbabilities(testDataModel, languagesSequence))
             val languageKeys = allProbabilities.last().keys
 
             if (languageKeys.isNotEmpty()) {
@@ -202,15 +200,6 @@ class LanguageDetector internal constructor(
         }
     }
 
-    internal fun addNgramProbabilities(
-        probabilities: MutableList<Map<Language, Double>>,
-        languagesSequence: Sequence<Language>,
-        testDataModel: TestDataLanguageModel
-    ) {
-        val ngramProbabilities = computeLanguageProbabilities(testDataModel, languagesSequence)
-        probabilities.add(ngramProbabilities)
-    }
-
     internal fun sumUpProbabilities(
         probabilities: List<Map<Language, Double>>,
         unigramCountsOfInputText: Map<Language, Int>,
@@ -228,45 +217,75 @@ class LanguageDetector internal constructor(
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
-        val characters = words.flatMap { word -> word.map { it.toString() } }
-        val minimalRequiredCharCount = ceil(characters.size / 1.5)
-        val languageCharCounts = mutableMapOf<Language, Int>()
+        val totalLanguageCounts = mutableMapOf<Language, Int>()
 
-        for (character in characters) {
-            var isMatch = false
-            for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
-                if (alphabet.matches(character)) {
-                    languageCharCounts.addCharCount(language)
-                    isMatch = true
+        for (word in words) {
+            val wordLanguageCounts = mutableMapOf<Language, Int>()
+
+            for (character in word.map { it.toString() }) {
+                var isMatch = false
+                for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
+                    if (alphabet.matches(character)) {
+                        wordLanguageCounts.addCharCount(language)
+                        isMatch = true
+                    }
+                }
+                if (!isMatch) {
+                    when {
+                        Alphabet.HAN.matches(character) -> wordLanguageCounts.addCharCount(CHINESE)
+                        JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.addCharCount(JAPANESE)
+                        Alphabet.LATIN.matches(character) ||
+                            Alphabet.CYRILLIC.matches(character) ||
+                            Alphabet.DEVANAGARI.matches(character) -> languagesWithUniqueCharacters.filter {
+                                it.uniqueCharacters.contains(character)
+                            }.forEach {
+                                wordLanguageCounts.addCharCount(it)
+                        }
+                    }
                 }
             }
-            if (!isMatch) {
-                when {
-                    Alphabet.HAN.matches(character) -> languageCharCounts.addCharCount(CHINESE)
-                    JAPANESE_CHARACTER_SET.matches(character) -> languageCharCounts.addCharCount(JAPANESE)
-                    Alphabet.LATIN.matches(character) ||
-                        Alphabet.CYRILLIC.matches(character) ||
-                        Alphabet.DEVANAGARI.matches(character) -> languagesWithUniqueCharacters.filter {
-                            it.uniqueCharacters.contains(character)
-                    }.forEach {
-                        languageCharCounts.addCharCount(it)
+
+            if (wordLanguageCounts.isEmpty()) {
+                totalLanguageCounts.addCharCount(UNKNOWN)
+            } else if (wordLanguageCounts.size == 1) {
+                val language = wordLanguageCounts.toList().first().first
+                if (language in languages) {
+                    totalLanguageCounts.addCharCount(language)
+                } else
+                    totalLanguageCounts.addCharCount(UNKNOWN)
+            } else {
+                for (language in wordLanguageCounts.keys) {
+                    if (language in languages) {
+                        totalLanguageCounts.addCharCount(language)
                     }
                 }
             }
         }
 
-        val languagesWithMinimumRequiredCharCountExist = languageCharCounts.size == 1 || languageCharCounts
-            .asSequence()
-            .filter { it.value >= minimalRequiredCharCount }
-            .count() > 0
+        val minimumRequiredUnknownLanguageCount = ceil(words.size / 1.5)
+        val unknownLanguageCount = totalLanguageCounts[UNKNOWN] ?: 0
+        val filteredLanguageCounts = if (unknownLanguageCount >= minimumRequiredUnknownLanguageCount) {
+            totalLanguageCounts
+        } else {
+            totalLanguageCounts.filterNot { it.key == UNKNOWN }
+        }
 
-        return if (languagesWithMinimumRequiredCharCountExist) {
-            val language = languageCharCounts.toList().maxBy { it.second }!!.first
-            if (language in languages) language else UNKNOWN
+        if (filteredLanguageCounts.isEmpty()) {
+            return UNKNOWN
         }
-        else {
-            UNKNOWN
+        if (filteredLanguageCounts.size == 1) {
+            return totalLanguageCounts.toList().first().first
         }
+
+        val sortedTotalLanguageCounts = filteredLanguageCounts.toList().sortedByDescending { it.second }
+        val (mostFrequentLanguage, firstCharCount) = sortedTotalLanguageCounts[0]
+        val (_, secondCharCount) = sortedTotalLanguageCounts[1]
+
+        if (firstCharCount == secondCharCount) {
+            return UNKNOWN
+        }
+
+        return mostFrequentLanguage
     }
 
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
