@@ -19,9 +19,11 @@ package com.github.pemistahl.lingua.api
 import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
 import com.github.pemistahl.lingua.api.Language.ARABIC
+import com.github.pemistahl.lingua.api.Language.ARMENIAN
 import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
+import com.github.pemistahl.lingua.api.Language.BENGALI
 import com.github.pemistahl.lingua.api.Language.BOSNIAN
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
@@ -34,8 +36,11 @@ import com.github.pemistahl.lingua.api.Language.ESPERANTO
 import com.github.pemistahl.lingua.api.Language.ESTONIAN
 import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
+import com.github.pemistahl.lingua.api.Language.GEORGIAN
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.GREEK
+import com.github.pemistahl.lingua.api.Language.GUJARATI
+import com.github.pemistahl.lingua.api.Language.HEBREW
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
 import com.github.pemistahl.lingua.api.Language.INDONESIAN
@@ -43,6 +48,7 @@ import com.github.pemistahl.lingua.api.Language.IRISH
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.JAPANESE
 import com.github.pemistahl.lingua.api.Language.KAZAKH
+import com.github.pemistahl.lingua.api.Language.KOREAN
 import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
@@ -54,6 +60,7 @@ import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.PERSIAN
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
+import com.github.pemistahl.lingua.api.Language.PUNJABI
 import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
 import com.github.pemistahl.lingua.api.Language.SERBIAN
@@ -63,6 +70,9 @@ import com.github.pemistahl.lingua.api.Language.SOMALI
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TAGALOG
+import com.github.pemistahl.lingua.api.Language.TAMIL
+import com.github.pemistahl.lingua.api.Language.TELUGU
+import com.github.pemistahl.lingua.api.Language.THAI
 import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
@@ -147,54 +157,42 @@ class LanguageDetectorTest {
         defineBehaviorOfTestDataLanguageModels()
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = ["", " \n  \t;", "3<856%)§"])
-    fun `assert that strings without letters return unknown language`(invalidString: String) {
+    // text preprocessing
+
+    @Test
+    fun `assert that text is cleaned up properly`() {
         assertThat(
-            detectorForAllLanguages.detectLanguageOf(invalidString)
+            detectorForAllLanguages.cleanUpInputText(
+                """
+                Weltweit    gibt es ungefähr 6.000 Sprachen,
+                wobei laut Schätzungen zufolge ungefähr 90  Prozent davon
+                am Ende dieses Jahrhunderts verdrängt sein werden.
+                """.trimIndent()
+            )
         ).isEqualTo(
-            UNKNOWN
+            listOf(
+                "weltweit gibt es ungefähr sprachen wobei laut schätzungen zufolge ungefähr",
+                "prozent davon am ende dieses jahrhunderts verdrängt sein werden"
+            ).joinToString(separator = " ")
         )
     }
 
     @Test
-    fun `assert that language of German noun 'Alter' can be detected correctly`() {
+    fun `assert that text is split into words correctly`() {
         assertThat(
-            detectorForEnglishAndGerman.detectLanguageOf("Alter")
+            detectorForAllLanguages.splitTextIntoWords("this is a sentence")
         ).isEqualTo(
-            GERMAN
+            listOf("this", "is", "a", "sentence")
+        )
+
+        assertThat(
+            detectorForAllLanguages.splitTextIntoWords("sentence")
+        ).isEqualTo(
+            listOf("sentence")
         )
     }
 
-    @ParameterizedTest
-    @MethodSource("identifiedLanguageProvider")
-    fun `assert that language can be unambiguously identified with rules`(
-        word: String,
-        expectedLanguage: Language
-    ) {
-        assertThat(
-            detectorForAllLanguages.detectLanguageWithRules(listOf(word))
-        ).`as`(
-            "word '$word'"
-        ).isEqualTo(
-            expectedLanguage
-        )
-    }
-
-    @ParameterizedTest
-    @MethodSource("filteredLanguagesProvider")
-    fun `assert that languages can be correctly filtered by rules`(
-        word: String,
-        expectedLanguages: List<Language>
-    ) {
-        assertThat(
-            detectorForAllLanguages.filterLanguagesByRules(listOf(word)).toList()
-        ).`as`(
-            "word '$word'"
-        ).containsExactlyInAnyOrderElementsOf(
-            expectedLanguages
-        )
-    }
+    // ngram probability lookup
 
     @ParameterizedTest
     @MethodSource("ngramProbabilityProvider")
@@ -221,6 +219,8 @@ class LanguageDetectorTest {
         )
     }
 
+    // ngram probability summation
+
     @ParameterizedTest
     @MethodSource("ngramProbabilitySumProvider")
     internal fun `assert that sum of ngram probabilities can be computed correctly`(
@@ -236,6 +236,8 @@ class LanguageDetectorTest {
         )
     }
 
+    // language probability estimation
+
     @ParameterizedTest
     @MethodSource("languageProbabilitiesProvider")
     internal fun `assert that language probabilities can be computed correctly`(
@@ -249,6 +251,72 @@ class LanguageDetectorTest {
             )
         ).isEqualTo(
             expectedProbabilitiesMap
+        )
+    }
+
+    // language detection with rules
+
+    @ParameterizedTest
+    @MethodSource("singleWordWithUniqueCharactersProvider")
+    fun `assert that language of single word with unique characters can be unambiguously identified with rules`(
+        word: String,
+        expectedLanguage: Language
+    ) {
+        assertThat(
+            detectorForAllLanguages.detectLanguageWithRules(listOf(word))
+        ).`as`(
+            "word '$word'"
+        ).isEqualTo(
+            expectedLanguage
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("singleWordWithUniqueAlphabetProvider")
+    fun `assert that language of single word with unique alphabet can be unambiguously identified with rules`(
+        word: String,
+        expectedLanguage: Language
+    ) {
+        assertThat(
+            detectorForAllLanguages.detectLanguageWithRules(listOf(word))
+        ).`as`(
+            "word '$word'"
+        ).isEqualTo(
+            expectedLanguage
+        )
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["", " \n  \t;", "3<856%)§"])
+    fun `assert that strings without letters return unknown language`(invalidString: String) {
+        assertThat(
+            detectorForAllLanguages.detectLanguageOf(invalidString)
+        ).isEqualTo(
+            UNKNOWN
+        )
+    }
+
+    @Test
+    fun `assert that language of German noun 'Alter' can be detected correctly`() {
+        assertThat(
+            detectorForEnglishAndGerman.detectLanguageOf("Alter")
+        ).isEqualTo(
+            GERMAN
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("filteredLanguagesProvider")
+    fun `assert that languages can be correctly filtered by rules`(
+        word: String,
+        expectedLanguages: List<Language>
+    ) {
+        assertThat(
+            detectorForAllLanguages.filterLanguagesByRules(listOf(word)).toList()
+        ).`as`(
+            "word '$word'"
+        ).containsExactlyInAnyOrderElementsOf(
+            expectedLanguages
         )
     }
 
@@ -270,38 +338,6 @@ class LanguageDetectorTest {
         )
     }
     */
-
-    @Test
-    fun `assert that ngram probabilities are correctly added to probabilities list`() {
-        val probabilitiesList = mutableListOf(
-            mapOf(ENGLISH to -0.1, GERMAN to -0.2),
-            mapOf(ENGLISH to -0.3, GERMAN to -0.4)
-        )
-
-        val languagesSequence = detectorForEnglishAndGerman.languages.asSequence()
-
-        every {
-            detectorForEnglishAndGerman.computeLanguageProbabilities(trigramTestDataLanguageModel,
-                languagesSequence)
-        } returns
-            mapOf(ENGLISH to -0.5, GERMAN to -0.6)
-
-        detectorForEnglishAndGerman.addNgramProbabilities(
-            probabilitiesList,
-            languagesSequence,
-            trigramTestDataLanguageModel
-        )
-
-        assertThat(
-            probabilitiesList
-        ).isEqualTo(
-            mutableListOf(
-                mapOf(ENGLISH to -0.1, GERMAN to -0.2),
-                mapOf(ENGLISH to -0.3, GERMAN to -0.4),
-                mapOf(ENGLISH to -0.5, GERMAN to -0.6)
-            )
-        )
-    }
 
     private fun defineBehaviorOfUnigramLanguageModels() {
         with (unigramLanguageModelForEnglish) {
@@ -445,10 +481,10 @@ class LanguageDetectorTest {
         }
     }
 
-    private fun identifiedLanguageProvider() = listOf(
-        arguments("والموضوع", UNKNOWN),
-        arguments("сопротивление", UNKNOWN),
-        arguments("house", UNKNOWN),
+    private fun singleWordWithUniqueCharactersProvider() = listOf(
+        //arguments("والموضوع", UNKNOWN),
+        //arguments("сопротивление", UNKNOWN),
+        //arguments("house", UNKNOWN),
         arguments("hashemidëve", ALBANIAN),
         arguments("məhərrəm", AZERBAIJANI),
         arguments("substituïts", CATALAN),
@@ -465,7 +501,7 @@ class LanguageDetectorTest {
         arguments("σχέδια", GREEK),
         arguments("fekvő", HUNGARIAN),
         arguments("meggyűrűzni", HUNGARIAN),
-        arguments("ヴェダイkqヤモンド", JAPANESE),
+        //arguments("ヴェダイkqヤモンド", JAPANESE),
         arguments("әлем", KAZAKH),
         arguments("шаруашылығы", KAZAKH),
         arguments("ақын", KAZAKH),
@@ -549,6 +585,21 @@ class LanguageDetectorTest {
         arguments("kỷ", VIETNAMESE),
         arguments("mỹ", VIETNAMESE),
         arguments("mỵ", VIETNAMESE)
+    )
+
+    private fun singleWordWithUniqueAlphabetProvider() = listOf(
+        arguments("ունենա", ARMENIAN),
+        arguments("জানাতে", BENGALI),
+        arguments("გარეუბან", GEORGIAN),
+        arguments("σταμάτησε", GREEK),
+        arguments("ઉપકરણોની", GUJARATI),
+        arguments("בתחרויות", HEBREW),
+        arguments("びさ", JAPANESE),
+        arguments("대결구도가", KOREAN),
+        arguments("ਮੋਟਰਸਾਈਕਲਾਂ", PUNJABI),
+        arguments("துன்பங்களை", TAMIL),
+        arguments("కృష్ణదేవరాయలు", TELUGU),
+        arguments("ในทางหลวงหมายเลข", THAI)
     )
 
     private fun filteredLanguagesProvider() = listOf(
