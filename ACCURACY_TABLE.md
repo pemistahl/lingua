@@ -331,7 +331,7 @@
 	</tr>
 	<tr>
 		<td>Dutch</td>
-		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 77</td>
 		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/lightgreen.png"> 61</td>
 		<td><img src="images/orange.png"> 39</td>
@@ -780,7 +780,7 @@
 		<td><img src="images/green.png"> 83</td>
 		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/orange.png"> 32</td>
-		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 92</td>
 		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 97</td>
@@ -825,7 +825,7 @@
 	</tr>
 	<tr>
 		<td>Mongolian</td>
-		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 94</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 84</td>
 		<td><img src="images/grey.png"> -</td>
@@ -837,7 +837,7 @@
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 88</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 92</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/grey.png"> -</td>
@@ -970,7 +970,7 @@
 		<td><img src="images/lightgreen.png"> 80</td>
 		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/yellow.png"> 50</td>
-		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/green.png"> 97</td>
 		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/green.png"> 91</td>
@@ -1325,11 +1325,11 @@
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.57</td>
+		<td>13.56</td>
 		<td>16.46</td>
 		<td>18.83</td>
 		<td>24.63</td>
-		<td>18.85</td>
+		<td>18.84</td>
 		<td>24.31</td>
 		<td>27.63</td>
 		<td>34.41</td>

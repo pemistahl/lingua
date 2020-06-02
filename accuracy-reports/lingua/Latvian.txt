@@ -12,6 +12,6 @@ Erroneously classified as TAGALOG: 2,30%, LITHUANIAN: 1,40%, BOSNIAN: 0,60%, MAL
 
 >> Detection of 1000 sentences (average length: 109 chars)
 Accuracy: 94,50%
-Erroneously classified as TAGALOG: 2,70%, LITHUANIAN: 0,50%, BOSNIAN: 0,50%, ESTONIAN: 0,30%, CATALAN: 0,20%, SOMALI: 0,20%, BASQUE: 0,20%, MALAY: 0,20%, POLISH: 0,20%, TURKISH: 0,10%, RUSSIAN: 0,10%, GERMAN: 0,10%, SLOVENE: 0,10%, ICELANDIC: 0,10%
+Erroneously classified as TAGALOG: 2,60%, LITHUANIAN: 0,50%, BOSNIAN: 0,50%, CATALAN: 0,30%, ESTONIAN: 0,30%, SOMALI: 0,20%, BASQUE: 0,20%, MALAY: 0,20%, POLISH: 0,20%, TURKISH: 0,10%, RUSSIAN: 0,10%, GERMAN: 0,10%, SLOVENE: 0,10%, ICELANDIC: 0,10%
 
 >> Exact values: 88.03333333333335 78.3 91.3 94.5

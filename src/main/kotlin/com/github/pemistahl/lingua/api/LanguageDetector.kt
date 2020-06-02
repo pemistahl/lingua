@@ -251,20 +251,28 @@ class LanguageDetector internal constructor(
                 val language = wordLanguageCounts.toList().first().first
                 if (language in languages) {
                     totalLanguageCounts.addCharCount(language)
-                } else
+                } else {
                     totalLanguageCounts.addCharCount(UNKNOWN)
+                }
             } else {
-                for (language in wordLanguageCounts.keys) {
-                    if (language in languages) {
-                        totalLanguageCounts.addCharCount(language)
+                if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
+                    totalLanguageCounts.addCharCount(JAPANESE)
+                } else {
+                    val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
+                    val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
+                    val (_, secondCharCount) = sortedWordLanguageCounts[1]
+
+                    if (firstCharCount > secondCharCount && mostFrequentLanguage in languages) {
+                        totalLanguageCounts.addCharCount(mostFrequentLanguage)
+                    } else {
+                        totalLanguageCounts.addCharCount(UNKNOWN)
                     }
                 }
             }
         }
 
-        val minimumRequiredUnknownLanguageCount = ceil(words.size / 1.5)
         val unknownLanguageCount = totalLanguageCounts[UNKNOWN] ?: 0
-        val filteredLanguageCounts = if (unknownLanguageCount >= minimumRequiredUnknownLanguageCount) {
+        val filteredLanguageCounts = if (unknownLanguageCount == words.size) {
             totalLanguageCounts
         } else {
             totalLanguageCounts.filterNot { it.key == UNKNOWN }

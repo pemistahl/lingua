@@ -12,6 +12,6 @@ Erroneously classified as ESPERANTO: 0,50%, BASQUE: 0,50%, TAGALOG: 0,40%, LATIN
 
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 99,60%
-Erroneously classified as BASQUE: 0,10%, BULGARIAN: 0,10%, MALAY: 0,10%, ITALIAN: 0,10%
+Erroneously classified as BASQUE: 0,10%, BULGARIAN: 0,10%, ITALIAN: 0,10%, ALBANIAN: 0,10%
 
 >> Exact values: 93.46666666666665 84.1 96.7 99.6
