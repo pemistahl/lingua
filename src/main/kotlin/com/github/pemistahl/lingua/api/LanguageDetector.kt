@@ -130,7 +130,7 @@ class LanguageDetector internal constructor(
 
         val allProbabilities = mutableListOf<Map<Language, Double>>()
         val unigramCountsOfInputText = mutableMapOf<Language, Int>()
-        var languagesSequence = languages.asSequence()
+        var languagesSequence = filterLanguagesByRules(words)
 
         for (i in 1..5) {
             if (cleanedUpText.length < i) continue
@@ -272,7 +272,7 @@ class LanguageDetector internal constructor(
         }
 
         val unknownLanguageCount = totalLanguageCounts[UNKNOWN] ?: 0
-        val filteredLanguageCounts = if (unknownLanguageCount == words.size) {
+        val filteredLanguageCounts = if (unknownLanguageCount >= (0.5 * words.size)) {
             totalLanguageCounts
         } else {
             totalLanguageCounts.filterNot { it.key == UNKNOWN }
@@ -282,7 +282,7 @@ class LanguageDetector internal constructor(
             return UNKNOWN
         }
         if (filteredLanguageCounts.size == 1) {
-            return totalLanguageCounts.toList().first().first
+            return filteredLanguageCounts.toList().first().first
         }
 
         val sortedTotalLanguageCounts = filteredLanguageCounts.toList().sortedByDescending { it.second }

@@ -1,6 +1,6 @@
 ##### TAMIL #####
 
->>> Accuracy on average: 99,67%
+>>> Accuracy on average: 99,97%
 
 >> Detection of 1000 single words (average length: 10 chars)
 Accuracy: 100,00%
@@ -11,7 +11,7 @@ Accuracy: 100,00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 104 chars)
-Accuracy: 99,00%
-Erroneously classified as CROATIAN: 0,10%, INDONESIAN: 0,10%, LATIN: 0,10%, GERMAN: 0,10%, SLOVENE: 0,10%, WELSH: 0,10%, ENGLISH: 0,10%, DANISH: 0,10%, ALBANIAN: 0,10%, POLISH: 0,10%
+Accuracy: 99,90%
+Erroneously classified as WELSH: 0,10%
 
->> Exact values: 99.66666666666667 100.0 100.0 99.0
+>> Exact values: 99.96666666666665 100.0 100.0 99.9
