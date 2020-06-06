@@ -336,7 +336,7 @@ class LanguageDetector internal constructor(
             for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
                 if (word.containsAnyOf(characters)) {
                     for (language in languages) {
-                        languageCounts.merge(language, 1, Int::plus)
+                        languageCounts.addCharCount(language)
                     }
                     break
                 }

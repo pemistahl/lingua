@@ -18,23 +18,46 @@ package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.Test
 
-class LanguageModelTest {
+class TrainingDataLanguageModelTest {
 
     private val text = """
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.toLowerCase().trimIndent()
+    """.toLowerCase().trimIndent()
+
+    private val keyMapper = { entry: Map.Entry<String, Any> -> Ngram(entry.key) }
+
+    private val valueMapper = { entry: Map.Entry<Ngram, String> ->
+        val (numerator, denominator) = entry.value.split('/').map { it.toInt() }
+        Fraction(numerator, denominator)
+    }
+
+    private val unigramLanguageModelJson = """
+        {
+            "language":"ENGLISH",
+            "ngrams":{
+                "3/100":"a c p u y",
+                "1/100":"b g l m",
+                "1/20":"d r",
+                "7/50":"e",
+                "1/50":"f w",
+                "1/25":"h",
+                "3/50":"i",
+                "1/10":"n o s",
+                "13/100":"t"
+            }
+        }
+    """.replace(Regex("\n\\s*"), "")
 
     private val expectedUnigramAbsoluteFrequencies = mapOf(
         "a" to 3,  "b" to 1,  "c" to 3,  "d" to 5, "e" to 14,
         "f" to 2,  "g" to 1,  "h" to 4,  "i" to 6, "l" to 1,
         "m" to 1,  "n" to 10, "o" to 10, "p" to 3, "r" to 5,
         "s" to 10, "t" to 13, "u" to 3,  "w" to 2, "y" to 3
-    ).mapKeys { Ngram(it.key) }
+    ).mapKeys(keyMapper)
 
     private val expectedUnigramRelativeFrequencies = mapOf(
         "a" to "3/100",  "b" to "1/100", "c" to "3/100", "d" to "1/20",
@@ -42,7 +65,7 @@ class LanguageModelTest {
         "i" to "3/50",   "l" to "1/100", "m" to "1/100", "n" to "1/10",
         "o" to "1/10",   "p" to "3/100", "r" to "1/20",  "s" to "1/10",
         "t" to "13/100", "u" to "3/100", "w" to "1/50",  "y" to "3/100"
-    )
+    ).mapKeys(keyMapper).mapValues(valueMapper)
 
     private val expectedBigramAbsoluteFrequencies = mapOf(
         "de" to 1, "pr" to 1, "pu" to 1, "do" to 1, "uc" to 1, "ds" to 1,
@@ -54,7 +77,7 @@ class LanguageModelTest {
         "by" to 1, "wo" to 1, "on" to 2, "st" to 2, "ce" to 1, "or" to 2,
         "os" to 1, "ot" to 2, "co" to 1, "ta" to 1, "ct" to 1, "te" to 3,
         "th" to 4, "ti" to 2, "to" to 1, "he" to 4, "po" to 1
-    ).mapKeys { Ngram(it.key) }
+    ).mapKeys(keyMapper)
 
     private val expectedBigramRelativeFrequencies = mapOf(
         "de" to "1/5",  "pr" to "1/3",  "pu" to "1/3",  "do" to "1/5",
@@ -71,7 +94,7 @@ class LanguageModelTest {
         "co" to "1/3",  "ta" to "1/13", "ct" to "1/3",  "te" to "3/13",
         "th" to "4/13", "ti" to "2/13", "to" to "1/13", "he" to "1/1",
         "po" to "1/3"
-    )
+    ).mapKeys(keyMapper).mapValues(valueMapper)
 
     private val expectedTrigramAbsoluteFrequencies = mapOf(
         "rds" to 1, "ose" to 1, "ded" to 1, "con" to 1, "use" to 1,
@@ -85,7 +108,7 @@ class LanguageModelTest {
         "ing" to 1, "ent" to 1, "way" to 1, "nde" to 1, "int" to 1,
         "rpo" to 1, "the" to 4, "urp" to 1, "duc" to 1, "ons" to 1,
         "ese" to 1
-    ).mapKeys { Ngram(it.key) }
+    ).mapKeys(keyMapper)
 
     private val expectedTrigramRelativeFrequencies = mapOf(
         "rds" to "1/1", "ose" to "1/1", "ded" to "1/1", "con" to "1/1",
@@ -101,7 +124,7 @@ class LanguageModelTest {
         "ing" to "1/4", "ent" to "1/3", "way" to "1/1", "nde" to "1/1",
         "int" to "1/4", "rpo" to "1/1", "the" to "1/1", "urp" to "1/1",
         "duc" to "1/1", "ons" to "1/2", "ese" to "1/4"
-    )
+    ).mapKeys(keyMapper).mapValues(valueMapper)
 
     private val expectedQuadrigramAbsoluteFrequencies = mapOf(
         "onsi" to 1, "sist" to 1, "ende" to 1, "ords" to 1, "esti" to 1,
@@ -112,7 +135,7 @@ class LanguageModelTest {
         "inte" to 1, "them" to 1, "urpo" to 1, "duct" to 1, "sent" to 1,
         "stin" to 1, "ucti" to 1, "ente" to 1, "purp" to 1, "ctio" to 1,
         "rodu" to 1, "word" to 1, "hese" to 1
-    ).mapKeys { Ngram(it.key) }
+    ).mapKeys(keyMapper)
 
     private val expectedQuadrigramRelativeFrequencies = mapOf(
         "onsi" to "1/1", "sist" to "1/1", "ende" to "1/1", "ords" to "1/1",
@@ -125,7 +148,7 @@ class LanguageModelTest {
         "duct" to "1/1", "sent" to "1/1", "stin" to "1/1", "ucti" to "1/1",
         "ente" to "1/1", "purp" to "1/1", "ctio" to "1/1", "rodu" to "1/1",
         "word" to "1/1", "hese" to "1/1"
-    )
+    ).mapKeys(keyMapper).mapValues(valueMapper)
 
     private val expectedFivegramAbsoluteFrequencies = mapOf(
         "testi" to 1, "sente" to 1, "ences" to 1, "tende" to 1,
@@ -135,7 +158,7 @@ class LanguageModelTest {
         "nsist" to 1, "words" to 1, "sting" to 1, "purpo" to 1,
         "tence" to 1, "estin" to 1, "roduc" to 1, "urpos" to 1,
         "rpose" to 1, "ended" to 1, "oduct" to 1, "consi" to 1
-    ).mapKeys { Ngram(it.key) }
+    ).mapKeys(keyMapper)
 
     private val expectedFivegramRelativeFrequencies = mapOf(
         "testi" to "1/1", "sente" to "1/1", "ences" to "1/1", "tende" to "1/1",
@@ -145,7 +168,7 @@ class LanguageModelTest {
         "nsist" to "1/1", "words" to "1/1", "sting" to "1/1", "purpo" to "1/1",
         "tence" to "1/1", "estin" to "1/1", "roduc" to "1/1", "urpos" to "1/1",
         "rpose" to "1/1", "ended" to "1/1", "oduct" to "1/1", "consi" to "1/1"
-    )
+    ).mapKeys(keyMapper).mapValues(valueMapper)
 
     @Test
     fun `assert that unigram language model can be created from training data`() {
@@ -156,15 +179,9 @@ class LanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = emptyMap()
         )
-        val expectedAbsoluteFrequencies = expectedUnigramAbsoluteFrequencies.entries.toTypedArray()
-        val expectedRelativeFrequencies = expectedUnigramRelativeFrequencies.map {
-            val (numerator, denominator) = it.value.split('/').map { it.toInt() }
-            entry(Ngram(it.key), Fraction(numerator, denominator))
-        }.toTypedArray()
-
         assertThat(model.language).isEqualTo(Language.ENGLISH)
-        assertThat(model.absoluteFrequencies).containsOnly(*expectedAbsoluteFrequencies)
-        assertThat(model.relativeFrequencies).containsOnly(*expectedRelativeFrequencies)
+        assertThat(model.absoluteFrequencies).containsExactlyInAnyOrderEntriesOf(expectedUnigramAbsoluteFrequencies)
+        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedUnigramRelativeFrequencies)
     }
 
     @Test
@@ -176,15 +193,9 @@ class LanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = expectedUnigramAbsoluteFrequencies
         )
-        val expectedAbsoluteFrequencies = expectedBigramAbsoluteFrequencies.entries.toTypedArray()
-        val expectedRelativeFrequencies = expectedBigramRelativeFrequencies.map {
-            val (numerator, denominator) = it.value.split('/').map { it.toInt() }
-            entry(Ngram(it.key), Fraction(numerator, denominator))
-        }.toTypedArray()
-
         assertThat(model.language).isEqualTo(Language.ENGLISH)
-        assertThat(model.absoluteFrequencies).containsOnly(*expectedAbsoluteFrequencies)
-        assertThat(model.relativeFrequencies).containsOnly(*expectedRelativeFrequencies)
+        assertThat(model.absoluteFrequencies).containsExactlyInAnyOrderEntriesOf(expectedBigramAbsoluteFrequencies)
+        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedBigramRelativeFrequencies)
     }
 
     @Test
@@ -196,15 +207,9 @@ class LanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = expectedBigramAbsoluteFrequencies
         )
-        val expectedAbsoluteFrequencies = expectedTrigramAbsoluteFrequencies.entries.toTypedArray()
-        val expectedRelativeFrequencies = expectedTrigramRelativeFrequencies.map {
-            val (numerator, denominator) = it.value.split('/').map { it.toInt() }
-            entry(Ngram(it.key), Fraction(numerator, denominator))
-        }.toTypedArray()
-
         assertThat(model.language).isEqualTo(Language.ENGLISH)
-        assertThat(model.absoluteFrequencies).containsOnly(*expectedAbsoluteFrequencies)
-        assertThat(model.relativeFrequencies).containsOnly(*expectedRelativeFrequencies)
+        assertThat(model.absoluteFrequencies).containsExactlyInAnyOrderEntriesOf(expectedTrigramAbsoluteFrequencies)
+        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedTrigramRelativeFrequencies)
     }
 
     @Test
@@ -216,15 +221,9 @@ class LanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = expectedTrigramAbsoluteFrequencies
         )
-        val expectedAbsoluteFrequencies = expectedQuadrigramAbsoluteFrequencies.entries.toTypedArray()
-        val expectedRelativeFrequencies = expectedQuadrigramRelativeFrequencies.map {
-            val (numerator, denominator) = it.value.split('/').map { it.toInt() }
-            entry(Ngram(it.key), Fraction(numerator, denominator))
-        }.toTypedArray()
-
         assertThat(model.language).isEqualTo(Language.ENGLISH)
-        assertThat(model.absoluteFrequencies).containsOnly(*expectedAbsoluteFrequencies)
-        assertThat(model.relativeFrequencies).containsOnly(*expectedRelativeFrequencies)
+        assertThat(model.absoluteFrequencies).containsExactlyInAnyOrderEntriesOf(expectedQuadrigramAbsoluteFrequencies)
+        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedQuadrigramRelativeFrequencies)
     }
 
     @Test
@@ -236,92 +235,13 @@ class LanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = expectedQuadrigramAbsoluteFrequencies
         )
-        val expectedAbsoluteFrequencies = expectedFivegramAbsoluteFrequencies.entries.toTypedArray()
-        val expectedRelativeFrequencies = expectedFivegramRelativeFrequencies.map {
-            val (numerator, denominator) = it.value.split('/').map { it.toInt() }
-            entry(Ngram(it.key), Fraction(numerator, denominator))
-        }.toTypedArray()
-
         assertThat(model.language).isEqualTo(Language.ENGLISH)
-        assertThat(model.absoluteFrequencies).containsOnly(*expectedAbsoluteFrequencies)
-        assertThat(model.relativeFrequencies).containsOnly(*expectedRelativeFrequencies)
+        assertThat(model.absoluteFrequencies).containsExactlyInAnyOrderEntriesOf(expectedFivegramAbsoluteFrequencies)
+        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedFivegramRelativeFrequencies)
     }
 
     @Test
-    fun `assert that unigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text, ngramLength = 1)
-
-        assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
-            setOf(
-                "a", "b", "c", "d", "e", "f", "g", "h", "i", "l",
-                "m", "n", "o", "p", "r", "s", "t", "u", "w", "y"
-            ).map { Ngram(it) }
-        )
-    }
-
-    @Test
-    fun `assert that bigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text, ngramLength = 2)
-
-        assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
-            setOf(
-                "de", "pr", "pu", "do", "uc", "ds", "du", "ur", "us", "ed",
-                "in", "io", "em", "en", "is", "al", "es", "ar", "rd", "re",
-                "ey", "nc", "nd", "ay", "ng", "ro", "rp", "no", "ns", "nt",
-                "fo", "wa", "se", "od", "si", "by", "of", "wo", "on", "st",
-                "ce", "or", "os", "ot", "co", "ta", "te", "ct", "th", "ti",
-                "to", "he", "po"
-            ).map { Ngram(it) }
-        )
-    }
-
-    @Test
-    fun `assert that trigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text, ngramLength = 3)
-
-        assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
-            setOf(
-                "rds", "ose", "ded", "con", "use", "est", "ion", "ist", "pur",
-                "hem", "hes", "tin", "cti", "tio", "wor", "ten", "hey", "ota",
-                "tal", "tes", "uct", "sti", "pro", "odu", "nsi", "rod", "for",
-                "ces", "nce", "not", "are", "pos", "tot", "end", "enc", "sis",
-                "sen", "nte", "ses", "ord", "ing", "ent", "int", "nde", "way",
-                "the", "rpo", "urp", "duc", "ons", "ese"
-            ).map { Ngram(it) }
-        )
-    }
-
-    @Test
-    fun `assert that quadrigram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text, ngramLength = 4)
-
-        assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
-            setOf(
-                "onsi", "sist", "ende", "ords", "esti", "tenc", "nces", "oduc",
-                "tend", "thes", "rpos", "ting", "nten", "nsis", "they", "tota",
-                "cons", "tion", "prod", "ence", "test", "otal", "pose", "nded",
-                "oses", "inte", "urpo", "them", "sent", "duct", "stin", "ente",
-                "ucti", "purp", "ctio", "rodu", "word", "hese"
-            ).map { Ngram(it) }
-        )
-    }
-
-    @Test
-    fun `assert that fivegram language model can be created from test data`() {
-        val model = TestDataLanguageModel.fromText(text, ngramLength = 5)
-
-        assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
-            setOf(
-                "testi", "sente", "ences", "tende", "these", "ntenc", "ducti",
-                "ntend", "onsis", "total", "uctio", "enten", "poses", "ction",
-                "produ", "inten", "nsist", "words", "sting", "tence", "purpo",
-                "estin", "roduc", "urpos", "ended", "rpose", "oduct", "consi"
-            ).map { Ngram(it) }
-        )
-    }
-
-    @Test
-    fun `assert that unigram language model is correctly written to json`() {
+    fun `assert that unigram language model is correctly serialized to json`() {
         val model = TrainingDataLanguageModel.fromText(
             text = text.lineSequence(),
             language = Language.ENGLISH,
@@ -329,8 +249,14 @@ class LanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = emptyMap()
         )
-        assertThat(model.toJson()).isEqualTo("""
-        {"language":"ENGLISH","ngrams":{"3/100":"a c p u y","1/100":"b g l m","1/20":"d r","7/50":"e","1/50":"f w","1/25":"h","3/50":"i","1/10":"n o s","13/100":"t"}}
-        """.trimIndent())
+        assertThat(model.toJson()).isEqualTo(unigramLanguageModelJson)
+    }
+
+    @Test
+    fun `assert that unigram language model is correctly deserialized from json`() {
+        val model = TrainingDataLanguageModel.fromJson(unigramLanguageModelJson)
+        assertThat(model.language).isEqualTo(Language.ENGLISH)
+        assertThat(model.absoluteFrequencies).isEmpty()
+        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedUnigramRelativeFrequencies)
     }
 }
