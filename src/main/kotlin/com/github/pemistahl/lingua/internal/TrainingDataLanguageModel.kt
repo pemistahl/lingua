@@ -50,7 +50,7 @@ internal data class TrainingDataLanguageModel(
             text: Sequence<String>,
             language: Language,
             ngramLength: Int,
-            charClass: String,
+            charClass: String?,
             lowerNgramAbsoluteFrequencies: Map<Ngram, Int>
         ): TrainingDataLanguageModel {
 
@@ -93,11 +93,15 @@ internal data class TrainingDataLanguageModel(
         private fun computeAbsoluteFrequencies(
             text: Sequence<String>,
             ngramLength: Int,
-            charClass: String
+            charClass: String?
         ): Map<Ngram, Int> {
 
             val absoluteFrequencies = hashMapOf<Ngram, Int>()
-            val regex = Regex("""[\p{L}&&\p{$charClass}]+""")
+            val regex = if (charClass != null) {
+                Regex("""[\p{L}&&\p{$charClass}]+""")
+            } else {
+                Regex("""[\p{L}]+""")
+            }
 
             for (line in text) {
                 val lowerCasedLine = line.toLowerCase()

@@ -35,7 +35,7 @@ class TrainingDataLanguageModelTest {
         Fraction(numerator, denominator)
     }
 
-    private val unigramLanguageModelJson = """
+    private val expectedUnigramLanguageModel = """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -249,12 +249,12 @@ class TrainingDataLanguageModelTest {
             charClass = "IsLatin",
             lowerNgramAbsoluteFrequencies = emptyMap()
         )
-        assertThat(model.toJson()).isEqualTo(unigramLanguageModelJson)
+        assertThat(model.toJson()).isEqualTo(expectedUnigramLanguageModel)
     }
 
     @Test
     fun `assert that unigram language model is correctly deserialized from json`() {
-        val model = TrainingDataLanguageModel.fromJson(unigramLanguageModelJson)
+        val model = TrainingDataLanguageModel.fromJson(expectedUnigramLanguageModel)
         assertThat(model.language).isEqualTo(Language.ENGLISH)
         assertThat(model.absoluteFrequencies).isEmpty()
         assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedUnigramRelativeFrequencies)
