@@ -16,21 +16,7 @@
 
 package com.github.pemistahl.lingua.internal.util.extension
 
-import com.github.pemistahl.lingua.api.LanguageDetector
-import java.io.FileNotFoundException
-import java.nio.charset.Charset
 import java.util.regex.PatternSyntaxException
-
-internal fun String.asLineSequenceResource(
-    charset: Charset = Charsets.UTF_8,
-    operation: (Sequence<String>) -> Unit
-) {
-    val inputStream =
-        LanguageDetector::class.java.getResourceAsStream(this)
-            ?: throw FileNotFoundException("the file '$this' could not be found")
-
-    inputStream.bufferedReader(charset).useLines(operation)
-}
 
 internal fun String.containsAnyOf(characters: String): Boolean {
     for (c in characters) {

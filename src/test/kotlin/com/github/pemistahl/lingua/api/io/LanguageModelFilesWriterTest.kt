@@ -1,6 +1,22 @@
-package com.github.pemistahl.lingua.api
+/*
+ * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import org.assertj.core.api.Assertions
+package com.github.pemistahl.lingua.api.io
+
+import com.github.pemistahl.lingua.api.Language
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -8,14 +24,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.stream.Collectors
 import java.util.stream.Collectors.toList
 
 class LanguageModelFilesWriterTest {
 
     private lateinit var inputFilePath: Path
-
-    private val replacementRegex = Regex("\n\\s*")
 
     private val text = """
         These sentences are intended for testing purposes.
@@ -38,7 +51,7 @@ class LanguageModelFilesWriterTest {
                 "13/100":"t"
             }
         }
-    """.replace(replacementRegex, "")
+    """.minify()
 
     private val expectedBigramLanguageModel = """
         {
@@ -61,7 +74,7 @@ class LanguageModelFilesWriterTest {
                 "2/13":"ti"
             }
         }
-    """.replace(replacementRegex, "")
+    """.minify()
 
     private val expectedTrigramLanguageModel = """
         {
@@ -74,7 +87,7 @@ class LanguageModelFilesWriterTest {
                 "1/3":"tes end enc ent"
             }
         }
-    """.replace(replacementRegex, "")
+    """.minify()
 
     private val expectedQuadrigramLanguageModel = """
         {
@@ -85,7 +98,7 @@ class LanguageModelFilesWriterTest {
                 "1/4":"thes they them"
             }
         }
-    """.replace(replacementRegex, "")
+    """.minify()
 
     private val expectedFivegramLanguageModel = """
         {
@@ -95,7 +108,7 @@ class LanguageModelFilesWriterTest {
                 "1/2":"ntenc ntend"
             }
         }
-    """.replace(replacementRegex, "")
+    """.minify()
 
     @BeforeEach
     fun beforeEach() {
@@ -117,17 +130,23 @@ class LanguageModelFilesWriterTest {
             charClass = "IsLatin"
         )
 
-        val modelFilePaths = Files.list(outputDirectoryPath).sorted { first, second ->
-            first.fileName.compareTo(second.fileName)
-        }.collect(toList())
+        val modelFilePaths = retrieveAndSortModelFiles(outputDirectoryPath)
 
         assertThat(modelFilePaths.size).`as`("number of language model files").isEqualTo(5)
 
-        testModelFile(modelFilePaths[4], "unigrams.json", expectedUnigramLanguageModel)
-        testModelFile(modelFilePaths[0], "bigrams.json", expectedBigramLanguageModel)
-        testModelFile(modelFilePaths[3], "trigrams.json", expectedTrigramLanguageModel)
-        testModelFile(modelFilePaths[2], "quadrigrams.json", expectedQuadrigramLanguageModel)
-        testModelFile(modelFilePaths[1], "fivegrams.json", expectedFivegramLanguageModel)
+        val (bigrams, fivegrams, quadrigrams, trigrams, unigrams) = modelFilePaths
+
+        testModelFile(unigrams, "unigrams.json", expectedUnigramLanguageModel)
+        testModelFile(bigrams, "bigrams.json", expectedBigramLanguageModel)
+        testModelFile(trigrams, "trigrams.json", expectedTrigramLanguageModel)
+        testModelFile(quadrigrams, "quadrigrams.json", expectedQuadrigramLanguageModel)
+        testModelFile(fivegrams, "fivegrams.json", expectedFivegramLanguageModel)
+    }
+
+    private fun retrieveAndSortModelFiles(outputDirectoryPath: Path): List<Path> {
+        return Files.list(outputDirectoryPath).sorted { first, second ->
+            first.fileName.compareTo(second.fileName)
+        }.collect(toList())
     }
 
     private fun testModelFile(
@@ -135,10 +154,14 @@ class LanguageModelFilesWriterTest {
         expectedFileName: String,
         expectedModelContent: String
     ) {
+        assertThat(modelFilePath).`as`("regular file check").isRegularFile()
+
         val modelFileName = modelFilePath.fileName.toString()
         val modelContent = modelFilePath.toFile().readText()
 
         assertThat(modelFileName).`as`("model file name").isEqualTo(expectedFileName)
         assertThat(modelContent).`as`("model content").isEqualTo(expectedModelContent)
     }
+
+    private fun String.minify() = this.replace(Regex("\n\\s*"), "")
 }
