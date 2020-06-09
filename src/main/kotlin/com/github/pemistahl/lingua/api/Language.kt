@@ -73,6 +73,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.SO
 import com.github.pemistahl.lingua.api.IsoCode639_1.SQ
 import com.github.pemistahl.lingua.api.IsoCode639_1.SR
 import com.github.pemistahl.lingua.api.IsoCode639_1.SV
+import com.github.pemistahl.lingua.api.IsoCode639_1.SW
 import com.github.pemistahl.lingua.api.IsoCode639_1.TA
 import com.github.pemistahl.lingua.api.IsoCode639_1.TE
 import com.github.pemistahl.lingua.api.IsoCode639_1.TH
@@ -138,6 +139,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.SOM
 import com.github.pemistahl.lingua.api.IsoCode639_3.SPA
 import com.github.pemistahl.lingua.api.IsoCode639_3.SQI
 import com.github.pemistahl.lingua.api.IsoCode639_3.SRP
+import com.github.pemistahl.lingua.api.IsoCode639_3.SWA
 import com.github.pemistahl.lingua.api.IsoCode639_3.SWE
 import com.github.pemistahl.lingua.api.IsoCode639_3.TAM
 import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
@@ -156,6 +158,7 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
+import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 /**
@@ -223,6 +226,7 @@ enum class Language(
     SLOVENE(SL, SLV, setOf(Alphabet.LATIN), ""),
     SOMALI(SO, SOM, setOf(Alphabet.LATIN), ""),
     SPANISH(ES, SPA, setOf(Alphabet.LATIN), "¿¡"),
+    SWAHILI(SW, SWA, setOf(Alphabet.LATIN), ""),
     SWEDISH(SV, SWE, setOf(Alphabet.LATIN), ""),
     TAGALOG(TL, TGL, setOf(Alphabet.LATIN), ""),
     TAMIL(TA, TAM, setOf(Alphabet.TAMIL), ""),

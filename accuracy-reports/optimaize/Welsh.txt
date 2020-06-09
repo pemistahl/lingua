@@ -1,17 +1,17 @@
 ##### WELSH #####
 
->>> Accuracy on average: 76,90%
+>>> Accuracy on average: 76,80%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 49,90%
-Erroneously classified as UNKNOWN: 49,80%, ITALIAN: 0,10%, ENGLISH: 0,10%, TAGALOG: 0,10%
+Accuracy: 49,60%
+Erroneously classified as UNKNOWN: 50,00%, ITALIAN: 0,10%, ENGLISH: 0,10%, TAGALOG: 0,10%, SWAHILI: 0,10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
 Accuracy: 81,70%
-Erroneously classified as UNKNOWN: 17,60%, ITALIAN: 0,30%, ENGLISH: 0,20%, IRISH: 0,10%, PORTUGUESE: 0,10%
+Erroneously classified as UNKNOWN: 17,50%, ITALIAN: 0,30%, ENGLISH: 0,20%, IRISH: 0,10%, SWAHILI: 0,10%, PORTUGUESE: 0,10%
 
 >> Detection of 1000 sentences (average length: 97 chars)
 Accuracy: 99,10%
 Erroneously classified as UNKNOWN: 0,70%, ENGLISH: 0,20%
 
->> Exact values: 76.89999999999999 49.9 81.69999999999999 99.1
+>> Exact values: 76.8 49.6 81.69999999999999 99.1

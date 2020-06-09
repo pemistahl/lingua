@@ -304,6 +304,11 @@ enum class IsoCode639_3 {
     SRP,
 
     /**
+     * The ISO 639-3 code for [Swahili][Language.SWAHILI].
+     */
+    SWA,
+
+    /**
      * The ISO 639-3 code for [Swedish][Language.SWEDISH].
      */
     SWE,

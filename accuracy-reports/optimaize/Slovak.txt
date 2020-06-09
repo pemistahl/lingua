@@ -4,7 +4,7 @@
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 12,10%
-Erroneously classified as UNKNOWN: 87,00%, CZECH: 0,50%, HUNGARIAN: 0,20%, SPANISH: 0,10%, ITALIAN: 0,10%
+Erroneously classified as UNKNOWN: 86,90%, CZECH: 0,50%, HUNGARIAN: 0,20%, SWAHILI: 0,10%, SPANISH: 0,10%, ITALIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 38,00%

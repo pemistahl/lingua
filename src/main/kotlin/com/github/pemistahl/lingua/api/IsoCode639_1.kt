@@ -309,6 +309,11 @@ enum class IsoCode639_1 {
     SV,
 
     /**
+     * The ISO 639-1 code for [Swahili][Language.SWAHILI].
+     */
+    SW,
+
+    /**
      * The ISO 639-1 code for [Tamil][Language.TAMIL].
      */
     TA,
