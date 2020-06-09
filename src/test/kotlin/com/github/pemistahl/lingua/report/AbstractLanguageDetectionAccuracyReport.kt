@@ -42,17 +42,14 @@ import com.optimaize.langdetect.i18n.LdLocale
 import com.optimaize.langdetect.ngram.NgramExtractors
 import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
-import opennlp.tools.langdetect.LanguageDetectorME
-import opennlp.tools.langdetect.LanguageDetectorModel
-import org.apache.log4j.Level
-import org.apache.log4j.Logger
-import org.apache.tika.langdetect.OptimaizeLangDetector
-import org.apache.tika.language.detect.LanguageResult
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.math.roundToInt
+import opennlp.tools.langdetect.LanguageDetectorME
+import opennlp.tools.langdetect.LanguageDetectorModel
+import org.apache.tika.langdetect.OptimaizeLangDetector
+import org.apache.tika.language.detect.LanguageResult
+import org.junit.jupiter.api.AfterAll
 
 abstract class AbstractLanguageDetectionAccuracyReport(
     private val language: Language,
@@ -76,20 +73,23 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
     abstract fun `assert that entire sentences are identified correctly`(sentence: String)
 
-    @BeforeAll
-    fun beforeAll() {
-        // Disable Log4j warnings for Apache Tika and Optimaize
-        Logger.getRootLogger().level = Level.OFF
-    }
-
     @AfterAll
     fun afterAll() {
         val projectRootPath = Paths.get("").toAbsolutePath().toString()
         val accuracyReportsDirectoryName = "accuracy-reports"
         val detectorDirectoryName = implementationToUse.name.toLowerCase()
         val languageReportFileName = "${language.name.toLowerCase().capitalize()}.txt"
-        val accuracyReportsDirectoryPath = Paths.get(projectRootPath, accuracyReportsDirectoryName, detectorDirectoryName)
-        val accuracyReportFilePath = Paths.get(projectRootPath, accuracyReportsDirectoryName, detectorDirectoryName, languageReportFileName)
+        val accuracyReportsDirectoryPath = Paths.get(
+            projectRootPath,
+            accuracyReportsDirectoryName,
+            detectorDirectoryName
+        )
+        val accuracyReportFilePath = Paths.get(
+            projectRootPath,
+            accuracyReportsDirectoryName,
+            detectorDirectoryName,
+            languageReportFileName
+        )
 
         println(statisticsReport())
 

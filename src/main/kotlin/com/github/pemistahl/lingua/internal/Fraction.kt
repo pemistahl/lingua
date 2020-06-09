@@ -41,8 +41,8 @@ internal data class Fraction(
         val d0n = denominator.toLong() * other.numerator
         return when {
             n0d < d0n -> -1
-            n0d > d0n ->  1
-            else      ->  0
+            n0d > d0n -> 1
+            else -> 0
         }
     }
 

@@ -119,7 +119,7 @@ class NgramTest {
     fun `assert that NgramRange works correctly`() {
         val ngramRange = NgramRange(fivegram, bigram)
 
-        with (ngramRange) {
+        with(ngramRange) {
             assertThat(contains(fivegram)).isTrue()
             assertThat(contains(quadrigram)).isTrue()
             assertThat(contains(trigram)).isTrue()
@@ -149,7 +149,7 @@ class NgramTest {
     fun `assert that NgramIterator works correctly`() {
         val iterator = NgramIterator(fivegram)
 
-        with (iterator) {
+        with(iterator) {
             assertThat(next()).isEqualTo(fivegram)
             assertThat(next()).isEqualTo(quadrigram)
             assertThat(next()).isEqualTo(trigram)

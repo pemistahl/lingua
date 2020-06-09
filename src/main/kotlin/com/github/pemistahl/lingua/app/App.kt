@@ -108,13 +108,11 @@ private fun runApp() {
                     isoCodesList.clear()
                     println("At least one iso code you've entered is not supported. Try again.\n")
                 }
-            }
-            else {
+            } else {
                 break
             }
         }
-    }
-    else {
+    } else {
         println("Loading language models...")
         detectorBuilder = fromAllBuiltInLanguages()
     }

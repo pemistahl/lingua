@@ -38,8 +38,19 @@ object TestDataFilesWriter : FilesWriter() {
         checkInputFilePath(inputFilePath)
         checkOutputDirectoryPath(outputDirectoryPath)
 
-        createAndWriteSentencesFile(inputFilePath, inputFileCharset, outputDirectoryPath, fileName, maximumLines)
-        val singleWords = createAndWriteSingleWordsFile(inputFilePath, inputFileCharset, outputDirectoryPath, fileName, charClass, maximumLines)
+        createAndWriteSentencesFile(
+            inputFilePath, inputFileCharset,
+            outputDirectoryPath,
+            fileName,
+            maximumLines
+        )
+        val singleWords = createAndWriteSingleWordsFile(
+            inputFilePath, inputFileCharset,
+            outputDirectoryPath,
+            fileName,
+            charClass,
+            maximumLines
+        )
         createAndWriteWordPairsFile(singleWords, outputDirectoryPath, fileName, maximumLines)
     }
 
@@ -147,8 +158,8 @@ object TestDataFilesWriter : FilesWriter() {
             Files.delete(wordPairsFilePath)
         }
 
-        for (i in 0..(words.size-2)) {
-            wordPairs.add(words.slice(i..i+1).joinToString(" "))
+        for (i in 0..(words.size - 2)) {
+            wordPairs.add(words.slice(i..i + 1).joinToString(" "))
         }
 
         wordPairsFilePath.toFile().bufferedWriter().use { writer ->

@@ -130,7 +130,7 @@ internal data class TrainingDataLanguageModel(
                 val denominator = if (ngramLength == 1 || lowerNgramAbsoluteFrequencies.isEmpty()) {
                     totalNgramFrequency
                 } else {
-                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.slice(0..ngramLength-2)))
+                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.slice(0..ngramLength - 2)))
                 }
                 ngramProbabilities[ngram] = Fraction(frequency, denominator)
             }

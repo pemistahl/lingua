@@ -53,6 +53,7 @@ description = linguaDescription
 plugins {
     kotlin("jvm") version "1.3.72"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.3.72"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.adarshr.test-logger") version "2.0.0"
     id("org.jetbrains.dokka") version "0.10.1"
     id("ru.vyarus.use-python") version "2.2.0"
@@ -92,7 +93,7 @@ tasks.jacocoTestReport {
 
 tasks.register<Test>("writeAccuracyReports") {
     group = linguaTaskGroup
-    description = "Runs Lingua on provided test data, reports detection accuracy for each language and writes results to files."
+    description = "Runs Lingua on provided test data, and writes detection accuracy reports for each language."
 
     val allowedDetectors = linguaSupportedDetectors.split(',')
     val detectors = if (project.hasProperty("detectors"))
@@ -153,7 +154,8 @@ tasks.register<Test>("writeAccuracyReports") {
         detectors.forEach { detector ->
             languages.forEach { language ->
                 includeTestsMatching(
-                    "$linguaGroupId.$linguaArtifactId.report.${detector.toLowerCase()}.${language}DetectionAccuracyReport"
+                    "$linguaGroupId.$linguaArtifactId.report" +
+                        ".${detector.toLowerCase()}.${language}DetectionAccuracyReport"
                 )
             }
         }
@@ -197,8 +199,7 @@ tasks.register("writeAggregatedAccuracyReport") {
                             csvFile.appendText(accuracyValues)
                         }
                     }
-                }
-                else {
+                } else {
                     csvFile.appendText(",NaN,NaN,NaN,NaN")
                 }
             }
@@ -295,10 +296,7 @@ dependencies {
     testImplementation("org.apache.opennlp:opennlp-tools:1.9.2")
     testImplementation("org.apache.tika:tika-langdetect:1.24.1")
 
-    val slf4jVersion = "1.7.25"
-
-    testImplementation("org.slf4j:slf4j-api:$slf4jVersion")
-    testImplementation("org.slf4j:slf4j-log4j12:$slf4jVersion")
+    testImplementation("org.slf4j:slf4j-nop:1.7.30")
 }
 
 python {

@@ -28,21 +28,33 @@ abstract class AbstractTeluguDetectionAccuracyReport(
 ) : AbstractLanguageDetectionAccuracyReport(Language.TELUGU, implementationToUse) {
 
     @ParameterizedTest
-    @CsvFileSource(resources = ["/language-testdata/single-words/te.txt"], delimiter = CSV_FILE_DELIMITER, encoding = CSV_FILE_ENCODING)
+    @CsvFileSource(
+        resources = ["/language-testdata/single-words/te.txt"],
+        delimiter = CSV_FILE_DELIMITER,
+        encoding = CSV_FILE_ENCODING
+    )
     @DisplayName("single word detection")
     override fun `assert that single words are identified correctly`(singleWord: String) {
         computeSingleWordStatistics(singleWord)
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = ["/language-testdata/word-pairs/te.txt"], delimiter = CSV_FILE_DELIMITER, encoding = CSV_FILE_ENCODING)
+    @CsvFileSource(
+        resources = ["/language-testdata/word-pairs/te.txt"],
+        delimiter = CSV_FILE_DELIMITER,
+        encoding = CSV_FILE_ENCODING
+    )
     @DisplayName("word pair detection")
     override fun `assert that word pairs are identified correctly`(wordPair: String) {
         computeWordPairStatistics(wordPair)
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = ["/language-testdata/sentences/te.txt"], delimiter = CSV_FILE_DELIMITER, encoding = CSV_FILE_ENCODING)
+    @CsvFileSource(
+        resources = ["/language-testdata/sentences/te.txt"],
+        delimiter = CSV_FILE_DELIMITER,
+        encoding = CSV_FILE_ENCODING
+    )
     @DisplayName("sentence detection")
     override fun `assert that entire sentences are identified correctly`(sentence: String) {
         computeSentenceStatistics(sentence)

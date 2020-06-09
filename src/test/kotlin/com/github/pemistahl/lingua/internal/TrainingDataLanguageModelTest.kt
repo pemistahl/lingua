@@ -53,18 +53,18 @@ class TrainingDataLanguageModelTest {
     """.replace(Regex("\n\\s*"), "")
 
     private val expectedUnigramAbsoluteFrequencies = mapOf(
-        "a" to 3,  "b" to 1,  "c" to 3,  "d" to 5, "e" to 14,
-        "f" to 2,  "g" to 1,  "h" to 4,  "i" to 6, "l" to 1,
-        "m" to 1,  "n" to 10, "o" to 10, "p" to 3, "r" to 5,
-        "s" to 10, "t" to 13, "u" to 3,  "w" to 2, "y" to 3
+        "a" to 3, "b" to 1, "c" to 3, "d" to 5, "e" to 14,
+        "f" to 2, "g" to 1, "h" to 4, "i" to 6, "l" to 1,
+        "m" to 1, "n" to 10, "o" to 10, "p" to 3, "r" to 5,
+        "s" to 10, "t" to 13, "u" to 3, "w" to 2, "y" to 3
     ).mapKeys(keyMapper)
 
     private val expectedUnigramRelativeFrequencies = mapOf(
-        "a" to "3/100",  "b" to "1/100", "c" to "3/100", "d" to "1/20",
-        "e" to "7/50",   "f" to "1/50",  "g" to "1/100", "h" to "1/25",
-        "i" to "3/50",   "l" to "1/100", "m" to "1/100", "n" to "1/10",
-        "o" to "1/10",   "p" to "3/100", "r" to "1/20",  "s" to "1/10",
-        "t" to "13/100", "u" to "3/100", "w" to "1/50",  "y" to "3/100"
+        "a" to "3/100", "b" to "1/100", "c" to "3/100", "d" to "1/20",
+        "e" to "7/50", "f" to "1/50", "g" to "1/100", "h" to "1/25",
+        "i" to "3/50", "l" to "1/100", "m" to "1/100", "n" to "1/10",
+        "o" to "1/10", "p" to "3/100", "r" to "1/20", "s" to "1/10",
+        "t" to "13/100", "u" to "3/100", "w" to "1/50", "y" to "3/100"
     ).mapKeys(keyMapper).mapValues(valueMapper)
 
     private val expectedBigramAbsoluteFrequencies = mapOf(
@@ -80,18 +80,18 @@ class TrainingDataLanguageModelTest {
     ).mapKeys(keyMapper)
 
     private val expectedBigramRelativeFrequencies = mapOf(
-        "de" to "1/5",  "pr" to "1/3",  "pu" to "1/3",  "do" to "1/5",
-        "uc" to "1/3",  "ds" to "1/5",  "du" to "1/5",  "ur" to "1/3",
-        "us" to "1/3",  "ed" to "1/14", "in" to "2/3",  "io" to "1/6",
-        "em" to "1/14", "en" to "3/14", "is" to "1/6",  "al" to "1/3",
-        "es" to "2/7",  "ar" to "1/3",  "rd" to "1/5",  "re" to "1/5",
+        "de" to "1/5", "pr" to "1/3", "pu" to "1/3", "do" to "1/5",
+        "uc" to "1/3", "ds" to "1/5", "du" to "1/5", "ur" to "1/3",
+        "us" to "1/3", "ed" to "1/14", "in" to "2/3", "io" to "1/6",
+        "em" to "1/14", "en" to "3/14", "is" to "1/6", "al" to "1/3",
+        "es" to "2/7", "ar" to "1/3", "rd" to "1/5", "re" to "1/5",
         "ey" to "1/14", "nc" to "1/10", "nd" to "1/10", "ay" to "1/3",
-        "ng" to "1/10", "ro" to "1/5",  "rp" to "1/5",  "no" to "1/10",
-        "ns" to "1/10", "nt" to "1/5",  "fo" to "1/2",  "wa" to "1/2",
-        "se" to "2/5",  "od" to "1/10", "si" to "1/10", "of" to "1/10",
-        "by" to "1/1",  "wo" to "1/2",  "on" to "1/5",  "st" to "1/5",
-        "ce" to "1/3",  "or" to "1/5",  "os" to "1/10", "ot" to "1/5",
-        "co" to "1/3",  "ta" to "1/13", "ct" to "1/3",  "te" to "3/13",
+        "ng" to "1/10", "ro" to "1/5", "rp" to "1/5", "no" to "1/10",
+        "ns" to "1/10", "nt" to "1/5", "fo" to "1/2", "wa" to "1/2",
+        "se" to "2/5", "od" to "1/10", "si" to "1/10", "of" to "1/10",
+        "by" to "1/1", "wo" to "1/2", "on" to "1/5", "st" to "1/5",
+        "ce" to "1/3", "or" to "1/5", "os" to "1/10", "ot" to "1/5",
+        "co" to "1/3", "ta" to "1/13", "ct" to "1/3", "te" to "3/13",
         "th" to "4/13", "ti" to "2/13", "to" to "1/13", "he" to "1/1",
         "po" to "1/3"
     ).mapKeys(keyMapper).mapValues(valueMapper)

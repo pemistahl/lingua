@@ -66,7 +66,6 @@ import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
-import kotlin.math.ceil
 import kotlin.math.ln
 
 /**
@@ -78,7 +77,9 @@ class LanguageDetector internal constructor(
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
-    private val alphabetsSupportingExactlyOneLanguage = Alphabet.allSupportingExactlyOneLanguage().filterValues { it in languages }
+    private val alphabetsSupportingExactlyOneLanguage = Alphabet.allSupportingExactlyOneLanguage().filterValues {
+        it in languages
+    }
 
     internal val unigramLanguageModels = loadLanguageModels(ngramLength = 1)
     internal val bigramLanguageModels = loadLanguageModels(ngramLength = 2)
@@ -210,7 +211,8 @@ class LanguageDetector internal constructor(
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
 
             if (unigramCountsOfInputText.containsKey(language)) {
-                summedUpProbabilities[language] = summedUpProbabilities.getValue(language) / unigramCountsOfInputText.getValue(language)
+                summedUpProbabilities[language] = summedUpProbabilities.getValue(language) /
+                    unigramCountsOfInputText.getValue(language)
             }
         }
         return summedUpProbabilities.filter { it.value != 0.0 }
@@ -321,7 +323,9 @@ class LanguageDetector internal constructor(
             Alphabet.HAN -> languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
             Alphabet.LATIN -> {
                 if (languages.contains(NORWEGIAN)) {
-                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK) }
+                    languages.asSequence().filter {
+                        it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK)
+                    }
                 } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
                     languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
                 } else {
@@ -443,8 +447,7 @@ class LanguageDetector internal constructor(
         }
 
         private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
-            "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
-            "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
+
             "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
             "ĄąĘę" to setOf(LITHUANIAN, POLISH),
             "Ūū" to setOf(LATVIAN, LITHUANIAN),
@@ -455,23 +458,24 @@ class LanguageDetector internal constructor(
             "ŇňŤť" to setOf(CZECH, SLOVAK),
             "Ăă" to setOf(ROMANIAN, VIETNAMESE),
             "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
-            "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
-            "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
             "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
-            "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
 
             "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
+            "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
+            "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
+            "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
 
-            "ЙйЬьЮюЧчЯя" to setOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN),
             "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
             "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE),
             "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
             "Øø" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK),
+            "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
+            "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
 
             "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
             "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
@@ -480,8 +484,10 @@ class LanguageDetector internal constructor(
             "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
             "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
 
-            "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
+            "ЙйЬьЮюЧчЯя" to setOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN),
             "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
+
+            "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
 
             "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
             "Öö" to setOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),

@@ -20,26 +20,26 @@ import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.util.extension.asRegex
 
 internal enum class Alphabet(private val regex: Regex) {
-    ARABIC     ("Arabic".asRegex()),
-    ARMENIAN   ("Armenian".asRegex()),
-    BENGALI    ("Bengali".asRegex()),
-    CYRILLIC   ("Cyrillic".asRegex()),
-    DEVANAGARI ("Devanagari".asRegex()),
-    GEORGIAN   ("Georgian".asRegex()),
-    GREEK      ("Greek".asRegex()),
-    GUJARATI   ("Gujarati".asRegex()),
-    GURMUKHI   ("Gurmukhi".asRegex()),
-    HAN        ("Han".asRegex()),
-    HANGUL     ("Hangul".asRegex()),
-    HEBREW     ("Hebrew".asRegex()),
-    HIRAGANA   ("Hiragana".asRegex()),
-    KATAKANA   ("Katakana".asRegex()),
-    LATIN      ("Latin".asRegex()),
-    TAMIL      ("Tamil".asRegex()),
-    TELUGU     ("Telugu".asRegex()),
-    THAI       ("Thai".asRegex()),
+    ARABIC("Arabic".asRegex()),
+    ARMENIAN("Armenian".asRegex()),
+    BENGALI("Bengali".asRegex()),
+    CYRILLIC("Cyrillic".asRegex()),
+    DEVANAGARI("Devanagari".asRegex()),
+    GEORGIAN("Georgian".asRegex()),
+    GREEK("Greek".asRegex()),
+    GUJARATI("Gujarati".asRegex()),
+    GURMUKHI("Gurmukhi".asRegex()),
+    HAN("Han".asRegex()),
+    HANGUL("Hangul".asRegex()),
+    HEBREW("Hebrew".asRegex()),
+    HIRAGANA("Hiragana".asRegex()),
+    KATAKANA("Katakana".asRegex()),
+    LATIN("Latin".asRegex()),
+    TAMIL("Tamil".asRegex()),
+    TELUGU("Telugu".asRegex()),
+    THAI("Thai".asRegex()),
 
-    NONE       (Regex(""));
+    NONE(Regex(""));
 
     fun matches(input: CharSequence) = this.regex.matches(input)
 

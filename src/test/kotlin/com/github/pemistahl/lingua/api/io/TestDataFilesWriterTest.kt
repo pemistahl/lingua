@@ -16,14 +16,14 @@
 
 package com.github.pemistahl.lingua.api.io
 
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.stream.Collectors.toList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.stream.Collectors.toList
 
 class TestDataFilesWriterTest {
 
@@ -101,9 +101,9 @@ class TestDataFilesWriterTest {
     }
 
     private fun testSubDirectory(
-       subDirectoryPath: Path,
-       expectedDirectoryName: String,
-       expectedFileContent: String
+        subDirectoryPath: Path,
+        expectedDirectoryName: String,
+        expectedFileContent: String
     ) {
         assertThat(subDirectoryPath).`as`("directory check").isDirectory()
 

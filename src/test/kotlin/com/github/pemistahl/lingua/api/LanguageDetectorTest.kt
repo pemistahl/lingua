@@ -73,6 +73,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
+import kotlin.math.ln
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.entry
@@ -84,7 +85,6 @@ import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
-import kotlin.math.ln
 
 @ExtendWith(MockKExtension::class)
 class LanguageDetectorTest {
@@ -449,69 +449,248 @@ class LanguageDetectorTest {
     // language filtering with rules
 
     private fun filteredLanguagesProvider() = listOf(
-        arguments("والموضوع", listOf(ARABIC, PERSIAN, URDU)),
-        arguments("сопротивление", listOf(BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN)),
-        arguments("раскрывае", listOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN)),
-        arguments("этот", listOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN)),
-        arguments("огнём", listOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN)),
-        arguments("плаваща", listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN)),
-        arguments("довършат", listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN)),
-        arguments("хвалить", listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)),
-        arguments("людях", listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)),
-        arguments("десятков", listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)),
-        arguments("толстой", listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)),
-        arguments("очень", listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)),
-        arguments("павінен", listOf(BELARUSIAN, KAZAKH, UKRAINIAN)),
-        arguments("затоплување", listOf(MACEDONIAN, SERBIAN)),
-        arguments("ректасцензија", listOf(MACEDONIAN, SERBIAN)),
-        arguments("набљудувач", listOf(MACEDONIAN, SERBIAN)),
-        arguments("prihvaćanju", listOf(BOSNIAN, CROATIAN, POLISH)),
-        arguments("nađete", listOf(BOSNIAN, CROATIAN, VIETNAMESE)),
-        arguments("visão", listOf(PORTUGUESE, VIETNAMESE)),
-        arguments("wystąpią", listOf(LITHUANIAN, POLISH)),
-        arguments("budowę", listOf(LITHUANIAN, POLISH)),
-        arguments("nebūsime", listOf(LATVIAN, LITHUANIAN)),
-        arguments("afişate", listOf(AZERBAIJANI, ROMANIAN, TURKISH)),
-        arguments("kradzieżami", listOf(POLISH, ROMANIAN)),
-        arguments("înviat", listOf(FRENCH, ROMANIAN)),
-        arguments("venerdì", listOf(ITALIAN, VIETNAMESE)),
-        arguments("años", listOf(BASQUE, SPANISH)),
-        arguments("rozohňuje", listOf(CZECH, SLOVAK)),
-        arguments("rtuť", listOf(CZECH, SLOVAK)),
-        arguments("pregătire", listOf(ROMANIAN, VIETNAMESE)),
-        arguments("jeďte", listOf(CZECH, ROMANIAN, SLOVAK)),
-        arguments("minjaverðir", listOf(ICELANDIC, LATVIAN, TURKISH)),
-        arguments("þagnarskyldu", listOf(ICELANDIC, LATVIAN, TURKISH)),
-        arguments("nebûtu", listOf(FRENCH, HUNGARIAN, LATVIAN)),
-        arguments("forêt", listOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE)),
-        arguments("succèdent", listOf(FRENCH, ITALIAN, VIETNAMESE)),
-        arguments("où", listOf(FRENCH, ITALIAN, VIETNAMESE)),
-        arguments("tõeliseks", listOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE)),
-        arguments("viòiem", listOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE)),
-        arguments("contrôle", listOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("direktør", listOf(DANISH, NORWEGIAN)),
-        arguments("vývoj", listOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE)),
-        arguments("päralt", listOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH)),
-        arguments("labâk", listOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)),
-        arguments("pràctiques", listOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE)),
-        arguments("überrascht", listOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH)),
-        arguments("indebærer", listOf(DANISH, ICELANDIC, NORWEGIAN)),
-        arguments("måned", listOf(DANISH, NORWEGIAN, SWEDISH)),
-        arguments("zaručen", listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
-        arguments("zkouškou", listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
-        arguments("navržen", listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)),
-        arguments("façonnage", listOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH)),
-        arguments("höher", listOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH)),
-        arguments("catedráticos", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("política", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("música", listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("contradicció", listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("només", listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)),
-        arguments("house", listOf(AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
-            DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN,
-            LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH,
-            SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
-        ))
+        arguments(
+            "والموضوع",
+            listOf(ARABIC, PERSIAN, URDU)
+        ),
+        arguments(
+            "сопротивление",
+            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN)
+        ),
+        arguments(
+            "раскрывае",
+            listOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN)
+        ),
+        arguments(
+            "этот",
+            listOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN)
+        ),
+        arguments(
+            "огнём",
+            listOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN)
+        ),
+        arguments(
+            "плаваща",
+            listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN)
+        ),
+        arguments(
+            "довършат",
+            listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN)
+        ),
+        arguments(
+            "хвалить",
+            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
+        ),
+        arguments(
+            "людях",
+            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
+        ),
+        arguments(
+            "десятков",
+            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
+        ),
+        arguments(
+            "толстой",
+            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
+        ),
+        arguments(
+            "очень",
+            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
+        ),
+        arguments(
+            "павінен",
+            listOf(BELARUSIAN, KAZAKH, UKRAINIAN)
+        ),
+        arguments(
+            "затоплување",
+            listOf(MACEDONIAN, SERBIAN)
+        ),
+        arguments(
+            "ректасцензија",
+            listOf(MACEDONIAN, SERBIAN)
+        ),
+        arguments(
+            "набљудувач",
+            listOf(MACEDONIAN, SERBIAN)
+        ),
+        arguments(
+            "prihvaćanju",
+            listOf(BOSNIAN, CROATIAN, POLISH)
+        ),
+        arguments(
+            "nađete",
+            listOf(BOSNIAN, CROATIAN, VIETNAMESE)
+        ),
+        arguments(
+            "visão",
+            listOf(PORTUGUESE, VIETNAMESE)
+        ),
+        arguments(
+            "wystąpią",
+            listOf(LITHUANIAN, POLISH)
+        ),
+        arguments(
+            "budowę",
+            listOf(LITHUANIAN, POLISH)
+        ),
+        arguments(
+            "nebūsime",
+            listOf(LATVIAN, LITHUANIAN)
+        ),
+        arguments(
+            "afişate",
+            listOf(AZERBAIJANI, ROMANIAN, TURKISH)
+        ),
+        arguments(
+            "kradzieżami",
+            listOf(POLISH, ROMANIAN)
+        ),
+        arguments(
+            "înviat",
+            listOf(FRENCH, ROMANIAN)
+        ),
+        arguments(
+            "venerdì",
+            listOf(ITALIAN, VIETNAMESE)
+        ),
+        arguments(
+            "años",
+            listOf(BASQUE, SPANISH)
+        ),
+        arguments(
+            "rozohňuje",
+            listOf(CZECH, SLOVAK)
+        ),
+        arguments(
+            "rtuť",
+            listOf(CZECH, SLOVAK)
+        ),
+        arguments(
+            "pregătire",
+            listOf(ROMANIAN, VIETNAMESE)
+        ),
+        arguments(
+            "jeďte",
+            listOf(CZECH, ROMANIAN, SLOVAK)
+        ),
+        arguments(
+            "minjaverðir",
+            listOf(ICELANDIC, LATVIAN, TURKISH)
+        ),
+        arguments(
+            "þagnarskyldu",
+            listOf(ICELANDIC, LATVIAN, TURKISH)
+        ),
+        arguments(
+            "nebûtu",
+            listOf(FRENCH, HUNGARIAN, LATVIAN)
+        ),
+        arguments(
+            "forêt",
+            listOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE)
+        ),
+        arguments(
+            "succèdent",
+            listOf(FRENCH, ITALIAN, VIETNAMESE)
+        ),
+        arguments(
+            "où",
+            listOf(FRENCH, ITALIAN, VIETNAMESE)
+        ),
+        arguments(
+            "tõeliseks",
+            listOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE)
+        ),
+        arguments(
+            "viòiem",
+            listOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE)
+        ),
+        arguments(
+            "contrôle",
+            listOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE)
+        ),
+        arguments(
+            "direktør",
+            listOf(DANISH, NORWEGIAN)
+        ),
+        arguments(
+            "vývoj",
+            listOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE)
+        ),
+        arguments(
+            "päralt",
+            listOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH)
+        ),
+        arguments(
+            "labâk",
+            listOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)
+        ),
+        arguments(
+            "pràctiques",
+            listOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE)
+        ),
+        arguments(
+            "überrascht",
+            listOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH)
+        ),
+        arguments(
+            "indebærer",
+            listOf(DANISH, ICELANDIC, NORWEGIAN)
+        ),
+        arguments(
+            "måned",
+            listOf(DANISH, NORWEGIAN, SWEDISH)
+        ),
+        arguments(
+            "zaručen",
+            listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)
+        ),
+        arguments(
+            "zkouškou",
+            listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)
+        ),
+        arguments(
+            "navržen",
+            listOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE)
+        ),
+        arguments(
+            "façonnage",
+            listOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH)
+        ),
+        arguments(
+            "höher",
+            listOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH)
+        ),
+        arguments(
+            "catedráticos",
+            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+        ),
+        arguments(
+            "política",
+            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+        ),
+        arguments(
+            "música",
+            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+        ),
+        arguments(
+            "contradicció",
+            listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE)
+        ),
+        arguments(
+            "només",
+            listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+        ),
+        arguments(
+            "house",
+            listOf(
+                AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
+                DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC,
+                INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
+                PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH,
+                VIETNAMESE, WELSH
+            )
+        )
     )
 
     @ParameterizedTest
@@ -589,7 +768,7 @@ class LanguageDetectorTest {
     }
 
     private fun defineBehaviorOfUnigramLanguageModels() {
-        with (unigramLanguageModelForEnglish) {
+        with(unigramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("a")) } returns 0.01
             every { getRelativeFrequency(Ngram("l")) } returns 0.02
             every { getRelativeFrequency(Ngram("t")) } returns 0.03
@@ -600,7 +779,7 @@ class LanguageDetectorTest {
             every { getRelativeFrequency(Ngram("w")) } returns 0.0
         }
 
-        with (unigramLanguageModelForGerman) {
+        with(unigramLanguageModelForGerman) {
             every { getRelativeFrequency(Ngram("a")) } returns 0.06
             every { getRelativeFrequency(Ngram("l")) } returns 0.07
             every { getRelativeFrequency(Ngram("t")) } returns 0.08
@@ -613,7 +792,7 @@ class LanguageDetectorTest {
     }
 
     private fun defineBehaviorOfBigramLanguageModels() {
-        with (bigramLanguageModelForEnglish) {
+        with(bigramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("al")) } returns 0.11
             every { getRelativeFrequency(Ngram("lt")) } returns 0.12
             every { getRelativeFrequency(Ngram("te")) } returns 0.13
@@ -625,7 +804,7 @@ class LanguageDetectorTest {
             }
         }
 
-        with (bigramLanguageModelForGerman) {
+        with(bigramLanguageModelForGerman) {
             every { getRelativeFrequency(Ngram("al")) } returns 0.15
             every { getRelativeFrequency(Ngram("lt")) } returns 0.16
             every { getRelativeFrequency(Ngram("te")) } returns 0.17
@@ -637,7 +816,7 @@ class LanguageDetectorTest {
     }
 
     private fun defineBehaviorOfTrigramLanguageModels() {
-        with (trigramLanguageModelForEnglish) {
+        with(trigramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("alt")) } returns 0.19
             every { getRelativeFrequency(Ngram("lte")) } returns 0.2
             every { getRelativeFrequency(Ngram("ter")) } returns 0.21
@@ -648,7 +827,7 @@ class LanguageDetectorTest {
             }
         }
 
-        with (trigramLanguageModelForGerman) {
+        with(trigramLanguageModelForGerman) {
             every { getRelativeFrequency(Ngram("alt")) } returns 0.22
             every { getRelativeFrequency(Ngram("lte")) } returns 0.23
             every { getRelativeFrequency(Ngram("ter")) } returns 0.24
@@ -659,7 +838,7 @@ class LanguageDetectorTest {
     }
 
     private fun defineBehaviorOfQuadrigramLanguageModels() {
-        with (quadrigramLanguageModelForEnglish) {
+        with(quadrigramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("alte")) } returns 0.25
             every { getRelativeFrequency(Ngram("lter")) } returns 0.26
 
@@ -669,7 +848,7 @@ class LanguageDetectorTest {
             }
         }
 
-        with (quadrigramLanguageModelForGerman) {
+        with(quadrigramLanguageModelForGerman) {
             every { getRelativeFrequency(Ngram("alte")) } returns 0.27
             every { getRelativeFrequency(Ngram("lter")) } returns 0.28
 
@@ -679,20 +858,20 @@ class LanguageDetectorTest {
     }
 
     private fun defineBehaviorOfFivegramLanguageModels() {
-        with (fivegramLanguageModelForEnglish) {
+        with(fivegramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("alter")) } returns 0.29
 
             // unknown fivegrams in model
             every { getRelativeFrequency(Ngram("aquas")) } returns 0.0
         }
 
-        with (fivegramLanguageModelForGerman) {
+        with(fivegramLanguageModelForGerman) {
             every { getRelativeFrequency(Ngram("alter")) } returns 0.30
         }
     }
 
     private fun addLanguageModelsToDetector() {
-        with (detectorForEnglishAndGerman) {
+        with(detectorForEnglishAndGerman) {
             unigramLanguageModels[ENGLISH] = lazy { unigramLanguageModelForEnglish }
             unigramLanguageModels[GERMAN] = lazy { unigramLanguageModelForGerman }
 
@@ -711,7 +890,7 @@ class LanguageDetectorTest {
     }
 
     private fun defineBehaviorOfTestDataLanguageModels() {
-        with (unigramTestDataLanguageModel) {
+        with(unigramTestDataLanguageModel) {
             every { ngrams } returns setOf(
                 Ngram("a"),
                 Ngram("l"),
@@ -721,7 +900,7 @@ class LanguageDetectorTest {
             )
         }
 
-        with (trigramTestDataLanguageModel) {
+        with(trigramTestDataLanguageModel) {
             every { ngrams } returns setOf(
                 Ngram("alt"),
                 Ngram("lte"),
@@ -730,7 +909,7 @@ class LanguageDetectorTest {
             )
         }
 
-        with (quadrigramTestDataLanguageModel) {
+        with(quadrigramTestDataLanguageModel) {
             every { ngrams } returns setOf(
                 Ngram("alte"),
                 Ngram("lter"),
