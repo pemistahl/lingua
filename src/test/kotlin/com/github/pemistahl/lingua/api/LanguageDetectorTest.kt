@@ -58,6 +58,7 @@ import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SOMALI
 import com.github.pemistahl.lingua.api.Language.SPANISH
+import com.github.pemistahl.lingua.api.Language.SWAHILI
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TAGALOG
 import com.github.pemistahl.lingua.api.Language.TURKISH
@@ -687,8 +688,8 @@ class LanguageDetectorTest {
                 AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC,
                 INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
-                PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWEDISH, TAGALOG, TURKISH,
-                VIETNAMESE, WELSH
+                PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG,
+                TURKISH, VIETNAMESE, WELSH
             )
         )
     )
