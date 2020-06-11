@@ -359,6 +359,11 @@ enum class IsoCode639_1 {
     ZH,
 
     /**
+     * The ISO 639-1 code for [Zulu][Language.ZULU].
+     */
+    ZU,
+
+    /**
      * The ISO 639-1 code for [the imaginary unknown language][Language.UNKNOWN].
      */
     UNKNOWN;

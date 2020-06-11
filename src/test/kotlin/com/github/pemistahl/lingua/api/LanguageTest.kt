@@ -84,6 +84,7 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
+import com.github.pemistahl.lingua.api.Language.ZULU
 import com.github.pemistahl.lingua.internal.Alphabet
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -103,7 +104,7 @@ class LanguageTest {
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY,
             MARATHI, MONGOLIAN, NORWEGIAN, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN,
             SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU,
-            VIETNAMESE, WELSH
+            VIETNAMESE, WELSH, ZULU
         )
     }
 
@@ -115,7 +116,8 @@ class LanguageTest {
             FINNISH, FRENCH, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MARATHI, MONGOLIAN,
             NORWEGIAN, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SLOVAK, SLOVENE,
-            SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH
+            SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TURKISH, UKRAINIAN, URDU, VIETNAMESE,
+            WELSH, ZULU
         )
     }
 
@@ -128,7 +130,7 @@ class LanguageTest {
                 HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
                 LITHUANIAN, MALAY, NORWEGIAN, NYNORSK, POLISH, PORTUGUESE,
                 ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG,
-                TURKISH, VIETNAMESE, WELSH
+                TURKISH, VIETNAMESE, WELSH, ZULU
             )
     }
 
@@ -214,7 +216,8 @@ class LanguageTest {
         "UK, UKRAINIAN",
         "UR, URDU",
         "VI, VIETNAMESE",
-        "CY, WELSH"
+        "CY, WELSH",
+        "ZU, ZULU"
     )
     fun `assert that correct language is returned for iso code`(isoCode: IsoCode639_1, language: Language) {
         assertThat(Language.getByIsoCode639_1(isoCode)).isEqualTo(language)
@@ -243,7 +246,7 @@ class LanguageTest {
             GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
             LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, NYNORSK,
             POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI,
-            SPANISH, SWAHILI, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH
+            SPANISH, SWAHILI, SWEDISH, TAGALOG, TURKISH, VIETNAMESE, WELSH, ZULU
         )),
         arguments(Alphabet.TAMIL, listOf(TAMIL)),
         arguments(Alphabet.TELUGU, listOf(TELUGU)),

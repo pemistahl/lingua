@@ -83,6 +83,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.UK
 import com.github.pemistahl.lingua.api.IsoCode639_1.UR
 import com.github.pemistahl.lingua.api.IsoCode639_1.VI
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
+import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
 import com.github.pemistahl.lingua.api.IsoCode639_3.AFR
 import com.github.pemistahl.lingua.api.IsoCode639_3.ARA
 import com.github.pemistahl.lingua.api.IsoCode639_3.AZE
@@ -150,6 +151,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.UKR
 import com.github.pemistahl.lingua.api.IsoCode639_3.URD
 import com.github.pemistahl.lingua.api.IsoCode639_3.VIE
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZHO
+import com.github.pemistahl.lingua.api.IsoCode639_3.ZUL
 import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.Alphabet.CYRILLIC
 import com.github.pemistahl.lingua.internal.Alphabet.DEVANAGARI
@@ -238,6 +240,7 @@ enum class Language(
     VIETNAMESE(VI, VIE, setOf(Alphabet.LATIN),
         "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH(CY, CYM, setOf(Alphabet.LATIN), ""),
+    ZULU(ZU, ZUL, setOf(Alphabet.LATIN), ""),
 
     /**
      * The imaginary unknown language.

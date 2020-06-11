@@ -359,6 +359,11 @@ enum class IsoCode639_3 {
     ZHO,
 
     /**
+     * The ISO 639-3 code for [Zulu][Language.ZULU].
+     */
+    ZUL,
+
+    /**
      * The ISO 639-3 code for [the imaginary unknown language][Language.UNKNOWN].
      */
     UNKNOWN;
