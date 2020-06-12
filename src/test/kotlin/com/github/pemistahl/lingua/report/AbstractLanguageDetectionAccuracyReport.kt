@@ -191,7 +191,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                     val isoCode = detectedLanguage.lang.toUpperCase()
                     IsoCode639_3.valueOf(mapOpenNlpIsoCodeToLinguaIsoCode(isoCode))
                 } catch (e: IllegalArgumentException) {
-                    IsoCode639_3.UNKNOWN
+                    IsoCode639_3.NONE
                 }
                 Language.getByIsoCode639_3(isoCode)
             }

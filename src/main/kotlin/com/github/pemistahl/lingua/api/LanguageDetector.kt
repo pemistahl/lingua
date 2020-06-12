@@ -58,6 +58,7 @@ import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
+import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
@@ -450,33 +451,35 @@ class LanguageDetector internal constructor(
 
             "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
             "ĄąĘę" to setOf(LITHUANIAN, POLISH),
-            "Ūū" to setOf(LATVIAN, LITHUANIAN),
             "Żż" to setOf(POLISH, ROMANIAN),
             "Îî" to setOf(FRENCH, ROMANIAN),
-            "Ìì" to setOf(ITALIAN, VIETNAMESE),
             "Ññ" to setOf(BASQUE, SPANISH),
             "ŇňŤť" to setOf(CZECH, SLOVAK),
             "Ăă" to setOf(ROMANIAN, VIETNAMESE),
             "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
             "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
+            "ĀāĒēĪī" to setOf(LATVIAN, YORUBA),
+            "ẸẹỌọ" to setOf(VIETNAMESE, YORUBA),
 
+            "Ūū" to setOf(LATVIAN, LITHUANIAN, YORUBA),
             "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
             "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
             "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
             "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
-            "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE),
             "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
             "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
             "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
+            "Ìì" to setOf(ITALIAN, VIETNAMESE, YORUBA),
 
+            "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA),
             "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
-            "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE),
             "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
             "Øø" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK),
             "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
             "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
 
+            "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE, YORUBA),
             "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
             "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
             "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
@@ -491,10 +494,13 @@ class LanguageDetector internal constructor(
 
             "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
             "Öö" to setOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
-            "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE),
-            "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE),
 
-            "Éé" to setOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+            "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA),
+            "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA),
+
+            "Éé" to setOf(
+                CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA
+            )
         )
     }
 }

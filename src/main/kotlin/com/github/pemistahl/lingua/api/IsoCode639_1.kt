@@ -354,6 +354,11 @@ enum class IsoCode639_1 {
     VI,
 
     /**
+     * The ISO 639-1 code for [Yoruba][Language.YORUBA].
+     */
+    YO,
+
+    /**
      * The ISO 639-1 code for [Chinese][Language.CHINESE].
      */
     ZH,
@@ -366,7 +371,7 @@ enum class IsoCode639_1 {
     /**
      * The ISO 639-1 code for [the imaginary unknown language][Language.UNKNOWN].
      */
-    UNKNOWN;
+    NONE;
 
     override fun toString() = this.name.toLowerCase()
 }

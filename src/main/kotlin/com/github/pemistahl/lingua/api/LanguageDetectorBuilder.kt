@@ -112,7 +112,7 @@ class LanguageDetectorBuilder private constructor(
         @JvmStatic
         fun fromIsoCodes639_1(vararg isoCodes: IsoCode639_1): LanguageDetectorBuilder {
             val isoCodesToLoad = isoCodes.toMutableSet()
-            isoCodesToLoad.remove(IsoCode639_1.UNKNOWN)
+            isoCodesToLoad.remove(IsoCode639_1.NONE)
             require(isoCodesToLoad.size >= 2) { MISSING_LANGUAGE_MESSAGE }
             val languages = isoCodesToLoad.map { Language.getByIsoCode639_1(it) }
             return LanguageDetectorBuilder(languages)
@@ -128,7 +128,7 @@ class LanguageDetectorBuilder private constructor(
         @JvmStatic
         fun fromIsoCodes639_3(vararg isoCodes: IsoCode639_3): LanguageDetectorBuilder {
             val isoCodesToLoad = isoCodes.toMutableSet()
-            isoCodesToLoad.remove(IsoCode639_3.UNKNOWN)
+            isoCodesToLoad.remove(IsoCode639_3.NONE)
             require(isoCodesToLoad.size >= 2) { MISSING_LANGUAGE_MESSAGE }
             val languages = isoCodesToLoad.map { Language.getByIsoCode639_3(it) }
             return LanguageDetectorBuilder(languages)

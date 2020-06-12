@@ -82,6 +82,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.TR
 import com.github.pemistahl.lingua.api.IsoCode639_1.UK
 import com.github.pemistahl.lingua.api.IsoCode639_1.UR
 import com.github.pemistahl.lingua.api.IsoCode639_1.VI
+import com.github.pemistahl.lingua.api.IsoCode639_1.YO
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
 import com.github.pemistahl.lingua.api.IsoCode639_3.AFR
@@ -150,6 +151,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
 import com.github.pemistahl.lingua.api.IsoCode639_3.UKR
 import com.github.pemistahl.lingua.api.IsoCode639_3.URD
 import com.github.pemistahl.lingua.api.IsoCode639_3.VIE
+import com.github.pemistahl.lingua.api.IsoCode639_3.YOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZHO
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZUL
 import com.github.pemistahl.lingua.internal.Alphabet
@@ -209,7 +211,7 @@ enum class Language(
     KAZAKH(KK, KAZ, setOf(CYRILLIC), "ӘәҒғҚқҢңҰұ"),
     KOREAN(KO, KOR, setOf(HANGUL), ""),
     LATIN(LA, LAT, setOf(Alphabet.LATIN), ""),
-    LATVIAN(LV, LAV, setOf(Alphabet.LATIN), "ĀāĒēĢģĪīĶķĻļŅņ"),
+    LATVIAN(LV, LAV, setOf(Alphabet.LATIN), "ĢģĶķĻļŅņ"),
     LITHUANIAN(LT, LIT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
     MACEDONIAN(MK, MKD, setOf(CYRILLIC), "ЃѓЅѕЌќЏџ"),
     MALAY(MS, MSA, setOf(Alphabet.LATIN), ""),
@@ -238,8 +240,9 @@ enum class Language(
     UKRAINIAN(UK, UKR, setOf(CYRILLIC), "ҐґЄєЇї"),
     URDU(UR, URD, setOf(Alphabet.ARABIC), ""),
     VIETNAMESE(VI, VIE, setOf(Alphabet.LATIN),
-        "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếẸẹỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỌọỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
+        "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH(CY, CYM, setOf(Alphabet.LATIN), ""),
+    YORUBA(YO, YOR, setOf(Alphabet.LATIN), "ŌōṢṣ"), // TODO: "E̩e̩Ẹ́ẹ́É̩é̩Ẹ̀ẹ̀È̩è̩Ẹ̄ẹ̄Ē̩ē̩ŌōO̩o̩Ọ́ọ́Ó̩ó̩Ọ̀ọ̀Ò̩ò̩Ọ̄ọ̄Ō̩ō̩ṢṣS̩s̩"
     ZULU(ZU, ZUL, setOf(Alphabet.LATIN), ""),
 
     /**
@@ -247,7 +250,7 @@ enum class Language(
      *
      * This value is returned if no language can be detected reliably.
      */
-    UNKNOWN(IsoCode639_1.UNKNOWN, IsoCode639_3.UNKNOWN, setOf(NONE), "");
+    UNKNOWN(IsoCode639_1.NONE, IsoCode639_3.NONE, setOf(NONE), "");
 
     companion object {
         /**

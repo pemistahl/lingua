@@ -67,6 +67,7 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
+import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.api.Language.ZULU
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
@@ -325,10 +326,7 @@ class LanguageDetectorTest {
         "ақын, KAZAKH",
         "оның, KAZAKH",
         "шұрайлы, KAZAKH",
-        "aizklātā, LATVIAN",
-        "sistēmas, LATVIAN",
         "teoloģiska, LATVIAN",
-        "palīdzi, LATVIAN",
         "blaķene, LATVIAN",
         "ceļojumiem, LATVIAN",
         "numuriņu, LATVIAN",
@@ -372,7 +370,7 @@ class LanguageDetectorTest {
         "kẽm, VIETNAMESE",
         "diễm, VIETNAMESE",
         "phế, VIETNAMESE",
-        "nhẹn, VIETNAMESE",
+        //"nhẹn, VIETNAMESE",
         "việc, VIETNAMESE",
         "chỉnh, VIETNAMESE",
         "trĩ, VIETNAMESE",
@@ -387,7 +385,6 @@ class LanguageDetectorTest {
         "bỡi, VIETNAMESE",
         "tốt, VIETNAMESE",
         "giới, VIETNAMESE",
-        "chọn, VIETNAMESE",
         "một, VIETNAMESE",
         "hợp, VIETNAMESE",
         "hưng, VIETNAMESE",
@@ -403,6 +400,8 @@ class LanguageDetectorTest {
         "kỷ, VIETNAMESE",
         "mỹ, VIETNAMESE",
         "mỵ, VIETNAMESE",
+        "kōnin, YORUBA",
+        "ṣaaju, YORUBA",
         "والموضوع, UNKNOWN",
         "сопротивление, UNKNOWN",
         "house, UNKNOWN"
@@ -516,6 +515,26 @@ class LanguageDetectorTest {
             listOf(MACEDONIAN, SERBIAN)
         ),
         arguments(
+            "aizklātā",
+            listOf(LATVIAN, YORUBA)
+        ),
+        arguments(
+            "sistēmas",
+            listOf(LATVIAN, YORUBA)
+        ),
+        arguments(
+            "palīdzi",
+            listOf(LATVIAN, YORUBA)
+        ),
+        arguments(
+            "nhẹn",
+            listOf(VIETNAMESE, YORUBA)
+        ),
+        arguments(
+            "chọn",
+            listOf(VIETNAMESE, YORUBA)
+        ),
+        arguments(
             "prihvaćanju",
             listOf(BOSNIAN, CROATIAN, POLISH)
         ),
@@ -537,7 +556,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "nebūsime",
-            listOf(LATVIAN, LITHUANIAN)
+            listOf(LATVIAN, LITHUANIAN, YORUBA)
         ),
         arguments(
             "afişate",
@@ -553,7 +572,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "venerdì",
-            listOf(ITALIAN, VIETNAMESE)
+            listOf(ITALIAN, VIETNAMESE, YORUBA)
         ),
         arguments(
             "años",
@@ -593,11 +612,11 @@ class LanguageDetectorTest {
         ),
         arguments(
             "succèdent",
-            listOf(FRENCH, ITALIAN, VIETNAMESE)
+            listOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA)
         ),
         arguments(
             "où",
-            listOf(FRENCH, ITALIAN, VIETNAMESE)
+            listOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA)
         ),
         arguments(
             "tõeliseks",
@@ -605,7 +624,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "viòiem",
-            listOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE)
+            listOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE, YORUBA)
         ),
         arguments(
             "contrôle",
@@ -665,23 +684,23 @@ class LanguageDetectorTest {
         ),
         arguments(
             "catedráticos",
-            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA)
         ),
         arguments(
             "política",
-            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA)
         ),
         arguments(
             "música",
-            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+            listOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA)
         ),
         arguments(
             "contradicció",
-            listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE)
+            listOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA)
         ),
         arguments(
             "només",
-            listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE)
+            listOf(CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA)
         ),
         arguments(
             "house",
@@ -690,7 +709,7 @@ class LanguageDetectorTest {
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC,
                 INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
                 PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG,
-                TURKISH, VIETNAMESE, WELSH, ZULU
+                TURKISH, VIETNAMESE, WELSH, YORUBA, ZULU
             )
         )
     )
