@@ -86,8 +86,9 @@ internal data class TrainingDataLanguageModel(
             val jsonRelativeFrequencies = Object2DoubleOpenHashMap<Ngram>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
+                val fractionAsDouble = fraction.toDouble()
                 for (ngram in ngrams.split(' ')) {
-                    jsonRelativeFrequencies[Ngram(ngram)] = fraction.toDouble()
+                    jsonRelativeFrequencies[Ngram(ngram)] = fractionAsDouble
                 }
             }
 
