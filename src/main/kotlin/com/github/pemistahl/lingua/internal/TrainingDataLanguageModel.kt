@@ -17,6 +17,8 @@
 package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap
+import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
@@ -27,9 +29,10 @@ internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fr
 internal data class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
-    val relativeFrequencies: Map<Ngram, Fraction>
+    val relativeFrequencies: Map<Ngram, Fraction>,
+    val jsonRelativeFrequencies: Object2DoubleMap<Ngram>
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Double = relativeFrequencies[ngram]?.toDouble() ?: 0.0
+    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies[ngram] ?: 0.0
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -70,23 +73,29 @@ internal data class TrainingDataLanguageModel(
                 lowerNgramAbsoluteFrequencies
             )
 
-            return TrainingDataLanguageModel(language, absoluteFrequencies, relativeFrequencies)
+            return TrainingDataLanguageModel(
+                language,
+                absoluteFrequencies,
+                relativeFrequencies,
+                Object2DoubleOpenHashMap()
+            )
         }
 
         fun fromJson(json: String): TrainingDataLanguageModel {
             val jsonLanguageModel = JSON.parse(JsonLanguageModel.serializer(), json)
-            val relativeFrequencies = mutableMapOf<Ngram, Fraction>()
+            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<Ngram>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
                 for (ngram in ngrams.split(' ')) {
-                    relativeFrequencies[Ngram(ngram)] = fraction
+                    jsonRelativeFrequencies[Ngram(ngram)] = fraction.toDouble()
                 }
             }
 
             return TrainingDataLanguageModel(
                 language = jsonLanguageModel.language,
                 absoluteFrequencies = emptyMap(),
-                relativeFrequencies = relativeFrequencies
+                relativeFrequencies = emptyMap(),
+                jsonRelativeFrequencies = jsonRelativeFrequencies
             )
         }
 

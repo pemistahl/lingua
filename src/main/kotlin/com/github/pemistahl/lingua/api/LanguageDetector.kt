@@ -257,19 +257,17 @@ class LanguageDetector internal constructor(
                 } else {
                     totalLanguageCounts.addCharCount(UNKNOWN)
                 }
+            } else if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
+                totalLanguageCounts.addCharCount(JAPANESE)
             } else {
-                if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
-                    totalLanguageCounts.addCharCount(JAPANESE)
-                } else {
-                    val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
-                    val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
-                    val (_, secondCharCount) = sortedWordLanguageCounts[1]
+                val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
+                val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
+                val (_, secondCharCount) = sortedWordLanguageCounts[1]
 
-                    if (firstCharCount > secondCharCount && mostFrequentLanguage in languages) {
-                        totalLanguageCounts.addCharCount(mostFrequentLanguage)
-                    } else {
-                        totalLanguageCounts.addCharCount(UNKNOWN)
-                    }
+                if (firstCharCount > secondCharCount && mostFrequentLanguage in languages) {
+                    totalLanguageCounts.addCharCount(mostFrequentLanguage)
+                } else {
+                    totalLanguageCounts.addCharCount(UNKNOWN)
                 }
             }
         }

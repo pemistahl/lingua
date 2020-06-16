@@ -43,7 +43,7 @@ internal enum class Alphabet(private val regex: Regex) {
 
     fun matches(input: CharSequence) = this.regex.matches(input)
 
-    fun supportedLanguages(): Set<Language> {
+    private fun supportedLanguages(): Set<Language> {
         val languages = mutableSetOf<Language>()
         for (language in Language.values()) {
             if (language.alphabets.contains(this)) {

@@ -370,7 +370,7 @@ class LanguageDetectorTest {
         "kẽm, VIETNAMESE",
         "diễm, VIETNAMESE",
         "phế, VIETNAMESE",
-        //"nhẹn, VIETNAMESE",
+        // "nhẹn, VIETNAMESE",
         "việc, VIETNAMESE",
         "chỉnh, VIETNAMESE",
         "trĩ, VIETNAMESE",

@@ -67,6 +67,10 @@ class TrainingDataLanguageModelTest {
         "t" to "13/100", "u" to "3/100", "w" to "1/50", "y" to "3/100"
     ).mapKeys(keyMapper).mapValues(valueMapper)
 
+    private val expectedUnigramJsonRelativeFrequencies = expectedUnigramRelativeFrequencies.mapValues {
+        it.value.toDouble()
+    }
+
     private val expectedBigramAbsoluteFrequencies = mapOf(
         "de" to 1, "pr" to 1, "pu" to 1, "do" to 1, "uc" to 1, "ds" to 1,
         "du" to 1, "ur" to 1, "us" to 1, "ed" to 1, "in" to 4, "io" to 1,
@@ -257,6 +261,9 @@ class TrainingDataLanguageModelTest {
         val model = TrainingDataLanguageModel.fromJson(expectedUnigramLanguageModel)
         assertThat(model.language).isEqualTo(Language.ENGLISH)
         assertThat(model.absoluteFrequencies).isEmpty()
-        assertThat(model.relativeFrequencies).containsExactlyInAnyOrderEntriesOf(expectedUnigramRelativeFrequencies)
+        assertThat(model.relativeFrequencies).isEmpty()
+        assertThat(model.jsonRelativeFrequencies).containsExactlyInAnyOrderEntriesOf(
+            expectedUnigramJsonRelativeFrequencies
+        )
     }
 }
