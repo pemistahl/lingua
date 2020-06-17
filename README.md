@@ -14,6 +14,16 @@
 [![Download][lingua version badge]][lingua download url]
 
 ---
+## ⓘ [Lingua 1.0.0](https://github.com/pemistahl/lingua/milestone/3) will be released soon including: 
+* better runtime performance
+* less memory consumption
+* improved language detection algorithm
+* public api for adding new languages
+* significant bug fixes
+* higher test coverage
+* 10 new languages
+
+---
 ### Quick Info
 * this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
