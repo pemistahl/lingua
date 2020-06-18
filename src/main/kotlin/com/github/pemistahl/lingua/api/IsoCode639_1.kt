@@ -334,6 +334,11 @@ enum class IsoCode639_1 {
     TL,
 
     /**
+     * The ISO 639-1 code for [Tswana][Language.TSWANA].
+     */
+    TN,
+
+    /**
      * The ISO 639-1 code for [Turkish][Language.TURKISH].
      */
     TR,

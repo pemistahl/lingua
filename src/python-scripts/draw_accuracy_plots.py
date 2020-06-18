@@ -35,7 +35,8 @@ class AccuracyPlotDrawer(object):
     __hue = 'classifier'
     __grid_color = '#474747'
     __plot_filepath = 'images/plots/'
-    __plot_titles = ('Single Word Detection', 'Word Pair Detection', 'Sentence Detection', 'Average Detection')
+    __plot_titles = ('Single Word', 'Word Pair', 'Sentence', 'Average')
+    __plot_title_suffix = 'Detection Performance'
     __column_prefixes = ('single-words', 'word-pairs', 'sentences', 'average')
     __column_suffixes = ('optimaize', 'opennlp', 'tika', 'lingua')
     __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.2', 'Tika 1.24.1', 'Lingua 1.0.0')
@@ -54,13 +55,15 @@ class AccuracyPlotDrawer(object):
 
     def draw_all_barplots(self):
         for title, prefix in zip(self.__plot_titles, self.__column_prefixes):
+            suffixed_title = title + ' ' + self.__plot_title_suffix
             columns = [prefix + '-' + suffix for suffix in self.__column_suffixes]
-            self.draw_barplot(columns, title, xlim=(0, 100), filename='barplot-' + prefix + '.png')
+            self.draw_barplot(columns, suffixed_title, xlim=(0, 100), filename='barplot-' + prefix + '.png')
 
     def draw_all_boxplots(self):
         for title, prefix in zip(self.__plot_titles, self.__column_prefixes):
+            suffixed_title = title + ' ' + self.__plot_title_suffix
             columns = [prefix + '-' + suffix for suffix in self.__column_suffixes]
-            self.draw_boxplot(columns, title, ylim=(0, 100), filename='boxplot-' + prefix + '.png')
+            self.draw_boxplot(columns, suffixed_title, ylim=(0, 100), filename='boxplot-' + prefix + '.png')
 
     def draw_barplot(self, columns, title, xlim, filename):
         row_filter = self.__dataframe[self.__hue].isin(columns)

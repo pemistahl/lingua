@@ -334,6 +334,11 @@ enum class IsoCode639_3 {
     THA,
 
     /**
+     * The ISO 639-3 code for [Tswana][Language.TSWANA].
+     */
+    TSN,
+
+    /**
      * The ISO 639-3 code for [Tsonga][Language.TSONGA].
      */
     TSO,
