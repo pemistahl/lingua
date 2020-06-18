@@ -339,6 +339,11 @@ enum class IsoCode639_1 {
     TR,
 
     /**
+     * The ISO 639-1 code for [Tsonga][Language.TSONGA].
+     */
+    TS,
+
+    /**
      * The ISO 639-1 code for [Ukrainian][Language.UKRAINIAN].
      */
     UK,

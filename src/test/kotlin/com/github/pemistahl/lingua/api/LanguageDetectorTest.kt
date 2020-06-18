@@ -61,6 +61,7 @@ import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWAHILI
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import com.github.pemistahl.lingua.api.Language.TAGALOG
+import com.github.pemistahl.lingua.api.Language.TSONGA
 import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
@@ -370,7 +371,6 @@ class LanguageDetectorTest {
         "kẽm, VIETNAMESE",
         "diễm, VIETNAMESE",
         "phế, VIETNAMESE",
-        // "nhẹn, VIETNAMESE",
         "việc, VIETNAMESE",
         "chỉnh, VIETNAMESE",
         "trĩ, VIETNAMESE",
@@ -708,7 +708,7 @@ class LanguageDetectorTest {
                 AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC,
                 INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
-                PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG,
+                PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA,
                 TURKISH, VIETNAMESE, WELSH, YORUBA, ZULU
             )
         )

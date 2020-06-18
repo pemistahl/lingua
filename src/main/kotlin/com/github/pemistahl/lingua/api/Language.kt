@@ -79,6 +79,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.TE
 import com.github.pemistahl.lingua.api.IsoCode639_1.TH
 import com.github.pemistahl.lingua.api.IsoCode639_1.TL
 import com.github.pemistahl.lingua.api.IsoCode639_1.TR
+import com.github.pemistahl.lingua.api.IsoCode639_1.TS
 import com.github.pemistahl.lingua.api.IsoCode639_1.UK
 import com.github.pemistahl.lingua.api.IsoCode639_1.UR
 import com.github.pemistahl.lingua.api.IsoCode639_1.VI
@@ -147,6 +148,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.TAM
 import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
 import com.github.pemistahl.lingua.api.IsoCode639_3.TGL
 import com.github.pemistahl.lingua.api.IsoCode639_3.THA
+import com.github.pemistahl.lingua.api.IsoCode639_3.TSO
 import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
 import com.github.pemistahl.lingua.api.IsoCode639_3.UKR
 import com.github.pemistahl.lingua.api.IsoCode639_3.URD
@@ -236,6 +238,7 @@ enum class Language(
     TAMIL(TA, TAM, setOf(Alphabet.TAMIL), ""),
     TELUGU(TE, TEL, setOf(Alphabet.TELUGU), ""),
     THAI(TH, THA, setOf(Alphabet.THAI), ""),
+    TSONGA(TS, TSO, setOf(Alphabet.LATIN), ""),
     TURKISH(TR, TUR, setOf(Alphabet.LATIN), ""),
     UKRAINIAN(UK, UKR, setOf(CYRILLIC), "ҐґЄєЇї"),
     URDU(UR, URD, setOf(Alphabet.ARABIC), ""),
