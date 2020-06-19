@@ -289,6 +289,11 @@ enum class IsoCode639_3 {
     SOM,
 
     /**
+     * The ISO 639-3 code for [Southern Sotho][Language.SOTHO].
+     */
+    SOT,
+
+    /**
      * The ISO 639-3 code for [Spanish][Language.SPANISH].
      */
     SPA,

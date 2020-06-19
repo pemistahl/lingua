@@ -304,6 +304,11 @@ enum class IsoCode639_1 {
     SR,
 
     /**
+     * The ISO 639-1 code for [Southern Sotho][Language.SOTHO].
+     */
+    ST,
+
+    /**
      * The ISO 639-1 code for [Swedish][Language.SWEDISH].
      */
     SV,

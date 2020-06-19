@@ -72,6 +72,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.SL
 import com.github.pemistahl.lingua.api.IsoCode639_1.SO
 import com.github.pemistahl.lingua.api.IsoCode639_1.SQ
 import com.github.pemistahl.lingua.api.IsoCode639_1.SR
+import com.github.pemistahl.lingua.api.IsoCode639_1.ST
 import com.github.pemistahl.lingua.api.IsoCode639_1.SV
 import com.github.pemistahl.lingua.api.IsoCode639_1.SW
 import com.github.pemistahl.lingua.api.IsoCode639_1.TA
@@ -141,6 +142,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.RUS
 import com.github.pemistahl.lingua.api.IsoCode639_3.SLK
 import com.github.pemistahl.lingua.api.IsoCode639_3.SLV
 import com.github.pemistahl.lingua.api.IsoCode639_3.SOM
+import com.github.pemistahl.lingua.api.IsoCode639_3.SOT
 import com.github.pemistahl.lingua.api.IsoCode639_3.SPA
 import com.github.pemistahl.lingua.api.IsoCode639_3.SQI
 import com.github.pemistahl.lingua.api.IsoCode639_3.SRP
@@ -235,6 +237,7 @@ enum class Language(
     SLOVAK(SK, SLK, setOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
     SLOVENE(SL, SLV, setOf(Alphabet.LATIN), ""),
     SOMALI(SO, SOM, setOf(Alphabet.LATIN), ""),
+    SOTHO(ST, SOT, setOf(Alphabet.LATIN), ""),
     SPANISH(ES, SPA, setOf(Alphabet.LATIN), "¿¡"),
     SWAHILI(SW, SWA, setOf(Alphabet.LATIN), ""),
     SWEDISH(SV, SWE, setOf(Alphabet.LATIN), ""),
