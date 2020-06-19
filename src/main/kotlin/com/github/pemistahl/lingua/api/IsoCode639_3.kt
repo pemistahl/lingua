@@ -364,6 +364,11 @@ enum class IsoCode639_3 {
     VIE,
 
     /**
+     * The ISO 639-3 code for [Xhosa][Language.XHOSA].
+     */
+    XHO,
+
+    /**
      * The ISO 639-3 code for [Yoruba][Language.YORUBA].
      */
     YOR,

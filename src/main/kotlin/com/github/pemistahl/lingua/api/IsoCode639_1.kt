@@ -364,6 +364,11 @@ enum class IsoCode639_1 {
     VI,
 
     /**
+     * The ISO 639-1 code for [Xhosa][Language.XHOSA].
+     */
+    XH,
+
+    /**
      * The ISO 639-1 code for [Yoruba][Language.YORUBA].
      */
     YO,

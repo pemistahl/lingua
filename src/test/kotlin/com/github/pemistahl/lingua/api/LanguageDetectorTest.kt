@@ -69,6 +69,7 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
+import com.github.pemistahl.lingua.api.Language.XHOSA
 import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.api.Language.ZULU
 import com.github.pemistahl.lingua.internal.Ngram
@@ -710,7 +711,7 @@ class LanguageDetectorTest {
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC,
                 INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
                 PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA,
-                TSWANA, TURKISH, VIETNAMESE, WELSH, YORUBA, ZULU
+                TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
             )
         )
     )

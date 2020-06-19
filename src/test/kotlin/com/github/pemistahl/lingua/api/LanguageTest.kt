@@ -86,6 +86,7 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.URDU
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.WELSH
+import com.github.pemistahl.lingua.api.Language.XHOSA
 import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.api.Language.ZULU
 import com.github.pemistahl.lingua.internal.Alphabet
@@ -107,7 +108,7 @@ class LanguageTest {
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY,
             MARATHI, MONGOLIAN, NORWEGIAN, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN,
             SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
-            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, YORUBA, ZULU
+            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
@@ -120,7 +121,7 @@ class LanguageTest {
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MARATHI, MONGOLIAN,
             NORWEGIAN, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SLOVAK, SLOVENE,
             SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
-            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, YORUBA, ZULU
+            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
@@ -133,7 +134,7 @@ class LanguageTest {
                 HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
                 LITHUANIAN, MALAY, NORWEGIAN, NYNORSK, POLISH, PORTUGUESE,
                 ROMANIAN, SLOVAK, SLOVENE, SOMALI, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA,
-                TURKISH, VIETNAMESE, WELSH, YORUBA, ZULU
+                TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
             )
     }
 
@@ -222,6 +223,7 @@ class LanguageTest {
         "UR, URDU",
         "VI, VIETNAMESE",
         "CY, WELSH",
+        "XH, XHOSA",
         "YO, YORUBA",
         "ZU, ZULU"
     )
@@ -252,7 +254,7 @@ class LanguageTest {
             GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
             LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, NYNORSK,
             POLISH, PORTUGUESE, ROMANIAN, SLOVAK, SLOVENE, SOMALI,
-            SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE, WELSH, YORUBA, ZULU
+            SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )),
         arguments(Alphabet.TAMIL, listOf(TAMIL)),
         arguments(Alphabet.TELUGU, listOf(TELUGU)),

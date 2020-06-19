@@ -84,6 +84,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.TS
 import com.github.pemistahl.lingua.api.IsoCode639_1.UK
 import com.github.pemistahl.lingua.api.IsoCode639_1.UR
 import com.github.pemistahl.lingua.api.IsoCode639_1.VI
+import com.github.pemistahl.lingua.api.IsoCode639_1.XH
 import com.github.pemistahl.lingua.api.IsoCode639_1.YO
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
@@ -155,6 +156,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
 import com.github.pemistahl.lingua.api.IsoCode639_3.UKR
 import com.github.pemistahl.lingua.api.IsoCode639_3.URD
 import com.github.pemistahl.lingua.api.IsoCode639_3.VIE
+import com.github.pemistahl.lingua.api.IsoCode639_3.XHO
 import com.github.pemistahl.lingua.api.IsoCode639_3.YOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZHO
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZUL
@@ -248,6 +250,7 @@ enum class Language(
     VIETNAMESE(VI, VIE, setOf(Alphabet.LATIN),
         "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"),
     WELSH(CY, CYM, setOf(Alphabet.LATIN), ""),
+    XHOSA(XH, XHO, setOf(Alphabet.LATIN), ""),
     // TODO for YORUBA: "E̩e̩Ẹ́ẹ́É̩é̩Ẹ̀ẹ̀È̩è̩Ẹ̄ẹ̄Ē̩ē̩ŌōO̩o̩Ọ́ọ́Ó̩ó̩Ọ̀ọ̀Ò̩ò̩Ọ̄ọ̄Ō̩ō̩ṢṣS̩s̩"
     YORUBA(YO, YOR, setOf(Alphabet.LATIN), "ŌōṢṣ"),
     ZULU(ZU, ZUL, setOf(Alphabet.LATIN), ""),
