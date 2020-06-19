@@ -52,6 +52,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.KA
 import com.github.pemistahl.lingua.api.IsoCode639_1.KK
 import com.github.pemistahl.lingua.api.IsoCode639_1.KO
 import com.github.pemistahl.lingua.api.IsoCode639_1.LA
+import com.github.pemistahl.lingua.api.IsoCode639_1.LG
 import com.github.pemistahl.lingua.api.IsoCode639_1.LT
 import com.github.pemistahl.lingua.api.IsoCode639_1.LV
 import com.github.pemistahl.lingua.api.IsoCode639_1.MK
@@ -127,6 +128,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.KOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.LAT
 import com.github.pemistahl.lingua.api.IsoCode639_3.LAV
 import com.github.pemistahl.lingua.api.IsoCode639_3.LIT
+import com.github.pemistahl.lingua.api.IsoCode639_3.LUG
 import com.github.pemistahl.lingua.api.IsoCode639_3.MAR
 import com.github.pemistahl.lingua.api.IsoCode639_3.MKD
 import com.github.pemistahl.lingua.api.IsoCode639_3.MON
@@ -206,6 +208,7 @@ enum class Language(
     ESTONIAN(ET, EST, setOf(Alphabet.LATIN), ""),
     FINNISH(FI, FIN, setOf(Alphabet.LATIN), ""),
     FRENCH(FR, FRA, setOf(Alphabet.LATIN), ""),
+    GANDA(LG, LUG, setOf(Alphabet.LATIN), ""),
     GEORGIAN(KA, KAT, setOf(Alphabet.GEORGIAN), ""),
     GERMAN(DE, DEU, setOf(Alphabet.LATIN), "ß"),
     GREEK(EL, ELL, setOf(Alphabet.GREEK), ""),

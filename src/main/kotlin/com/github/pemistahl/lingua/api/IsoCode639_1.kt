@@ -204,6 +204,11 @@ enum class IsoCode639_1 {
     LA,
 
     /**
+     * The ISO 639-1 code for [Ganda][Language.GANDA].
+     */
+    LG,
+
+    /**
      * The ISO 639-1 code for [Lithuanian][Language.LITHUANIAN].
      */
     LT,

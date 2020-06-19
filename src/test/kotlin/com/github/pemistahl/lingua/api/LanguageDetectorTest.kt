@@ -34,6 +34,7 @@ import com.github.pemistahl.lingua.api.Language.ESPERANTO
 import com.github.pemistahl.lingua.api.Language.ESTONIAN
 import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
+import com.github.pemistahl.lingua.api.Language.GANDA
 import com.github.pemistahl.lingua.api.Language.GERMAN
 import com.github.pemistahl.lingua.api.Language.HUNGARIAN
 import com.github.pemistahl.lingua.api.Language.ICELANDIC
@@ -710,7 +711,7 @@ class LanguageDetectorTest {
             "house",
             listOf(
                 AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
-                DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GERMAN, HUNGARIAN, ICELANDIC,
+                DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN, HUNGARIAN, ICELANDIC,
                 INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
                 PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH,
                 TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU

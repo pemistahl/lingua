@@ -209,6 +209,11 @@ enum class IsoCode639_3 {
     LIT,
 
     /**
+     * The ISO 639-3 code for [Ganda][Language.GANDA].
+     */
+    LUG,
+
+    /**
      * The ISO 639-3 code for [Marathi][Language.MARATHI].
      */
     MAR,
