@@ -289,6 +289,11 @@ enum class IsoCode639_1 {
     SL,
 
     /**
+     * The ISO 639-1 code for [Shona][Language.SHONA].
+     */
+    SN,
+
+    /**
      * The ISO 639-1 code for [Somali][Language.SOMALI].
      */
     SO,

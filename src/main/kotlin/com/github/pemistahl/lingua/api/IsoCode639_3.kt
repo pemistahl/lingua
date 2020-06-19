@@ -284,6 +284,11 @@ enum class IsoCode639_3 {
     SLV,
 
     /**
+     * The ISO 639-3 code for [Shona][Language.SHONA].
+     */
+    SNA,
+
+    /**
      * The ISO 639-3 code for [Somali][Language.SOMALI].
      */
     SOM,
