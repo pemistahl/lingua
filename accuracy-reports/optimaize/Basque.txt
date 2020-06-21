@@ -1,17 +1,17 @@
 ##### BASQUE #####
 
->>> Accuracy on average: 65,87%
+>>> Accuracy on average: 66,03%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 32,70%
-Erroneously classified as UNKNOWN: 66,20%, SOMALI: 0,30%, SPANISH: 0,20%, ITALIAN: 0,20%, POLISH: 0,20%, FINNISH: 0,10%, PORTUGUESE: 0,10%
+Accuracy: 32,80%
+Erroneously classified as UNKNOWN: 66,10%, SOMALI: 0,30%, SPANISH: 0,20%, ITALIAN: 0,20%, POLISH: 0,20%, FINNISH: 0,10%, PORTUGUESE: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 69,60%
-Erroneously classified as UNKNOWN: 28,80%, FRENCH: 0,30%, IRISH: 0,20%, SPANISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, TAGALOG: 0,10%, SWAHILI: 0,10%, ITALIAN: 0,10%, WELSH: 0,10%
+Accuracy: 69,90%
+Erroneously classified as UNKNOWN: 28,40%, FRENCH: 0,30%, IRISH: 0,20%, SPANISH: 0,20%, ENGLISH: 0,20%, GERMAN: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, TAGALOG: 0,10%, DANISH: 0,10%, SWAHILI: 0,10%, ITALIAN: 0,10%, WELSH: 0,10%
 
 >> Detection of 1000 sentences (average length: 102 chars)
-Accuracy: 95,30%
-Erroneously classified as UNKNOWN: 3,90%, ENGLISH: 0,30%, LITHUANIAN: 0,20%, ITALIAN: 0,10%, WELSH: 0,10%, ROMANIAN: 0,10%
+Accuracy: 95,40%
+Erroneously classified as UNKNOWN: 3,80%, ENGLISH: 0,30%, LITHUANIAN: 0,20%, ITALIAN: 0,10%, WELSH: 0,10%, ROMANIAN: 0,10%
 
->> Exact values: 65.86666666666666 32.7 69.6 95.3
+>> Exact values: 66.03333333333332 32.800000000000004 69.89999999999999 95.39999999999999

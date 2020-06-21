@@ -8,7 +8,7 @@ Erroneously classified as UNKNOWN: 98,70%, LITHUANIAN: 0,30%, SOMALI: 0,30%, SWA
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 6,00%
-Erroneously classified as UNKNOWN: 92,80%, LITHUANIAN: 0,30%, ITALIAN: 0,30%, ENGLISH: 0,20%, BASQUE: 0,20%, TAGALOG: 0,20%
+Erroneously classified as UNKNOWN: 92,70%, LITHUANIAN: 0,30%, ITALIAN: 0,30%, ENGLISH: 0,20%, BASQUE: 0,20%, TAGALOG: 0,20%, DANISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 126 chars)
 Accuracy: 90,60%

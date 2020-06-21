@@ -62,7 +62,6 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.MS
 import com.github.pemistahl.lingua.api.IsoCode639_1.NB
 import com.github.pemistahl.lingua.api.IsoCode639_1.NL
 import com.github.pemistahl.lingua.api.IsoCode639_1.NN
-import com.github.pemistahl.lingua.api.IsoCode639_1.NO
 import com.github.pemistahl.lingua.api.IsoCode639_1.PA
 import com.github.pemistahl.lingua.api.IsoCode639_1.PL
 import com.github.pemistahl.lingua.api.IsoCode639_1.PT
@@ -136,7 +135,6 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.MSA
 import com.github.pemistahl.lingua.api.IsoCode639_3.NLD
 import com.github.pemistahl.lingua.api.IsoCode639_3.NNO
 import com.github.pemistahl.lingua.api.IsoCode639_3.NOB
-import com.github.pemistahl.lingua.api.IsoCode639_3.NOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.PAN
 import com.github.pemistahl.lingua.api.IsoCode639_3.POL
 import com.github.pemistahl.lingua.api.IsoCode639_3.POR
@@ -174,7 +172,6 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
-import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 /**
@@ -230,7 +227,6 @@ enum class Language(
     MALAY(MS, MSA, setOf(Alphabet.LATIN), ""),
     MARATHI(MR, MAR, setOf(DEVANAGARI), "ळ"),
     MONGOLIAN(MN, MON, setOf(CYRILLIC), "ӨөҮү"),
-    NORWEGIAN(NO, NOR, setOf(Alphabet.LATIN), ""),
     NYNORSK(NN, NNO, setOf(Alphabet.LATIN), ""),
     PERSIAN(FA, FAS, setOf(Alphabet.ARABIC), ""),
     POLISH(PL, POL, setOf(Alphabet.LATIN), "ŁłŃńŚśŹź"),
@@ -276,13 +272,13 @@ enum class Language(
          * Returns a list of all supported languages.
          */
         @JvmStatic
-        fun all() = filterOutLanguages(UNKNOWN, BOKMAL, NYNORSK)
+        fun all() = filterOutLanguages(UNKNOWN)
 
         /**
          * Returns a list of all supported languages that are still spoken today.
          */
         @JvmStatic
-        fun allSpokenOnes() = filterOutLanguages(UNKNOWN, BOKMAL, LATIN, NYNORSK)
+        fun allSpokenOnes() = filterOutLanguages(UNKNOWN, LATIN)
 
         /**
          * Returns the language for the given ISO 639-1 code.

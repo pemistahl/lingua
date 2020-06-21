@@ -239,7 +239,7 @@ enum class IsoCode639_1 {
     MS,
 
     /**
-     * The ISO 639-1 code for [Bokmal][Language.BOKMAL].
+     * The ISO 639-1 code for [Norwegian Bokmal][Language.BOKMAL].
      */
     NB,
 
@@ -249,14 +249,9 @@ enum class IsoCode639_1 {
     NL,
 
     /**
-     * The ISO 639-1 code for [Nynorsk][Language.NYNORSK].
+     * The ISO 639-1 code for [Norwegian Nynorsk][Language.NYNORSK].
      */
     NN,
-
-    /**
-     * The ISO 639-1 code for [Norwegian][Language.NORWEGIAN].
-     */
-    NO,
 
     /**
      * The ISO 639-1 code for [Punjabi][Language.PUNJABI].

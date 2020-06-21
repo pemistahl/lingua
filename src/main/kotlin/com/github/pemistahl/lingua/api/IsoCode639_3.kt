@@ -239,19 +239,14 @@ enum class IsoCode639_3 {
     NLD,
 
     /**
-     * The ISO 639-3 code for [Nynorsk][Language.NYNORSK].
+     * The ISO 639-3 code for [Norwegian Nynorsk][Language.NYNORSK].
      */
     NNO,
 
     /**
-     * The ISO 639-3 code for [Bokmal][Language.BOKMAL].
+     * The ISO 639-3 code for [Norwegian Bokmal][Language.BOKMAL].
      */
     NOB,
-
-    /**
-     * The ISO 639-3 code for [Norwegian][Language.NORWEGIAN].
-     */
-    NOR,
 
     /**
      * The ISO 639-3 code for [Punjabi][Language.PUNJABI].

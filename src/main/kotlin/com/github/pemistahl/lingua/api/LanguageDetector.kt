@@ -43,7 +43,6 @@ import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MONGOLIAN
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
@@ -167,23 +166,6 @@ class LanguageDetector internal constructor(
             text.split(' ')
         } else {
             listOf(text)
-        }
-    }
-
-    internal fun addLanguageModel(language: Language) {
-        languages.add(language)
-        if (!unigramLanguageModels.containsKey(language)) {
-            unigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 1) }
-            bigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 2) }
-            trigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 3) }
-            quadrigramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 4) }
-            fivegramLanguageModels[language] = lazy { loadLanguageModel(language, ngramLength = 5) }
-        }
-    }
-
-    internal fun removeLanguageModel(language: Language) {
-        if (languages.contains(language)) {
-            languages.remove(language)
         }
     }
 
@@ -315,26 +297,9 @@ class LanguageDetector internal constructor(
         }
 
         val mostFrequentAlphabet = detectedAlphabets.entries.sortedByDescending { it.value }.first().key
-        val filteredLanguages = when (mostFrequentAlphabet) {
-            Alphabet.CYRILLIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.CYRILLIC) }
-            Alphabet.DEVANAGARI -> languages.asSequence().filter { it.alphabets.contains(Alphabet.DEVANAGARI) }
-            Alphabet.ARABIC -> languages.asSequence().filter { it.alphabets.contains(Alphabet.ARABIC) }
-            Alphabet.HAN -> languages.asSequence().filter { it.alphabets.contains(Alphabet.HAN) }
-            Alphabet.LATIN -> {
-                if (languages.contains(NORWEGIAN)) {
-                    languages.asSequence().filter {
-                        it.alphabets.contains(Alphabet.LATIN) && it !in setOf(BOKMAL, NYNORSK)
-                    }
-                } else if (languages.contains(BOKMAL) || languages.contains(NYNORSK)) {
-                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) && it != NORWEGIAN }
-                } else {
-                    languages.asSequence().filter { it.alphabets.contains(Alphabet.LATIN) }
-                }
-            }
-            else -> languages.asSequence()
-        }
-
+        val filteredLanguages = languages.asSequence().filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
+
         for (word in words) {
             for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
                 if (word.containsAnyOf(characters)) {
@@ -473,7 +438,7 @@ class LanguageDetector internal constructor(
             "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
             "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
-            "Øø" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK),
+            "Øø" to setOf(BOKMAL, DANISH, NYNORSK),
             "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
             "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
 
@@ -482,8 +447,8 @@ class LanguageDetector internal constructor(
             "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
             "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
             "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
-            "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NORWEGIAN, NYNORSK),
-            "Åå" to setOf(BOKMAL, DANISH, NORWEGIAN, NYNORSK, SWEDISH),
+            "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
+            "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
 
             "ЙйЬьЮюЧчЯя" to setOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN),
             "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),

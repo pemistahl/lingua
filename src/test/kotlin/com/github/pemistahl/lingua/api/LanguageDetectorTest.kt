@@ -22,6 +22,7 @@ import com.github.pemistahl.lingua.api.Language.ARABIC
 import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
 import com.github.pemistahl.lingua.api.Language.BASQUE
 import com.github.pemistahl.lingua.api.Language.BELARUSIAN
+import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.BOSNIAN
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
 import com.github.pemistahl.lingua.api.Language.CATALAN
@@ -48,7 +49,7 @@ import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MALAY
 import com.github.pemistahl.lingua.api.Language.MONGOLIAN
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
+import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.PERSIAN
 import com.github.pemistahl.lingua.api.Language.POLISH
 import com.github.pemistahl.lingua.api.Language.PORTUGUESE
@@ -637,7 +638,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "direktør",
-            listOf(DANISH, NORWEGIAN)
+            listOf(BOKMAL, DANISH, NYNORSK)
         ),
         arguments(
             "vývoj",
@@ -661,11 +662,11 @@ class LanguageDetectorTest {
         ),
         arguments(
             "indebærer",
-            listOf(DANISH, ICELANDIC, NORWEGIAN)
+            listOf(BOKMAL, DANISH, ICELANDIC, NYNORSK)
         ),
         arguments(
             "måned",
-            listOf(DANISH, NORWEGIAN, SWEDISH)
+            listOf(BOKMAL, DANISH, NYNORSK, SWEDISH)
         ),
         arguments(
             "zaručen",
@@ -710,9 +711,9 @@ class LanguageDetectorTest {
         arguments(
             "house",
             listOf(
-                AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
+                AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN, HUNGARIAN, ICELANDIC,
-                INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NORWEGIAN, POLISH,
+                INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NYNORSK, POLISH,
                 PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH,
                 TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
             )

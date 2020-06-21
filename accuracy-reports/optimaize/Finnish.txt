@@ -1,17 +1,17 @@
 ##### FINNISH #####
 
->>> Accuracy on average: 78,47%
+>>> Accuracy on average: 78,63%
 
 >> Detection of 1000 single words (average length: 10 chars)
-Accuracy: 50,50%
-Erroneously classified as UNKNOWN: 49,10%, SOMALI: 0,10%, ESTONIAN: 0,10%, AFRIKAANS: 0,10%, ROMANIAN: 0,10%
+Accuracy: 50,90%
+Erroneously classified as UNKNOWN: 48,70%, SOMALI: 0,10%, ESTONIAN: 0,10%, AFRIKAANS: 0,10%, ROMANIAN: 0,10%
 
 >> Detection of 1000 word pairs (average length: 19 chars)
-Accuracy: 85,40%
-Erroneously classified as UNKNOWN: 14,30%, AFRIKAANS: 0,20%, ESTONIAN: 0,10%
+Accuracy: 85,50%
+Erroneously classified as UNKNOWN: 14,20%, AFRIKAANS: 0,20%, ESTONIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 103 chars)
 Accuracy: 99,50%
 Erroneously classified as UNKNOWN: 0,40%, ESTONIAN: 0,10%
 
->> Exact values: 78.46666666666665 50.5 85.39999999999999 99.5
+>> Exact values: 78.63333333333334 50.9 85.5 99.5

@@ -4,11 +4,11 @@
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 0,00%
-Erroneously classified as UNKNOWN: 98,60%, TAGALOG: 1,00%, SWAHILI: 0,30%, WELSH: 0,10%
+Erroneously classified as UNKNOWN: 98,50%, TAGALOG: 1,00%, SWAHILI: 0,30%, DANISH: 0,10%, WELSH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
 Accuracy: 0,60%
-Erroneously classified as UNKNOWN: 97,80%, TAGALOG: 0,80%, FINNISH: 0,20%, ENGLISH: 0,20%, SOMALI: 0,10%, BASQUE: 0,10%, ITALIAN: 0,10%, POLISH: 0,10%
+Erroneously classified as UNKNOWN: 97,70%, TAGALOG: 0,80%, FINNISH: 0,20%, ENGLISH: 0,20%, SOMALI: 0,10%, DANISH: 0,10%, BASQUE: 0,10%, ITALIAN: 0,10%, POLISH: 0,10%
 
 >> Detection of 1000 sentences (average length: 105 chars)
 Accuracy: 53,80%

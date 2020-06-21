@@ -1,17 +1,17 @@
 ##### DUTCH #####
 
->>> Accuracy on average: 38,63%
+>>> Accuracy on average: 38,67%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 5,60%
-Erroneously classified as UNKNOWN: 92,20%, GERMAN: 0,80%, WELSH: 0,20%, IRISH: 0,20%, AFRIKAANS: 0,20%, SPANISH: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%, DANISH: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%, FINNISH: 0,10%
+Erroneously classified as UNKNOWN: 92,10%, GERMAN: 0,80%, WELSH: 0,20%, IRISH: 0,20%, DANISH: 0,20%, AFRIKAANS: 0,20%, SPANISH: 0,10%, ENGLISH: 0,10%, SOMALI: 0,10%, PORTUGUESE: 0,10%, POLISH: 0,10%, CZECH: 0,10%, FINNISH: 0,10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 18,90%
-Erroneously classified as UNKNOWN: 76,80%, AFRIKAANS: 2,10%, ENGLISH: 0,40%, IRISH: 0,30%, GERMAN: 0,30%, FRENCH: 0,30%, ITALIAN: 0,20%, BASQUE: 0,10%, ESTONIAN: 0,10%, POLISH: 0,10%, SWEDISH: 0,10%, SPANISH: 0,10%, NORWEGIAN: 0,10%, LATVIAN: 0,10%
+Accuracy: 19,00%
+Erroneously classified as UNKNOWN: 76,50%, AFRIKAANS: 2,20%, ENGLISH: 0,40%, IRISH: 0,30%, GERMAN: 0,30%, FRENCH: 0,30%, DANISH: 0,20%, ITALIAN: 0,20%, BASQUE: 0,10%, ESTONIAN: 0,10%, POLISH: 0,10%, SWEDISH: 0,10%, SPANISH: 0,10%, LATVIAN: 0,10%
 
 >> Detection of 1000 sentences (average length: 107 chars)
 Accuracy: 91,40%
 Erroneously classified as UNKNOWN: 7,80%, AFRIKAANS: 0,60%, ENGLISH: 0,20%
 
->> Exact values: 38.63333333333333 5.6000000000000005 18.9 91.4
+>> Exact values: 38.666666666666664 5.6000000000000005 19.0 91.4

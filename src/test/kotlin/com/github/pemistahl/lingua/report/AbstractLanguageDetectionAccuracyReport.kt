@@ -26,6 +26,8 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.KK
 import com.github.pemistahl.lingua.api.IsoCode639_1.LA
 import com.github.pemistahl.lingua.api.IsoCode639_1.LG
 import com.github.pemistahl.lingua.api.IsoCode639_1.MN
+import com.github.pemistahl.lingua.api.IsoCode639_1.NB
+import com.github.pemistahl.lingua.api.IsoCode639_1.NN
 import com.github.pemistahl.lingua.api.IsoCode639_1.SN
 import com.github.pemistahl.lingua.api.IsoCode639_1.ST
 import com.github.pemistahl.lingua.api.IsoCode639_1.TN
@@ -37,7 +39,6 @@ import com.github.pemistahl.lingua.api.IsoCode639_3
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.NORWEGIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
@@ -104,12 +105,6 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         Files.createDirectories(accuracyReportsDirectoryPath)
         accuracyReportFilePath.toFile().bufferedWriter().use { writer ->
             writer.write(statisticsReport())
-        }
-
-        if (implementationToUse == LINGUA && language in arrayOf(BOKMAL, NYNORSK)) {
-            linguaDetector.removeLanguageModel(BOKMAL)
-            linguaDetector.removeLanguageModel(NYNORSK)
-            linguaDetector.addLanguageModel(NORWEGIAN)
         }
     }
 
@@ -178,14 +173,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
 
     private fun computeStatistics(statistics: MutableMap<Language, Int>, element: String) {
         val detectedLanguage = when (implementationToUse) {
-            LINGUA -> {
-                if (language in arrayOf(BOKMAL, NYNORSK)) {
-                    linguaDetector.addLanguageModel(BOKMAL)
-                    linguaDetector.addLanguageModel(NYNORSK)
-                    linguaDetector.removeLanguageModel(NORWEGIAN)
-                }
-                linguaDetector.detectLanguageOf(element)
-            }
+            LINGUA -> linguaDetector.detectLanguageOf(element)
             OPTIMAIZE -> mapLocaleToLanguage(optimaizeDetector.detect(textObjectFactory.forText(element)))
             TIKA -> {
                 tikaDetector.addText(element)
@@ -272,14 +260,12 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     }
 
     companion object {
-        private val languageIsoCodesToTest = Language.values().toSet().minus(
-            arrayOf(BOKMAL, NYNORSK, UNKNOWN)
-        ).map {
+        private val languageIsoCodesToTest = Language.values().toSet().minus(arrayOf(UNKNOWN)).map {
             it.isoCode639_1
         }.toTypedArray()
 
         private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
-            it in setOf(AZ, BS, EO, HY, KA, KK, LA, LG, MN, SN, ST, TN, TS, XH, YO, ZU)
+            it in setOf(AZ, BS, EO, HY, KA, KK, LA, LG, MN, NB, NN, SN, ST, TN, TS, XH, YO, ZU)
         }.map { it.toString() }
 
         internal val linguaDetector by lazy {
@@ -299,7 +285,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                     else -> LdLocale.fromString(it)
                 }
             }
-            val languageProfiles = LanguageProfileReader().readBuiltIn(languageLocales)
+            val languageProfiles = LanguageProfileReader().readBuiltIn(languageLocales.toSet())
             com.optimaize.langdetect.LanguageDetectorBuilder
                 .create(NgramExtractors.standard())
                 .withProfiles(languageProfiles)
