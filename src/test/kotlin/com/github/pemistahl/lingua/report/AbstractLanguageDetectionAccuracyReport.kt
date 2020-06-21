@@ -37,9 +37,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.YO
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
 import com.github.pemistahl.lingua.api.IsoCode639_3
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
