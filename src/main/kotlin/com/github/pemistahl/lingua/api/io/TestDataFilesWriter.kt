@@ -17,16 +17,15 @@
 package com.github.pemistahl.lingua.api.io
 
 import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
+import com.github.pemistahl.lingua.internal.Constant.NUMBERS
+import com.github.pemistahl.lingua.internal.Constant.PUNCTUATION
 import com.github.pemistahl.lingua.internal.io.FilesWriter
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
 
 object TestDataFilesWriter : FilesWriter() {
-
-    private val PUNCTUATION = Regex("\\p{P}")
-    private val NUMBERS = Regex("\\p{N}")
-    private val MULTIPLE_WHITESPACE = Regex("\\s+")
 
     /**
      * Creates test data files for accuracy report generation and writes them to a directory.
