@@ -18,7 +18,7 @@ package com.github.pemistahl.lingua.app
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
-import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllBuiltInLanguages
+import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes639_1
 import java.io.Console
 import java.util.Scanner
@@ -114,7 +114,7 @@ private fun runApp() {
         }
     } else {
         println("Loading language models...")
-        detectorBuilder = fromAllBuiltInLanguages()
+        detectorBuilder = fromAllLanguages()
     }
 
     if (detectorBuilder != null) {
