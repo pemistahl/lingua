@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua.api.io
 
+import com.github.pemistahl.lingua.api.Language
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.stream.Collectors.toList
@@ -78,8 +79,8 @@ class TestDataFilesWriterTest {
         TestDataFilesWriter.createAndWriteTestDataFiles(
             inputFilePath = inputFilePath,
             outputDirectoryPath = outputDirectoryPath,
-            fileName = "en.txt",
-            charClass = "IsLatin",
+            language = Language.ENGLISH,
+            charClass = "\\p{L}&&\\p{IsLatin}",
             maximumLines = 4
         )
 

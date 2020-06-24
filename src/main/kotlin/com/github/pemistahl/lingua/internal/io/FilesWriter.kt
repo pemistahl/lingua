@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.pemistahl.lingua.api.io
+package com.github.pemistahl.lingua.internal.io
 
 import java.io.FileNotFoundException
 import java.nio.file.Files

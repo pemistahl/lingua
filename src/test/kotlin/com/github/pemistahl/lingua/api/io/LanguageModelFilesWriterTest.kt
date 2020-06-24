@@ -127,7 +127,7 @@ class LanguageModelFilesWriterTest {
             inputFilePath = inputFilePath,
             outputDirectoryPath = outputDirectoryPath,
             language = Language.ENGLISH,
-            charClass = "IsLatin"
+            charClass = "\\p{L}&&\\p{IsLatin}"
         )
 
         val modelFilePaths = retrieveAndSortModelFiles(outputDirectoryPath)

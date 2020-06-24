@@ -19,19 +19,30 @@ package com.github.pemistahl.lingua.api.io
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
+import com.github.pemistahl.lingua.internal.io.FilesWriter
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
 
 object LanguageModelFilesWriter : FilesWriter() {
 
+    /**
+     * Creates language model files and writes them to a directory.
+     *
+     * @param inputFilePath The path to a txt file used for language model creation.
+     * @param inputFileCharset The encoding of [inputFilePath]. Defaults to [Charsets.UTF_8].
+     * @param outputDirectoryPath The directory where the language model files are to be written.
+     * @param language The language for which to create language models.
+     * @param charClass A regex character class as supported by [java.util.regex.Pattern]
+     * to restrict the set of characters that the language models are built from. Defaults to `\p{L}`.
+     */
     @JvmStatic
     fun createAndWriteLanguageModelFiles(
         inputFilePath: Path,
         inputFileCharset: Charset = Charsets.UTF_8,
         outputDirectoryPath: Path,
         language: Language,
-        charClass: String?
+        charClass: String = "\\p{L}"
     ) {
         checkInputFilePath(inputFilePath)
         checkOutputDirectoryPath(outputDirectoryPath)
@@ -84,7 +95,7 @@ object LanguageModelFilesWriter : FilesWriter() {
         inputFileCharset: Charset,
         language: Language,
         ngramLength: Int,
-        charClass: String?,
+        charClass: String,
         lowerNgramAbsoluteFrequencies: Map<Ngram, Int>
     ): TrainingDataLanguageModel {
 

@@ -180,7 +180,7 @@ class TrainingDataLanguageModelTest {
             text = text.lineSequence(),
             language = Language.ENGLISH,
             ngramLength = 1,
-            charClass = "IsLatin",
+            charClass = "\\p{L}&&\\p{IsLatin}",
             lowerNgramAbsoluteFrequencies = emptyMap()
         )
         assertThat(model.language).isEqualTo(Language.ENGLISH)
@@ -194,7 +194,7 @@ class TrainingDataLanguageModelTest {
             text = text.lineSequence(),
             language = Language.ENGLISH,
             ngramLength = 2,
-            charClass = "IsLatin",
+            charClass = "\\p{L}&&\\p{IsLatin}",
             lowerNgramAbsoluteFrequencies = expectedUnigramAbsoluteFrequencies
         )
         assertThat(model.language).isEqualTo(Language.ENGLISH)
@@ -208,7 +208,7 @@ class TrainingDataLanguageModelTest {
             text = text.lineSequence(),
             language = Language.ENGLISH,
             ngramLength = 3,
-            charClass = "IsLatin",
+            charClass = "\\p{L}&&\\p{IsLatin}",
             lowerNgramAbsoluteFrequencies = expectedBigramAbsoluteFrequencies
         )
         assertThat(model.language).isEqualTo(Language.ENGLISH)
@@ -222,7 +222,7 @@ class TrainingDataLanguageModelTest {
             text = text.lineSequence(),
             language = Language.ENGLISH,
             ngramLength = 4,
-            charClass = "IsLatin",
+            charClass = "\\p{L}&&\\p{IsLatin}",
             lowerNgramAbsoluteFrequencies = expectedTrigramAbsoluteFrequencies
         )
         assertThat(model.language).isEqualTo(Language.ENGLISH)
@@ -236,7 +236,7 @@ class TrainingDataLanguageModelTest {
             text = text.lineSequence(),
             language = Language.ENGLISH,
             ngramLength = 5,
-            charClass = "IsLatin",
+            charClass = "\\p{L}&&\\p{IsLatin}",
             lowerNgramAbsoluteFrequencies = expectedQuadrigramAbsoluteFrequencies
         )
         assertThat(model.language).isEqualTo(Language.ENGLISH)
@@ -250,7 +250,7 @@ class TrainingDataLanguageModelTest {
             text = text.lineSequence(),
             language = Language.ENGLISH,
             ngramLength = 1,
-            charClass = "IsLatin",
+            charClass = "\\p{L}&&\\p{IsLatin}",
             lowerNgramAbsoluteFrequencies = emptyMap()
         )
         assertThat(model.toJson()).isEqualTo(expectedUnigramLanguageModel)

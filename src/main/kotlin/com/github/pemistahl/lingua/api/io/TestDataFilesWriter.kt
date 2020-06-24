@@ -16,6 +16,8 @@
 
 package com.github.pemistahl.lingua.api.io
 
+import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.internal.io.FilesWriter
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
@@ -26,13 +28,24 @@ object TestDataFilesWriter : FilesWriter() {
     private val NUMBERS = Regex("\\p{N}")
     private val MULTIPLE_WHITESPACE = Regex("\\s+")
 
+    /**
+     * Creates test data files for accuracy report generation and writes them to a directory.
+     *
+     * @param inputFilePath The path to a txt file used for test data creation.
+     * @param inputFileCharset The encoding of [inputFilePath]. Defaults to [Charsets.UTF_8].
+     * @param outputDirectoryPath The directory where the test data files are to be written.
+     * @param language The language for which to create test data.
+     * @param charClass A regex character class as supported by [java.util.regex.Pattern]
+     * to restrict the set of characters that the test data files are built from. Defaults to `\p{L}`.
+     * @param maximumLines The maximum number of lines each test data files should have.
+     */
     @JvmStatic
     fun createAndWriteTestDataFiles(
         inputFilePath: Path,
         inputFileCharset: Charset = Charsets.UTF_8,
         outputDirectoryPath: Path,
-        fileName: String,
-        charClass: String?,
+        language: Language,
+        charClass: String = "\\p{L}",
         maximumLines: Int
     ) {
         checkInputFilePath(inputFilePath)
@@ -41,26 +54,27 @@ object TestDataFilesWriter : FilesWriter() {
         createAndWriteSentencesFile(
             inputFilePath, inputFileCharset,
             outputDirectoryPath,
-            fileName,
+            language,
             maximumLines
         )
         val singleWords = createAndWriteSingleWordsFile(
             inputFilePath, inputFileCharset,
             outputDirectoryPath,
-            fileName,
+            language,
             charClass,
             maximumLines
         )
-        createAndWriteWordPairsFile(singleWords, outputDirectoryPath, fileName, maximumLines)
+        createAndWriteWordPairsFile(singleWords, outputDirectoryPath, language, maximumLines)
     }
 
     private fun createAndWriteSentencesFile(
         inputFilePath: Path,
         inputFileCharset: Charset,
         outputDirectoryPath: Path,
-        fileName: String,
+        language: Language,
         maximumLines: Int
     ) {
+        val fileName = "${language.isoCode639_1}.txt"
         val sentencesDirectoryPath = outputDirectoryPath.resolve("sentences")
         val sentencesFilePath = sentencesDirectoryPath.resolve(fileName)
         var lineCounter = 0
@@ -89,18 +103,14 @@ object TestDataFilesWriter : FilesWriter() {
         inputFilePath: Path,
         inputFileCharset: Charset,
         outputDirectoryPath: Path,
-        fileName: String,
-        charClass: String?,
+        language: Language,
+        charClass: String,
         maximumLines: Int
     ): List<String> {
+        val fileName = "${language.isoCode639_1}.txt"
         val singleWordsDirectoryPath = outputDirectoryPath.resolve("single-words")
         val singleWordsFilePath = singleWordsDirectoryPath.resolve(fileName)
-
-        val wordRegex = if (charClass != null) {
-            Regex("""[\p{L}&&\p{$charClass}]{5,}""")
-        } else {
-            Regex("""[\p{L}]{5,}""")
-        }
+        val wordRegex = Regex("[$charClass]{5,}")
 
         val words = mutableListOf<String>()
         var lineCounter = 0
@@ -145,9 +155,10 @@ object TestDataFilesWriter : FilesWriter() {
     private fun createAndWriteWordPairsFile(
         words: List<String>,
         outputDirectoryPath: Path,
-        fileName: String,
+        language: Language,
         maximumLines: Int
     ) {
+        val fileName = "${language.isoCode639_1}.txt"
         val wordPairsDirectoryPath = outputDirectoryPath.resolve("word-pairs")
         val wordPairsFilePath = wordPairsDirectoryPath.resolve(fileName)
         val wordPairs = mutableSetOf<String>()
