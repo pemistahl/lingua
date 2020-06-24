@@ -1,3 +1,42 @@
+## Lingua 1.0.0 (released on 24 Jun 2020)
+
+### Languages
+
+- added 9 new languages, this time with a focus on Africa: Ganda, Shona, Sotho, Swahili, Tsonga, Tswana, Xhosa, Yoruba, Zulu
+- removed language Norwegian in favor of Bokmal and Nynorsk (#59)
+
+### Features
+
+- `LanguageDetector` can now provide confidence scores for each evaluated language. (#11)
+- The public API for creating language model (`LanguageModelFilesWriter`) and test data files (`TestDataFilesWriter`) has been stabilized. (#37)
+- New convenience methods have been added to `LanguageDetectorBuilder` in order to build `LanguageDetector` from languages written in a certain script. (#61)
+
+### Improvements
+
+- The rule-based detection algorithm has been made less sensitive so that single words in a different language cannot mislead the algorithm so easily.
+- The [fastutil](http://fastutil.di.unimi.it) library has been added again to reduce memory consumption. (#58)
+- The language model-based algorithm has been optimized so that language detection performs approximately 25% faster now. (#58)
+- Support for the Kotlin linter `ktlint` has been added to help with a consistent coding style. (#47)
+- Third-party dependencies have been updated to their latest versions. (#36)
+
+### Bug Fixes
+
+- Incorrect regex character classes caused the library to not work properly on Android. (#32)
+
+### Test Coverage
+
+- Test coverage has been extended from 59% to 72%.
+
+### Documentation
+
+- The README contains a new section describing how users can add their own languages to *Lingua*.
+
+### Other changes:
+
+There is a breaking change in this release:
+
+- Methods with the prefix `fromAllBuiltIn...` have been renamed to `fromAll...` to make them more succinct and clear. (#61)
+
 ## Lingua 0.6.1 (released on 06 Feb 2020)
 
 ### Bug Fixes

@@ -362,8 +362,6 @@ The public API of *Lingua* never returns `null` somewhere, so it is safe to be u
 /* Java */
 
 import com.github.pemistahl.lingua.api.*;
-import java.util.List;
-
 import static com.github.pemistahl.lingua.api.Language.*;
 
 final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build();
