@@ -56,9 +56,9 @@ class TestDataFilesWriterTest {
 
     private val expectedWordPairsFileContent = """
         there attributes
-        attributes associated
         associated software
-        software these
+        these mutually
+        contradictory different
 
     """.trimIndent()
 

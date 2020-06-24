@@ -133,6 +133,8 @@ object TestDataFilesWriter : FilesWriter() {
                     writer.write(word)
                     writer.newLine()
                     lineCounter++
+                } else {
+                    break
                 }
             }
         }
@@ -158,7 +160,7 @@ object TestDataFilesWriter : FilesWriter() {
             Files.delete(wordPairsFilePath)
         }
 
-        for (i in 0..(words.size - 2)) {
+        for (i in 0..(words.size - 2) step 2) {
             wordPairs.add(words.slice(i..i + 1).joinToString(" "))
         }
 
@@ -168,6 +170,8 @@ object TestDataFilesWriter : FilesWriter() {
                     writer.write(wordPair)
                     writer.newLine()
                     lineCounter++
+                } else {
+                    break
                 }
             }
         }
