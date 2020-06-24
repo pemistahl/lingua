@@ -115,6 +115,21 @@ class LanguageDetector internal constructor(
         return UNKNOWN
     }
 
+    /**
+     * Computes confidence values for every language considered possible for the given input text.
+     *
+     * The values that this method computes are part of a **relative** confidence metric, not of an absolute one.
+     * Each value is a number between 0.0 and 1.0. The most likely language is always returned with value 1.0.
+     * All other languages get values assigned which are lower than 1.0, denoting how less likely those languages
+     * are in comparison to the most likely language.
+     *
+     * The map returned by this method does not necessarily contain all languages which the calling instance of
+     * [LanguageDetector] was built from. If the rule-based engine decides that a specific language is truly impossible,
+     * then it will not be part of the returned map. The confidence value for such a language is assumed to be 0.0.
+     *
+     * @param text The input text to detect the language for.
+     * @return A map of all possible languages, sorted by their confidence value in descending order.
+     */
     fun computeLanguageConfidenceValues(text: String): SortedMap<Language, Double> {
         val values = TreeMap<Language, Double>()
         val cleanedUpText = cleanUpInputText(text)
