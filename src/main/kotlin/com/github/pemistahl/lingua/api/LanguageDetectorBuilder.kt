@@ -60,27 +60,55 @@ class LanguageDetectorBuilder private constructor(
     companion object {
         /**
          * Creates and returns an instance of LanguageDetectorBuilder
-         * with all supported languages.
+         * with all built-in languages.
          */
         @JvmStatic
-        fun fromAllBuiltInLanguages() = LanguageDetectorBuilder(Language.all())
+        fun fromAllLanguages() = LanguageDetectorBuilder(Language.all())
 
         /**
          * Creates and returns an instance of LanguageDetectorBuilder
-         * with all supported still spoken languages.
+         * with all built-in still spoken languages.
          */
         @JvmStatic
-        fun fromAllBuiltInSpokenLanguages() = LanguageDetectorBuilder(Language.allSpokenOnes())
+        fun fromAllSpokenLanguages() = LanguageDetectorBuilder(Language.allSpokenOnes())
 
         /**
          * Creates and returns an instance of LanguageDetectorBuilder
-         * with all supported languages except those specified in languages.
+         * with all built-in languages supporting the Arabic script.
+         */
+        @JvmStatic
+        fun fromAllLanguagesWithArabicScript() = LanguageDetectorBuilder(Language.allWithArabicScript())
+
+        /**
+         * Creates and returns an instance of LanguageDetectorBuilder
+         * with all built-in languages supporting the Cyrillic script.
+         */
+        @JvmStatic
+        fun fromAllLanguagesWithCyrillicScript() = LanguageDetectorBuilder(Language.allWithCyrillicScript())
+
+        /**
+         * Creates and returns an instance of LanguageDetectorBuilder
+         * with all built-in languages supporting the Devanagari script.
+         */
+        @JvmStatic
+        fun fromAllLanguagesWithDevanagariScript() = LanguageDetectorBuilder(Language.allWithDevanagariScript())
+
+        /**
+         * Creates and returns an instance of LanguageDetectorBuilder
+         * with all built-in languages supporting the Latin script.
+         */
+        @JvmStatic
+        fun fromAllLanguagesWithLatinScript() = LanguageDetectorBuilder(Language.allWithLatinScript())
+
+        /**
+         * Creates and returns an instance of LanguageDetectorBuilder
+         * with all built-in languages except those specified in [languages].
          *
-         * @param languages The languages to exclude from the set of the supported languages.
+         * @param languages The languages to exclude from the set of built-in languages.
          * @throws [IllegalArgumentException] if less than two languages are to be used.
          */
         @JvmStatic
-        fun fromAllBuiltInLanguagesWithout(vararg languages: Language): LanguageDetectorBuilder {
+        fun fromAllLanguagesWithout(vararg languages: Language): LanguageDetectorBuilder {
             val languagesToLoad = Language.values().toMutableList()
             languagesToLoad.removeAll(arrayOf(Language.UNKNOWN, *languages))
             require(languagesToLoad.size >= 2) { MISSING_LANGUAGE_MESSAGE }
@@ -89,7 +117,7 @@ class LanguageDetectorBuilder private constructor(
 
         /**
          * Creates and returns an instance of LanguageDetectorBuilder
-         * with the specified languages.
+         * with the specified [languages].
          *
          * @param languages The languages to use.
          * @throws [IllegalArgumentException] if less than two languages are specified.
@@ -104,7 +132,7 @@ class LanguageDetectorBuilder private constructor(
 
         /**
          * Creates and returns an instance of LanguageDetectorBuilder
-         * with the languages specified by the respective ISO 639-1 isoCodes.
+         * with the languages specified by the respective ISO 639-1 codes.
          *
          * @param isoCodes The ISO 639-1 codes to use.
          * @throws [IllegalArgumentException] if less than two iso codes are specified.
@@ -120,7 +148,7 @@ class LanguageDetectorBuilder private constructor(
 
         /**
          * Creates and returns an instance of LanguageDetectorBuilder
-         * with the languages specified by the respective ISO 639-3 isoCodes.
+         * with the languages specified by the respective ISO 639-3 codes.
          *
          * @param isoCodes The ISO 639-3 codes to use.
          * @throws [IllegalArgumentException] if less than two iso codes are specified.

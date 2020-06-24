@@ -128,16 +128,32 @@ class LanguageTest {
     }
 
     @Test
-    fun `assert that certain languages support Latin alphabet`() {
-        assertThat(Language.values().filter { it.alphabets.contains(Alphabet.LATIN) })
-            .containsExactly(
-                AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN, CZECH,
-                DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN,
-                HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
-                LITHUANIAN, MALAY, NYNORSK, POLISH, PORTUGUESE,
-                ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA,
-                TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
-            )
+    fun `assert that certain languages support Arabic script`() {
+        assertThat(Language.allWithArabicScript()).containsExactly(ARABIC, PERSIAN, URDU)
+    }
+
+    @Test
+    fun `assert that certain languages support Cyrillic script`() {
+        assertThat(Language.allWithCyrillicScript()).containsExactly(
+            BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN
+        )
+    }
+
+    @Test
+    fun `assert that certain languages support Devanagari script`() {
+        assertThat(Language.allWithDevanagariScript()).containsExactly(HINDI, MARATHI)
+    }
+
+    @Test
+    fun `assert that certain languages support Latin script`() {
+        assertThat(Language.allWithLatinScript()).containsExactly(
+            AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN, CZECH,
+            DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN,
+            HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
+            LITHUANIAN, MALAY, NYNORSK, POLISH, PORTUGUESE,
+            ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA,
+            TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+        )
     }
 
     @ParameterizedTest

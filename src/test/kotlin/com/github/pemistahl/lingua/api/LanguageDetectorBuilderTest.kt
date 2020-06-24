@@ -26,7 +26,7 @@ class LanguageDetectorBuilderTest {
 
     @Test
     fun `assert that LanguageDetector can be built from all languages`() {
-        val builder = LanguageDetectorBuilder.fromAllBuiltInLanguages()
+        val builder = LanguageDetectorBuilder.fromAllLanguages()
 
         assertThat(builder.languages).isEqualTo(Language.all())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
@@ -42,7 +42,7 @@ class LanguageDetectorBuilderTest {
 
     @Test
     fun `assert that LanguageDetector can be built from spoken languages`() {
-        val builder = LanguageDetectorBuilder.fromAllBuiltInSpokenLanguages()
+        val builder = LanguageDetectorBuilder.fromAllSpokenLanguages()
 
         assertThat(builder.languages).isEqualTo(Language.allSpokenOnes())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
@@ -57,9 +57,33 @@ class LanguageDetectorBuilderTest {
     }
 
     @Test
+    fun `assert that LanguageDetector can be built from all languages with Arabic script`() {
+        val builder = LanguageDetectorBuilder.fromAllLanguagesWithArabicScript()
+        assertThat(builder.languages).isEqualTo(Language.allWithArabicScript())
+    }
+
+    @Test
+    fun `assert that LanguageDetector can be built from all languages with Cyrillic script`() {
+        val builder = LanguageDetectorBuilder.fromAllLanguagesWithCyrillicScript()
+        assertThat(builder.languages).isEqualTo(Language.allWithCyrillicScript())
+    }
+
+    @Test
+    fun `assert that LanguageDetector can be built from all languages with Devanagari script`() {
+        val builder = LanguageDetectorBuilder.fromAllLanguagesWithDevanagariScript()
+        assertThat(builder.languages).isEqualTo(Language.allWithDevanagariScript())
+    }
+
+    @Test
+    fun `assert that LanguageDetector can be built from all languages with Latin script`() {
+        val builder = LanguageDetectorBuilder.fromAllLanguagesWithLatinScript()
+        assertThat(builder.languages).isEqualTo(Language.allWithLatinScript())
+    }
+
+    @Test
     fun `assert that LanguageDetector can be built from blacklist`() {
         run {
-            val builder = LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(
+            val builder = LanguageDetectorBuilder.fromAllLanguagesWithout(
                 Language.TURKISH, Language.ROMANIAN
             )
             val expectedLanguages = Language.values().toSet().minus(
@@ -80,7 +104,7 @@ class LanguageDetectorBuilderTest {
         run {
             val languages = Language.values().toSet().minus(arrayOf(Language.GERMAN, Language.ENGLISH)).toTypedArray()
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromAllBuiltInLanguagesWithout(Language.GERMAN, *languages)
+                LanguageDetectorBuilder.fromAllLanguagesWithout(Language.GERMAN, *languages)
             }.withMessage(minimumLanguagesErrorMessage)
         }
     }
@@ -142,12 +166,12 @@ class LanguageDetectorBuilderTest {
         val errorMessage = "minimum relative distance must lie in between 0.0 and 0.99"
         run {
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromAllBuiltInLanguages().withMinimumRelativeDistance(-2.3)
+                LanguageDetectorBuilder.fromAllLanguages().withMinimumRelativeDistance(-2.3)
             }.withMessage(errorMessage)
         }
         run {
             assertThatIllegalArgumentException().isThrownBy {
-                LanguageDetectorBuilder.fromAllBuiltInLanguages().withMinimumRelativeDistance(1.7)
+                LanguageDetectorBuilder.fromAllLanguages().withMinimumRelativeDistance(1.7)
             }.withMessage(errorMessage)
         }
     }

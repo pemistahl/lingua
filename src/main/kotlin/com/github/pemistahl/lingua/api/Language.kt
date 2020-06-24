@@ -269,16 +269,40 @@ enum class Language(
 
     companion object {
         /**
-         * Returns a list of all supported languages.
+         * Returns a list of all built-in languages.
          */
         @JvmStatic
         fun all() = filterOutLanguages(UNKNOWN)
 
         /**
-         * Returns a list of all supported languages that are still spoken today.
+         * Returns a list of all built-in languages that are still spoken today.
          */
         @JvmStatic
         fun allSpokenOnes() = filterOutLanguages(UNKNOWN, LATIN)
+
+        /**
+         * Returns a list of all built-in languages supporting the Arabic script.
+         */
+        @JvmStatic
+        fun allWithArabicScript() = values().filter { it.alphabets.contains(Alphabet.ARABIC) }
+
+        /**
+         * Returns a list of all built-in languages supporting the Cyrillic script.
+         */
+        @JvmStatic
+        fun allWithCyrillicScript() = values().filter { it.alphabets.contains(CYRILLIC) }
+
+        /**
+         * Returns a list of all built-in languages supporting the Devanagari script.
+         */
+        @JvmStatic
+        fun allWithDevanagariScript() = values().filter { it.alphabets.contains(DEVANAGARI) }
+
+        /**
+         * Returns a list of all built-in languages supporting the Latin script.
+         */
+        @JvmStatic
+        fun allWithLatinScript() = values().filter { it.alphabets.contains(Alphabet.LATIN) }
 
         /**
          * Returns the language for the given ISO 639-1 code.
@@ -292,8 +316,6 @@ enum class Language(
         @JvmStatic
         fun getByIsoCode639_3(isoCode: IsoCode639_3) = values().find { it.isoCode639_3 == isoCode }!!
 
-        private fun filterOutLanguages(
-            vararg languages: Language
-        ) = values().filterNot { it in languages }
+        private fun filterOutLanguages(vararg languages: Language) = values().filterNot { it in languages }
     }
 }
