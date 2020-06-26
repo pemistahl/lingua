@@ -220,7 +220,7 @@ enum class Language(
     ITALIAN(IT, ITA, setOf(Alphabet.LATIN), ""),
     JAPANESE(JA, JPN, setOf(HIRAGANA, KATAKANA, HAN), ""),
     KAZAKH(KK, KAZ, setOf(CYRILLIC), "ӘәҒғҚқҢңҰұ"),
-    KLINGON(IsoCode639_1.TLH, TLH, setOf(Alphabet.LATIN), ""),
+    KLINGON(IsoCode639_1.TLH, TLH, setOf(Alphabet.LATIN), "ʼ"),
     KOREAN(KO, KOR, setOf(HANGUL), ""),
     LATIN(LA, LAT, setOf(Alphabet.LATIN), ""),
     LATVIAN(LV, LAV, setOf(Alphabet.LATIN), "ĢģĶķĻļŅņ"),

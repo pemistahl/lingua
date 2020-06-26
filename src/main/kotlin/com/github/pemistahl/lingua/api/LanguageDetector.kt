@@ -39,6 +39,7 @@ import com.github.pemistahl.lingua.api.Language.IRISH
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.JAPANESE
 import com.github.pemistahl.lingua.api.Language.KAZAKH
+import com.github.pemistahl.lingua.api.Language.KLINGON
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
@@ -478,7 +479,9 @@ class LanguageDetector internal constructor(
 
             "Éé" to setOf(
                 CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA
-            )
+            ),
+
+            "ʼ" to setOf(KLINGON)
         )
     }
 }
