@@ -1,0 +1,17 @@
+##### KLINGON #####
+
+>>> Accuracy on average: 90.57%
+
+>> Detection of 1000 single words (average length: 7 chars)
+Accuracy: 76.30%
+Erroneously classified as TSONGA: 2.70%, GANDA: 2.70%, SOTHO: 2.40%, SWAHILI: 2.10%, TSWANA: 2.00%, TAGALOG: 1.20%, SOMALI: 1.10%, SHONA: 0.90%, WELSH: 0.60%, CROATIAN: 0.60%, AZERBAIJANI: 0.60%, YORUBA: 0.50%, IRISH: 0.50%, MALAY: 0.40%, ROMANIAN: 0.40%, SWEDISH: 0.40%, ESTONIAN: 0.40%, BOSNIAN: 0.40%, BASQUE: 0.30%, SPANISH: 0.30%, XHOSA: 0.30%, LATIN: 0.30%, ZULU: 0.30%, FINNISH: 0.30%, DUTCH: 0.20%, ITALIAN: 0.20%, POLISH: 0.20%, AFRIKAANS: 0.20%, LITHUANIAN: 0.20%, CATALAN: 0.10%, CZECH: 0.10%, NYNORSK: 0.10%, TURKISH: 0.10%, GERMAN: 0.10%, SLOVENE: 0.10%, ENGLISH: 0.10%, ESPERANTO: 0.10%, BOKMAL: 0.10%, INDONESIAN: 0.10%
+
+>> Detection of 1000 word pairs (average length: 15 chars)
+Accuracy: 95.70%
+Erroneously classified as SWAHILI: 0.80%, SOTHO: 0.70%, TSONGA: 0.40%, TSWANA: 0.40%, SHONA: 0.40%, LATIN: 0.30%, ZULU: 0.30%, GANDA: 0.20%, CROATIAN: 0.10%, ESTONIAN: 0.10%, SOMALI: 0.10%, INDONESIAN: 0.10%, ROMANIAN: 0.10%, TURKISH: 0.10%, YORUBA: 0.10%, SWEDISH: 0.10%
+
+>> Detection of 1000 sentences (average length: 72 chars)
+Accuracy: 99.70%
+Erroneously classified as TSWANA: 0.30%
+
+>> Exact values: 90.56666666666666 76.3 95.7 99.7
