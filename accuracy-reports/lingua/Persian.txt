@@ -1,17 +1,17 @@
 ##### PERSIAN #####
 
->>> Accuracy on average: 89,83%
+>>> Accuracy on average: 89.83%
 
 >> Detection of 1000 single words (average length: 6 chars)
-Accuracy: 76,20%
-Erroneously classified as URDU: 15,10%, ARABIC: 8,70%
+Accuracy: 76.20%
+Erroneously classified as URDU: 15.10%, ARABIC: 8.70%
 
 >> Detection of 1000 word pairs (average length: 13 chars)
-Accuracy: 93,60%
-Erroneously classified as URDU: 5,50%, ARABIC: 0,90%
+Accuracy: 93.60%
+Erroneously classified as URDU: 5.50%, ARABIC: 0.90%
 
 >> Detection of 1000 sentences (average length: 107 chars)
-Accuracy: 99,70%
-Erroneously classified as ARABIC: 0,10%, URDU: 0,10%, LATIN: 0,10%
+Accuracy: 99.70%
+Erroneously classified as ARABIC: 0.10%, URDU: 0.10%, LATIN: 0.10%
 
 >> Exact values: 89.83333333333333 76.2 93.60000000000001 99.7

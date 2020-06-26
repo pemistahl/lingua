@@ -1,17 +1,17 @@
 ##### PUNJABI #####
 
->>> Accuracy on average: 99,97%
+>>> Accuracy on average: 99.97%
 
 >> Detection of 1000 single words (average length: 6 chars)
-Accuracy: 100,00%
+Accuracy: 100.00%
 Erroneously classified as 
 
 >> Detection of 1000 word pairs (average length: 13 chars)
-Accuracy: 100,00%
+Accuracy: 100.00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 95 chars)
-Accuracy: 99,90%
-Erroneously classified as ENGLISH: 0,10%
+Accuracy: 99.90%
+Erroneously classified as ENGLISH: 0.10%
 
 >> Exact values: 99.96666666666665 100.0 100.0 99.9
