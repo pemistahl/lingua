@@ -51,6 +51,7 @@ import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.Locale
 import kotlin.math.roundToInt
 import opennlp.tools.langdetect.LanguageDetectorME
 import opennlp.tools.langdetect.LanguageDetectorModel
@@ -196,7 +197,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     private fun computeAccuracy(languageCount: Int, totalLanguagesCount: Int) =
         languageCount.toDouble() / totalLanguagesCount * 100
 
-    private fun formatAccuracy(accuracy: Double) = "%.2f".format(accuracy) + "%"
+    private fun formatAccuracy(accuracy: Double) = "%.2f".format(Locale.US, accuracy) + "%"
 
     private fun formatStatistics(statistics: Map<Language, Double>, language: Language): String {
         return statistics
