@@ -43,6 +43,7 @@ import com.github.pemistahl.lingua.api.Language.INDONESIAN
 import com.github.pemistahl.lingua.api.Language.IRISH
 import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.KAZAKH
+import com.github.pemistahl.lingua.api.Language.KLINGON
 import com.github.pemistahl.lingua.api.Language.LATIN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
@@ -713,7 +714,7 @@ class LanguageDetectorTest {
             listOf(
                 AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN, HUNGARIAN, ICELANDIC,
-                INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NYNORSK, POLISH,
+                INDONESIAN, IRISH, ITALIAN, KLINGON, LATIN, LATVIAN, LITHUANIAN, MALAY, NYNORSK, POLISH,
                 PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH,
                 TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
             )
