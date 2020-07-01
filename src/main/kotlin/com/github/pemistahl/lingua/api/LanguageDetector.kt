@@ -479,9 +479,7 @@ class LanguageDetector internal constructor(
 
             "Éé" to setOf(
                 CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, VIETNAMESE, YORUBA
-            ),
-
-            "ʼ" to setOf(KLINGON)
+            )
         )
     }
 }

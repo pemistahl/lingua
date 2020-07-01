@@ -359,7 +359,7 @@ enum class IsoCode639_1 {
     TS,
 
     /**
-     * The ISO 639-3 code for [Tsonga][Language.KLINGON].
+     * The ISO 639-3 code for [Klingon][Language.KLINGON].
      * Klingon doesn't have an ISO 639-1 code.
      */
     TLH,
