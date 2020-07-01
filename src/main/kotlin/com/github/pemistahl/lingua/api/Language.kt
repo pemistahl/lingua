@@ -154,6 +154,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.TAM
 import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
 import com.github.pemistahl.lingua.api.IsoCode639_3.TGL
 import com.github.pemistahl.lingua.api.IsoCode639_3.THA
+import com.github.pemistahl.lingua.api.IsoCode639_3.TLH
 import com.github.pemistahl.lingua.api.IsoCode639_3.TSN
 import com.github.pemistahl.lingua.api.IsoCode639_3.TSO
 import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
@@ -219,6 +220,7 @@ enum class Language(
     ITALIAN(IT, ITA, setOf(Alphabet.LATIN), ""),
     JAPANESE(JA, JPN, setOf(HIRAGANA, KATAKANA, HAN), ""),
     KAZAKH(KK, KAZ, setOf(CYRILLIC), "ӘәҒғҚқҢңҰұ"),
+    KLINGON(IsoCode639_1.TLH, TLH, setOf(Alphabet.LATIN), "ʼ"),
     KOREAN(KO, KOR, setOf(HANGUL), ""),
     LATIN(LA, LAT, setOf(Alphabet.LATIN), ""),
     LATVIAN(LV, LAV, setOf(Alphabet.LATIN), "ĢģĶķĻļŅņ"),
@@ -278,7 +280,7 @@ enum class Language(
          * Returns a list of all built-in languages that are still spoken today.
          */
         @JvmStatic
-        fun allSpokenOnes() = filterOutLanguages(UNKNOWN, LATIN)
+        fun allSpokenOnes() = filterOutLanguages(UNKNOWN, LATIN, KLINGON)
 
         /**
          * Returns a list of all built-in languages supporting the Arabic script.
