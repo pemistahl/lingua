@@ -42,7 +42,7 @@
   9.2 [Standalone mode](#library-use-standalone)
 10. [How to add new languages?](#library-extension)
 11. [Do you want to contribute?](#library-contribution)
-12. [What's next for upcoming versions?](#whats-next)
+12. [What's next for version 1.1.0?](#whats-next)
 
 ## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. 
@@ -264,8 +264,6 @@ Erroneously classified as DUTCH: 0,90%, LATIN: 0,80%, ENGLISH: 0,70%, SWEDISH: 0
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99,70%
 Erroneously classified as DUTCH: 0,20%, LATIN: 0,10%
-
->> Exact values: 89.10000000000001 73.6 94.0 99.7
 ```
 
 The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. 
@@ -286,10 +284,10 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:1.0.0'
+implementation 'com.github.pemistahl:lingua:1.0.1'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:1.0.0")
+implementation("com.github.pemistahl:lingua:1.0.1")
 ```
 
 ### 7.2 <a name="library-dependency-maven"></a> Using Maven
@@ -298,7 +296,7 @@ implementation("com.github.pemistahl:lingua:1.0.0")
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -312,9 +310,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-1.0.0.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-1.0.0-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-1.0.0-with-dependencies.jar` containing the 
+1. `./gradlew jar` assembles `lingua-1.0.1.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-1.0.1-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-1.0.1-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
 in projects without dependency management systems. You should be able to use it in your Android 
 project as well by putting it in your project's `lib` folder. This jar file can also be used to 
@@ -421,16 +419,18 @@ The most likely language is always returned with value 1.0. All other languages 
 assigned which are lower than 1.0, denoting how less likely those languages are in comparison 
 to the most likely language. 
 
-The map returned by this method does not necessarily contain all 
-languages which the calling instance of `LanguageDetector` was built from. If the rule-based 
-engine decides that a specific language is truly impossible, then it will not be part of the 
-returned map. The confidence value for such a language is assumed to be 0.0.
+The map returned by this method does not necessarily contain all languages which the calling 
+instance of `LanguageDetector` was built from. If the rule-based engine decides that a specific 
+language is truly impossible, then it will not be part of the returned map. Likewise, if no 
+ngram probabilities can be found within the detector's languages for the given input text, the 
+returned map will be empty. The confidence value for each language not being part of the 
+returned map is assumed to be 0.0.
 
 ### 9.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
 and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-1.0.0-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-1.0.1-with-dependencies.jar`
 
 Then just play around:
 
@@ -476,10 +476,10 @@ language's iso codes. Among other sites, Wikipedia provides a [comprehensive lis
 3. Open enum [`Language`][language url] and add a new entry for your language. If the language is written
 with a script that is not yet supported by *Lingua's* [`Alphabet`][alphabet url] enum, then add a new entry
 for it there as well.
-4. If your language's script contains characters that are completely unique to it or that are shared by only
-a small subset of *Lingua's* supported languages, then add them either to the respective entry in the
-[`Language`][language url] enum or to the [`CHARS_TO_LANGUAGES_MAPPING`][chars to languages mapping url] 
-constant in class `LanguageDetector`.
+4. If your language's script contains characters that are completely unique to it, then add them to the
+respective entry in the [`Language`][language url] enum. However, if the characters occur in more than one
+language **but** not in all languages, then add them to the 
+[`CHARS_TO_LANGUAGES_MAPPING`][chars to languages mapping url] constant in class `LanguageDetector` instead.
 5. Use [`LanguageModelFilesWriter`][language model files writer url] to create the language model files.
 The training data file used for ngram probability estimation is not required to have a specific format
 other than to be a valid txt file.
@@ -538,8 +538,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-74-green.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.0-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.0%2Flingua-1.0.0-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.1-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.1%2Flingua-1.0.1-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -548,10 +548,10 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache Tika]: https://tika.apache.org/1.24.1/detection.html#Language_Detection
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.2/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.0
-[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.0-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.0/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.0-green.svg
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.1
+[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.1-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.1/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.1-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md
 [accuracy reports url]: https://github.com/pemistahl/lingua/tree/master/accuracy-reports

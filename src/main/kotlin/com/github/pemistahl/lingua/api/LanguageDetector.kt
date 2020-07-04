@@ -128,7 +128,9 @@ class LanguageDetector internal constructor(
      *
      * The map returned by this method does not necessarily contain all languages which the calling instance of
      * [LanguageDetector] was built from. If the rule-based engine decides that a specific language is truly impossible,
-     * then it will not be part of the returned map. The confidence value for such a language is assumed to be 0.0.
+     * then it will not be part of the returned map. Likewise, if no ngram probabilities can be found within the
+     * detector's languages for the given input text, the returned map will be empty. The confidence value for
+     * each language not being part of the returned map is assumed to be 0.0.
      *
      * @param text The input text to detect the language for.
      * @return A map of all possible languages, sorted by their confidence value in descending order.
