@@ -1,3 +1,10 @@
+## Lingua 1.0.1 (released on 04 Jul 2020)
+
+### Bug Fixes
+
+- If no ngram probabilities were found for a given input text, a NullPointerException would be thrown.
+Thanks to @fsonntag for finding and fixing this bug. (#63)
+
 ## Lingua 1.0.0 (released on 24 Jun 2020)
 
 ### Languages
