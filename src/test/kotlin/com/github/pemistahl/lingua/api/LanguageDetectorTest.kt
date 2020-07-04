@@ -795,6 +795,22 @@ class LanguageDetectorTest {
         )
     }
 
+    @Test
+    fun `assert that unknown language is returned when no ngram probabilities are available`() {
+        assertThat(
+            detectorForEnglishAndGerman.detectLanguageOf("проарплап")
+        ).isEqualTo(
+            UNKNOWN
+        )
+    }
+
+    @Test
+    fun `assert that no confidence values are returned when no ngram probabilities are available`() {
+        assertThat(
+            detectorForEnglishAndGerman.computeLanguageConfidenceValues("проарплап")
+        ).isEmpty()
+    }
+
     private fun defineBehaviorOfUnigramLanguageModels() {
         with(unigramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("a")) } returns 0.01
