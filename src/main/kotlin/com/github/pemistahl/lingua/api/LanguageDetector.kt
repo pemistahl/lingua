@@ -29,6 +29,7 @@ import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.CROATIAN
 import com.github.pemistahl.lingua.api.Language.CZECH
 import com.github.pemistahl.lingua.api.Language.DANISH
+import com.github.pemistahl.lingua.api.Language.DUTCH
 import com.github.pemistahl.lingua.api.Language.ESTONIAN
 import com.github.pemistahl.lingua.api.Language.FINNISH
 import com.github.pemistahl.lingua.api.Language.FRENCH
@@ -451,6 +452,7 @@ class LanguageDetector internal constructor(
             "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
             "Ìì" to setOf(ITALIAN, VIETNAMESE, YORUBA),
 
+            "Ëë" to setOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH),
             "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA),
             "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
             "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),

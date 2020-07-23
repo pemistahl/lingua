@@ -311,7 +311,6 @@ class LanguageDetectorTest {
 
     @ParameterizedTest
     @CsvSource(
-        "hashemidëve, ALBANIAN",
         "məhərrəm, AZERBAIJANI",
         "substituïts, CATALAN",
         "rozdělit, CZECH",
@@ -611,6 +610,10 @@ class LanguageDetectorTest {
         arguments(
             "nebûtu",
             listOf(FRENCH, HUNGARIAN, LATVIAN)
+        ),
+        arguments(
+            "hashemidëve",
+            listOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH)
         ),
         arguments(
             "forêt",

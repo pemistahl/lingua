@@ -184,7 +184,7 @@ enum class Language(
     internal val uniqueCharacters: String
 ) {
     AFRIKAANS(AF, AFR, setOf(Alphabet.LATIN), ""),
-    ALBANIAN(SQ, SQI, setOf(Alphabet.LATIN), "Ëë"),
+    ALBANIAN(SQ, SQI, setOf(Alphabet.LATIN), ""),
     ARABIC(AR, ARA, setOf(Alphabet.ARABIC), ""),
     ARMENIAN(HY, HYE, setOf(Alphabet.ARMENIAN), ""),
     AZERBAIJANI(AZ, AZE, setOf(Alphabet.LATIN), "Əə"),
