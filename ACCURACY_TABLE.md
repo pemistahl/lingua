@@ -27,11 +27,11 @@
     </tr>
     	<tr>
 		<td>Afrikaans</td>
-		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 79</td>
 		<td><img src="images/lightgreen.png"> 71</td>
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/orange.png"> 39</td>
-		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/yellow.png"> 58</td>
 		<td><img src="images/yellow.png"> 44</td>
 		<td><img src="images/yellow.png"> 41</td>
 		<td><img src="images/red.png"> 3</td>
@@ -54,7 +54,7 @@
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/orange.png"> 40</td>
 		<td><img src="images/orange.png"> 38</td>
-		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 95</td>
 		<td><img src="images/green.png"> 84</td>
 		<td><img src="images/lightgreen.png"> 73</td>
 		<td><img src="images/lightgreen.png"> 73</td>
@@ -339,7 +339,7 @@
 		<td><img src="images/orange.png"> 31</td>
 		<td><img src="images/orange.png"> 31</td>
 		<td><img src="images/red.png"> 6</td>
-		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/green.png"> 81</td>
 		<td><img src="images/yellow.png"> 52</td>
 		<td><img src="images/yellow.png"> 57</td>
 		<td><img src="images/red.png"> 19</td>
@@ -1477,15 +1477,15 @@
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.23</td>
+		<td>13.22</td>
 		<td>16.18</td>
 		<td>18.55</td>
 		<td>23.84</td>
-		<td>18.8</td>
+		<td>18.78</td>
 		<td>23.86</td>
 		<td>27.23</td>
 		<td>33.83</td>
-		<td>13.3</td>
+		<td>13.29</td>
 		<td>18.71</td>
 		<td>21.36</td>
 		<td>31.26</td>
