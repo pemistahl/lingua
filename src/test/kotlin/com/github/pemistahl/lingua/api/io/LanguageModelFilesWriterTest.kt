@@ -80,7 +80,7 @@ class LanguageModelFilesWriterTest {
         {
             "language":"ENGLISH",
             "ngrams":{
-                "1/1":"rds ose ded con use ion ist pur cti wor tal uct pro odu nsi rod for ces nce not pos are tot sis nte way nde rpo the urp duc",
+                "1/1":"ose rds ded con use ion ist pur cti wor tal uct pro odu nsi rod for ces nce not are pos tot sis nte nde way the rpo urp duc",
                 "1/4":"est hem hes hey sen ses ing int ese",
                 "1/2":"tin tio ota sti ord ons",
                 "2/3":"ten",
@@ -93,7 +93,7 @@ class LanguageModelFilesWriterTest {
         {
             "language":"ENGLISH",
             "ngrams":{
-                "1/1":"onsi sist ende ords esti oduc nces rpos ting nsis nten tota cons tion prod otal test ence pose oses nded inte urpo duct sent stin ucti ente purp ctio rodu word hese",
+                "1/1":"onsi sist ende ords esti nces oduc rpos ting nten nsis tota cons tion prod ence test otal pose nded oses inte urpo sent duct stin ente ucti purp ctio rodu word hese",
                 "1/2":"tenc tend",
                 "1/4":"thes they them"
             }
@@ -104,7 +104,7 @@ class LanguageModelFilesWriterTest {
         {
             "language":"ENGLISH",
             "ngrams":{
-                "1/1":"testi sente ences tende ducti these onsis total uctio enten poses ction produ inten nsist words sting purpo tence estin roduc urpos rpose ended oduct consi",
+                "1/1":"testi sente ences tende these ducti onsis total uctio enten poses ction produ inten nsist words sting tence purpo estin roduc urpos ended rpose oduct consi",
                 "1/2":"ntenc ntend"
             }
         }

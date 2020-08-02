@@ -67,6 +67,7 @@ import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
+import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
@@ -199,7 +200,7 @@ class LanguageDetector internal constructor(
             for (unigram in unigramLanguageModel.ngrams) {
                 val probability = lookUpNgramProbability(language, unigram)
                 if (probability > 0) {
-                    unigramCounts.merge(language, 1, Int::plus)
+                    unigramCounts.incrementCounter(language)
                 }
             }
         }
@@ -232,45 +233,45 @@ class LanguageDetector internal constructor(
                 var isMatch = false
                 for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
                     if (alphabet.matches(character)) {
-                        wordLanguageCounts.addCharCount(language)
+                        wordLanguageCounts.incrementCounter(language)
                         isMatch = true
                     }
                 }
                 if (!isMatch) {
                     when {
-                        Alphabet.HAN.matches(character) -> wordLanguageCounts.addCharCount(CHINESE)
-                        JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.addCharCount(JAPANESE)
+                        Alphabet.HAN.matches(character) -> wordLanguageCounts.incrementCounter(CHINESE)
+                        JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.incrementCounter(JAPANESE)
                         Alphabet.LATIN.matches(character) ||
                             Alphabet.CYRILLIC.matches(character) ||
                             Alphabet.DEVANAGARI.matches(character) -> languagesWithUniqueCharacters.filter {
                                 it.uniqueCharacters.contains(character)
                             }.forEach {
-                                wordLanguageCounts.addCharCount(it)
+                                wordLanguageCounts.incrementCounter(it)
                         }
                     }
                 }
             }
 
             if (wordLanguageCounts.isEmpty()) {
-                totalLanguageCounts.addCharCount(UNKNOWN)
+                totalLanguageCounts.incrementCounter(UNKNOWN)
             } else if (wordLanguageCounts.size == 1) {
                 val language = wordLanguageCounts.toList().first().first
                 if (language in languages) {
-                    totalLanguageCounts.addCharCount(language)
+                    totalLanguageCounts.incrementCounter(language)
                 } else {
-                    totalLanguageCounts.addCharCount(UNKNOWN)
+                    totalLanguageCounts.incrementCounter(UNKNOWN)
                 }
             } else if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
-                totalLanguageCounts.addCharCount(JAPANESE)
+                totalLanguageCounts.incrementCounter(JAPANESE)
             } else {
                 val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
                 val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
                 val (_, secondCharCount) = sortedWordLanguageCounts[1]
 
                 if (firstCharCount > secondCharCount && mostFrequentLanguage in languages) {
-                    totalLanguageCounts.addCharCount(mostFrequentLanguage)
+                    totalLanguageCounts.incrementCounter(mostFrequentLanguage)
                 } else {
-                    totalLanguageCounts.addCharCount(UNKNOWN)
+                    totalLanguageCounts.incrementCounter(UNKNOWN)
                 }
             }
         }
@@ -307,7 +308,7 @@ class LanguageDetector internal constructor(
         for (word in words) {
             for (alphabet in alphabets) {
                 if (alphabet.matches(word)) {
-                    detectedAlphabets.merge(alphabet, 1, Int::plus)
+                    detectedAlphabets.incrementCounter(alphabet)
                     break
                 }
             }
@@ -317,7 +318,7 @@ class LanguageDetector internal constructor(
             return languages.asSequence()
         }
 
-        val mostFrequentAlphabet = detectedAlphabets.entries.sortedByDescending { it.value }.first().key
+        val mostFrequentAlphabet = detectedAlphabets.entries.maxBy { it.value }!!.key
         val filteredLanguages = languages.asSequence().filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
 
@@ -325,7 +326,7 @@ class LanguageDetector internal constructor(
             for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
                 if (word.containsAnyOf(characters)) {
                     for (language in languages) {
-                        languageCounts.addCharCount(language)
+                        languageCounts.incrementCounter(language)
                     }
                     break
                 }
@@ -404,10 +405,6 @@ class LanguageDetector internal constructor(
             languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
         }
         return languageModels
-    }
-
-    private fun MutableMap<Language, Int>.addCharCount(language: Language) {
-        this.merge(language, 1, Int::plus)
     }
 
     override fun equals(other: Any?) = when {

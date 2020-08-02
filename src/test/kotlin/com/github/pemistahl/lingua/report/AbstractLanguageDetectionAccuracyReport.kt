@@ -40,6 +40,7 @@ import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
+import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPENNLP
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
@@ -190,7 +191,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 Language.getByIsoCode639_3(isoCode)
             }
         }
-        statistics.merge(detectedLanguage, 1, Int::plus)
+        statistics.incrementCounter(detectedLanguage)
     }
 
     private fun computeAccuracy(languageCount: Int, totalLanguagesCount: Int) =
