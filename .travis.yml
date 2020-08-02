@@ -1,17 +1,11 @@
-dist: trusty
+dist: bionic
 
 language: java
 
-addons:
-  apt:
-    packages:
-      - openjdk-6-jdk
-
 jdk:
-  - openjdk6
-  - openjdk7
   - openjdk8
-  - oraclejdk11
+  - openjdk10
+  - openjdk11
 
 before_script:
   - chmod +x gradlew
@@ -36,7 +30,7 @@ deploy:
     on:
       tags: true
       branch: master
-      condition: $TRAVIS_JDK_VERSION = openjdk6
+      condition: $TRAVIS_JDK_VERSION = openjdk8
     file_glob: true
     file: build/libs/*.jar
     api_key:
