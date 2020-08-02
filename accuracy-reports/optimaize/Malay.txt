@@ -1,17 +1,17 @@
 ##### MALAY #####
 
->>> Accuracy on average: 3,73%
+>>> Accuracy on average: 3.73%
 
 >> Detection of 1000 single words (average length: 7 chars)
-Accuracy: 0,00%
-Erroneously classified as UNKNOWN: 98,00%, TAGALOG: 0,40%, SOMALI: 0,40%, SWAHILI: 0,40%, WELSH: 0,20%, POLISH: 0,20%, GERMAN: 0,10%, INDONESIAN: 0,10%, ENGLISH: 0,10%, ALBANIAN: 0,10%
+Accuracy: 0.00%
+Erroneously classified as UNKNOWN: 98.00%, TAGALOG: 0.40%, SOMALI: 0.40%, SWAHILI: 0.40%, WELSH: 0.20%, POLISH: 0.20%, GERMAN: 0.10%, INDONESIAN: 0.10%, ENGLISH: 0.10%, ALBANIAN: 0.10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
-Accuracy: 0,20%
-Erroneously classified as UNKNOWN: 96,30%, TAGALOG: 0,90%, ENGLISH: 0,70%, SOMALI: 0,60%, INDONESIAN: 0,50%, ITALIAN: 0,30%, WELSH: 0,20%, ALBANIAN: 0,10%, BASQUE: 0,10%, SWAHILI: 0,10%
+Accuracy: 0.20%
+Erroneously classified as UNKNOWN: 96.30%, TAGALOG: 0.90%, ENGLISH: 0.70%, SOMALI: 0.60%, INDONESIAN: 0.50%, ITALIAN: 0.30%, WELSH: 0.20%, ALBANIAN: 0.10%, BASQUE: 0.10%, SWAHILI: 0.10%
 
 >> Detection of 1000 sentences (average length: 116 chars)
-Accuracy: 11,00%
-Erroneously classified as UNKNOWN: 46,80%, INDONESIAN: 40,10%, ENGLISH: 1,90%, WELSH: 0,10%, CATALAN: 0,10%
+Accuracy: 11.00%
+Erroneously classified as UNKNOWN: 46.80%, INDONESIAN: 40.10%, ENGLISH: 1.90%, WELSH: 0.10%, CATALAN: 0.10%
 
 >> Exact values: 3.733333333333333 0.0 0.2 11.0

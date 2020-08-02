@@ -17,26 +17,28 @@
 package com.github.pemistahl.lingua.api.io
 
 import com.github.pemistahl.lingua.api.Language
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.stream.Collectors.toList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.stream.Collectors.toList
 
 class LanguageModelFilesWriterTest {
 
     private lateinit var inputFilePath: Path
 
-    private val text = """
+    private val text =
+        """
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-    """.toLowerCase().trimIndent()
+        """.toLowerCase().trimIndent()
 
-    private val expectedUnigramLanguageModel = """
+    private val expectedUnigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -51,9 +53,10 @@ class LanguageModelFilesWriterTest {
                 "13/100":"t"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedBigramLanguageModel = """
+    private val expectedBigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -74,9 +77,10 @@ class LanguageModelFilesWriterTest {
                 "2/13":"ti"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedTrigramLanguageModel = """
+    private val expectedTrigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -87,9 +91,10 @@ class LanguageModelFilesWriterTest {
                 "1/3":"tes end enc ent"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedQuadrigramLanguageModel = """
+    private val expectedQuadrigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -98,9 +103,10 @@ class LanguageModelFilesWriterTest {
                 "1/4":"thes they them"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedFivegramLanguageModel = """
+    private val expectedFivegramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -108,7 +114,7 @@ class LanguageModelFilesWriterTest {
                 "1/2":"ntenc ntend"
             }
         }
-    """.minify()
+        """.minify()
 
     @BeforeEach
     fun beforeEach() {

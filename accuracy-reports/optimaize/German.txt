@@ -1,17 +1,17 @@
 ##### GERMAN #####
 
->>> Accuracy on average: 55,23%
+>>> Accuracy on average: 55.23%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 21,30%
-Erroneously classified as UNKNOWN: 77,40%, BASQUE: 0,40%, SWEDISH: 0,20%, WELSH: 0,20%, FINNISH: 0,10%, IRISH: 0,10%, TAGALOG: 0,10%, ITALIAN: 0,10%, ENGLISH: 0,10%
+Accuracy: 21.30%
+Erroneously classified as UNKNOWN: 77.40%, BASQUE: 0.40%, SWEDISH: 0.20%, WELSH: 0.20%, FINNISH: 0.10%, IRISH: 0.10%, TAGALOG: 0.10%, ITALIAN: 0.10%, ENGLISH: 0.10%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 45,60%
-Erroneously classified as UNKNOWN: 52,20%, AFRIKAANS: 0,80%, SWEDISH: 0,70%, DANISH: 0,30%, BASQUE: 0,20%, FINNISH: 0,10%, ENGLISH: 0,10%
+Accuracy: 45.60%
+Erroneously classified as UNKNOWN: 52.20%, AFRIKAANS: 0.80%, SWEDISH: 0.70%, DANISH: 0.30%, BASQUE: 0.20%, FINNISH: 0.10%, ENGLISH: 0.10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
-Accuracy: 98,80%
-Erroneously classified as UNKNOWN: 1,10%, AFRIKAANS: 0,10%
+Accuracy: 98.80%
+Erroneously classified as UNKNOWN: 1.10%, AFRIKAANS: 0.10%
 
 >> Exact values: 55.23333333333333 21.3 45.6 98.8

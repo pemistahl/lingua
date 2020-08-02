@@ -42,9 +42,13 @@ internal data class TrainingDataLanguageModel(
         }
         return JSON.stringify(
             JsonLanguageModel.serializer(),
-            JsonLanguageModel(language, ngrams.mapValues {
-                it.value.joinToString(separator = " ")
-            }))
+            JsonLanguageModel(
+                language,
+                ngrams.mapValues {
+                    it.value.joinToString(separator = " ")
+                }
+            )
+        )
     }
 
     companion object {

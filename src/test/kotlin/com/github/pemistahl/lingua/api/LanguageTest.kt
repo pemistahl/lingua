@@ -255,9 +255,12 @@ class LanguageTest {
         arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
         arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
         arguments(Alphabet.BENGALI, listOf(BENGALI)),
-        arguments(Alphabet.CYRILLIC, listOf(
-            BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN
-        )),
+        arguments(
+            Alphabet.CYRILLIC,
+            listOf(
+                BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN
+            )
+        ),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI, MARATHI)),
         arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
         arguments(Alphabet.GREEK, listOf(GREEK)),
@@ -268,15 +271,18 @@ class LanguageTest {
         arguments(Alphabet.HEBREW, listOf(HEBREW)),
         arguments(Alphabet.HIRAGANA, listOf(JAPANESE)),
         arguments(Alphabet.KATAKANA, listOf(JAPANESE)),
-        arguments(Alphabet.LATIN, listOf(
-            AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN,
-            CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA,
-            GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
-            LATIN, LATVIAN, LITHUANIAN, MALAY, NYNORSK,
-            POLISH, PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO,
-            SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE,
-            WELSH, XHOSA, YORUBA, ZULU
-        )),
+        arguments(
+            Alphabet.LATIN,
+            listOf(
+                AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN,
+                CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA,
+                GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
+                LATIN, LATVIAN, LITHUANIAN, MALAY, NYNORSK,
+                POLISH, PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO,
+                SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE,
+                WELSH, XHOSA, YORUBA, ZULU
+            )
+        ),
         arguments(Alphabet.TAMIL, listOf(TAMIL)),
         arguments(Alphabet.TELUGU, listOf(TELUGU)),
         arguments(Alphabet.THAI, listOf(THAI)),

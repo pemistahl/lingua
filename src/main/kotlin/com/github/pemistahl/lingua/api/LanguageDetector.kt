@@ -243,11 +243,12 @@ class LanguageDetector internal constructor(
                         JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.incrementCounter(JAPANESE)
                         Alphabet.LATIN.matches(character) ||
                             Alphabet.CYRILLIC.matches(character) ||
-                            Alphabet.DEVANAGARI.matches(character) -> languagesWithUniqueCharacters.filter {
+                            Alphabet.DEVANAGARI.matches(character) ->
+                            languagesWithUniqueCharacters.filter {
                                 it.uniqueCharacters.contains(character)
                             }.forEach {
                                 wordLanguageCounts.incrementCounter(it)
-                        }
+                            }
                     }
                 }
             }

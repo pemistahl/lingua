@@ -1,17 +1,17 @@
 ##### TAGALOG #####
 
->>> Accuracy on average: 60,67%
+>>> Accuracy on average: 60.67%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 22,90%
-Erroneously classified as UNKNOWN: 75,40%, SWAHILI: 0,60%, SOMALI: 0,40%, BASQUE: 0,30%, ENGLISH: 0,20%, ESTONIAN: 0,10%, WELSH: 0,10%
+Accuracy: 22.90%
+Erroneously classified as UNKNOWN: 75.40%, SWAHILI: 0.60%, SOMALI: 0.40%, BASQUE: 0.30%, ENGLISH: 0.20%, ESTONIAN: 0.10%, WELSH: 0.10%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 61,70%
-Erroneously classified as UNKNOWN: 36,00%, ENGLISH: 1,00%, SWAHILI: 0,50%, GERMAN: 0,20%, ITALIAN: 0,20%, FRENCH: 0,10%, POLISH: 0,10%, AFRIKAANS: 0,10%, SOMALI: 0,10%
+Accuracy: 61.70%
+Erroneously classified as UNKNOWN: 36.00%, ENGLISH: 1.00%, SWAHILI: 0.50%, GERMAN: 0.20%, ITALIAN: 0.20%, FRENCH: 0.10%, POLISH: 0.10%, AFRIKAANS: 0.10%, SOMALI: 0.10%
 
 >> Detection of 1000 sentences (average length: 123 chars)
-Accuracy: 97,40%
-Erroneously classified as UNKNOWN: 1,90%, ENGLISH: 0,60%, ITALIAN: 0,10%
+Accuracy: 97.40%
+Erroneously classified as UNKNOWN: 1.90%, ENGLISH: 0.60%, ITALIAN: 0.10%
 
 >> Exact values: 60.666666666666664 22.900000000000002 61.7 97.39999999999999

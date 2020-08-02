@@ -28,8 +28,11 @@ abstract class AbstractChineseDetectionAccuracyReport(
 ) : AbstractLanguageDetectionAccuracyReport(Language.CHINESE, implementationToUse) {
 
     @ParameterizedTest
-    @CsvFileSource(resources = ["/language-testdata/single-words/zh.txt"], delimiter = CSV_FILE_DELIMITER, encoding =
-    CSV_FILE_ENCODING)
+    @CsvFileSource(
+        resources = ["/language-testdata/single-words/zh.txt"], delimiter = CSV_FILE_DELIMITER,
+        encoding =
+            CSV_FILE_ENCODING
+    )
     @DisplayName("single word detection")
     override fun `assert that single words are identified correctly`(singleWord: String) {
         computeSingleWordStatistics(singleWord)

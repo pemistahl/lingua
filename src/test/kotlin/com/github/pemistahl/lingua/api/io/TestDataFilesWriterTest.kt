@@ -17,51 +17,55 @@
 package com.github.pemistahl.lingua.api.io
 
 import com.github.pemistahl.lingua.api.Language
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.stream.Collectors.toList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.stream.Collectors.toList
 
 class TestDataFilesWriterTest {
 
     private lateinit var inputFilePath: Path
 
-    private val text = """
+    private val text =
+        """
         There are many attributes associated with good software.
         Some of these can be mutually contradictory, and different customers and participants may have different priorities.
         Weinberg provides an example of how different goals can have a dramatic effect on both effort required and efficiency.
         Furthermore, he notes that programmers will generally aim to achieve any explicit goals which may be set, probably at the expense of any other quality attributes.
         Sommerville has identified four generalised attributes which are not concerned with what a program does, but how well the program does it:
         Maintainability, Dependability, Efficiency, Usability
-    """.trimIndent()
+        """.trimIndent()
 
-    private val expectedSentencesFileContent = """
+    private val expectedSentencesFileContent =
+        """
         There are many attributes associated with good software.
         Some of these can be mutually contradictory, and different customers and participants may have different priorities.
         Weinberg provides an example of how different goals can have a dramatic effect on both effort required and efficiency.
         Furthermore, he notes that programmers will generally aim to achieve any explicit goals which may be set, probably at the expense of any other quality attributes.
 
-    """.trimIndent()
+        """.trimIndent()
 
-    private val expectedSingleWordsFileContent = """
+    private val expectedSingleWordsFileContent =
+        """
         there
         attributes
         associated
         software
 
-    """.trimIndent()
+        """.trimIndent()
 
-    private val expectedWordPairsFileContent = """
+    private val expectedWordPairsFileContent =
+        """
         there attributes
         associated software
         these mutually
         contradictory different
 
-    """.trimIndent()
+        """.trimIndent()
 
     @BeforeEach
     fun beforeEach() {
