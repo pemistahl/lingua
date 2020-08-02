@@ -98,10 +98,25 @@ private fun runApp() {
             }
 
             if (isoCodesList.isNotEmpty()) {
-                val isoCodesArray = isoCodesList.map { IsoCode639_1.valueOf(it.toUpperCase()) }.toTypedArray()
+                val isoCodes = mutableListOf<IsoCode639_1>()
+
+                for (isoCode in isoCodesList) {
+                    try {
+                        isoCodes.add(IsoCode639_1.valueOf(isoCode.toUpperCase()))
+                    } catch (e: IllegalArgumentException) {
+                        isoCodes.clear()
+                        println("Iso code '$isoCode' is not supported. Try again.\n")
+                        break
+                    }
+                }
+
+                if (isoCodes.size < isoCodesList.size) {
+                    isoCodesList.clear()
+                    continue
+                }
 
                 try {
-                    detectorBuilder = fromIsoCodes639_1(*isoCodesArray)
+                    detectorBuilder = fromIsoCodes639_1(*isoCodes.toTypedArray())
                     println("Loading language models...")
                     break
                 } catch (e: IllegalArgumentException) {
