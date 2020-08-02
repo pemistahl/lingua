@@ -15,6 +15,8 @@
  */
 
 import com.adarshr.gradle.testlogger.theme.ThemeType
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
@@ -57,6 +59,7 @@ plugins {
     id("com.adarshr.test-logger") version "2.1.0"
     id("org.jetbrains.dokka") version "0.10.1"
     id("ru.vyarus.use-python") version "2.2.0"
+    id("com.github.johnrengelman.shadow") version "6.0.0"
     id("com.jfrog.bintray") version "1.8.5"
     `maven-publish`
     jacoco
@@ -261,19 +264,20 @@ tasks.register<Jar>("sourcesJar") {
     from("src/main/kotlin")
 }
 
-tasks.register<Jar>("jarWithDependencies") {
+tasks.register<ConfigureShadowRelocation>("relocateDependencies") {
+    group = "shadow"
+    description = "Specifies the ShadowJar task for which to relocate the dependencies."
+    target = tasks["jarWithDependencies"] as ShadowJar
+}
+
+tasks.register<ShadowJar>("jarWithDependencies") {
     group = "Build"
     description = "Assembles a jar archive containing the main classes and all external dependencies."
     classifier = "with-dependencies"
-    dependsOn(configurations.runtimeClasspath)
     from(sourceSets.main.get().output)
-    from({
-        configurations.runtimeClasspath.get()
-            .filter { it.name.endsWith("jar") }
-            .map { zipTree(it) }
-    })
+    configurations = listOf(project.configurations.runtimeClasspath.get())
     manifest { attributes("Main-Class" to linguaMainClass) }
-    exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
+    dependsOn("relocateDependencies")
 }
 
 tasks.register<JavaExec>("runLinguaOnConsole") {
