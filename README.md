@@ -40,8 +40,7 @@
 9. [How to use?](#library-use)  
   9.1 [Programmatic use](#library-use-programmatic)  
   9.2 [Standalone mode](#library-use-standalone)
-10. [How to add new languages?](#library-extension)
-11. [What's next for version 1.1.0?](#whats-next)
+10. [What's next for version 1.1.0?](#whats-next)
 
 ## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. 
@@ -465,12 +464,7 @@ FRENCH
 Bye! Ciao! Tschüss! Salut!
 ```
 
-## 10. <a name="library-extension"></a> How to add new languages? <sup>[Top ▲](#table-of-contents)</sup>
-
-If you want to add your own languages to *Lingua*, you can do so. 
-The following steps describe how to proceed.
-
-## 11. <a name="whats-next"></a> What's next for version 1.1.0? <sup>[Top ▲](#table-of-contents)</sup>
+## 10. <a name="whats-next"></a> What's next for version 1.1.0? <sup>[Top ▲](#table-of-contents)</sup>
 
 Take a look at the [planned issues](https://github.com/pemistahl/lingua/milestone/4).
 

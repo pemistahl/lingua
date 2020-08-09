@@ -22,7 +22,7 @@ In order to execute the steps below, you will need Java 8 or greater. Even thoug
 runs on Java >= 6, the `FilesWriter` classes make use of the [java.nio][java nio url] api which was
 introduced with Java 8.
 
-1. Clone *Lingua's* repository to your own computer as described in README's [section 8][[library build url]].
+1. Clone *Lingua's* repository to your own computer as described in README's [section 8][library build url].
 2. Open enums [`IsoCode639_1`][isocode639_1 url] and [`IsoCode639_3`][isocode639_3 url] and add the 
 language's iso codes. Among other sites, Wikipedia provides a [comprehensive list][wikipedia isocodes list].
 3. Open enum [`Language`][language url] and add a new entry for your language. If the language is written
@@ -69,7 +69,7 @@ this library's fields of application.
 [wikipedia isocodes list]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 [language url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/Language.kt
 [alphabet url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/internal/Alphabet.kt
-[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/LanguageDetector.kt#L428
+[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/LanguageDetector.kt#L429
 [language model files writer url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L40
 [language models directory url]: https://github.com/pemistahl/lingua/tree/master/src/main/resources/language-models
 [test data files writer url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L42
