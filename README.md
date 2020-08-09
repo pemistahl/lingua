@@ -41,8 +41,7 @@
   9.1 [Programmatic use](#library-use-programmatic)  
   9.2 [Standalone mode](#library-use-standalone)
 10. [How to add new languages?](#library-extension)
-11. [Do you want to contribute?](#library-contribution)
-12. [What's next for version 1.1.0?](#whats-next)
+11. [What's next for version 1.1.0?](#whats-next)
 
 ## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. 
@@ -251,19 +250,19 @@ com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
 
 ##### GERMAN #####
 
->>> Accuracy on average: 89,10%
+>>> Accuracy on average: 89.10%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 73,60%
-Erroneously classified as DUTCH: 2,30%, ENGLISH: 2,10%, DANISH: 2,10%, LATIN: 2,00%, BOKMAL: 1,60%, ITALIAN: 1,20%, BASQUE: 1,20%, FRENCH: 1,20%, ESPERANTO: 1,10%, SWEDISH: 1,00%, AFRIKAANS: 0,80%, TSONGA: 0,70%, PORTUGUESE: 0,60%, NYNORSK: 0,60%, FINNISH: 0,50%, YORUBA: 0,50%, ESTONIAN: 0,50%, WELSH: 0,50%, SOTHO: 0,50%, SPANISH: 0,40%, SWAHILI: 0,40%, IRISH: 0,40%, ICELANDIC: 0,40%, POLISH: 0,40%, TSWANA: 0,40%, TAGALOG: 0,30%, CATALAN: 0,30%, BOSNIAN: 0,30%, LITHUANIAN: 0,20%, INDONESIAN: 0,20%, ALBANIAN: 0,20%, SLOVAK: 0,20%, ZULU: 0,20%, CROATIAN: 0,20%, ROMANIAN: 0,20%, XHOSA: 0,20%, TURKISH: 0,10%, LATVIAN: 0,10%, MALAY: 0,10%, SLOVENE: 0,10%, SOMALI: 0,10%
+Accuracy: 73.60%
+Erroneously classified as DUTCH: 2.30%, ENGLISH: 2.10%, DANISH: 2.10%, LATIN: 2.00%, BOKMAL: 1.60%, ITALIAN: 1.20%, BASQUE: 1.20%, FRENCH: 1.20%, ESPERANTO: 1.10%, SWEDISH: 1.00%, AFRIKAANS: 0.80%, TSONGA: 0.70%, PORTUGUESE: 0.60%, NYNORSK: 0.60%, FINNISH: 0.50%, YORUBA: 0.50%, ESTONIAN: 0.50%, WELSH: 0.50%, SOTHO: 0.50%, SPANISH: 0.40%, SWAHILI: 0.40%, IRISH: 0.40%, ICELANDIC: 0.40%, POLISH: 0.40%, TSWANA: 0.40%, TAGALOG: 0.30%, CATALAN: 0.30%, BOSNIAN: 0.30%, LITHUANIAN: 0.20%, INDONESIAN: 0.20%, ALBANIAN: 0.20%, SLOVAK: 0.20%, ZULU: 0.20%, CROATIAN: 0.20%, ROMANIAN: 0.20%, XHOSA: 0.20%, TURKISH: 0.10%, LATVIAN: 0.10%, MALAY: 0.10%, SLOVENE: 0.10%, SOMALI: 0.10%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 94,00%
-Erroneously classified as DUTCH: 0,90%, LATIN: 0,80%, ENGLISH: 0,70%, SWEDISH: 0,60%, DANISH: 0,50%, FRENCH: 0,40%, BOKMAL: 0,30%, TAGALOG: 0,20%, IRISH: 0,20%, SWAHILI: 0,20%, TURKISH: 0,10%, ZULU: 0,10%, ESPERANTO: 0,10%, ESTONIAN: 0,10%, FINNISH: 0,10%, ITALIAN: 0,10%, NYNORSK: 0,10%, ICELANDIC: 0,10%, AFRIKAANS: 0,10%, SOMALI: 0,10%, TSONGA: 0,10%, WELSH: 0,10%
+Accuracy: 94.00%
+Erroneously classified as DUTCH: 0.90%, LATIN: 0.80%, ENGLISH: 0.70%, SWEDISH: 0.60%, DANISH: 0.50%, FRENCH: 0.40%, BOKMAL: 0.30%, TAGALOG: 0.20%, IRISH: 0.20%, SWAHILI: 0.20%, TURKISH: 0.10%, ZULU: 0.10%, ESPERANTO: 0.10%, ESTONIAN: 0.10%, FINNISH: 0.10%, ITALIAN: 0.10%, NYNORSK: 0.10%, ICELANDIC: 0.10%, AFRIKAANS: 0.10%, SOMALI: 0.10%, TSONGA: 0.10%, WELSH: 0.10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
-Accuracy: 99,70%
-Erroneously classified as DUTCH: 0,20%, LATIN: 0,10%
+Accuracy: 99.70%
+Erroneously classified as DUTCH: 0.20%, LATIN: 0.10%
 ```
 
 The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. 
@@ -284,10 +283,10 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:1.0.1'
+implementation 'com.github.pemistahl:lingua:1.0.2'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:1.0.1")
+implementation("com.github.pemistahl:lingua:1.0.2")
 ```
 
 ### 7.2 <a name="library-dependency-maven"></a> Using Maven
@@ -296,13 +295,13 @@ implementation("com.github.pemistahl:lingua:1.0.1")
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
 ## 8. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
-*Lingua* uses Gradle to build.
+*Lingua* uses Gradle to build and requires Java >= 1.8 for that.
 
 ```
 git clone https://github.com/pemistahl/lingua.git
@@ -310,9 +309,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-1.0.1.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-1.0.1-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-1.0.1-with-dependencies.jar` containing the 
+1. `./gradlew jar` assembles `lingua-1.0.2.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-1.0.2-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-1.0.2-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
 in projects without dependency management systems. You should be able to use it in your Android 
 project as well by putting it in your project's `lib` folder. This jar file can also be used to 
@@ -373,7 +372,8 @@ cases if you exclude certain languages from the decision process or just explici
 ```kotlin
 // include all languages available in the library
 // WARNING: in the worst case this produces high memory 
-//          consumption and slow runtime performance
+//          consumption of approximately 3.5GB 
+//          and slow runtime performance
 LanguageDetectorBuilder.fromAllLanguages()
 
 // include only languages that are not yet extinct (= currently excludes Latin)
@@ -430,7 +430,7 @@ returned map is assumed to be 0.0.
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
 and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-1.0.1-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-1.0.2-with-dependencies.jar`
 
 Then just play around:
 
@@ -470,66 +470,10 @@ Bye! Ciao! Tschüss! Salut!
 If you want to add your own languages to *Lingua*, you can do so. 
 The following steps describe how to proceed.
 
-1. Clone *Lingua's* repository to your own computer as described in [section 8](#library-build).
-2. Open enums [`IsoCode639_1`][isocode639_1 url] and [`IsoCode639_3`][isocode639_3 url] and add the 
-language's iso codes. Among other sites, Wikipedia provides a [comprehensive list][wikipedia isocodes list].
-3. Open enum [`Language`][language url] and add a new entry for your language. If the language is written
-with a script that is not yet supported by *Lingua's* [`Alphabet`][alphabet url] enum, then add a new entry
-for it there as well.
-4. If your language's script contains characters that are completely unique to it, then add them to the
-respective entry in the [`Language`][language url] enum. However, if the characters occur in more than one
-language **but** not in all languages, then add them to the 
-[`CHARS_TO_LANGUAGES_MAPPING`][chars to languages mapping url] constant in class `LanguageDetector` instead.
-5. Use [`LanguageModelFilesWriter`][language model files writer url] to create the language model files.
-The training data file used for ngram probability estimation is not required to have a specific format
-other than to be a valid txt file.
-6. Create a new subdirectory in [`/src/main/resources/language-models`][language models directory url]
-and put the generated language model files in there. Do **not** rename the language model files. 
-The name of the subdirectory **must** be the language's ISO 639-1 code, completely lowercased.
-7. Use [`TestDataFilesWriter`][test data files writer url] to create the test data files used for
-accuracy report generation. The input file from which to create the test data should have each
-sentence on a separate line.
-8. Put the generated test data files in [`/src/test/resources/language-testdata`][test data directory url].
-Do **not** rename the test data files.
-9. For accuracy report generation, create an abstract base class for the main logic in
-[`/src/test/kotlin/com/github/pemistahl/lingua/report/config`][accuracy report config url].
-Look at the other languages' files in this directory to see how the class must look like.
-It should be pretty self-explanatory.
-10. Create a concrete test class in 
-[`/src/test/kotlin/com/github/pemistahl/lingua/report/lingua`][accuracy report lingua url].
-Look at the other languages' files in this directory to see how the class must look like.
-It should be pretty self-explanatory. If one of the other language detector libraries 
-supports your language already, you can add test classes for those as well. Each library 
-has its own directory for this purpose.
-11. Fix the existing unit tests by adding your new language.
-12. Add your new language to property [`linguaSupportedLanguages`][gradle properties url] 
-in `/gradle.properties`.
-13. Be happy! :-) Run the accuracy report generation and see how well *Lingua* (hopefully) performs.
-
-
-## 11. <a name="library-contribution"></a> Do you want to contribute? <sup>[Top ▲](#table-of-contents)</sup>
-
-In case you want to contribute something to *Lingua*, then I encourage you to do so. Do you have ideas for 
-improving the API? Are there some specific languages that you want to have supported early? Or have you 
-found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated. :-)
-
-## 12. <a name="whats-next"></a> What's next for version 1.1.0? <sup>[Top ▲](#table-of-contents)</sup>
+## 11. <a name="whats-next"></a> What's next for version 1.1.0? <sup>[Top ▲](#table-of-contents)</sup>
 
 Take a look at the [planned issues](https://github.com/pemistahl/lingua/milestone/4).
 
-[wikipedia isocodes list]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/LanguageDetector.kt#L428
-[alphabet url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/internal/Alphabet.kt
-[language url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/Language.kt
-[isocode639_1 url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_1.kt
-[isocode639_3 url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_3.kt
-[language model files writer url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L40
-[language models directory url]: https://github.com/pemistahl/lingua/tree/master/src/main/resources/language-models
-[test data files writer url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L43
-[test data directory url]: https://github.com/pemistahl/lingua/tree/master/src/test/resources/language-testdata
-[accuracy report config url]: https://github.com/pemistahl/lingua/tree/master/src/test/kotlin/com/github/pemistahl/lingua/report/config
-[accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/master/src/test/kotlin/com/github/pemistahl/lingua/report/lingua
-[gradle properties url]: https://github.com/pemistahl/lingua/blob/master/gradle.properties#L67
 [javadoc badge]: https://javadoc.io/badge2/com.github.pemistahl/lingua/javadoc.svg
 [javadoc url]: https://javadoc.io/doc/com.github.pemistahl/lingua
 [travis ci badge]: https://travis-ci.org/pemistahl/lingua.svg?branch=master
@@ -538,8 +482,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-74-green.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.1-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.1%2Flingua-1.0.1-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.2-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.2%2Flingua-1.0.2-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -548,10 +492,10 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache Tika]: https://tika.apache.org/1.24.1/detection.html#Language_Detection
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.2/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.1
-[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.1-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.1/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.1-green.svg
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.2
+[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.2-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.2/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.2-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md
 [accuracy reports url]: https://github.com/pemistahl/lingua/tree/master/accuracy-reports

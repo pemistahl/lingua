@@ -1,3 +1,16 @@
+## Lingua 1.0.2 (released on 09 Aug 2020)
+
+### Bug Fixes
+
+- The language mapping for character *ë* was incorrect which has been fixed.
+Thanks to @sandernugterenedia for reporting this bug. (#66)
+- The implementation of `LanguageDetector` made use of functionality that was
+introduced in Java 8 which made the library unusable for Java 6 and 7.
+Thanks to @levant916 for reporting this bug. (#69)
+- The [Gradle shadow plugin](https://imperceptiblethoughts.com/shadow/) has been
+added so that `./gradlew jarWithDependencies` produces a jar file whose dependencies
+do not conflict anymore with the same dependencies of different versions in the same project. (#67)
+
 ## Lingua 1.0.1 (released on 04 Jul 2020)
 
 ### Bug Fixes
