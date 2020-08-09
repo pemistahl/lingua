@@ -1,17 +1,17 @@
 ##### MONGOLIAN #####
 
->>> Accuracy on average: 84,43%
+>>> Accuracy on average: 84.43%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 66,20%
-Erroneously classified as UNKNOWN: 30,10%, MACEDONIAN: 1,30%, BULGARIAN: 0,90%, BELARUSIAN: 0,60%, KAZAKH: 0,30%, SERBIAN: 0,30%, UKRAINIAN: 0,20%, RUSSIAN: 0,10%
+Accuracy: 66.20%
+Erroneously classified as UNKNOWN: 30.10%, MACEDONIAN: 1.30%, BULGARIAN: 0.90%, BELARUSIAN: 0.60%, KAZAKH: 0.30%, SERBIAN: 0.30%, UKRAINIAN: 0.20%, RUSSIAN: 0.10%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
-Accuracy: 87,80%
-Erroneously classified as UNKNOWN: 10,80%, BULGARIAN: 0,60%, MACEDONIAN: 0,30%, SERBIAN: 0,20%, BELARUSIAN: 0,20%, UKRAINIAN: 0,10%
+Accuracy: 87.80%
+Erroneously classified as UNKNOWN: 10.80%, BULGARIAN: 0.60%, MACEDONIAN: 0.30%, SERBIAN: 0.20%, BELARUSIAN: 0.20%, UKRAINIAN: 0.10%
 
 >> Detection of 1000 sentences (average length: 103 chars)
-Accuracy: 99,30%
-Erroneously classified as UNKNOWN: 0,30%, SOMALI: 0,20%, RUSSIAN: 0,10%, ENGLISH: 0,10%
+Accuracy: 99.30%
+Erroneously classified as UNKNOWN: 0.30%, SOMALI: 0.20%, RUSSIAN: 0.10%, ENGLISH: 0.10%
 
 >> Exact values: 84.43333333333334 66.2 87.8 99.3

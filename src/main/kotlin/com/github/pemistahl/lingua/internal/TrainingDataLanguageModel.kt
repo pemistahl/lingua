@@ -17,6 +17,7 @@
 package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
+import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlinx.serialization.Serializable
@@ -32,7 +33,7 @@ internal data class TrainingDataLanguageModel(
     val relativeFrequencies: Map<Ngram, Fraction>,
     val jsonRelativeFrequencies: Object2DoubleMap<Ngram>
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies[ngram] ?: 0.0
+    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram)
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -41,9 +42,13 @@ internal data class TrainingDataLanguageModel(
         }
         return JSON.stringify(
             JsonLanguageModel.serializer(),
-            JsonLanguageModel(language, ngrams.mapValues {
-                it.value.joinToString(separator = " ")
-            }))
+            JsonLanguageModel(
+                language,
+                ngrams.mapValues {
+                    it.value.joinToString(separator = " ")
+                }
+            )
+        )
     }
 
     companion object {
@@ -115,7 +120,7 @@ internal data class TrainingDataLanguageModel(
                     val textSlice = lowerCasedLine.slice(i until i + ngramLength)
                     if (regex.matches(textSlice)) {
                         val ngram = Ngram(textSlice)
-                        absoluteFrequencies.merge(ngram, 1, Int::plus)
+                        absoluteFrequencies.incrementCounter(ngram)
                     }
                 }
             }

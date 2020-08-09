@@ -22,11 +22,12 @@ import org.junit.jupiter.api.Test
 
 class TrainingDataLanguageModelTest {
 
-    private val text = """
+    private val text =
+        """
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-    """.toLowerCase().trimIndent()
+        """.toLowerCase().trimIndent()
 
     private val keyMapper = { entry: Map.Entry<String, Any> -> Ngram(entry.key) }
 
@@ -35,7 +36,8 @@ class TrainingDataLanguageModelTest {
         Fraction(numerator, denominator)
     }
 
-    private val expectedUnigramLanguageModel = """
+    private val expectedUnigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -50,7 +52,7 @@ class TrainingDataLanguageModelTest {
                 "13/100":"t"
             }
         }
-    """.replace(Regex("\n\\s*"), "")
+        """.replace(Regex("\n\\s*"), "")
 
     private val expectedUnigramAbsoluteFrequencies = mapOf(
         "a" to 3, "b" to 1, "c" to 3, "d" to 5, "e" to 14,

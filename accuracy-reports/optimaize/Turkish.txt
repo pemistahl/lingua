@@ -1,17 +1,17 @@
 ##### TURKISH #####
 
->>> Accuracy on average: 69,67%
+>>> Accuracy on average: 69.67%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 42,70%
-Erroneously classified as UNKNOWN: 56,00%, ICELANDIC: 0,80%, ITALIAN: 0,30%, TAGALOG: 0,10%, ROMANIAN: 0,10%
+Accuracy: 42.70%
+Erroneously classified as UNKNOWN: 56.00%, ICELANDIC: 0.80%, ITALIAN: 0.30%, TAGALOG: 0.10%, ROMANIAN: 0.10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
-Accuracy: 69,90%
-Erroneously classified as UNKNOWN: 28,40%, ICELANDIC: 1,50%, GERMAN: 0,10%, TAGALOG: 0,10%
+Accuracy: 69.90%
+Erroneously classified as UNKNOWN: 28.40%, ICELANDIC: 1.50%, GERMAN: 0.10%, TAGALOG: 0.10%
 
 >> Detection of 1000 sentences (average length: 119 chars)
-Accuracy: 96,40%
-Erroneously classified as UNKNOWN: 3,40%, ICELANDIC: 0,20%
+Accuracy: 96.40%
+Erroneously classified as UNKNOWN: 3.40%, ICELANDIC: 0.20%
 
 >> Exact values: 69.66666666666667 42.699999999999996 69.89999999999999 96.39999999999999

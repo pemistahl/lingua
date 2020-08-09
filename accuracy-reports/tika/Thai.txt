@@ -1,17 +1,17 @@
 ##### THAI #####
 
->>> Accuracy on average: 99,90%
+>>> Accuracy on average: 99.90%
 
 >> Detection of 1000 single words (average length: 20 chars)
-Accuracy: 100,00%
+Accuracy: 100.00%
 Erroneously classified as 
 
 >> Detection of 1000 word pairs (average length: 37 chars)
-Accuracy: 100,00%
+Accuracy: 100.00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 116 chars)
-Accuracy: 99,70%
-Erroneously classified as ENGLISH: 0,20%, MALAY: 0,10%
+Accuracy: 99.70%
+Erroneously classified as ENGLISH: 0.20%, MALAY: 0.10%
 
 >> Exact values: 99.89999999999999 100.0 100.0 99.7

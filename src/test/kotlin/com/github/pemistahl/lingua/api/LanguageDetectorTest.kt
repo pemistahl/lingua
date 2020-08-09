@@ -84,7 +84,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
-import kotlin.math.ln
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.entry
@@ -96,6 +95,7 @@ import org.junit.jupiter.params.provider.Arguments.arguments
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
+import kotlin.math.ln
 
 @ExtendWith(MockKExtension::class)
 class LanguageDetectorTest {
@@ -312,7 +312,6 @@ class LanguageDetectorTest {
 
     @ParameterizedTest
     @CsvSource(
-        "hashemidëve, ALBANIAN",
         "məhərrəm, AZERBAIJANI",
         "substituïts, CATALAN",
         "rozdělit, CZECH",
@@ -614,6 +613,10 @@ class LanguageDetectorTest {
             listOf(FRENCH, HUNGARIAN, LATVIAN)
         ),
         arguments(
+            "hashemidëve",
+            listOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH)
+        ),
+        arguments(
             "forêt",
             listOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE)
         ),
@@ -764,27 +767,27 @@ class LanguageDetectorTest {
         val totalProbabilityForGerman = (
             // Unigrams
             ln(0.06) + ln(0.07) + ln(0.08) + ln(0.09) + ln(0.1) +
-            // Bigrams
-            ln(0.15) + ln(0.16) + ln(0.17) + ln(0.18) +
-            // Trigrams
-            ln(0.22) + ln(0.23) + ln(0.24) +
-            // Quadrigrams
-            ln(0.27) + ln(0.28) +
-            // Fivegrams
-            ln(0.3)
+                // Bigrams
+                ln(0.15) + ln(0.16) + ln(0.17) + ln(0.18) +
+                // Trigrams
+                ln(0.22) + ln(0.23) + ln(0.24) +
+                // Quadrigrams
+                ln(0.27) + ln(0.28) +
+                // Fivegrams
+                ln(0.3)
             ) / unigramCountForBothLanguages
 
         val totalProbabilityForEnglish = (
             // Unigrams
             ln(0.01) + ln(0.02) + ln(0.03) + ln(0.04) + ln(0.05) +
-            // Bigrams
-            ln(0.11) + ln(0.12) + ln(0.13) + ln(0.14) +
-            // Trigrams
-            ln(0.19) + ln(0.2) + ln(0.21) +
-            // Quadrigrams
-            ln(0.25) + ln(0.26) +
-            // Fivegrams
-            ln(0.29)
+                // Bigrams
+                ln(0.11) + ln(0.12) + ln(0.13) + ln(0.14) +
+                // Trigrams
+                ln(0.19) + ln(0.2) + ln(0.21) +
+                // Quadrigrams
+                ln(0.25) + ln(0.26) +
+                // Fivegrams
+                ln(0.29)
             ) / unigramCountForBothLanguages
 
         assertThat(

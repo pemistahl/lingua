@@ -17,26 +17,28 @@
 package com.github.pemistahl.lingua.api.io
 
 import com.github.pemistahl.lingua.api.Language
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.stream.Collectors.toList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.stream.Collectors.toList
 
 class LanguageModelFilesWriterTest {
 
     private lateinit var inputFilePath: Path
 
-    private val text = """
+    private val text =
+        """
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-    """.toLowerCase().trimIndent()
+        """.toLowerCase().trimIndent()
 
-    private val expectedUnigramLanguageModel = """
+    private val expectedUnigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -51,9 +53,10 @@ class LanguageModelFilesWriterTest {
                 "13/100":"t"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedBigramLanguageModel = """
+    private val expectedBigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
@@ -74,41 +77,44 @@ class LanguageModelFilesWriterTest {
                 "2/13":"ti"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedTrigramLanguageModel = """
+    private val expectedTrigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
-                "1/1":"rds ose ded con use ion ist pur cti wor tal uct pro odu nsi rod for ces nce not pos are tot sis nte way nde rpo the urp duc",
+                "1/1":"ose rds ded con use ion ist pur cti wor tal uct pro odu nsi rod for ces nce not are pos tot sis nte nde way the rpo urp duc",
                 "1/4":"est hem hes hey sen ses ing int ese",
                 "1/2":"tin tio ota sti ord ons",
                 "2/3":"ten",
                 "1/3":"tes end enc ent"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedQuadrigramLanguageModel = """
+    private val expectedQuadrigramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
-                "1/1":"onsi sist ende ords esti oduc nces rpos ting nsis nten tota cons tion prod otal test ence pose oses nded inte urpo duct sent stin ucti ente purp ctio rodu word hese",
+                "1/1":"onsi sist ende ords esti nces oduc rpos ting nten nsis tota cons tion prod ence test otal pose nded oses inte urpo sent duct stin ente ucti purp ctio rodu word hese",
                 "1/2":"tenc tend",
                 "1/4":"thes they them"
             }
         }
-    """.minify()
+        """.minify()
 
-    private val expectedFivegramLanguageModel = """
+    private val expectedFivegramLanguageModel =
+        """
         {
             "language":"ENGLISH",
             "ngrams":{
-                "1/1":"testi sente ences tende ducti these onsis total uctio enten poses ction produ inten nsist words sting purpo tence estin roduc urpos rpose ended oduct consi",
+                "1/1":"testi sente ences tende these ducti onsis total uctio enten poses ction produ inten nsist words sting tence purpo estin roduc urpos ended rpose oduct consi",
                 "1/2":"ntenc ntend"
             }
         }
-    """.minify()
+        """.minify()
 
     @BeforeEach
     fun beforeEach() {

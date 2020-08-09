@@ -15,6 +15,8 @@
  */
 
 import com.adarshr.gradle.testlogger.theme.ThemeType
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
@@ -53,10 +55,11 @@ description = linguaDescription
 plugins {
     kotlin("jvm") version "1.3.72"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.3.72"
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
-    id("com.adarshr.test-logger") version "2.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "9.3.0"
+    id("com.adarshr.test-logger") version "2.1.0"
     id("org.jetbrains.dokka") version "0.10.1"
     id("ru.vyarus.use-python") version "2.2.0"
+    id("com.github.johnrengelman.shadow") version "6.0.0"
     id("com.jfrog.bintray") version "1.8.5"
     `maven-publish`
     jacoco
@@ -261,19 +264,20 @@ tasks.register<Jar>("sourcesJar") {
     from("src/main/kotlin")
 }
 
-tasks.register<Jar>("jarWithDependencies") {
+tasks.register<ConfigureShadowRelocation>("relocateDependencies") {
+    group = "shadow"
+    description = "Specifies the ShadowJar task for which to relocate the dependencies."
+    target = tasks["jarWithDependencies"] as ShadowJar
+}
+
+tasks.register<ShadowJar>("jarWithDependencies") {
     group = "Build"
     description = "Assembles a jar archive containing the main classes and all external dependencies."
     classifier = "with-dependencies"
-    dependsOn(configurations.runtimeClasspath)
     from(sourceSets.main.get().output)
-    from({
-        configurations.runtimeClasspath.get()
-            .filter { it.name.endsWith("jar") }
-            .map { zipTree(it) }
-    })
+    configurations = listOf(project.configurations.runtimeClasspath.get())
     manifest { attributes("Main-Class" to linguaMainClass) }
-    exclude("META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.SF")
+    dependsOn("relocateDependencies")
 }
 
 tasks.register<JavaExec>("runLinguaOnConsole") {
@@ -287,14 +291,14 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0")
-    implementation("it.unimi.dsi:fastutil:8.3.1")
+    implementation("it.unimi.dsi:fastutil:8.4.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testImplementation("org.assertj:assertj-core:3.16.1")
     testImplementation("io.mockk:mockk:1.10.0")
 
     testImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    testImplementation("org.apache.opennlp:opennlp-tools:1.9.2")
+    testImplementation("org.apache.opennlp:opennlp-tools:1.9.3")
     testImplementation("org.apache.tika:tika-langdetect:1.24.1")
 
     testImplementation("org.slf4j:slf4j-nop:1.7.30")

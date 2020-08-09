@@ -28,8 +28,11 @@ abstract class AbstractJapaneseDetectionAccuracyReport(
 ) : AbstractLanguageDetectionAccuracyReport(Language.JAPANESE, implementationToUse) {
 
     @ParameterizedTest
-    @CsvFileSource(resources = ["/language-testdata/single-words/ja.txt"], delimiter = CSV_FILE_DELIMITER, encoding =
-    CSV_FILE_ENCODING)
+    @CsvFileSource(
+        resources = ["/language-testdata/single-words/ja.txt"], delimiter = CSV_FILE_DELIMITER,
+        encoding =
+            CSV_FILE_ENCODING
+    )
     @DisplayName("single word detection")
     override fun `assert that single words are identified correctly`(singleWord: String) {
         computeSingleWordStatistics(singleWord)

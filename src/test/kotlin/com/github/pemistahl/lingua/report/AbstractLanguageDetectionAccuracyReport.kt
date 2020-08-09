@@ -40,6 +40,7 @@ import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
+import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPENNLP
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPTIMAIZE
@@ -49,15 +50,15 @@ import com.optimaize.langdetect.i18n.LdLocale
 import com.optimaize.langdetect.ngram.NgramExtractors
 import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.util.Locale
-import kotlin.math.roundToInt
 import opennlp.tools.langdetect.LanguageDetectorME
 import opennlp.tools.langdetect.LanguageDetectorModel
 import org.apache.tika.langdetect.OptimaizeLangDetector
 import org.apache.tika.language.detect.LanguageResult
 import org.junit.jupiter.api.AfterAll
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.util.Locale
+import kotlin.math.roundToInt
 
 abstract class AbstractLanguageDetectionAccuracyReport(
     private val language: Language,
@@ -191,7 +192,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 Language.getByIsoCode639_3(isoCode)
             }
         }
-        statistics.merge(detectedLanguage, 1, Int::plus)
+        statistics.incrementCounter(detectedLanguage)
     }
 
     private fun computeAccuracy(languageCount: Int, totalLanguagesCount: Int) =
