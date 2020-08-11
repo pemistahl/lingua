@@ -73,16 +73,26 @@ sourceSets {
             exclude("training-data/**")
         }
     }
+    create("accuracyReport") {
+        compileClasspath += sourceSets.main.get().output
+        runtimeClasspath += sourceSets.main.get().output
+    }
 }
+
+val accuracyReportImplementation by configurations.getting {
+    extendsFrom(configurations.testImplementation.get())
+}
+
+configurations["accuracyReportRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
 compileTestKotlin.kotlinOptions.jvmTarget = "1.8"
 
-tasks.withType<Test> {
-    useJUnitPlatform { failFast = true }
+tasks.named("compileAccuracyReportKotlin", KotlinCompile::class) {
+    kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.test {
-    filter { includeTestsMatching("*Test") }
+tasks.withType<Test> {
+    useJUnitPlatform { failFast = true }
 }
 
 tasks.jacocoTestReport {
@@ -94,9 +104,11 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.register<Test>("writeAccuracyReports") {
+tasks.register<Test>("accuracyReport") {
     group = linguaTaskGroup
     description = "Runs Lingua on provided test data, and writes detection accuracy reports for each language."
+    testClassesDirs = sourceSets["accuracyReport"].output.classesDirs
+    classpath = sourceSets["accuracyReport"].runtimeClasspath
 
     val allowedDetectors = linguaSupportedDetectors.split(',')
     val detectors = if (project.hasProperty("detectors"))
@@ -297,11 +309,10 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.16.1")
     testImplementation("io.mockk:mockk:1.10.0")
 
-    testImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    testImplementation("org.apache.opennlp:opennlp-tools:1.9.3")
-    testImplementation("org.apache.tika:tika-langdetect:1.24.1")
-
-    testImplementation("org.slf4j:slf4j-nop:1.7.30")
+    accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
+    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.3")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect:1.24.1")
+    accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.30")
 }
 
 python {
