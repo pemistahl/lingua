@@ -4,19 +4,6 @@ language: java
 
 jdk:
   - openjdk8
-  - openjdk10
-  - openjdk11
-
-before_script:
-  - chmod +x gradlew
-  - ./gradlew clean
-
-script:
-  - ./gradlew check
-  - ./gradlew jacocoTestReport
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
 
 before_deploy:
   - ./gradlew jar
