@@ -109,7 +109,7 @@ class LanguageDetector internal constructor(
 
         val secondMostLikelyLanguage = confidenceValues.filterNot {
             it.key == mostLikelyLanguage
-        }.maxBy { it.value }!!.key
+        }.maxByOrNull { it.value }!!.key
         val secondMostLikelyLanguageProbability = confidenceValues.getValue(secondMostLikelyLanguage)
 
         if (mostLikelyLanguageProbability == secondMostLikelyLanguageProbability) return UNKNOWN
@@ -170,7 +170,7 @@ class LanguageDetector internal constructor(
         }
 
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCountsOfInputText, languagesSequence)
-        val highestProbability = summedUpProbabilities.maxBy { it.value }?.value ?: return sortedMapOf()
+        val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
         val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
 
         return confidenceValues.toSortedMap(compareByDescending { confidenceValues[it] })
@@ -319,7 +319,7 @@ class LanguageDetector internal constructor(
             return languages.asSequence()
         }
 
-        val mostFrequentAlphabet = detectedAlphabets.entries.maxBy { it.value }!!.key
+        val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }!!.key
         val filteredLanguages = languages.asSequence().filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
 

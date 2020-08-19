@@ -16,13 +16,13 @@
 
 package com.github.pemistahl.lingua.internal
 
-import kotlinx.serialization.Decoder
-import kotlinx.serialization.Encoder
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.PrimitiveDescriptor
-import kotlinx.serialization.PrimitiveKind
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 internal data class Fraction(
@@ -48,7 +48,7 @@ internal data class Fraction(
 
     override fun toString() = "$numerator/$denominator"
 
-    override fun toByte() = toDouble().toByte()
+    override fun toByte() = toDouble().toInt().toByte()
 
     override fun toChar() = toDouble().toChar()
 
@@ -60,7 +60,7 @@ internal data class Fraction(
 
     override fun toLong() = toDouble().toLong()
 
-    override fun toShort() = toDouble().toShort()
+    override fun toShort() = toDouble().toInt().toShort()
 
     private fun reduceToLowestTerms(numerator: Int, denominator: Int): Pair<Int, Int> {
         var num = numerator
@@ -179,7 +179,7 @@ internal data class Fraction(
 
     @Serializer(forClass = Fraction::class)
     companion object : KSerializer<Fraction> {
-        override val descriptor = PrimitiveDescriptor("Fraction", PrimitiveKind.STRING)
+        override val descriptor = PrimitiveSerialDescriptor("Fraction", PrimitiveKind.STRING)
 
         override fun serialize(encoder: Encoder, value: Fraction) {
             encoder.encodeString(value.toString())

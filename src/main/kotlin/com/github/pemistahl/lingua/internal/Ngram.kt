@@ -16,13 +16,13 @@
 
 package com.github.pemistahl.lingua.internal
 
-import kotlinx.serialization.Decoder
-import kotlinx.serialization.Encoder
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.PrimitiveDescriptor
-import kotlinx.serialization.PrimitiveKind
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 internal data class Ngram(val value: String) : Comparable<Ngram> {
@@ -52,7 +52,7 @@ internal data class Ngram(val value: String) : Comparable<Ngram> {
 
     @Serializer(forClass = Ngram::class)
     companion object : KSerializer<Ngram> {
-        override val descriptor = PrimitiveDescriptor("Ngram", PrimitiveKind.STRING)
+        override val descriptor = PrimitiveSerialDescriptor("Ngram", PrimitiveKind.STRING)
 
         override fun serialize(encoder: Encoder, value: Ngram) {
             encoder.encodeString(value.toString())
