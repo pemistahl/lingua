@@ -22,7 +22,6 @@ import it.unimi.dsi.fastutil.objects.Object2DoubleMap
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
 @Serializable
 internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
@@ -40,7 +39,7 @@ internal data class TrainingDataLanguageModel(
         for ((ngram, fraction) in relativeFrequencies) {
             ngrams.computeIfAbsent(fraction) { mutableListOf() }.add(ngram)
         }
-        return JSON.stringify(
+        return JSON.encodeToString(
             JsonLanguageModel.serializer(),
             JsonLanguageModel(
                 language,
@@ -52,7 +51,7 @@ internal data class TrainingDataLanguageModel(
     }
 
     companion object {
-        private val JSON = Json(JsonConfiguration.Stable)
+        private val JSON = Json { }
 
         fun fromText(
             text: Sequence<String>,
@@ -87,7 +86,7 @@ internal data class TrainingDataLanguageModel(
         }
 
         fun fromJson(json: String): TrainingDataLanguageModel {
-            val jsonLanguageModel = JSON.parse(JsonLanguageModel.serializer(), json)
+            val jsonLanguageModel = JSON.decodeFromString(JsonLanguageModel.serializer(), json)
             val jsonRelativeFrequencies = Object2DoubleOpenHashMap<Ngram>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
