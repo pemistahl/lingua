@@ -81,7 +81,7 @@ class LanguageDetector internal constructor(
     internal val minimumRelativeDistance: Double,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
-    private val languagesWithUniqueCharacters = languages.filter { it.uniqueCharacters.isNotEmpty() }.asSequence()
+    private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
     private val alphabetsSupportingExactlyOneLanguage = Alphabet.allSupportingExactlyOneLanguage().filterValues {
         it in languages
     }
@@ -245,7 +245,7 @@ class LanguageDetector internal constructor(
                             Alphabet.CYRILLIC.matches(character) ||
                             Alphabet.DEVANAGARI.matches(character) ->
                             languagesWithUniqueCharacters.filter {
-                                it.uniqueCharacters.contains(character)
+                                it.uniqueCharacters?.contains(character) ?: false
                             }.forEach {
                                 wordLanguageCounts.incrementCounter(it)
                             }

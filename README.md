@@ -470,8 +470,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 
 [javadoc badge]: https://javadoc.io/badge2/com.github.pemistahl/lingua/javadoc.svg
 [javadoc url]: https://javadoc.io/doc/com.github.pemistahl/lingua
-[ci badge]: https://github.com/pemistahl/lingua/workflows/Lingua%20CI/badge.svg
-[ci url]: https://github.com/pemistahl/lingua/actions?query=workflow%3A%22Lingua+CI%22
+[ci badge]: https://github.com/pemistahl/lingua/workflows/Lingua%20CI/badge.svg?branch=master
+[ci url]: https://github.com/pemistahl/lingua/actions?query=workflow%3A%22Lingua+CI%22+branch%3Amaster
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-74-green.svg
