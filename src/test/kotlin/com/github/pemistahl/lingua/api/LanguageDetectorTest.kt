@@ -485,26 +485,6 @@ class LanguageDetectorTest {
             listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN)
         ),
         arguments(
-            "хвалить",
-            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
-        ),
-        arguments(
-            "людях",
-            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
-        ),
-        arguments(
-            "десятков",
-            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
-        ),
-        arguments(
-            "толстой",
-            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
-        ),
-        arguments(
-            "очень",
-            listOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
-        ),
-        arguments(
             "павінен",
             listOf(BELARUSIAN, KAZAKH, UKRAINIAN)
         ),

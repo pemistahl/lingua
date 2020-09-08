@@ -426,7 +426,7 @@ class LanguageDetector internal constructor(
             Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
         }
 
-        private val CHARS_TO_LANGUAGES_MAPPING = mapOf(
+        private val CHARS_TO_LANGUAGES_MAPPING = hashMapOf(
 
             "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
             "ĄąĘę" to setOf(LITHUANIAN, POLISH),
@@ -467,7 +467,6 @@ class LanguageDetector internal constructor(
             "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
             "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
 
-            "ЙйЬьЮюЧчЯя" to setOf(BELARUSIAN, BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN),
             "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, TURKISH),
 
             "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
