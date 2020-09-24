@@ -172,8 +172,10 @@ class LanguageDetector internal constructor(
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCountsOfInputText, languagesSequence)
         val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
         val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
+        val sortedByConfidenceValue = compareByDescending<Language> { language -> confidenceValues[language] }
+        val sortedByConfidenceValueThenByLanguage = sortedByConfidenceValue.thenBy { language -> language }
 
-        return confidenceValues.toSortedMap(compareByDescending { confidenceValues[it] })
+        return confidenceValues.toSortedMap(sortedByConfidenceValueThenByLanguage)
     }
 
     internal fun cleanUpInputText(text: String): String {
