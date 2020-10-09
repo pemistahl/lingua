@@ -52,7 +52,10 @@ class TrainingDataLanguageModelTest {
                 "13/100":"t"
             }
         }
-        """.replace(Regex("\n\\s*"), "")
+        """.replace(
+            Regex("\n\\s*"),
+            ""
+        )
 
     private val expectedUnigramAbsoluteFrequencies = mapOf(
         "a" to 3, "b" to 1, "c" to 3, "d" to 5, "e" to 14,

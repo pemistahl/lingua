@@ -51,13 +51,15 @@ object TestDataFilesWriter : FilesWriter() {
         checkOutputDirectoryPath(outputDirectoryPath)
 
         createAndWriteSentencesFile(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             outputDirectoryPath,
             language,
             maximumLines
         )
         val singleWords = createAndWriteSingleWordsFile(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             outputDirectoryPath,
             language,
             charClass,

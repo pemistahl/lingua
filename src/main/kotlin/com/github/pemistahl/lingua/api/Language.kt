@@ -255,7 +255,9 @@ enum class Language(
     UKRAINIAN(UK, UKR, setOf(CYRILLIC), "ҐґЄєЇї"),
     URDU(UR, URD, setOf(Alphabet.ARABIC), null),
     VIETNAMESE(
-        VI, VIE, setOf(Alphabet.LATIN),
+        VI,
+        VIE,
+        setOf(Alphabet.LATIN),
         "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"
     ),
     WELSH(CY, CYM, setOf(Alphabet.LATIN), null),

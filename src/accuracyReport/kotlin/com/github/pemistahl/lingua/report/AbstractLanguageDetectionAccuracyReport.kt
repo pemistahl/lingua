@@ -225,7 +225,9 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             accuracy,
             """
             >> Detection of $count $description (average length: ${(length.toDouble() / count).roundToInt()} chars)
-            Accuracy: ${formatAccuracy(accuracy)}
+            Accuracy: ${formatAccuracy(
+                accuracy
+            )}
             Erroneously classified as ${formatStatistics(statistics, language)}
             """.trimIndent()
         )

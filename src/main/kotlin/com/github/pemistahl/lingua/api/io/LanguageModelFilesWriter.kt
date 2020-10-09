@@ -48,35 +48,40 @@ object LanguageModelFilesWriter : FilesWriter() {
         checkOutputDirectoryPath(outputDirectoryPath)
 
         val unigramModel = createLanguageModel(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             language,
             1,
             charClass,
             emptyMap()
         )
         val bigramModel = createLanguageModel(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             language,
             2,
             charClass,
             unigramModel.absoluteFrequencies
         )
         val trigramModel = createLanguageModel(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             language,
             3,
             charClass,
             bigramModel.absoluteFrequencies
         )
         val quadrigramModel = createLanguageModel(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             language,
             4,
             charClass,
             trigramModel.absoluteFrequencies
         )
         val fivegramModel = createLanguageModel(
-            inputFilePath, inputFileCharset,
+            inputFilePath,
+            inputFileCharset,
             language,
             5,
             charClass,

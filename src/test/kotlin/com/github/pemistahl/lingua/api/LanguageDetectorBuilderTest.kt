@@ -84,7 +84,8 @@ class LanguageDetectorBuilderTest {
     fun `assert that LanguageDetector can be built from blacklist`() {
         run {
             val builder = LanguageDetectorBuilder.fromAllLanguagesWithout(
-                Language.TURKISH, Language.ROMANIAN
+                Language.TURKISH,
+                Language.ROMANIAN
             )
             val expectedLanguages = Language.values().toSet().minus(
                 arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN)

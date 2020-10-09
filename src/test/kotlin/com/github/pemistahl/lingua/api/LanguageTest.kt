@@ -136,7 +136,14 @@ class LanguageTest {
     @Test
     fun `assert that certain languages support Cyrillic script`() {
         assertThat(Language.allWithCyrillicScript()).containsExactly(
-            BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN
+            BELARUSIAN,
+            BULGARIAN,
+            KAZAKH,
+            MACEDONIAN,
+            MONGOLIAN,
+            RUSSIAN,
+            SERBIAN,
+            UKRAINIAN
         )
     }
 
@@ -259,7 +266,14 @@ class LanguageTest {
         arguments(
             Alphabet.CYRILLIC,
             listOf(
-                BELARUSIAN, BULGARIAN, KAZAKH, MACEDONIAN, MONGOLIAN, RUSSIAN, SERBIAN, UKRAINIAN
+                BELARUSIAN,
+                BULGARIAN,
+                KAZAKH,
+                MACEDONIAN,
+                MONGOLIAN,
+                RUSSIAN,
+                SERBIAN,
+                UKRAINIAN
             )
         ),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI, MARATHI)),

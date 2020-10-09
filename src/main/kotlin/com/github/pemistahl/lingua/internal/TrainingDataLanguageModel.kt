@@ -21,6 +21,8 @@ import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap
 import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
@@ -36,23 +38,17 @@ internal data class TrainingDataLanguageModel(
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
+
         for ((ngram, fraction) in relativeFrequencies) {
             ngrams.computeIfAbsent(fraction) { mutableListOf() }.add(ngram)
         }
-        return JSON.encodeToString(
-            JsonLanguageModel.serializer(),
-            JsonLanguageModel(
-                language,
-                ngrams.mapValues {
-                    it.value.joinToString(separator = " ")
-                }
-            )
-        )
+
+        val jsonLanguageModel = JsonLanguageModel(language, ngrams.mapValues { it.value.joinToString(separator = " ") })
+
+        return Json.encodeToString(jsonLanguageModel)
     }
 
     companion object {
-        private val JSON = Json { }
-
         fun fromText(
             text: Sequence<String>,
             language: Language,
@@ -86,7 +82,7 @@ internal data class TrainingDataLanguageModel(
         }
 
         fun fromJson(json: String): TrainingDataLanguageModel {
-            val jsonLanguageModel = JSON.decodeFromString(JsonLanguageModel.serializer(), json)
+            val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
             val jsonRelativeFrequencies = Object2DoubleOpenHashMap<Ngram>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
