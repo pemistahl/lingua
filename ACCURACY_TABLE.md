@@ -1243,19 +1243,19 @@
 	</tr>
 	<tr>
 		<td>Thai</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 99</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/green.png"> 100</td>
@@ -1496,7 +1496,7 @@
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.18</td>
+		<td>13.19</td>
 		<td>16.18</td>
 		<td>18.55</td>
 		<td>23.84</td>
@@ -1508,7 +1508,7 @@
 		<td>18.71</td>
 		<td>21.36</td>
 		<td>31.26</td>
-		<td>11.1</td>
+		<td>11.11</td>
 		<td>10.77</td>
 		<td>12.67</td>
 		<td>13.54</td>

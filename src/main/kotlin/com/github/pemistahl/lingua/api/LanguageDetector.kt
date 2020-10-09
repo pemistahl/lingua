@@ -306,10 +306,9 @@ class LanguageDetector internal constructor(
 
     internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
         val detectedAlphabets = mutableMapOf<Alphabet, Int>()
-        val alphabets = listOf(Alphabet.CYRILLIC, Alphabet.ARABIC, Alphabet.HAN, Alphabet.LATIN, Alphabet.DEVANAGARI)
 
         for (word in words) {
-            for (alphabet in alphabets) {
+            for (alphabet in Alphabet.values()) {
                 if (alphabet.matches(word)) {
                     detectedAlphabets.incrementCounter(alphabet)
                     break
