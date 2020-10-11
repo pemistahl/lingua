@@ -236,15 +236,15 @@
 	</tr>
 	<tr>
 		<td>Catalan</td>
-		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 70</td>
 		<td><img src="images/yellow.png"> 58</td>
 		<td><img src="images/yellow.png"> 42</td>
 		<td><img src="images/orange.png"> 31</td>
-		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/yellow.png"> 50</td>
 		<td><img src="images/orange.png"> 32</td>
 		<td><img src="images/red.png"> 11</td>
 		<td><img src="images/red.png"> 2</td>
-		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 74</td>
 		<td><img src="images/yellow.png"> 57</td>
 		<td><img src="images/orange.png"> 32</td>
 		<td><img src="images/red.png"> 16</td>
@@ -939,15 +939,15 @@
 	</tr>
 	<tr>
 		<td>Portuguese</td>
-		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 81</td>
 		<td><img src="images/lightgreen.png"> 63</td>
 		<td><img src="images/yellow.png"> 58</td>
 		<td><img src="images/orange.png"> 40</td>
-		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/yellow.png"> 58</td>
 		<td><img src="images/orange.png"> 34</td>
 		<td><img src="images/orange.png"> 22</td>
 		<td><img src="images/red.png"> 7</td>
-		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 85</td>
 		<td><img src="images/yellow.png"> 58</td>
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/red.png"> 19</td>
@@ -1133,7 +1133,7 @@
 		<td><img src="images/yellow.png"> 59</td>
 		<td><img src="images/yellow.png"> 42</td>
 		<td><img src="images/orange.png"> 32</td>
-		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/yellow.png"> 44</td>
 		<td><img src="images/orange.png"> 29</td>
 		<td><img src="images/red.png"> 8</td>
 		<td><img src="images/red.png"> 0</td>
@@ -1414,7 +1414,7 @@
 	</tr>
 	<tr>
 		<td>Yoruba</td>
-		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/lightgreen.png"> 66</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
@@ -1496,15 +1496,15 @@
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.19</td>
+		<td>13.23</td>
 		<td>16.18</td>
 		<td>18.55</td>
 		<td>23.84</td>
-		<td>18.76</td>
+		<td>18.82</td>
 		<td>23.86</td>
 		<td>27.23</td>
 		<td>33.83</td>
-		<td>13.16</td>
+		<td>13.22</td>
 		<td>18.71</td>
 		<td>21.36</td>
 		<td>31.26</td>
