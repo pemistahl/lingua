@@ -282,10 +282,10 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:1.0.2'
+implementation 'com.github.pemistahl:lingua:1.0.3'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:1.0.2")
+implementation("com.github.pemistahl:lingua:1.0.3")
 ```
 
 ### 7.2 <a name="library-dependency-maven"></a> Using Maven
@@ -294,7 +294,7 @@ implementation("com.github.pemistahl:lingua:1.0.2")
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
@@ -308,9 +308,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-1.0.2.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-1.0.2-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-1.0.2-with-dependencies.jar` containing the 
+1. `./gradlew jar` assembles `lingua-1.0.3.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-1.0.3-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-1.0.3-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
 in projects without dependency management systems. You should be able to use it in your Android 
 project as well by putting it in your project's `lib` folder. This jar file can also be used to 
@@ -429,7 +429,7 @@ returned map is assumed to be 0.0.
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
 and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-1.0.2-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-1.0.3-with-dependencies.jar`
 
 Then just play around:
 
@@ -476,8 +476,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-74-green.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.2-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.2%2Flingua-1.0.2-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.3-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.3%2Flingua-1.0.3-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -486,10 +486,10 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache Tika]: https://tika.apache.org/1.24.1/detection.html#Language_Detection
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.2/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.2
-[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.2-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.2/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.2-green.svg
+[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.3
+[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.3-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.3/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.3-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md
 [accuracy reports url]: https://github.com/pemistahl/lingua/tree/master/accuracy-reports

@@ -1,3 +1,29 @@
+## Lingua 1.0.3 (released on 15 Oct 2020)
+
+### Bug Fixes
+
+- When two languages had exactly the same confidence values, 
+one of them was erroneuosly removed from the result map.
+Thanks to @mmedek for reporting this bug. (#72)
+- There was still a problem with the classification of texts
+consisting of certain alphabets.
+Thanks to @nicolabertoldi for reporting this bug. (#76)
+- The language detection for Spanish did not take the
+rarely used accented characters á, é, í, ó, ú and ü
+into account.
+Thanks to @joeporter for reporting this bug. (#73)
+- A bug in the rule engine led to weak detection accuracy
+for Macedonian and Serbian. This has been fixed.
+
+### Other changes
+
+- The Kotlin compiler and runtime have been updated to version 1.4.
+This includes the current stable release 1.0.0 of the 
+kotlinx-serialization framework.
+- The accuracy report files have been moved to their own Gradle source set.
+This allows separate compilation of unit tests and accuracy report tests,
+leading to more flexible and slightly faster compilation.
+
 ## Lingua 1.0.2 (released on 09 Aug 2020)
 
 ### Bug Fixes

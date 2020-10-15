@@ -34,9 +34,9 @@ jobs:
         run: ./gradlew check
 
       - name: Create code coverage report
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ matrix.java-version == '8' && github.event_name == 'push' }}
         run: ./gradlew jacocoTestReport
 
       - name: Upload code coverage report to Codecov
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ matrix.java-version == '8' && github.event_name == 'push' }}
         uses: codecov/codecov-action@v1
