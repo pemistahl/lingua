@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from math import floor
-
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from math import floor
 from matplotlib.patches import Patch
 
 matplotlib.use('TkAgg')
@@ -39,7 +38,7 @@ class AccuracyPlotDrawer(object):
     __plot_title_suffix = 'Detection Performance'
     __column_prefixes = ('single-words', 'word-pairs', 'sentences', 'average')
     __column_suffixes = ('optimaize', 'opennlp', 'tika', 'lingua')
-    __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.3', 'Tika 1.24.1', 'Lingua 1.0.2')
+    __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.3', 'Tika 1.24.1', 'Lingua 1.0.3')
     __hatches = ('/', '+', '.', 'O')
     __palette = ('#b259ff', '#ff6347', '#ffc400', '#41c46b')
     __ticks = np.arange(0, 101, 10)
