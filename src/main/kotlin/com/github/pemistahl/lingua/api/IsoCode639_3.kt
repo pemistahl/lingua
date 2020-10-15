@@ -334,11 +334,6 @@ enum class IsoCode639_3 {
     TEL,
 
     /**
-     * The ISO 639-3 code for [Klingon][Language.KLINGON].
-     */
-    TLH,
-
-    /**
      * The ISO 639-3 code for [Tagalog][Language.TAGALOG].
      */
     TGL,
