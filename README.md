@@ -228,18 +228,18 @@ of the rule-based engine is quite good, however, filtering based on your own kno
 If you want to reproduce the accuracy results above, you can generate the test reports yourself for all four classifiers 
 and all languages by doing:
 
-    ./gradlew writeAccuracyReports
+    ./gradlew accuracyReport
     
 You can also restrict the classifiers and languages to generate reports for by passing arguments to the Gradle task. 
 The following task generates reports for *Lingua* and the languages English and German only:
 
-    ./gradlew writeAccuracyReports -Pdetectors=Lingua -Planguages=English,German
+    ./gradlew accuracyReport -Pdetectors=Lingua -Planguages=English,German
 
 By default, only a single CPU core is used for report generation. If you have a multi-core CPU in your machine, 
 you can fork as many processes as you have CPU cores. This speeds up report generation significantly. 
 However, be aware that forking more than one process can consume a lot of RAM. You do it like this:
 
-    ./gradlew writeAccuracyReports -PcpuCores=2
+    ./gradlew accuracyReport -PcpuCores=2
 
 For each detector and language, a test report file is then written into [`/accuracy-reports`][accuracy reports url], 
 to be found next to the `src` directory. As an example, here is the current output of the *Lingua* German report:
