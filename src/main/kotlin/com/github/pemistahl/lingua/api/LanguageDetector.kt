@@ -259,8 +259,9 @@ class LanguageDetector internal constructor(
                 totalLanguageCounts.incrementCounter(UNKNOWN)
             } else if (wordLanguageCounts.size == 1) {
                 val language = wordLanguageCounts.toList().first().first
+                var wordSize = if (language in Constant.LANGUAGES_SPLIT_BY_NO_SPACE) wordLanguageCounts[language] else 1
                 if (language in languages) {
-                    totalLanguageCounts.incrementCounter(language)
+                    wordSize?.let { totalLanguageCounts.incrementCounter(language, it) }
                 } else {
                     totalLanguageCounts.incrementCounter(UNKNOWN)
                 }

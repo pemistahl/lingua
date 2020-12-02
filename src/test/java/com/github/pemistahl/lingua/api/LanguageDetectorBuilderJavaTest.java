@@ -27,7 +27,7 @@ public class LanguageDetectorBuilderJavaTest {
 
     @Test
     public void assertThatLinguaCanBeUsedWithJava() {
-        final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(GERMAN, ENGLISH, FRENCH).build();
-        assertThat(detector.detectLanguageOf("groß")).isEqualTo(GERMAN);
+        final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(CHINESE, ENGLISH, FRENCH).build();
+        assertThat(detector.detectLanguageOf("上海大学是一个好大学 this is a test.")).isEqualTo(ENGLISH);
     }
 }
