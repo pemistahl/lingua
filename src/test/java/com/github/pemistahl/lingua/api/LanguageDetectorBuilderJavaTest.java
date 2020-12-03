@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.github.pemistahl.lingua.api.Language.ENGLISH;
 import static com.github.pemistahl.lingua.api.Language.FRENCH;
-import static com.github.pemistahl.lingua.api.Language.GERMAN;
+import static com.github.pemistahl.lingua.api.Language.CHINESE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LanguageDetectorBuilderJavaTest {
