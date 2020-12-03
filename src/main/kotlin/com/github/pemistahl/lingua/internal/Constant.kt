@@ -15,6 +15,7 @@
  */
 
 package com.github.pemistahl.lingua.internal
+import com.github.pemistahl.lingua.api.Language.*
 
 internal object Constant {
 
