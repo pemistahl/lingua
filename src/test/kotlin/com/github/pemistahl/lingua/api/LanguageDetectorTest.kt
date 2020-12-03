@@ -406,7 +406,7 @@ class LanguageDetectorTest {
         "mỹ, VIETNAMESE",
         "mỵ, VIETNAMESE",
         "kōnin, YORUBA",
-        "ṣaaju, YORUBA",C
+        "ṣaaju, YORUBA",
         "والموضوع, UNKNOWN",
         "сопротивление, UNKNOWN",
         "house, UNKNOWN"
