@@ -28,6 +28,6 @@ public class LanguageDetectorBuilderJavaTest {
     @Test
     public void assertThatLinguaCanBeUsedWithJava() {
         final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(CHINESE, ENGLISH, FRENCH).build();
-        assertThat(detector.detectLanguageOf("上海大学是一个好大学 this is a test.")).isEqualTo(CHINESE);
+        assertThat(detector.detectLanguageOf("上海大学是一个好大学  this is a test.")).isEqualTo(CHINESE);
     }
 }
