@@ -15,7 +15,8 @@
  */
 
 package com.github.pemistahl.lingua.internal
-import com.github.pemistahl.lingua.api.Language.*
+
+import com.github.pemistahl.lingua.api.Language
 
 internal object Constant {
 
@@ -26,5 +27,5 @@ internal object Constant {
     /**
      * To define the languages  word split by NO SPACE , just like CHINESE, JAPANESE, KOREAN and so on.
      */
-    val LANGUAGES_SPLIT_BY_NO_SPACE = listOf(CHINESE, JAPANESE, KOREAN)
+    val LANGUAGES_SPLIT_BY_NO_SPACE = listOf(Language.CHINESE, Language.JAPANESE, Language.KOREAN)
 }
