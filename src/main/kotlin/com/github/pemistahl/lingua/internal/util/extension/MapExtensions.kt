@@ -19,6 +19,6 @@ package com.github.pemistahl.lingua.internal.util.extension
 internal fun <T> MutableMap<T, Int>.incrementCounter(key: T) {
     this[key] = this.getOrDefault(key, 0) + 1
 }
-internal fun <T> MutableMap<T, Int>.incrementCounter(key: T,wordSize:Int) {
+internal fun <T> MutableMap<T, Int>.incrementCounter(key: T, wordSize: Int) {
     this[key] = this.getOrDefault(key, 0) + wordSize
 }
