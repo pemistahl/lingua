@@ -319,6 +319,18 @@ enum class Language(
          */
         @JvmStatic
         fun getByIsoCode639_3(isoCode: IsoCode639_3) = values().find { it.isoCode639_3 == isoCode }!!
+        
+        /**
+         * Returns corresponding ISO 639-1 code.
+         */
+        @JvmStatic
+        fun getIsoCode639_1() = it.isoCode639_1
+
+        /**
+         * Returns corresponding ISO 639-3 code.
+         */
+        @JvmStatic
+        fun getByIsoCode639_3() = it.isoCode639_3
 
         private fun filterOutLanguages(vararg languages: Language) = values().filterNot { it in languages }
     }
