@@ -57,6 +57,7 @@ plugins {
     kotlin("plugin.serialization") version "1.4.10"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     id("com.adarshr.test-logger") version "2.1.0"
+    id("com.asarkar.gradle.build-time-tracker") version "2.0.4"
     id("org.jetbrains.dokka") version "0.10.1"
     id("ru.vyarus.use-python") version "2.2.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
