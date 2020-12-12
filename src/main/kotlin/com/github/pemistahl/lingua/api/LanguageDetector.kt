@@ -71,6 +71,7 @@ import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
+import java.util.stream.Collectors.toList
 import kotlin.math.ln
 
 /**
@@ -151,25 +152,40 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val allProbabilities = mutableListOf<Map<Language, Double>>()
-        val unigramCountsOfInputText = mutableMapOf<Language, Int>()
-        var languagesSequence = filterLanguagesByRules(words)
+        var filteredLanguages = filterLanguagesByRules(words)
 
-        for (i in 1..5) {
-            if (cleanedUpText.length < i) continue
-
-            val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-            allProbabilities.add(computeLanguageProbabilities(testDataModel, languagesSequence))
-            val languageKeys = allProbabilities.last().keys
-
-            if (languageKeys.isNotEmpty()) {
-                languagesSequence = languagesSequence.filter { it in languageKeys }
-            }
-
-            if (i == 1) countUnigramsOfInputText(unigramCountsOfInputText, testDataModel, languagesSequence)
+        if (filteredLanguages.size == 1) {
+            val filteredLanguage = filteredLanguages.iterator().next()
+            values[filteredLanguage] = 1.0
+            return values
         }
 
-        val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCountsOfInputText, languagesSequence)
+        val allProbabilitiesAndUnigramCounts = (1..5)
+            .toList()
+            .parallelStream()
+            .filter { i -> cleanedUpText.length >= i }
+            .map { i ->
+                val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+                val languages = probabilities.keys
+
+                if (languages.isNotEmpty()) {
+                    filteredLanguages = filteredLanguages.asSequence().filter { languages.contains(it) }.toSet()
+                }
+
+                val unigramCounts = if (i == 1) {
+                    countUnigramsOfInputText(testDataModel, filteredLanguages)
+                } else {
+                    null
+                }
+
+                return@map Pair(probabilities, unigramCounts)
+            }
+            .collect(toList())
+
+        val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
+        val unigramCounts = allProbabilitiesAndUnigramCounts[0].second!!
+        val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
         val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
         val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
         val sortedByConfidenceValue = compareByDescending<Language> { language -> confidenceValues[language] }
@@ -194,11 +210,11 @@ class LanguageDetector internal constructor(
     }
 
     internal fun countUnigramsOfInputText(
-        unigramCounts: MutableMap<Language, Int>,
         unigramLanguageModel: TestDataLanguageModel,
-        languagesSequence: Sequence<Language>
-    ) {
-        for (language in languagesSequence) {
+        filteredLanguages: Set<Language>
+    ): Map<Language, Int> {
+        val unigramCounts = mutableMapOf<Language, Int>()
+        for (language in filteredLanguages) {
             for (unigram in unigramLanguageModel.ngrams) {
                 val probability = lookUpNgramProbability(language, unigram)
                 if (probability > 0) {
@@ -206,15 +222,16 @@ class LanguageDetector internal constructor(
                 }
             }
         }
+        return unigramCounts
     }
 
     internal fun sumUpProbabilities(
         probabilities: List<Map<Language, Double>>,
         unigramCountsOfInputText: Map<Language, Int>,
-        languagesSequence: Sequence<Language>
+        filteredLanguages: Set<Language>
     ): Map<Language, Double> {
         val summedUpProbabilities = hashMapOf<Language, Double>()
-        for (language in languagesSequence) {
+        for (language in filteredLanguages) {
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
 
             if (unigramCountsOfInputText.containsKey(language)) {
@@ -304,7 +321,7 @@ class LanguageDetector internal constructor(
         return mostFrequentLanguage
     }
 
-    internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
+    internal fun filterLanguagesByRules(words: List<String>): Set<Language> {
         val detectedAlphabets = mutableMapOf<Alphabet, Int>()
 
         for (word in words) {
@@ -317,11 +334,11 @@ class LanguageDetector internal constructor(
         }
 
         if (detectedAlphabets.isEmpty()) {
-            return languages.asSequence()
+            return languages
         }
 
         val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }!!.key
-        val filteredLanguages = languages.asSequence().filter { it.alphabets.contains(mostFrequentAlphabet) }
+        val filteredLanguages = languages.filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
 
         for (word in words) {
@@ -338,18 +355,18 @@ class LanguageDetector internal constructor(
         val languagesSubset = languageCounts.filterValues { it >= words.size / 2 }.keys
 
         return if (languagesSubset.isNotEmpty()) {
-            filteredLanguages.filter { it in languagesSubset }
+            filteredLanguages.filter { it in languagesSubset }.toSet()
         } else {
-            filteredLanguages
+            filteredLanguages.toSet()
         }
     }
 
     internal fun computeLanguageProbabilities(
         testDataModel: TestDataLanguageModel,
-        languagesSequence: Sequence<Language>
+        filteredLanguages: Set<Language>
     ): Map<Language, Double> {
         val probabilities = hashMapOf<Language, Double>()
-        for (language in languagesSequence) {
+        for (language in filteredLanguages) {
             probabilities[language] = computeSumOfNgramProbabilities(language, testDataModel.ngrams)
         }
         return probabilities.filter { it.value < 0.0 }
@@ -404,7 +421,9 @@ class LanguageDetector internal constructor(
     internal fun loadLanguageModels(ngramLength: Int): MutableMap<Language, Lazy<TrainingDataLanguageModel>> {
         val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
         for (language in languages) {
-            languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
+            languageModels[language] = lazy(LazyThreadSafetyMode.NONE) {
+                loadLanguageModel(language, ngramLength)
+            }
         }
         return languageModels
     }

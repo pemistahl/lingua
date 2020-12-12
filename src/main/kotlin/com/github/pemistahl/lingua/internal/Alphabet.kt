@@ -17,31 +17,44 @@
 package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.internal.util.extension.asRegex
+import java.lang.Character.UnicodeScript
 
-internal enum class Alphabet(private val regex: Regex) {
-    ARABIC("Arabic".asRegex()),
-    ARMENIAN("Armenian".asRegex()),
-    BENGALI("Bengali".asRegex()),
-    CYRILLIC("Cyrillic".asRegex()),
-    DEVANAGARI("Devanagari".asRegex()),
-    GEORGIAN("Georgian".asRegex()),
-    GREEK("Greek".asRegex()),
-    GUJARATI("Gujarati".asRegex()),
-    GURMUKHI("Gurmukhi".asRegex()),
-    HAN("Han".asRegex()),
-    HANGUL("Hangul".asRegex()),
-    HEBREW("Hebrew".asRegex()),
-    HIRAGANA("Hiragana".asRegex()),
-    KATAKANA("Katakana".asRegex()),
-    LATIN("Latin".asRegex()),
-    TAMIL("Tamil".asRegex()),
-    TELUGU("Telugu".asRegex()),
-    THAI("Thai".asRegex()),
+internal enum class Alphabet(private var script: UnicodeScript?) {
+    ARABIC,
+    ARMENIAN,
+    BENGALI,
+    CYRILLIC,
+    DEVANAGARI,
+    GEORGIAN,
+    GREEK,
+    GUJARATI,
+    GURMUKHI,
+    HAN,
+    HANGUL,
+    HEBREW,
+    HIRAGANA,
+    KATAKANA,
+    LATIN,
+    TAMIL,
+    TELUGU,
+    THAI,
+    NONE;
 
-    NONE(Regex(""));
+    constructor() {
+        this.script = try {
+            UnicodeScript.forName(this.name)
+        } catch (e: IllegalArgumentException) {
+            null
+        }
+    }
 
-    fun matches(input: CharSequence) = this.regex.matches(input)
+    fun matches(input: CharSequence): Boolean {
+        return if (this.script != null) {
+            input.codePoints().allMatch { UnicodeScript.of(it) == this.script }
+        } else {
+            false
+        }
+    }
 
     private fun supportedLanguages(): Set<Language> {
         val languages = mutableSetOf<Language>()

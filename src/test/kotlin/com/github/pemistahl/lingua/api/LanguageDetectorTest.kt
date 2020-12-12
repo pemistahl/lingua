@@ -300,7 +300,7 @@ class LanguageDetectorTest {
         assertThat(
             detectorForEnglishAndGerman.computeLanguageProbabilities(
                 testDataModel,
-                detectorForEnglishAndGerman.languages.asSequence()
+                detectorForEnglishAndGerman.languages
             )
         ).isEqualTo(
             expectedProbabilities
