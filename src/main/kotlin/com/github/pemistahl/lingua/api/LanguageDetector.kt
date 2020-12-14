@@ -69,7 +69,8 @@ import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
-import java.util.*
+import java.util.SortedMap
+import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
 import kotlin.math.ln
 
@@ -260,7 +261,7 @@ class LanguageDetector internal constructor(
             } else if (wordLanguageCounts.size == 1) {
                 val language = wordLanguageCounts.toList().first().first
                 if (language in languages) {
-                    val logogramWordSizeOptional = logogramWordCountIfExist(language, word);
+                    val logogramWordSizeOptional = logogramWordCountIfExist(language, word)
                     if (logogramWordSizeOptional > 0) {
                         totalLanguageCounts.incrementCounter(language, logogramWordSizeOptional)
                     } else {
@@ -270,7 +271,7 @@ class LanguageDetector internal constructor(
                     totalLanguageCounts.incrementCounter(UNKNOWN, 1)
                 }
             } else if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
-                val logogramWordSizeOptional = logogramWordCountIfExist(JAPANESE, word);
+                val logogramWordSizeOptional = logogramWordCountIfExist(JAPANESE, word)
                 if (logogramWordSizeOptional > 0) {
                     totalLanguageCounts.incrementCounter(JAPANESE, logogramWordSizeOptional)
                 } else {
@@ -429,33 +430,32 @@ class LanguageDetector internal constructor(
 
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
 
-
     internal fun logogramWordCountIfExist(language: Language, word: String): Int {
-        var wordSize = 0;
+        var wordSize = 0
         if (!Constant.LANGUAGES_SUPPORTING_LOGOGRAMS.contains(language)) {
-            return wordSize;
+            return wordSize
         }
-        var otherWordSize = 0;
-        var preOtherWordSize = 0;
+        var otherWordSize = 0
+        var preOtherWordSize = 0
         for (character in word.map { it.toString() }) {
             when {
                 language.alphabets.stream().allMatch { e -> e.matches(character) } -> {
-                    wordSize += 1;
+                    wordSize += 1
                     if (preOtherWordSize != otherWordSize) {
-                        preOtherWordSize = otherWordSize;
-                        wordSize += 1;
+                        preOtherWordSize = otherWordSize
+                        wordSize += 1
                     }
                 }
                 language.alphabets.stream().noneMatch { e -> e.matches(character) } -> {
-                    preOtherWordSize = otherWordSize;
+                    preOtherWordSize = otherWordSize
                     otherWordSize += 1
                 }
             }
         }
         if (preOtherWordSize != otherWordSize) {
-            wordSize += 1;
+            wordSize += 1
         }
-        return wordSize;
+        return wordSize
     }
 
     internal companion object {
