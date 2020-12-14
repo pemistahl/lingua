@@ -276,7 +276,6 @@ class LanguageDetector internal constructor(
                 } else {
                     totalLanguageCounts.incrementCounter(JAPANESE, 1)
                 }
-
             } else {
                 val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
                 val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
