@@ -115,7 +115,7 @@ internal data class TrainingDataLanguageModel(
                     val textSlice = lowerCasedLine.slice(i until i + ngramLength)
                     if (regex.matches(textSlice)) {
                         val ngram = Ngram(textSlice)
-                        absoluteFrequencies.incrementCounter(ngram)
+                        absoluteFrequencies.incrementCounter(ngram, 1)
                     }
                 }
             }

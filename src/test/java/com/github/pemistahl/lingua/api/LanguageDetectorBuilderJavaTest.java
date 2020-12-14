@@ -20,16 +20,14 @@ import org.junit.jupiter.api.Test;
 
 import static com.github.pemistahl.lingua.api.Language.ENGLISH;
 import static com.github.pemistahl.lingua.api.Language.FRENCH;
-import static com.github.pemistahl.lingua.api.Language.CHINESE;
+import static com.github.pemistahl.lingua.api.Language.GERMAN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LanguageDetectorBuilderJavaTest {
 
     @Test
     public void assertThatLinguaCanBeUsedWithJava() {
-        final LanguageDetector detector = LanguageDetectorBuilder
-            .fromLanguages(CHINESE, ENGLISH, FRENCH).build();
-        String text = "上海大学是一个好大学  this is a test.";
-        assertThat(detector.detectLanguageOf(text)).isEqualTo(CHINESE);
+        final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(GERMAN, ENGLISH, FRENCH).build();
+        assertThat(detector.detectLanguageOf("groß")).isEqualTo(GERMAN);
     }
 }

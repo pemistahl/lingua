@@ -103,22 +103,31 @@ class LanguageDetectorTest {
 
     @MockK
     private lateinit var unigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var bigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var trigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var quadrigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var fivegramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var unigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var bigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var trigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var quadrigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var fivegramLanguageModelForGerman: TrainingDataLanguageModel
 
@@ -126,8 +135,10 @@ class LanguageDetectorTest {
 
     @MockK
     private lateinit var unigramTestDataLanguageModel: TestDataLanguageModel
+
     @MockK
     private lateinit var trigramTestDataLanguageModel: TestDataLanguageModel
+
     @MockK
     private lateinit var quadrigramTestDataLanguageModel: TestDataLanguageModel
 
@@ -945,5 +956,40 @@ class LanguageDetectorTest {
                 Ngram("wxyz")
             )
         }
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "上海大学是一个好大学this, CHINESE, 11",
+        "this, CHINESE, 1",
+        "上海Test是一个好大学Test, CHINESE, 10",
+    )
+    fun `assert that language of logogram wordCount if exist`(
+        word: String,
+        language: Language,
+        wordSize: Int
+    ) {
+        assertThat(
+            detectorForAllLanguages.logogramWordCountIfExist(language, word)
+        ).isEqualTo(
+            wordSize
+        )
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "上海大学是一个好大学this is a test, CHINESE",
+        "this is a test, ENGLISH",
+        "上海Test是一个好大学Test, CHINESE",
+    )
+    fun `assert that language of logogram wordCount if exist`(
+        word: String,
+        expectedLanguage: Language
+    ) {
+        assertThat(
+            detectorForAllLanguages.detectLanguageOf(word)
+        ).isEqualTo(
+            expectedLanguage
+        )
     }
 }

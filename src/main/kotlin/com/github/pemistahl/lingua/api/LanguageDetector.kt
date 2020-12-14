@@ -69,8 +69,7 @@ import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
-import java.util.SortedMap
-import java.util.TreeMap
+import java.util.*
 import java.util.regex.PatternSyntaxException
 import kotlin.math.ln
 
@@ -203,7 +202,7 @@ class LanguageDetector internal constructor(
             for (unigram in unigramLanguageModel.ngrams) {
                 val probability = lookUpNgramProbability(language, unigram)
                 if (probability > 0) {
-                    unigramCounts.incrementCounter(language)
+                    unigramCounts.incrementCounter(language, 1)
                 }
             }
         }
@@ -236,47 +235,57 @@ class LanguageDetector internal constructor(
                 var isMatch = false
                 for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
                     if (alphabet.matches(character)) {
-                        wordLanguageCounts.incrementCounter(language)
+                        wordLanguageCounts.incrementCounter(language, 1)
                         isMatch = true
                     }
                 }
                 if (!isMatch) {
                     when {
-                        Alphabet.HAN.matches(character) -> wordLanguageCounts.incrementCounter(CHINESE)
-                        JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.incrementCounter(JAPANESE)
+                        Alphabet.HAN.matches(character) -> wordLanguageCounts.incrementCounter(CHINESE, 1)
+                        JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.incrementCounter(JAPANESE, 1)
                         Alphabet.LATIN.matches(character) ||
                             Alphabet.CYRILLIC.matches(character) ||
                             Alphabet.DEVANAGARI.matches(character) ->
                             languagesWithUniqueCharacters.filter {
                                 it.uniqueCharacters?.contains(character) ?: false
                             }.forEach {
-                                wordLanguageCounts.incrementCounter(it)
+                                wordLanguageCounts.incrementCounter(it, 1)
                             }
                     }
                 }
             }
 
             if (wordLanguageCounts.isEmpty()) {
-                totalLanguageCounts.incrementCounter(UNKNOWN)
+                totalLanguageCounts.incrementCounter(UNKNOWN, 1)
             } else if (wordLanguageCounts.size == 1) {
                 val language = wordLanguageCounts.toList().first().first
-                var wordSize = if (language in Constant.LANGUAGES_SPLIT_BY_NO_SPACE) wordLanguageCounts[language] else 1
                 if (language in languages) {
-                    wordSize?.let { totalLanguageCounts.incrementCounter(language, it) }
+                    val logogramWordSizeOptional = logogramWordCountIfExist(language, word);
+                    if (logogramWordSizeOptional > 0) {
+                        totalLanguageCounts.incrementCounter(language, logogramWordSizeOptional)
+                    } else {
+                        totalLanguageCounts.incrementCounter(language, 1)
+                    }
                 } else {
-                    totalLanguageCounts.incrementCounter(UNKNOWN)
+                    totalLanguageCounts.incrementCounter(UNKNOWN, 1)
                 }
             } else if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
-                totalLanguageCounts.incrementCounter(JAPANESE)
+                val logogramWordSizeOptional = logogramWordCountIfExist(JAPANESE, word);
+                if (logogramWordSizeOptional > 0) {
+                    totalLanguageCounts.incrementCounter(JAPANESE, logogramWordSizeOptional)
+                } else {
+                    totalLanguageCounts.incrementCounter(JAPANESE, 1)
+                }
+
             } else {
                 val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
                 val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
                 val (_, secondCharCount) = sortedWordLanguageCounts[1]
 
                 if (firstCharCount > secondCharCount && mostFrequentLanguage in languages) {
-                    totalLanguageCounts.incrementCounter(mostFrequentLanguage)
+                    totalLanguageCounts.incrementCounter(mostFrequentLanguage, 1)
                 } else {
-                    totalLanguageCounts.incrementCounter(UNKNOWN)
+                    totalLanguageCounts.incrementCounter(UNKNOWN, 1)
                 }
             }
         }
@@ -312,7 +321,7 @@ class LanguageDetector internal constructor(
         for (word in words) {
             for (alphabet in Alphabet.values()) {
                 if (alphabet.matches(word)) {
-                    detectedAlphabets.incrementCounter(alphabet)
+                    detectedAlphabets.incrementCounter(alphabet, 1)
                     break
                 }
             }
@@ -330,7 +339,7 @@ class LanguageDetector internal constructor(
             for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
                 if (word.containsAnyOf(characters)) {
                     for (language in languages) {
-                        languageCounts.incrementCounter(language)
+                        languageCounts.incrementCounter(language, 1)
                     }
                     break
                 }
@@ -420,6 +429,35 @@ class LanguageDetector internal constructor(
     }
 
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
+
+
+    internal fun logogramWordCountIfExist(language: Language, word: String): Int {
+        var wordSize = 0;
+        if (!Constant.LANGUAGES_SUPPORTING_LOGOGRAMS.contains(language)) {
+            return wordSize;
+        }
+        var otherWordSize = 0;
+        var preOtherWordSize = 0;
+        for (character in word.map { it.toString() }) {
+            when {
+                language.alphabets.stream().allMatch { e -> e.matches(character) } -> {
+                    wordSize += 1;
+                    if (preOtherWordSize != otherWordSize) {
+                        preOtherWordSize = otherWordSize;
+                        wordSize += 1;
+                    }
+                }
+                language.alphabets.stream().noneMatch { e -> e.matches(character) } -> {
+                    preOtherWordSize = otherWordSize;
+                    otherWordSize += 1
+                }
+            }
+        }
+        if (preOtherWordSize != otherWordSize) {
+            wordSize += 1;
+        }
+        return wordSize;
+    }
 
     internal companion object {
         private val NO_LETTER = Regex("^[^\\p{L}]+$")

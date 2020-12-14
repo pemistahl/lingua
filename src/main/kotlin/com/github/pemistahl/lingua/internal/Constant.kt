@@ -23,9 +23,5 @@ internal object Constant {
     val PUNCTUATION = Regex("\\p{P}")
     val NUMBERS = Regex("\\p{N}")
     val MULTIPLE_WHITESPACE = Regex("\\s+")
-
-    /**
-     * To define the languages  word split by NO SPACE , just like CHINESE, JAPANESE, KOREAN and so on.
-     */
-    val LANGUAGES_SPLIT_BY_NO_SPACE = listOf(Language.CHINESE, Language.JAPANESE, Language.KOREAN)
+    val LANGUAGES_SUPPORTING_LOGOGRAMS = listOf(Language.CHINESE, Language.JAPANESE, Language.KOREAN)
 }
