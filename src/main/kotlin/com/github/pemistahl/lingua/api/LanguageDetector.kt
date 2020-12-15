@@ -60,6 +60,7 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.internal.Alphabet
+import com.github.pemistahl.lingua.internal.Constant.LANGUAGES_SUPPORTING_LOGOGRAMS
 import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
 import com.github.pemistahl.lingua.internal.Constant.NUMBERS
 import com.github.pemistahl.lingua.internal.Constant.PUNCTUATION
@@ -68,6 +69,7 @@ import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
+import java.lang.StringBuilder
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
@@ -186,11 +188,25 @@ class LanguageDetector internal constructor(
     }
 
     internal fun splitTextIntoWords(text: String): List<String> {
-        return if (text.contains(' ')) {
-            text.split(' ')
+        var appendSpaceIfContainLogogram = appendSpaceIfCharContainInLogogram(text)
+        return if (appendSpaceIfContainLogogram.contains(' ')) {
+            appendSpaceIfContainLogogram.split(' ')
         } else {
             listOf(text)
         }
+    }
+
+    internal fun appendSpaceIfCharContainInLogogram(text: String): String {
+        val processedTextBuilder = StringBuilder()
+        for (character in text.map { it.toString() }) {
+            when {
+                LANGUAGES_SUPPORTING_LOGOGRAMS.stream().flatMap { e -> e.alphabets.stream() }
+                    .anyMatch { e -> e.matches(character) } -> processedTextBuilder.append(character).append(' ')
+                LANGUAGES_SUPPORTING_LOGOGRAMS.stream().flatMap { e -> e.alphabets.stream() }
+                    .noneMatch { e -> e.matches(character) } -> processedTextBuilder.append(character)
+            }
+        }
+        return processedTextBuilder.toString().replace(MULTIPLE_WHITESPACE, " ")
     }
 
     internal fun countUnigramsOfInputText(

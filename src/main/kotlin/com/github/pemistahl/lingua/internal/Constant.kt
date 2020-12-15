@@ -16,9 +16,12 @@
 
 package com.github.pemistahl.lingua.internal
 
+import com.github.pemistahl.lingua.api.Language
+
 internal object Constant {
 
     val PUNCTUATION = Regex("\\p{P}")
     val NUMBERS = Regex("\\p{N}")
     val MULTIPLE_WHITESPACE = Regex("\\s+")
+    val LANGUAGES_SUPPORTING_LOGOGRAMS = listOf(Language.CHINESE, Language.JAPANESE, Language.KOREAN)
 }

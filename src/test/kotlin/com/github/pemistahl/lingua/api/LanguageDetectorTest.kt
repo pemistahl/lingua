@@ -103,22 +103,31 @@ class LanguageDetectorTest {
 
     @MockK
     private lateinit var unigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var bigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var trigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var quadrigramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var fivegramLanguageModelForEnglish: TrainingDataLanguageModel
+
     @MockK
     private lateinit var unigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var bigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var trigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var quadrigramLanguageModelForGerman: TrainingDataLanguageModel
+
     @MockK
     private lateinit var fivegramLanguageModelForGerman: TrainingDataLanguageModel
 
@@ -126,8 +135,10 @@ class LanguageDetectorTest {
 
     @MockK
     private lateinit var unigramTestDataLanguageModel: TestDataLanguageModel
+
     @MockK
     private lateinit var trigramTestDataLanguageModel: TestDataLanguageModel
+
     @MockK
     private lateinit var quadrigramTestDataLanguageModel: TestDataLanguageModel
 
@@ -452,6 +463,41 @@ class LanguageDetectorTest {
         )
     }
 
+    @ParameterizedTest
+    @CsvSource(
+        "上海大学112, 上 海 大 学 112",
+        "this is test 2, this is test 2",
+        "上this 大is test 2, 上 this 大 is test 2",
+        "上海是一个好地方，Beijing is famous place, 上 海 是 一 个 好 地 方 ，Beijing is famous place",
+        "这是一个测 试this is test 2, 这 是 一 个 测 试 this is test 2",
+        "哈哈，上this 大is test 2, 哈 哈 ，上 this 大 is test 2"
+    )
+    fun `assert that append space if the character in logogram`(
+        text: String,
+        processedText: String
+    ) {
+        assertThat(
+            detectorForAllLanguages.appendSpaceIfCharContainInLogogram(text)
+        ).isEqualTo(
+            processedText
+        )
+    }
+    @ParameterizedTest
+    @CsvSource(
+        "上海是一个好地方，Beijing is famous place, 12",
+        "这是一个测 试this is test 2, 10",
+        "哈哈，上this 大is test 2, 8"
+    )
+    fun `assert that split text into words with logogram`(
+        text: String,
+        wordSize: Int
+    ) {
+        assertThat(
+            detectorForAllLanguages.splitTextIntoWords(text).size
+        ).isEqualTo(
+            wordSize
+        )
+    }
     // language filtering with rules
 
     private fun filteredLanguagesProvider() = listOf(
