@@ -1,6 +1,6 @@
 ##### FINNISH #####
 
->>> Accuracy on average: 96.13%
+>>> Accuracy on average: 96.17%
 
 >> Detection of 1000 single words (average length: 10 chars)
 Accuracy: 90.50%
@@ -11,7 +11,7 @@ Accuracy: 98.00%
 Erroneously classified as ENGLISH: 0.30%, YORUBA: 0.30%, GERMAN: 0.20%, MALAY: 0.10%, INDONESIAN: 0.10%, ESTONIAN: 0.10%, SHONA: 0.10%, ESPERANTO: 0.10%, POLISH: 0.10%, ALBANIAN: 0.10%, TSONGA: 0.10%, SLOVAK: 0.10%, LATIN: 0.10%, ITALIAN: 0.10%, BOKMAL: 0.10%
 
 >> Detection of 1000 sentences (average length: 103 chars)
-Accuracy: 99.90%
-Erroneously classified as PORTUGUESE: 0.10%
+Accuracy: 100.00%
+Erroneously classified as 
 
->> Exact values: 96.13333333333333 90.5 98.0 99.9
+>> Exact values: 96.16666666666667 90.5 98.0 100.0
