@@ -21,6 +21,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledOnOs
+import org.junit.jupiter.api.condition.OS.WINDOWS
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
@@ -79,6 +81,7 @@ class TestDataFilesWriterTest {
     }
 
     @Test
+    @DisabledOnOs(WINDOWS) // TempDir cannot be deleted on Windows
     fun createAndWriteTestDataFiles(@TempDir outputDirectoryPath: Path) {
         TestDataFilesWriter.createAndWriteTestDataFiles(
             inputFilePath = inputFilePath,

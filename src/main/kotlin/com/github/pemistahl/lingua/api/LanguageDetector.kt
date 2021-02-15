@@ -68,10 +68,13 @@ import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.regex.PatternSyntaxException
-import java.util.stream.Collectors.toList
 import kotlin.math.ln
 
 /**
@@ -160,28 +163,27 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val allProbabilitiesAndUnigramCounts = (1..5)
-            .toList()
-            .parallelStream()
-            .filter { i -> cleanedUpText.length >= i }
-            .map { i ->
-                val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-                val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
-                val languages = probabilities.keys
+        val allProbabilitiesAndUnigramCounts = runBlocking {
+            (1..5).filter { i -> cleanedUpText.length >= i }.map { i ->
+                async(Dispatchers.IO) {
+                    val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                    val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+                    val languages = probabilities.keys
 
-                if (languages.isNotEmpty()) {
-                    filteredLanguages = filteredLanguages.asSequence().filter { languages.contains(it) }.toSet()
+                    if (languages.isNotEmpty()) {
+                        filteredLanguages = filteredLanguages.asSequence().filter { languages.contains(it) }.toSet()
+                    }
+
+                    val unigramCounts = if (i == 1) {
+                        countUnigramsOfInputText(testDataModel, filteredLanguages)
+                    } else {
+                        null
+                    }
+
+                    Pair(probabilities, unigramCounts)
                 }
-
-                val unigramCounts = if (i == 1) {
-                    countUnigramsOfInputText(testDataModel, filteredLanguages)
-                } else {
-                    null
-                }
-
-                return@map Pair(probabilities, unigramCounts)
-            }
-            .collect(toList())
+            }.awaitAll()
+        }
 
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
         val unigramCounts = allProbabilitiesAndUnigramCounts[0].second!!
@@ -421,9 +423,7 @@ class LanguageDetector internal constructor(
     internal fun loadLanguageModels(ngramLength: Int): MutableMap<Language, Lazy<TrainingDataLanguageModel>> {
         val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
         for (language in languages) {
-            languageModels[language] = lazy(LazyThreadSafetyMode.NONE) {
-                loadLanguageModel(language, ngramLength)
-            }
+            languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
         }
         return languageModels
     }

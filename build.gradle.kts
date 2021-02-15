@@ -304,6 +304,7 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
     implementation("it.unimi.dsi:fastutil:8.5.2")
 
