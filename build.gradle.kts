@@ -53,10 +53,10 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.serialization") version "1.4.10"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
-    id("com.adarshr.test-logger") version "2.1.0"
+    kotlin("jvm") version "1.4.30"
+    kotlin("plugin.serialization") version "1.4.30"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("com.adarshr.test-logger") version "2.1.1"
     id("com.asarkar.gradle.build-time-tracker") version "2.0.4"
     id("org.jetbrains.dokka") version "0.10.1"
     id("ru.vyarus.use-python") version "2.2.0"
@@ -66,7 +66,7 @@ plugins {
     jacoco
 }
 
-jacoco.toolVersion = "0.8.5"
+jacoco.toolVersion = "0.8.6"
 
 sourceSets {
     main {
@@ -304,16 +304,16 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-    implementation("it.unimi.dsi:fastutil:8.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+    implementation("it.unimi.dsi:fastutil:8.5.2")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
-    testImplementation("org.assertj:assertj-core:3.17.2")
-    testImplementation("io.mockk:mockk:1.10.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testImplementation("org.assertj:assertj-core:3.19.0")
+    testImplementation("io.mockk:mockk:1.10.6")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.3")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect:1.24.1")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect:1.25")
     accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.30")
 }
 
