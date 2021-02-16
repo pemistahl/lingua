@@ -90,12 +90,6 @@ class LanguageDetector internal constructor(
         it in languages
     }
 
-    internal val unigramLanguageModels = loadLanguageModels(ngramLength = 1)
-    internal val bigramLanguageModels = loadLanguageModels(ngramLength = 2)
-    internal val trigramLanguageModels = loadLanguageModels(ngramLength = 3)
-    internal val quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
-    internal val fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
-
     /**
      * Detects the language of given input text.
      *
@@ -186,7 +180,7 @@ class LanguageDetector internal constructor(
         }
 
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
-        val unigramCounts = allProbabilitiesAndUnigramCounts[0].second!!
+        val unigramCounts = allProbabilitiesAndUnigramCounts[0].second ?: emptyMap()
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
         val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
         val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
@@ -409,25 +403,6 @@ class LanguageDetector internal constructor(
         return languageModels.getValue(language).value.getRelativeFrequency(ngram)
     }
 
-    internal fun loadLanguageModel(
-        language: Language,
-        ngramLength: Int
-    ): TrainingDataLanguageModel {
-        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
-        val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val inputStream = LanguageDetector::class.java.getResourceAsStream(filePath)
-        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-        return TrainingDataLanguageModel.fromJson(jsonContent)
-    }
-
-    internal fun loadLanguageModels(ngramLength: Int): MutableMap<Language, Lazy<TrainingDataLanguageModel>> {
-        val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
-        for (language in languages) {
-            languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
-        }
-        return languageModels
-    }
-
     override fun equals(other: Any?) = when {
         this === other -> true
         other !is LanguageDetector -> false
@@ -506,5 +481,27 @@ class LanguageDetector internal constructor(
                 VIETNAMESE, YORUBA
             )
         )
+
+        internal var unigramLanguageModels = loadLanguageModels(ngramLength = 1)
+        internal var bigramLanguageModels = loadLanguageModels(ngramLength = 2)
+        internal var trigramLanguageModels = loadLanguageModels(ngramLength = 3)
+        internal var quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
+        internal var fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
+
+        private fun loadLanguageModels(ngramLength: Int): Map<Language, Lazy<TrainingDataLanguageModel>> {
+            val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
+            for (language in Language.all()) {
+                languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
+            }
+            return languageModels
+        }
+
+        private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel {
+            val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
+            val filePath = "/language-models/${language.isoCode639_1}/$fileName"
+            val inputStream = Language::class.java.getResourceAsStream(filePath)
+            val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+            return TrainingDataLanguageModel.fromJson(jsonContent)
+        }
     }
 }

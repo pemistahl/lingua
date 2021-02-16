@@ -900,22 +900,26 @@ class LanguageDetectorTest {
     }
 
     private fun addLanguageModelsToDetector() {
-        with(detectorForEnglishAndGerman) {
-            unigramLanguageModels[ENGLISH] = lazy { unigramLanguageModelForEnglish }
-            unigramLanguageModels[GERMAN] = lazy { unigramLanguageModelForGerman }
-
-            bigramLanguageModels[ENGLISH] = lazy { bigramLanguageModelForEnglish }
-            bigramLanguageModels[GERMAN] = lazy { bigramLanguageModelForGerman }
-
-            trigramLanguageModels[ENGLISH] = lazy { trigramLanguageModelForEnglish }
-            trigramLanguageModels[GERMAN] = lazy { trigramLanguageModelForGerman }
-
-            quadrigramLanguageModels[ENGLISH] = lazy { quadrigramLanguageModelForEnglish }
-            quadrigramLanguageModels[GERMAN] = lazy { quadrigramLanguageModelForGerman }
-
-            fivegramLanguageModels[ENGLISH] = lazy { fivegramLanguageModelForEnglish }
-            fivegramLanguageModels[GERMAN] = lazy { fivegramLanguageModelForGerman }
-        }
+        LanguageDetector.unigramLanguageModels = mapOf(
+            ENGLISH to lazy { unigramLanguageModelForEnglish },
+            GERMAN to lazy { unigramLanguageModelForGerman }
+        )
+        LanguageDetector.bigramLanguageModels = mapOf(
+            ENGLISH to lazy { bigramLanguageModelForEnglish },
+            GERMAN to lazy { bigramLanguageModelForGerman }
+        )
+        LanguageDetector.trigramLanguageModels = mapOf(
+            ENGLISH to lazy { trigramLanguageModelForEnglish },
+            GERMAN to lazy { trigramLanguageModelForGerman }
+        )
+        LanguageDetector.quadrigramLanguageModels = mapOf(
+            ENGLISH to lazy { quadrigramLanguageModelForEnglish },
+            GERMAN to lazy { quadrigramLanguageModelForGerman }
+        )
+        LanguageDetector.fivegramLanguageModels = mapOf(
+            ENGLISH to lazy { fivegramLanguageModelForEnglish },
+            GERMAN to lazy { fivegramLanguageModelForGerman }
+        )
     }
 
     private fun defineBehaviorOfTestDataLanguageModels() {
