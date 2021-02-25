@@ -134,12 +134,14 @@ class LanguageDetectorTest {
     @SpyK
     private var detectorForEnglishAndGerman = LanguageDetector(
         languages = mutableSetOf(ENGLISH, GERMAN),
-        minimumRelativeDistance = 0.0
+        minimumRelativeDistance = 0.0,
+        isEveryLanguageModelPreloaded = false
     )
 
     private val detectorForAllLanguages = LanguageDetector(
         languages = Language.all().toMutableSet(),
-        minimumRelativeDistance = 0.0
+        minimumRelativeDistance = 0.0,
+        isEveryLanguageModelPreloaded = false
     )
 
     @BeforeAll
@@ -153,6 +155,27 @@ class LanguageDetectorTest {
         addLanguageModelsToDetector()
 
         defineBehaviorOfTestDataLanguageModels()
+    }
+
+    // language model initialization
+
+    @Test
+    fun `assert that language models are preloaded`() {
+        for (models in LanguageDetector.languageModels) {
+            for (language in detectorForEnglishAndGerman.languages) {
+                assertThat(models.getValue(language).isInitialized()).isFalse
+            }
+        }
+        val detectorWithPreloadedLanguageModels = LanguageDetector(
+            languages = detectorForEnglishAndGerman.languages,
+            minimumRelativeDistance = detectorForEnglishAndGerman.minimumRelativeDistance,
+            isEveryLanguageModelPreloaded = true
+        )
+        for (models in LanguageDetector.languageModels) {
+            for (language in detectorWithPreloadedLanguageModels.languages) {
+                assertThat(models.getValue(language).isInitialized()).isTrue
+            }
+        }
     }
 
     // text preprocessing

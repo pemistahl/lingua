@@ -83,11 +83,18 @@ import kotlin.math.ln
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
+    isEveryLanguageModelPreloaded: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
     private val alphabetsSupportingExactlyOneLanguage = Alphabet.allSupportingExactlyOneLanguage().filterValues {
         it in languages
+    }
+
+    init {
+        if (isEveryLanguageModelPreloaded) {
+            preloadLanguageModels()
+        }
     }
 
     /**
@@ -403,6 +410,14 @@ class LanguageDetector internal constructor(
         return languageModels.getValue(language).value.getRelativeFrequency(ngram)
     }
 
+    private fun preloadLanguageModels() {
+        runBlocking {
+            languageModels.map { models ->
+                async(Dispatchers.IO) { languages.forEach { language -> models[language]?.value } }
+            }
+        }
+    }
+
     override fun equals(other: Any?) = when {
         this === other -> true
         other !is LanguageDetector -> false
@@ -487,6 +502,14 @@ class LanguageDetector internal constructor(
         internal var trigramLanguageModels = loadLanguageModels(ngramLength = 3)
         internal var quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
         internal var fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
+
+        internal val languageModels = listOf(
+            unigramLanguageModels,
+            bigramLanguageModels,
+            trigramLanguageModels,
+            quadrigramLanguageModels,
+            fivegramLanguageModels
+        )
 
         private fun loadLanguageModels(ngramLength: Int): Map<Language, Lazy<TrainingDataLanguageModel>> {
             val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
