@@ -12,6 +12,6 @@ Erroneously classified as UNKNOWN: 0.10%
 
 >> Detection of 1000 sentences (average length: 116 chars)
 Accuracy: 98.70%
-Erroneously classified as ENGLISH: 0.60%, ITALIAN: 0.20%, ZULU: 0.10%, WELSH: 0.10%, INDONESIAN: 0.10%, YORUBA: 0.10%, SWEDISH: 0.10%
+Erroneously classified as ENGLISH: 0.60%, ITALIAN: 0.20%, ZULU: 0.10%, LITHUANIAN: 0.10%, INDONESIAN: 0.10%, YORUBA: 0.10%, SWEDISH: 0.10%
 
 >> Exact values: 99.53333333333335 100.0 99.9 98.7

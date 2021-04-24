@@ -19,7 +19,7 @@ package com.github.pemistahl.lingua.internal
 import com.github.pemistahl.lingua.api.Language
 import java.lang.Character.UnicodeScript
 
-internal enum class Alphabet(private var script: UnicodeScript?) {
+internal enum class Alphabet {
     ARABIC,
     ARMENIAN,
     BENGALI,
@@ -40,12 +40,10 @@ internal enum class Alphabet(private var script: UnicodeScript?) {
     THAI,
     NONE;
 
-    constructor() {
-        this.script = try {
-            UnicodeScript.forName(this.name)
-        } catch (e: IllegalArgumentException) {
-            null
-        }
+    val script: UnicodeScript? = try {
+        UnicodeScript.forName(this.name)
+    } catch (e: IllegalArgumentException) {
+        null
     }
 
     fun matches(input: CharSequence): Boolean {

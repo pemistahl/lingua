@@ -16,49 +16,7 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.AFRIKAANS
-import com.github.pemistahl.lingua.api.Language.ALBANIAN
-import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
-import com.github.pemistahl.lingua.api.Language.BASQUE
-import com.github.pemistahl.lingua.api.Language.BELARUSIAN
-import com.github.pemistahl.lingua.api.Language.BOKMAL
-import com.github.pemistahl.lingua.api.Language.BOSNIAN
-import com.github.pemistahl.lingua.api.Language.BULGARIAN
-import com.github.pemistahl.lingua.api.Language.CATALAN
-import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.CROATIAN
-import com.github.pemistahl.lingua.api.Language.CZECH
-import com.github.pemistahl.lingua.api.Language.DANISH
-import com.github.pemistahl.lingua.api.Language.DUTCH
-import com.github.pemistahl.lingua.api.Language.ESTONIAN
-import com.github.pemistahl.lingua.api.Language.FINNISH
-import com.github.pemistahl.lingua.api.Language.FRENCH
-import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.HUNGARIAN
-import com.github.pemistahl.lingua.api.Language.ICELANDIC
-import com.github.pemistahl.lingua.api.Language.IRISH
-import com.github.pemistahl.lingua.api.Language.ITALIAN
-import com.github.pemistahl.lingua.api.Language.JAPANESE
-import com.github.pemistahl.lingua.api.Language.KAZAKH
-import com.github.pemistahl.lingua.api.Language.LATVIAN
-import com.github.pemistahl.lingua.api.Language.LITHUANIAN
-import com.github.pemistahl.lingua.api.Language.MACEDONIAN
-import com.github.pemistahl.lingua.api.Language.MONGOLIAN
-import com.github.pemistahl.lingua.api.Language.NYNORSK
-import com.github.pemistahl.lingua.api.Language.POLISH
-import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.ROMANIAN
-import com.github.pemistahl.lingua.api.Language.RUSSIAN
-import com.github.pemistahl.lingua.api.Language.SERBIAN
-import com.github.pemistahl.lingua.api.Language.SLOVAK
-import com.github.pemistahl.lingua.api.Language.SLOVENE
-import com.github.pemistahl.lingua.api.Language.SPANISH
-import com.github.pemistahl.lingua.api.Language.SWEDISH
-import com.github.pemistahl.lingua.api.Language.TURKISH
-import com.github.pemistahl.lingua.api.Language.UKRAINIAN
-import com.github.pemistahl.lingua.api.Language.UNKNOWN
-import com.github.pemistahl.lingua.api.Language.VIETNAMESE
-import com.github.pemistahl.lingua.api.Language.YORUBA
+import com.github.pemistahl.lingua.api.Language.*
 import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
 import com.github.pemistahl.lingua.internal.Constant.NUMBERS
@@ -72,8 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
-import java.util.SortedMap
-import java.util.TreeMap
+import java.util.*
 import java.util.regex.PatternSyntaxException
 import kotlin.math.ln
 
@@ -117,12 +74,11 @@ class LanguageDetector internal constructor(
         }.maxByOrNull { it.value }!!.key
         val secondMostLikelyLanguageProbability = confidenceValues.getValue(secondMostLikelyLanguage)
 
-        if (mostLikelyLanguageProbability == secondMostLikelyLanguageProbability) return UNKNOWN
-        if ((mostLikelyLanguageProbability - secondMostLikelyLanguageProbability) >= minimumRelativeDistance) {
-            return mostLikelyLanguage
+        return when {
+            mostLikelyLanguageProbability == secondMostLikelyLanguageProbability -> UNKNOWN
+            (mostLikelyLanguageProbability - secondMostLikelyLanguageProbability) < minimumRelativeDistance -> UNKNOWN
+            else -> mostLikelyLanguage
         }
-
-        return UNKNOWN
     }
 
     /**
@@ -164,8 +120,9 @@ class LanguageDetector internal constructor(
             return values
         }
 
+        val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
         val allProbabilitiesAndUnigramCounts = runBlocking {
-            (1..5).filter { i -> cleanedUpText.length >= i }.map { i ->
+            ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
                 async(Dispatchers.IO) {
                     val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
                     val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
@@ -317,11 +274,10 @@ class LanguageDetector internal constructor(
         val (mostFrequentLanguage, firstCharCount) = sortedTotalLanguageCounts[0]
         val (_, secondCharCount) = sortedTotalLanguageCounts[1]
 
-        if (firstCharCount == secondCharCount) {
-            return UNKNOWN
+        return when {
+            firstCharCount == secondCharCount -> UNKNOWN
+            else -> mostFrequentLanguage
         }
-
-        return mostFrequentLanguage
     }
 
     internal fun filterLanguagesByRules(words: List<String>): Set<Language> {
