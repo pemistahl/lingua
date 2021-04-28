@@ -61,8 +61,9 @@ plugins {
     id("org.jetbrains.dokka") version "1.4.30"
     id("ru.vyarus.use-python") version "2.3.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
-    id("com.jfrog.bintray") version "1.8.5"
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
+    signing
     jacoco
 }
 
@@ -259,7 +260,7 @@ tasks.register<Jar>("dokkaJavadocJar") {
     description = "Assembles a jar archive containing Javadoc documentation."
     dependsOn("dokkaJavadoc")
     classifier = "javadoc"
-    from("$buildDir/dokkaJavadoc")
+    from("$buildDir/dokka/javadoc")
 }
 
 tasks.register<Jar>("sourcesJar") {
@@ -316,35 +317,9 @@ python {
     pip("numpy:1.20.0")
 }
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    setPublications("linguaPublication")
-
-    dryRun = false
-    publish = true
-
-    with(pkg) {
-        repo = linguaRepositoryName
-        name = linguaArtifactId
-        desc = linguaDescription
-        websiteUrl = linguaWebsiteUrl
-        issueTrackerUrl = linguaIssueTrackerUrl
-        vcsUrl = linguaVcsUrl
-
-        setLicenses(linguaLicenseId)
-
-        with(version) {
-            name = linguaVersion
-            desc = linguaDescription
-            vcsTag = "v$linguaVersion"
-        }
-    }
-}
-
 publishing {
     publications {
-        create<MavenPublication>("linguaPublication") {
+        create<MavenPublication>("lingua") {
             groupId = linguaGroupId
             artifactId = linguaArtifactId
             version = linguaVersion
@@ -382,8 +357,29 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/pemistahl/lingua")
+            credentials {
+                username = "pemistahl"
+                password = project.findProperty("ghPackagesToken") as String?
+            }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
+}
+
+signing {
+    sign(publishing.publications["lingua"])
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
