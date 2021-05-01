@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,13 +30,22 @@ class LanguageDetectorBuilderTest {
 
         assertThat(builder.languages).isEqualTo(Language.all())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+        assertThat(builder.isEveryLanguageModelPreloaded).isFalse
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.0)
+            LanguageDetector(
+                Language.all().toMutableSet(),
+                minimumRelativeDistance = 0.0,
+                isEveryLanguageModelPreloaded = false
+            )
         )
 
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.all().toMutableSet(), minimumRelativeDistance = 0.2)
+            LanguageDetector(
+                Language.all().toMutableSet(),
+                minimumRelativeDistance = 0.2,
+                isEveryLanguageModelPreloaded = false
+            )
         )
     }
 
@@ -46,13 +55,22 @@ class LanguageDetectorBuilderTest {
 
         assertThat(builder.languages).isEqualTo(Language.allSpokenOnes())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+        assertThat(builder.isEveryLanguageModelPreloaded).isFalse
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.0)
+            LanguageDetector(
+                Language.allSpokenOnes().toMutableSet(),
+                minimumRelativeDistance = 0.0,
+                isEveryLanguageModelPreloaded = false
+            )
         )
 
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
         assertThat(builder.build()).isEqualTo(
-            LanguageDetector(Language.allSpokenOnes().toMutableSet(), minimumRelativeDistance = 0.2)
+            LanguageDetector(
+                Language.allSpokenOnes().toMutableSet(),
+                minimumRelativeDistance = 0.2,
+                isEveryLanguageModelPreloaded = false
+            )
         )
     }
 
@@ -93,13 +111,22 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+            assertThat(builder.isEveryLanguageModelPreloaded).isFalse
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.0,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.2,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
         }
         run {
@@ -118,13 +145,22 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+            assertThat(builder.isEveryLanguageModelPreloaded).isFalse
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.0,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.2,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
         }
         run {
@@ -142,17 +178,30 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+            assertThat(builder.isEveryLanguageModelPreloaded).isFalse
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.0)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.0,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.2,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
 
             assertThat(builder.build()).isEqualTo(
-                LanguageDetector(expectedLanguages.toMutableSet(), minimumRelativeDistance = 0.2)
+                LanguageDetector(
+                    expectedLanguages.toMutableSet(),
+                    minimumRelativeDistance = 0.2,
+                    isEveryLanguageModelPreloaded = false
+                )
             )
         }
         run {

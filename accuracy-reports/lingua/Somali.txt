@@ -12,6 +12,6 @@ Erroneously classified as YORUBA: 0.90%, XHOSA: 0.50%, TAGALOG: 0.40%, SOTHO: 0.
 
 >> Detection of 1000 sentences (average length: 124 chars)
 Accuracy: 99.90%
-Erroneously classified as TURKISH: 0.10%
+Erroneously classified as AFRIKAANS: 0.10%
 
 >> Exact values: 92.36666666666667 81.6 95.6 99.9

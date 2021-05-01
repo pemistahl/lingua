@@ -12,6 +12,6 @@ Erroneously classified as
 
 >> Detection of 1000 sentences (average length: 96 chars)
 Accuracy: 99.90%
-Erroneously classified as GERMAN: 0.10%
+Erroneously classified as LATIN: 0.10%
 
 >> Exact values: 99.93333333333334 99.9 100.0 99.9

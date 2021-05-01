@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,6 @@
 
 package com.github.pemistahl.lingua.internal.util.extension
 
-import java.util.regex.PatternSyntaxException
-
 internal fun String.containsAnyOf(characters: String): Boolean {
-    for (c in characters) {
-        if (this.contains(c)) return true
-    }
-    return false
-}
-
-internal fun String.asRegex() = try {
-    // Android only supports character classes without Is- prefix
-    Regex("\\p{$this}+")
-} catch (e: PatternSyntaxException) {
-    Regex("\\p{Is$this}+")
+    return characters.any { this.contains(it) }
 }

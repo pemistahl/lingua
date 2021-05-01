@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.DisabledOnOs
+import org.junit.jupiter.api.condition.OS.WINDOWS
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
@@ -128,6 +130,7 @@ class LanguageModelFilesWriterTest {
     }
 
     @Test
+    @DisabledOnOs(WINDOWS) // TempDir cannot be deleted on Windows
     fun createAndWriteLanguageModelFiles(@TempDir outputDirectoryPath: Path) {
         LanguageModelFilesWriter.createAndWriteLanguageModelFiles(
             inputFilePath = inputFilePath,

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,31 +17,50 @@
 package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.internal.util.extension.asRegex
+import java.lang.Character.UnicodeScript
 
-internal enum class Alphabet(private val regex: Regex) {
-    ARABIC("Arabic".asRegex()),
-    ARMENIAN("Armenian".asRegex()),
-    BENGALI("Bengali".asRegex()),
-    CYRILLIC("Cyrillic".asRegex()),
-    DEVANAGARI("Devanagari".asRegex()),
-    GEORGIAN("Georgian".asRegex()),
-    GREEK("Greek".asRegex()),
-    GUJARATI("Gujarati".asRegex()),
-    GURMUKHI("Gurmukhi".asRegex()),
-    HAN("Han".asRegex()),
-    HANGUL("Hangul".asRegex()),
-    HEBREW("Hebrew".asRegex()),
-    HIRAGANA("Hiragana".asRegex()),
-    KATAKANA("Katakana".asRegex()),
-    LATIN("Latin".asRegex()),
-    TAMIL("Tamil".asRegex()),
-    TELUGU("Telugu".asRegex()),
-    THAI("Thai".asRegex()),
+internal enum class Alphabet {
+    ARABIC,
+    ARMENIAN,
+    BENGALI,
+    CYRILLIC,
+    DEVANAGARI,
+    GEORGIAN,
+    GREEK,
+    GUJARATI,
+    GURMUKHI,
+    HAN,
+    HANGUL,
+    HEBREW,
+    HIRAGANA,
+    KATAKANA,
+    LATIN,
+    TAMIL,
+    TELUGU,
+    THAI,
+    NONE;
 
-    NONE(Regex(""));
+    val script: UnicodeScript? = try {
+        UnicodeScript.forName(this.name)
+    } catch (e: IllegalArgumentException) {
+        null
+    }
 
-    fun matches(input: CharSequence) = this.regex.matches(input)
+    fun matches(chr: Char): Boolean {
+        return if (this.script != null) {
+            UnicodeScript.of(chr.toInt()) == this.script
+        } else {
+            false
+        }
+    }
+
+    fun matches(input: CharSequence): Boolean {
+        return if (this.script != null) {
+            input.codePoints().allMatch { UnicodeScript.of(it) == this.script }
+        } else {
+            false
+        }
+    }
 
     private fun supportedLanguages(): Set<Language> {
         val languages = mutableSetOf<Language>()

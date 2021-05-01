@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,19 +53,21 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.serialization") version "1.4.10"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
-    id("com.adarshr.test-logger") version "2.1.0"
-    id("org.jetbrains.dokka") version "0.10.1"
-    id("ru.vyarus.use-python") version "2.2.0"
+    kotlin("jvm") version "1.4.32"
+    kotlin("plugin.serialization") version "1.4.32"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("com.adarshr.test-logger") version "3.0.0"
+    id("com.asarkar.gradle.build-time-tracker") version "2.0.4"
+    id("org.jetbrains.dokka") version "1.4.30"
+    id("ru.vyarus.use-python") version "2.3.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
-    id("com.jfrog.bintray") version "1.8.5"
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
+    signing
     jacoco
 }
 
-jacoco.toolVersion = "0.8.5"
+jacoco.toolVersion = "0.8.6"
 
 sourceSets {
     main {
@@ -242,25 +244,15 @@ tasks.register<PythonTask>("writeAccuracyTable") {
     command = "src/python-scripts/write_accuracy_table.py"
 }
 
-tasks.withType<DokkaTask> {
-    configuration {
-        jdkVersion = 6
-        reportUndocumented = false
+tasks.withType<DokkaTask>().configureEach {
+    dokkaSourceSets.configureEach {
+        jdkVersion.set(6)
+        reportUndocumented.set(false)
         perPackageOption {
-            prefix = "com.github.pemistahl.lingua.app"
-            suppress = true
-        }
-
-        perPackageOption {
-            prefix = "com.github.pemistahl.lingua.internal"
-            suppress = true
+            matchingRegex.set(".*\\.(app|internal).*")
+            suppress.set(true)
         }
     }
-}
-
-tasks.register<DokkaTask>("dokkaJavadoc") {
-    outputFormat = "javadoc"
-    outputDirectory = "$buildDir/dokkaJavadoc"
 }
 
 tasks.register<Jar>("dokkaJavadocJar") {
@@ -268,7 +260,7 @@ tasks.register<Jar>("dokkaJavadocJar") {
     description = "Assembles a jar archive containing Javadoc documentation."
     dependsOn("dokkaJavadoc")
     classifier = "javadoc"
-    from("$buildDir/dokkaJavadoc")
+    from("$buildDir/dokka/javadoc")
 }
 
 tasks.register<Jar>("sourcesJar") {
@@ -303,55 +295,31 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-    implementation("it.unimi.dsi:fastutil:8.4.2")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+    implementation("it.unimi.dsi:fastutil:8.5.4")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
-    testImplementation("org.assertj:assertj-core:3.17.2")
-    testImplementation("io.mockk:mockk:1.10.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testImplementation("org.assertj:assertj-core:3.19.0")
+    testImplementation("io.mockk:mockk:1.11.0")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.3")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect:1.24.1")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect:1.26")
     accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.30")
 }
 
 python {
-    pip("matplotlib:3.2.1")
-    pip("seaborn:0.10.1")
-    pip("pandas:1.0.3")
-    pip("numpy:1.18.0")
-}
-
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    setPublications("linguaPublication")
-
-    dryRun = false
-    publish = true
-
-    with(pkg) {
-        repo = linguaRepositoryName
-        name = linguaArtifactId
-        desc = linguaDescription
-        websiteUrl = linguaWebsiteUrl
-        issueTrackerUrl = linguaIssueTrackerUrl
-        vcsUrl = linguaVcsUrl
-
-        setLicenses(linguaLicenseId)
-
-        with(version) {
-            name = linguaVersion
-            desc = linguaDescription
-            vcsTag = "v$linguaVersion"
-        }
-    }
+    pip("matplotlib:3.4.1")
+    pip("seaborn:0.11.1")
+    pip("pandas:1.2.4")
+    pip("numpy:1.20.0")
 }
 
 publishing {
     publications {
-        create<MavenPublication>("linguaPublication") {
+        create<MavenPublication>("lingua") {
             groupId = linguaGroupId
             artifactId = linguaArtifactId
             version = linguaVersion
@@ -389,8 +357,29 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/pemistahl/lingua")
+            credentials {
+                username = "pemistahl"
+                password = project.findProperty("ghPackagesToken") as String?
+            }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
+}
+
+signing {
+    sign(publishing.publications["lingua"])
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }

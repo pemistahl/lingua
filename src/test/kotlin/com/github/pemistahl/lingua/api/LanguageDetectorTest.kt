@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,12 +134,14 @@ class LanguageDetectorTest {
     @SpyK
     private var detectorForEnglishAndGerman = LanguageDetector(
         languages = mutableSetOf(ENGLISH, GERMAN),
-        minimumRelativeDistance = 0.0
+        minimumRelativeDistance = 0.0,
+        isEveryLanguageModelPreloaded = false
     )
 
     private val detectorForAllLanguages = LanguageDetector(
         languages = Language.all().toMutableSet(),
-        minimumRelativeDistance = 0.0
+        minimumRelativeDistance = 0.0,
+        isEveryLanguageModelPreloaded = false
     )
 
     @BeforeAll
@@ -153,6 +155,27 @@ class LanguageDetectorTest {
         addLanguageModelsToDetector()
 
         defineBehaviorOfTestDataLanguageModels()
+    }
+
+    // language model initialization
+
+    @Test
+    fun `assert that language models are preloaded`() {
+        for (models in LanguageDetector.languageModels) {
+            for (language in detectorForEnglishAndGerman.languages) {
+                assertThat(models.getValue(language).isInitialized()).isFalse
+            }
+        }
+        val detectorWithPreloadedLanguageModels = LanguageDetector(
+            languages = detectorForEnglishAndGerman.languages,
+            minimumRelativeDistance = detectorForEnglishAndGerman.minimumRelativeDistance,
+            isEveryLanguageModelPreloaded = true
+        )
+        for (models in LanguageDetector.languageModels) {
+            for (language in detectorWithPreloadedLanguageModels.languages) {
+                assertThat(models.getValue(language).isInitialized()).isTrue
+            }
+        }
     }
 
     // text preprocessing
@@ -187,6 +210,12 @@ class LanguageDetectorTest {
             detectorForAllLanguages.splitTextIntoWords("sentence")
         ).isEqualTo(
             listOf("sentence")
+        )
+
+        assertThat(
+            detectorForAllLanguages.splitTextIntoWords("上海大学是一个好大学 this is a sentence")
+        ).isEqualTo(
+            listOf("上", "海", "大", "学", "是", "一", "个", "好", "大", "学", "this", "is", "a", "sentence")
         )
     }
 
@@ -300,7 +329,7 @@ class LanguageDetectorTest {
         assertThat(
             detectorForEnglishAndGerman.computeLanguageProbabilities(
                 testDataModel,
-                detectorForEnglishAndGerman.languages.asSequence()
+                detectorForEnglishAndGerman.languages
             )
         ).isEqualTo(
             expectedProbabilities
@@ -900,22 +929,26 @@ class LanguageDetectorTest {
     }
 
     private fun addLanguageModelsToDetector() {
-        with(detectorForEnglishAndGerman) {
-            unigramLanguageModels[ENGLISH] = lazy { unigramLanguageModelForEnglish }
-            unigramLanguageModels[GERMAN] = lazy { unigramLanguageModelForGerman }
-
-            bigramLanguageModels[ENGLISH] = lazy { bigramLanguageModelForEnglish }
-            bigramLanguageModels[GERMAN] = lazy { bigramLanguageModelForGerman }
-
-            trigramLanguageModels[ENGLISH] = lazy { trigramLanguageModelForEnglish }
-            trigramLanguageModels[GERMAN] = lazy { trigramLanguageModelForGerman }
-
-            quadrigramLanguageModels[ENGLISH] = lazy { quadrigramLanguageModelForEnglish }
-            quadrigramLanguageModels[GERMAN] = lazy { quadrigramLanguageModelForGerman }
-
-            fivegramLanguageModels[ENGLISH] = lazy { fivegramLanguageModelForEnglish }
-            fivegramLanguageModels[GERMAN] = lazy { fivegramLanguageModelForGerman }
-        }
+        LanguageDetector.unigramLanguageModels = mapOf(
+            ENGLISH to lazy { unigramLanguageModelForEnglish },
+            GERMAN to lazy { unigramLanguageModelForGerman }
+        )
+        LanguageDetector.bigramLanguageModels = mapOf(
+            ENGLISH to lazy { bigramLanguageModelForEnglish },
+            GERMAN to lazy { bigramLanguageModelForGerman }
+        )
+        LanguageDetector.trigramLanguageModels = mapOf(
+            ENGLISH to lazy { trigramLanguageModelForEnglish },
+            GERMAN to lazy { trigramLanguageModelForGerman }
+        )
+        LanguageDetector.quadrigramLanguageModels = mapOf(
+            ENGLISH to lazy { quadrigramLanguageModelForEnglish },
+            GERMAN to lazy { quadrigramLanguageModelForGerman }
+        )
+        LanguageDetector.fivegramLanguageModels = mapOf(
+            ENGLISH to lazy { fivegramLanguageModelForEnglish },
+            GERMAN to lazy { fivegramLanguageModelForGerman }
+        )
     }
 
     private fun defineBehaviorOfTestDataLanguageModels() {

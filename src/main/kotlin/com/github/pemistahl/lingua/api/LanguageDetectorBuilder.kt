@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,13 @@ package com.github.pemistahl.lingua.api
  */
 class LanguageDetectorBuilder private constructor(
     internal val languages: List<Language>,
-    internal var minimumRelativeDistance: Double = 0.0
+    internal var minimumRelativeDistance: Double = 0.0,
+    internal var isEveryLanguageModelPreloaded: Boolean = false
 ) {
     /**
      * Creates and returns the configured instance of [LanguageDetector].
      */
-    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance)
+    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance, isEveryLanguageModelPreloaded)
 
     /**
      * Sets the desired value for the minimum relative distance measure.
@@ -54,6 +55,25 @@ class LanguageDetectorBuilder private constructor(
     fun withMinimumRelativeDistance(distance: Double): LanguageDetectorBuilder {
         require(distance in 0.0..0.99) { "minimum relative distance must lie in between 0.0 and 0.99" }
         this.minimumRelativeDistance = distance
+        return this
+    }
+
+    /**
+     * Switches from lazy-loading to preloading all language models when
+     * building the actual [LanguageDetector] instance.
+     *
+     * By default, the probabilistic n-gram language models will be loaded
+     * into memory only on demand after filtering out the impossible languages
+     * by the rule engine. This reduces memory consumption. However, if the
+     * library is used within a web service, for instance, it makes sense to
+     * preload all language models beforehand to prevent waiting periods for
+     * the detection results.
+     *
+     * The actual preloading will happen as soon as [LanguageDetectorBuilder.build]
+     * is called.
+     */
+    fun withPreloadedLanguageModels(): LanguageDetectorBuilder {
+        this.isEveryLanguageModelPreloaded = true
         return this
     }
 

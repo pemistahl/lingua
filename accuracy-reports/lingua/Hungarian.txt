@@ -1,6 +1,6 @@
 ##### HUNGARIAN #####
 
->>> Accuracy on average: 94.57%
+>>> Accuracy on average: 94.60%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 86.10%
@@ -11,7 +11,7 @@ Accuracy: 97.70%
 Erroneously classified as DUTCH: 0.30%, LATVIAN: 0.20%, ITALIAN: 0.20%, FRENCH: 0.10%, ROMANIAN: 0.10%, TSWANA: 0.10%, BOKMAL: 0.10%, AFRIKAANS: 0.10%, ESTONIAN: 0.10%, DANISH: 0.10%, GANDA: 0.10%, BASQUE: 0.10%, ENGLISH: 0.10%, LATIN: 0.10%, GERMAN: 0.10%, PORTUGUESE: 0.10%, SLOVAK: 0.10%, SWAHILI: 0.10%, POLISH: 0.10%
 
 >> Detection of 1000 sentences (average length: 116 chars)
-Accuracy: 99.90%
-Erroneously classified as PORTUGUESE: 0.10%
+Accuracy: 100.00%
+Erroneously classified as 
 
->> Exact values: 94.56666666666668 86.1 97.7 99.9
+>> Exact values: 94.60000000000001 86.1 97.7 100.0

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018-2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,51 +16,15 @@
 
 package com.github.pemistahl.lingua.api
 
-import com.github.pemistahl.lingua.api.Language.AFRIKAANS
-import com.github.pemistahl.lingua.api.Language.ALBANIAN
-import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
-import com.github.pemistahl.lingua.api.Language.BASQUE
-import com.github.pemistahl.lingua.api.Language.BELARUSIAN
-import com.github.pemistahl.lingua.api.Language.BOKMAL
-import com.github.pemistahl.lingua.api.Language.BOSNIAN
-import com.github.pemistahl.lingua.api.Language.BULGARIAN
-import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.CROATIAN
-import com.github.pemistahl.lingua.api.Language.CZECH
-import com.github.pemistahl.lingua.api.Language.DANISH
-import com.github.pemistahl.lingua.api.Language.DUTCH
-import com.github.pemistahl.lingua.api.Language.ESTONIAN
-import com.github.pemistahl.lingua.api.Language.FINNISH
-import com.github.pemistahl.lingua.api.Language.FRENCH
-import com.github.pemistahl.lingua.api.Language.GERMAN
-import com.github.pemistahl.lingua.api.Language.HUNGARIAN
-import com.github.pemistahl.lingua.api.Language.ICELANDIC
-import com.github.pemistahl.lingua.api.Language.IRISH
-import com.github.pemistahl.lingua.api.Language.ITALIAN
 import com.github.pemistahl.lingua.api.Language.JAPANESE
-import com.github.pemistahl.lingua.api.Language.KAZAKH
-import com.github.pemistahl.lingua.api.Language.LATVIAN
-import com.github.pemistahl.lingua.api.Language.LITHUANIAN
-import com.github.pemistahl.lingua.api.Language.MACEDONIAN
-import com.github.pemistahl.lingua.api.Language.MONGOLIAN
-import com.github.pemistahl.lingua.api.Language.NYNORSK
-import com.github.pemistahl.lingua.api.Language.POLISH
-import com.github.pemistahl.lingua.api.Language.PORTUGUESE
-import com.github.pemistahl.lingua.api.Language.ROMANIAN
-import com.github.pemistahl.lingua.api.Language.RUSSIAN
-import com.github.pemistahl.lingua.api.Language.SERBIAN
-import com.github.pemistahl.lingua.api.Language.SLOVAK
-import com.github.pemistahl.lingua.api.Language.SLOVENE
-import com.github.pemistahl.lingua.api.Language.SPANISH
-import com.github.pemistahl.lingua.api.Language.SWEDISH
-import com.github.pemistahl.lingua.api.Language.TURKISH
-import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
-import com.github.pemistahl.lingua.api.Language.VIETNAMESE
-import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.internal.Alphabet
+import com.github.pemistahl.lingua.internal.Constant.CHARS_TO_LANGUAGES_MAPPING
+import com.github.pemistahl.lingua.internal.Constant.JAPANESE_CHARACTER_SET
+import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_SPACE_CHARACTERS
 import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
+import com.github.pemistahl.lingua.internal.Constant.NO_LETTER
 import com.github.pemistahl.lingua.internal.Constant.NUMBERS
 import com.github.pemistahl.lingua.internal.Constant.PUNCTUATION
 import com.github.pemistahl.lingua.internal.Ngram
@@ -68,9 +32,13 @@ import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
+import com.github.pemistahl.lingua.internal.util.extension.isLogogram
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 import java.util.SortedMap
 import java.util.TreeMap
-import java.util.regex.PatternSyntaxException
 import kotlin.math.ln
 
 /**
@@ -79,6 +47,7 @@ import kotlin.math.ln
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
+    isEveryLanguageModelPreloaded: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size
 ) {
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
@@ -86,11 +55,11 @@ class LanguageDetector internal constructor(
         it in languages
     }
 
-    internal val unigramLanguageModels = loadLanguageModels(ngramLength = 1)
-    internal val bigramLanguageModels = loadLanguageModels(ngramLength = 2)
-    internal val trigramLanguageModels = loadLanguageModels(ngramLength = 3)
-    internal val quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
-    internal val fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
+    init {
+        if (isEveryLanguageModelPreloaded) {
+            preloadLanguageModels()
+        }
+    }
 
     /**
      * Detects the language of given input text.
@@ -112,12 +81,11 @@ class LanguageDetector internal constructor(
         }.maxByOrNull { it.value }!!.key
         val secondMostLikelyLanguageProbability = confidenceValues.getValue(secondMostLikelyLanguage)
 
-        if (mostLikelyLanguageProbability == secondMostLikelyLanguageProbability) return UNKNOWN
-        if ((mostLikelyLanguageProbability - secondMostLikelyLanguageProbability) >= minimumRelativeDistance) {
-            return mostLikelyLanguage
+        return when {
+            mostLikelyLanguageProbability == secondMostLikelyLanguageProbability -> UNKNOWN
+            (mostLikelyLanguageProbability - secondMostLikelyLanguageProbability) < minimumRelativeDistance -> UNKNOWN
+            else -> mostLikelyLanguage
         }
-
-        return UNKNOWN
     }
 
     /**
@@ -151,25 +119,40 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val allProbabilities = mutableListOf<Map<Language, Double>>()
-        val unigramCountsOfInputText = mutableMapOf<Language, Int>()
-        var languagesSequence = filterLanguagesByRules(words)
+        var filteredLanguages = filterLanguagesByRules(words)
 
-        for (i in 1..5) {
-            if (cleanedUpText.length < i) continue
-
-            val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-            allProbabilities.add(computeLanguageProbabilities(testDataModel, languagesSequence))
-            val languageKeys = allProbabilities.last().keys
-
-            if (languageKeys.isNotEmpty()) {
-                languagesSequence = languagesSequence.filter { it in languageKeys }
-            }
-
-            if (i == 1) countUnigramsOfInputText(unigramCountsOfInputText, testDataModel, languagesSequence)
+        if (filteredLanguages.size == 1) {
+            val filteredLanguage = filteredLanguages.iterator().next()
+            values[filteredLanguage] = 1.0
+            return values
         }
 
-        val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCountsOfInputText, languagesSequence)
+        val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
+        val allProbabilitiesAndUnigramCounts = runBlocking {
+            ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
+                async(Dispatchers.IO) {
+                    val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                    val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+                    val languages = probabilities.keys
+
+                    if (languages.isNotEmpty()) {
+                        filteredLanguages = filteredLanguages.asSequence().filter { languages.contains(it) }.toSet()
+                    }
+
+                    val unigramCounts = if (i == 1) {
+                        countUnigramsOfInputText(testDataModel, filteredLanguages)
+                    } else {
+                        null
+                    }
+
+                    Pair(probabilities, unigramCounts)
+                }
+            }.awaitAll()
+        }
+
+        val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
+        val unigramCounts = allProbabilitiesAndUnigramCounts[0].second ?: emptyMap()
+        val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
         val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
         val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
         val sortedByConfidenceValue = compareByDescending<Language> { language -> confidenceValues[language] }
@@ -186,19 +169,27 @@ class LanguageDetector internal constructor(
     }
 
     internal fun splitTextIntoWords(text: String): List<String> {
-        return if (text.contains(' ')) {
-            text.split(' ')
+        val normalizedTextBuilder = StringBuilder()
+        for (chr in text) {
+            normalizedTextBuilder.append(chr)
+            if (chr.isLogogram()) {
+                normalizedTextBuilder.append(' ')
+            }
+        }
+        val normalizedText = normalizedTextBuilder.toString()
+        return if (normalizedText.contains(' ')) {
+            normalizedText.split(MULTIPLE_SPACE_CHARACTERS)
         } else {
-            listOf(text)
+            listOf(normalizedText)
         }
     }
 
     internal fun countUnigramsOfInputText(
-        unigramCounts: MutableMap<Language, Int>,
         unigramLanguageModel: TestDataLanguageModel,
-        languagesSequence: Sequence<Language>
-    ) {
-        for (language in languagesSequence) {
+        filteredLanguages: Set<Language>
+    ): Map<Language, Int> {
+        val unigramCounts = mutableMapOf<Language, Int>()
+        for (language in filteredLanguages) {
             for (unigram in unigramLanguageModel.ngrams) {
                 val probability = lookUpNgramProbability(language, unigram)
                 if (probability > 0) {
@@ -206,15 +197,16 @@ class LanguageDetector internal constructor(
                 }
             }
         }
+        return unigramCounts
     }
 
     internal fun sumUpProbabilities(
         probabilities: List<Map<Language, Double>>,
         unigramCountsOfInputText: Map<Language, Int>,
-        languagesSequence: Sequence<Language>
+        filteredLanguages: Set<Language>
     ): Map<Language, Double> {
         val summedUpProbabilities = hashMapOf<Language, Double>()
-        for (language in languagesSequence) {
+        for (language in filteredLanguages) {
             summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
 
             if (unigramCountsOfInputText.containsKey(language)) {
@@ -297,14 +289,13 @@ class LanguageDetector internal constructor(
         val (mostFrequentLanguage, firstCharCount) = sortedTotalLanguageCounts[0]
         val (_, secondCharCount) = sortedTotalLanguageCounts[1]
 
-        if (firstCharCount == secondCharCount) {
-            return UNKNOWN
+        return when {
+            firstCharCount == secondCharCount -> UNKNOWN
+            else -> mostFrequentLanguage
         }
-
-        return mostFrequentLanguage
     }
 
-    internal fun filterLanguagesByRules(words: List<String>): Sequence<Language> {
+    internal fun filterLanguagesByRules(words: List<String>): Set<Language> {
         val detectedAlphabets = mutableMapOf<Alphabet, Int>()
 
         for (word in words) {
@@ -317,11 +308,11 @@ class LanguageDetector internal constructor(
         }
 
         if (detectedAlphabets.isEmpty()) {
-            return languages.asSequence()
+            return languages
         }
 
         val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }!!.key
-        val filteredLanguages = languages.asSequence().filter { it.alphabets.contains(mostFrequentAlphabet) }
+        val filteredLanguages = languages.filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
 
         for (word in words) {
@@ -335,21 +326,21 @@ class LanguageDetector internal constructor(
             }
         }
 
-        val languagesSubset = languageCounts.filterValues { it >= words.size / 2 }.keys
+        val languagesSubset = languageCounts.filterValues { it >= words.size / 2.0 }.keys
 
         return if (languagesSubset.isNotEmpty()) {
-            filteredLanguages.filter { it in languagesSubset }
+            filteredLanguages.filter { it in languagesSubset }.toSet()
         } else {
-            filteredLanguages
+            filteredLanguages.toSet()
         }
     }
 
     internal fun computeLanguageProbabilities(
         testDataModel: TestDataLanguageModel,
-        languagesSequence: Sequence<Language>
+        filteredLanguages: Set<Language>
     ): Map<Language, Double> {
         val probabilities = hashMapOf<Language, Double>()
-        for (language in languagesSequence) {
+        for (language in filteredLanguages) {
             probabilities[language] = computeSumOfNgramProbabilities(language, testDataModel.ngrams)
         }
         return probabilities.filter { it.value < 0.0 }
@@ -390,23 +381,12 @@ class LanguageDetector internal constructor(
         return languageModels.getValue(language).value.getRelativeFrequency(ngram)
     }
 
-    internal fun loadLanguageModel(
-        language: Language,
-        ngramLength: Int
-    ): TrainingDataLanguageModel {
-        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
-        val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val inputStream = LanguageDetector::class.java.getResourceAsStream(filePath)
-        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-        return TrainingDataLanguageModel.fromJson(jsonContent)
-    }
-
-    internal fun loadLanguageModels(ngramLength: Int): MutableMap<Language, Lazy<TrainingDataLanguageModel>> {
-        val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
-        for (language in languages) {
-            languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
+    private fun preloadLanguageModels() {
+        runBlocking {
+            languageModels.map { models ->
+                async(Dispatchers.IO) { languages.forEach { language -> models[language]?.value } }
+            }
         }
-        return languageModels
     }
 
     override fun equals(other: Any?) = when {
@@ -420,72 +400,34 @@ class LanguageDetector internal constructor(
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
 
     internal companion object {
-        private val NO_LETTER = Regex("^[^\\p{L}]+$")
-        private val JAPANESE_CHARACTER_SET = try {
-            Regex("^[\\p{Hiragana}\\p{Katakana}\\p{Han}]+$")
-        } catch (e: PatternSyntaxException) {
-            Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
+        internal var unigramLanguageModels = loadLanguageModels(ngramLength = 1)
+        internal var bigramLanguageModels = loadLanguageModels(ngramLength = 2)
+        internal var trigramLanguageModels = loadLanguageModels(ngramLength = 3)
+        internal var quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
+        internal var fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
+
+        internal val languageModels = listOf(
+            unigramLanguageModels,
+            bigramLanguageModels,
+            trigramLanguageModels,
+            quadrigramLanguageModels,
+            fivegramLanguageModels
+        )
+
+        private fun loadLanguageModels(ngramLength: Int): Map<Language, Lazy<TrainingDataLanguageModel>> {
+            val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
+            for (language in Language.all()) {
+                languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
+            }
+            return languageModels
         }
 
-        private val CHARS_TO_LANGUAGES_MAPPING = hashMapOf(
-
-            "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
-            "ĄąĘę" to setOf(LITHUANIAN, POLISH),
-            "Żż" to setOf(POLISH, ROMANIAN),
-            "Îî" to setOf(FRENCH, ROMANIAN),
-            "Ññ" to setOf(BASQUE, SPANISH),
-            "ŇňŤť" to setOf(CZECH, SLOVAK),
-            "Ăă" to setOf(ROMANIAN, VIETNAMESE),
-            "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
-            "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
-            "ĀāĒēĪī" to setOf(LATVIAN, YORUBA),
-            "ẸẹỌọ" to setOf(VIETNAMESE, YORUBA),
-
-            "Ūū" to setOf(LATVIAN, LITHUANIAN, YORUBA),
-            "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
-            "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
-            "ÐðÞþ" to setOf(ICELANDIC, TURKISH),
-            "Ûû" to setOf(FRENCH, HUNGARIAN),
-            "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
-            "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
-            "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
-            "Ìì" to setOf(ITALIAN, VIETNAMESE, YORUBA),
-
-            "Ëë" to setOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH),
-            "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA),
-            "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
-            "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
-            "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
-            "Øø" to setOf(BOKMAL, DANISH, NYNORSK),
-            "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
-            "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
-
-            "Òò" to setOf(CATALAN, ITALIAN, VIETNAMESE, YORUBA),
-            "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
-            "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
-            "Ââ" to setOf(PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
-            "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
-            "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
-            "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
-
-            "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, SPANISH, TURKISH),
-
-            "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
-
-            "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, PORTUGUESE, TURKISH),
-            "Öö" to setOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
-
-            "Óó" to setOf(
-                CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA
-            ),
-            "ÁáÍíÚú" to setOf(
-                CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA
-            ),
-
-            "Éé" to setOf(
-                CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH, ITALIAN, PORTUGUESE, SLOVAK, SPANISH,
-                VIETNAMESE, YORUBA
-            )
-        )
+        private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel {
+            val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
+            val filePath = "/language-models/${language.isoCode639_1}/$fileName"
+            val inputStream = Language::class.java.getResourceAsStream(filePath)
+            val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+            return TrainingDataLanguageModel.fromJson(jsonContent)
+        }
     }
 }

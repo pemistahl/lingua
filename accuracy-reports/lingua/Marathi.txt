@@ -1,6 +1,6 @@
 ##### MARATHI #####
 
->>> Accuracy on average: 84.60%
+>>> Accuracy on average: 84.40%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 73.90%
@@ -11,7 +11,7 @@ Accuracy: 84.30%
 Erroneously classified as HINDI: 15.70%
 
 >> Detection of 1000 sentences (average length: 84 chars)
-Accuracy: 95.60%
-Erroneously classified as HINDI: 4.40%
+Accuracy: 95.00%
+Erroneously classified as HINDI: 4.60%, UNKNOWN: 0.40%
 
->> Exact values: 84.6 73.9 84.3 95.6
+>> Exact values: 84.39999999999999 73.9 84.3 95.0

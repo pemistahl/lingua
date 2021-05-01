@@ -1,6 +1,6 @@
 ##### ESPERANTO #####
 
->>> Accuracy on average: 83.70%
+>>> Accuracy on average: 83.63%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 67.40%
@@ -11,7 +11,7 @@ Accuracy: 85.20%
 Erroneously classified as SPANISH: 1.30%, LATIN: 1.20%, PORTUGUESE: 1.20%, ITALIAN: 1.00%, BASQUE: 0.80%, SOTHO: 0.70%, YORUBA: 0.60%, SWAHILI: 0.60%, TURKISH: 0.50%, TSWANA: 0.40%, TAGALOG: 0.40%, CATALAN: 0.40%, FRENCH: 0.30%, ENGLISH: 0.30%, CROATIAN: 0.30%, BOSNIAN: 0.30%, POLISH: 0.30%, LITHUANIAN: 0.30%, INDONESIAN: 0.30%, FINNISH: 0.30%, SHONA: 0.30%, GERMAN: 0.30%, SWEDISH: 0.20%, SOMALI: 0.20%, GANDA: 0.20%, HUNGARIAN: 0.20%, WELSH: 0.20%, ZULU: 0.20%, ESTONIAN: 0.20%, MALAY: 0.20%, SLOVAK: 0.20%, SLOVENE: 0.20%, DUTCH: 0.10%, DANISH: 0.10%, ROMANIAN: 0.10%, TSONGA: 0.10%, ALBANIAN: 0.10%, BOKMAL: 0.10%, CZECH: 0.10%
 
 >> Detection of 1000 sentences (average length: 101 chars)
-Accuracy: 98.50%
-Erroneously classified as LATIN: 0.30%, INDONESIAN: 0.20%, NYNORSK: 0.10%, TAGALOG: 0.10%, PORTUGUESE: 0.10%, LITHUANIAN: 0.10%, SOTHO: 0.10%, SHONA: 0.10%, ITALIAN: 0.10%, ESTONIAN: 0.10%, XHOSA: 0.10%, TSWANA: 0.10%
+Accuracy: 98.30%
+Erroneously classified as LATIN: 0.30%, SOTHO: 0.20%, INDONESIAN: 0.20%, NYNORSK: 0.10%, TAGALOG: 0.10%, PORTUGUESE: 0.10%, LITHUANIAN: 0.10%, SHONA: 0.10%, ITALIAN: 0.10%, ESTONIAN: 0.10%, XHOSA: 0.10%, TSWANA: 0.10%, FINNISH: 0.10%
 
->> Exact values: 83.7 67.4 85.2 98.5
+>> Exact values: 83.63333333333334 67.4 85.2 98.3

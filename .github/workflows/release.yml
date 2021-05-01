@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    tags:
+      - v1.*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 8
+
+      - name: Get tag version
+        id: get_version
+        uses: battila7/get-version-action@v2
+
+      - name: Create release artifacts
+        run: ./gradlew jar sourcesJar jarWithDependencies dokkaJavadocJar
+
+      - name: Create release and upload artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Lingua ${{ steps.get_version.outputs.version-without-v }}
+          files: build/libs/*.jar

@@ -1,6 +1,6 @@
 ##### TSWANA #####
 
->>> Accuracy on average: 83.90%
+>>> Accuracy on average: 83.73%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 64.10%
@@ -11,7 +11,7 @@ Accuracy: 88.50%
 Erroneously classified as SOTHO: 8.20%, ENGLISH: 0.80%, TSONGA: 0.50%, XHOSA: 0.40%, BASQUE: 0.30%, SWAHILI: 0.30%, SHONA: 0.30%, CZECH: 0.20%, AFRIKAANS: 0.10%, TAGALOG: 0.10%, PORTUGUESE: 0.10%, ZULU: 0.10%, GANDA: 0.10%
 
 >> Detection of 1000 sentences (average length: 113 chars)
-Accuracy: 99.10%
-Erroneously classified as SOTHO: 0.90%
+Accuracy: 98.60%
+Erroneously classified as SOTHO: 1.20%, YORUBA: 0.10%, ENGLISH: 0.10%
 
->> Exact values: 83.89999999999999 64.1 88.5 99.1
+>> Exact values: 83.73333333333333 64.1 88.5 98.6
