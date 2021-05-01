@@ -16,6 +16,15 @@
 
 package com.github.pemistahl.lingua.internal.util.extension
 
-internal fun String.containsAnyOf(characters: String): Boolean {
-    return characters.any { this.contains(it) }
+import com.github.pemistahl.lingua.internal.Constant.LANGUAGES_SUPPORTING_LOGOGRAMS
+
+fun Char.isLogogram(): Boolean {
+    return if (this.isWhitespace()) {
+        false
+    } else {
+        LANGUAGES_SUPPORTING_LOGOGRAMS
+            .asSequence()
+            .flatMap { it.alphabets }
+            .any { it.matches(this) }
+    }
 }

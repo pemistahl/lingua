@@ -46,6 +46,14 @@ internal enum class Alphabet {
         null
     }
 
+    fun matches(chr: Char): Boolean {
+        return if (this.script != null) {
+            UnicodeScript.of(chr.toInt()) == this.script
+        } else {
+            false
+        }
+    }
+
     fun matches(input: CharSequence): Boolean {
         return if (this.script != null) {
             input.codePoints().allMatch { UnicodeScript.of(it) == this.script }

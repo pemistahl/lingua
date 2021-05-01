@@ -211,6 +211,12 @@ class LanguageDetectorTest {
         ).isEqualTo(
             listOf("sentence")
         )
+
+        assertThat(
+            detectorForAllLanguages.splitTextIntoWords("上海大学是一个好大学 this is a sentence")
+        ).isEqualTo(
+            listOf("上", "海", "大", "学", "是", "一", "个", "好", "大", "学", "this", "is", "a", "sentence")
+        )
     }
 
     // ngram probability lookup
