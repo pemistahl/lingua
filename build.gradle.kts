@@ -27,13 +27,9 @@ val linguaArtifactId: String by project
 val linguaVersion: String by project
 val linguaName: String by project
 val linguaDescription: String by project
-val linguaLicenseId: String by project
 val linguaLicenseName: String by project
 val linguaLicenseUrl: String by project
-val linguaRepositoryName: String by project
 val linguaWebsiteUrl: String by project
-val linguaVcsUrl: String by project
-val linguaIssueTrackerUrl: String by project
 val linguaDeveloperId: String by project
 val linguaDeveloperName: String by project
 val linguaDeveloperEmail: String by project

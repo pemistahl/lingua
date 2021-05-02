@@ -493,24 +493,23 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 
 [javadoc badge]: https://javadoc.io/badge2/com.github.pemistahl/lingua/javadoc.svg
 [javadoc url]: https://javadoc.io/doc/com.github.pemistahl/lingua
-[ci badge]: https://github.com/pemistahl/lingua/workflows/Lingua%20CI/badge.svg?branch=master
-[ci url]: https://github.com/pemistahl/lingua/actions?query=workflow%3A%22Lingua+CI%22+branch%3Amaster
-[codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
+[ci badge]: https://github.com/pemistahl/lingua/actions/workflows/build.yml/badge.svg
+[ci url]: https://github.com/pemistahl/lingua/actions/workflows/build.yml
+[codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/main/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-75-green.svg
-[awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.0-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.1.0%2Flingua-1.1.0-with-dependencies.jar
+[lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.1.0/lingua-1.1.0-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
 [Wortschatz corpora]: http://wortschatz.uni-leipzig.de
-[Apache Tika]: https://tika.apache.org/1.24.1/detection.html#Language_Detection
-[Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.2/manual/opennlp.html#tools.langdetect
+[Apache Tika]: https://tika.apache.org/1.26/detection.html#Language_Detection
+[Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.3/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
 [Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.1.0/jar
 [Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.1.0-green.svg
-[ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md
-[ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md
-[accuracy reports url]: https://github.com/pemistahl/lingua/tree/master/accuracy-reports
+[ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_PLOTS.md
+[ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_TABLE.md
+[accuracy reports url]: https://github.com/pemistahl/lingua/tree/main/accuracy-reports

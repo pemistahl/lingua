@@ -31,7 +31,7 @@ for it there as well.
 4. If your language's script contains characters that are completely unique to it, then add them to the
 respective entry in the [`Language`][language url] enum. However, if the characters occur in more than one
 language **but** not in all languages, then add them to the 
-[`CHARS_TO_LANGUAGES_MAPPING`][chars to languages mapping url] constant in class `LanguageDetector` instead.
+[`CHARS_TO_LANGUAGES_MAPPING`][chars to languages mapping url] constant in class `Constant` instead.
 5. Use [`LanguageModelFilesWriter`][language model files writer url] to create the language model files.
 The training data file used for ngram probability estimation is not required to have a specific format
 other than to be a valid txt file.
@@ -64,16 +64,16 @@ this library's fields of application.
 
 [java nio url]: https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html
 [library build url]: https://github.com/pemistahl/lingua#library-build
-[isocode639_1 url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_1.kt
-[isocode639_3 url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_3.kt
+[isocode639_1 url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_1.kt
+[isocode639_3 url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_3.kt
 [wikipedia isocodes list]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-[language url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/Language.kt
-[alphabet url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/internal/Alphabet.kt
-[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/LanguageDetector.kt#L429
-[language model files writer url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L40
-[language models directory url]: https://github.com/pemistahl/lingua/tree/master/src/main/resources/language-models
-[test data files writer url]: https://github.com/pemistahl/lingua/blob/master/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L42
-[test data directory url]: https://github.com/pemistahl/lingua/tree/master/src/test/resources/language-testdata
-[accuracy report config url]: https://github.com/pemistahl/lingua/tree/master/src/test/kotlin/com/github/pemistahl/lingua/report/config
-[accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/master/src/test/kotlin/com/github/pemistahl/lingua/report/lingua
-[gradle properties url]: https://github.com/pemistahl/lingua/blob/master/gradle.properties#L67
+[language url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/Language.kt
+[alphabet url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Alphabet.kt
+[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Constant.kt#L67
+[language model files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L27
+[language models directory url]: https://github.com/pemistahl/lingua/tree/main/src/main/resources/language-models
+[test data files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L28
+[test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/test/resources/language-testdata
+[accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/test/kotlin/com/github/pemistahl/lingua/report/config
+[accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/test/kotlin/com/github/pemistahl/lingua/report/lingua
+[gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L62

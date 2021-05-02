@@ -271,7 +271,7 @@ This major release offers a lot of new features, including new languages. Finall
 
 ### Documentation
 
-- In addition to the test reports, graphical plots have been created in order to compare the detection results between the different classifiers even more easily. The code for the plots has been written in Python and is stored in an IPython notebook under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/master/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
+- In addition to the test reports, graphical plots have been created in order to compare the detection results between the different classifiers even more easily. The code for the plots has been written in Python and is stored in an IPython notebook under [`/accuracy-reports/accuracy-reports-analysis-notebook.ipynb`](https://github.com/pemistahl/lingua/blob/main/accuracy-reports/accuracy-reports-analysis-notebook.ipynb).
 
 
 ## Lingua 0.2.1 (released on 28 Dec 2018)
