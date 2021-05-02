@@ -107,7 +107,7 @@
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 82</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/grey.png"> -</td>
@@ -749,19 +749,19 @@
 	</tr>
 	<tr>
 		<td>Latvian</td>
-		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 87</td>
 		<td><img src="images/green.png"> 88</td>
 		<td><img src="images/green.png"> 84</td>
 		<td><img src="images/lightgreen.png"> 74</td>
-		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/lightgreen.png"> 74</td>
 		<td><img src="images/lightgreen.png"> 67</td>
 		<td><img src="images/yellow.png"> 50</td>
-		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 90</td>
 		<td><img src="images/green.png"> 90</td>
 		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/lightgreen.png"> 77</td>
-		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 92</td>
 		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 96</td>
@@ -1458,7 +1458,7 @@
 	</tr>
 	<tr>
 		<td>Median</td>
-		<td>88.58</td>
+		<td>88.23</td>
 		<td>81.3</td>
 		<td>75.17</td>
 		<td>63.85</td>
@@ -1466,7 +1466,7 @@
 		<td>63.39</td>
 		<td>47.9</td>
 		<td>30.75</td>
-		<td>93.21</td>
+		<td>93.11</td>
 		<td>84.25</td>
 		<td>75.3</td>
 		<td>65.95</td>
@@ -1477,7 +1477,7 @@
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.31</td>
+		<td>13.3</td>
 		<td>16.18</td>
 		<td>18.55</td>
 		<td>23.84</td>
