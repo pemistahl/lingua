@@ -74,7 +74,7 @@ Once the library has been downloaded, it can be used completely offline.
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, 
 getting detection right for a small set of languages first before adding new ones. 
-Currently, the following 74 languages are supported:
+Currently, the following 75 languages are supported:
 
 - A
   - Afrikaans
@@ -131,6 +131,7 @@ Currently, the following 74 languages are supported:
 - M
   - Macedonian
   - Malay
+  - Maori
   - Marathi
   - Mongolian
 - N
@@ -190,7 +191,7 @@ each comprising ten thousand sentences. From each test corpus, a random unsorted
 1000 word pairs and 1000 sentences has been extracted, respectively.
 
 Given the generated test data, I have compared the detection results of *Lingua*, *Apache Tika*, *Apache OpenNLP* and 
-*Optimaize Language Detector* using parameterized JUnit tests running over the data of *Lingua's* supported 74 languages. 
+*Optimaize Language Detector* using parameterized JUnit tests running over the data of *Lingua's* supported 75 languages. 
 Languages that are not supported by the other libraries are simply ignored for those during the detection process.
 
 The box plot below shows the distribution of the averaged accuracy values for all three performed tasks: 
@@ -496,7 +497,7 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [ci url]: https://github.com/pemistahl/lingua/actions?query=workflow%3A%22Lingua+CI%22+branch%3Amaster
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/master/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
-[supported languages badge]: https://img.shields.io/badge/supported%20languages-74-green.svg
+[supported languages badge]: https://img.shields.io/badge/supported%20languages-75-green.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
 [lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.0-blue.svg
 [lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.1.0%2Flingua-1.1.0-with-dependencies.jar

@@ -44,6 +44,7 @@ import com.github.pemistahl.lingua.api.Language.KOREAN
 import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
+import com.github.pemistahl.lingua.api.Language.MAORI
 import com.github.pemistahl.lingua.api.Language.MONGOLIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.POLISH
@@ -73,12 +74,12 @@ internal object Constant {
         "Ăă" to setOf(ROMANIAN, VIETNAMESE),
         "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
         "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
-        "ĀāĒēĪī" to setOf(LATVIAN, YORUBA),
         "ẸẹỌọ" to setOf(VIETNAMESE, YORUBA),
         "ÐðÞþ" to setOf(ICELANDIC, TURKISH),
         "Ûû" to setOf(FRENCH, HUNGARIAN),
+        "Ōō" to setOf(MAORI, YORUBA),
 
-        "Ūū" to setOf(LATVIAN, LITHUANIAN, YORUBA),
+        "ĀāĒēĪī" to setOf(LATVIAN, MAORI, YORUBA),
         "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
         "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
         "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
@@ -86,6 +87,7 @@ internal object Constant {
         "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
         "Ìì" to setOf(ITALIAN, VIETNAMESE, YORUBA),
 
+        "Ūū" to setOf(LATVIAN, LITHUANIAN, MAORI, YORUBA),
         "Ëë" to setOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH),
         "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA),
         "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),

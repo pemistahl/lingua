@@ -219,6 +219,11 @@ enum class IsoCode639_1 {
     LV,
 
     /**
+     * The ISO 639-1 code for [Maori][Language.MAORI].
+     */
+    MI,
+
+    /**
      * The ISO 639-1 code for [Macedonian][Language.MACEDONIAN].
      */
     MK,

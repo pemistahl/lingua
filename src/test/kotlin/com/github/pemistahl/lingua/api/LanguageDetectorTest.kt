@@ -48,6 +48,7 @@ import com.github.pemistahl.lingua.api.Language.LATVIAN
 import com.github.pemistahl.lingua.api.Language.LITHUANIAN
 import com.github.pemistahl.lingua.api.Language.MACEDONIAN
 import com.github.pemistahl.lingua.api.Language.MALAY
+import com.github.pemistahl.lingua.api.Language.MAORI
 import com.github.pemistahl.lingua.api.Language.MONGOLIAN
 import com.github.pemistahl.lingua.api.Language.NYNORSK
 import com.github.pemistahl.lingua.api.Language.PERSIAN
@@ -434,7 +435,7 @@ class LanguageDetectorTest {
         "kỷ, VIETNAMESE",
         "mỹ, VIETNAMESE",
         "mỵ, VIETNAMESE",
-        "kōnin, YORUBA",
+        "aṣiwèrè, YORUBA",
         "ṣaaju, YORUBA",
         "والموضوع, UNKNOWN",
         "сопротивление, UNKNOWN",
@@ -530,15 +531,15 @@ class LanguageDetectorTest {
         ),
         arguments(
             "aizklātā",
-            listOf(LATVIAN, YORUBA)
+            listOf(LATVIAN, MAORI, YORUBA)
         ),
         arguments(
             "sistēmas",
-            listOf(LATVIAN, YORUBA)
+            listOf(LATVIAN, MAORI, YORUBA)
         ),
         arguments(
             "palīdzi",
-            listOf(LATVIAN, YORUBA)
+            listOf(LATVIAN, MAORI, YORUBA)
         ),
         arguments(
             "nhẹn",
@@ -570,7 +571,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "nebūsime",
-            listOf(LATVIAN, LITHUANIAN, YORUBA)
+            listOf(LATVIAN, LITHUANIAN, MAORI, YORUBA)
         ),
         arguments(
             "afişate",
@@ -728,7 +729,7 @@ class LanguageDetectorTest {
             listOf(
                 AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN, CZECH, DANISH,
                 DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN, HUNGARIAN, ICELANDIC,
-                INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, NYNORSK, POLISH,
+                INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN, LITHUANIAN, MALAY, MAORI, NYNORSK, POLISH,
                 PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH,
                 TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
             )

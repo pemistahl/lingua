@@ -55,6 +55,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.LA
 import com.github.pemistahl.lingua.api.IsoCode639_1.LG
 import com.github.pemistahl.lingua.api.IsoCode639_1.LT
 import com.github.pemistahl.lingua.api.IsoCode639_1.LV
+import com.github.pemistahl.lingua.api.IsoCode639_1.MI
 import com.github.pemistahl.lingua.api.IsoCode639_1.MK
 import com.github.pemistahl.lingua.api.IsoCode639_1.MN
 import com.github.pemistahl.lingua.api.IsoCode639_1.MR
@@ -131,6 +132,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.LUG
 import com.github.pemistahl.lingua.api.IsoCode639_3.MAR
 import com.github.pemistahl.lingua.api.IsoCode639_3.MKD
 import com.github.pemistahl.lingua.api.IsoCode639_3.MON
+import com.github.pemistahl.lingua.api.IsoCode639_3.MRI
 import com.github.pemistahl.lingua.api.IsoCode639_3.MSA
 import com.github.pemistahl.lingua.api.IsoCode639_3.NLD
 import com.github.pemistahl.lingua.api.IsoCode639_3.NNO
@@ -172,6 +174,7 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
+import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 
 /**
@@ -225,6 +228,7 @@ enum class Language(
     LITHUANIAN(LT, LIT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
     MACEDONIAN(MK, MKD, setOf(CYRILLIC), "ЃѓЅѕЌќЏџ"),
     MALAY(MS, MSA, setOf(Alphabet.LATIN), null),
+    MAORI(MI, MRI, setOf(Alphabet.LATIN), null),
     MARATHI(MR, MAR, setOf(DEVANAGARI), "ळ"),
     MONGOLIAN(MN, MON, setOf(CYRILLIC), "ӨөҮү"),
     NYNORSK(NN, NNO, setOf(Alphabet.LATIN), null),
@@ -261,7 +265,7 @@ enum class Language(
     WELSH(CY, CYM, setOf(Alphabet.LATIN), null),
     XHOSA(XH, XHO, setOf(Alphabet.LATIN), null),
     // TODO for YORUBA: "E̩e̩Ẹ́ẹ́É̩é̩Ẹ̀ẹ̀È̩è̩Ẹ̄ẹ̄Ē̩ē̩ŌōO̩o̩Ọ́ọ́Ó̩ó̩Ọ̀ọ̀Ò̩ò̩Ọ̄ọ̄Ō̩ō̩ṢṣS̩s̩"
-    YORUBA(YO, YOR, setOf(Alphabet.LATIN), "ŌōṢṣ"),
+    YORUBA(YO, YOR, setOf(Alphabet.LATIN), "Ṣṣ"),
     ZULU(ZU, ZUL, setOf(Alphabet.LATIN), null),
 
     /**

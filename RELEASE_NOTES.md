@@ -1,5 +1,10 @@
 ## Lingua 1.1.0 (released on 02 May 2021)
 
+### Languages
+
+- There is now support for the Maori language which was contributed to the
+  Rust implementation of Lingua. (#93)
+
 ### Features
 
 - Language models are now loaded asynchronously and in parallel using Kotlin

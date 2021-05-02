@@ -229,6 +229,11 @@ enum class IsoCode639_3 {
     MON,
 
     /**
+     * The ISO 639-3 code for [Maori][Language.MAORI].
+     */
+    MRI,
+
+    /**
      * The ISO 639-3 code for [Malay][Language.MALAY].
      */
     MSA,
