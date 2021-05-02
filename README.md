@@ -10,7 +10,6 @@
 
 [![javadoc][javadoc badge]][javadoc url]
 [![Maven Central][Maven Central badge]][Maven Central]
-[![Jcenter][Jcenter badge]][Jcenter]
 [![Download][lingua version badge]][lingua download url]
 
 ---
@@ -40,7 +39,7 @@
 9. [How to use?](#library-use)  
   9.1 [Programmatic use](#library-use-programmatic)  
   9.2 [Standalone mode](#library-use-standalone)
-10. [What's next for version 1.1.0?](#whats-next)
+10. [What's next for version 1.2.0?](#whats-next)
 
 ## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
 Its task is simple: It tells you which language some provided textual data is written in. 
@@ -282,10 +281,10 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:1.0.3'
+implementation 'com.github.pemistahl:lingua:1.1.0'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:1.0.3")
+implementation("com.github.pemistahl:lingua:1.1.0")
 ```
 
 ### 7.2 <a name="library-dependency-maven"></a> Using Maven
@@ -294,7 +293,7 @@ implementation("com.github.pemistahl:lingua:1.0.3")
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>1.0.3</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -308,9 +307,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-1.0.3.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-1.0.3-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-1.0.3-with-dependencies.jar` containing the 
+1. `./gradlew jar` assembles `lingua-1.1.0.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-1.1.0-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-1.1.0-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
 in projects without dependency management systems. You should be able to use it in your Android 
 project as well by putting it in your project's `lib` folder. This jar file can also be used to 
@@ -322,6 +321,8 @@ run *Lingua* in standalone mode (see below).
 ### 9.1 <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
 The API is pretty straightforward and can be used in both Kotlin and Java code.
 
+#### 9.1.1 Basic usage
+
 ```kotlin
 /* Kotlin */
 
@@ -331,6 +332,20 @@ import com.github.pemistahl.lingua.api.Language.*
 val detector: LanguageDetector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build()
 val detectedLanguage: Language = detector.detectLanguageOf(text = "languages are awesome")
 ```
+
+The public API of *Lingua* never returns `null` somewhere, so it is safe to be used from within Java code as well.
+
+```java
+/* Java */
+
+import com.github.pemistahl.lingua.api.*;
+import static com.github.pemistahl.lingua.api.Language.*;
+
+final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build();
+final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
+```
+
+#### 9.1.2 Minimum relative distance
 
 By default, *Lingua* returns the most likely language for a given input text. However, there are 
 certain words that are spelled the same in more than one language. The word *prologue*, for instance, 
@@ -352,20 +367,58 @@ short text phrases, do not set the minimum relative distance too high. Otherwise
 returned as `Language.UNKNOWN` which is the return value for cases where language detection is not reliably 
 possible. 
 
-The public API of *Lingua* never returns `null` somewhere, so it is safe to be used from within Java code as well.
+#### 9.1.3 Confidence values
 
-```java
-/* Java */
+Knowing about the most likely language is nice but how reliable is the computed likelihood?
+And how less likely are the other examined languages in comparison to the most likely one?
+These questions can be answered as well:
 
-import com.github.pemistahl.lingua.api.*;
-import static com.github.pemistahl.lingua.api.Language.*;
+```kotlin
 
-final LanguageDetector detector = LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH).build();
-final Language detectedLanguage = detector.detectLanguageOf("languages are awesome");
+val detector = LanguageDetectorBuilder.fromLanguages(GERMAN, ENGLISH, FRENCH, SPANISH).build()
+val confidenceValues = detector.computeLanguageConfidenceValues(text = "Coding is fun.")
+
+// {
+//   ENGLISH=1.0, 
+//   GERMAN=0.8665738136456169, 
+//   FRENCH=0.8249537317466078, 
+//   SPANISH=0.7792362923625288
+// }
 ```
 
-There might be classification tasks where you know beforehand that your language data is definitely not 
-written in Latin, for instance (what a surprise :-). The detection accuracy can become better in such 
+In the example above, a map of all possible languages is returned, sorted by their confidence
+value in descending order. The values that the detector computes are part of a **relative**
+confidence metric, not of an absolute one. Each value is a number between 0.0 and 1.0.
+The most likely language is always returned with value 1.0. All other languages get values
+assigned which are lower than 1.0, denoting how less likely those languages are in comparison
+to the most likely language.
+
+The map returned by this method does not necessarily contain all languages which the calling
+instance of `LanguageDetector` was built from. If the rule-based engine decides that a specific
+language is truly impossible, then it will not be part of the returned map. Likewise, if no
+ngram probabilities can be found within the detector's languages for the given input text, the
+returned map will be empty. The confidence value for each language not being part of the
+returned map is assumed to be 0.0.
+
+#### 9.1.4 Eager loading versus lazy loading
+
+By default, *Lingua* uses lazy-loading to load only those language models on demand which are 
+considered relevant by the rule-based filter engine. For web services, for instance, it is 
+rather beneficial to preload all language models into memory to avoid unexpected latency while 
+waiting for the service response. If you want to enable the eager-loading mode, you can do it
+like this:
+
+```kotlin
+LanguageDetectorBuilder.withPreloadedLanguageModels().build()
+```
+
+Multiple instances of `LanguageDetector` share the same language models in memory which are
+accessed asynchronously by the instances.
+
+#### 9.1.5 Methods to build the LanguageDetector
+
+There might be classification tasks where you know beforehand that your language data is definitely not
+written in Latin, for instance (what a surprise :-). The detection accuracy can become better in such
 cases if you exclude certain languages from the decision process or just explicitly include relevant languages:
 
 ```kotlin
@@ -394,42 +447,11 @@ LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.EN, IsoCode639_3.DE)
 LanguageDetectorBuilder.fromIsoCodes639_3(IsoCode639_3.ENG, IsoCode639_3.DEU)
 ```
 
-Knowing about the most likely language is nice but how reliable is the computed likelihood?
-And how less likely are the other examined languages in comparison to the most likely one?
-These questions can be answered as well:
-
-```kotlin
-
-val detector = LanguageDetectorBuilder.fromLanguages(GERMAN, ENGLISH, FRENCH, SPANISH).build()
-val confidenceValues = detector.computeLanguageConfidenceValues(text = "Coding is fun.")
-
-// {
-//   ENGLISH=1.0, 
-//   GERMAN=0.8665738136456169, 
-//   FRENCH=0.8249537317466078, 
-//   SPANISH=0.7792362923625288
-// }
-```
-
-In the example above, a map of all possible languages is returned, sorted by their confidence 
-value in descending order. The values that the detector computes are part of a **relative** 
-confidence metric, not of an absolute one. Each value is a number between 0.0 and 1.0. 
-The most likely language is always returned with value 1.0. All other languages get values 
-assigned which are lower than 1.0, denoting how less likely those languages are in comparison 
-to the most likely language. 
-
-The map returned by this method does not necessarily contain all languages which the calling 
-instance of `LanguageDetector` was built from. If the rule-based engine decides that a specific 
-language is truly impossible, then it will not be part of the returned map. Likewise, if no 
-ngram probabilities can be found within the detector's languages for the given input text, the 
-returned map will be empty. The confidence value for each language not being part of the 
-returned map is assumed to be 0.0.
-
 ### 9.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
 and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-1.0.3-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-1.1.0-with-dependencies.jar`
 
 Then just play around:
 
@@ -464,9 +486,9 @@ FRENCH
 Bye! Ciao! Tschüss! Salut!
 ```
 
-## 10. <a name="whats-next"></a> What's next for version 1.1.0? <sup>[Top ▲](#table-of-contents)</sup>
+## 10. <a name="whats-next"></a> What's next for version 1.2.0? <sup>[Top ▲](#table-of-contents)</sup>
 
-Take a look at the [planned issues](https://github.com/pemistahl/lingua/milestone/4).
+Take a look at the [planned issues](https://github.com/pemistahl/lingua/milestone/8).
 
 [javadoc badge]: https://javadoc.io/badge2/com.github.pemistahl/lingua/javadoc.svg
 [javadoc url]: https://javadoc.io/doc/com.github.pemistahl/lingua
@@ -476,8 +498,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-74-green.svg
 [awesome nlp badge]: https://raw.githubusercontent.com/sindresorhus/awesome/master/media/mentioned-badge-flat.svg?sanitize=true
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.0.3-blue.svg
-[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.0.3%2Flingua-1.0.3-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.0-blue.svg
+[lingua download url]: https://bintray.com/pemistahl/nlp-libraries/download_file?file_path=com%2Fgithub%2Fpemistahl%2Flingua%2F1.1.0%2Flingua-1.1.0-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -486,10 +508,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache Tika]: https://tika.apache.org/1.24.1/detection.html#Language_Detection
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.2/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
-[Jcenter]: https://bintray.com/pemistahl/nlp-libraries/lingua/1.0.3
-[Jcenter badge]: https://img.shields.io/badge/JCenter-1.0.3-green.svg
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.0.3/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.0.3-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.1.0/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.1.0-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/master/ACCURACY_TABLE.md
 [accuracy reports url]: https://github.com/pemistahl/lingua/tree/master/accuracy-reports

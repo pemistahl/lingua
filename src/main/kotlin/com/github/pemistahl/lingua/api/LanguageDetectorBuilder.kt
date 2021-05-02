@@ -59,18 +59,13 @@ class LanguageDetectorBuilder private constructor(
     }
 
     /**
-     * Switches from lazy-loading to preloading all language models when
-     * building the actual [LanguageDetector] instance.
+     * Preloads all language models when creating the instance of [LanguageDetector].
      *
-     * By default, the probabilistic n-gram language models will be loaded
-     * into memory only on demand after filtering out the impossible languages
-     * by the rule engine. This reduces memory consumption. However, if the
-     * library is used within a web service, for instance, it makes sense to
-     * preload all language models beforehand to prevent waiting periods for
-     * the detection results.
-     *
-     * The actual preloading will happen as soon as [LanguageDetectorBuilder.build]
-     * is called.
+     * By default, *Lingua* uses lazy-loading to load only those language models
+     * on demand which are considered relevant by the rule-based filter engine.
+     * For web services, for instance, it is rather beneficial to preload all language
+     * models into memory to avoid unexpected latency while waiting for the
+     * service response. This method allows to switch between these two loading modes.
      */
     fun withPreloadedLanguageModels(): LanguageDetectorBuilder {
         this.isEveryLanguageModelPreloaded = true

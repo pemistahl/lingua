@@ -1,3 +1,35 @@
+## Lingua 1.1.0 (released on 02 May 2021)
+
+### Features
+
+- Language models are now loaded asynchronously and in parallel using Kotlin
+  coroutines, making this step more performant. (#84)
+- Language Models can now be loaded either lazily (default) or eagerly. (#79)
+- Instead of loading multiple copies of the language models into memory for 
+  each separate instance of `LanguageDetector`, multiple instances now share
+  the same language models and access them asynchronously. (#91)
+  
+### Improvements
+
+- Language detection for sentences with more than 120 characters now
+  performs more quickly by iterating through trigrams only which is
+  enough to achieve high detection accuracy.
+- Textual input that includes logograms from Chinese, Japanese or Korean
+  is now split at each logogram and not only at whitespace. This
+  provides for more reliable language detection for sentences that
+  include multi-language content. (#85)
+  
+### Bug Fixes
+
+- For an odd number of words as input, the method 
+  `LanguageDetector.computeLanguageConfidenceValues` computed wrong values
+  under certain circumstances. (#87)
+- When `Lingua` was used in projects with an explictly set Kotlin version
+  which differed from Lingua's implicitly set version in the Gradle script,
+  several errors occurred during runtime. By explicitly setting Lingua's
+  Kotlin version, these errors are now hopefully gone. (#88, #89)
+- Errors in the rule engine for the Latvian language have been resolved. (#92)
+
 ## Lingua 1.0.3 (released on 15 Oct 2020)
 
 ### Bug Fixes
