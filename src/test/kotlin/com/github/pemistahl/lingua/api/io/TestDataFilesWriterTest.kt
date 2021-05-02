@@ -128,6 +128,7 @@ class TestDataFilesWriterTest {
         assertThat(testDataFileName).`as`("file name").isEqualTo("en.txt")
 
         val testDataFileContent = testDataFilePath.toFile().readText()
-        assertThat(testDataFileContent).`as`("file content").isEqualTo(expectedFileContent)
+        assertThat(testDataFileContent.replace("\r\n", "\n")).`as`("file content")
+            .isEqualTo(expectedFileContent.replace("\r\n", "\n"))
     }
 }
