@@ -610,15 +610,15 @@ class LanguageDetectorTest {
         ),
         arguments(
             "minjaverðir",
-            listOf(ICELANDIC, LATVIAN, TURKISH)
+            listOf(ICELANDIC, TURKISH)
         ),
         arguments(
             "þagnarskyldu",
-            listOf(ICELANDIC, LATVIAN, TURKISH)
+            listOf(ICELANDIC, TURKISH)
         ),
         arguments(
             "nebûtu",
-            listOf(FRENCH, HUNGARIAN, LATVIAN)
+            listOf(FRENCH, HUNGARIAN)
         ),
         arguments(
             "hashemidëve",
@@ -642,7 +642,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "viòiem",
-            listOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE, YORUBA)
+            listOf(CATALAN, ITALIAN, VIETNAMESE, YORUBA)
         ),
         arguments(
             "contrôle",
@@ -662,7 +662,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "labâk",
-            listOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)
+            listOf(PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)
         ),
         arguments(
             "pràctiques",
@@ -694,7 +694,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "façonnage",
-            listOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH)
+            listOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, PORTUGUESE, TURKISH)
         ),
         arguments(
             "höher",

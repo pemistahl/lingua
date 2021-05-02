@@ -22,7 +22,6 @@ import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.Constant.CHARS_TO_LANGUAGES_MAPPING
 import com.github.pemistahl.lingua.internal.Constant.JAPANESE_CHARACTER_SET
-import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_SPACE_CHARACTERS
 import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
 import com.github.pemistahl.lingua.internal.Constant.NO_LETTER
 import com.github.pemistahl.lingua.internal.Constant.NUMBERS
@@ -178,7 +177,7 @@ class LanguageDetector internal constructor(
         }
         val normalizedText = normalizedTextBuilder.toString()
         return if (normalizedText.contains(' ')) {
-            normalizedText.split(MULTIPLE_SPACE_CHARACTERS)
+            normalizedText.split(' ').filter { it.isNotBlank() }
         } else {
             listOf(normalizedText)
         }
@@ -284,7 +283,12 @@ class LanguageDetector internal constructor(
         if (filteredLanguageCounts.size == 1) {
             return filteredLanguageCounts.toList().first().first
         }
-
+        if (filteredLanguageCounts.size == 2 &&
+            filteredLanguageCounts.containsKey(CHINESE) &&
+            filteredLanguageCounts.containsKey(JAPANESE)
+        ) {
+            return JAPANESE
+        }
         val sortedTotalLanguageCounts = filteredLanguageCounts.toList().sortedByDescending { it.second }
         val (mostFrequentLanguage, firstCharCount) = sortedTotalLanguageCounts[0]
         val (_, secondCharCount) = sortedTotalLanguageCounts[1]

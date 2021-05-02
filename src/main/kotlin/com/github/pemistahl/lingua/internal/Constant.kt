@@ -75,12 +75,12 @@ internal object Constant {
         "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
         "ĀāĒēĪī" to setOf(LATVIAN, YORUBA),
         "ẸẹỌọ" to setOf(VIETNAMESE, YORUBA),
+        "ÐðÞþ" to setOf(ICELANDIC, TURKISH),
+        "Ûû" to setOf(FRENCH, HUNGARIAN),
 
         "Ūū" to setOf(LATVIAN, LITHUANIAN, YORUBA),
         "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
         "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
-        "ÐðÞþ" to setOf(ICELANDIC, LATVIAN, TURKISH),
-        "Ûû" to setOf(FRENCH, HUNGARIAN, LATVIAN),
         "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
         "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
         "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
@@ -94,19 +94,19 @@ internal object Constant {
         "Øø" to setOf(BOKMAL, DANISH, NYNORSK),
         "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
         "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
+        "Òò" to setOf(CATALAN, ITALIAN, VIETNAMESE, YORUBA),
+        "Ââ" to setOf(PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
 
-        "Òò" to setOf(CATALAN, ITALIAN, LATVIAN, VIETNAMESE, YORUBA),
         "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
         "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
-        "Ââ" to setOf(LATVIAN, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
         "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
         "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
         "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
 
         "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, SPANISH, TURKISH),
         "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
+        "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, PORTUGUESE, TURKISH),
 
-        "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, LATVIAN, PORTUGUESE, TURKISH),
         "Öö" to setOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
 
         "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA),
@@ -124,7 +124,6 @@ internal object Constant {
     }
     val LANGUAGES_SUPPORTING_LOGOGRAMS = setOf(CHINESE, JAPANESE, KOREAN)
     val MULTIPLE_WHITESPACE = Regex("\\s+")
-    val MULTIPLE_SPACE_CHARACTERS = Regex(" +")
     val NO_LETTER = Regex("^[^\\p{L}]+$")
     val NUMBERS = Regex("\\p{N}")
     val PUNCTUATION = Regex("\\p{P}")
