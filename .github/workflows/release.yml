@@ -31,3 +31,5 @@ jobs:
         with:
           name: Lingua ${{ steps.get_version.outputs.version-without-v }}
           files: build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
