@@ -45,6 +45,7 @@ val linguaSupportedDetectors: String by project
 val linguaSupportedLanguages: String by project
 val linguaMainClass: String by project
 val linguaCsvHeader: String by project
+val githubPackagesUrl: String by project
 
 val compileTestKotlin: KotlinCompile by tasks
 
@@ -256,9 +257,9 @@ tasks.withType<DokkaTask>().configureEach {
 }
 
 tasks.register<Jar>("dokkaJavadocJar") {
+    dependsOn("dokkaJavadoc")
     group = "Build"
     description = "Assembles a jar archive containing Javadoc documentation."
-    dependsOn("dokkaJavadoc")
     classifier = "javadoc"
     from("$buildDir/dokka/javadoc")
 }
@@ -277,13 +278,13 @@ tasks.register<ConfigureShadowRelocation>("relocateDependencies") {
 }
 
 tasks.register<ShadowJar>("jarWithDependencies") {
+    dependsOn("relocateDependencies")
     group = "Build"
     description = "Assembles a jar archive containing the main classes and all external dependencies."
     classifier = "with-dependencies"
     from(sourceSets.main.get().output)
     configurations = listOf(project.configurations.runtimeClasspath.get())
     manifest { attributes("Main-Class" to linguaMainClass) }
-    dependsOn("relocateDependencies")
 }
 
 tasks.register<JavaExec>("runLinguaOnConsole") {
@@ -361,9 +362,9 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/pemistahl/lingua")
+            url = uri(githubPackagesUrl)
             credentials {
-                username = "pemistahl"
+                username = linguaDeveloperId
                 password = project.findProperty("ghPackagesToken") as String?
             }
         }
