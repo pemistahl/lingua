@@ -36,6 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
+import java.util.Locale
 import java.util.SortedMap
 import java.util.TreeMap
 import kotlin.math.ln
@@ -161,7 +162,7 @@ class LanguageDetector internal constructor(
     }
 
     internal fun cleanUpInputText(text: String): String {
-        return text.trim().toLowerCase()
+        return text.trim().toLowerCase(Locale.ROOT)
             .replace(PUNCTUATION, "")
             .replace(NUMBERS, "")
             .replace(MULTIPLE_WHITESPACE, " ")

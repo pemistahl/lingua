@@ -26,6 +26,7 @@ import org.junit.jupiter.api.condition.OS.WINDOWS
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.Locale
 import java.util.stream.Collectors.toList
 
 class LanguageModelFilesWriterTest {
@@ -37,7 +38,7 @@ class LanguageModelFilesWriterTest {
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.toLowerCase().trimIndent()
+        """.toLowerCase(Locale.ROOT).trimIndent()
 
     private val expectedUnigramLanguageModel =
         """

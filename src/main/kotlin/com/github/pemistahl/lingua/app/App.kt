@@ -21,6 +21,7 @@ import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes639_1
 import java.io.Console
+import java.util.Locale
 import java.util.Scanner
 
 fun main() {
@@ -102,7 +103,7 @@ private fun runApp() {
 
                 for (isoCode in isoCodesList) {
                     try {
-                        isoCodes.add(IsoCode639_1.valueOf(isoCode.toUpperCase()))
+                        isoCodes.add(IsoCode639_1.valueOf(isoCode.toUpperCase(Locale.ROOT)))
                     } catch (e: IllegalArgumentException) {
                         isoCodes.clear()
                         println("Iso code '$isoCode' is not supported. Try again.\n")

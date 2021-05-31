@@ -19,6 +19,7 @@ package com.github.pemistahl.lingua.internal
 import com.github.pemistahl.lingua.api.Language
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.util.Locale
 
 class TrainingDataLanguageModelTest {
 
@@ -27,7 +28,7 @@ class TrainingDataLanguageModelTest {
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.toLowerCase().trimIndent()
+        """.toLowerCase(Locale.ROOT).trimIndent()
 
     private val keyMapper = { entry: Map.Entry<String, Any> -> Ngram(entry.key) }
 

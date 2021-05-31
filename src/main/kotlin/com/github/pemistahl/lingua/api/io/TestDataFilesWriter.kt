@@ -24,6 +24,7 @@ import com.github.pemistahl.lingua.internal.io.FilesWriter
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.Locale
 
 object TestDataFilesWriter : FilesWriter() {
 
@@ -131,7 +132,7 @@ object TestDataFilesWriter : FilesWriter() {
                     .replace(MULTIPLE_WHITESPACE, " ")
                     .replace("\"", "")
                     .split(' ')
-                    .map { it.trim().toLowerCase() }
+                    .map { it.trim().toLowerCase(Locale.ROOT) }
                     .filter { wordRegex.matches(it) }
 
                 words.addAll(singleWords)

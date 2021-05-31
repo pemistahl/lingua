@@ -16,6 +16,8 @@
 
 package com.github.pemistahl.lingua.api
 
+import java.util.Locale
+
 /**
  * The ISO 639-1 code representations for the supported languages.
  *
@@ -403,5 +405,5 @@ enum class IsoCode639_1 {
      */
     NONE;
 
-    override fun toString() = this.name.toLowerCase()
+    override fun toString() = this.name.toLowerCase(Locale.ROOT)
 }

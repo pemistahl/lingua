@@ -24,6 +24,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.util.Locale
 
 @Serializable
 internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
@@ -110,7 +111,7 @@ internal data class TrainingDataLanguageModel(
             val regex = Regex("[$charClass]+")
 
             for (line in text) {
-                val lowerCasedLine = line.toLowerCase()
+                val lowerCasedLine = line.toLowerCase(Locale.ROOT)
                 for (i in 0..lowerCasedLine.length - ngramLength) {
                     val textSlice = lowerCasedLine.slice(i until i + ngramLength)
                     if (regex.matches(textSlice)) {

@@ -18,6 +18,7 @@ package com.github.pemistahl.lingua.internal
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.util.Locale
 
 class TestDataLanguageModelTest {
 
@@ -26,7 +27,7 @@ class TestDataLanguageModelTest {
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.toLowerCase().trimIndent()
+        """.toLowerCase(Locale.ROOT).trimIndent()
 
     @Test
     fun `assert that unigram language model can be created from test data`() {
