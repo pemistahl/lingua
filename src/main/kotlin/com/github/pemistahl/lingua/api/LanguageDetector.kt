@@ -21,11 +21,11 @@ import com.github.pemistahl.lingua.api.Language.JAPANESE
 import com.github.pemistahl.lingua.api.Language.UNKNOWN
 import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.Constant.CHARS_TO_LANGUAGES_MAPPING
-import com.github.pemistahl.lingua.internal.Constant.JAPANESE_CHARACTER_SET
 import com.github.pemistahl.lingua.internal.Constant.MULTIPLE_WHITESPACE
 import com.github.pemistahl.lingua.internal.Constant.NO_LETTER
 import com.github.pemistahl.lingua.internal.Constant.NUMBERS
 import com.github.pemistahl.lingua.internal.Constant.PUNCTUATION
+import com.github.pemistahl.lingua.internal.Constant.isJapaneseAlphabet
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
@@ -223,7 +223,7 @@ class LanguageDetector internal constructor(
         for (word in words) {
             val wordLanguageCounts = mutableMapOf<Language, Int>()
 
-            for (character in word.map { it.toString() }) {
+            for (character in word) {
                 var isMatch = false
                 for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
                     if (alphabet.matches(character)) {
@@ -234,7 +234,7 @@ class LanguageDetector internal constructor(
                 if (!isMatch) {
                     when {
                         Alphabet.HAN.matches(character) -> wordLanguageCounts.incrementCounter(CHINESE)
-                        JAPANESE_CHARACTER_SET.matches(character) -> wordLanguageCounts.incrementCounter(JAPANESE)
+                        isJapaneseAlphabet(character) -> wordLanguageCounts.incrementCounter(JAPANESE)
                         Alphabet.LATIN.matches(character) ||
                             Alphabet.CYRILLIC.matches(character) ||
                             Alphabet.DEVANAGARI.matches(character) ->
