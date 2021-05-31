@@ -168,20 +168,29 @@ class LanguageDetector internal constructor(
             .replace(MULTIPLE_WHITESPACE, " ")
     }
 
+    /** Splits text at spaces and between logograms */
     internal fun splitTextIntoWords(text: String): List<String> {
-        val normalizedTextBuilder = StringBuilder()
-        for (chr in text) {
-            normalizedTextBuilder.append(chr)
-            if (chr.isLogogram()) {
-                normalizedTextBuilder.append(' ')
+        val words = mutableListOf<String>()
+        var nextWordStart = 0
+        for (i in text.indices) {
+            val char = text[i]
+
+            if (char == ' ') {
+                // If equal, skip consecutive whitespaces
+                if (nextWordStart != i) {
+                    words.add(text.substring(nextWordStart, i))
+                }
+                nextWordStart = i + 1
+            } else if (char.isLogogram()) {
+                words.add(text.substring(nextWordStart, i + 1))
+                nextWordStart = i + 1
             }
         }
-        val normalizedText = normalizedTextBuilder.toString()
-        return if (normalizedText.contains(' ')) {
-            normalizedText.split(' ').filter { it.isNotBlank() }
-        } else {
-            listOf(normalizedText)
+
+        if (nextWordStart != text.length) {
+            words.add(text.substring(nextWordStart, text.length))
         }
+        return words
     }
 
     internal fun countUnigramsOfInputText(
@@ -250,7 +259,7 @@ class LanguageDetector internal constructor(
             if (wordLanguageCounts.isEmpty()) {
                 totalLanguageCounts.incrementCounter(UNKNOWN)
             } else if (wordLanguageCounts.size == 1) {
-                val language = wordLanguageCounts.toList().first().first
+                val language = wordLanguageCounts.keys.first()
                 if (language in languages) {
                     totalLanguageCounts.incrementCounter(language)
                 } else {
@@ -272,25 +281,23 @@ class LanguageDetector internal constructor(
         }
 
         val unknownLanguageCount = totalLanguageCounts[UNKNOWN] ?: 0
-        val filteredLanguageCounts = if (unknownLanguageCount >= (0.5 * words.size)) {
-            totalLanguageCounts
-        } else {
-            totalLanguageCounts.filterNot { it.key == UNKNOWN }
+        if (unknownLanguageCount < (0.5 * words.size)) {
+            totalLanguageCounts.remove(UNKNOWN)
         }
 
-        if (filteredLanguageCounts.isEmpty()) {
+        if (totalLanguageCounts.isEmpty()) {
             return UNKNOWN
         }
-        if (filteredLanguageCounts.size == 1) {
-            return filteredLanguageCounts.toList().first().first
+        if (totalLanguageCounts.size == 1) {
+            return totalLanguageCounts.keys.first()
         }
-        if (filteredLanguageCounts.size == 2 &&
-            filteredLanguageCounts.containsKey(CHINESE) &&
-            filteredLanguageCounts.containsKey(JAPANESE)
+        if (totalLanguageCounts.size == 2 &&
+            totalLanguageCounts.containsKey(CHINESE) &&
+            totalLanguageCounts.containsKey(JAPANESE)
         ) {
             return JAPANESE
         }
-        val sortedTotalLanguageCounts = filteredLanguageCounts.toList().sortedByDescending { it.second }
+        val sortedTotalLanguageCounts = totalLanguageCounts.toList().sortedByDescending { it.second }
         val (mostFrequentLanguage, firstCharCount) = sortedTotalLanguageCounts[0]
         val (_, secondCharCount) = sortedTotalLanguageCounts[1]
 
@@ -355,18 +362,18 @@ class LanguageDetector internal constructor(
         language: Language,
         ngrams: Set<Ngram>
     ): Double {
-        val probabilities = mutableListOf<Double>()
+        var probabilitiesSum = 0.0
 
         for (ngram in ngrams) {
             for (elem in ngram.rangeOfLowerOrderNgrams()) {
                 val probability = lookUpNgramProbability(language, elem)
                 if (probability > 0) {
-                    probabilities.add(probability)
+                    probabilitiesSum += ln(probability)
                     break
                 }
             }
         }
-        return probabilities.sumByDouble { ln(it) }
+        return probabilitiesSum
     }
 
     internal fun lookUpNgramProbability(

@@ -117,7 +117,7 @@ internal data class TrainingDataLanguageModel(
             for (line in text) {
                 val lowerCasedLine = line.toLowerCase(Locale.ROOT)
                 for (i in 0..lowerCasedLine.length - ngramLength) {
-                    val textSlice = lowerCasedLine.slice(i until i + ngramLength)
+                    val textSlice = lowerCasedLine.substring(i, i + ngramLength)
                     if (regex.matches(textSlice)) {
                         val ngram = Ngram(textSlice)
                         absoluteFrequencies.incrementCounter(ngram)
@@ -141,7 +141,7 @@ internal data class TrainingDataLanguageModel(
                 val denominator = if (ngramLength == 1 || lowerNgramAbsoluteFrequencies.isEmpty()) {
                     totalNgramFrequency
                 } else {
-                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.slice(0..ngramLength - 2)))
+                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.substring(0, ngramLength - 1)))
                 }
                 ngramProbabilities[ngram] = Fraction(frequency, denominator)
             }
