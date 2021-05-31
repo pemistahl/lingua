@@ -269,7 +269,7 @@ class TrainingDataLanguageModelTest {
         assertThat(model.absoluteFrequencies).isEmpty()
         assertThat(model.relativeFrequencies).isEmpty()
         assertThat(model.jsonRelativeFrequencies).containsExactlyInAnyOrderEntriesOf(
-            expectedUnigramJsonRelativeFrequencies
+            expectedUnigramJsonRelativeFrequencies.mapKeys { it.key.value }
         )
     }
 }

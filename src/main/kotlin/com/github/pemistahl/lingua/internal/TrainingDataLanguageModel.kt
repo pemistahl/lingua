@@ -33,9 +33,9 @@ internal data class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
     val relativeFrequencies: Map<Ngram, Fraction>,
-    val jsonRelativeFrequencies: Object2DoubleMap<Ngram>
+    val jsonRelativeFrequencies: Object2DoubleMap<String>
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram)
+    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram.value)
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -84,14 +84,18 @@ internal data class TrainingDataLanguageModel(
 
         fun fromJson(json: String): TrainingDataLanguageModel {
             val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
-            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<Ngram>()
+            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<String>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
                 val fractionAsDouble = fraction.toDouble()
                 for (ngram in ngrams.split(' ')) {
-                    jsonRelativeFrequencies[Ngram(ngram)] = fractionAsDouble
+                    // Note: Don't use `[...] =` because that wraps primitive as Object
+                    jsonRelativeFrequencies.put(ngram, fractionAsDouble)
                 }
             }
+
+            // Trim to reduce in-memory model size
+            jsonRelativeFrequencies.trim()
 
             return TrainingDataLanguageModel(
                 language = jsonLanguageModel.language,
