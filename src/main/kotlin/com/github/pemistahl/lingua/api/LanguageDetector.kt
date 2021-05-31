@@ -238,6 +238,9 @@ class LanguageDetector internal constructor(
                     if (alphabet.matches(character)) {
                         wordLanguageCounts.incrementCounter(language)
                         isMatch = true
+                        // Each code point can only belong to one alphabet, therefore can break
+                        // as soon as a match is found
+                        break
                     }
                 }
                 if (!isMatch) {
