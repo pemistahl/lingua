@@ -71,15 +71,12 @@ class LanguageDetector internal constructor(
         val confidenceValues = computeLanguageConfidenceValues(text)
 
         if (confidenceValues.isEmpty()) return UNKNOWN
-        if (confidenceValues.size == 1) return confidenceValues.firstKey()
 
         val mostLikelyLanguage = confidenceValues.firstKey()
-        val mostLikelyLanguageProbability = confidenceValues.getValue(mostLikelyLanguage)
+        if (confidenceValues.size == 1) return mostLikelyLanguage
 
-        val secondMostLikelyLanguage = confidenceValues.filterNot {
-            it.key == mostLikelyLanguage
-        }.maxByOrNull { it.value }!!.key
-        val secondMostLikelyLanguageProbability = confidenceValues.getValue(secondMostLikelyLanguage)
+        val mostLikelyLanguageProbability = confidenceValues.getValue(mostLikelyLanguage)
+        val secondMostLikelyLanguageProbability = confidenceValues.values.elementAt(1)
 
         return when {
             mostLikelyLanguageProbability == secondMostLikelyLanguageProbability -> UNKNOWN
