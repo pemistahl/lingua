@@ -17,7 +17,7 @@
 * this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
 * outperforms *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* for more than 70 languages
-* works within every Java 6+ application and on Android
+* works within every Java 6+ application
 * no additional training of language models necessary
 * api for adding your own language models
 * offline usage without having to connect to an external service or API
@@ -276,7 +276,7 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ## 7. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
-*Lingua* is hosted on [Jcenter] and [Maven Central].
+*Lingua* is hosted on [GitHub Packages] and [Maven Central].
 
 ### 7.1 <a name="library-dependency-gradle"></a> Using Gradle
 
@@ -312,8 +312,7 @@ Several jar archives can be created from the project.
 2. `./gradlew sourcesJar` assembles `lingua-1.1.0-sources.jar` containing the plain source code.
 3. `./gradlew jarWithDependencies` assembles `lingua-1.1.0-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
-in projects without dependency management systems. You should be able to use it in your Android 
-project as well by putting it in your project's `lib` folder. This jar file can also be used to 
+in projects without dependency management systems. It can also be used to 
 run *Lingua* in standalone mode (see below).
 
 ## 9. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
@@ -410,7 +409,7 @@ waiting for the service response. If you want to enable the eager-loading mode, 
 like this:
 
 ```kotlin
-LanguageDetectorBuilder.withPreloadedLanguageModels().build()
+LanguageDetectorBuilder.fromAllLanguages().withPreloadedLanguageModels().build()
 ```
 
 Multiple instances of `LanguageDetector` share the same language models in memory which are
@@ -500,7 +499,7 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-75-green.svg
 [lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.0-blue.svg
 [lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.1.0/lingua-1.1.0-with-dependencies.jar
-[Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B%20%7C%20Android-blue.svg
+[Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
@@ -508,6 +507,7 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache Tika]: https://tika.apache.org/1.26/detection.html#Language_Detection
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.3/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
+[GitHub Packages]: https://github.com/pemistahl/lingua/packages/766181
 [Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.1.0/jar
 [Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.1.0-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_PLOTS.md
