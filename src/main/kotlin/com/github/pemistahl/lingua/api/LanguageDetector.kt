@@ -179,7 +179,13 @@ class LanguageDetector internal constructor(
                 }
                 nextWordStart = i + 1
             } else if (char.isLogogram()) {
-                words.add(text.substring(nextWordStart, i + 1))
+                if (nextWordStart != i) {
+                    // Add previous word excluding trailing logogram
+                    words.add(text.substring(nextWordStart, i))
+                }
+
+                // Add logogram on its own
+                words.add(text[i].toString())
                 nextWordStart = i + 1
             }
         }
