@@ -446,6 +446,28 @@ LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.EN, IsoCode639_3.DE)
 // select languages by ISO 639-3 code
 LanguageDetectorBuilder.fromIsoCodes639_3(IsoCode639_3.ENG, IsoCode639_3.DEU)
 ```
+#### 9.1.6 Memory Analysis:
+**Lazy Loading:**
+```
+Language models are loaded when ever required.
+
+Code: LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH, JAPANESE, CHINESE, ITALIAN, PORTUGUESE, ARABIC, RUSSIAN, DUTCH, KOREAN, SWEDISH, HINDI, POLISH).build();
+
+JAVA Runtime Size: 353 MB
+
+Inference Time (per request of detector.detectLanguageOf(Text)): 600 millisecond
+```
+
+**Pre Loading:**  
+```
+Language models are pre loaded.
+
+Code: LanguageDetectorBuilder.fromLanguages(ENGLISH, FRENCH, GERMAN, SPANISH, JAPANESE, CHINESE, ITALIAN, PORTUGUESE, ARABIC, RUSSIAN, DUTCH, KOREAN, SWEDISH, HINDI, POLISH).withPreloadedLanguageModels().build();
+
+JAVA Runtime Size: 1337 MB (1.3GB)
+
+Inference Time (per request of detector.detectLanguageOf(Text)): 70 millisecond
+```
 
 ### 9.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
