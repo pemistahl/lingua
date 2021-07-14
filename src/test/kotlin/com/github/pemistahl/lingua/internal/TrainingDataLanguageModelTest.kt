@@ -28,7 +28,7 @@ class TrainingDataLanguageModelTest {
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.toLowerCase(Locale.ROOT).trimIndent()
+        """.lowercase().trimIndent()
 
     private val keyMapper = { entry: Map.Entry<String, Any> -> Ngram(entry.key) }
 

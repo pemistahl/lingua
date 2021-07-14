@@ -49,7 +49,7 @@ internal data class Fraction(
 
     override fun toByte() = toDouble().toInt().toByte()
 
-    override fun toChar() = toDouble().toChar()
+    override fun toChar() = toDouble().toInt().toChar()
 
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
 

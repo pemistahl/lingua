@@ -159,7 +159,7 @@ class LanguageDetector internal constructor(
     }
 
     internal fun cleanUpInputText(text: String): String {
-        return text.trim().toLowerCase(Locale.ROOT)
+        return text.trim().lowercase()
             .replace(PUNCTUATION, "")
             .replace(NUMBERS, "")
             .replace(MULTIPLE_WHITESPACE, " ")
@@ -219,7 +219,7 @@ class LanguageDetector internal constructor(
     ): Map<Language, Double> {
         val summedUpProbabilities = hashMapOf<Language, Double>()
         for (language in filteredLanguages) {
-            summedUpProbabilities[language] = probabilities.sumByDouble { it[language] ?: 0.0 }
+            summedUpProbabilities[language] = probabilities.sumOf { it[language] ?: 0.0 }
 
             if (unigramCountsOfInputText.containsKey(language)) {
                 summedUpProbabilities[language] = summedUpProbabilities.getValue(language) /

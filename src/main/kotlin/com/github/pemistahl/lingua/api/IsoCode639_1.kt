@@ -405,5 +405,5 @@ enum class IsoCode639_1 {
      */
     NONE;
 
-    override fun toString() = this.name.toLowerCase(Locale.ROOT)
+    override fun toString() = this.name.lowercase()
 }

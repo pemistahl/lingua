@@ -115,7 +115,7 @@ internal data class TrainingDataLanguageModel(
             val regex = Regex("[$charClass]+")
 
             for (line in text) {
-                val lowerCasedLine = line.toLowerCase(Locale.ROOT)
+                val lowerCasedLine = line.lowercase()
                 for (i in 0..lowerCasedLine.length - ngramLength) {
                     val textSlice = lowerCasedLine.substring(i, i + ngramLength)
                     if (regex.matches(textSlice)) {

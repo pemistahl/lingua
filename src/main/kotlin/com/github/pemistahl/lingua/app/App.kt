@@ -103,7 +103,7 @@ private fun runApp() {
 
                 for (isoCode in isoCodesList) {
                     try {
-                        isoCodes.add(IsoCode639_1.valueOf(isoCode.toUpperCase(Locale.ROOT)))
+                        isoCodes.add(IsoCode639_1.valueOf(isoCode.uppercase()))
                     } catch (e: IllegalArgumentException) {
                         isoCodes.clear()
                         println("Iso code '$isoCode' is not supported. Try again.\n")

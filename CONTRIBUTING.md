@@ -41,14 +41,14 @@ The name of the subdirectory **must** be the language's ISO 639-1 code, complete
 7. Use [`TestDataFilesWriter`][test data files writer url] to create the test data files used for
 accuracy report generation. The input file from which to create the test data should have each
 sentence on a separate line.
-8. Put the generated test data files in [`/src/test/resources/language-testdata`][test data directory url].
+8. Put the generated test data files in [`/src/accuracyReport/resources/language-testdata`][test data directory url].
 Do **not** rename the test data files.
 9. For accuracy report generation, create an abstract base class for the main logic in
-[`/src/test/kotlin/com/github/pemistahl/lingua/report/config`][accuracy report config url].
+[`/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config`][accuracy report config url].
 Look at the other languages' files in this directory to see how the class must look like.
 It should be pretty self-explanatory.
 10. Create a concrete test class in 
-[`/src/test/kotlin/com/github/pemistahl/lingua/report/lingua`][accuracy report lingua url].
+[`/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua`][accuracy report lingua url].
 Look at the other languages' files in this directory to see how the class must look like.
 It should be pretty self-explanatory. If one of the other language detector libraries 
 supports your language already, you can add test classes for those as well. Each library 
@@ -73,7 +73,7 @@ this library's fields of application.
 [language model files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L27
 [language models directory url]: https://github.com/pemistahl/lingua/tree/main/src/main/resources/language-models
 [test data files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L28
-[test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/test/resources/language-testdata
-[accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/test/kotlin/com/github/pemistahl/lingua/report/config
-[accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/test/kotlin/com/github/pemistahl/lingua/report/lingua
+[test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/resources/language-testdata
+[accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config
+[accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua
 [gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L62
