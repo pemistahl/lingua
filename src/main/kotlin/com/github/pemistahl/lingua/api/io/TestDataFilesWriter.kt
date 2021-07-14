@@ -24,6 +24,7 @@ import com.github.pemistahl.lingua.internal.io.FilesWriter
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.Locale
 
 object TestDataFilesWriter : FilesWriter() {
 

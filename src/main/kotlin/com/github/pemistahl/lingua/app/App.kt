@@ -21,6 +21,7 @@ import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromAllLanguages
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder.Companion.fromIsoCodes639_1
 import java.io.Console
+import java.util.Locale
 import java.util.Scanner
 
 fun main() {

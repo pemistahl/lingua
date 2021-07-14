@@ -16,15 +16,18 @@
 
 package com.github.pemistahl.lingua.internal.util.extension
 
+import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.Constant.LANGUAGES_SUPPORTING_LOGOGRAMS
+
+// Cache set of scripts here to avoid evaluating it every time for isLogogram()
+private val scriptsWithLogograms = LANGUAGES_SUPPORTING_LOGOGRAMS.asSequence()
+    .flatMap(Language::alphabets)
+    .toSet()
 
 fun Char.isLogogram(): Boolean {
     return if (this.isWhitespace()) {
         false
     } else {
-        LANGUAGES_SUPPORTING_LOGOGRAMS
-            .asSequence()
-            .flatMap { it.alphabets }
-            .any { it.matches(this) }
+        scriptsWithLogograms.any { it.matches(this) }
     }
 }

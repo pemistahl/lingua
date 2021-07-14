@@ -60,7 +60,6 @@ import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.YORUBA
-import java.util.regex.PatternSyntaxException
 
 internal object Constant {
 
@@ -119,11 +118,14 @@ internal object Constant {
             ITALIAN, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA
         )
     )
-    val JAPANESE_CHARACTER_SET = try {
-        Regex("^[\\p{Hiragana}\\p{Katakana}\\p{Han}]+$")
-    } catch (e: PatternSyntaxException) {
-        Regex("^[\\p{IsHiragana}\\p{IsKatakana}\\p{IsHan}]+$")
+
+    fun isJapaneseAlphabet(char: Char): Boolean {
+        val script = Character.UnicodeScript.of(char.toInt())
+        return script == Character.UnicodeScript.HIRAGANA ||
+            script == Character.UnicodeScript.KATAKANA ||
+            script == Character.UnicodeScript.HAN
     }
+
     val LANGUAGES_SUPPORTING_LOGOGRAMS = setOf(CHINESE, JAPANESE, KOREAN)
     val MULTIPLE_WHITESPACE = Regex("\\s+")
     val NO_LETTER = Regex("^[^\\p{L}]+$")

@@ -24,6 +24,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.util.Locale
 
 @Serializable
 internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
@@ -32,9 +33,9 @@ internal data class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
     val relativeFrequencies: Map<Ngram, Fraction>,
-    val jsonRelativeFrequencies: Object2DoubleMap<Ngram>
+    val jsonRelativeFrequencies: Object2DoubleMap<String>
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram)
+    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram.value)
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -83,14 +84,18 @@ internal data class TrainingDataLanguageModel(
 
         fun fromJson(json: String): TrainingDataLanguageModel {
             val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
-            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<Ngram>()
+            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<String>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
                 val fractionAsDouble = fraction.toDouble()
                 for (ngram in ngrams.split(' ')) {
-                    jsonRelativeFrequencies[Ngram(ngram)] = fractionAsDouble
+                    // Note: Don't use `[...] =` because that wraps primitive as Object
+                    jsonRelativeFrequencies.put(ngram, fractionAsDouble)
                 }
             }
+
+            // Trim to reduce in-memory model size
+            jsonRelativeFrequencies.trim()
 
             return TrainingDataLanguageModel(
                 language = jsonLanguageModel.language,
@@ -112,7 +117,7 @@ internal data class TrainingDataLanguageModel(
             for (line in text) {
                 val lowerCasedLine = line.lowercase()
                 for (i in 0..lowerCasedLine.length - ngramLength) {
-                    val textSlice = lowerCasedLine.slice(i until i + ngramLength)
+                    val textSlice = lowerCasedLine.substring(i, i + ngramLength)
                     if (regex.matches(textSlice)) {
                         val ngram = Ngram(textSlice)
                         absoluteFrequencies.incrementCounter(ngram)
@@ -136,7 +141,7 @@ internal data class TrainingDataLanguageModel(
                 val denominator = if (ngramLength == 1 || lowerNgramAbsoluteFrequencies.isEmpty()) {
                     totalNgramFrequency
                 } else {
-                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.slice(0..ngramLength - 2)))
+                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.substring(0, ngramLength - 1)))
                 }
                 ngramProbabilities[ngram] = Fraction(frequency, denominator)
             }

@@ -20,6 +20,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
+import java.util.Locale
 
 val linguaTaskGroup: String by project
 val linguaGroupId: String by project
@@ -171,7 +172,7 @@ tasks.register<Test>("accuracyReport") {
             languages.forEach { language ->
                 includeTestsMatching(
                     "$linguaGroupId.$linguaArtifactId.report" +
-                        ".${detector.toLowerCase()}.${language}DetectionAccuracyReport"
+                        ".${detector.toLowerCase(Locale.ROOT)}.${language}DetectionAccuracyReport"
                 )
             }
         }
@@ -204,13 +205,18 @@ tasks.register("writeAggregatedAccuracyReport") {
             csvFile.appendText(language)
 
             for (detector in detectors) {
-                val languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
+                val languageReportFileName =
+                    "$accuracyReportsDirectoryName/${detector.toLowerCase(Locale.ROOT)}/$language.txt"
                 val languageReportFile = file(languageReportFileName)
 
                 if (languageReportFile.exists()) {
                     for (line in languageReportFile.readLines()) {
                         if (line.startsWith(stringToSplitAt)) {
-                            val accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(1..4).joinToString(",")
+                            val accuracyValues = line
+                                .split(stringToSplitAt)[1]
+                                .split(' ')
+                                .slice(1..4)
+                                .joinToString(",")
                             csvFile.appendText(",")
                             csvFile.appendText(accuracyValues)
                         }

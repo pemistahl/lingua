@@ -27,7 +27,7 @@ internal data class TestDataLanguageModel(val ngrams: Set<Ngram>) {
             }
             val ngrams = hashSetOf<Ngram>()
             for (i in 0..text.length - ngramLength) {
-                val textSlice = text.slice(i until i + ngramLength)
+                val textSlice = text.substring(i, i + ngramLength)
                 if (LETTER_REGEX.matches(textSlice)) {
                     val ngram = Ngram(textSlice)
                     ngrams.add(ngram)
