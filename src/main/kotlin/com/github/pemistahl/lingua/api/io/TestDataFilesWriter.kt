@@ -131,7 +131,7 @@ object TestDataFilesWriter : FilesWriter() {
                     .replace(MULTIPLE_WHITESPACE, " ")
                     .replace("\"", "")
                     .split(' ')
-                    .map { it.trim().toLowerCase() }
+                    .map { it.trim().lowercase() }
                     .filter { wordRegex.matches(it) }
 
                 words.addAll(singleWords)

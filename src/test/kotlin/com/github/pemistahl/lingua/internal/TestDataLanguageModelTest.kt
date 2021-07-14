@@ -26,7 +26,7 @@ class TestDataLanguageModelTest {
         These sentences are intended for testing purposes.
         Do not use them in production!
         By the way, they consist of 23 words in total.
-        """.toLowerCase().trimIndent()
+        """.lowercase().trimIndent()
 
     @Test
     fun `assert that unigram language model can be created from test data`() {
