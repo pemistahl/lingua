@@ -116,7 +116,7 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        var filteredLanguages = filterLanguagesByRules(words)
+        val filteredLanguages = filterLanguagesByRules(words)
 
         if (filteredLanguages.size == 1) {
             val filteredLanguage = filteredLanguages.iterator().next()
@@ -130,14 +130,15 @@ class LanguageDetector internal constructor(
                 async(Dispatchers.IO) {
                     val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
                     val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
-                    val languages = probabilities.keys
-
-                    if (languages.isNotEmpty()) {
-                        filteredLanguages = filteredLanguages.asSequence().filter { languages.contains(it) }.toSet()
-                    }
 
                     val unigramCounts = if (i == 1) {
-                        countUnigramsOfInputText(testDataModel, filteredLanguages)
+                        val languages = probabilities.keys
+                        val unigramFilteredLanguages =
+                            if (languages.isNotEmpty()) filteredLanguages.asSequence()
+                                .filter { languages.contains(it) }
+                                .toSet()
+                            else filteredLanguages
+                        countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
                     } else {
                         null
                     }
