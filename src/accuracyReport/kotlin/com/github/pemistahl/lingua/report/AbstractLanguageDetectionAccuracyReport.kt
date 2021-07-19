@@ -86,8 +86,8 @@ abstract class AbstractLanguageDetectionAccuracyReport(
     fun afterAll() {
         val projectRootPath = Paths.get("").toAbsolutePath().toString()
         val accuracyReportsDirectoryName = "accuracy-reports"
-        val detectorDirectoryName = implementationToUse.name.toLowerCase(Locale.ROOT)
-        val languageReportFileName = "${language.name.toLowerCase(Locale.ROOT).capitalize()}.txt"
+        val detectorDirectoryName = implementationToUse.name.lowercase()
+        val languageReportFileName = "${language.name.lowercase().replaceFirstChar { it.titlecase() }}.txt"
         val accuracyReportsDirectoryPath = Paths.get(
             projectRootPath,
             accuracyReportsDirectoryName,
@@ -184,7 +184,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             OPENNLP -> {
                 val detectedLanguage = opennlpDetector.predictLanguage(element)
                 val isoCode = try {
-                    val isoCode = detectedLanguage.lang.toUpperCase(Locale.ROOT)
+                    val isoCode = detectedLanguage.lang.uppercase()
                     IsoCode639_3.valueOf(mapOpenNlpIsoCodeToLinguaIsoCode(isoCode))
                 } catch (e: IllegalArgumentException) {
                     IsoCode639_3.NONE
@@ -249,7 +249,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             !locale.isPresent -> UNKNOWN
             locale.get().language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(locale.get().language.toUpperCase(Locale.ROOT)))
+            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(locale.get().language.uppercase()))
         }
     }
 
@@ -257,7 +257,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             result.isUnknown -> UNKNOWN
             result.language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(result.language.toUpperCase(Locale.ROOT)))
+            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(result.language.uppercase()))
         }
     }
 

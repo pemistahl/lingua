@@ -120,7 +120,7 @@ internal object Constant {
     )
 
     fun isJapaneseAlphabet(char: Char): Boolean {
-        val script = Character.UnicodeScript.of(char.toInt())
+        val script = Character.UnicodeScript.of(char.code)
         return script == Character.UnicodeScript.HIRAGANA ||
             script == Character.UnicodeScript.KATAKANA ||
             script == Character.UnicodeScript.HAN

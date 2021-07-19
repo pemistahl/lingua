@@ -24,7 +24,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import java.util.Locale
 
 @Serializable
 internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
@@ -89,7 +88,6 @@ internal data class TrainingDataLanguageModel(
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
                 val fractionAsDouble = fraction.toDouble()
                 for (ngram in ngrams.split(' ')) {
-                    // Note: Don't use `[...] =` because that wraps primitive as Object
                     jsonRelativeFrequencies.put(ngram, fractionAsDouble)
                 }
             }
