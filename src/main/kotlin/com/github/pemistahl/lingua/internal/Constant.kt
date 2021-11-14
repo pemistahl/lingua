@@ -85,6 +85,7 @@ internal object Constant {
         "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
         "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
         "Ìì" to setOf(ITALIAN, VIETNAMESE, YORUBA),
+        "Øø" to setOf(BOKMAL, DANISH, NYNORSK),
 
         "Ūū" to setOf(LATVIAN, LITHUANIAN, MAORI, YORUBA),
         "Ëë" to setOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH),
@@ -92,17 +93,17 @@ internal object Constant {
         "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
         "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
         "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
-        "Øø" to setOf(BOKMAL, DANISH, NYNORSK),
+
         "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
         "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
         "Òò" to setOf(CATALAN, ITALIAN, VIETNAMESE, YORUBA),
-        "Ââ" to setOf(PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
+        "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
+        "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
 
         "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
         "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
         "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
-        "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
-        "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
+        "Ââ" to setOf(FRENCH, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
 
         "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, SPANISH, TURKISH),
         "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),

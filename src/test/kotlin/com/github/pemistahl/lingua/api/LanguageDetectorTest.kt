@@ -663,7 +663,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "labâk",
-            listOf(PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)
+            listOf(FRENCH, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE)
         ),
         arguments(
             "pràctiques",
