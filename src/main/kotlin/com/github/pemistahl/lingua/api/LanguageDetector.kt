@@ -329,6 +329,16 @@ class LanguageDetector internal constructor(
             return languages
         }
 
+        if (detectedAlphabets.size > 1) {
+            val distinctAlphabets = mutableSetOf<Int>()
+            for (count in detectedAlphabets.values) {
+                distinctAlphabets.add(count)
+            }
+            if (distinctAlphabets.size == 1) {
+                return languages
+            }
+        }
+
         val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }!!.key
         val filteredLanguages = languages.filter { it.alphabets.contains(mostFrequentAlphabet) }
         val languageCounts = mutableMapOf<Language, Int>()
