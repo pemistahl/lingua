@@ -158,27 +158,6 @@ class LanguageDetectorTest {
         defineBehaviorOfTestDataLanguageModels()
     }
 
-    // language model initialization
-
-    @Test
-    fun `assert that language models are preloaded`() {
-        for (models in LanguageDetector.languageModels) {
-            for (language in detectorForEnglishAndGerman.languages) {
-                assertThat(models.getValue(language).isInitialized()).isFalse
-            }
-        }
-        val detectorWithPreloadedLanguageModels = LanguageDetector(
-            languages = detectorForEnglishAndGerman.languages,
-            minimumRelativeDistance = detectorForEnglishAndGerman.minimumRelativeDistance,
-            isEveryLanguageModelPreloaded = true
-        )
-        for (models in LanguageDetector.languageModels) {
-            for (language in detectorWithPreloadedLanguageModels.languages) {
-                assertThat(models.getValue(language).isInitialized()).isTrue
-            }
-        }
-    }
-
     // text preprocessing
 
     @Test
@@ -930,26 +909,20 @@ class LanguageDetectorTest {
     }
 
     private fun addLanguageModelsToDetector() {
-        LanguageDetector.unigramLanguageModels = mapOf(
-            ENGLISH to lazy { unigramLanguageModelForEnglish },
-            GERMAN to lazy { unigramLanguageModelForGerman }
-        )
-        LanguageDetector.bigramLanguageModels = mapOf(
-            ENGLISH to lazy { bigramLanguageModelForEnglish },
-            GERMAN to lazy { bigramLanguageModelForGerman }
-        )
-        LanguageDetector.trigramLanguageModels = mapOf(
-            ENGLISH to lazy { trigramLanguageModelForEnglish },
-            GERMAN to lazy { trigramLanguageModelForGerman }
-        )
-        LanguageDetector.quadrigramLanguageModels = mapOf(
-            ENGLISH to lazy { quadrigramLanguageModelForEnglish },
-            GERMAN to lazy { quadrigramLanguageModelForGerman }
-        )
-        LanguageDetector.fivegramLanguageModels = mapOf(
-            ENGLISH to lazy { fivegramLanguageModelForEnglish },
-            GERMAN to lazy { fivegramLanguageModelForGerman }
-        )
+        detectorForEnglishAndGerman.unigramLanguageModels[ENGLISH] = unigramLanguageModelForEnglish
+        detectorForEnglishAndGerman.unigramLanguageModels[GERMAN] = unigramLanguageModelForGerman
+
+        detectorForEnglishAndGerman.bigramLanguageModels[ENGLISH] = bigramLanguageModelForEnglish
+        detectorForEnglishAndGerman.bigramLanguageModels[GERMAN] = bigramLanguageModelForGerman
+
+        detectorForEnglishAndGerman.trigramLanguageModels[ENGLISH] = trigramLanguageModelForEnglish
+        detectorForEnglishAndGerman.trigramLanguageModels[GERMAN] = trigramLanguageModelForGerman
+
+        detectorForEnglishAndGerman.quadrigramLanguageModels[ENGLISH] = quadrigramLanguageModelForEnglish
+        detectorForEnglishAndGerman.quadrigramLanguageModels[GERMAN] = quadrigramLanguageModelForGerman
+
+        detectorForEnglishAndGerman.fivegramLanguageModels[ENGLISH] = fivegramLanguageModelForEnglish
+        detectorForEnglishAndGerman.fivegramLanguageModels[GERMAN] = fivegramLanguageModelForGerman
     }
 
     private fun defineBehaviorOfTestDataLanguageModels() {

@@ -40,6 +40,12 @@ import java.util.SortedMap
 import java.util.TreeMap
 import kotlin.math.ln
 
+private val UNIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
+private val BIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
+private val TRIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
+private val QUADRIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
+private val FIVEGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
+
 /**
  * Detects the language of given input text.
  */
@@ -47,10 +53,15 @@ class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
     isEveryLanguageModelPreloaded: Boolean,
-    internal val numberOfLoadedLanguages: Int = languages.size
+    internal val numberOfLoadedLanguages: Int = languages.size,
+    internal val unigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = UNIGRAM_MODELS,
+    internal val bigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = BIGRAM_MODELS,
+    internal val trigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = TRIGRAM_MODELS,
+    internal val quadrigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = QUADRIGRAM_MODELS,
+    internal val fivegramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = FIVEGRAM_MODELS
 ) {
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
-    private val alphabetsSupportingExactlyOneLanguage = Alphabet.allSupportingExactlyOneLanguage().filterValues {
+    private val oneLanguageAlphabets = Alphabet.allSupportingExactlyOneLanguage().filterValues {
         it in languages
     }
 
@@ -126,7 +137,7 @@ class LanguageDetector internal constructor(
         val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
         val allProbabilitiesAndUnigramCounts = runBlocking {
             ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
-                async(Dispatchers.IO) {
+                async(Dispatchers.Default) {
                     val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
                     val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
@@ -237,7 +248,7 @@ class LanguageDetector internal constructor(
 
             for (character in word) {
                 var isMatch = false
-                for ((alphabet, language) in alphabetsSupportingExactlyOneLanguage) {
+                for ((alphabet, language) in oneLanguageAlphabets) {
                     if (alphabet.matches(character)) {
                         wordLanguageCounts.incrementCounter(language)
                         isMatch = true
@@ -396,7 +407,8 @@ class LanguageDetector internal constructor(
         language: Language,
         ngram: Ngram
     ): Double {
-        val languageModels = when (ngram.value.length) {
+        val ngramLength = ngram.value.length
+        val languageModels = when (ngramLength) {
             5 -> fivegramLanguageModels
             4 -> quadrigramLanguageModels
             3 -> trigramLanguageModels
@@ -406,13 +418,50 @@ class LanguageDetector internal constructor(
             else -> throw IllegalArgumentException("unsupported ngram length detected: ${ngram.value.length}")
         }
 
-        return languageModels.getValue(language).value.getRelativeFrequency(ngram)
+        val model = loadLanguageModels(languageModels, language, ngramLength)
+
+        return model.getRelativeFrequency(ngram)
+    }
+
+    private fun loadLanguageModels(
+        languageModels: MutableMap<Language, TrainingDataLanguageModel>,
+        language: Language,
+        ngramLength: Int
+    ): TrainingDataLanguageModel {
+        if (languageModels.containsKey(language)) {
+            return languageModels.getValue(language)
+        }
+        val model = loadLanguageModel(language, ngramLength)
+        languageModels[language] = model
+        return model
+    }
+
+    private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel {
+        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
+        val filePath = "/language-models/${language.isoCode639_1}/$fileName"
+        val inputStream = Language::class.java.getResourceAsStream(filePath)
+        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+        return TrainingDataLanguageModel.fromJson(jsonContent)
     }
 
     private fun preloadLanguageModels() {
         runBlocking {
-            languageModels.map { models ->
-                async(Dispatchers.IO) { languages.forEach { language -> models[language]?.value } }
+            languages.forEach { language ->
+                async(Dispatchers.Default) {
+                    loadLanguageModels(unigramLanguageModels, language, 1)
+                }
+                async(Dispatchers.Default) {
+                    loadLanguageModels(bigramLanguageModels, language, 2)
+                }
+                async(Dispatchers.Default) {
+                    loadLanguageModels(trigramLanguageModels, language, 3)
+                }
+                async(Dispatchers.Default) {
+                    loadLanguageModels(quadrigramLanguageModels, language, 4)
+                }
+                async(Dispatchers.Default) {
+                    loadLanguageModels(fivegramLanguageModels, language, 5)
+                }
             }
         }
     }
@@ -426,36 +475,4 @@ class LanguageDetector internal constructor(
     }
 
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
-
-    internal companion object {
-        internal var unigramLanguageModels = loadLanguageModels(ngramLength = 1)
-        internal var bigramLanguageModels = loadLanguageModels(ngramLength = 2)
-        internal var trigramLanguageModels = loadLanguageModels(ngramLength = 3)
-        internal var quadrigramLanguageModels = loadLanguageModels(ngramLength = 4)
-        internal var fivegramLanguageModels = loadLanguageModels(ngramLength = 5)
-
-        internal val languageModels = listOf(
-            unigramLanguageModels,
-            bigramLanguageModels,
-            trigramLanguageModels,
-            quadrigramLanguageModels,
-            fivegramLanguageModels
-        )
-
-        private fun loadLanguageModels(ngramLength: Int): Map<Language, Lazy<TrainingDataLanguageModel>> {
-            val languageModels = hashMapOf<Language, Lazy<TrainingDataLanguageModel>>()
-            for (language in Language.all()) {
-                languageModels[language] = lazy { loadLanguageModel(language, ngramLength) }
-            }
-            return languageModels
-        }
-
-        private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel {
-            val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
-            val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-            val inputStream = Language::class.java.getResourceAsStream(filePath)
-            val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-            return TrainingDataLanguageModel.fromJson(jsonContent)
-        }
-    }
 }

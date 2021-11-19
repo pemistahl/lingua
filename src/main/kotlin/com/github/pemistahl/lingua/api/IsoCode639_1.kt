@@ -16,8 +16,6 @@
 
 package com.github.pemistahl.lingua.api
 
-import java.util.Locale
-
 /**
  * The ISO 639-1 code representations for the supported languages.
  *

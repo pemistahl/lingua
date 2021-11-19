@@ -18,7 +18,6 @@ package com.github.pemistahl.lingua.internal
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.util.Locale
 
 class TestDataLanguageModelTest {
 
