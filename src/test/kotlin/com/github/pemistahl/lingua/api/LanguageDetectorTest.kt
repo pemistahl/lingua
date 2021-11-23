@@ -87,7 +87,9 @@ import io.mockk.junit5.MockKExtension
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.entry
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -152,10 +154,17 @@ class LanguageDetectorTest {
         defineBehaviorOfTrigramLanguageModels()
         defineBehaviorOfQuadrigramLanguageModels()
         defineBehaviorOfFivegramLanguageModels()
-
-        addLanguageModelsToDetector()
-
         defineBehaviorOfTestDataLanguageModels()
+    }
+
+    @BeforeEach
+    fun beforeEach() {
+        addLanguageModelsToDetector()
+    }
+
+    @AfterEach
+    fun afterEach() {
+        removeLanguageModelsFromDetector()
     }
 
     // text preprocessing
@@ -805,6 +814,37 @@ class LanguageDetectorTest {
         ).isEmpty()
     }
 
+    private fun ambiguousTextProvider() = listOf(
+        arguments(
+            "ام وی با نیکی میناج تیزر داشت؟؟؟؟؟؟ i vote for bts ( _ ) as the _ via ( _ )",
+            arrayOf(ENGLISH, URDU)
+        ),
+        arguments(
+            "Az elmúlt hétvégén 12-re emelkedett az elhunyt koronavírus-fertőzöttek száma Szlovákiában. Mindegyik szociális otthon dolgozóját letesztelik, Matovič szerint az ingázóknak még várniuk kellene a teszteléssel",
+            arrayOf(HUNGARIAN, SLOVAK)
+        )
+    )
+
+    @ParameterizedTest
+    @MethodSource("ambiguousTextProvider")
+    fun `assert that language detection is deterministic`(
+        text: String,
+        languages: Array<Language>
+    ) {
+        removeLanguageModelsFromDetector()
+
+        val detector = LanguageDetectorBuilder
+            .fromLanguages(*languages)
+            .withPreloadedLanguageModels()
+            .build()
+        val detectedLanguages = mutableSetOf<Language>()
+        for (i in 0..100) {
+            val language = detector.detectLanguageOf(text)
+            detectedLanguages.add(language)
+        }
+        assertThat(detectedLanguages.size).isEqualTo(1)
+    }
+
     private fun defineBehaviorOfUnigramLanguageModels() {
         with(unigramLanguageModelForEnglish) {
             every { getRelativeFrequency(Ngram("a")) } returns 0.01
@@ -909,20 +949,32 @@ class LanguageDetectorTest {
     }
 
     private fun addLanguageModelsToDetector() {
-        detectorForEnglishAndGerman.unigramLanguageModels[ENGLISH] = unigramLanguageModelForEnglish
-        detectorForEnglishAndGerman.unigramLanguageModels[GERMAN] = unigramLanguageModelForGerman
+        with(detectorForEnglishAndGerman) {
+            unigramLanguageModels[ENGLISH] = unigramLanguageModelForEnglish
+            unigramLanguageModels[GERMAN] = unigramLanguageModelForGerman
 
-        detectorForEnglishAndGerman.bigramLanguageModels[ENGLISH] = bigramLanguageModelForEnglish
-        detectorForEnglishAndGerman.bigramLanguageModels[GERMAN] = bigramLanguageModelForGerman
+            bigramLanguageModels[ENGLISH] = bigramLanguageModelForEnglish
+            bigramLanguageModels[GERMAN] = bigramLanguageModelForGerman
 
-        detectorForEnglishAndGerman.trigramLanguageModels[ENGLISH] = trigramLanguageModelForEnglish
-        detectorForEnglishAndGerman.trigramLanguageModels[GERMAN] = trigramLanguageModelForGerman
+            trigramLanguageModels[ENGLISH] = trigramLanguageModelForEnglish
+            trigramLanguageModels[GERMAN] = trigramLanguageModelForGerman
 
-        detectorForEnglishAndGerman.quadrigramLanguageModels[ENGLISH] = quadrigramLanguageModelForEnglish
-        detectorForEnglishAndGerman.quadrigramLanguageModels[GERMAN] = quadrigramLanguageModelForGerman
+            quadrigramLanguageModels[ENGLISH] = quadrigramLanguageModelForEnglish
+            quadrigramLanguageModels[GERMAN] = quadrigramLanguageModelForGerman
 
-        detectorForEnglishAndGerman.fivegramLanguageModels[ENGLISH] = fivegramLanguageModelForEnglish
-        detectorForEnglishAndGerman.fivegramLanguageModels[GERMAN] = fivegramLanguageModelForGerman
+            fivegramLanguageModels[ENGLISH] = fivegramLanguageModelForEnglish
+            fivegramLanguageModels[GERMAN] = fivegramLanguageModelForGerman
+        }
+    }
+
+    private fun removeLanguageModelsFromDetector() {
+        with(detectorForEnglishAndGerman) {
+            unigramLanguageModels.clear()
+            bigramLanguageModels.clear()
+            trigramLanguageModels.clear()
+            quadrigramLanguageModels.clear()
+            fivegramLanguageModels.clear()
+        }
     }
 
     private fun defineBehaviorOfTestDataLanguageModels() {
