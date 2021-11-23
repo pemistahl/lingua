@@ -282,8 +282,6 @@ class LanguageDetector internal constructor(
                 } else {
                     totalLanguageCounts.incrementCounter(UNKNOWN)
                 }
-            } else if (wordLanguageCounts.containsKey(CHINESE) && wordLanguageCounts.containsKey(JAPANESE)) {
-                totalLanguageCounts.incrementCounter(JAPANESE)
             } else {
                 val sortedWordLanguageCounts = wordLanguageCounts.toList().sortedByDescending { it.second }
                 val (mostFrequentLanguage, firstCharCount) = sortedWordLanguageCounts[0]
