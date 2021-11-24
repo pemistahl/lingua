@@ -228,7 +228,7 @@ class LanguageDetector internal constructor(
         unigramCountsOfInputText: Map<Language, Int>,
         filteredLanguages: Set<Language>
     ): Map<Language, Double> {
-        val summedUpProbabilities = hashMapOf<Language, Double>()
+        val summedUpProbabilities = mutableMapOf<Language, Double>()
         for (language in filteredLanguages) {
             summedUpProbabilities[language] = probabilities.sumOf { it[language] ?: 0.0 }
 
@@ -376,7 +376,7 @@ class LanguageDetector internal constructor(
         testDataModel: TestDataLanguageModel,
         filteredLanguages: Set<Language>
     ): Map<Language, Double> {
-        val probabilities = hashMapOf<Language, Double>()
+        val probabilities = mutableMapOf<Language, Double>()
         for (language in filteredLanguages) {
             probabilities[language] = computeSumOfNgramProbabilities(language, testDataModel.ngrams)
         }

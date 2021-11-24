@@ -63,7 +63,7 @@ import com.github.pemistahl.lingua.api.Language.YORUBA
 
 internal object Constant {
 
-    val CHARS_TO_LANGUAGES_MAPPING = hashMapOf(
+    val CHARS_TO_LANGUAGES_MAPPING = mapOf(
         "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
         "ĄąĘę" to setOf(LITHUANIAN, POLISH),
         "Żż" to setOf(POLISH, ROMANIAN),

@@ -109,7 +109,7 @@ internal data class TrainingDataLanguageModel(
             charClass: String
         ): Map<Ngram, Int> {
 
-            val absoluteFrequencies = hashMapOf<Ngram, Int>()
+            val absoluteFrequencies = mutableMapOf<Ngram, Int>()
             val regex = Regex("[$charClass]+")
 
             for (line in text) {
@@ -132,7 +132,7 @@ internal data class TrainingDataLanguageModel(
             lowerNgramAbsoluteFrequencies: Map<Ngram, Int>
         ): Map<Ngram, Fraction> {
 
-            val ngramProbabilities = hashMapOf<Ngram, Fraction>()
+            val ngramProbabilities = mutableMapOf<Ngram, Fraction>()
             val totalNgramFrequency = absoluteFrequencies.values.sum()
 
             for ((ngram, frequency) in absoluteFrequencies) {

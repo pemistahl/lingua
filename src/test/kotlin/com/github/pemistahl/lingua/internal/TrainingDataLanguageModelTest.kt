@@ -41,15 +41,15 @@ class TrainingDataLanguageModelTest {
         {
             "language":"ENGLISH",
             "ngrams":{
-                "3/100":"a c p u y",
-                "1/100":"b g l m",
-                "1/20":"d r",
-                "7/50":"e",
-                "1/50":"f w",
+                "13/100":"t",
                 "1/25":"h",
+                "7/50":"e",
+                "1/10":"s n o",
+                "3/100":"c a p u y",
+                "1/20":"r d",
                 "3/50":"i",
-                "1/10":"n o s",
-                "13/100":"t"
+                "1/50":"f w",
+                "1/100":"g m b l"
             }
         }
         """.replace(
