@@ -52,7 +52,7 @@ import com.optimaize.langdetect.profiles.LanguageProfileReader
 import com.optimaize.langdetect.text.CommonTextObjectFactories
 import opennlp.tools.langdetect.LanguageDetectorME
 import opennlp.tools.langdetect.LanguageDetectorModel
-import org.apache.tika.langdetect.OptimaizeLangDetector
+import org.apache.tika.langdetect.optimaize.OptimaizeLangDetector
 import org.apache.tika.language.detect.LanguageResult
 import org.junit.jupiter.api.AfterAll
 import java.nio.file.Files

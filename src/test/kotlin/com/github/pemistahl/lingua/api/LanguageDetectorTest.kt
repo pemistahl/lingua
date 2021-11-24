@@ -820,7 +820,9 @@ class LanguageDetectorTest {
             arrayOf(ENGLISH, URDU)
         ),
         arguments(
-            "Az elmúlt hétvégén 12-re emelkedett az elhunyt koronavírus-fertőzöttek száma Szlovákiában. Mindegyik szociális otthon dolgozóját letesztelik, Matovič szerint az ingázóknak még várniuk kellene a teszteléssel",
+            "Az elmúlt hétvégén 12-re emelkedett az elhunyt koronavírus-fertőzöttek száma Szlovákiában. " +
+                "Mindegyik szociális otthon dolgozóját letesztelik, " +
+                "Matovič szerint az ingázóknak még várniuk kellene a teszteléssel",
             arrayOf(HUNGARIAN, SLOVAK)
         )
     )

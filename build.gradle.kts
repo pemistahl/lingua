@@ -51,21 +51,21 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.5.21"
-    kotlin("plugin.serialization") version "1.5.21"
-    id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
-    id("com.adarshr.test-logger") version "3.0.0"
-    id("com.asarkar.gradle.build-time-tracker") version "3.0.0"
-    id("org.jetbrains.dokka") version "1.5.0"
+    kotlin("jvm") version "1.6.0"
+    kotlin("plugin.serialization") version "1.6.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("com.adarshr.test-logger") version "3.1.0"
+    id("com.asarkar.gradle.build-time-tracker") version "3.0.1"
+    id("org.jetbrains.dokka") version "1.6.0"
     id("ru.vyarus.use-python") version "2.3.0"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("com.github.johnrengelman.shadow") version "7.1.0"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
     signing
     jacoco
 }
 
-jacoco.toolVersion = "0.8.6"
+jacoco.toolVersion = "0.8.7"
 
 sourceSets {
     main {
@@ -298,19 +298,20 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
-    implementation("it.unimi.dsi:fastutil:8.5.4")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+    implementation("it.unimi.dsi:fastutil:8.5.6")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
-    testImplementation("org.assertj:assertj-core:3.20.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.assertj:assertj-core:3.21.0")
     testImplementation("io.mockk:mockk:1.12.0")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.3")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect:1.27")
-    accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.30")
+    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
+    accuracyReportImplementation("org.apache.tika:tika-core:2.1.0")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.1.0")
+    accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.32")
 }
 
 python {
