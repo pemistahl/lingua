@@ -1,10 +1,10 @@
 ##### BELARUSIAN #####
 
->>> Accuracy on average: 96.80%
+>>> Accuracy on average: 96.90%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 91.20%
-Erroneously classified as RUSSIAN: 3.00%, UKRAINIAN: 2.20%, SERBIAN: 1.00%, KAZAKH: 0.90%, BULGARIAN: 0.60%, MACEDONIAN: 0.60%, MONGOLIAN: 0.50%
+Accuracy: 91.50%
+Erroneously classified as RUSSIAN: 2.90%, UKRAINIAN: 2.10%, SERBIAN: 1.00%, KAZAKH: 0.90%, BULGARIAN: 0.60%, MACEDONIAN: 0.60%, MONGOLIAN: 0.40%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 99.20%
@@ -14,4 +14,4 @@ Erroneously classified as RUSSIAN: 0.50%, MACEDONIAN: 0.10%, UKRAINIAN: 0.10%, B
 Accuracy: 100.00%
 Erroneously classified as 
 
->> Exact values: 96.8 91.2 99.2 100.0
+>> Exact values: 96.89999999999999 91.5 99.2 100.0
