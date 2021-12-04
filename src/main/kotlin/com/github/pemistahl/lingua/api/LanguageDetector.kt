@@ -169,6 +169,23 @@ class LanguageDetector internal constructor(
         return confidenceValues.toSortedMap(sortedByConfidenceValueThenByLanguage)
     }
 
+    /**
+     * Removes all loaded language models from this [LanguageDetector] instance.
+     *
+     * This will be useful if the library is used within a web application inside
+     * an application server. By calling this method prior to undeploying the
+     * web application, the language models are removed and memory is freed.
+     * This prevents exceptions such as [OutOfMemoryError] when the web application
+     * is redeployed multiple times.
+     */
+    fun unloadLanguageModels() {
+        unigramLanguageModels.clear()
+        bigramLanguageModels.clear()
+        trigramLanguageModels.clear()
+        quadrigramLanguageModels.clear()
+        fivegramLanguageModels.clear()
+    }
+
     internal fun cleanUpInputText(text: String): String {
         return text.trim().lowercase()
             .replace(PUNCTUATION, "")
