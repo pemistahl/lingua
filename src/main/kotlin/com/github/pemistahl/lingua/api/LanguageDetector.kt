@@ -32,12 +32,11 @@ import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.runBlocking
 import java.util.SortedMap
 import java.util.TreeMap
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import kotlin.math.ln
 
 private val UNIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
@@ -60,6 +59,8 @@ class LanguageDetector internal constructor(
     internal val quadrigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = QUADRIGRAM_MODELS,
     internal val fivegramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = FIVEGRAM_MODELS
 ) {
+    internal val threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
     private val oneLanguageAlphabets = Alphabet.allSupportingExactlyOneLanguage().filterValues {
         it in languages
@@ -76,6 +77,7 @@ class LanguageDetector internal constructor(
      *
      * @param text The input text to detect the language for.
      * @return The identified language or [Language.UNKNOWN].
+     * @throws IllegalStateException If [destroy] has been invoked before on this instance of [LanguageDetector].
      */
     fun detectLanguageOf(text: String): Language {
         val confidenceValues = computeLanguageConfidenceValues(text)
@@ -111,8 +113,14 @@ class LanguageDetector internal constructor(
      *
      * @param text The input text to detect the language for.
      * @return A map of all possible languages, sorted by their confidence value in descending order.
+     * @throws IllegalStateException If [destroy] has been invoked before on this instance of [LanguageDetector].
      */
     fun computeLanguageConfidenceValues(text: String): SortedMap<Language, Double> {
+        if (threadPool.isShutdown) {
+            throw IllegalStateException(
+                "This LanguageDetector instance has been destroyed and cannot be reused"
+            )
+        }
         val values = TreeMap<Language, Double>()
         val cleanedUpText = cleanUpInputText(text)
 
@@ -135,29 +143,28 @@ class LanguageDetector internal constructor(
         }
 
         val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
-        val allProbabilitiesAndUnigramCounts = runBlocking {
-            ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
-                async(Dispatchers.Default) {
-                    val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-                    val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+        val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
+            Callable {
+                val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
-                    val unigramCounts = if (i == 1) {
-                        val languages = probabilities.keys
-                        val unigramFilteredLanguages =
-                            if (languages.isNotEmpty()) filteredLanguages.asSequence()
-                                .filter { languages.contains(it) }
-                                .toSet()
-                            else filteredLanguages
-                        countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-                    } else {
-                        null
-                    }
-
-                    Pair(probabilities, unigramCounts)
+                val unigramCounts = if (i == 1) {
+                    val languages = probabilities.keys
+                    val unigramFilteredLanguages =
+                        if (languages.isNotEmpty()) filteredLanguages.asSequence()
+                            .filter { languages.contains(it) }
+                            .toSet()
+                        else filteredLanguages
+                    countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
+                } else {
+                    null
                 }
-            }.awaitAll()
+
+                Pair(probabilities, unigramCounts)
+            }
         }
 
+        val allProbabilitiesAndUnigramCounts = threadPool.invokeAll(tasks).map { it.get() }
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
         val unigramCounts = allProbabilitiesAndUnigramCounts[0].second ?: emptyMap()
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
@@ -170,20 +177,28 @@ class LanguageDetector internal constructor(
     }
 
     /**
-     * Removes all loaded language models from this [LanguageDetector] instance.
+     * Destroys this [LanguageDetector] instance and frees associated resources.
      *
      * This will be useful if the library is used within a web application inside
      * an application server. By calling this method prior to undeploying the
      * web application, the language models are removed and memory is freed.
+     * The internal thread pool used for parallel processing is shut down as well.
      * This prevents exceptions such as [OutOfMemoryError] when the web application
      * is redeployed multiple times.
      */
-    fun unloadLanguageModels() {
-        unigramLanguageModels.clear()
-        bigramLanguageModels.clear()
-        trigramLanguageModels.clear()
-        quadrigramLanguageModels.clear()
-        fivegramLanguageModels.clear()
+    fun destroy() {
+        threadPool.shutdown()
+        if (!threadPool.awaitTermination(10, TimeUnit.SECONDS)) {
+            threadPool.shutdownNow()
+        }
+
+        for (language in languages) {
+            unigramLanguageModels.remove(language)
+            bigramLanguageModels.remove(language)
+            trigramLanguageModels.remove(language)
+            quadrigramLanguageModels.remove(language)
+            fivegramLanguageModels.remove(language)
+        }
     }
 
     internal fun cleanUpInputText(text: String): String {
@@ -460,25 +475,17 @@ class LanguageDetector internal constructor(
     }
 
     private fun preloadLanguageModels() {
-        runBlocking {
-            languages.forEach { language ->
-                async(Dispatchers.Default) {
-                    loadLanguageModels(unigramLanguageModels, language, 1)
-                }
-                async(Dispatchers.Default) {
-                    loadLanguageModels(bigramLanguageModels, language, 2)
-                }
-                async(Dispatchers.Default) {
-                    loadLanguageModels(trigramLanguageModels, language, 3)
-                }
-                async(Dispatchers.Default) {
-                    loadLanguageModels(quadrigramLanguageModels, language, 4)
-                }
-                async(Dispatchers.Default) {
-                    loadLanguageModels(fivegramLanguageModels, language, 5)
-                }
-            }
+        val tasks = mutableListOf<Callable<TrainingDataLanguageModel>>()
+
+        for (language in languages) {
+            tasks.add(Callable { loadLanguageModels(unigramLanguageModels, language, 1) })
+            tasks.add(Callable { loadLanguageModels(bigramLanguageModels, language, 2) })
+            tasks.add(Callable { loadLanguageModels(trigramLanguageModels, language, 3) })
+            tasks.add(Callable { loadLanguageModels(quadrigramLanguageModels, language, 4) })
+            tasks.add(Callable { loadLanguageModels(fivegramLanguageModels, language, 5) })
         }
+
+        threadPool.invokeAll(tasks)
     }
 
     override fun equals(other: Any?) = when {

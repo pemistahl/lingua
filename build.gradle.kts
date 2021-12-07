@@ -95,6 +95,10 @@ tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
 }
 
+tasks.test {
+    maxParallelForks = 1
+}
+
 tasks.jacocoTestReport {
     dependsOn("test")
     reports {
@@ -299,13 +303,12 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
     implementation("it.unimi.dsi:fastutil:8.5.6")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("org.assertj:assertj-core:3.21.0")
-    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("io.mockk:mockk:1.12.1")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")

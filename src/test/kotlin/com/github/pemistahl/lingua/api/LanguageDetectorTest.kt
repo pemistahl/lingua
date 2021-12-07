@@ -91,6 +91,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
@@ -845,6 +846,32 @@ class LanguageDetectorTest {
             detectedLanguages.add(language)
         }
         assertThat(detectedLanguages.size).isEqualTo(1)
+    }
+
+    @Test
+    fun `assert that language detector can be properly destroyed`() {
+        removeLanguageModelsFromDetector()
+
+        val detector = LanguageDetectorBuilder
+            .fromLanguages(ENGLISH, GERMAN)
+            .withPreloadedLanguageModels()
+            .build()
+
+        detector.destroy()
+
+        assertThat(detector.threadPool.isShutdown).isTrue
+        val exception = assertThrows<IllegalStateException> {
+            detector.detectLanguageOf("languages are fascinating")
+        }
+        assertThat(exception.message).isEqualTo(
+            "This LanguageDetector instance has been destroyed and cannot be reused"
+        )
+
+        assertThat(detector.unigramLanguageModels).isEmpty()
+        assertThat(detector.bigramLanguageModels).isEmpty()
+        assertThat(detector.trigramLanguageModels).isEmpty()
+        assertThat(detector.quadrigramLanguageModels).isEmpty()
+        assertThat(detector.fivegramLanguageModels).isEmpty()
     }
 
     private fun defineBehaviorOfUnigramLanguageModels() {
