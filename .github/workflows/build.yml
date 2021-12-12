@@ -29,21 +29,13 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: ${{ matrix.java-version }}
+          cache: 'gradle'
 
-      - name: Store or retrieve Gradle caches
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-gradle-
-
-      - name: Build and test with Gradle on Ubuntu and macOS
+      - name: Build and test on Ubuntu and macOS
         if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' }}
         run: ./gradlew check
 
-      - name: Build and test with Gradle on Windows
+      - name: Build and test on Windows
         if: ${{ matrix.os == 'windows-latest' }}
         run: gradlew.bat check
         shell: cmd
