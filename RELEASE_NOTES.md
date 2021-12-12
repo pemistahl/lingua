@@ -1,3 +1,21 @@
+## Lingua 1.1.1 (released on 12 Dec 2021)
+
+### Improvements
+
+- The new method `LanguageDetector.destroy()` has been introduced that frees
+  internal resources to prevent memory leaks within application server 
+  deployments. (#110, #116)
+- Language model loading performance has been improved by creating a manually
+  optimized internal thread pool. This replaces the coroutines used in the
+  previous release. (#116)
+
+### Bug Fixes
+
+- The character *â* was erroneously not treated as a possible indicator for
+  the French language. (#115)
+- Language detection was non-deterministic when multiple alphabets had the
+  same occurrence count. (105)
+
 ## Lingua 1.1.0 (released on 02 May 2021)
 
 ### Languages

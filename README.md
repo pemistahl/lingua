@@ -282,10 +282,10 @@ The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy value
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:1.1.0'
+implementation 'com.github.pemistahl:lingua:1.1.1'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:1.1.0")
+implementation("com.github.pemistahl:lingua:1.1.1")
 ```
 
 ### 7.2 <a name="library-dependency-maven"></a> Using Maven
@@ -294,7 +294,7 @@ implementation("com.github.pemistahl:lingua:1.1.0")
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
@@ -308,9 +308,9 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-1.1.0.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-1.1.0-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-1.1.0-with-dependencies.jar` containing the 
+1. `./gradlew jar` assembles `lingua-1.1.1.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-1.1.1-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-1.1.1-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
 in projects without dependency management systems. It can also be used to 
 run *Lingua* in standalone mode (see below).
@@ -447,11 +447,26 @@ LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.EN, IsoCode639_3.DE)
 LanguageDetectorBuilder.fromIsoCodes639_3(IsoCode639_3.ENG, IsoCode639_3.DEU)
 ```
 
+#### 9.1.6 How to manage memory consumption within application server deployments
+
+Internally, *Lingua* efficiently uses all cores of your CPU in order to speed up loading the language
+models and language detection itself. For this purpose, an internal thread pool is used whose size
+is equal to the number of CPU cores available. If the library is used within an application server,
+the consumed memory will not be freed automatically when the application is undeployed. Likewise,
+the thread pool is still active even though unactive threads will time out after 60 seconds.
+
+If you want to free all of *Lingua's* resources, you will have to do this manually by calling
+`detector.destroy()` during the undeployment. This will clear all loaded language models from memory
+and will shut down the internal thread pool of this detector's instance. After calling this method,
+you will not be able to use this detector instance anymore. If you try to do so, an 
+`IllegalStateException` will be thrown. You will need to create a new instance of `LanguageDetector`
+to make it work again.
+
 ### 9.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
 and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-1.1.0-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-1.1.1-with-dependencies.jar`
 
 Then just play around:
 
@@ -497,8 +512,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/main/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-75-green.svg
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.0-blue.svg
-[lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.1.0/lingua-1.1.0-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.1-blue.svg
+[lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.1.1/lingua-1.1.1-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -508,8 +523,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.3/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
 [GitHub Packages]: https://github.com/pemistahl/lingua/packages/766181
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.1.0/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.1.0-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.1.1/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.1.1-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_TABLE.md
 [accuracy reports url]: https://github.com/pemistahl/lingua/tree/main/accuracy-reports

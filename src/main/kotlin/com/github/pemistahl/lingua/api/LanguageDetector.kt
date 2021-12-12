@@ -210,7 +210,6 @@ class LanguageDetector internal constructor(
             .replace(MULTIPLE_WHITESPACE, " ")
     }
 
-    /** Splits text at spaces and between logograms */
     internal fun splitTextIntoWords(text: String): List<String> {
         val words = mutableListOf<String>()
         var nextWordStart = 0
@@ -218,18 +217,15 @@ class LanguageDetector internal constructor(
             val char = text[i]
 
             if (char == ' ') {
-                // If equal, skip consecutive whitespaces
                 if (nextWordStart != i) {
                     words.add(text.substring(nextWordStart, i))
                 }
                 nextWordStart = i + 1
             } else if (char.isLogogram()) {
                 if (nextWordStart != i) {
-                    // Add previous word excluding trailing logogram
                     words.add(text.substring(nextWordStart, i))
                 }
 
-                // Add logogram on its own
                 words.add(text[i].toString())
                 nextWordStart = i + 1
             }
@@ -286,8 +282,6 @@ class LanguageDetector internal constructor(
                     if (alphabet.matches(character)) {
                         wordLanguageCounts.incrementCounter(language)
                         isMatch = true
-                        // Each code point can only belong to one alphabet, therefore can break
-                        // as soon as a match is found
                         break
                     }
                 }

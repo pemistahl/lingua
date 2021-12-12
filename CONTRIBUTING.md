@@ -69,11 +69,11 @@ this library's fields of application.
 [wikipedia isocodes list]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 [language url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/Language.kt
 [alphabet url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Alphabet.kt
-[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Constant.kt#L67
+[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Constant.kt#L66
 [language model files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L27
 [language models directory url]: https://github.com/pemistahl/lingua/tree/main/src/main/resources/language-models
 [test data files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L28
 [test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/resources/language-testdata
 [accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config
 [accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua
-[gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L62
+[gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L60
