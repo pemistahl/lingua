@@ -35,7 +35,9 @@ import com.github.pemistahl.lingua.internal.util.extension.isLogogram
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.concurrent.Callable
-import java.util.concurrent.Executors
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import kotlin.math.ln
 
@@ -59,7 +61,7 @@ class LanguageDetector internal constructor(
     internal val quadrigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = QUADRIGRAM_MODELS,
     internal val fivegramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = FIVEGRAM_MODELS
 ) {
-    internal val threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+    internal val threadPool = createThreadPool()
 
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
     private val oneLanguageAlphabets = Alphabet.allSupportingExactlyOneLanguage().filterValues {
@@ -486,6 +488,13 @@ class LanguageDetector internal constructor(
         }
 
         threadPool.invokeAll(tasks)
+    }
+
+    private fun createThreadPool(): ExecutorService {
+        val cpus = Runtime.getRuntime().availableProcessors()
+        val threadPool = ThreadPoolExecutor(cpus, cpus, 60L, TimeUnit.SECONDS, LinkedBlockingQueue())
+        threadPool.allowCoreThreadTimeOut(true)
+        return threadPool
     }
 
     override fun equals(other: Any?) = when {
