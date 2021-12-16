@@ -446,26 +446,26 @@ class LanguageDetector internal constructor(
 
         val model = loadLanguageModels(languageModels, language, ngramLength)
 
-        return model.getRelativeFrequency(ngram)
+        return model?.getRelativeFrequency(ngram) ?: 0.0
     }
 
     private fun loadLanguageModels(
         languageModels: MutableMap<Language, TrainingDataLanguageModel>,
         language: Language,
         ngramLength: Int
-    ): TrainingDataLanguageModel {
+    ): TrainingDataLanguageModel? {
         if (languageModels.containsKey(language)) {
             return languageModels.getValue(language)
         }
-        val model = loadLanguageModel(language, ngramLength)
+        val model = loadLanguageModel(language, ngramLength) ?: return null
         languageModels[language] = model
         return model
     }
 
-    private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel {
+    private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel? {
         val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
         val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val inputStream = Language::class.java.getResourceAsStream(filePath)
+        val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return null
         val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
         return TrainingDataLanguageModel.fromJson(jsonContent)
     }
