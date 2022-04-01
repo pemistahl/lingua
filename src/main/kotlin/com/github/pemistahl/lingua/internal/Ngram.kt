@@ -23,8 +23,9 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+@JvmInline
 @Serializable(with = NgramSerializer::class)
-internal data class Ngram(val value: String) : Comparable<Ngram> {
+internal value class Ngram(val value: String) : Comparable<Ngram> {
     init {
         require(value.length in 0..5) {
             "length of ngram '$value' is not in range 0..5"
@@ -33,20 +34,14 @@ internal data class Ngram(val value: String) : Comparable<Ngram> {
 
     override fun toString() = value
 
-    override fun compareTo(other: Ngram) = when {
-        this.value.length > other.value.length -> 1
-        this.value.length < other.value.length -> -1
-        else -> 0
-    }
+    override fun compareTo(other: Ngram) = value.length.compareTo(other.value.length)
 
     fun rangeOfLowerOrderNgrams() = NgramRange(this, Ngram(this.value[0].toString()))
 
-    operator fun dec(): Ngram = when {
-        this.value.length > 1 -> Ngram(this.value.substring(0, this.value.length - 1))
-        this.value.length == 1 -> Ngram("")
-        else -> throw IllegalStateException(
-            "Zerogram is ngram type of lowest order and can not be decremented"
-        )
+    operator fun dec(): Ngram = when(value.length) {
+        0 -> error("Zerogram is ngram type of lowest order and can not be decremented")
+        1 -> Ngram("")
+        else -> Ngram(this.value.substring(0, this.value.length - 1))
     }
 
     companion object {

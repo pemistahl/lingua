@@ -212,17 +212,17 @@ class LanguageDetectorTest {
     // ngram probability lookup
 
     private fun ngramProbabilityProvider() = listOf(
-        arguments(ENGLISH, Ngram("a"), 0.01),
-        arguments(ENGLISH, Ngram("lt"), 0.12),
-        arguments(ENGLISH, Ngram("ter"), 0.21),
-        arguments(ENGLISH, Ngram("alte"), 0.25),
-        arguments(ENGLISH, Ngram("alter"), 0.29),
+        arguments(ENGLISH, "a", 0.01),
+        arguments(ENGLISH, "lt", 0.12),
+        arguments(ENGLISH, "ter", 0.21),
+        arguments(ENGLISH, "alte", 0.25),
+        arguments(ENGLISH, "alter", 0.29),
 
-        arguments(GERMAN, Ngram("t"), 0.08),
-        arguments(GERMAN, Ngram("er"), 0.18),
-        arguments(GERMAN, Ngram("alt"), 0.22),
-        arguments(GERMAN, Ngram("lter"), 0.28),
-        arguments(GERMAN, Ngram("alter"), 0.30)
+        arguments(GERMAN, "t", 0.08),
+        arguments(GERMAN, "er", 0.18),
+        arguments(GERMAN, "alt", 0.22),
+        arguments(GERMAN, "lter", 0.28),
+        arguments(GERMAN, "alter", 0.30)
     )
 
     @ParameterizedTest
