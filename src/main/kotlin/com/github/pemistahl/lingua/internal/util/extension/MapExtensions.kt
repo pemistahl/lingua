@@ -16,6 +16,4 @@
 
 package com.github.pemistahl.lingua.internal.util.extension
 
-internal fun <T> MutableMap<T, Int>.incrementCounter(key: T) {
-    this[key] = this.getOrDefault(key, 0) + 1
-}
+internal fun <T> MutableMap<T, Int>.incrementCounter(key: T) = this.merge(key, 1, Int::plus)
