@@ -18,12 +18,12 @@ package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
-import it.unimi.dsi.fastutil.objects.Object2DoubleMap
-import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.util.HashMap
+import java.util.TreeMap
 
 @Serializable
 internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
@@ -32,9 +32,9 @@ internal data class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
     val relativeFrequencies: Map<Ngram, Fraction>,
-    val jsonRelativeFrequencies: Object2DoubleMap<String>
+    val jsonRelativeFrequencies: RelativeFrequencies
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram.value)
+    fun getRelativeFrequency(ngram: Ngram): Float = jsonRelativeFrequencies[ngram.value]
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -77,29 +77,27 @@ internal data class TrainingDataLanguageModel(
                 language,
                 absoluteFrequencies,
                 relativeFrequencies,
-                Object2DoubleOpenHashMap()
+                RelativeFrequencies.build(emptySequence())
             )
         }
 
         fun fromJson(json: String): TrainingDataLanguageModel {
             val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
-            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<String>()
 
-            for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
-                val fractionAsDouble = fraction.toDouble()
-                for (ngram in ngrams.split(' ')) {
-                    jsonRelativeFrequencies.put(ngram, fractionAsDouble)
+            val jsonDataSequence = sequence {
+                for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
+                    val fractionAsFloat = fraction.toFloat()
+                    for (ngram in ngrams.split(' ')) {
+                        yield(ngram to fractionAsFloat)
+                    }
                 }
             }
-
-            // Trim to reduce in-memory model size
-            jsonRelativeFrequencies.trim()
 
             return TrainingDataLanguageModel(
                 language = jsonLanguageModel.language,
                 absoluteFrequencies = emptyMap(),
                 relativeFrequencies = emptyMap(),
-                jsonRelativeFrequencies = jsonRelativeFrequencies
+                jsonRelativeFrequencies = RelativeFrequencies.build(jsonDataSequence)
             )
         }
 
@@ -145,6 +143,96 @@ internal data class TrainingDataLanguageModel(
             }
 
             return ngramProbabilities
+        }
+    }
+
+    internal class RelativeFrequencies private constructor(private val data: Map<Long, Entries>) {
+
+        operator fun get(ngram: String): Float = data[computeHighHash(ngram)]?.get(ngram) ?: 0F
+
+        private class Entries(private val chars: ByteArray, private val frequencies: FloatArray) {
+
+            val size get() = frequencies.size
+
+            operator fun get(ngram: String): Float {
+                var low = 0
+                var high = size - 1
+                while (low <= high) {
+                    if (low + 8 < high) {
+                        // bisection search
+                        val middle = (low + high) / 2
+                        val diff = compareNgram(middle, ngram)
+                        if (diff < 0) low = middle + 1
+                        else if (diff > 0) high = middle - 1
+                        else return frequencies[middle]
+                    } else {
+                        // linear search
+                        for (i in low..high) {
+                            if (compareNgram(i, ngram) == 0) return frequencies[i]
+                            return 0F
+                        }
+                    }
+                }
+                return 0F
+            }
+
+            /**
+             * Compare lower bits only.
+             */
+            private fun compareNgram(pos: Int, ngram: String): Int {
+                val base = pos * ngram.length
+                repeat(ngram.length) { i ->
+                    val diff = chars[base + i].compareTo(ngram[i].code.and(0xFF))
+                    if (diff != 0) return diff
+                }
+                return 0
+            }
+        }
+
+        companion object {
+
+            /**
+             * Compare low bits of each character.
+             * String length must be the same.
+             */
+            private object LowByteComparator : Comparator<String> {
+                override fun compare(o1: String, o2: String): Int {
+                    for (i in o1.indices) {
+                        val res = o1[i].code.and(0xFF) - o2[i].code.and(0XFF)
+                        if (res != 0) return res
+                    }
+                    return 0
+                }
+            }
+
+            internal fun build(relativeFrequencies: Sequence<Pair<String, Float>>): RelativeFrequencies {
+                val entryMap = LinkedHashMap<Long, MutableMap<String, Float>>()
+                relativeFrequencies.forEach { (ngram, frequency) ->
+                    val map = entryMap.computeIfAbsent(computeHighHash(ngram)) { TreeMap(LowByteComparator) }
+                    map[ngram] = frequency
+                }
+
+                val data: Map<Long, Entries> = entryMap.entries.associateTo(HashMap()) { (highHash, map) ->
+                    // flatten lower bytes
+                    val chars = map.keys.flatMap { ngram -> ngram.map { (it.code and 0xFF).toByte() } }.toByteArray()
+                    val float = map.values.toFloatArray()
+                    highHash to Entries(chars, float)
+                }
+
+                return RelativeFrequencies(data)
+            }
+
+            /**
+             * Compute the unique hash of a high bits of each character
+             * Max ngram supported length: 7.
+             */
+            private fun computeHighHash(ngram: String): Long {
+                var hash = ngram.length.toLong()
+                ngram.forEach { c ->
+                    hash = hash.shl(8) or c.code.shr(8).toLong()
+                }
+                return hash
+            }
         }
     }
 }

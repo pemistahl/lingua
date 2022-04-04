@@ -38,7 +38,7 @@ internal value class Ngram(val value: String) : Comparable<Ngram> {
 
     fun rangeOfLowerOrderNgrams() = NgramRange(this, Ngram(this.value[0].toString()))
 
-    operator fun dec(): Ngram = when(value.length) {
+    operator fun dec(): Ngram = when (value.length) {
         0 -> error("Zerogram is ngram type of lowest order and can not be decremented")
         1 -> Ngram("")
         else -> Ngram(this.value.substring(0, this.value.length - 1))

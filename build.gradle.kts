@@ -304,7 +304,6 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
-    implementation("it.unimi.dsi:fastutil:8.5.6")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("org.assertj:assertj-core:3.21.0")

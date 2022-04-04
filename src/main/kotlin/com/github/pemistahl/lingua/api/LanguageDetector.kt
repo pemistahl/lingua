@@ -421,7 +421,7 @@ class LanguageDetector internal constructor(
             for (elem in ngram.rangeOfLowerOrderNgrams()) {
                 val probability = lookUpNgramProbability(language, elem)
                 if (probability > 0) {
-                    probabilitiesSum += ln(probability)
+                    probabilitiesSum += ln(probability.toDouble())
                     break
                 }
             }
@@ -432,7 +432,7 @@ class LanguageDetector internal constructor(
     internal fun lookUpNgramProbability(
         language: Language,
         ngram: Ngram
-    ): Double {
+    ): Float {
         val ngramLength = ngram.value.length
         val languageModels = when (ngramLength) {
             5 -> fivegramLanguageModels
