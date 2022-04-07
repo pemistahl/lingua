@@ -29,7 +29,6 @@ import com.github.pemistahl.lingua.internal.Constant.isJapaneseAlphabet
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
-import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
 import java.util.SortedMap
@@ -382,13 +381,14 @@ class LanguageDetector internal constructor(
 
         for (word in words) {
             for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
-                if (word.containsAnyOf(characters)) {
-                    for (language in languages) {
-                        if (filteredLanguages.contains(language)) {
-                            languageCounts.incrementCounter(language)
+                for (character in characters) {
+                    if (word.contains(character)) {
+                        for (language in languages) {
+                            if (filteredLanguages.contains(language)) {
+                                languageCounts.incrementCounter(language)
+                            }
                         }
                     }
-                    break
                 }
             }
         }
