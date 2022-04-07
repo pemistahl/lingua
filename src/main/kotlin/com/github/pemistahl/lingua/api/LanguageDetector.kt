@@ -395,9 +395,7 @@ class LanguageDetector internal constructor(
 
         val languagesSubset = languageCounts.filterValues { it >= words.size / 2.0 }.keys
 
-        return if (languagesSubset.isNotEmpty()) {
-            filteredLanguages.filter { it in languagesSubset }.toSet()
-        } else {
+        return languagesSubset.ifEmpty {
             filteredLanguages.toSet()
         }
     }
