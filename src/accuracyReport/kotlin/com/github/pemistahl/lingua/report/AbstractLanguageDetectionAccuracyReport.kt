@@ -141,7 +141,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
             wordPairAccuracyReport,
             sentenceAccuracyReport
         )
-        val newlines = System.lineSeparator().repeat(2)
+        val newlines = "\n".repeat(2)
         var report = "##### $language #####"
         for (reportPart in reportParts)
             if (reportPart.isNotEmpty())
@@ -150,7 +150,8 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         report += newlines
         report += ">> Exact values: $averageAccuracy $singleWordAccuracy $wordPairAccuracy $sentenceAccuracy"
 
-        return report
+        // Normalize line separators
+        return report.replace(Regex("\\R"), System.lineSeparator())
     }
 
     protected fun computeSingleWordStatistics(singleWord: String) {
