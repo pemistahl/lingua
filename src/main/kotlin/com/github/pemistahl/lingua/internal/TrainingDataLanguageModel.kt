@@ -22,7 +22,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import java.util.HashMap
 import java.util.TreeMap
 
 @Serializable
@@ -146,17 +145,35 @@ internal data class TrainingDataLanguageModel(
         }
     }
 
-    internal class RelativeFrequencies private constructor(private val data: Map<Long, Entries>) {
+    internal class RelativeFrequencies private constructor(data: Map<UByte, Entries>) {
 
-        operator fun get(ngram: String): Float = data[computeHighHash(ngram)]?.get(ngram) ?: 0F
+        private val entries: Array<Entries?> = Array(256) { data[it.toUByte()] }
 
-        private class Entries(private val chars: ByteArray, private val frequencies: FloatArray) {
+        operator fun get(ngram: String): Float =
+            entries[computeHash(ngram).toInt()]?.get(ngram) ?: 0F
+
+        private class Entries(private val chars: CharArray, private val frequencies: FloatArray) {
 
             val size get() = frequencies.size
 
             operator fun get(ngram: String): Float {
-                var low = 0
-                var high = size - 1
+                // check range before search
+                var cmp = compareNgram(0, ngram)
+                if (cmp == 0) return frequencies.first()
+                if (cmp < 0 || size == 1) return 0F
+
+                cmp = compareNgram(frequencies.lastIndex, ngram)
+                if (cmp == 0) return frequencies.last()
+                if (cmp > 0) return 0F
+
+                return search(ngram)
+            }
+
+            private fun search(ngram: String): Float {
+                // skip edges
+                var low = 1
+                var high = size - 2
+
                 while (low <= high) {
                     if (low + 8 < high) {
                         // bisection search
@@ -176,13 +193,10 @@ internal data class TrainingDataLanguageModel(
                 return 0F
             }
 
-            /**
-             * Compare lower bits only.
-             */
             private fun compareNgram(pos: Int, ngram: String): Int {
                 val base = pos * ngram.length
                 repeat(ngram.length) { i ->
-                    val diff = chars[base + i].compareTo(ngram[i].code.and(0xFF))
+                    val diff = chars[base + i].compareTo(ngram[i])
                     if (diff != 0) return diff
                 }
                 return 0
@@ -191,30 +205,15 @@ internal data class TrainingDataLanguageModel(
 
         companion object {
 
-            /**
-             * Compare low bits of each character.
-             * String length must be the same.
-             */
-            private object LowByteComparator : Comparator<String> {
-                override fun compare(o1: String, o2: String): Int {
-                    for (i in o1.indices) {
-                        val res = o1[i].code.and(0xFF) - o2[i].code.and(0XFF)
-                        if (res != 0) return res
-                    }
-                    return 0
-                }
-            }
-
             internal fun build(relativeFrequencies: Sequence<Pair<String, Float>>): RelativeFrequencies {
-                val entryMap = LinkedHashMap<Long, MutableMap<String, Float>>()
+                val entryMap = LinkedHashMap<UByte, MutableMap<String, Float>>()
                 relativeFrequencies.forEach { (ngram, frequency) ->
-                    val map = entryMap.computeIfAbsent(computeHighHash(ngram)) { TreeMap(LowByteComparator) }
+                    val map = entryMap.computeIfAbsent(computeHash(ngram)) { TreeMap() }
                     map[ngram] = frequency
                 }
 
-                val data: Map<Long, Entries> = entryMap.entries.associateTo(HashMap()) { (highHash, map) ->
-                    // flatten lower bytes
-                    val chars = map.keys.flatMap { ngram -> ngram.map { (it.code and 0xFF).toByte() } }.toByteArray()
+                val data: Map<UByte, Entries> = entryMap.entries.associateTo(LinkedHashMap()) { (highHash, map) ->
+                    val chars = map.keys.joinToString(separator = "").toCharArray()
                     val float = map.values.toFloatArray()
                     highHash to Entries(chars, float)
                 }
@@ -222,14 +221,10 @@ internal data class TrainingDataLanguageModel(
                 return RelativeFrequencies(data)
             }
 
-            /**
-             * Compute the unique hash of a high bits of each character
-             * Max ngram supported length: 7.
-             */
-            private fun computeHighHash(ngram: String): Long {
-                var hash = ngram.length.toLong()
+            private fun computeHash(ngram: String): UByte {
+                var hash = ngram.first().code.shr(8).toUByte()
                 ngram.forEach { c ->
-                    hash = hash.shl(8) or c.code.shr(8).toLong()
+                    hash = hash.rotateRight(3) xor c.code.toUByte()
                 }
                 return hash
             }
