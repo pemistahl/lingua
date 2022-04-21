@@ -17,6 +17,8 @@
 package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -263,7 +265,11 @@ class TrainingDataLanguageModelTest {
 
     @Test
     fun `assert that unigram language model is correctly deserialized from json`() {
-        val model = TrainingDataLanguageModel.fromJson(expectedUnigramLanguageModel)
+        val model =
+            TrainingDataLanguageModel.fromJson(
+                Language.ENGLISH,
+                sequenceOf(Json.decodeFromString(expectedUnigramLanguageModel))
+            )
         assertThat(model.language).isEqualTo(Language.ENGLISH)
         assertThat(model.absoluteFrequencies).isEmpty()
         assertThat(model.relativeFrequencies).isEmpty()

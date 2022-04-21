@@ -80,20 +80,21 @@ internal data class TrainingDataLanguageModel(
             )
         }
 
-        fun fromJson(json: String): TrainingDataLanguageModel {
-            val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
-
-            val jsonDataSequence = sequence {
-                for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
-                    val fractionAsFloat = fraction.toFloat()
-                    for (ngram in ngrams.split(' ')) {
-                        yield(ngram to fractionAsFloat)
+        fun fromJson(language: Language, jsonLanguageModels: Sequence<JsonLanguageModel>): TrainingDataLanguageModel {
+            val jsonDataSequence =
+                sequence {
+                    for (jsonLanguageModel in jsonLanguageModels) {
+                        for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
+                            val fractionAsFloat = fraction.toFloat()
+                            for (ngram in ngrams.split(' ')) {
+                                yield(ngram to fractionAsFloat)
+                            }
+                        }
                     }
                 }
-            }
 
             return TrainingDataLanguageModel(
-                language = jsonLanguageModel.language,
+                language = language,
                 absoluteFrequencies = emptyMap(),
                 relativeFrequencies = emptyMap(),
                 jsonRelativeFrequencies = RelativeFrequencies.build(jsonDataSequence)
@@ -145,88 +146,69 @@ internal data class TrainingDataLanguageModel(
         }
     }
 
-    internal class RelativeFrequencies private constructor(data: Map<UByte, Entries>) {
+    /**
+     * N-ary search tree.
+     */
+    internal class RelativeFrequencies {
 
-        private val entries: Array<Entries?> = Array(256) { data[it.toUByte()] }
+        var frequency: Float = 0F
 
-        operator fun get(ngram: String): Float =
-            entries[computeHash(ngram).toInt()]?.get(ngram) ?: 0F
+        private var childKeys = emptyKeys
 
-        private class Entries(private val chars: CharArray, private val frequencies: FloatArray) {
+        private var childValues = emptyValues
 
-            val size get() = frequencies.size
+        operator fun get(ngram: String) = getImpl(ngram, depth = 0)
 
-            operator fun get(ngram: String): Float {
-                // check range before search
-                var cmp = compareNgram(0, ngram)
-                if (cmp == 0) return frequencies.first()
-                if (cmp < 0 || size == 1) return 0F
+        private operator fun set(ngram: String, frequency: Float) = setImpl(ngram, frequency, depth = 0)
 
-                cmp = compareNgram(frequencies.lastIndex, ngram)
-                if (cmp == 0) return frequencies.last()
-                if (cmp > 0) return 0F
+        private fun getImpl(ngram: String, depth: Int): Float {
+            if (depth == ngram.length) return frequency
+            val i = childKeys.binarySearch(ngram[depth])
+            return if (i >= 0) childValues[i].getImpl(ngram, depth + 1) else 0F
+        }
 
-                return search(ngram)
+        private fun setImpl(ngram: String, frequency: Float, depth: Int) {
+            if (depth == ngram.length) {
+                this.frequency = frequency
+                return
             }
 
-            private fun search(ngram: String): Float {
-                // skip edges
-                var low = 1
-                var high = size - 2
-
-                while (low <= high) {
-                    if (low + 8 < high) {
-                        // bisection search
-                        val middle = (low + high) / 2
-                        val diff = compareNgram(middle, ngram)
-                        if (diff < 0) low = middle + 1
-                        else if (diff > 0) high = middle - 1
-                        else return frequencies[middle]
-                    } else {
-                        // linear search
-                        for (i in low..high) {
-                            if (compareNgram(i, ngram) == 0) return frequencies[i]
-                            return 0F
-                        }
+            var i = childKeys.binarySearch(ngram[depth])
+            // insert a new child
+            if (i < 0) {
+                i = -i - 1
+                childKeys = CharArray(childKeys.size + 1) { idx ->
+                    when {
+                        idx < i -> childKeys[idx]
+                        idx > i -> childKeys[idx - 1]
+                        else -> ngram[depth]
                     }
                 }
-                return 0F
+                childValues = Array(childValues.size + 1) { idx ->
+                    when {
+                        idx < i -> childValues[idx]
+                        idx > i -> childValues[idx - 1]
+                        else -> RelativeFrequencies()
+                    }
+                }
             }
 
-            private fun compareNgram(pos: Int, ngram: String): Int {
-                val base = pos * ngram.length
-                repeat(ngram.length) { i ->
-                    val diff = chars[base + i].compareTo(ngram[i])
-                    if (diff != 0) return diff
-                }
-                return 0
-            }
+            // set value
+            childValues[i].setImpl(ngram, frequency, depth + 1)
         }
 
         companion object {
 
+            private val emptyKeys = CharArray(0)
+
+            private val emptyValues = emptyArray<RelativeFrequencies>()
+
             internal fun build(relativeFrequencies: Sequence<Pair<String, Float>>): RelativeFrequencies {
-                val entryMap = LinkedHashMap<UByte, MutableMap<String, Float>>()
-                relativeFrequencies.forEach { (ngram, frequency) ->
-                    val map = entryMap.computeIfAbsent(computeHash(ngram)) { TreeMap() }
-                    map[ngram] = frequency
+                val frequencies = RelativeFrequencies()
+                for ((ngram, frequency) in relativeFrequencies) {
+                    frequencies[ngram] = frequency
                 }
-
-                val data: Map<UByte, Entries> = entryMap.entries.associateTo(LinkedHashMap()) { (highHash, map) ->
-                    val chars = map.keys.joinToString(separator = "").toCharArray()
-                    val float = map.values.toFloatArray()
-                    highHash to Entries(chars, float)
-                }
-
-                return RelativeFrequencies(data)
-            }
-
-            private fun computeHash(ngram: String): UByte {
-                var hash = ngram.first().code.shr(8).toUByte()
-                ngram.forEach { c ->
-                    hash = hash.rotateRight(3) xor c.code.toUByte()
-                }
-                return hash
+                return frequencies
             }
         }
     }

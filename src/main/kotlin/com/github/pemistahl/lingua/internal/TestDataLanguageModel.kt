@@ -25,7 +25,7 @@ internal data class TestDataLanguageModel(val ngrams: Set<Ngram>) {
             require(ngramLength in 1..5) {
                 "ngram length $ngramLength is not in range 1..5"
             }
-            val ngrams = hashSetOf<Ngram>()
+            val ngrams = mutableSetOf<Ngram>()
             for (i in 0..text.length - ngramLength) {
                 val textSlice = text.substring(i, i + ngramLength)
                 if (LETTER_REGEX.matches(textSlice)) {

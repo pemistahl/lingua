@@ -32,6 +32,8 @@ internal value class Ngram(val value: String) : Comparable<Ngram> {
         }
     }
 
+    inline val length get() = value.length
+
     override fun toString() = value
 
     override fun compareTo(other: Ngram) = value.length.compareTo(other.value.length)
