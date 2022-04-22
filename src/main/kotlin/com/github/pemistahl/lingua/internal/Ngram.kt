@@ -16,6 +16,7 @@
 
 package com.github.pemistahl.lingua.internal
 
+import com.github.pemistahl.lingua.internal.util.SubSequence
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -25,7 +26,7 @@ import kotlinx.serialization.encoding.Encoder
 
 @JvmInline
 @Serializable(with = NgramSerializer::class)
-internal value class Ngram(val value: String) : Comparable<Ngram> {
+internal value class Ngram(val value: CharSequence) : Comparable<Ngram> {
     init {
         require(value.length in 0..5) {
             "length of ngram '$value' is not in range 0..5"
@@ -34,16 +35,16 @@ internal value class Ngram(val value: String) : Comparable<Ngram> {
 
     inline val length get() = value.length
 
-    override fun toString() = value
+    override fun toString() = value.toString()
 
     override fun compareTo(other: Ngram) = value.length.compareTo(other.value.length)
 
-    fun rangeOfLowerOrderNgrams() = NgramRange(this, Ngram(this.value[0].toString()))
+    fun rangeOfLowerOrderNgrams() = NgramRange(this, Ngram(SubSequence(this.value, 0, 1)))
 
     operator fun dec(): Ngram = when (value.length) {
         0 -> error("Zerogram is ngram type of lowest order and can not be decremented")
         1 -> Ngram("")
-        else -> Ngram(this.value.substring(0, this.value.length - 1))
+        else -> Ngram(SubSequence(value, 0, this.value.length - 1))
     }
 
     companion object {

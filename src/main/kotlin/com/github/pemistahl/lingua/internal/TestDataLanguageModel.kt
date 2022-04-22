@@ -16,21 +16,27 @@
 
 package com.github.pemistahl.lingua.internal
 
+import com.github.pemistahl.lingua.internal.util.SubSequence
+
 internal data class TestDataLanguageModel(val ngrams: Set<Ngram>) {
 
     companion object {
-        private val LETTER_REGEX = Regex("\\p{L}+")
+        /**
+         * Match sequence of letter of n or more characters long.
+         */
+        private val LETTER_REGEX_MAP = List(5) { Regex("\\p{L}{${it + 1},}") }
 
         fun fromText(text: String, ngramLength: Int): TestDataLanguageModel {
             require(ngramLength in 1..5) {
                 "ngram length $ngramLength is not in range 1..5"
             }
-            val ngrams = mutableSetOf<Ngram>()
-            for (i in 0..text.length - ngramLength) {
-                val textSlice = text.substring(i, i + ngramLength)
-                if (LETTER_REGEX.matches(textSlice)) {
-                    val ngram = Ngram(textSlice)
-                    ngrams.add(ngram)
+            val ngrams = LETTER_REGEX_MAP[ngramLength - 1].findAll(text).flatMapTo(mutableSetOf()) { match ->
+                val word = match.value
+                sequence {
+                    for (i in 0..word.length - ngramLength) {
+                        val textSlice = SubSequence(word, i, ngramLength)
+                        yield(Ngram(textSlice))
+                    }
                 }
             }
             return TestDataLanguageModel(ngrams)

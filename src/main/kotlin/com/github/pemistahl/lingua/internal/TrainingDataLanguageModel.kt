@@ -152,16 +152,16 @@ internal data class TrainingDataLanguageModel(
 
         abstract val frequency: Float
 
-        operator fun get(ngram: String): Float = getImpl(ngram, 0)
+        operator fun get(ngram: CharSequence): Float = getImpl(ngram, 0)
 
-        protected abstract fun getImpl(ngram: String, depth: Int): Float
+        protected abstract fun getImpl(ngram: CharSequence, depth: Int): Float
 
         class GenericNode(
             override val frequency: Float,
             private val keys: CharArray,
             private val values: Array<RelativeFrequencies>
         ) : RelativeFrequencies() {
-            override fun getImpl(ngram: String, depth: Int): Float {
+            override fun getImpl(ngram: CharSequence, depth: Int): Float {
                 if (depth == ngram.length) return frequency
                 val i = keys.binarySearch(ngram[depth])
                 return if (i >= 0) values[i].getImpl(ngram, depth + 1) else 0F
@@ -176,7 +176,7 @@ internal data class TrainingDataLanguageModel(
             private val key: Char,
             private val value: Float
         ) : RelativeFrequencies() {
-            override fun getImpl(ngram: String, depth: Int) =
+            override fun getImpl(ngram: CharSequence, depth: Int) =
                 when {
                     depth == ngram.length -> frequency
                     depth + 1 == ngram.length && key == ngram[depth] -> value
@@ -194,7 +194,7 @@ internal data class TrainingDataLanguageModel(
             private val value1: Float,
             private val value2: Float
         ) : RelativeFrequencies() {
-            override fun getImpl(ngram: String, depth: Int): Float {
+            override fun getImpl(ngram: CharSequence, depth: Int): Float {
                 if (depth == ngram.length) return frequency
                 if (depth + 1 == ngram.length) {
                     val key = ngram[depth]
@@ -229,7 +229,7 @@ internal data class TrainingDataLanguageModel(
                     value3 = values.last()
                 )
 
-            override fun getImpl(ngram: String, depth: Int): Float {
+            override fun getImpl(ngram: CharSequence, depth: Int): Float {
                 if (depth == ngram.length) return frequency
                 if (depth + 1 == ngram.length) {
                     val key = ngram[depth]
@@ -249,7 +249,7 @@ internal data class TrainingDataLanguageModel(
             private val keys: CharArray,
             private val values: FloatArray
         ) : RelativeFrequencies() {
-            override fun getImpl(ngram: String, depth: Int): Float {
+            override fun getImpl(ngram: CharSequence, depth: Int): Float {
                 if (depth == ngram.length) return frequency
                 if (depth + 1 == ngram.length) {
                     val i = keys.binarySearch(ngram[depth])
@@ -263,13 +263,13 @@ internal data class TrainingDataLanguageModel(
          * A leaf node
          */
         data class Leaf(override val frequency: Float) : RelativeFrequencies() {
-            override fun getImpl(ngram: String, depth: Int): Float =
+            override fun getImpl(ngram: CharSequence, depth: Int): Float =
                 if (depth == ngram.length) frequency else 0F
         }
 
         object EmptyNode : RelativeFrequencies() {
             override val frequency: Float get() = 0F
-            override fun getImpl(ngram: String, depth: Int) = 0F
+            override fun getImpl(ngram: CharSequence, depth: Int) = 0F
         }
 
         private class MutableNode(
