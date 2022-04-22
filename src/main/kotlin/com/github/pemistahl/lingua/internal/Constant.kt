@@ -60,61 +60,64 @@ import com.github.pemistahl.lingua.api.Language.TURKISH
 import com.github.pemistahl.lingua.api.Language.UKRAINIAN
 import com.github.pemistahl.lingua.api.Language.VIETNAMESE
 import com.github.pemistahl.lingua.api.Language.YORUBA
+import java.util.EnumSet
 
 internal object Constant {
 
     val CHARS_TO_LANGUAGES_MAPPING = mapOf(
-        "Ãã" to setOf(PORTUGUESE, VIETNAMESE),
-        "ĄąĘę" to setOf(LITHUANIAN, POLISH),
-        "Żż" to setOf(POLISH, ROMANIAN),
-        "Îî" to setOf(FRENCH, ROMANIAN),
-        "Ññ" to setOf(BASQUE, SPANISH),
-        "ŇňŤť" to setOf(CZECH, SLOVAK),
-        "Ăă" to setOf(ROMANIAN, VIETNAMESE),
-        "İıĞğ" to setOf(AZERBAIJANI, TURKISH),
-        "ЈјЉљЊњ" to setOf(MACEDONIAN, SERBIAN),
-        "ẸẹỌọ" to setOf(VIETNAMESE, YORUBA),
-        "ÐðÞþ" to setOf(ICELANDIC, TURKISH),
-        "Ûû" to setOf(FRENCH, HUNGARIAN),
-        "Ōō" to setOf(MAORI, YORUBA),
+        "Ãã" to EnumSet.of(PORTUGUESE, VIETNAMESE),
+        "ĄąĘę" to EnumSet.of(LITHUANIAN, POLISH),
+        "Żż" to EnumSet.of(POLISH, ROMANIAN),
+        "Îî" to EnumSet.of(FRENCH, ROMANIAN),
+        "Ññ" to EnumSet.of(BASQUE, SPANISH),
+        "ŇňŤť" to EnumSet.of(CZECH, SLOVAK),
+        "Ăă" to EnumSet.of(ROMANIAN, VIETNAMESE),
+        "İıĞğ" to EnumSet.of(AZERBAIJANI, TURKISH),
+        "ЈјЉљЊњ" to EnumSet.of(MACEDONIAN, SERBIAN),
+        "ẸẹỌọ" to EnumSet.of(VIETNAMESE, YORUBA),
+        "ÐðÞþ" to EnumSet.of(ICELANDIC, TURKISH),
+        "Ûû" to EnumSet.of(FRENCH, HUNGARIAN),
+        "Ōō" to EnumSet.of(MAORI, YORUBA),
 
-        "ĀāĒēĪī" to setOf(LATVIAN, MAORI, YORUBA),
-        "Şş" to setOf(AZERBAIJANI, ROMANIAN, TURKISH),
-        "Ďď" to setOf(CZECH, ROMANIAN, SLOVAK),
-        "Ćć" to setOf(BOSNIAN, CROATIAN, POLISH),
-        "Đđ" to setOf(BOSNIAN, CROATIAN, VIETNAMESE),
-        "Іі" to setOf(BELARUSIAN, KAZAKH, UKRAINIAN),
-        "Ìì" to setOf(ITALIAN, VIETNAMESE, YORUBA),
-        "Øø" to setOf(BOKMAL, DANISH, NYNORSK),
+        "ĀāĒēĪī" to EnumSet.of(LATVIAN, MAORI, YORUBA),
+        "Şş" to EnumSet.of(AZERBAIJANI, ROMANIAN, TURKISH),
+        "Ďď" to EnumSet.of(CZECH, ROMANIAN, SLOVAK),
+        "Ćć" to EnumSet.of(BOSNIAN, CROATIAN, POLISH),
+        "Đđ" to EnumSet.of(BOSNIAN, CROATIAN, VIETNAMESE),
+        "Іі" to EnumSet.of(BELARUSIAN, KAZAKH, UKRAINIAN),
+        "Ìì" to EnumSet.of(ITALIAN, VIETNAMESE, YORUBA),
+        "Øø" to EnumSet.of(BOKMAL, DANISH, NYNORSK),
 
-        "Ūū" to setOf(LATVIAN, LITHUANIAN, MAORI, YORUBA),
-        "Ëë" to setOf(AFRIKAANS, ALBANIAN, DUTCH, FRENCH),
-        "ÈèÙù" to setOf(FRENCH, ITALIAN, VIETNAMESE, YORUBA),
-        "Êê" to setOf(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
-        "Õõ" to setOf(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
-        "Ôô" to setOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
+        "Ūū" to EnumSet.of(LATVIAN, LITHUANIAN, MAORI, YORUBA),
+        "Ëë" to EnumSet.of(AFRIKAANS, ALBANIAN, DUTCH, FRENCH),
+        "ÈèÙù" to EnumSet.of(FRENCH, ITALIAN, VIETNAMESE, YORUBA),
+        "Êê" to EnumSet.of(AFRIKAANS, FRENCH, PORTUGUESE, VIETNAMESE),
+        "Õõ" to EnumSet.of(ESTONIAN, HUNGARIAN, PORTUGUESE, VIETNAMESE),
+        "Ôô" to EnumSet.of(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
 
-        "ЁёЫыЭэ" to setOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
-        "ЩщЪъ" to setOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
-        "Òò" to setOf(CATALAN, ITALIAN, VIETNAMESE, YORUBA),
-        "Ææ" to setOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
-        "Åå" to setOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
+        "ЁёЫыЭэ" to EnumSet.of(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
+        "ЩщЪъ" to EnumSet.of(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
+        "Òò" to EnumSet.of(CATALAN, ITALIAN, VIETNAMESE, YORUBA),
+        "Ææ" to EnumSet.of(BOKMAL, DANISH, ICELANDIC, NYNORSK),
+        "Åå" to EnumSet.of(BOKMAL, DANISH, NYNORSK, SWEDISH),
 
-        "Ýý" to setOf(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
-        "Ää" to setOf(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
-        "Àà" to setOf(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
-        "Ââ" to setOf(FRENCH, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
+        "Ýý" to EnumSet.of(CZECH, ICELANDIC, SLOVAK, TURKISH, VIETNAMESE),
+        "Ää" to EnumSet.of(ESTONIAN, FINNISH, GERMAN, SLOVAK, SWEDISH),
+        "Àà" to EnumSet.of(CATALAN, FRENCH, ITALIAN, PORTUGUESE, VIETNAMESE),
+        "Ââ" to EnumSet.of(FRENCH, PORTUGUESE, ROMANIAN, TURKISH, VIETNAMESE),
 
-        "Üü" to setOf(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, SPANISH, TURKISH),
-        "ČčŠšŽž" to setOf(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
-        "Çç" to setOf(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, PORTUGUESE, TURKISH),
+        "Üü" to EnumSet.of(AZERBAIJANI, CATALAN, ESTONIAN, GERMAN, HUNGARIAN, SPANISH, TURKISH),
+        "ČčŠšŽž" to EnumSet.of(BOSNIAN, CZECH, CROATIAN, LATVIAN, LITHUANIAN, SLOVAK, SLOVENE),
+        "Çç" to EnumSet.of(ALBANIAN, AZERBAIJANI, BASQUE, CATALAN, FRENCH, PORTUGUESE, TURKISH),
 
-        "Öö" to setOf(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
+        "Öö" to EnumSet.of(AZERBAIJANI, ESTONIAN, FINNISH, GERMAN, HUNGARIAN, ICELANDIC, SWEDISH, TURKISH),
 
-        "Óó" to setOf(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA),
-        "ÁáÍíÚú" to setOf(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA),
+        "Óó" to
+            EnumSet.of(CATALAN, HUNGARIAN, ICELANDIC, IRISH, POLISH, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA),
+        "ÁáÍíÚú" to
+            EnumSet.of(CATALAN, CZECH, ICELANDIC, IRISH, HUNGARIAN, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA),
 
-        "Éé" to setOf(
+        "Éé" to EnumSet.of(
             CATALAN, CZECH, FRENCH, HUNGARIAN, ICELANDIC, IRISH,
             ITALIAN, PORTUGUESE, SLOVAK, SPANISH, VIETNAMESE, YORUBA
         )
@@ -127,7 +130,7 @@ internal object Constant {
             script == Character.UnicodeScript.HAN
     }
 
-    val LANGUAGES_SUPPORTING_LOGOGRAMS = setOf(CHINESE, JAPANESE, KOREAN)
+    val LANGUAGES_SUPPORTING_LOGOGRAMS = EnumSet.of(CHINESE, JAPANESE, KOREAN)
     val MULTIPLE_WHITESPACE = Regex("\\s+")
     val NO_LETTER = Regex("^[^\\p{L}]+$")
     val NUMBERS = Regex("\\p{N}")

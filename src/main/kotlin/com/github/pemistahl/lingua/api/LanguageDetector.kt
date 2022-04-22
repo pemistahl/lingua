@@ -143,15 +143,15 @@ class LanguageDetector internal constructor(
                 val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
                 val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
-                val unigramCounts = if (i == 1) {
-                    val languages = probabilities.keys
-                    val unigramFilteredLanguages =
-                        if (languages.isNotEmpty()) filteredLanguages.filterTo(mutableSetOf()) { languages.contains(it) }
-                        else filteredLanguages
-                    countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-                } else {
-                    null
-                }
+                val unigramCounts =
+                    if (i != 1 || probabilities.isEmpty()) {
+                        emptyMap()
+                    } else {
+                        countUnigramsOfInputText(
+                            testDataModel,
+                            filteredLanguages.filterTo(mutableSetOf()) { languages.contains(it) }
+                        )
+                    }
 
                 Pair(probabilities, unigramCounts)
             }
@@ -159,7 +159,7 @@ class LanguageDetector internal constructor(
 
         val allProbabilitiesAndUnigramCounts = threadPool.invokeAll(tasks).map { it.get() }
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
-        val unigramCounts = allProbabilitiesAndUnigramCounts[0].second ?: emptyMap()
+        val unigramCounts = allProbabilitiesAndUnigramCounts[0].second
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
         val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
         val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }

@@ -893,7 +893,7 @@ class LanguageDetectorTest {
             every { getRelativeFrequency(Ngram("alter")) } returns 0.29F
 
             // unknown
-            for (value in listOf("w", "aq", "wx","aqu", "tez", "wxy","aqua", "wxyz","aquas")) {
+            for (value in listOf("w", "aq", "wx", "aqu", "tez", "wxy", "aqua", "wxyz", "aquas")) {
                 every { getRelativeFrequency(Ngram(value)) } returns 0.0F
             }
         }
@@ -920,7 +920,7 @@ class LanguageDetectorTest {
             every { getRelativeFrequency(Ngram("alter")) } returns 0.30F
 
             // unknown
-            for (value in listOf("w", "wx","wxy","wxyz")) {
+            for (value in listOf("w", "wx", "wxy", "wxyz")) {
                 every { getRelativeFrequency(Ngram(value)) } returns 0.0F
             }
         }

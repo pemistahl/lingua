@@ -19,7 +19,6 @@ package com.github.pemistahl.lingua.internal
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.TreeMap
@@ -149,66 +148,213 @@ internal data class TrainingDataLanguageModel(
     /**
      * N-ary search tree.
      */
-    internal class RelativeFrequencies {
+    internal sealed class RelativeFrequencies {
 
-        var frequency: Float = 0F
+        abstract val frequency: Float
 
-        private var childKeys = emptyKeys
+        operator fun get(ngram: String): Float = getImpl(ngram, 0)
 
-        private var childValues = emptyValues
+        protected abstract fun getImpl(ngram: String, depth: Int): Float
 
-        operator fun get(ngram: String) = getImpl(ngram, depth = 0)
-
-        private operator fun set(ngram: String, frequency: Float) = setImpl(ngram, frequency, depth = 0)
-
-        private fun getImpl(ngram: String, depth: Int): Float {
-            if (depth == ngram.length) return frequency
-            val i = childKeys.binarySearch(ngram[depth])
-            return if (i >= 0) childValues[i].getImpl(ngram, depth + 1) else 0F
+        class GenericNode(
+            override val frequency: Float,
+            private val keys: CharArray,
+            private val values: Array<RelativeFrequencies>
+        ) : RelativeFrequencies() {
+            override fun getImpl(ngram: String, depth: Int): Float {
+                if (depth == ngram.length) return frequency
+                val i = keys.binarySearch(ngram[depth])
+                return if (i >= 0) values[i].getImpl(ngram, depth + 1) else 0F
+            }
         }
 
-        private fun setImpl(ngram: String, frequency: Float, depth: Int) {
-            if (depth == ngram.length) {
-                this.frequency = frequency
-                return
+        /**
+         * A node with one leaf child
+         */
+        data class PreLeaf1(
+            override val frequency: Float,
+            private val key: Char,
+            private val value: Float
+        ) : RelativeFrequencies() {
+            override fun getImpl(ngram: String, depth: Int) =
+                when {
+                    depth == ngram.length -> frequency
+                    depth + 1 == ngram.length && key == ngram[depth] -> value
+                    else -> 0F
+                }
+        }
+
+        /**
+         * A node with only 2 leaf children
+         */
+        data class PreLeaf2(
+            override val frequency: Float,
+            private val key1: Char,
+            private val key2: Char,
+            private val value1: Float,
+            private val value2: Float
+        ) : RelativeFrequencies() {
+            override fun getImpl(ngram: String, depth: Int): Float {
+                if (depth == ngram.length) return frequency
+                if (depth + 1 == ngram.length) {
+                    val key = ngram[depth]
+                    if (key1 == key) return value1
+                    if (key2 == key) return value2
+                }
+                return 0F
+            }
+        }
+
+        /**
+         * A node with only 3 leaf children
+         */
+        data class PreLeaf3(
+            override val frequency: Float,
+            private val key1: Char,
+            private val key2: Char,
+            private val key3: Char,
+            private val value1: Float,
+            private val value2: Float,
+            private val value3: Float
+        ) : RelativeFrequencies() {
+
+            constructor(frequency: Float, keys: Collection<Char>, values: Collection<Float>) :
+                this(
+                    frequency = frequency,
+                    key1 = keys.first(),
+                    key2 = keys.drop(1).first(),
+                    key3 = keys.last(),
+                    value1 = values.first(),
+                    value2 = values.drop(1).first(),
+                    value3 = values.last()
+                )
+
+            override fun getImpl(ngram: String, depth: Int): Float {
+                if (depth == ngram.length) return frequency
+                if (depth + 1 == ngram.length) {
+                    val key = ngram[depth]
+                    if (key1 == key) return value1
+                    if (key2 == key) return value2
+                    if (key3 == key) return value3
+                }
+                return 0F
+            }
+        }
+
+        /**
+         * A node with only leaf children
+         */
+        class PreLeafN(
+            override val frequency: Float,
+            private val keys: CharArray,
+            private val values: FloatArray
+        ) : RelativeFrequencies() {
+            override fun getImpl(ngram: String, depth: Int): Float {
+                if (depth == ngram.length) return frequency
+                if (depth + 1 == ngram.length) {
+                    val i = keys.binarySearch(ngram[depth])
+                    if (i >= 0) return values[i]
+                }
+                return 0F
+            }
+        }
+
+        /**
+         * A leaf node
+         */
+        data class Leaf(override val frequency: Float) : RelativeFrequencies() {
+            override fun getImpl(ngram: String, depth: Int): Float =
+                if (depth == ngram.length) frequency else 0F
+        }
+
+        object EmptyNode : RelativeFrequencies() {
+            override val frequency: Float get() = 0F
+            override fun getImpl(ngram: String, depth: Int) = 0F
+        }
+
+        private class MutableNode(
+            var frequency: Float = 0F,
+            val children: TreeMap<Char, MutableNode> = TreeMap()
+        ) {
+            operator fun set(ngram: String, frequency: Float) {
+                var node = this
+                repeat(ngram.length) { i ->
+                    node = node.children.computeIfAbsent(ngram[i]) { MutableNode() }
+                }
+                node.frequency = frequency
             }
 
-            var i = childKeys.binarySearch(ngram[depth])
-            // insert a new child
-            if (i < 0) {
-                i = -i - 1
-                childKeys = CharArray(childKeys.size + 1) { idx ->
-                    when {
-                        idx < i -> childKeys[idx]
-                        idx > i -> childKeys[idx - 1]
-                        else -> ngram[depth]
-                    }
-                }
-                childValues = Array(childValues.size + 1) { idx ->
-                    when {
-                        idx < i -> childValues[idx]
-                        idx > i -> childValues[idx - 1]
-                        else -> RelativeFrequencies()
-                    }
-                }
-            }
+            fun toRelativeFrequencies() =
+                toRelativeFrequenciesImpl(
+                    keysCache = mutableMapOf(),
+                    floatsCache = mutableMapOf(),
+                    nodeCache = mutableMapOf(Leaf(0F) to EmptyNode)
+                )
 
-            // set value
-            childValues[i].setImpl(ngram, frequency, depth + 1)
+            private fun toRelativeFrequenciesImpl(
+                keysCache: MutableMap<List<Char>, CharArray>,
+                floatsCache: MutableMap<List<Float>, FloatArray>,
+                nodeCache: MutableMap<RelativeFrequencies, RelativeFrequencies>
+            ): RelativeFrequencies {
+                if (children.size == 0) {
+                    val node = Leaf(frequency)
+                    return nodeCache.computeIfAbsent(node) { node }
+                }
+                if (children.size == 1) {
+                    val node = PreLeaf1(frequency, children.keys.single(), children.values.single().frequency)
+                    return nodeCache.computeIfAbsent(node) { node }
+                }
+                if (children.size == 2) {
+                    val node = PreLeaf2(
+                        frequency = frequency,
+                        key1 = children.keys.first(),
+                        key2 = children.keys.last(),
+                        value1 = children.values.first().frequency,
+                        value2 = children.values.last().frequency
+                    )
+                    return nodeCache.computeIfAbsent(node) { node }
+                }
+                if (children.size == 3) {
+                    val node = PreLeaf3(frequency, children.keys.toList(), children.values.map { it.frequency })
+                    return nodeCache.computeIfAbsent(node) { node }
+                }
+
+                var keysArray = children.keys.toCharArray()
+                if (keysArray.size < 128) {
+                    keysArray = keysCache.computeIfAbsent(keysArray.asList()) { keysArray }
+                }
+
+                if (children.values.all { it.children.isEmpty() }) {
+                    var valuesArray = children.values.map { it.frequency }.toFloatArray()
+                    if (valuesArray.size < 128) {
+                        valuesArray = floatsCache.computeIfAbsent(valuesArray.asList()) { valuesArray }
+                    }
+                    return PreLeafN(
+                        frequency = frequency,
+                        keys = keysArray,
+                        values = valuesArray
+                    )
+                }
+
+                val values =
+                    children.values
+                        .map { it.toRelativeFrequenciesImpl(keysCache, floatsCache, nodeCache) }
+                        .toTypedArray()
+                return GenericNode(
+                    frequency = frequency,
+                    keys = keysArray,
+                    values = values
+                )
+            }
         }
 
         companion object {
-
-            private val emptyKeys = CharArray(0)
-
-            private val emptyValues = emptyArray<RelativeFrequencies>()
-
             internal fun build(relativeFrequencies: Sequence<Pair<String, Float>>): RelativeFrequencies {
-                val frequencies = RelativeFrequencies()
+                val mutableRoot = MutableNode()
                 for ((ngram, frequency) in relativeFrequencies) {
-                    frequencies[ngram] = frequency
+                    mutableRoot[ngram] = frequency
                 }
-                return frequencies
+                return mutableRoot.toRelativeFrequencies()
             }
         }
     }

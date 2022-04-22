@@ -46,21 +46,11 @@ internal enum class Alphabet {
         null
     }
 
-    fun matches(chr: Char): Boolean {
-        return if (this.script != null) {
-            UnicodeScript.of(chr.code) == this.script
-        } else {
-            false
-        }
-    }
+    fun matches(chr: Char): Boolean =
+        this.script != null && UnicodeScript.of(chr.code) == this.script
 
-    fun matches(input: CharSequence): Boolean {
-        return if (this.script != null) {
-            input.codePoints().allMatch { UnicodeScript.of(it) == this.script }
-        } else {
-            false
-        }
-    }
+    fun matches(input: CharSequence): Boolean =
+        this.script != null && input.codePoints().allMatch { UnicodeScript.of(it) == this.script }
 
     private fun supportedLanguages(): Set<Language> {
         val languages = mutableSetOf<Language>()

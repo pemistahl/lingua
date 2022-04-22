@@ -18,16 +18,10 @@ package com.github.pemistahl.lingua.internal.util.extension
 
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.Constant.LANGUAGES_SUPPORTING_LOGOGRAMS
+import java.util.EnumSet
 
 // Cache set of scripts here to avoid evaluating it every time for isLogogram()
-private val scriptsWithLogograms = LANGUAGES_SUPPORTING_LOGOGRAMS.asSequence()
-    .flatMap(Language::alphabets)
-    .toSet()
+private val scriptsWithLogograms = EnumSet.copyOf(LANGUAGES_SUPPORTING_LOGOGRAMS.flatMap(Language::alphabets))
 
-fun Char.isLogogram(): Boolean {
-    return if (this.isWhitespace()) {
-        false
-    } else {
-        scriptsWithLogograms.any { it.matches(this) }
-    }
-}
+internal fun Char.isLogogram(): Boolean =
+    !isWhitespace() && scriptsWithLogograms.any { it.matches(this) }
