@@ -420,29 +420,34 @@ class LanguageDetector internal constructor(
     ): Float {
         require(ngram.length > 0) { "Zerogram detected" }
         require(ngram.length <= 5) { "unsupported ngram length detected: ${ngram.length}" }
-        val model = loadLanguageModels(languageModels, language)
-
-        return model.getRelativeFrequency(ngram)
+        return loadLanguageModels(languageModels, language).getRelativeFrequency(ngram)
     }
 
     private fun loadLanguageModels(
         languageModels: MutableMap<Language, TrainingDataLanguageModel>,
-        language: Language
+        language: Language,
+        builderCache: TrainingDataLanguageModel.BuilderCache? = null
     ): TrainingDataLanguageModel =
-        languageModels.computeIfAbsent(language, ::loadLanguageModel)
+        languageModels.computeIfAbsent(language) {
+            loadLanguageModel(language, builderCache ?: TrainingDataLanguageModel.BuilderCache())
+        }
 
-    private fun loadLanguageModel(language: Language): TrainingDataLanguageModel {
+    private fun loadLanguageModel(
+        language: Language,
+        builderCache: TrainingDataLanguageModel.BuilderCache
+    ): TrainingDataLanguageModel {
         val jsonLanguageModels: Sequence<JsonLanguageModel> = (1..5).asSequence().map { ngramLength ->
             val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
             val filePath = "/language-models/${language.isoCode639_1}/$fileName"
             Json.decodeFromString(Language::class.java.getResourceAsStream(filePath).reader().use { it.readText() })
         }
-        return TrainingDataLanguageModel.fromJson(language, jsonLanguageModels)
+        return TrainingDataLanguageModel.fromJson(language, jsonLanguageModels, builderCache)
     }
 
     private fun preloadLanguageModels() {
+        val builderCache = TrainingDataLanguageModel.BuilderCache()
         for (language in languages) {
-            loadLanguageModels(languageModels, language)
+            loadLanguageModels(languageModels, language, builderCache)
         }
     }
 
