@@ -86,16 +86,18 @@ internal data class TrainingDataLanguageModel(
 
         internal fun fromJson(
             language: Language,
-            jsonLanguageModels: Sequence<JsonLanguageModel>,
+            jsonLanguageModels: Sequence<JsonLanguageModel?>,
             builderCache: BuilderCache = BuilderCache()
         ): TrainingDataLanguageModel {
             val jsonDataSequence =
                 sequence {
                     for (jsonLanguageModel in jsonLanguageModels) {
-                        for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
-                            val fractionAsFloat = fraction.toFloat()
-                            for (ngram in ngrams.split(' ')) {
-                                yield(ngram to fractionAsFloat)
+                        if (jsonLanguageModel != null) {
+                            for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
+                                val fractionAsFloat = fraction.toFloat()
+                                for (ngram in ngrams.split(' ')) {
+                                    yield(ngram to fractionAsFloat)
+                                }
                             }
                         }
                     }

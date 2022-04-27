@@ -436,10 +436,15 @@ class LanguageDetector internal constructor(
         language: Language,
         builderCache: TrainingDataLanguageModel.BuilderCache
     ): TrainingDataLanguageModel {
-        val jsonLanguageModels: Sequence<JsonLanguageModel> = (1..5).asSequence().map { ngramLength ->
+        val jsonLanguageModels: Sequence<JsonLanguageModel?> = (1..5).asSequence().map { ngramLength ->
             val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
             val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-            Json.decodeFromString(Language::class.java.getResourceAsStream(filePath).reader().use { it.readText() })
+            val inputStream = Language::class.java.getResourceAsStream(filePath)
+            if (inputStream == null) {
+                null
+            } else {
+                Json.decodeFromString(inputStream.reader().use { it.readText() })
+            }
         }
         return TrainingDataLanguageModel.fromJson(language, jsonLanguageModels, builderCache)
     }
