@@ -80,12 +80,13 @@ internal data class TrainingDataLanguageModel(
         }
 
         fun fromJson(
-            language: Language, jsonLanguageModels: Sequence<JsonLanguageModel>,
-        ): TrainingDataLanguageModel =
-            fromJson(language, jsonLanguageModels, BuilderCache())
+            language: Language,
+            jsonLanguageModels: Sequence<JsonLanguageModel>
+        ): TrainingDataLanguageModel = fromJson(language, jsonLanguageModels, BuilderCache())
 
         internal fun fromJson(
-            language: Language, jsonLanguageModels: Sequence<JsonLanguageModel>,
+            language: Language,
+            jsonLanguageModels: Sequence<JsonLanguageModel>,
             builderCache: BuilderCache = BuilderCache()
         ): TrainingDataLanguageModel {
             val jsonDataSequence =
@@ -156,7 +157,8 @@ internal data class TrainingDataLanguageModel(
     internal class BuilderCache(
         val keysCache: MutableMap<List<Char>, CharArray> = hashMapOf(),
         val floatsCache: MutableMap<List<Float>, FloatArray> = hashMapOf(),
-        val nodeCache: MutableMap<RelativeFrequencies, RelativeFrequencies> = hashMapOf(RelativeFrequencies.Leaf(0F) to RelativeFrequencies.EmptyNode)
+        val nodeCache: MutableMap<RelativeFrequencies, RelativeFrequencies> =
+            hashMapOf(RelativeFrequencies.Leaf(0F) to RelativeFrequencies.EmptyNode)
     )
 
     /**

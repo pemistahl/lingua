@@ -417,42 +417,31 @@ class LanguageDetector internal constructor(
     internal fun lookUpNgramProbability(
         language: Language,
         ngram: Ngram
-    ): Double {
-        val ngramLength = ngram.value.length
-        val languageModels = when (ngramLength) {
-            5 -> fivegramLanguageModels
-            4 -> quadrigramLanguageModels
-            3 -> trigramLanguageModels
-            2 -> bigramLanguageModels
-            1 -> unigramLanguageModels
-            0 -> throw IllegalArgumentException("Zerogram detected")
-            else -> throw IllegalArgumentException("unsupported ngram length detected: ${ngram.value.length}")
-        }
-
-        val model = loadLanguageModels(languageModels, language, ngramLength)
-
-        return model?.getRelativeFrequency(ngram) ?: 0.0
+    ): Float {
+        require(ngram.length > 0) { "Zerogram detected" }
+        require(ngram.length <= 5) { "unsupported ngram length detected: ${ngram.length}" }
+        return loadLanguageModels(languageModels, language).getRelativeFrequency(ngram)
     }
 
     private fun loadLanguageModels(
         languageModels: MutableMap<Language, TrainingDataLanguageModel>,
         language: Language,
-        ngramLength: Int
-    ): TrainingDataLanguageModel? {
-        if (languageModels.containsKey(language)) {
-            return languageModels.getValue(language)
+        builderCache: TrainingDataLanguageModel.BuilderCache? = null
+    ): TrainingDataLanguageModel =
+        languageModels.computeIfAbsent(language) {
+            loadLanguageModel(language, builderCache ?: TrainingDataLanguageModel.BuilderCache())
         }
-        val model = loadLanguageModel(language, ngramLength) ?: return null
-        languageModels[language] = model
-        return model
-    }
 
-    private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel? {
-        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
-        val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return null
-        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-        return TrainingDataLanguageModel.fromJson(jsonContent)
+    private fun loadLanguageModel(
+        language: Language,
+        builderCache: TrainingDataLanguageModel.BuilderCache
+    ): TrainingDataLanguageModel {
+        val jsonLanguageModels: Sequence<JsonLanguageModel> = (1..5).asSequence().map { ngramLength ->
+            val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
+            val filePath = "/language-models/${language.isoCode639_1}/$fileName"
+            Json.decodeFromString(Language::class.java.getResourceAsStream(filePath).reader().use { it.readText() })
+        }
+        return TrainingDataLanguageModel.fromJson(language, jsonLanguageModels, builderCache)
     }
 
     private fun preloadLanguageModels() {
