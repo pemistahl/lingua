@@ -30,7 +30,6 @@ import com.github.pemistahl.lingua.internal.JsonLanguageModel
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
-import com.github.pemistahl.lingua.internal.util.extension.containsAnyOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
 import kotlinx.serialization.decodeFromString
@@ -367,20 +366,21 @@ class LanguageDetector internal constructor(
 
         for (word in words) {
             for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
-                if (word.containsAnyOf(characters)) {
-                    for (language in languages) {
-                        languageCounts.incrementCounter(language)
+                for (character in characters) {
+                    if (word.contains(character)) {
+                        for (language in languages) {
+                            if (filteredLanguages.contains(language)) {
+                                languageCounts.incrementCounter(language)
+                            }
+                        }
                     }
-                    break
                 }
             }
         }
 
         val languagesSubset = languageCounts.filterValues { it >= words.size / 2.0 }.keys
 
-        return if (languagesSubset.isNotEmpty()) {
-            filteredLanguages.filter { it in languagesSubset }.toSet()
-        } else {
+        return languagesSubset.ifEmpty {
             filteredLanguages.toSet()
         }
     }
@@ -417,31 +417,42 @@ class LanguageDetector internal constructor(
     internal fun lookUpNgramProbability(
         language: Language,
         ngram: Ngram
-    ): Float {
-        require(ngram.length > 0) { "Zerogram detected" }
-        require(ngram.length <= 5) { "unsupported ngram length detected: ${ngram.length}" }
-        return loadLanguageModels(languageModels, language).getRelativeFrequency(ngram)
+    ): Double {
+        val ngramLength = ngram.value.length
+        val languageModels = when (ngramLength) {
+            5 -> fivegramLanguageModels
+            4 -> quadrigramLanguageModels
+            3 -> trigramLanguageModels
+            2 -> bigramLanguageModels
+            1 -> unigramLanguageModels
+            0 -> throw IllegalArgumentException("Zerogram detected")
+            else -> throw IllegalArgumentException("unsupported ngram length detected: ${ngram.value.length}")
+        }
+
+        val model = loadLanguageModels(languageModels, language, ngramLength)
+
+        return model?.getRelativeFrequency(ngram) ?: 0.0
     }
 
     private fun loadLanguageModels(
         languageModels: MutableMap<Language, TrainingDataLanguageModel>,
         language: Language,
-        builderCache: TrainingDataLanguageModel.BuilderCache? = null
-    ): TrainingDataLanguageModel =
-        languageModels.computeIfAbsent(language) {
-            loadLanguageModel(language, builderCache ?: TrainingDataLanguageModel.BuilderCache())
+        ngramLength: Int
+    ): TrainingDataLanguageModel? {
+        if (languageModels.containsKey(language)) {
+            return languageModels.getValue(language)
         }
+        val model = loadLanguageModel(language, ngramLength) ?: return null
+        languageModels[language] = model
+        return model
+    }
 
-    private fun loadLanguageModel(
-        language: Language,
-        builderCache: TrainingDataLanguageModel.BuilderCache
-    ): TrainingDataLanguageModel {
-        val jsonLanguageModels: Sequence<JsonLanguageModel> = (1..5).asSequence().map { ngramLength ->
-            val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
-            val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-            Json.decodeFromString(Language::class.java.getResourceAsStream(filePath).reader().use { it.readText() })
-        }
-        return TrainingDataLanguageModel.fromJson(language, jsonLanguageModels, builderCache)
+    private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel? {
+        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
+        val filePath = "/language-models/${language.isoCode639_1}/$fileName"
+        val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return null
+        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+        return TrainingDataLanguageModel.fromJson(jsonContent)
     }
 
     private fun preloadLanguageModels() {
