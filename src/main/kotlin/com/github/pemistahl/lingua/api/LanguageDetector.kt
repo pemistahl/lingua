@@ -375,18 +375,18 @@ class LanguageDetector internal constructor(
             }
         }
 
-        val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }!!.key
-        val filteredLanguages = languages.filter { it.alphabets.contains(mostFrequentAlphabet) }
+        val mostFrequentAlphabet = detectedAlphabets.entries.maxByOrNull { it.value }?.key
+        val filteredLanguages = languages.asSequence().filter { it.alphabets.contains(mostFrequentAlphabet) }.toSet()
         val languageCounts = mutableMapOf<Language, Int>()
 
-        for (word in words) {
-            for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
+        for ((characters, languages) in CHARS_TO_LANGUAGES_MAPPING) {
+            val relevantLanguages = languages.intersect(filteredLanguages)
+
+            for (word in words) {
                 for (character in characters) {
                     if (word.contains(character)) {
-                        for (language in languages) {
-                            if (filteredLanguages.contains(language)) {
-                                languageCounts.incrementCounter(language)
-                            }
+                        for (language in relevantLanguages) {
+                            languageCounts.incrementCounter(language)
                         }
                     }
                 }
@@ -396,7 +396,7 @@ class LanguageDetector internal constructor(
         val languagesSubset = languageCounts.filterValues { it >= words.size / 2.0 }.keys
 
         return languagesSubset.ifEmpty {
-            filteredLanguages.toSet()
+            filteredLanguages
         }
     }
 
