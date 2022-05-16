@@ -51,14 +51,14 @@ version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.6.0"
-    kotlin("plugin.serialization") version "1.6.0"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
-    id("com.adarshr.test-logger") version "3.1.0"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+    id("com.adarshr.test-logger") version "3.2.0"
     id("com.asarkar.gradle.build-time-tracker") version "3.0.1"
-    id("org.jetbrains.dokka") version "1.6.0"
+    id("org.jetbrains.dokka") version "1.6.21"
     id("ru.vyarus.use-python") version "2.3.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
     signing
@@ -85,10 +85,10 @@ val accuracyReportImplementation by configurations.getting {
 
 configurations["accuracyReportRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-compileTestKotlin.kotlinOptions.jvmTarget = "1.8"
+compileTestKotlin.kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
 tasks.named("compileAccuracyReportKotlin", KotlinCompile::class) {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 
 tasks.withType<Test> {
@@ -302,19 +302,19 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
-    implementation("it.unimi.dsi:fastutil:8.5.6")
+    implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("it.unimi.dsi:fastutil:8.5.8")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("org.assertj:assertj-core:3.21.0")
-    testImplementation("io.mockk:mockk:1.12.1")
+    testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("io.mockk:mockk:1.12.3")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
-    accuracyReportImplementation("org.apache.tika:tika-core:2.1.0")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.1.0")
-    accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.32")
+    accuracyReportImplementation("org.apache.tika:tika-core:2.3.0")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.3.0")
+    accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.36")
 }
 
 python {
