@@ -23,8 +23,9 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+@JvmInline
 @Serializable(with = NgramSerializer::class)
-internal data class Ngram(val value: String) : Comparable<Ngram> {
+internal value class Ngram(val value: String) : Comparable<Ngram> {
     init {
         require(value.length in 0..5) {
             "length of ngram '$value' is not in range 0..5"
