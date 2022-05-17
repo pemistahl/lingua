@@ -176,6 +176,8 @@ import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
 import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
+import com.github.pemistahl.lingua.internal.util.extension.enumSetOf
+import java.util.EnumSet
 
 /**
  * The supported detectable languages.
@@ -183,146 +185,146 @@ import com.github.pemistahl.lingua.internal.Alphabet.NONE
 enum class Language(
     val isoCode639_1: IsoCode639_1,
     val isoCode639_3: IsoCode639_3,
-    internal val alphabets: Set<Alphabet>,
+    internal val alphabets: EnumSet<Alphabet>,
     internal val uniqueCharacters: String?
 ) {
-    AFRIKAANS(AF, AFR, setOf(Alphabet.LATIN), null),
-    ALBANIAN(SQ, SQI, setOf(Alphabet.LATIN), null),
-    ARABIC(AR, ARA, setOf(Alphabet.ARABIC), null),
-    ARMENIAN(HY, HYE, setOf(Alphabet.ARMENIAN), null),
-    AZERBAIJANI(AZ, AZE, setOf(Alphabet.LATIN), "Əə"),
-    BASQUE(EU, EUS, setOf(Alphabet.LATIN), null),
-    BELARUSIAN(BE, BEL, setOf(CYRILLIC), null),
-    BENGALI(BN, BEN, setOf(Alphabet.BENGALI), null),
-    BOKMAL(NB, NOB, setOf(Alphabet.LATIN), null),
-    BOSNIAN(BS, BOS, setOf(Alphabet.LATIN), null),
-    BULGARIAN(BG, BUL, setOf(CYRILLIC), null),
-    CATALAN(CA, CAT, setOf(Alphabet.LATIN), "Ïï"),
-    CHINESE(ZH, ZHO, setOf(HAN), null),
-    CROATIAN(HR, HRV, setOf(Alphabet.LATIN), null),
-    CZECH(CS, CES, setOf(Alphabet.LATIN), "ĚěŘřŮů"),
-    DANISH(DA, DAN, setOf(Alphabet.LATIN), null),
-    DUTCH(NL, NLD, setOf(Alphabet.LATIN), null),
-    ENGLISH(EN, ENG, setOf(Alphabet.LATIN), null),
-    ESPERANTO(EO, EPO, setOf(Alphabet.LATIN), "ĈĉĜĝĤĥĴĵŜŝŬŭ"),
-    ESTONIAN(ET, EST, setOf(Alphabet.LATIN), null),
-    FINNISH(FI, FIN, setOf(Alphabet.LATIN), null),
-    FRENCH(FR, FRA, setOf(Alphabet.LATIN), null),
-    GANDA(LG, LUG, setOf(Alphabet.LATIN), null),
-    GEORGIAN(KA, KAT, setOf(Alphabet.GEORGIAN), null),
-    GERMAN(DE, DEU, setOf(Alphabet.LATIN), "ß"),
-    GREEK(EL, ELL, setOf(Alphabet.GREEK), null),
-    GUJARATI(GU, GUJ, setOf(Alphabet.GUJARATI), null),
-    HEBREW(HE, HEB, setOf(Alphabet.HEBREW), null),
-    HINDI(HI, HIN, setOf(DEVANAGARI), null),
-    HUNGARIAN(HU, HUN, setOf(Alphabet.LATIN), "ŐőŰű"),
-    ICELANDIC(IS, ISL, setOf(Alphabet.LATIN), null),
-    INDONESIAN(ID, IND, setOf(Alphabet.LATIN), null),
-    IRISH(GA, GLE, setOf(Alphabet.LATIN), null),
-    ITALIAN(IT, ITA, setOf(Alphabet.LATIN), null),
-    JAPANESE(JA, JPN, setOf(HIRAGANA, KATAKANA, HAN), null),
-    KAZAKH(KK, KAZ, setOf(CYRILLIC), "ӘәҒғҚқҢңҰұ"),
-    KOREAN(KO, KOR, setOf(HANGUL), null),
-    LATIN(LA, LAT, setOf(Alphabet.LATIN), null),
-    LATVIAN(LV, LAV, setOf(Alphabet.LATIN), "ĢģĶķĻļŅņ"),
-    LITHUANIAN(LT, LIT, setOf(Alphabet.LATIN), "ĖėĮįŲų"),
-    MACEDONIAN(MK, MKD, setOf(CYRILLIC), "ЃѓЅѕЌќЏџ"),
-    MALAY(MS, MSA, setOf(Alphabet.LATIN), null),
-    MAORI(MI, MRI, setOf(Alphabet.LATIN), null),
-    MARATHI(MR, MAR, setOf(DEVANAGARI), "ळ"),
-    MONGOLIAN(MN, MON, setOf(CYRILLIC), "ӨөҮү"),
-    NYNORSK(NN, NNO, setOf(Alphabet.LATIN), null),
-    PERSIAN(FA, FAS, setOf(Alphabet.ARABIC), null),
-    POLISH(PL, POL, setOf(Alphabet.LATIN), "ŁłŃńŚśŹź"),
-    PORTUGUESE(PT, POR, setOf(Alphabet.LATIN), null),
-    PUNJABI(PA, PAN, setOf(GURMUKHI), null),
-    ROMANIAN(RO, RON, setOf(Alphabet.LATIN), "Țţ"),
-    RUSSIAN(RU, RUS, setOf(CYRILLIC), null),
-    SERBIAN(SR, SRP, setOf(CYRILLIC), "ЂђЋћ"),
-    SHONA(SN, SNA, setOf(Alphabet.LATIN), null),
-    SLOVAK(SK, SLK, setOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
-    SLOVENE(SL, SLV, setOf(Alphabet.LATIN), null),
-    SOMALI(SO, SOM, setOf(Alphabet.LATIN), null),
-    SOTHO(ST, SOT, setOf(Alphabet.LATIN), null),
-    SPANISH(ES, SPA, setOf(Alphabet.LATIN), "¿¡"),
-    SWAHILI(SW, SWA, setOf(Alphabet.LATIN), null),
-    SWEDISH(SV, SWE, setOf(Alphabet.LATIN), null),
-    TAGALOG(TL, TGL, setOf(Alphabet.LATIN), null),
-    TAMIL(TA, TAM, setOf(Alphabet.TAMIL), null),
-    TELUGU(TE, TEL, setOf(Alphabet.TELUGU), null),
-    THAI(TH, THA, setOf(Alphabet.THAI), null),
-    TSONGA(TS, TSO, setOf(Alphabet.LATIN), null),
-    TSWANA(TN, TSN, setOf(Alphabet.LATIN), null),
-    TURKISH(TR, TUR, setOf(Alphabet.LATIN), null),
-    UKRAINIAN(UK, UKR, setOf(CYRILLIC), "ҐґЄєЇї"),
-    URDU(UR, URD, setOf(Alphabet.ARABIC), null),
+    AFRIKAANS(AF, AFR, enumSetOf(Alphabet.LATIN), null),
+    ALBANIAN(SQ, SQI, enumSetOf(Alphabet.LATIN), null),
+    ARABIC(AR, ARA, enumSetOf(Alphabet.ARABIC), null),
+    ARMENIAN(HY, HYE, enumSetOf(Alphabet.ARMENIAN), null),
+    AZERBAIJANI(AZ, AZE, enumSetOf(Alphabet.LATIN), "Əə"),
+    BASQUE(EU, EUS, enumSetOf(Alphabet.LATIN), null),
+    BELARUSIAN(BE, BEL, enumSetOf(CYRILLIC), null),
+    BENGALI(BN, BEN, enumSetOf(Alphabet.BENGALI), null),
+    BOKMAL(NB, NOB, enumSetOf(Alphabet.LATIN), null),
+    BOSNIAN(BS, BOS, enumSetOf(Alphabet.LATIN), null),
+    BULGARIAN(BG, BUL, enumSetOf(CYRILLIC), null),
+    CATALAN(CA, CAT, enumSetOf(Alphabet.LATIN), "Ïï"),
+    CHINESE(ZH, ZHO, enumSetOf(HAN), null),
+    CROATIAN(HR, HRV, enumSetOf(Alphabet.LATIN), null),
+    CZECH(CS, CES, enumSetOf(Alphabet.LATIN), "ĚěŘřŮů"),
+    DANISH(DA, DAN, enumSetOf(Alphabet.LATIN), null),
+    DUTCH(NL, NLD, enumSetOf(Alphabet.LATIN), null),
+    ENGLISH(EN, ENG, enumSetOf(Alphabet.LATIN), null),
+    ESPERANTO(EO, EPO, enumSetOf(Alphabet.LATIN), "ĈĉĜĝĤĥĴĵŜŝŬŭ"),
+    ESTONIAN(ET, EST, enumSetOf(Alphabet.LATIN), null),
+    FINNISH(FI, FIN, enumSetOf(Alphabet.LATIN), null),
+    FRENCH(FR, FRA, enumSetOf(Alphabet.LATIN), null),
+    GANDA(LG, LUG, enumSetOf(Alphabet.LATIN), null),
+    GEORGIAN(KA, KAT, enumSetOf(Alphabet.GEORGIAN), null),
+    GERMAN(DE, DEU, enumSetOf(Alphabet.LATIN), "ß"),
+    GREEK(EL, ELL, enumSetOf(Alphabet.GREEK), null),
+    GUJARATI(GU, GUJ, enumSetOf(Alphabet.GUJARATI), null),
+    HEBREW(HE, HEB, enumSetOf(Alphabet.HEBREW), null),
+    HINDI(HI, HIN, enumSetOf(DEVANAGARI), null),
+    HUNGARIAN(HU, HUN, enumSetOf(Alphabet.LATIN), "ŐőŰű"),
+    ICELANDIC(IS, ISL, enumSetOf(Alphabet.LATIN), null),
+    INDONESIAN(ID, IND, enumSetOf(Alphabet.LATIN), null),
+    IRISH(GA, GLE, enumSetOf(Alphabet.LATIN), null),
+    ITALIAN(IT, ITA, enumSetOf(Alphabet.LATIN), null),
+    JAPANESE(JA, JPN, enumSetOf(HIRAGANA, KATAKANA, HAN), null),
+    KAZAKH(KK, KAZ, enumSetOf(CYRILLIC), "ӘәҒғҚқҢңҰұ"),
+    KOREAN(KO, KOR, enumSetOf(HANGUL), null),
+    LATIN(LA, LAT, enumSetOf(Alphabet.LATIN), null),
+    LATVIAN(LV, LAV, enumSetOf(Alphabet.LATIN), "ĢģĶķĻļŅņ"),
+    LITHUANIAN(LT, LIT, enumSetOf(Alphabet.LATIN), "ĖėĮįŲų"),
+    MACEDONIAN(MK, MKD, enumSetOf(CYRILLIC), "ЃѓЅѕЌќЏџ"),
+    MALAY(MS, MSA, enumSetOf(Alphabet.LATIN), null),
+    MAORI(MI, MRI, enumSetOf(Alphabet.LATIN), null),
+    MARATHI(MR, MAR, enumSetOf(DEVANAGARI), "ळ"),
+    MONGOLIAN(MN, MON, enumSetOf(CYRILLIC), "ӨөҮү"),
+    NYNORSK(NN, NNO, enumSetOf(Alphabet.LATIN), null),
+    PERSIAN(FA, FAS, enumSetOf(Alphabet.ARABIC), null),
+    POLISH(PL, POL, enumSetOf(Alphabet.LATIN), "ŁłŃńŚśŹź"),
+    PORTUGUESE(PT, POR, enumSetOf(Alphabet.LATIN), null),
+    PUNJABI(PA, PAN, enumSetOf(GURMUKHI), null),
+    ROMANIAN(RO, RON, enumSetOf(Alphabet.LATIN), "Țţ"),
+    RUSSIAN(RU, RUS, enumSetOf(CYRILLIC), null),
+    SERBIAN(SR, SRP, enumSetOf(CYRILLIC), "ЂђЋћ"),
+    SHONA(SN, SNA, enumSetOf(Alphabet.LATIN), null),
+    SLOVAK(SK, SLK, enumSetOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
+    SLOVENE(SL, SLV, enumSetOf(Alphabet.LATIN), null),
+    SOMALI(SO, SOM, enumSetOf(Alphabet.LATIN), null),
+    SOTHO(ST, SOT, enumSetOf(Alphabet.LATIN), null),
+    SPANISH(ES, SPA, enumSetOf(Alphabet.LATIN), "¿¡"),
+    SWAHILI(SW, SWA, enumSetOf(Alphabet.LATIN), null),
+    SWEDISH(SV, SWE, enumSetOf(Alphabet.LATIN), null),
+    TAGALOG(TL, TGL, enumSetOf(Alphabet.LATIN), null),
+    TAMIL(TA, TAM, enumSetOf(Alphabet.TAMIL), null),
+    TELUGU(TE, TEL, enumSetOf(Alphabet.TELUGU), null),
+    THAI(TH, THA, enumSetOf(Alphabet.THAI), null),
+    TSONGA(TS, TSO, enumSetOf(Alphabet.LATIN), null),
+    TSWANA(TN, TSN, enumSetOf(Alphabet.LATIN), null),
+    TURKISH(TR, TUR, enumSetOf(Alphabet.LATIN), null),
+    UKRAINIAN(UK, UKR, enumSetOf(CYRILLIC), "ҐґЄєЇї"),
+    URDU(UR, URD, enumSetOf(Alphabet.ARABIC), null),
     VIETNAMESE(
         VI,
         VIE,
-        setOf(Alphabet.LATIN),
+        enumSetOf(Alphabet.LATIN),
         "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"
     ),
-    WELSH(CY, CYM, setOf(Alphabet.LATIN), null),
-    XHOSA(XH, XHO, setOf(Alphabet.LATIN), null),
+    WELSH(CY, CYM, enumSetOf(Alphabet.LATIN), null),
+    XHOSA(XH, XHO, enumSetOf(Alphabet.LATIN), null),
     // TODO for YORUBA: "E̩e̩Ẹ́ẹ́É̩é̩Ẹ̀ẹ̀È̩è̩Ẹ̄ẹ̄Ē̩ē̩ŌōO̩o̩Ọ́ọ́Ó̩ó̩Ọ̀ọ̀Ò̩ò̩Ọ̄ọ̄Ō̩ō̩ṢṣS̩s̩"
-    YORUBA(YO, YOR, setOf(Alphabet.LATIN), "Ṣṣ"),
-    ZULU(ZU, ZUL, setOf(Alphabet.LATIN), null),
+    YORUBA(YO, YOR, enumSetOf(Alphabet.LATIN), "Ṣṣ"),
+    ZULU(ZU, ZUL, enumSetOf(Alphabet.LATIN), null),
 
     /**
      * The imaginary unknown language.
      *
      * This value is returned if no language can be detected reliably.
      */
-    UNKNOWN(IsoCode639_1.NONE, IsoCode639_3.NONE, setOf(NONE), null);
+    UNKNOWN(IsoCode639_1.NONE, IsoCode639_3.NONE, enumSetOf(NONE), null);
 
     companion object {
         /**
          * Returns a list of all built-in languages.
          */
         @JvmStatic
-        fun all() = filterOutLanguages(UNKNOWN)
+        fun all(): List<Language> = filterOutLanguages(UNKNOWN)
 
         /**
          * Returns a list of all built-in languages that are still spoken today.
          */
         @JvmStatic
-        fun allSpokenOnes() = filterOutLanguages(UNKNOWN, LATIN)
+        fun allSpokenOnes(): List<Language> = filterOutLanguages(UNKNOWN, LATIN)
 
         /**
          * Returns a list of all built-in languages supporting the Arabic script.
          */
         @JvmStatic
-        fun allWithArabicScript() = values().filter { it.alphabets.contains(Alphabet.ARABIC) }
+        fun allWithArabicScript(): List<Language> = values().filter { it.alphabets.contains(Alphabet.ARABIC) }
 
         /**
          * Returns a list of all built-in languages supporting the Cyrillic script.
          */
         @JvmStatic
-        fun allWithCyrillicScript() = values().filter { it.alphabets.contains(CYRILLIC) }
+        fun allWithCyrillicScript(): List<Language> = values().filter { it.alphabets.contains(CYRILLIC) }
 
         /**
          * Returns a list of all built-in languages supporting the Devanagari script.
          */
         @JvmStatic
-        fun allWithDevanagariScript() = values().filter { it.alphabets.contains(DEVANAGARI) }
+        fun allWithDevanagariScript(): List<Language> = values().filter { it.alphabets.contains(DEVANAGARI) }
 
         /**
          * Returns a list of all built-in languages supporting the Latin script.
          */
         @JvmStatic
-        fun allWithLatinScript() = values().filter { it.alphabets.contains(Alphabet.LATIN) }
+        fun allWithLatinScript(): List<Language> = values().filter { it.alphabets.contains(Alphabet.LATIN) }
 
         /**
          * Returns the language for the given ISO 639-1 code.
          */
         @JvmStatic
-        fun getByIsoCode639_1(isoCode: IsoCode639_1) = values().find { it.isoCode639_1 == isoCode }!!
+        fun getByIsoCode639_1(isoCode: IsoCode639_1): Language = values().first { it.isoCode639_1 == isoCode }
 
         /**
          * Returns the language for the given ISO 639-3 code.
          */
         @JvmStatic
-        fun getByIsoCode639_3(isoCode: IsoCode639_3) = values().find { it.isoCode639_3 == isoCode }!!
+        fun getByIsoCode639_3(isoCode: IsoCode639_3): Language = values().first { it.isoCode639_3 == isoCode }
 
         private fun filterOutLanguages(vararg languages: Language) = values().filterNot { it in languages }
     }

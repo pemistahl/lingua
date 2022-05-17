@@ -18,8 +18,8 @@ package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
-import it.unimi.dsi.fastutil.objects.Object2DoubleMap
-import it.unimi.dsi.fastutil.objects.Object2DoubleOpenHashMap
+import it.unimi.dsi.fastutil.objects.Object2FloatMap
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -32,9 +32,9 @@ internal data class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
     val relativeFrequencies: Map<Ngram, Fraction>,
-    val jsonRelativeFrequencies: Object2DoubleMap<String>
+    val jsonRelativeFrequencies: Object2FloatMap<String>
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Double = jsonRelativeFrequencies.getDouble(ngram.value)
+    fun getRelativeFrequency(ngram: Ngram): Float = jsonRelativeFrequencies.getFloat(ngram.value)
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -77,18 +77,18 @@ internal data class TrainingDataLanguageModel(
                 language,
                 absoluteFrequencies,
                 relativeFrequencies,
-                Object2DoubleOpenHashMap()
+                Object2FloatOpenHashMap()
             )
         }
 
         fun fromJson(json: String): TrainingDataLanguageModel {
             val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
-            val jsonRelativeFrequencies = Object2DoubleOpenHashMap<String>()
+            val jsonRelativeFrequencies = Object2FloatOpenHashMap<String>()
 
             for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
-                val fractionAsDouble = fraction.toDouble()
+                val fractionAsFloat = fraction.toFloat()
                 for (ngram in ngrams.split(' ')) {
-                    jsonRelativeFrequencies.put(ngram, fractionAsDouble)
+                    jsonRelativeFrequencies.put(ngram, fractionAsFloat)
                 }
             }
 

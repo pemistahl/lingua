@@ -73,7 +73,7 @@ class TrainingDataLanguageModelTest {
     ).mapKeys(keyMapper).mapValues(valueMapper)
 
     private val expectedUnigramJsonRelativeFrequencies = expectedUnigramRelativeFrequencies.mapValues {
-        it.value.toDouble()
+        it.value.toFloat()
     }
 
     private val expectedBigramAbsoluteFrequencies = mapOf(

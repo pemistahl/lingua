@@ -24,10 +24,5 @@ private val scriptsWithLogograms = LANGUAGES_SUPPORTING_LOGOGRAMS.asSequence()
     .flatMap(Language::alphabets)
     .toSet()
 
-fun Char.isLogogram(): Boolean {
-    return if (this.isWhitespace()) {
-        false
-    } else {
-        scriptsWithLogograms.any { it.matches(this) }
-    }
-}
+internal fun Char.isLogogram(): Boolean =
+    !this.isWhitespace() && scriptsWithLogograms.any { it.matches(this) }

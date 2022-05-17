@@ -29,22 +29,15 @@ import com.github.pemistahl.lingua.internal.Constant.isJapaneseAlphabet
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
+import com.github.pemistahl.lingua.internal.util.extension.enumMapOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
+import java.util.EnumMap
 import java.util.SortedMap
 import java.util.TreeMap
 import java.util.concurrent.Callable
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.ForkJoinPool
 import kotlin.math.ln
-
-private val UNIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
-private val BIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
-private val TRIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
-private val QUADRIGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
-private val FIVEGRAM_MODELS = mutableMapOf<Language, TrainingDataLanguageModel>()
 
 /**
  * Detects the language of given input text.
@@ -54,14 +47,7 @@ class LanguageDetector internal constructor(
     internal val minimumRelativeDistance: Double,
     isEveryLanguageModelPreloaded: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size,
-    internal val unigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = UNIGRAM_MODELS,
-    internal val bigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = BIGRAM_MODELS,
-    internal val trigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = TRIGRAM_MODELS,
-    internal val quadrigramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = QUADRIGRAM_MODELS,
-    internal val fivegramLanguageModels: MutableMap<Language, TrainingDataLanguageModel> = FIVEGRAM_MODELS
 ) {
-    internal val threadPool = createThreadPool()
-
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
     private val oneLanguageAlphabets = Alphabet.allSupportingExactlyOneLanguage().filterValues {
         it in languages
@@ -117,11 +103,6 @@ class LanguageDetector internal constructor(
      * @throws IllegalStateException If [destroy] has been invoked before on this instance of [LanguageDetector].
      */
     fun computeLanguageConfidenceValues(text: String): SortedMap<Language, Double> {
-        if (threadPool.isShutdown) {
-            throw IllegalStateException(
-                "This LanguageDetector instance has been destroyed and cannot be reused"
-            )
-        }
         val values = TreeMap<Language, Double>()
         val cleanedUpText = cleanUpInputText(text)
 
@@ -144,33 +125,30 @@ class LanguageDetector internal constructor(
         }
 
         val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
-        val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
-            Callable {
-                val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-                val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+        val allProbabilitiesAndUnigramCounts = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
+            val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+            val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
-                val unigramCounts = if (i == 1) {
-                    val languages = probabilities.keys
-                    val unigramFilteredLanguages =
-                        if (languages.isNotEmpty()) filteredLanguages.asSequence()
-                            .filter { languages.contains(it) }
-                            .toSet()
-                        else filteredLanguages
-                    countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-                } else {
-                    null
-                }
-
-                Pair(probabilities, unigramCounts)
+            val unigramCounts = if (i == 1) {
+                val languages = probabilities.keys
+                val unigramFilteredLanguages =
+                    if (languages.isNotEmpty()) filteredLanguages.asSequence()
+                        .filter { languages.contains(it) }
+                        .toSet()
+                    else filteredLanguages
+                countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
+            } else {
+                null
             }
+
+            Pair(probabilities, unigramCounts)
         }
 
-        val allProbabilitiesAndUnigramCounts = threadPool.invokeAll(tasks).map { it.get() }
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
         val unigramCounts = allProbabilitiesAndUnigramCounts[0].second ?: emptyMap()
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
         val highestProbability = summedUpProbabilities.maxByOrNull { it.value }?.value ?: return sortedMapOf()
-        val confidenceValues = summedUpProbabilities.mapValues { highestProbability / it.value }
+        val confidenceValues = summedUpProbabilities.mapValues { (highestProbability / it.value).toDouble() }
         val sortedByConfidenceValue = compareByDescending<Language> { language -> confidenceValues[language] }
         val sortedByConfidenceValueThenByLanguage = sortedByConfidenceValue.thenBy { language -> language }
 
@@ -188,11 +166,6 @@ class LanguageDetector internal constructor(
      * is redeployed multiple times.
      */
     fun destroy() {
-        threadPool.shutdown()
-        if (!threadPool.awaitTermination(10, TimeUnit.SECONDS)) {
-            threadPool.shutdownNow()
-        }
-
         for (language in languages) {
             unigramLanguageModels.remove(language)
             bigramLanguageModels.remove(language)
@@ -253,20 +226,24 @@ class LanguageDetector internal constructor(
     }
 
     internal fun sumUpProbabilities(
-        probabilities: List<Map<Language, Double>>,
+        probabilities: List<Map<Language, Float>>,
         unigramCountsOfInputText: Map<Language, Int>,
         filteredLanguages: Set<Language>
-    ): Map<Language, Double> {
-        val summedUpProbabilities = mutableMapOf<Language, Double>()
+    ): Map<Language, Float> {
+        val summedUpProbabilities = mutableMapOf<Language, Float>()
         for (language in filteredLanguages) {
-            summedUpProbabilities[language] = probabilities.sumOf { it[language] ?: 0.0 }
+            var sum = 0F
+            for (probabilityMap in probabilities) {
+                sum += probabilityMap[language] ?: 0F
+            }
+            summedUpProbabilities[language] = sum
 
             if (unigramCountsOfInputText.containsKey(language)) {
                 summedUpProbabilities[language] = summedUpProbabilities.getValue(language) /
                     unigramCountsOfInputText.getValue(language)
             }
         }
-        return summedUpProbabilities.filter { it.value != 0.0 }
+        return summedUpProbabilities.filter { it.value != 0F }
     }
 
     internal fun detectLanguageWithRules(words: List<String>): Language {
@@ -403,8 +380,8 @@ class LanguageDetector internal constructor(
     internal fun computeLanguageProbabilities(
         testDataModel: TestDataLanguageModel,
         filteredLanguages: Set<Language>
-    ): Map<Language, Double> {
-        val probabilities = mutableMapOf<Language, Double>()
+    ): Map<Language, Float> {
+        val probabilities = mutableMapOf<Language, Float>()
         for (language in filteredLanguages) {
             probabilities[language] = computeSumOfNgramProbabilities(language, testDataModel.ngrams)
         }
@@ -414,8 +391,8 @@ class LanguageDetector internal constructor(
     internal fun computeSumOfNgramProbabilities(
         language: Language,
         ngrams: Set<Ngram>
-    ): Double {
-        var probabilitiesSum = 0.0
+    ): Float {
+        var probabilitiesSum = 0F
 
         for (ngram in ngrams) {
             for (elem in ngram.rangeOfLowerOrderNgrams()) {
@@ -432,7 +409,7 @@ class LanguageDetector internal constructor(
     internal fun lookUpNgramProbability(
         language: Language,
         ngram: Ngram
-    ): Double {
+    ): Float {
         val ngramLength = ngram.value.length
         val languageModels = when (ngramLength) {
             5 -> fivegramLanguageModels
@@ -446,31 +423,11 @@ class LanguageDetector internal constructor(
 
         val model = loadLanguageModels(languageModels, language, ngramLength)
 
-        return model?.getRelativeFrequency(ngram) ?: 0.0
-    }
-
-    private fun loadLanguageModels(
-        languageModels: MutableMap<Language, TrainingDataLanguageModel>,
-        language: Language,
-        ngramLength: Int
-    ): TrainingDataLanguageModel? {
-        if (languageModels.containsKey(language)) {
-            return languageModels.getValue(language)
-        }
-        val model = loadLanguageModel(language, ngramLength) ?: return null
-        languageModels[language] = model
-        return model
-    }
-
-    private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel? {
-        val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
-        val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-        val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return null
-        val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-        return TrainingDataLanguageModel.fromJson(jsonContent)
+        return model?.getRelativeFrequency(ngram) ?: 0F
     }
 
     private fun preloadLanguageModels() {
+        val threadPool = ForkJoinPool.commonPool()
         val tasks = mutableListOf<Callable<TrainingDataLanguageModel>>()
 
         for (language in languages) {
@@ -484,13 +441,6 @@ class LanguageDetector internal constructor(
         threadPool.invokeAll(tasks)
     }
 
-    private fun createThreadPool(): ExecutorService {
-        val cpus = Runtime.getRuntime().availableProcessors()
-        val threadPool = ThreadPoolExecutor(cpus, cpus, 60L, TimeUnit.SECONDS, LinkedBlockingQueue())
-        threadPool.allowCoreThreadTimeOut(true)
-        return threadPool
-    }
-
     override fun equals(other: Any?) = when {
         this === other -> true
         other !is LanguageDetector -> false
@@ -500,4 +450,37 @@ class LanguageDetector internal constructor(
     }
 
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
+
+    internal companion object {
+        internal val unigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
+        internal val bigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
+        internal val trigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
+        internal val quadrigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
+        internal val fivegramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
+
+        private fun loadLanguageModels(
+            languageModels: EnumMap<Language, TrainingDataLanguageModel>,
+            language: Language,
+            ngramLength: Int
+        ): TrainingDataLanguageModel? {
+            synchronized(languageModels) {
+                if (languageModels.containsKey(language)) {
+                    return languageModels.getValue(language)
+                }
+            }
+            val model = loadLanguageModel(language, ngramLength) ?: return null
+            synchronized(languageModels) {
+                languageModels.putIfAbsent(language, model)
+                return languageModels.getValue(language)
+            }
+        }
+
+        private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel? {
+            val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
+            val filePath = "/language-models/${language.isoCode639_1}/$fileName"
+            val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return null
+            val jsonContent = inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+            return TrainingDataLanguageModel.fromJson(jsonContent)
+        }
+    }
 }

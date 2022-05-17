@@ -40,27 +40,15 @@ internal enum class Alphabet {
     THAI,
     NONE;
 
-    val script: UnicodeScript? = try {
+    private val script: UnicodeScript? = try {
         UnicodeScript.forName(this.name)
     } catch (e: IllegalArgumentException) {
         null
     }
 
-    fun matches(chr: Char): Boolean {
-        return if (this.script != null) {
-            UnicodeScript.of(chr.code) == this.script
-        } else {
-            false
-        }
-    }
+    fun matches(chr: Char): Boolean = UnicodeScript.of(chr.code) == this.script
 
-    fun matches(input: CharSequence): Boolean {
-        return if (this.script != null) {
-            input.codePoints().allMatch { UnicodeScript.of(it) == this.script }
-        } else {
-            false
-        }
-    }
+    fun matches(input: CharSequence): Boolean = input.codePoints().allMatch { UnicodeScript.of(it) == this.script }
 
     private fun supportedLanguages(): Set<Language> {
         val languages = mutableSetOf<Language>()
