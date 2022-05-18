@@ -105,99 +105,117 @@ class LanguageDetectorTest {
     // language models for training data
 
     private val unigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "a" to 0.01F,
-            "l" to 0.02F,
-            "t" to 0.03F,
-            "e" to 0.04F,
-            "r" to 0.05F,
-            // unknown unigram in model
-            "w" to 0F
-        ))
+        putAll(
+            mapOf(
+                "a" to 0.01F,
+                "l" to 0.02F,
+                "t" to 0.03F,
+                "e" to 0.04F,
+                "r" to 0.05F,
+                // unknown unigram in model
+                "w" to 0F
+            )
+        )
     }
 
     private val bigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "al" to 0.11F,
-            "lt" to 0.12F,
-            "te" to 0.13F,
-            "er" to 0.14F,
-            // unknown bigrams in model
-            "aq" to 0F,
-            "wx" to 0F
-        ))
+        putAll(
+            mapOf(
+                "al" to 0.11F,
+                "lt" to 0.12F,
+                "te" to 0.13F,
+                "er" to 0.14F,
+                // unknown bigrams in model
+                "aq" to 0F,
+                "wx" to 0F
+            )
+        )
     }
 
     private val trigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "alt" to 0.19F,
-            "lte" to 0.2F,
-            "ter" to 0.21F,
-            // unknown trigrams in model
-            "aqu" to 0F,
-            "tez" to 0F,
-            "wxy" to 0F
-        ))
+        putAll(
+            mapOf(
+                "alt" to 0.19F,
+                "lte" to 0.2F,
+                "ter" to 0.21F,
+                // unknown trigrams in model
+                "aqu" to 0F,
+                "tez" to 0F,
+                "wxy" to 0F
+            )
+        )
     }
 
     private val quadrigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "alte" to 0.25F,
-            "lter" to 0.26F,
-            // unknown quadrigrams in model
-            "aqua" to 0F,
-            "wxyz" to 0F
-        ))
+        putAll(
+            mapOf(
+                "alte" to 0.25F,
+                "lter" to 0.26F,
+                // unknown quadrigrams in model
+                "aqua" to 0F,
+                "wxyz" to 0F
+            )
+        )
     }
 
     private val fivegramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "alter" to 0.29F,
-            // unknown fivegrams in model
-            "aquas" to 0F
-        ))
+        putAll(
+            mapOf(
+                "alter" to 0.29F,
+                // unknown fivegrams in model
+                "aquas" to 0F
+            )
+        )
     }
 
     private val unigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "a" to 0.06F,
-            "l" to 0.07F,
-            "t" to 0.08F,
-            "e" to 0.09F,
-            "r" to 0.1F,
-            // unknown unigrams in model
-            "w" to 0F
-        ))
+        putAll(
+            mapOf(
+                "a" to 0.06F,
+                "l" to 0.07F,
+                "t" to 0.08F,
+                "e" to 0.09F,
+                "r" to 0.1F,
+                // unknown unigrams in model
+                "w" to 0F
+            )
+        )
     }
 
     private val bigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "al" to 0.15F,
-            "lt" to 0.16F,
-            "te" to 0.17F,
-            "er" to 0.18F,
-            // unknown bigrams in model
-            "wx" to 0F
-        ))
+        putAll(
+            mapOf(
+                "al" to 0.15F,
+                "lt" to 0.16F,
+                "te" to 0.17F,
+                "er" to 0.18F,
+                // unknown bigrams in model
+                "wx" to 0F
+            )
+        )
     }
 
     private val trigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "alt" to 0.22F,
-            "lte" to 0.23F,
-            "ter" to 0.24F,
-            // unknown trigrams in model
-            "wxy" to 0F
-        ))
+        putAll(
+            mapOf(
+                "alt" to 0.22F,
+                "lte" to 0.23F,
+                "ter" to 0.24F,
+                // unknown trigrams in model
+                "wxy" to 0F
+            )
+        )
     }
 
     private val quadrigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
-        putAll(mapOf(
-            "alte" to 0.27F,
-            "lter" to 0.28F,
-            // unknown quadrigrams in model
-            "wxyz" to 0F
-        ))
+        putAll(
+            mapOf(
+                "alte" to 0.27F,
+                "lter" to 0.28F,
+                // unknown quadrigrams in model
+                "wxyz" to 0F
+            )
+        )
     }
 
     private val fivegramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
