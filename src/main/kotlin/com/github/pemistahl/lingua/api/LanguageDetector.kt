@@ -32,6 +32,8 @@ import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import com.github.pemistahl.lingua.internal.util.extension.enumMapOf
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
+import it.unimi.dsi.fastutil.objects.Object2FloatMap
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
 import java.util.EnumMap
 import java.util.SortedMap
 import java.util.TreeMap
@@ -440,12 +442,12 @@ class LanguageDetector internal constructor(
 
         val model = loadLanguageModels(languageModels, language, ngramLength)
 
-        return model?.getRelativeFrequency(ngram) ?: 0F
+        return model.getFloat(ngram.value)
     }
 
     private fun preloadLanguageModels() {
         val threadPool = ForkJoinPool.commonPool()
-        val tasks = mutableListOf<Callable<TrainingDataLanguageModel>>()
+        val tasks = mutableListOf<Callable<Object2FloatMap<String>>>()
 
         for (language in languages) {
             tasks.add(Callable { loadLanguageModels(unigramLanguageModels, language, 1) })
@@ -469,33 +471,33 @@ class LanguageDetector internal constructor(
     override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
 
     internal companion object {
-        internal val unigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
-        internal val bigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
-        internal val trigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
-        internal val quadrigramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
-        internal val fivegramLanguageModels = enumMapOf<Language, TrainingDataLanguageModel>()
+        internal val unigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
+        internal val bigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
+        internal val trigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
+        internal val quadrigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
+        internal val fivegramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
 
         private fun loadLanguageModels(
-            languageModels: EnumMap<Language, TrainingDataLanguageModel>,
+            languageModels: EnumMap<Language, Object2FloatMap<String>>,
             language: Language,
             ngramLength: Int
-        ): TrainingDataLanguageModel? {
+        ): Object2FloatMap<String> {
             synchronized(languageModels) {
                 if (languageModels.containsKey(language)) {
                     return languageModels.getValue(language)
                 }
             }
-            val model = loadLanguageModel(language, ngramLength) ?: return null
+            val model = loadLanguageModel(language, ngramLength)
             synchronized(languageModels) {
                 languageModels.putIfAbsent(language, model)
                 return languageModels.getValue(language)
             }
         }
 
-        private fun loadLanguageModel(language: Language, ngramLength: Int): TrainingDataLanguageModel? {
+        private fun loadLanguageModel(language: Language, ngramLength: Int): Object2FloatMap<String> {
             val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
             val filePath = "/language-models/${language.isoCode639_1}/$fileName"
-            val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return null
+            val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return Object2FloatOpenHashMap()
             return TrainingDataLanguageModel.fromJson(inputStream)
         }
     }

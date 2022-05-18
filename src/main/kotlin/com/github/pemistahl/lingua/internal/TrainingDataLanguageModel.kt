@@ -31,11 +31,8 @@ internal class JsonLanguageModel(val language: Language, val ngrams: Map<Fractio
 internal class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
-    val relativeFrequencies: Map<Ngram, Fraction>,
-    val jsonRelativeFrequencies: Object2FloatMap<String>
+    val relativeFrequencies: Map<Ngram, Fraction>
 ) {
-    fun getRelativeFrequency(ngram: Ngram): Float = jsonRelativeFrequencies.getFloat(ngram.value)
-
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
         for ((ngram, fraction) in relativeFrequencies) {
@@ -83,21 +80,19 @@ internal class TrainingDataLanguageModel(
             return TrainingDataLanguageModel(
                 language,
                 absoluteFrequencies,
-                relativeFrequencies,
-                Object2FloatOpenHashMap()
+                relativeFrequencies
             )
         }
 
-        fun fromJson(json: InputStream): TrainingDataLanguageModel {
+        fun fromJson(json: InputStream): Object2FloatMap<String> {
             JsonReader.of(Buffer().readFrom(json)).use { reader ->
                 val frequencies = Object2FloatOpenHashMap<String>()
-                var language = ""
 
                 reader.beginObject()
                 while (reader.hasNext()) {
                     val nextName = reader.nextName()
                     when {
-                        nextName == LANGUAGE_NAME -> language = reader.nextString()
+                        nextName == LANGUAGE_NAME -> reader.nextString()
                         nextName == NGRAMS_NAME -> reader.beginObject()
                         fraction.matches(nextName) -> {
                             val (numerator, denominator) = nextName.split('/')
@@ -115,12 +110,7 @@ internal class TrainingDataLanguageModel(
                 // Trim to reduce in-memory model size
                 frequencies.trim()
 
-                return TrainingDataLanguageModel(
-                    language = Language.valueOf(language),
-                    absoluteFrequencies = emptyMap(),
-                    relativeFrequencies = emptyMap(),
-                    jsonRelativeFrequencies = frequencies
-                )
+                return frequencies
             }
         }
 

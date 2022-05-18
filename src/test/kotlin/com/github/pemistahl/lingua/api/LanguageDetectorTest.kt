@@ -79,11 +79,11 @@ import com.github.pemistahl.lingua.api.Language.YORUBA
 import com.github.pemistahl.lingua.api.Language.ZULU
 import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
-import com.github.pemistahl.lingua.internal.TrainingDataLanguageModel
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
+import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.within
@@ -102,28 +102,107 @@ import kotlin.math.ln
 @ExtendWith(MockKExtension::class)
 class LanguageDetectorTest {
 
-    // language model mocks for training data
+    // language models for training data
 
-    @MockK
-    private lateinit var unigramLanguageModelForEnglish: TrainingDataLanguageModel
-    @MockK
-    private lateinit var bigramLanguageModelForEnglish: TrainingDataLanguageModel
-    @MockK
-    private lateinit var trigramLanguageModelForEnglish: TrainingDataLanguageModel
-    @MockK
-    private lateinit var quadrigramLanguageModelForEnglish: TrainingDataLanguageModel
-    @MockK
-    private lateinit var fivegramLanguageModelForEnglish: TrainingDataLanguageModel
-    @MockK
-    private lateinit var unigramLanguageModelForGerman: TrainingDataLanguageModel
-    @MockK
-    private lateinit var bigramLanguageModelForGerman: TrainingDataLanguageModel
-    @MockK
-    private lateinit var trigramLanguageModelForGerman: TrainingDataLanguageModel
-    @MockK
-    private lateinit var quadrigramLanguageModelForGerman: TrainingDataLanguageModel
-    @MockK
-    private lateinit var fivegramLanguageModelForGerman: TrainingDataLanguageModel
+    private val unigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "a" to 0.01F,
+            "l" to 0.02F,
+            "t" to 0.03F,
+            "e" to 0.04F,
+            "r" to 0.05F,
+            // unknown unigram in model
+            "w" to 0F
+        ))
+    }
+
+    private val bigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "al" to 0.11F,
+            "lt" to 0.12F,
+            "te" to 0.13F,
+            "er" to 0.14F,
+            // unknown bigrams in model
+            "aq" to 0F,
+            "wx" to 0F
+        ))
+    }
+
+    private val trigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "alt" to 0.19F,
+            "lte" to 0.2F,
+            "ter" to 0.21F,
+            // unknown trigrams in model
+            "aqu" to 0F,
+            "tez" to 0F,
+            "wxy" to 0F
+        ))
+    }
+
+    private val quadrigramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "alte" to 0.25F,
+            "lter" to 0.26F,
+            // unknown quadrigrams in model
+            "aqua" to 0F,
+            "wxyz" to 0F
+        ))
+    }
+
+    private val fivegramLanguageModelForEnglish = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "alter" to 0.29F,
+            // unknown fivegrams in model
+            "aquas" to 0F
+        ))
+    }
+
+    private val unigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "a" to 0.06F,
+            "l" to 0.07F,
+            "t" to 0.08F,
+            "e" to 0.09F,
+            "r" to 0.1F,
+            // unknown unigrams in model
+            "w" to 0F
+        ))
+    }
+
+    private val bigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "al" to 0.15F,
+            "lt" to 0.16F,
+            "te" to 0.17F,
+            "er" to 0.18F,
+            // unknown bigrams in model
+            "wx" to 0F
+        ))
+    }
+
+    private val trigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "alt" to 0.22F,
+            "lte" to 0.23F,
+            "ter" to 0.24F,
+            // unknown trigrams in model
+            "wxy" to 0F
+        ))
+    }
+
+    private val quadrigramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf(
+            "alte" to 0.27F,
+            "lter" to 0.28F,
+            // unknown quadrigrams in model
+            "wxyz" to 0F
+        ))
+    }
+
+    private val fivegramLanguageModelForGerman = Object2FloatOpenHashMap<String>().apply {
+        putAll(mapOf("alter" to 0.3F))
+    }
 
     // language model mocks for test data
 
@@ -149,11 +228,6 @@ class LanguageDetectorTest {
 
     @BeforeAll
     fun beforeAll() {
-        defineBehaviorOfUnigramLanguageModels()
-        defineBehaviorOfBigramLanguageModels()
-        defineBehaviorOfTrigramLanguageModels()
-        defineBehaviorOfQuadrigramLanguageModels()
-        defineBehaviorOfFivegramLanguageModels()
         defineBehaviorOfTestDataLanguageModels()
     }
 
@@ -867,109 +941,6 @@ class LanguageDetectorTest {
         assertThat(LanguageDetector.trigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
-    }
-
-    private fun defineBehaviorOfUnigramLanguageModels() {
-        with(unigramLanguageModelForEnglish) {
-            every { getRelativeFrequency(Ngram("a")) } returns 0.01F
-            every { getRelativeFrequency(Ngram("l")) } returns 0.02F
-            every { getRelativeFrequency(Ngram("t")) } returns 0.03F
-            every { getRelativeFrequency(Ngram("e")) } returns 0.04F
-            every { getRelativeFrequency(Ngram("r")) } returns 0.05F
-
-            // unknown unigrams in model
-            every { getRelativeFrequency(Ngram("w")) } returns 0F
-        }
-
-        with(unigramLanguageModelForGerman) {
-            every { getRelativeFrequency(Ngram("a")) } returns 0.06F
-            every { getRelativeFrequency(Ngram("l")) } returns 0.07F
-            every { getRelativeFrequency(Ngram("t")) } returns 0.08F
-            every { getRelativeFrequency(Ngram("e")) } returns 0.09F
-            every { getRelativeFrequency(Ngram("r")) } returns 0.1F
-
-            // unknown unigrams in model
-            every { getRelativeFrequency(Ngram("w")) } returns 0F
-        }
-    }
-
-    private fun defineBehaviorOfBigramLanguageModels() {
-        with(bigramLanguageModelForEnglish) {
-            every { getRelativeFrequency(Ngram("al")) } returns 0.11F
-            every { getRelativeFrequency(Ngram("lt")) } returns 0.12F
-            every { getRelativeFrequency(Ngram("te")) } returns 0.13F
-            every { getRelativeFrequency(Ngram("er")) } returns 0.14F
-
-            // unknown bigrams in model
-            for (value in listOf("aq", "wx")) {
-                every { getRelativeFrequency(Ngram(value)) } returns 0F
-            }
-        }
-
-        with(bigramLanguageModelForGerman) {
-            every { getRelativeFrequency(Ngram("al")) } returns 0.15F
-            every { getRelativeFrequency(Ngram("lt")) } returns 0.16F
-            every { getRelativeFrequency(Ngram("te")) } returns 0.17F
-            every { getRelativeFrequency(Ngram("er")) } returns 0.18F
-
-            // unknown bigrams in model
-            every { getRelativeFrequency(Ngram("wx")) } returns 0F
-        }
-    }
-
-    private fun defineBehaviorOfTrigramLanguageModels() {
-        with(trigramLanguageModelForEnglish) {
-            every { getRelativeFrequency(Ngram("alt")) } returns 0.19F
-            every { getRelativeFrequency(Ngram("lte")) } returns 0.2F
-            every { getRelativeFrequency(Ngram("ter")) } returns 0.21F
-
-            // unknown trigrams in model
-            for (value in listOf("aqu", "tez", "wxy")) {
-                every { getRelativeFrequency(Ngram(value)) } returns 0F
-            }
-        }
-
-        with(trigramLanguageModelForGerman) {
-            every { getRelativeFrequency(Ngram("alt")) } returns 0.22F
-            every { getRelativeFrequency(Ngram("lte")) } returns 0.23F
-            every { getRelativeFrequency(Ngram("ter")) } returns 0.24F
-
-            // unknown trigrams in model
-            every { getRelativeFrequency(Ngram("wxy")) } returns 0F
-        }
-    }
-
-    private fun defineBehaviorOfQuadrigramLanguageModels() {
-        with(quadrigramLanguageModelForEnglish) {
-            every { getRelativeFrequency(Ngram("alte")) } returns 0.25F
-            every { getRelativeFrequency(Ngram("lter")) } returns 0.26F
-
-            // unknown quadrigrams in model
-            for (value in listOf("aqua", "wxyz")) {
-                every { getRelativeFrequency(Ngram(value)) } returns 0F
-            }
-        }
-
-        with(quadrigramLanguageModelForGerman) {
-            every { getRelativeFrequency(Ngram("alte")) } returns 0.27F
-            every { getRelativeFrequency(Ngram("lter")) } returns 0.28F
-
-            // unknown quadrigrams in model
-            every { getRelativeFrequency(Ngram("wxyz")) } returns 0F
-        }
-    }
-
-    private fun defineBehaviorOfFivegramLanguageModels() {
-        with(fivegramLanguageModelForEnglish) {
-            every { getRelativeFrequency(Ngram("alter")) } returns 0.29F
-
-            // unknown fivegrams in model
-            every { getRelativeFrequency(Ngram("aquas")) } returns 0F
-        }
-
-        with(fivegramLanguageModelForGerman) {
-            every { getRelativeFrequency(Ngram("alter")) } returns 0.3F
-        }
     }
 
     private fun addLanguageModelsToDetector() {
