@@ -64,7 +64,6 @@ class LanguageDetector internal constructor(
      *
      * @param text The input text to detect the language for.
      * @return The identified language or [Language.UNKNOWN].
-     * @throws IllegalStateException If [destroy] has been invoked before on this instance of [LanguageDetector].
      */
     fun detectLanguageOf(text: String): Language {
         val confidenceValues = computeLanguageConfidenceValues(text)
@@ -100,7 +99,6 @@ class LanguageDetector internal constructor(
      *
      * @param text The input text to detect the language for.
      * @return A map of all possible languages, sorted by their confidence value in descending order.
-     * @throws IllegalStateException If [destroy] has been invoked before on this instance of [LanguageDetector].
      */
     fun computeLanguageConfidenceValues(text: String): SortedMap<Language, Double> {
         val values = TreeMap<Language, Double>()
@@ -156,16 +154,35 @@ class LanguageDetector internal constructor(
     }
 
     /**
-     * Destroys this [LanguageDetector] instance and frees associated resources.
+     * Unloads all language models loaded by this [LanguageDetector] instance
+     * and frees associated resources.
      *
      * This will be useful if the library is used within a web application inside
      * an application server. By calling this method prior to undeploying the
      * web application, the language models are removed and memory is freed.
-     * The internal thread pool used for parallel processing is shut down as well.
      * This prevents exceptions such as [OutOfMemoryError] when the web application
-     * is redeployed multiple times.
+     * is redeployed multiple times, even though they should not be thrown due to
+     * the internal use of [ForkJoinPool.commonPool] for loading language models
+     * in parallel.
      */
+    @Deprecated("since 1.2.0, will be removed in 1.3.0", ReplaceWith("unloadLanguageModels()"))
     fun destroy() {
+        unloadLanguageModels()
+    }
+
+    /**
+     * Unloads all language models loaded by this [LanguageDetector] instance
+     * and frees associated resources.
+     *
+     * This will be useful if the library is used within a web application inside
+     * an application server. By calling this method prior to undeploying the
+     * web application, the language models are removed and memory is freed.
+     * This prevents exceptions such as [OutOfMemoryError] when the web application
+     * is redeployed multiple times, even though they should not be thrown due to
+     * the internal use of [ForkJoinPool.commonPool] for loading language models
+     * in parallel.
+     */
+    fun unloadLanguageModels() {
         for (language in languages) {
             unigramLanguageModels.remove(language)
             bigramLanguageModels.remove(language)

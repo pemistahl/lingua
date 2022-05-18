@@ -852,7 +852,7 @@ class LanguageDetectorTest {
     }
 
     @Test
-    fun `assert that language detector can be properly destroyed`() {
+    fun `assert that language models can be properly unloaded`() {
         removeLanguageModelsFromDetector()
 
         val detector = LanguageDetectorBuilder
@@ -860,7 +860,7 @@ class LanguageDetectorTest {
             .withPreloadedLanguageModels()
             .build()
 
-        detector.destroy()
+        detector.unloadLanguageModels()
 
         assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.bigramLanguageModels).isEmpty()
