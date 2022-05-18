@@ -18,17 +18,17 @@ package com.github.pemistahl.lingua.internal
 
 import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import it.unimi.dsi.fastutil.objects.Object2FloatMap
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import okio.Buffer
+import java.io.InputStream
 
-@Serializable
-internal data class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
+internal class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
 
-internal data class TrainingDataLanguageModel(
+internal class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
     val relativeFrequencies: Map<Ngram, Fraction>,
@@ -38,17 +38,24 @@ internal data class TrainingDataLanguageModel(
 
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
-
         for ((ngram, fraction) in relativeFrequencies) {
             ngrams.computeIfAbsent(fraction) { mutableListOf() }.add(ngram)
         }
-
         val jsonLanguageModel = JsonLanguageModel(language, ngrams.mapValues { it.value.joinToString(separator = " ") })
-
-        return Json.encodeToString(jsonLanguageModel)
+        return jsonAdapter.toJson(jsonLanguageModel)
     }
 
     companion object {
+        private const val LANGUAGE_NAME = "language"
+        private const val NGRAMS_NAME = "ngrams"
+
+        private val fraction = Regex("\\d+/\\d+")
+        private val jsonAdapter = Moshi.Builder()
+            .add(FractionAdapter())
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
+            .adapter(JsonLanguageModel::class.java)
+
         fun fromText(
             text: Sequence<String>,
             language: Language,
@@ -81,26 +88,40 @@ internal data class TrainingDataLanguageModel(
             )
         }
 
-        fun fromJson(json: String): TrainingDataLanguageModel {
-            val jsonLanguageModel = Json.decodeFromString<JsonLanguageModel>(json)
-            val jsonRelativeFrequencies = Object2FloatOpenHashMap<String>()
+        fun fromJson(json: InputStream): TrainingDataLanguageModel {
+            JsonReader.of(Buffer().readFrom(json)).use { reader ->
+                val frequencies = Object2FloatOpenHashMap<String>()
+                var language = ""
 
-            for ((fraction, ngrams) in jsonLanguageModel.ngrams) {
-                val fractionAsFloat = fraction.toFloat()
-                for (ngram in ngrams.split(' ')) {
-                    jsonRelativeFrequencies.put(ngram, fractionAsFloat)
+                reader.beginObject()
+                while (reader.hasNext()) {
+                    val nextName = reader.nextName()
+                    when {
+                        nextName == LANGUAGE_NAME -> language = reader.nextString()
+                        nextName == NGRAMS_NAME -> reader.beginObject()
+                        fraction.matches(nextName) -> {
+                            val (numerator, denominator) = nextName.split('/')
+                            val frequency = numerator.toFloat() / denominator.toInt()
+                            val ngrams = reader.nextString().split(' ')
+                            for (ngram in ngrams) {
+                                frequencies.put(ngram, frequency)
+                            }
+                        }
+                        else -> reader.endObject()
+                    }
                 }
+                reader.endObject()
+
+                // Trim to reduce in-memory model size
+                frequencies.trim()
+
+                return TrainingDataLanguageModel(
+                    language = Language.valueOf(language),
+                    absoluteFrequencies = emptyMap(),
+                    relativeFrequencies = emptyMap(),
+                    jsonRelativeFrequencies = frequencies
+                )
             }
-
-            // Trim to reduce in-memory model size
-            jsonRelativeFrequencies.trim()
-
-            return TrainingDataLanguageModel(
-                language = jsonLanguageModel.language,
-                absoluteFrequencies = emptyMap(),
-                relativeFrequencies = emptyMap(),
-                jsonRelativeFrequencies = jsonRelativeFrequencies
-            )
         }
 
         private fun computeAbsoluteFrequencies(

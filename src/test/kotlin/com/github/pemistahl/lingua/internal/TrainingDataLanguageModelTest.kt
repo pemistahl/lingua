@@ -263,7 +263,7 @@ class TrainingDataLanguageModelTest {
 
     @Test
     fun `assert that unigram language model is correctly deserialized from json`() {
-        val model = TrainingDataLanguageModel.fromJson(expectedUnigramLanguageModel)
+        val model = TrainingDataLanguageModel.fromJson(expectedUnigramLanguageModel.byteInputStream())
         assertThat(model.language).isEqualTo(Language.ENGLISH)
         assertThat(model.absoluteFrequencies).isEmpty()
         assertThat(model.relativeFrequencies).isEmpty()

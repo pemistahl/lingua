@@ -16,14 +16,8 @@
 
 package com.github.pemistahl.lingua.internal
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
+import com.squareup.moshi.ToJson
 
-@Serializable(with = FractionSerializer::class)
 internal data class Fraction(
     var numerator: Int,
     var denominator: Int
@@ -177,15 +171,6 @@ internal data class Fraction(
     }
 }
 
-internal object FractionSerializer : KSerializer<Fraction> {
-    override val descriptor = PrimitiveSerialDescriptor("Fraction", PrimitiveKind.STRING)
-
-    override fun serialize(encoder: Encoder, value: Fraction) {
-        encoder.encodeString(value.toString())
-    }
-
-    override fun deserialize(decoder: Decoder): Fraction {
-        val (numerator, denominator) = decoder.decodeString().split('/')
-        return Fraction(numerator.toInt(), denominator.toInt())
-    }
+internal class FractionAdapter {
+    @ToJson fun toJson(fraction: Fraction): String = fraction.toString()
 }

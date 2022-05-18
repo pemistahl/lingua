@@ -16,15 +16,7 @@
 
 package com.github.pemistahl.lingua.internal
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
-
 @JvmInline
-@Serializable(with = NgramSerializer::class)
 internal value class Ngram(val value: String) : Comparable<Ngram> {
     init {
         require(value.length in 0..5) {
@@ -53,18 +45,6 @@ internal value class Ngram(val value: String) : Comparable<Ngram> {
             5 -> "fivegram"
             else -> throw IllegalArgumentException("ngram length $ngramLength is not in range 1..5")
         }
-    }
-}
-
-internal object NgramSerializer : KSerializer<Ngram> {
-    override val descriptor = PrimitiveSerialDescriptor("Ngram", PrimitiveKind.STRING)
-
-    override fun serialize(encoder: Encoder, value: Ngram) {
-        encoder.encodeString(value.toString())
-    }
-
-    override fun deserialize(decoder: Decoder): Ngram {
-        return Ngram(decoder.decodeString())
     }
 }
 
