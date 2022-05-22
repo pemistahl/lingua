@@ -22,12 +22,18 @@ package com.github.pemistahl.lingua.api
 class LanguageDetectorBuilder private constructor(
     internal val languages: List<Language>,
     internal var minimumRelativeDistance: Double = 0.0,
+    internal var withoutQuadriAndFivegram: Boolean = false,
     internal var isEveryLanguageModelPreloaded: Boolean = false
 ) {
     /**
      * Creates and returns the configured instance of [LanguageDetector].
      */
-    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance, isEveryLanguageModelPreloaded)
+    fun build() = LanguageDetector(
+        languages.toMutableSet(),
+        minimumRelativeDistance,
+        withoutQuadriAndFivegram,
+        isEveryLanguageModelPreloaded
+    )
 
     /**
      * Sets the desired value for the minimum relative distance measure.
@@ -55,6 +61,22 @@ class LanguageDetectorBuilder private constructor(
     fun withMinimumRelativeDistance(distance: Double): LanguageDetectorBuilder {
         require(distance in 0.0..0.99) { "minimum relative distance must lie in between 0.0 and 0.99" }
         this.minimumRelativeDistance = distance
+        return this
+    }
+
+    /**
+     * Configures the language detector to not use quadrigram and fivegram language models for
+     * language detection. This affects both dynamically loaded models as well as
+     * [preloaded models][withPreloadedLanguageModels].
+     *
+     * Usually quadrigram and fivegram models are quite large and disabling them therefore can
+     * greatly reduce memory usage during runtime. For larger texts with more than about 150
+     * characters in cleaned up form (without punctuation and with normalized whitespace) this
+     * should not have any noticeable effect on the language detection accuracy. However, for
+     * shorter texts this will make language detection a lot less accurate.
+     */
+    fun withoutQuadrigramAndFivegramModels(): LanguageDetectorBuilder {
+        this.withoutQuadriAndFivegram = true
         return this
     }
 

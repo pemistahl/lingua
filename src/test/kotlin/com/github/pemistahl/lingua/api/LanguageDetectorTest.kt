@@ -235,12 +235,14 @@ class LanguageDetectorTest {
     private var detectorForEnglishAndGerman = LanguageDetector(
         languages = mutableSetOf(ENGLISH, GERMAN),
         minimumRelativeDistance = 0.0,
+        withoutQuadriAndFivegram = false,
         isEveryLanguageModelPreloaded = false
     )
 
     private val detectorForAllLanguages = LanguageDetector(
         languages = Language.all().toMutableSet(),
         minimumRelativeDistance = 0.0,
+        withoutQuadriAndFivegram = false,
         isEveryLanguageModelPreloaded = false
     )
 
@@ -947,16 +949,60 @@ class LanguageDetectorTest {
     fun `assert that language models can be properly unloaded`() {
         removeLanguageModelsFromDetector()
 
+        assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.bigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.trigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
+
         val detector = LanguageDetectorBuilder
             .fromLanguages(ENGLISH, GERMAN)
             .withPreloadedLanguageModels()
             .build()
+
+        assertThat(LanguageDetector.unigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.bigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.trigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.quadrigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.fivegramLanguageModels).isNotEmpty
 
         detector.unloadLanguageModels()
 
         assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.bigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.trigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
+    }
+
+    @Test
+    fun `assert that loading of quadrigram and fivegram models can be disabled`() {
+        removeLanguageModelsFromDetector()
+
+        assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.bigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.trigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
+
+        val detector = LanguageDetectorBuilder
+            .fromLanguages(ENGLISH, GERMAN)
+            .withoutQuadrigramAndFivegramModels()
+            .withPreloadedLanguageModels()
+            .build()
+
+        assertThat(LanguageDetector.unigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.bigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.trigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
+
+        // Detection of short text should not trigger loading quadrigram and fivegram models
+        detector.detectLanguageOf("a very short sentence")
+
+        assertThat(LanguageDetector.unigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.bigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.trigramLanguageModels).isNotEmpty
         assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
     }

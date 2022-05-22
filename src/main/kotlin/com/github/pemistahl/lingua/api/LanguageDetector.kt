@@ -47,6 +47,7 @@ import kotlin.math.ln
 class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
+    private val withoutQuadriAndFivegram: Boolean,
     isEveryLanguageModelPreloaded: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size,
 ) {
@@ -124,7 +125,7 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
+        val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..(if (withoutQuadriAndFivegram) 3 else 5))
         val allProbabilitiesAndUnigramCounts = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
             val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
             val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
@@ -453,11 +454,15 @@ class LanguageDetector internal constructor(
             tasks.add(Callable { loadLanguageModels(unigramLanguageModels, language, 1) })
             tasks.add(Callable { loadLanguageModels(bigramLanguageModels, language, 2) })
             tasks.add(Callable { loadLanguageModels(trigramLanguageModels, language, 3) })
-            tasks.add(Callable { loadLanguageModels(quadrigramLanguageModels, language, 4) })
-            tasks.add(Callable { loadLanguageModels(fivegramLanguageModels, language, 5) })
+
+            if (!withoutQuadriAndFivegram) {
+                tasks.add(Callable { loadLanguageModels(quadrigramLanguageModels, language, 4) })
+                tasks.add(Callable { loadLanguageModels(fivegramLanguageModels, language, 5) })
+            }
         }
 
-        threadPool.invokeAll(tasks)
+        // Call get() to rethrow exceptions which occurred during execution, if any
+        threadPool.invokeAll(tasks).forEach { it.get() }
     }
 
     override fun equals(other: Any?) = when {
@@ -465,10 +470,12 @@ class LanguageDetector internal constructor(
         other !is LanguageDetector -> false
         languages != other.languages -> false
         minimumRelativeDistance != other.minimumRelativeDistance -> false
+        withoutQuadriAndFivegram != other.withoutQuadriAndFivegram -> false
         else -> true
     }
 
-    override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
+    override fun hashCode() =
+        31 * (31 * languages.hashCode() + minimumRelativeDistance.hashCode()) + withoutQuadriAndFivegram.hashCode()
 
     internal companion object {
         internal val unigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()

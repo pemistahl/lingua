@@ -30,11 +30,13 @@ class LanguageDetectorBuilderTest {
 
         assertThat(builder.languages).isEqualTo(Language.all())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+        assertThat(builder.withoutQuadriAndFivegram).isFalse
         assertThat(builder.isEveryLanguageModelPreloaded).isFalse
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 Language.all().toMutableSet(),
                 minimumRelativeDistance = 0.0,
+                withoutQuadriAndFivegram = false,
                 isEveryLanguageModelPreloaded = false
             )
         )
@@ -44,6 +46,7 @@ class LanguageDetectorBuilderTest {
             LanguageDetector(
                 Language.all().toMutableSet(),
                 minimumRelativeDistance = 0.2,
+                withoutQuadriAndFivegram = false,
                 isEveryLanguageModelPreloaded = false
             )
         )
@@ -55,11 +58,13 @@ class LanguageDetectorBuilderTest {
 
         assertThat(builder.languages).isEqualTo(Language.allSpokenOnes())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+        assertThat(builder.withoutQuadriAndFivegram).isFalse
         assertThat(builder.isEveryLanguageModelPreloaded).isFalse
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 Language.allSpokenOnes().toMutableSet(),
                 minimumRelativeDistance = 0.0,
+                withoutQuadriAndFivegram = false,
                 isEveryLanguageModelPreloaded = false
             )
         )
@@ -69,6 +74,7 @@ class LanguageDetectorBuilderTest {
             LanguageDetector(
                 Language.allSpokenOnes().toMutableSet(),
                 minimumRelativeDistance = 0.2,
+                withoutQuadriAndFivegram = false,
                 isEveryLanguageModelPreloaded = false
             )
         )
@@ -111,11 +117,13 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+            assertThat(builder.withoutQuadriAndFivegram).isFalse
             assertThat(builder.isEveryLanguageModelPreloaded).isFalse
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -125,6 +133,7 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -145,11 +154,13 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+            assertThat(builder.withoutQuadriAndFivegram).isFalse
             assertThat(builder.isEveryLanguageModelPreloaded).isFalse
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -159,6 +170,7 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -178,11 +190,13 @@ class LanguageDetectorBuilderTest {
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+            assertThat(builder.withoutQuadriAndFivegram).isFalse
             assertThat(builder.isEveryLanguageModelPreloaded).isFalse
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -192,6 +206,7 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -200,6 +215,7 @@ class LanguageDetectorBuilderTest {
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
+                    withoutQuadriAndFivegram = false,
                     isEveryLanguageModelPreloaded = false
                 )
             )
@@ -224,5 +240,57 @@ class LanguageDetectorBuilderTest {
                 LanguageDetectorBuilder.fromAllLanguages().withMinimumRelativeDistance(1.7)
             }.withMessage(errorMessage)
         }
+    }
+
+    @Test
+    fun `assert that LanguageDetector can be built with preloaded models`() {
+        val builder = LanguageDetectorBuilder.fromLanguages(Language.GERMAN, Language.ENGLISH)
+            .withPreloadedLanguageModels()
+        val expectedLanguages = listOf(Language.GERMAN, Language.ENGLISH)
+
+        assertThat(builder.languages).isEqualTo(expectedLanguages)
+        assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+        assertThat(builder.withoutQuadriAndFivegram).isFalse
+        assertThat(builder.isEveryLanguageModelPreloaded).isTrue
+        assertThat(builder.build()).isEqualTo(
+            LanguageDetector(
+                expectedLanguages.toMutableSet(),
+                minimumRelativeDistance = 0.0,
+                withoutQuadriAndFivegram = false,
+                isEveryLanguageModelPreloaded = true
+            )
+        )
+    }
+
+    @Test
+    fun `assert that LanguageDetector can be built without quadrigram and fivegram models`() {
+        val builder = LanguageDetectorBuilder.fromLanguages(Language.GERMAN, Language.ENGLISH)
+            .withoutQuadrigramAndFivegramModels()
+        val expectedLanguages = listOf(Language.GERMAN, Language.ENGLISH)
+
+        assertThat(builder.languages).isEqualTo(expectedLanguages)
+        assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
+        assertThat(builder.withoutQuadriAndFivegram).isTrue
+        assertThat(builder.isEveryLanguageModelPreloaded).isFalse
+        assertThat(builder.build()).isEqualTo(
+            LanguageDetector(
+                expectedLanguages.toMutableSet(),
+                minimumRelativeDistance = 0.0,
+                withoutQuadriAndFivegram = true,
+                isEveryLanguageModelPreloaded = false
+            )
+        )
+
+        builder.withPreloadedLanguageModels()
+        assertThat(builder.withoutQuadriAndFivegram).isTrue
+        assertThat(builder.isEveryLanguageModelPreloaded).isTrue
+        assertThat(builder.build()).isEqualTo(
+            LanguageDetector(
+                expectedLanguages.toMutableSet(),
+                minimumRelativeDistance = 0.0,
+                withoutQuadriAndFivegram = true,
+                isEveryLanguageModelPreloaded = true
+            )
+        )
     }
 }
