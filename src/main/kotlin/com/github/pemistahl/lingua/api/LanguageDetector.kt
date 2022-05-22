@@ -498,7 +498,7 @@ class LanguageDetector internal constructor(
             val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
             val filePath = "/language-models/${language.isoCode639_1}/$fileName"
             val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return Object2FloatOpenHashMap()
-            return TrainingDataLanguageModel.fromJson(inputStream)
+            return inputStream.use(TrainingDataLanguageModel::fromJson)
         }
     }
 }
