@@ -23,7 +23,8 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import it.unimi.dsi.fastutil.objects.Object2FloatMap
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
-import okio.Buffer
+import okio.buffer
+import okio.source
 import java.io.InputStream
 
 internal class JsonLanguageModel(val language: Language, val ngrams: Map<Fraction, String>)
@@ -46,7 +47,6 @@ internal class TrainingDataLanguageModel(
         private const val LANGUAGE_NAME = "language"
         private const val NGRAMS_NAME = "ngrams"
 
-        private val fraction = Regex("\\d+/\\d+")
         private val jsonAdapter = Moshi.Builder()
             .add(FractionAdapter())
             .addLast(KotlinJsonAdapterFactory())
@@ -85,24 +85,26 @@ internal class TrainingDataLanguageModel(
         }
 
         fun fromJson(json: InputStream): Object2FloatMap<String> {
-            JsonReader.of(Buffer().readFrom(json)).use { reader ->
+            JsonReader.of(json.source().buffer()).use { reader ->
                 val frequencies = Object2FloatOpenHashMap<String>()
 
                 reader.beginObject()
                 while (reader.hasNext()) {
-                    val nextName = reader.nextName()
-                    when {
-                        nextName == LANGUAGE_NAME -> reader.nextString()
-                        nextName == NGRAMS_NAME -> reader.beginObject()
-                        fraction.matches(nextName) -> {
-                            val (numerator, denominator) = nextName.split('/')
-                            val frequency = numerator.toFloat() / denominator.toInt()
-                            val ngrams = reader.nextString().split(' ')
-                            for (ngram in ngrams) {
-                                frequencies.put(ngram, frequency)
+                    when (reader.nextName()) {
+                        LANGUAGE_NAME -> reader.skipValue()
+                        NGRAMS_NAME -> {
+                            reader.beginObject()
+                            while (reader.hasNext()) {
+                                val (numerator, denominator) = reader.nextName().split('/')
+                                val frequency = numerator.toFloat() / denominator.toInt()
+                                val ngrams = reader.nextString().split(' ')
+                                for (ngram in ngrams) {
+                                    frequencies.put(ngram, frequency)
+                                }
                             }
+                            reader.endObject()
                         }
-                        else -> reader.endObject()
+                        else -> throw AssertionError("Unexpected name in language model JSON")
                     }
                 }
                 reader.endObject()
