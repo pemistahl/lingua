@@ -125,25 +125,28 @@ class LanguageDetector internal constructor(
         }
 
         val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
-        val allProbabilitiesAndUnigramCounts = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
-            val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-            val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+        val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
+            Callable {
+                val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
-            val unigramCounts = if (i == 1) {
-                val languages = probabilities.keys
-                val unigramFilteredLanguages =
-                    if (languages.isNotEmpty()) filteredLanguages.asSequence()
-                        .filter { languages.contains(it) }
-                        .toSet()
-                    else filteredLanguages
-                countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-            } else {
-                null
+                val unigramCounts = if (i == 1) {
+                    val languages = probabilities.keys
+                    val unigramFilteredLanguages =
+                        if (languages.isNotEmpty()) filteredLanguages.asSequence()
+                            .filter { languages.contains(it) }
+                            .toSet()
+                        else filteredLanguages
+                    countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
+                } else {
+                    null
+                }
+
+                Pair(probabilities, unigramCounts)
             }
-
-            Pair(probabilities, unigramCounts)
         }
 
+        val allProbabilitiesAndUnigramCounts = ForkJoinPool.commonPool().invokeAll(tasks).map { it.get() }
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
         val unigramCounts = allProbabilitiesAndUnigramCounts[0].second ?: emptyMap()
         val summedUpProbabilities = sumUpProbabilities(allProbabilities, unigramCounts, filteredLanguages)
@@ -185,12 +188,20 @@ class LanguageDetector internal constructor(
      * in parallel.
      */
     fun unloadLanguageModels() {
-        for (language in languages) {
-            unigramLanguageModels.remove(language)
-            bigramLanguageModels.remove(language)
-            trigramLanguageModels.remove(language)
-            quadrigramLanguageModels.remove(language)
-            fivegramLanguageModels.remove(language)
+        synchronized(unigramLanguageModels) {
+            languages.forEach(unigramLanguageModels::remove)
+        }
+        synchronized(bigramLanguageModels) {
+            languages.forEach(bigramLanguageModels::remove)
+        }
+        synchronized(trigramLanguageModels) {
+            languages.forEach(trigramLanguageModels::remove)
+        }
+        synchronized(quadrigramLanguageModels) {
+            languages.forEach(quadrigramLanguageModels::remove)
+        }
+        synchronized(fivegramLanguageModels) {
+            languages.forEach(fivegramLanguageModels::remove)
         }
     }
 
@@ -446,7 +457,6 @@ class LanguageDetector internal constructor(
     }
 
     private fun preloadLanguageModels() {
-        val threadPool = ForkJoinPool.commonPool()
         val tasks = mutableListOf<Callable<Object2FloatMap<String>>>()
 
         for (language in languages) {
@@ -457,7 +467,7 @@ class LanguageDetector internal constructor(
             tasks.add(Callable { loadLanguageModels(fivegramLanguageModels, language, 5) })
         }
 
-        threadPool.invokeAll(tasks)
+        ForkJoinPool.commonPool().invokeAll(tasks)
     }
 
     override fun equals(other: Any?) = when {
