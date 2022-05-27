@@ -57,6 +57,7 @@ plugins {
     id("com.asarkar.gradle.build-time-tracker") version "3.0.1"
     id("org.jetbrains.dokka") version "1.6.21"
     id("ru.vyarus.use-python") version "2.3.0"
+    id("org.moditect.gradleplugin") version "1.0.0-rc3"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
@@ -96,6 +97,27 @@ tasks.withType<Test> {
 
 tasks.test {
     maxParallelForks = 1
+}
+
+// Suppress warnings about incubating test suites feature
+@Suppress("UnstableApiUsage")
+testing {
+    suites {
+        // Separate test suite for module testing
+        val testModular by registering(JvmTestSuite::class) {
+            dependencies {
+                implementation(project)
+            }
+        }
+    }
+}
+
+// Module tests require Java 9 or newer to compile and execute
+if (JavaVersion.current().isJava9Compatible) {
+    tasks.check {
+        @Suppress("UnstableApiUsage")
+        dependsOn(testing.suites.named("testModular"))
+    }
 }
 
 tasks.jacocoTestReport {
@@ -248,6 +270,22 @@ tasks.register<PythonTask>("writeAccuracyTable") {
     group = linguaTaskGroup
     description = "Creates HTML table from all accuracy detection results and writes it to a markdown file."
     command = "src/python-scripts/write_accuracy_table.py"
+}
+
+tasks.addMainModuleInfo {
+    version = project.version
+    // Create Multi-Release JAR with Java 9 as lowest version
+    jvmVersion.set("9")
+    // Overwrite the output JAR file (if any) from a previous Gradle execution
+    overwriteExistingFiles.set(true)
+    module {
+        moduleInfoFile = File("$projectDir/src/main/java-9/module-info.java")
+    }
+}
+// Workaround to avoid circular dependencies between tasks, see https://github.com/moditect/moditect-gradle-plugin/issues/14
+project.afterEvaluate {
+    val compileJavaTask = tasks.compileJava.get()
+    compileJavaTask.setDependsOn(compileJavaTask.dependsOn - tasks.addDependenciesModuleInfo.get())
 }
 
 tasks.withType<DokkaTask>().configureEach {
