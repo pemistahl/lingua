@@ -104,7 +104,7 @@ tasks.test {
 testing {
     suites {
         // Separate test suite for module testing
-        val testModular by registering(JvmTestSuite::class) {
+        val testJavaModule by registering(JvmTestSuite::class) {
             dependencies {
                 implementation(project)
             }
@@ -116,7 +116,7 @@ testing {
 if (JavaVersion.current().isJava9Compatible) {
     tasks.check {
         @Suppress("UnstableApiUsage")
-        dependsOn(testing.suites.named("testModular"))
+        dependsOn(testing.suites.named("testJavaModule"))
     }
 }
 
