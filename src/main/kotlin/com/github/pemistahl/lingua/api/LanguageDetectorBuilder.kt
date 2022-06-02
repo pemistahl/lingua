@@ -22,12 +22,18 @@ package com.github.pemistahl.lingua.api
 class LanguageDetectorBuilder private constructor(
     internal val languages: List<Language>,
     internal var minimumRelativeDistance: Double = 0.0,
-    internal var isEveryLanguageModelPreloaded: Boolean = false
+    internal var isEveryLanguageModelPreloaded: Boolean = false,
+    internal var isHighAccuracyModeEnabled: Boolean = true
 ) {
     /**
      * Creates and returns the configured instance of [LanguageDetector].
      */
-    fun build() = LanguageDetector(languages.toMutableSet(), minimumRelativeDistance, isEveryLanguageModelPreloaded)
+    fun build() = LanguageDetector(
+        languages.toMutableSet(),
+        minimumRelativeDistance,
+        isEveryLanguageModelPreloaded,
+        isHighAccuracyModeEnabled
+    )
 
     /**
      * Sets the desired value for the minimum relative distance measure.
@@ -69,6 +75,24 @@ class LanguageDetectorBuilder private constructor(
      */
     fun withPreloadedLanguageModels(): LanguageDetectorBuilder {
         this.isEveryLanguageModelPreloaded = true
+        return this
+    }
+
+    /**
+     * Disables the high accuracy mode in order to save memory and increase performance.
+     *
+     * By default, *Lingua's* high detection accuracy comes at the cost of
+     * loading large language models into memory which might not be feasible
+     * for systems running low on resources.
+     *
+     * This method disables the high accuracy mode so that only a small subset
+     * of language models is loaded into memory. The downside of this approach
+     * is that detection accuracy for short texts consisting of less than 120
+     * characters will drop significantly. However, detection accuracy for texts
+     * which are longer than 120 characters will remain mostly unaffected.
+     */
+    fun withoutHighAccuracyMode(): LanguageDetectorBuilder {
+        this.isHighAccuracyModeEnabled = false
         return this
     }
 

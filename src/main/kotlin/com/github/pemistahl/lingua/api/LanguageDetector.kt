@@ -48,6 +48,7 @@ class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
     isEveryLanguageModelPreloaded: Boolean,
+    internal val isHighAccuracyModeEnabled: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size,
 ) {
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
@@ -124,7 +125,13 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val ngramSizeRange = if (cleanedUpText.length >= 120) (3..3) else (1..5)
+        val ngramSizeRange = if (cleanedUpText.length >= HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH ||
+            !isHighAccuracyModeEnabled
+        ) {
+            (3..3)
+        } else {
+            (1..5)
+        }
         val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
             Callable {
                 val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
@@ -188,20 +195,22 @@ class LanguageDetector internal constructor(
      * in parallel.
      */
     fun unloadLanguageModels() {
-        synchronized(unigramLanguageModels) {
-            languages.forEach(unigramLanguageModels::remove)
-        }
-        synchronized(bigramLanguageModels) {
-            languages.forEach(bigramLanguageModels::remove)
-        }
         synchronized(trigramLanguageModels) {
             languages.forEach(trigramLanguageModels::remove)
         }
-        synchronized(quadrigramLanguageModels) {
-            languages.forEach(quadrigramLanguageModels::remove)
-        }
-        synchronized(fivegramLanguageModels) {
-            languages.forEach(fivegramLanguageModels::remove)
+        if (isHighAccuracyModeEnabled) {
+            synchronized(unigramLanguageModels) {
+                languages.forEach(unigramLanguageModels::remove)
+            }
+            synchronized(bigramLanguageModels) {
+                languages.forEach(bigramLanguageModels::remove)
+            }
+            synchronized(quadrigramLanguageModels) {
+                languages.forEach(quadrigramLanguageModels::remove)
+            }
+            synchronized(fivegramLanguageModels) {
+                languages.forEach(fivegramLanguageModels::remove)
+            }
         }
     }
 
@@ -350,8 +359,8 @@ class LanguageDetector internal constructor(
         val (mostFrequentLanguage, firstCharCount) = sortedTotalLanguageCounts[0]
         val (_, secondCharCount) = sortedTotalLanguageCounts[1]
 
-        return when {
-            firstCharCount == secondCharCount -> UNKNOWN
+        return when (firstCharCount) {
+            secondCharCount -> UNKNOWN
             else -> mostFrequentLanguage
         }
     }
@@ -460,14 +469,17 @@ class LanguageDetector internal constructor(
         val tasks = mutableListOf<Callable<Object2FloatMap<String>>>()
 
         for (language in languages) {
-            tasks.add(Callable { loadLanguageModels(unigramLanguageModels, language, 1) })
-            tasks.add(Callable { loadLanguageModels(bigramLanguageModels, language, 2) })
             tasks.add(Callable { loadLanguageModels(trigramLanguageModels, language, 3) })
-            tasks.add(Callable { loadLanguageModels(quadrigramLanguageModels, language, 4) })
-            tasks.add(Callable { loadLanguageModels(fivegramLanguageModels, language, 5) })
+
+            if (isHighAccuracyModeEnabled) {
+                tasks.add(Callable { loadLanguageModels(unigramLanguageModels, language, 1) })
+                tasks.add(Callable { loadLanguageModels(bigramLanguageModels, language, 2) })
+                tasks.add(Callable { loadLanguageModels(quadrigramLanguageModels, language, 4) })
+                tasks.add(Callable { loadLanguageModels(fivegramLanguageModels, language, 5) })
+            }
         }
 
-        ForkJoinPool.commonPool().invokeAll(tasks)
+        ForkJoinPool.commonPool().invokeAll(tasks).forEach { it.get() }
     }
 
     override fun equals(other: Any?) = when {
@@ -475,12 +487,16 @@ class LanguageDetector internal constructor(
         other !is LanguageDetector -> false
         languages != other.languages -> false
         minimumRelativeDistance != other.minimumRelativeDistance -> false
+        isHighAccuracyModeEnabled != other.isHighAccuracyModeEnabled -> false
         else -> true
     }
 
-    override fun hashCode() = 31 * languages.hashCode() + minimumRelativeDistance.hashCode()
+    override fun hashCode() =
+        31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isHighAccuracyModeEnabled.hashCode()
 
     internal companion object {
+        private const val HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH = 120
+
         internal val unigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
         internal val bigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()
         internal val trigramLanguageModels = enumMapOf<Language, Object2FloatMap<String>>()

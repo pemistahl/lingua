@@ -87,9 +87,7 @@ import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.assertj.core.api.Assertions.within
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -235,28 +233,21 @@ class LanguageDetectorTest {
     private var detectorForEnglishAndGerman = LanguageDetector(
         languages = mutableSetOf(ENGLISH, GERMAN),
         minimumRelativeDistance = 0.0,
-        isEveryLanguageModelPreloaded = false
+        isEveryLanguageModelPreloaded = false,
+        isHighAccuracyModeEnabled = true
     )
 
     private val detectorForAllLanguages = LanguageDetector(
         languages = Language.all().toMutableSet(),
         minimumRelativeDistance = 0.0,
-        isEveryLanguageModelPreloaded = false
+        isEveryLanguageModelPreloaded = false,
+        isHighAccuracyModeEnabled = true
     )
 
     @BeforeAll
     fun beforeAll() {
-        defineBehaviorOfTestDataLanguageModels()
-    }
-
-    @BeforeEach
-    fun beforeEach() {
         addLanguageModelsToDetector()
-    }
-
-    @AfterEach
-    fun afterEach() {
-        removeLanguageModelsFromDetector()
+        defineBehaviorOfTestDataLanguageModels()
     }
 
     // text preprocessing
@@ -931,6 +922,8 @@ class LanguageDetectorTest {
     ) {
         removeLanguageModelsFromDetector()
 
+        assertThatAllLanguageModelsAreUnloaded()
+
         val detector = LanguageDetectorBuilder
             .fromLanguages(*languages)
             .withPreloadedLanguageModels()
@@ -941,22 +934,72 @@ class LanguageDetectorTest {
             detectedLanguages.add(language)
         }
         assertThat(detectedLanguages.size).isEqualTo(1)
+
+        removeLanguageModelsFromDetector()
+
+        assertThatAllLanguageModelsAreUnloaded()
+
+        addLanguageModelsToDetector()
+
+        assertThatAllLanguageModelsAreLoaded()
     }
 
     @Test
     fun `assert that language models can be properly unloaded`() {
+        assertThatAllLanguageModelsAreLoaded()
+
+        detectorForEnglishAndGerman.unloadLanguageModels()
+
+        assertThatAllLanguageModelsAreUnloaded()
+
+        addLanguageModelsToDetector()
+
+        assertThatAllLanguageModelsAreLoaded()
+    }
+
+    @Test
+    fun `assert that high accuracy mode can be properly disabled`() {
         removeLanguageModelsFromDetector()
+
+        assertThatAllLanguageModelsAreUnloaded()
 
         val detector = LanguageDetectorBuilder
             .fromLanguages(ENGLISH, GERMAN)
             .withPreloadedLanguageModels()
+            .withoutHighAccuracyMode()
             .build()
 
-        detector.unloadLanguageModels()
+        assertThatOnlyTrigramLanguageModelsAreLoaded()
 
+        detector.detectLanguageOf("short text")
+
+        assertThatOnlyTrigramLanguageModelsAreLoaded()
+
+        addLanguageModelsToDetector()
+
+        assertThatAllLanguageModelsAreLoaded()
+    }
+
+    private fun assertThatAllLanguageModelsAreUnloaded() {
         assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.bigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.trigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
+    }
+
+    private fun assertThatAllLanguageModelsAreLoaded() {
+        assertThat(LanguageDetector.unigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.bigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.trigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.quadrigramLanguageModels).isNotEmpty
+        assertThat(LanguageDetector.fivegramLanguageModels).isNotEmpty
+    }
+
+    private fun assertThatOnlyTrigramLanguageModelsAreLoaded() {
+        assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.bigramLanguageModels).isEmpty()
+        assertThat(LanguageDetector.trigramLanguageModels).isNotEmpty
         assertThat(LanguageDetector.quadrigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.fivegramLanguageModels).isEmpty()
     }
