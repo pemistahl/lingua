@@ -233,6 +233,7 @@ tasks.register("writeAggregatedAccuracyReport") {
                 val languageReportFileName =
                     "$accuracyReportsDirectoryName/${detector.toLowerCase(Locale.ROOT)}/$language.txt"
                 val languageReportFile = file(languageReportFileName)
+                val sliceLength = if (detector == "Lingua") (1..8) else (1..4)
 
                 if (languageReportFile.exists()) {
                     for (line in languageReportFile.readLines()) {
@@ -240,14 +241,18 @@ tasks.register("writeAggregatedAccuracyReport") {
                             val accuracyValues = line
                                 .split(stringToSplitAt)[1]
                                 .split(' ')
-                                .slice(1..4)
+                                .slice(sliceLength)
                                 .joinToString(",")
                             csvFile.appendText(",")
                             csvFile.appendText(accuracyValues)
                         }
                     }
                 } else {
-                    csvFile.appendText(",NaN,NaN,NaN,NaN")
+                    if (detector == "Lingua") {
+                        csvFile.appendText(",NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN")
+                    } else {
+                        csvFile.appendText(",NaN,NaN,NaN,NaN")
+                    }
                 }
             }
 
@@ -346,7 +351,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation("io.mockk:mockk:1.12.4")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
@@ -356,10 +361,10 @@ dependencies {
 }
 
 python {
-    pip("matplotlib:3.4.1")
-    pip("seaborn:0.11.1")
-    pip("pandas:1.2.4")
-    pip("numpy:1.20.0")
+    pip("matplotlib:3.5.2")
+    pip("seaborn:0.11.2")
+    pip("pandas:1.4.2")
+    pip("numpy:1.22.0")
 }
 
 publishing {

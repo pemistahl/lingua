@@ -21,35 +21,39 @@ def write_comparison_table(data, filename):
     rounded_median_data = data.median().round(2)
     rounded_std_data = data.std().round(2)
     column_names = (
-        'average-lingua', 'average-tika', 'average-opennlp', 'average-optimaize',
-        'single-words-lingua', 'single-words-tika', 'single-words-opennlp', 'single-words-optimaize',
-        'word-pairs-lingua', 'word-pairs-tika', 'word-pairs-opennlp', 'word-pairs-optimaize',
-        'sentences-lingua', 'sentences-tika', 'sentences-opennlp', 'sentences-optimaize'
+        'average-lingua-high', 'average-lingua-low', 'average-tika', 'average-opennlp', 'average-optimaize',
+        'single-words-lingua-high', 'single-words-lingua-low', 'single-words-tika', 'single-words-opennlp', 'single-words-optimaize',
+        'word-pairs-lingua-high', 'word-pairs-lingua-low', 'word-pairs-tika', 'word-pairs-opennlp', 'word-pairs-optimaize',
+        'sentences-lingua-high', 'sentences-lingua-low', 'sentences-tika', 'sentences-opennlp', 'sentences-optimaize'
     )
 
     table = """<table>
     <tr>
         <th>Language</th>
-        <th colspan="4">Average</th>
-        <th colspan="4">Single Words</th>
-        <th colspan="4">Word Pairs</th>
-        <th colspan="4">Sentences</th>
+        <th colspan="5">Average</th>
+        <th colspan="5">Single Words</th>
+        <th colspan="5">Word Pairs</th>
+        <th colspan="5">Sentences</th>
     </tr>
     <tr>
         <th></th>
-        <th>Lingua</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>OpenNLP</th>
         <th>Optimaize</th>
-        <th>Lingua</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>OpenNLP</th>
         <th>Optimaize</th>
-        <th>Lingua</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>OpenNLP</th>
         <th>Optimaize</th>
-        <th>Lingua</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
         <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
         <th>OpenNLP</th>
         <th>Optimaize</th>
@@ -73,7 +77,7 @@ def write_comparison_table(data, filename):
 
         table += "\t</tr>\n"
 
-    table += "\t<tr>\n\t\t<td colspan=\"12\"></td>\n\t</tr>\n"
+    table += "\t<tr>\n\t\t<td colspan=\"16\"></td>\n\t</tr>\n"
     table += "\t<tr>\n\t\t<td><strong>Mean</strong></td>\n"
 
     for column in column_names:
@@ -83,7 +87,7 @@ def write_comparison_table(data, filename):
 
     table += "\t</tr>\n"
 
-    table += "\t<tr>\n\t\t<td colspan=\"12\"></td>\n\t</tr>\n"
+    table += "\t<tr>\n\t\t<td colspan=\"16\"></td>\n\t</tr>\n"
     table += "\t<tr>\n\t\t<td>Median</td>\n"
 
     for column in column_names:

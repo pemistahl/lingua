@@ -1,17 +1,19 @@
 ##### SERBIAN #####
 
->>> Accuracy on average: 87.53%
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 77.63% | 87.53%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 73.50%
-Erroneously classified as MACEDONIAN: 11.40%, BULGARIAN: 5.10%, RUSSIAN: 4.10%, UKRAINIAN: 2.50%, BELARUSIAN: 1.30%, KAZAKH: 1.10%, MONGOLIAN: 1.00%
+Accuracy: 61.90% | 73.50%
+Erroneously classified as MACEDONIAN: 11.40% | 11.40%, BULGARIAN: 6.70% | 5.10%, RUSSIAN: 6.80% | 4.10%, UKRAINIAN: 5.30% | 2.50%, BELARUSIAN: 3.30% | 1.30%, KAZAKH: 2.60% | 1.10%, MONGOLIAN: 2.00% | 1.00%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
-Accuracy: 90.00%
-Erroneously classified as MACEDONIAN: 5.50%, BULGARIAN: 1.90%, RUSSIAN: 1.50%, UKRAINIAN: 0.70%, KAZAKH: 0.20%, BELARUSIAN: 0.10%, MONGOLIAN: 0.10%
+Accuracy: 79.90% | 90.00%
+Erroneously classified as MACEDONIAN: 7.70% | 5.50%, BULGARIAN: 4.50% | 1.90%, RUSSIAN: 3.20% | 1.50%, UKRAINIAN: 2.30% | 0.70%, KAZAKH: 1.00% | 0.20%, MONGOLIAN: 0.40% | 0.10%, BELARUSIAN: 1.00% | 0.10%
 
 >> Detection of 1000 sentences (average length: 100 chars)
-Accuracy: 99.10%
-Erroneously classified as MACEDONIAN: 0.60%, ENGLISH: 0.20%, RUSSIAN: 0.10%
+Accuracy: 91.10% | 99.10%
+Erroneously classified as MACEDONIAN: 5.30% | 0.60%, ENGLISH: 0.10% | 0.20%, RUSSIAN: 2.10% | 0.10%, BULGARIAN: 0.70% | 0.00%, DANISH: 0.10% | 0.00%, UKRAINIAN: 0.50% | 0.00%, KAZAKH: 0.10% | 0.00%
 
->> Exact values: 87.53333333333335 73.5 90.0 99.1
+>> Exact values: 77.63333333333334 61.9 79.9 91.10000000000001 87.53333333333335 73.5 90.0 99.1

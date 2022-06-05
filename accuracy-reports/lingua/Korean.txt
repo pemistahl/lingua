@@ -1,17 +1,19 @@
 ##### KOREAN #####
 
->>> Accuracy on average: 99.97%
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 99.97% | 99.97%
 
 >> Detection of 1000 single words (average length: 6 chars)
-Accuracy: 100.00%
+Accuracy: 100.00% | 100.00%
 Erroneously classified as 
 
 >> Detection of 656 word pairs (average length: 12 chars)
-Accuracy: 100.00%
+Accuracy: 100.00% | 100.00%
 Erroneously classified as 
 
 >> Detection of 1000 sentences (average length: 61 chars)
-Accuracy: 99.90%
-Erroneously classified as YORUBA: 0.10%
+Accuracy: 99.90% | 99.90%
+Erroneously classified as YORUBA: 0.10% | 0.10%
 
->> Exact values: 99.96666666666665 100.0 100.0 99.9
+>> Exact values: 99.96666666666665 100.0 100.0 99.9 99.96666666666665 100.0 100.0 99.9

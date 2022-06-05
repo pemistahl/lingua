@@ -37,10 +37,16 @@ class AccuracyPlotDrawer(object):
     __plot_titles = ('Single Word', 'Word Pair', 'Sentence', 'Average')
     __plot_title_suffix = 'Detection Performance'
     __column_prefixes = ('single-words', 'word-pairs', 'sentences', 'average')
-    __column_suffixes = ('optimaize', 'opennlp', 'tika', 'lingua')
-    __legend_labels = ('Optimaize 0.6', 'OpenNLP 1.9.4', 'Tika 2.1.0', 'Lingua 1.1.1')
-    __hatches = ('/', '+', '.', 'O')
-    __palette = ('#b259ff', '#ff6347', '#ffc400', '#41c46b')
+    __column_suffixes = ('optimaize', 'opennlp', 'tika', 'lingua-low', 'lingua-high')
+    __legend_labels = (
+        'Optimaize 0.6',
+        'OpenNLP 1.9.4',
+        'Tika 2.3.0',
+        'Lingua 1.2.0\nlow accuracy mode',
+        'Lingua 1.2.0\nhigh accuracy mode'
+    )
+    __hatches = ("x", "+", ".", "*", "O")
+    __palette = ("#b259ff", "#ff6347", "#ff8800", "#ffc400", "#41c46b")
     __ticks = np.arange(0, 101, 10)
     __legend_handles = [Patch(facecolor=color, edgecolor='black', label=label, hatch=hatch)
                         for color, label, hatch in zip(__palette, __legend_labels, __hatches)]
@@ -68,7 +74,7 @@ class AccuracyPlotDrawer(object):
         row_filter = self.__dataframe[self.__hue].isin(columns)
         data = self.__dataframe[row_filter]
 
-        plt.figure(figsize=(16, 100))
+        plt.figure(figsize=(16, 125))
         plt.title(title + '\n', fontsize=self.__title_fontsize, fontweight=self.__fontweight)
         plt.xticks(fontsize=self.__ticks_fontsize, ticks=self.__ticks)
         plt.yticks(fontsize=self.__ticks_fontsize)
@@ -97,7 +103,7 @@ class AccuracyPlotDrawer(object):
         row_filter = self.__dataframe[self.__hue].isin(columns)
         data = self.__dataframe[row_filter]
 
-        plt.figure(figsize=(24, 12))
+        plt.figure(figsize=(28, 12))
         plt.title(title, fontsize=self.__title_fontsize, fontweight=self.__fontweight)
         plt.xticks(fontsize=self.__ticks_fontsize)
         plt.yticks(fontsize=self.__ticks_fontsize, ticks=self.__ticks)
