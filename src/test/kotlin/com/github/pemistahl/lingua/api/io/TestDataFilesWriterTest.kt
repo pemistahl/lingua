@@ -21,12 +21,16 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.condition.DisabledOnOs
 import org.junit.jupiter.api.condition.OS.WINDOWS
 import org.junit.jupiter.api.io.TempDir
+import java.io.FileNotFoundException
 import java.nio.file.Files
+import java.nio.file.NotDirectoryException
 import java.nio.file.Path
 import java.util.stream.Collectors.toList
+import kotlin.io.path.Path
 
 class TestDataFilesWriterTest {
 
@@ -100,6 +104,103 @@ class TestDataFilesWriterTest {
         testSubDirectory(sentencesDirectory, "sentences", expectedSentencesFileContent)
         testSubDirectory(singleWordsDirectory, "single-words", expectedSingleWordsFileContent)
         testSubDirectory(wordPairsDirectory, "word-pairs", expectedWordPairsFileContent)
+    }
+
+    @Test
+    fun `assert that relative input file path throws exception`() {
+        val relativeInputFilePath = Path("some/relative/path/file.txt")
+        val exception = assertThrows<IllegalArgumentException> {
+            TestDataFilesWriter.createAndWriteTestDataFiles(
+                inputFilePath = relativeInputFilePath,
+                outputDirectoryPath = Path("/some/output/directory"),
+                language = Language.ENGLISH,
+                maximumLines = 4
+            )
+        }
+        assertThat(exception.message).isEqualTo(
+            "Input file path '$relativeInputFilePath' is not absolute"
+        )
+    }
+
+    @Test
+    fun `assert that non-existing input file throws exception`() {
+        val nonExistingInputFilePath = Path("/some/non-existing/path/file.txt").toAbsolutePath()
+        val exception = assertThrows<java.nio.file.NoSuchFileException> {
+            TestDataFilesWriter.createAndWriteTestDataFiles(
+                inputFilePath = nonExistingInputFilePath,
+                outputDirectoryPath = Path("/some/output/directory"),
+                language = Language.ENGLISH,
+                maximumLines = 4
+            )
+        }
+        assertThat(exception.message).isEqualTo(
+            "Input file '$nonExistingInputFilePath' does not exist"
+        )
+    }
+
+    @Test
+    @DisabledOnOs(WINDOWS) // TempDir cannot be deleted on Windows
+    fun `assert that directory as input file throws exception`(
+        @TempDir inputFilePath: Path
+    ) {
+        val exception = assertThrows<FileNotFoundException> {
+            TestDataFilesWriter.createAndWriteTestDataFiles(
+                inputFilePath = inputFilePath,
+                outputDirectoryPath = Path("/some/output/directory"),
+                language = Language.ENGLISH,
+                maximumLines = 4
+            )
+        }
+        assertThat(exception.message).isEqualTo(
+            "Input file path '$inputFilePath' does not represent a regular file"
+        )
+    }
+
+    @Test
+    fun `assert that relative output directory path throws exception`() {
+        val relativeOutputDirectoryPath = Path("some/relative/path")
+        val exception = assertThrows<IllegalArgumentException> {
+            TestDataFilesWriter.createAndWriteTestDataFiles(
+                inputFilePath = inputFilePath,
+                outputDirectoryPath = relativeOutputDirectoryPath,
+                language = Language.ENGLISH,
+                maximumLines = 4
+            )
+        }
+        assertThat(exception.message).isEqualTo(
+            "Output directory path '$relativeOutputDirectoryPath' is not absolute"
+        )
+    }
+
+    @Test
+    fun `assert that non-existing output directory path throws exception`() {
+        val nonExistingOutputDirectoryPath = Path("/some/non-existing/directory").toAbsolutePath()
+        val exception = assertThrows<NotDirectoryException> {
+            TestDataFilesWriter.createAndWriteTestDataFiles(
+                inputFilePath = inputFilePath,
+                outputDirectoryPath = nonExistingOutputDirectoryPath,
+                language = Language.ENGLISH,
+                maximumLines = 4
+            )
+        }
+        assertThat(exception.message).isEqualTo(
+            "Output directory '$nonExistingOutputDirectoryPath' does not exist"
+        )
+    }
+
+    @Test
+    fun `assert that file as output directory throws exception`() {
+        val exception = assertThrows<NotDirectoryException> {
+            TestDataFilesWriter.createAndWriteTestDataFiles(
+                inputFilePath = inputFilePath,
+                outputDirectoryPath = inputFilePath,
+                language = Language.ENGLISH,
+                maximumLines = 4
+            )
+        }
+        assertThat(exception.message).isEqualTo(
+            "Output directory path '$inputFilePath' does not represent a directory"
+        )
     }
 
     private fun retrieveAndSortSubdirectories(outputDirectoryPath: Path): List<Path> {
