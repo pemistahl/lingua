@@ -1,3 +1,33 @@
+## Lingua 1.2.0 (released on 07 Jun 2022)
+
+### Features
+
+- The library can now be used as a Java 9 module. Thanks to @Marcono1234
+  for helping with the implementation. (#120, #138)
+- The new method `LanguageDetectorBuilder.withLowAccuracyMode()` has been
+  introduced. By activating it, detection accuracy for short text is reduced
+  in favor of a smaller memory footprint and faster detection performance. (#136)
+
+### Improvements
+
+- The memory footprint has been reduced significantly by applying several
+  internal optimizations. Thanks to @Marcono1234, @fvasco and @sigpwned for
+  their help. (#101, #127)
+- Several language model files have become obsolete and could be deleted without
+  decreasing detection accuracy. This results in a smaller memory footprint and 
+  a 36% smaller jar file.
+
+### Bug Fixes
+
+- A bug in the rule engine has been fixed that caused incorrect language
+  detection for certain texts. Thanks to @bdecarne who has found it.
+
+### Other changes
+
+- Due to a refactoring of how the internal thread pool works, the method
+  `LanguageDetector.destroy()` has been deprecated in favor of the newly
+  introduced method `LanguageDetector.unloadLanguageModels()`.
+
 ## Lingua 1.1.1 (released on 12 Dec 2021)
 
 ### Improvements
