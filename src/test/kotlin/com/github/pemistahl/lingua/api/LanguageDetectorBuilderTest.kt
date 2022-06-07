@@ -34,13 +34,13 @@ class LanguageDetectorBuilderTest {
         assertThat(builder.languages).isEqualTo(Language.all())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
         assertThat(builder.isEveryLanguageModelPreloaded).isFalse
-        assertThat(builder.isHighAccuracyModeEnabled).isTrue
+        assertThat(builder.isLowAccuracyModeEnabled).isFalse
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 Language.all().toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = false,
-                isHighAccuracyModeEnabled = true
+                isLowAccuracyModeEnabled = false
             )
         )
 
@@ -50,7 +50,7 @@ class LanguageDetectorBuilderTest {
                 Language.all().toMutableSet(),
                 minimumRelativeDistance = 0.2,
                 isEveryLanguageModelPreloaded = false,
-                isHighAccuracyModeEnabled = true
+                isLowAccuracyModeEnabled = false
             )
         )
     }
@@ -62,13 +62,13 @@ class LanguageDetectorBuilderTest {
         assertThat(builder.languages).isEqualTo(Language.allSpokenOnes())
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
         assertThat(builder.isEveryLanguageModelPreloaded).isFalse
-        assertThat(builder.isHighAccuracyModeEnabled).isTrue
+        assertThat(builder.isLowAccuracyModeEnabled).isFalse
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 Language.allSpokenOnes().toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = false,
-                isHighAccuracyModeEnabled = true
+                isLowAccuracyModeEnabled = false
             )
         )
 
@@ -78,7 +78,7 @@ class LanguageDetectorBuilderTest {
                 Language.allSpokenOnes().toMutableSet(),
                 minimumRelativeDistance = 0.2,
                 isEveryLanguageModelPreloaded = false,
-                isHighAccuracyModeEnabled = true
+                isLowAccuracyModeEnabled = false
             )
         )
     }
@@ -121,13 +121,13 @@ class LanguageDetectorBuilderTest {
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
             assertThat(builder.isEveryLanguageModelPreloaded).isFalse
-            assertThat(builder.isHighAccuracyModeEnabled).isTrue
+            assertThat(builder.isLowAccuracyModeEnabled).isFalse
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
 
@@ -137,7 +137,7 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
         }
@@ -158,13 +158,13 @@ class LanguageDetectorBuilderTest {
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
             assertThat(builder.isEveryLanguageModelPreloaded).isFalse
-            assertThat(builder.isHighAccuracyModeEnabled).isTrue
+            assertThat(builder.isLowAccuracyModeEnabled).isFalse
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
 
@@ -174,7 +174,7 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
         }
@@ -194,13 +194,13 @@ class LanguageDetectorBuilderTest {
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
             assertThat(builder.isEveryLanguageModelPreloaded).isFalse
-            assertThat(builder.isHighAccuracyModeEnabled).isTrue
+            assertThat(builder.isLowAccuracyModeEnabled).isFalse
             assertThat(builder.build()).isEqualTo(
                 LanguageDetector(
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
 
@@ -210,7 +210,7 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
 
@@ -219,7 +219,7 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isHighAccuracyModeEnabled = true
+                    isLowAccuracyModeEnabled = false
                 )
             )
         }
@@ -253,45 +253,45 @@ class LanguageDetectorBuilderTest {
         assertThat(builder.languages).isEqualTo(expectedLanguages)
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
         assertThat(builder.isEveryLanguageModelPreloaded).isTrue
-        assertThat(builder.isHighAccuracyModeEnabled).isTrue
+        assertThat(builder.isLowAccuracyModeEnabled).isFalse
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 expectedLanguages.toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = true,
-                isHighAccuracyModeEnabled = true
+                isLowAccuracyModeEnabled = false
             )
         )
     }
 
     @Test
-    fun `assert that LanguageDetector can be built without high accuracy mode`() {
-        val builder = LanguageDetectorBuilder.fromLanguages(ENGLISH, GERMAN).withoutHighAccuracyMode()
+    fun `assert that LanguageDetector can be built with low accuracy mode`() {
+        val builder = LanguageDetectorBuilder.fromLanguages(ENGLISH, GERMAN).withLowAccuracyMode()
         val expectedLanguages = listOf(ENGLISH, GERMAN)
 
         assertThat(builder.languages).isEqualTo(expectedLanguages)
         assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
         assertThat(builder.isEveryLanguageModelPreloaded).isFalse
-        assertThat(builder.isHighAccuracyModeEnabled).isFalse
+        assertThat(builder.isLowAccuracyModeEnabled).isTrue
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 expectedLanguages.toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = false,
-                isHighAccuracyModeEnabled = false
+                isLowAccuracyModeEnabled = true
             )
         )
 
         builder.withPreloadedLanguageModels()
 
         assertThat(builder.isEveryLanguageModelPreloaded).isTrue
-        assertThat(builder.isHighAccuracyModeEnabled).isFalse
+        assertThat(builder.isLowAccuracyModeEnabled).isTrue
         assertThat(builder.build()).isEqualTo(
             LanguageDetector(
                 expectedLanguages.toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = true,
-                isHighAccuracyModeEnabled = false
+                isLowAccuracyModeEnabled = true
             )
         )
     }

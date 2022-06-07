@@ -2305,7 +2305,7 @@ long texts or need to save resources, you can enable a *low accuracy mode* that 
 a small subset of the language models into memory:
 
 ```kotlin
-LanguageDetectorBuilder.fromAllLanguages().withoutHighAccuracyMode().build()
+LanguageDetectorBuilder.fromAllLanguages().withLowAccuracyMode().build()
 ```
 
 The downside of this approach is that detection accuracy for short texts consisting of less

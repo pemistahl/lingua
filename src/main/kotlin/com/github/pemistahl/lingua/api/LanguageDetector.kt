@@ -48,7 +48,7 @@ class LanguageDetector internal constructor(
     internal val languages: MutableSet<Language>,
     internal val minimumRelativeDistance: Double,
     isEveryLanguageModelPreloaded: Boolean,
-    internal val isHighAccuracyModeEnabled: Boolean,
+    internal val isLowAccuracyModeEnabled: Boolean,
     internal val numberOfLoadedLanguages: Int = languages.size,
 ) {
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
@@ -126,7 +126,7 @@ class LanguageDetector internal constructor(
         }
 
         val ngramSizeRange = if (cleanedUpText.length >= HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH ||
-            !isHighAccuracyModeEnabled
+            isLowAccuracyModeEnabled
         ) {
             (3..3)
         } else {
@@ -198,7 +198,7 @@ class LanguageDetector internal constructor(
         synchronized(trigramLanguageModels) {
             languages.forEach(trigramLanguageModels::remove)
         }
-        if (isHighAccuracyModeEnabled) {
+        if (!isLowAccuracyModeEnabled) {
             synchronized(unigramLanguageModels) {
                 languages.forEach(unigramLanguageModels::remove)
             }
@@ -471,7 +471,7 @@ class LanguageDetector internal constructor(
         for (language in languages) {
             tasks.add(Callable { loadLanguageModels(trigramLanguageModels, language, 3) })
 
-            if (isHighAccuracyModeEnabled) {
+            if (!isLowAccuracyModeEnabled) {
                 tasks.add(Callable { loadLanguageModels(unigramLanguageModels, language, 1) })
                 tasks.add(Callable { loadLanguageModels(bigramLanguageModels, language, 2) })
                 tasks.add(Callable { loadLanguageModels(quadrigramLanguageModels, language, 4) })
@@ -487,12 +487,12 @@ class LanguageDetector internal constructor(
         other !is LanguageDetector -> false
         languages != other.languages -> false
         minimumRelativeDistance != other.minimumRelativeDistance -> false
-        isHighAccuracyModeEnabled != other.isHighAccuracyModeEnabled -> false
+        isLowAccuracyModeEnabled != other.isLowAccuracyModeEnabled -> false
         else -> true
     }
 
     override fun hashCode() =
-        31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isHighAccuracyModeEnabled.hashCode()
+        31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isLowAccuracyModeEnabled.hashCode()
 
     internal companion object {
         private const val HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH = 120

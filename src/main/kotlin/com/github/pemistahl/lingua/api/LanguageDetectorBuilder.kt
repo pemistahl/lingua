@@ -23,7 +23,7 @@ class LanguageDetectorBuilder private constructor(
     internal val languages: List<Language>,
     internal var minimumRelativeDistance: Double = 0.0,
     internal var isEveryLanguageModelPreloaded: Boolean = false,
-    internal var isHighAccuracyModeEnabled: Boolean = true
+    internal var isLowAccuracyModeEnabled: Boolean = false
 ) {
     /**
      * Creates and returns the configured instance of [LanguageDetector].
@@ -32,7 +32,7 @@ class LanguageDetectorBuilder private constructor(
         languages.toMutableSet(),
         minimumRelativeDistance,
         isEveryLanguageModelPreloaded,
-        isHighAccuracyModeEnabled
+        isLowAccuracyModeEnabled
     )
 
     /**
@@ -91,8 +91,8 @@ class LanguageDetectorBuilder private constructor(
      * characters will drop significantly. However, detection accuracy for texts
      * which are longer than 120 characters will remain mostly unaffected.
      */
-    fun withoutHighAccuracyMode(): LanguageDetectorBuilder {
-        this.isHighAccuracyModeEnabled = false
+    fun withLowAccuracyMode(): LanguageDetectorBuilder {
+        this.isLowAccuracyModeEnabled = true
         return this
     }
 

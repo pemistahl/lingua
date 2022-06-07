@@ -234,14 +234,14 @@ class LanguageDetectorTest {
         languages = mutableSetOf(ENGLISH, GERMAN),
         minimumRelativeDistance = 0.0,
         isEveryLanguageModelPreloaded = false,
-        isHighAccuracyModeEnabled = true
+        isLowAccuracyModeEnabled = false
     )
 
     private val detectorForAllLanguages = LanguageDetector(
         languages = Language.all().toMutableSet(),
         minimumRelativeDistance = 0.0,
         isEveryLanguageModelPreloaded = false,
-        isHighAccuracyModeEnabled = true
+        isLowAccuracyModeEnabled = false
     )
 
     @BeforeAll
@@ -966,7 +966,7 @@ class LanguageDetectorTest {
         val detector = LanguageDetectorBuilder
             .fromLanguages(ENGLISH, GERMAN)
             .withPreloadedLanguageModels()
-            .withoutHighAccuracyMode()
+            .withLowAccuracyMode()
             .build()
 
         assertThatOnlyTrigramLanguageModelsAreLoaded()
