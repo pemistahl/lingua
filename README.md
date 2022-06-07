@@ -24,31 +24,14 @@
 * can be used in a REPL for a quick try-out
 ---
 
-## <a name="table-of-contents"></a> Table of Contents
-
-1. [What does this library do?](#library-purpose)
-2. [Why does this library exist?](#library-reason)
-3. [Which languages are supported?](#supported-languages)
-4. [How good is it?](#library-accuracy)
-5. [Why is it better than other libraries?](#why-is-it-better)   
-6. [Test report generation](#report-generation)
-7. [How to add it to your project?](#library-dependency)  
-  7.1 [Using Gradle](#library-dependency-gradle)  
-  7.2 [Using Maven](#library-dependency-maven)
-8. [How to build?](#library-build)
-9. [How to use?](#library-use)  
-  9.1 [Programmatic use](#library-use-programmatic)  
-  9.2 [Standalone mode](#library-use-standalone)
-10. [What's next for version 1.2.0?](#whats-next)
-
-## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
+## 1. What does this library do?
 Its task is simple: It tells you which language some provided textual data is written in. 
 This is very useful as a preprocessing step for linguistic data in natural language 
 processing applications such as text classification and spell checking. 
 Other use cases, for instance, might include routing e-mails to the right geographically 
 located customer service department, based on the e-mails' languages.
 
-## 2. <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
+## 2. Why does this library exist?
 Language detection is often done as part of large machine learning frameworks or natural 
 language processing applications. In cases where you don't need the full-fledged 
 functionality of those systems or don't want to learn the ropes of those, 
@@ -70,7 +53,7 @@ It draws on both rule-based and statistical methods but does not use any diction
 It does not need a connection to any external API or service either. 
 Once the library has been downloaded, it can be used completely offline. 
 
-## 3. <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
+## 3. Which languages are supported?
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is, 
 getting detection right for a small set of languages first before adding new ones. 
@@ -176,7 +159,7 @@ Currently, the following 75 languages are supported:
 - Z
   - Zulu   
 
-## 4. <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
+## 4. How good is it?
 
 *Lingua* is able to report accuracy statistics for some bundled test data available for each supported language. 
 The test data for each language is split into three parts:
@@ -194,15 +177,1913 @@ Given the generated test data, I have compared the detection results of *Lingua*
 *Optimaize Language Detector* using parameterized JUnit tests running over the data of *Lingua's* supported 75 languages. 
 Languages that are not supported by the other libraries are simply ignored for those during the detection process.
 
-The box plot below shows the distribution of the averaged accuracy values for all three performed tasks: 
-Single word detection, word pair detection and sentence detection. *Lingua* clearly outperforms its contenders. 
-Bar plots for each language and further box plots for the separate detection tasks can be found in the file 
-[ACCURACY_PLOTS.md]. Detailed statistics including mean, median and standard deviation values for each language 
-and classifier are available in the file [ACCURACY_TABLE.md]. 
+Each of the following sections contains two plots. The bar plot shows the detailed accuracy results for each supported 
+language. The box plot illustrates the distributions of the accuracy values for each classifier. The boxes themselves 
+represent the areas which the middle 50 % of data lie within. Within the colored boxes, the horizontal lines mark the 
+median of the distributions.
 
-![boxplot-average](/images/plots/boxplot-average.png)
+### 4.1 Single word detection
 
-## 5. <a name="why-is-it-better"></a> Why is it better than other libraries? <sup>[Top ▲](#table-of-contents)</sup>
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/boxplot-single-words.png" alt="Single Word Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/barplot-single-words.png" alt="Single Word Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.2 Word pair detection
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/boxplot-word-pairs.png" alt="Word Pair Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/barplot-word-pairs.png" alt="Word Pair Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.3 Sentence detection
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/boxplot-sentences.png" alt="Sentence Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/barplot-sentences.png" alt="Sentence Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.4 Average detection
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/boxplot-average.png" alt="Average Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua/main/images/plots/barplot-average.png" alt="Average Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.5 Mean, median and standard deviation
+
+The table below shows detailed statistics for each language and classifier
+including mean, median and standard deviation.
+
+<details>
+    <summary>Open table</summary>
+    <table>
+    <tr>
+        <th>Language</th>
+        <th colspan="5">Average</th>
+        <th colspan="5">Single Words</th>
+        <th colspan="5">Word Pairs</th>
+        <th colspan="5">Sentences</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
+        <th>Optimaize</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
+        <th>Optimaize</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
+        <th>Optimaize</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>&nbsp;&nbsp;Tika&nbsp;&nbsp;</th>
+        <th>OpenNLP</th>
+        <th>Optimaize</th>
+    </tr>
+    	<tr>
+		<td>Afrikaans</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/yellow.png"> 41</td>
+		<td><img src="images/red.png"> 3</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/orange.png"> 22</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 93</td>
+	</tr>
+	<tr>
+		<td>Albanian</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/orange.png"> 40</td>
+		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Arabic</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Armenian</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Azerbaijani</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Basque</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/orange.png"> 33</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 95</td>
+	</tr>
+	<tr>
+		<td>Belarusian</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Bengali</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Bokmal</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/orange.png"> 27</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 59</td>
+		<td><img src="images/yellow.png"> 47</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Bosnian</td>
+		<td><img src="images/orange.png"> 35</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 26</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/orange.png"> 23</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/red.png"> 12</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 35</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 22</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 40</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Bulgarian</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/yellow.png"> 48</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/red.png"> 18</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Catalan</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/orange.png"> 33</td>
+		<td><img src="images/orange.png"> 32</td>
+		<td><img src="images/red.png"> 11</td>
+		<td><img src="images/red.png"> 2</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/orange.png"> 32</td>
+		<td><img src="images/red.png"> 16</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+	</tr>
+	<tr>
+		<td>Chinese</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/red.png"> 20</td>
+		<td><img src="images/orange.png"> 40</td>
+		<td><img src="images/red.png"> 0</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/red.png"> 2</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Croatian</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/yellow.png"> 41</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/orange.png"> 23</td>
+		<td><img src="images/red.png"> 8</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/orange.png"> 24</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Czech</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/orange.png"> 21</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 81</td>
+	</tr>
+	<tr>
+		<td>Danish</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/lightgreen.png"> 63</td>
+		<td><img src="images/orange.png"> 34</td>
+		<td><img src="images/red.png"> 19</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Dutch</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/red.png"> 6</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/red.png"> 19</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>English</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/yellow.png"> 41</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/orange.png"> 30</td>
+		<td><img src="images/red.png"> 10</td>
+		<td><img src="images/red.png"> 2</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/orange.png"> 23</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Esperanto</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Estonian</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/yellow.png"> 59</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/orange.png"> 23</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/lightgreen.png"> 63</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Finnish</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>French</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/yellow.png"> 59</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/red.png"> 18</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/yellow.png"> 48</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Ganda</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Georgian</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>German</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/orange.png"> 21</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Greek</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Gujarati</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Hebrew</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Hindi</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/orange.png"> 33</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/red.png"> 11</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/orange.png"> 28</td>
+		<td><img src="images/red.png"> 16</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/red.png"> 20</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Hungarian</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Icelandic</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Indonesian</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/yellow.png"> 48</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/red.png"> 18</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/orange.png"> 37</td>
+		<td><img src="images/red.png"> 10</td>
+		<td><img src="images/red.png"> 0</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/red.png"> 1</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/yellow.png"> 54</td>
+	</tr>
+	<tr>
+		<td>Irish</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Italian</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/red.png"> 12</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Japanese</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/red.png"> 1</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/red.png"> 5</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Kazakh</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Korean</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Latin</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Latvian</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Lithuanian</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/orange.png"> 40</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Macedonian</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/orange.png"> 37</td>
+		<td><img src="images/red.png"> 10</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/orange.png"> 32</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Malay</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/orange.png"> 31</td>
+		<td><img src="images/orange.png"> 23</td>
+		<td><img src="images/red.png"> 19</td>
+		<td><img src="images/red.png"> 4</td>
+		<td><img src="images/orange.png"> 26</td>
+		<td><img src="images/orange.png"> 22</td>
+		<td><img src="images/red.png"> 19</td>
+		<td><img src="images/red.png"> 10</td>
+		<td><img src="images/red.png"> 0</td>
+		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/orange.png"> 22</td>
+		<td><img src="images/red.png"> 20</td>
+		<td><img src="images/red.png"> 0</td>
+		<td><img src="images/orange.png"> 30</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/orange.png"> 28</td>
+		<td><img src="images/orange.png"> 27</td>
+		<td><img src="images/red.png"> 11</td>
+	</tr>
+	<tr>
+		<td>Maori</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Marathi</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/yellow.png"> 41</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/red.png"> 20</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/orange.png"> 30</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Mongolian</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Nynorsk</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 41</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 24</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 47</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Persian</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Polish</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Portuguese</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/lightgreen.png"> 63</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/orange.png"> 40</td>
+		<td><img src="images/yellow.png"> 59</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/orange.png"> 34</td>
+		<td><img src="images/orange.png"> 22</td>
+		<td><img src="images/red.png"> 7</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/red.png"> 19</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Punjabi</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Romanian</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/yellow.png"> 55</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/orange.png"> 34</td>
+		<td><img src="images/orange.png"> 24</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Russian</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/yellow.png"> 59</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/red.png"> 20</td>
+		<td><img src="images/orange.png"> 22</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 87</td>
+	</tr>
+	<tr>
+		<td>Serbian</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/red.png"> 18</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+	</tr>
+	<tr>
+		<td>Shona</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Slovak</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/yellow.png"> 47</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/red.png"> 12</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 92</td>
+	</tr>
+	<tr>
+		<td>Slovene</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/orange.png"> 37</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/red.png"> 3</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/red.png"> 18</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 90</td>
+	</tr>
+	<tr>
+		<td>Somali</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/orange.png"> 35</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Sotho</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Spanish</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/yellow.png"> 59</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/orange.png"> 32</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/orange.png"> 26</td>
+		<td><img src="images/orange.png"> 29</td>
+		<td><img src="images/red.png"> 8</td>
+		<td><img src="images/red.png"> 0</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/red.png"> 6</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Swahili</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/yellow.png"> 60</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/orange.png"> 26</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/yellow.png"> 58</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Swedish</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/yellow.png"> 41</td>
+		<td><img src="images/red.png"> 15</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 42</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Tagalog</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/yellow.png"> 53</td>
+		<td><img src="images/orange.png"> 27</td>
+		<td><img src="images/orange.png"> 23</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Tamil</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Telugu</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Thai</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Tsonga</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 89</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Tswana</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Turkish</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/yellow.png"> 48</td>
+		<td><img src="images/yellow.png"> 43</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Ukrainian</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Urdu</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 71</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Vietnamese</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 63</td>
+		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Welsh</td>
+		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/lightgreen.png"> 68</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Xhosa</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/lightgreen.png"> 67</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Yoruba</td>
+		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 50</td>
+		<td><img src="images/orange.png"> 33</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Zulu</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/yellow.png"> 51</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 82</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td colspan="16"></td>
+	</tr>
+	<tr>
+		<td><strong>Mean</strong></td>
+		<td><img src="images/green.png"> <strong>86</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>77</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>80</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>74</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>65</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>74</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>61</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>64</strong></td>
+		<td><img src="images/yellow.png"> <strong>53</strong></td>
+		<td><img src="images/yellow.png"> <strong>41</strong></td>
+		<td><img src="images/green.png"> <strong>89</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>78</strong></td>
+		<td><img src="images/green.png"> <strong>81</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>74</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>61</strong></td>
+		<td><img src="images/green.png"> <strong>96</strong></td>
+		<td><img src="images/green.png"> <strong>93</strong></td>
+		<td><img src="images/green.png"> <strong>96</strong></td>
+		<td><img src="images/green.png"> <strong>95</strong></td>
+		<td><img src="images/green.png"> <strong>93</strong></td>
+	</tr>
+	<tr>
+		<td colspan="16"></td>
+	</tr>
+	<tr>
+		<td>Median</td>
+		<td>89.23</td>
+		<td>79.63</td>
+		<td>81.3</td>
+		<td>75.55</td>
+		<td>63.85</td>
+		<td>74.3</td>
+		<td>56.7</td>
+		<td>63.39</td>
+		<td>48.7</td>
+		<td>30.75</td>
+		<td>93.7</td>
+		<td>80.6</td>
+		<td>84.25</td>
+		<td>75.55</td>
+		<td>65.95</td>
+		<td>99.0</td>
+		<td>96.9</td>
+		<td>99.15</td>
+		<td>99.0</td>
+		<td>97.4</td>
+	</tr>
+	<tr>
+		<td>Standard Deviation</td>
+		<td>13.12</td>
+		<td>17.26</td>
+		<td>16.2</td>
+		<td>18.56</td>
+		<td>23.87</td>
+		<td>18.43</td>
+		<td>24.81</td>
+		<td>23.9</td>
+		<td>27.37</td>
+		<td>33.87</td>
+		<td>13.13</td>
+		<td>18.96</td>
+		<td>18.74</td>
+		<td>21.32</td>
+		<td>31.32</td>
+		<td>11.02</td>
+		<td>11.86</td>
+		<td>10.77</td>
+		<td>12.59</td>
+		<td>13.54</td>
+	</tr>
+    </table>
+</details>
+
+## 5. Why is it better than other libraries?
 
 Every language detector uses a probabilistic [n-gram](https://en.wikipedia.org/wiki/N-gram) model trained on the 
 character distribution in some training corpus. Most libraries only use n-grams of size 3 (trigrams) which is 
@@ -223,7 +2104,7 @@ using the respective [api methods](#library-use-programmatic). If you know befor
 never to occur in an input text, do not let those take part in the classifcation process. The filtering mechanism 
 of the rule-based engine is quite good, however, filtering based on your own knowledge of the input text is always preferable.
 
-## 6. <a name="report-generation"></a> Test report and plot generation <sup>[Top ▲](#table-of-contents)</sup>
+## 6. Test report and plot generation
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself for all four classifiers 
 and all languages by doing:
@@ -245,23 +2126,23 @@ For each detector and language, a test report file is then written into [`/accur
 to be found next to the `src` directory. As an example, here is the current output of the *Lingua* German report:
 
 ```
-com.github.pemistahl.lingua.report.lingua.GermanDetectionAccuracyReport
-
 ##### GERMAN #####
 
->>> Accuracy on average: 89.10%
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 79.80% | 89.23%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 73.60%
-Erroneously classified as DUTCH: 2.30%, ENGLISH: 2.10%, DANISH: 2.10%, LATIN: 2.00%, BOKMAL: 1.60%, ITALIAN: 1.20%, BASQUE: 1.20%, FRENCH: 1.20%, ESPERANTO: 1.10%, SWEDISH: 1.00%, AFRIKAANS: 0.80%, TSONGA: 0.70%, PORTUGUESE: 0.60%, NYNORSK: 0.60%, FINNISH: 0.50%, YORUBA: 0.50%, ESTONIAN: 0.50%, WELSH: 0.50%, SOTHO: 0.50%, SPANISH: 0.40%, SWAHILI: 0.40%, IRISH: 0.40%, ICELANDIC: 0.40%, POLISH: 0.40%, TSWANA: 0.40%, TAGALOG: 0.30%, CATALAN: 0.30%, BOSNIAN: 0.30%, LITHUANIAN: 0.20%, INDONESIAN: 0.20%, ALBANIAN: 0.20%, SLOVAK: 0.20%, ZULU: 0.20%, CROATIAN: 0.20%, ROMANIAN: 0.20%, XHOSA: 0.20%, TURKISH: 0.10%, LATVIAN: 0.10%, MALAY: 0.10%, SLOVENE: 0.10%, SOMALI: 0.10%
+Accuracy: 56.70% | 73.90%
+Erroneously classified as DUTCH: 2.80% | 2.30%, DANISH: 2.20% | 2.10%, ENGLISH: 1.90% | 2.00%, LATIN: 1.90% | 1.90%, BOKMAL: 2.40% | 1.60%, BASQUE: 1.60% | 1.20%, ITALIAN: 1.00% | 1.20%, FRENCH: 1.60% | 1.20%, ESPERANTO: 1.10% | 1.10%, SWEDISH: 3.20% | 1.00%, AFRIKAANS: 1.30% | 0.80%, TSONGA: 1.50% | 0.70%, NYNORSK: 1.40% | 0.60%, PORTUGUESE: 0.50% | 0.60%, YORUBA: 0.40% | 0.60%, SOTHO: 0.70% | 0.50%, FINNISH: 0.80% | 0.50%, WELSH: 1.30% | 0.50%, SPANISH: 1.20% | 0.40%, SWAHILI: 0.60% | 0.40%, TSWANA: 2.20% | 0.40%, POLISH: 0.70% | 0.40%, ESTONIAN: 0.90% | 0.40%, IRISH: 0.50% | 0.40%, TAGALOG: 0.10% | 0.30%, ICELANDIC: 0.30% | 0.30%, BOSNIAN: 0.10% | 0.30%, LITHUANIAN: 0.80% | 0.20%, MAORI: 0.50% | 0.20%, INDONESIAN: 0.40% | 0.20%, ALBANIAN: 0.60% | 0.20%, CATALAN: 0.70% | 0.20%, ZULU: 0.30% | 0.20%, ROMANIAN: 1.20% | 0.20%, CROATIAN: 0.10% | 0.20%, XHOSA: 0.40% | 0.20%, TURKISH: 0.70% | 0.10%, MALAY: 0.50% | 0.10%, LATVIAN: 0.40% | 0.10%, SLOVENE: 0.00% | 0.10%, SLOVAK: 0.30% | 0.10%, SOMALI: 0.00% | 0.10%, HUNGARIAN: 0.40% | 0.00%, SHONA: 0.80% | 0.00%, VIETNAMESE: 0.40% | 0.00%, CZECH: 0.30% | 0.00%, GANDA: 0.20% | 0.00%, AZERBAIJANI: 0.10% | 0.00%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 94.00%
-Erroneously classified as DUTCH: 0.90%, LATIN: 0.80%, ENGLISH: 0.70%, SWEDISH: 0.60%, DANISH: 0.50%, FRENCH: 0.40%, BOKMAL: 0.30%, TAGALOG: 0.20%, IRISH: 0.20%, SWAHILI: 0.20%, TURKISH: 0.10%, ZULU: 0.10%, ESPERANTO: 0.10%, ESTONIAN: 0.10%, FINNISH: 0.10%, ITALIAN: 0.10%, NYNORSK: 0.10%, ICELANDIC: 0.10%, AFRIKAANS: 0.10%, SOMALI: 0.10%, TSONGA: 0.10%, WELSH: 0.10%
+Accuracy: 83.50% | 94.10%
+Erroneously classified as DUTCH: 1.50% | 0.90%, LATIN: 1.00% | 0.80%, ENGLISH: 1.40% | 0.70%, SWEDISH: 1.40% | 0.60%, DANISH: 1.20% | 0.50%, FRENCH: 0.60% | 0.40%, BOKMAL: 1.40% | 0.30%, TAGALOG: 0.10% | 0.20%, IRISH: 0.20% | 0.20%, TURKISH: 0.10% | 0.10%, NYNORSK: 0.90% | 0.10%, TSONGA: 0.40% | 0.10%, ZULU: 0.10% | 0.10%, ESPERANTO: 0.30% | 0.10%, AFRIKAANS: 0.60% | 0.10%, ITALIAN: 0.10% | 0.10%, ESTONIAN: 0.30% | 0.10%, FINNISH: 0.40% | 0.10%, SOMALI: 0.00% | 0.10%, SWAHILI: 0.20% | 0.10%, MAORI: 0.00% | 0.10%, WELSH: 0.10% | 0.10%, LITHUANIAN: 0.40% | 0.00%, INDONESIAN: 0.10% | 0.00%, CATALAN: 0.30% | 0.00%, LATVIAN: 0.20% | 0.00%, XHOSA: 0.30% | 0.00%, SPANISH: 0.50% | 0.00%, MALAY: 0.10% | 0.00%, SLOVAK: 0.10% | 0.00%, BASQUE: 0.40% | 0.00%, YORUBA: 0.20% | 0.00%, TSWANA: 0.30% | 0.00%, SHONA: 0.10% | 0.00%, PORTUGUESE: 0.10% | 0.00%, SOTHO: 0.30% | 0.00%, CZECH: 0.10% | 0.00%, ALBANIAN: 0.40% | 0.00%, AZERBAIJANI: 0.10% | 0.00%, ICELANDIC: 0.10% | 0.00%, SLOVENE: 0.10% | 0.00%
 
 >> Detection of 1000 sentences (average length: 111 chars)
-Accuracy: 99.70%
-Erroneously classified as DUTCH: 0.20%, LATIN: 0.10%
+Accuracy: 99.20% | 99.70%
+Erroneously classified as DUTCH: 0.00% | 0.20%, LATIN: 0.20% | 0.10%, NYNORSK: 0.10% | 0.00%, SPANISH: 0.10% | 0.00%, DANISH: 0.10% | 0.00%, SOTHO: 0.20% | 0.00%, ZULU: 0.10% | 0.00%
 ```
 
 The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. 
@@ -270,35 +2151,35 @@ you can redraw the plots after modifying the test reports by executing the follo
 
     ./gradlew drawAccuracyPlots
     
-The detailed table in the file [ACCURACY_TABLE.md] containing all accuracy values can be written with:
+The detailed statistics table that contains all accuracy values can be written with:
 
     ./gradlew writeAccuracyTable
 
-## 7. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
+## 7. How to add it to your project?
 
 *Lingua* is hosted on [GitHub Packages] and [Maven Central].
 
-### 7.1 <a name="library-dependency-gradle"></a> Using Gradle
+### 7.1 Using Gradle
 
 ```
 // Groovy syntax
-implementation 'com.github.pemistahl:lingua:1.1.1'
+implementation 'com.github.pemistahl:lingua:1.2.0'
 
 // Kotlin syntax
-implementation("com.github.pemistahl:lingua:1.1.1")
+implementation("com.github.pemistahl:lingua:1.2.0")
 ```
 
-### 7.2 <a name="library-dependency-maven"></a> Using Maven
+### 7.2 Using Maven
 
 ```
 <dependency>
     <groupId>com.github.pemistahl</groupId>
     <artifactId>lingua</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
-## 8. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
+## 8. How to build?
 
 *Lingua* uses Gradle to build and requires Java >= 1.8 for that.
 
@@ -308,17 +2189,17 @@ cd lingua
 ./gradlew build
 ```
 Several jar archives can be created from the project.
-1. `./gradlew jar` assembles `lingua-1.1.1.jar` containing the compiled sources only.
-2. `./gradlew sourcesJar` assembles `lingua-1.1.1-sources.jar` containing the plain source code.
-3. `./gradlew jarWithDependencies` assembles `lingua-1.1.1-with-dependencies.jar` containing the 
+1. `./gradlew jar` assembles `lingua-1.2.0.jar` containing the compiled sources only.
+2. `./gradlew sourcesJar` assembles `lingua-1.2.0-sources.jar` containing the plain source code.
+3. `./gradlew jarWithDependencies` assembles `lingua-1.2.0-with-dependencies.jar` containing the 
 compiled sources and all external dependencies needed at runtime. This jar file can be included 
 in projects without dependency management systems. It can also be used to 
 run *Lingua* in standalone mode (see below).
 
-## 9. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
+## 9. How to use?
 *Lingua* can be used programmatically in your own code or in standalone mode.
 
-### 9.1 <a name="library-use-programmatic"></a> Programmatic use <sup>[Top ▲](#table-of-contents)</sup>
+### 9.1 Programmatic use
 The API is pretty straightforward and can be used in both Kotlin and Java code.
 
 #### 9.1.1 Basic usage
@@ -415,7 +2296,29 @@ LanguageDetectorBuilder.fromAllLanguages().withPreloadedLanguageModels().build()
 Multiple instances of `LanguageDetector` share the same language models in memory which are
 accessed asynchronously by the instances.
 
-#### 9.1.5 Methods to build the LanguageDetector
+#### 9.1.5 Low accuracy mode versus high accuracy mode
+
+*Lingua's* high detection accuracy comes at the cost of being noticeably slower than other language detectors.
+The large language models also consume significant amounts of memory. These requirements
+might not be feasible for systems running low on resources. If you want to classify mostly
+long texts or need to save resources, you can enable a *low accuracy mode* that loads only
+a small subset of the language models into memory:
+
+```kotlin
+LanguageDetectorBuilder.fromAllLanguages().withoutHighAccuracyMode().build()
+```
+
+The downside of this approach is that detection accuracy for short texts consisting of less
+than 120 characters will drop significantly. However, detection accuracy for texts which are
+longer than 120 characters will remain mostly unaffected. 
+
+An alternative for a smaller memory footprint and faster performance is to reduce the set
+of languages when building the language detector. In most cases, it is not advisable to
+build the detector from all supported languages. When you have knowledge about
+the texts you want to classify you can almost always rule out certain languages as impossible
+or unlikely to occur.
+
+#### 9.1.6 Methods to build the LanguageDetector
 
 There might be classification tasks where you know beforehand that your language data is definitely not
 written in Latin, for instance (what a surprise :-). The detection accuracy can become better in such
@@ -426,6 +2329,7 @@ cases if you exclude certain languages from the decision process or just explici
 // WARNING: in the worst case this produces high memory 
 //          consumption of approximately 3.5GB 
 //          and slow runtime performance
+//          (in high accuracy mode)
 LanguageDetectorBuilder.fromAllLanguages()
 
 // include only languages that are not yet extinct (= currently excludes Latin)
@@ -450,23 +2354,20 @@ LanguageDetectorBuilder.fromIsoCodes639_3(IsoCode639_3.ENG, IsoCode639_3.DEU)
 #### 9.1.6 How to manage memory consumption within application server deployments
 
 Internally, *Lingua* efficiently uses all cores of your CPU in order to speed up loading the language
-models and language detection itself. For this purpose, an internal thread pool is used whose size
-is equal to the number of CPU cores available. If the library is used within an application server,
-the consumed memory will not be freed automatically when the application is undeployed. Likewise,
-the thread pool is still active even though unactive threads will time out after 60 seconds.
+models and language detection itself. For this purpose, an internal 
+[ForkJoinPool](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html) 
+is used. If the library is used within an application server, the consumed memory will not be freed 
+automatically when the application is undeployed.
 
 If you want to free all of *Lingua's* resources, you will have to do this manually by calling
-`detector.destroy()` during the undeployment. This will clear all loaded language models from memory
-and will shut down the internal thread pool of this detector's instance. After calling this method,
-you will not be able to use this detector instance anymore. If you try to do so, an 
-`IllegalStateException` will be thrown. You will need to create a new instance of `LanguageDetector`
-to make it work again.
+`detector.unloadLanguageModels()` during the undeployment. This will clear all loaded language models 
+from memory but the thread pool will keep running.
 
 ### 9.2 <a name="library-use-standalone"></a> Standalone mode <sup>[Top ▲](#table-of-contents)</sup>
 If you want to try out *Lingua* before you decide whether to use it or not, you can run it in a REPL 
 and immediately see its detection results.
 1. With Gradle: `./gradlew runLinguaOnConsole --console=plain`
-2. Without Gradle: `java -jar lingua-1.1.1-with-dependencies.jar`
+2. Without Gradle: `java -jar lingua-1.2.0-with-dependencies.jar`
 
 Then just play around:
 
@@ -501,9 +2402,72 @@ FRENCH
 Bye! Ciao! Tschüss! Salut!
 ```
 
-## 10. <a name="whats-next"></a> What's next for version 1.2.0? <sup>[Top ▲](#table-of-contents)</sup>
+## 10. You want to contribute? That's great!
 
-Take a look at the [planned issues](https://github.com/pemistahl/lingua/milestone/8).
+In case you want to contribute something to *Lingua*, then you are encouraged to do so. Do you have ideas for
+improving the API? Are there some specific languages that you want to have supported early? Or have you
+found any bugs so far? Feel free to open an issue or send a pull request. It's very much appreciated.
+
+For pull requests, please make sure that all unit tests pass and that the code is formatted according to
+the official Kotlin style guide. You can check this by running the Kotlin linter [ktlint](https://ktlint.github.io/)
+using `./gradlew ktlintCheck`. Most issues which the linter identifies can be fixed by running `./gradlew ktlintFormat`.
+All other issues, especially lines which are longer than 120 characters, cannot be fixed automatically. In this case,
+please format the respective lines by hand. You will notice that the build will fail if the formatting is not correct.
+
+All kinds of pull requests are welcome. The most favorite ones are new language additions. If you want
+to contribute new languages to *Lingua*, here comes a detailed manual explaining how to accomplish that.
+
+Thank you very much in advance for all contributions, however small they may be.
+
+### 10.1 How to add new languages?
+
+In order to execute the steps below, you will need Java 8 or greater. Even though the library itself
+runs on Java >= 6, the `FilesWriter` classes make use of the [java.nio][java nio url] api which was
+introduced with Java 8.
+
+1. Clone *Lingua's* repository to your own computer as described in [section 8][library build url].
+2. Open enums [`IsoCode639_1`][isocode639_1 url] and [`IsoCode639_3`][isocode639_3 url] and add the
+   language's iso codes. Among other sites, Wikipedia provides a [comprehensive list][wikipedia isocodes list].
+3. Open enum [`Language`][language url] and add a new entry for your language. If the language is written
+   with a script that is not yet supported by *Lingua's* [`Alphabet`][alphabet url] enum, then add a new entry
+   for it there as well.
+4. If your language's script contains characters that are completely unique to it, then add them to the
+   respective entry in the [`Language`][language url] enum. However, if the characters occur in more than one
+   language **but** not in all languages, then add them to the
+   [`CHARS_TO_LANGUAGES_MAPPING`][chars to languages mapping url] constant in class `Constant` instead.
+5. Use [`LanguageModelFilesWriter`][language model files writer url] to create the language model files.
+   The training data file used for ngram probability estimation is not required to have a specific format
+   other than to be a valid txt file.
+6. Create a new subdirectory in [`/src/main/resources/language-models`][language models directory url]
+   and put the generated language model files in there. Do **not** rename the language model files.
+   The name of the subdirectory **must** be the language's ISO 639-1 code, completely lowercased.
+7. Use [`TestDataFilesWriter`][test data files writer url] to create the test data files used for
+   accuracy report generation. The input file from which to create the test data should have each
+   sentence on a separate line.
+8. Put the generated test data files in [`/src/accuracyReport/resources/language-testdata`][test data directory url].
+   Do **not** rename the test data files.
+9. For accuracy report generation, create an abstract base class for the main logic in
+   [`/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config`][accuracy report config url].
+   Look at the other languages' files in this directory to see how the class must look like.
+   It should be pretty self-explanatory.
+10. Create a concrete test class in
+    [`/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua`][accuracy report lingua url].
+    Look at the other languages' files in this directory to see how the class must look like.
+    It should be pretty self-explanatory. If one of the other language detector libraries
+    supports your language already, you can add test classes for those as well. Each library
+    has its own directory for this purpose.
+11. Fix the existing unit tests by adding your new language.
+12. Add your new language to property [`linguaSupportedLanguages`][gradle properties url]
+    in `/gradle.properties`.
+13. Run `./gradlew writeAccuracyReports` and add the updated accuracy reports to your pull request.
+14. Run `./gradlew drawAccuracyPlots` and add the updated plots to your pull request.
+15. Run `./gradlew writeAccuracyTable` and add the updated accuracy table to your pull request.
+16. Be happy! :-) You have successfully contributed a new language and have thereby significantly widened
+    this library's fields of application.
+
+## 11. What's next for version 1.3.0?
+
+Take a look at the [planned issues](https://github.com/pemistahl/lingua/milestone/10).
 
 [javadoc badge]: https://javadoc.io/badge2/com.github.pemistahl/lingua/javadoc.svg
 [javadoc url]: https://javadoc.io/doc/com.github.pemistahl/lingua
@@ -512,8 +2476,8 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [codecov badge]: https://codecov.io/gh/pemistahl/lingua/branch/main/graph/badge.svg
 [codecov url]: https://codecov.io/gh/pemistahl/lingua
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-75-green.svg
-[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.1.1-blue.svg
-[lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.1.1/lingua-1.1.1-with-dependencies.jar
+[lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.2.0-blue.svg
+[lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.2.0/lingua-1.2.0-with-dependencies.jar
 [Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
@@ -523,8 +2487,23 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [Apache OpenNLP]: https://opennlp.apache.org/docs/1.9.3/manual/opennlp.html#tools.langdetect
 [Optimaize Language Detector]: https://github.com/optimaize/language-detector
 [GitHub Packages]: https://github.com/pemistahl/lingua/packages/766181
-[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.1.1/jar
-[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.1.1-green.svg
+[Maven Central]: https://search.maven.org/artifact/com.github.pemistahl/lingua/1.2.0/jar
+[Maven Central badge]: https://img.shields.io/badge/Maven%20Central-1.2.0-green.svg
 [ACCURACY_PLOTS.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_PLOTS.md
 [ACCURACY_TABLE.md]: https://github.com/pemistahl/lingua/blob/main/ACCURACY_TABLE.md
 [accuracy reports url]: https://github.com/pemistahl/lingua/tree/main/accuracy-reports
+[java nio url]: https://docs.oracle.com/javase/8/docs/api/java/nio/package-summary.html
+[library build url]: https://github.com/pemistahl/lingua#8-how-to-build
+[isocode639_1 url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_1.kt
+[isocode639_3 url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/IsoCode639_3.kt
+[wikipedia isocodes list]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+[language url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/Language.kt
+[alphabet url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Alphabet.kt
+[chars to languages mapping url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/internal/Constant.kt#L67
+[language model files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/LanguageModelFilesWriter.kt#L27
+[language models directory url]: https://github.com/pemistahl/lingua/tree/main/src/main/resources/language-models
+[test data files writer url]: https://github.com/pemistahl/lingua/blob/main/src/main/kotlin/com/github/pemistahl/lingua/api/io/TestDataFilesWriter.kt#L28
+[test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/resources/language-testdata
+[accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config
+[accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua
+[gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L60

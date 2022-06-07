@@ -41,3 +41,5 @@ ehthumbs.db
 
 training-data/
 .ipynb_checkpoints
+ACCURACY_PLOTS.md
+ACCURACY_TABLE.md
