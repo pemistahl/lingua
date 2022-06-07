@@ -65,7 +65,7 @@ plugins {
     jacoco
 }
 
-jacoco.toolVersion = "0.8.7"
+jacoco.toolVersion = "0.8.8"
 
 sourceSets {
     main {
@@ -127,6 +127,15 @@ tasks.jacocoTestReport {
         csv.isEnabled = false
         html.isEnabled = true
     }
+    classDirectories.setFrom(
+        files(
+            classDirectories.files.map {
+                fileTree(it) {
+                    exclude("**/app/**")
+                }
+            }
+        )
+    )
 }
 
 tasks.register<Test>("accuracyReport") {
