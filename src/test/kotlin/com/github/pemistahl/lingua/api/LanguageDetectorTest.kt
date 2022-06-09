@@ -980,6 +980,24 @@ class LanguageDetectorTest {
         assertThatAllLanguageModelsAreLoaded()
     }
 
+    @Test
+    fun `assert that low accuracy mode reports unknown language for unigrams and bigrams`() {
+        removeLanguageModelsFromDetector()
+
+        val detector = LanguageDetectorBuilder
+            .fromLanguages(ENGLISH, GERMAN)
+            .withPreloadedLanguageModels()
+            .withLowAccuracyMode()
+            .build()
+
+        assertThat(detector.detectLanguageOf("bed")).isNotEqualTo(UNKNOWN)
+        assertThat(detector.detectLanguageOf("be")).isEqualTo(UNKNOWN)
+        assertThat(detector.detectLanguageOf("b")).isEqualTo(UNKNOWN)
+        assertThat(detector.detectLanguageOf("")).isEqualTo(UNKNOWN)
+
+        addLanguageModelsToDetector()
+    }
+
     private fun assertThatAllLanguageModelsAreUnloaded() {
         assertThat(LanguageDetector.unigramLanguageModels).isEmpty()
         assertThat(LanguageDetector.bigramLanguageModels).isEmpty()

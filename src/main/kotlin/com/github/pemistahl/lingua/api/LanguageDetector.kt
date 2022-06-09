@@ -125,6 +125,10 @@ class LanguageDetector internal constructor(
             return values
         }
 
+        if (isLowAccuracyModeEnabled && cleanedUpText.length < 3) {
+            return values
+        }
+
         val ngramSizeRange = if (cleanedUpText.length >= HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH ||
             isLowAccuracyModeEnabled
         ) {

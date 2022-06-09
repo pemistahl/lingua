@@ -1,3 +1,11 @@
+## Lingua 1.2.1 (released on 09 Jun 2022)
+
+### Bug Fixes
+
+- An exception was thrown when trying to detect the language of unigrams and
+  bigrams in low accuracy mode which operates only with trigrams and larger 
+  strings. This has been fixed.
+
 ## Lingua 1.2.0 (released on 07 Jun 2022)
 
 ### Features
