@@ -259,6 +259,11 @@ enum class IsoCode639_1 {
     NN,
 
     /**
+     * The ISO 639-1 code for [Oromo][Language.OROMO].
+     */
+    OM,
+
+    /**
      * The ISO 639-1 code for [Punjabi][Language.PUNJABI].
      */
     PA,

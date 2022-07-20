@@ -63,6 +63,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.MS
 import com.github.pemistahl.lingua.api.IsoCode639_1.NB
 import com.github.pemistahl.lingua.api.IsoCode639_1.NL
 import com.github.pemistahl.lingua.api.IsoCode639_1.NN
+import com.github.pemistahl.lingua.api.IsoCode639_1.OM
 import com.github.pemistahl.lingua.api.IsoCode639_1.PA
 import com.github.pemistahl.lingua.api.IsoCode639_1.PL
 import com.github.pemistahl.lingua.api.IsoCode639_1.PT
@@ -137,6 +138,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.MSA
 import com.github.pemistahl.lingua.api.IsoCode639_3.NLD
 import com.github.pemistahl.lingua.api.IsoCode639_3.NNO
 import com.github.pemistahl.lingua.api.IsoCode639_3.NOB
+import com.github.pemistahl.lingua.api.IsoCode639_3.ORM
 import com.github.pemistahl.lingua.api.IsoCode639_3.PAN
 import com.github.pemistahl.lingua.api.IsoCode639_3.POL
 import com.github.pemistahl.lingua.api.IsoCode639_3.POR
@@ -234,6 +236,7 @@ enum class Language(
     MARATHI(MR, MAR, enumSetOf(DEVANAGARI), "ळ"),
     MONGOLIAN(MN, MON, enumSetOf(CYRILLIC), "ӨөҮү"),
     NYNORSK(NN, NNO, enumSetOf(Alphabet.LATIN), null),
+    OROMO(OM, ORM, enumSetOf(Alphabet.LATIN), null),
     PERSIAN(FA, FAS, enumSetOf(Alphabet.ARABIC), null),
     POLISH(PL, POL, enumSetOf(Alphabet.LATIN), "ŁłŃńŚśŹź"),
     PORTUGUESE(PT, POR, enumSetOf(Alphabet.LATIN), null),
