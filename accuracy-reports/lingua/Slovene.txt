@@ -2,11 +2,11 @@
 
 Legend: 'low accuracy mode | high accuracy mode'
 
->>> Accuracy on average: 66.73% | 82.17%
+>>> Accuracy on average: 66.67% | 82.17%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 39.30% | 61.20%
-Erroneously classified as CROATIAN: 9.90% | 9.90%, BOSNIAN: 8.80% | 6.80%, SLOVAK: 4.40% | 2.00%, LATIN: 2.50% | 1.40%, LITHUANIAN: 2.00% | 1.30%, SWAHILI: 0.50% | 1.10%, TSWANA: 1.90% | 1.00%, CZECH: 2.00% | 1.00%, ROMANIAN: 1.10% | 0.80%, SHONA: 0.70% | 0.80%, GERMAN: 0.60% | 0.80%, ENGLISH: 0.40% | 0.70%, CATALAN: 0.40% | 0.70%, ESPERANTO: 1.30% | 0.60%, MAORI: 1.50% | 0.60%, BOKMAL: 0.40% | 0.60%, DANISH: 0.50% | 0.50%, ESTONIAN: 1.00% | 0.50%, POLISH: 1.10% | 0.50%, SPANISH: 0.40% | 0.50%, ITALIAN: 0.90% | 0.50%, NYNORSK: 0.30% | 0.50%, FINNISH: 0.70% | 0.40%, DUTCH: 0.50% | 0.40%, MALAY: 0.90% | 0.40%, TAGALOG: 0.30% | 0.40%, INDONESIAN: 0.30% | 0.40%, BASQUE: 1.70% | 0.30%, ZULU: 1.00% | 0.30%, AZERBAIJANI: 0.60% | 0.30%, LATVIAN: 0.70% | 0.30%, SWEDISH: 0.70% | 0.30%, HUNGARIAN: 0.60% | 0.30%, SOTHO: 1.60% | 0.20%, GANDA: 0.90% | 0.20%, YORUBA: 1.00% | 0.20%, TSONGA: 1.40% | 0.20%, ALBANIAN: 0.90% | 0.20%, WELSH: 0.30% | 0.20%, FRENCH: 0.20% | 0.20%, AFRIKAANS: 0.10% | 0.10%, SOMALI: 0.70% | 0.10%, TURKISH: 0.90% | 0.10%, XHOSA: 0.60% | 0.10%, PORTUGUESE: 0.70% | 0.10%, ICELANDIC: 0.40% | 0.00%, IRISH: 0.10% | 0.00%, VIETNAMESE: 0.30% | 0.00%
+Accuracy: 39.10% | 61.20%
+Erroneously classified as CROATIAN: 9.90% | 9.90%, BOSNIAN: 8.60% | 6.80%, SLOVAK: 4.40% | 2.00%, LATIN: 2.50% | 1.40%, LITHUANIAN: 2.00% | 1.30%, SWAHILI: 0.50% | 1.10%, TSWANA: 1.90% | 1.00%, CZECH: 2.00% | 1.00%, ROMANIAN: 1.10% | 0.80%, SHONA: 0.70% | 0.80%, GERMAN: 0.60% | 0.80%, ENGLISH: 0.40% | 0.70%, CATALAN: 0.40% | 0.70%, ESPERANTO: 1.20% | 0.60%, MAORI: 1.50% | 0.60%, BOKMAL: 0.40% | 0.60%, DANISH: 0.50% | 0.50%, ESTONIAN: 1.00% | 0.50%, POLISH: 1.10% | 0.50%, SPANISH: 0.40% | 0.50%, ITALIAN: 0.90% | 0.50%, FINNISH: 0.60% | 0.40%, DUTCH: 0.50% | 0.40%, MALAY: 0.90% | 0.40%, TAGALOG: 0.30% | 0.40%, INDONESIAN: 0.30% | 0.40%, NYNORSK: 0.30% | 0.40%, BASQUE: 1.70% | 0.30%, ZULU: 0.90% | 0.30%, AZERBAIJANI: 0.60% | 0.30%, LATVIAN: 0.70% | 0.30%, SWEDISH: 0.70% | 0.30%, HUNGARIAN: 0.50% | 0.30%, SOTHO: 1.50% | 0.20%, GANDA: 0.90% | 0.20%, YORUBA: 1.00% | 0.20%, TSONGA: 1.40% | 0.20%, ALBANIAN: 0.90% | 0.20%, WELSH: 0.30% | 0.20%, FRENCH: 0.20% | 0.20%, AFRIKAANS: 0.10% | 0.10%, SOMALI: 0.70% | 0.10%, OROMO: 1.10% | 0.10%, TURKISH: 0.90% | 0.10%, XHOSA: 0.50% | 0.10%, PORTUGUESE: 0.70% | 0.10%, IRISH: 0.10% | 0.00%, ICELANDIC: 0.30% | 0.00%, VIETNAMESE: 0.30% | 0.00%
 
 >> Detection of 1000 word pairs (average length: 16 chars)
 Accuracy: 67.80% | 86.70%
@@ -14,6 +14,6 @@ Erroneously classified as CROATIAN: 9.70% | 5.00%, BOSNIAN: 6.70% | 4.10%, ESPER
 
 >> Detection of 1000 sentences (average length: 114 chars)
 Accuracy: 93.10% | 98.60%
-Erroneously classified as CROATIAN: 1.90% | 0.80%, BOSNIAN: 1.20% | 0.40%, ZULU: 0.10% | 0.10%, LATIN: 0.20% | 0.10%, FINNISH: 0.20% | 0.00%, SLOVAK: 0.70% | 0.00%, TSONGA: 0.10% | 0.00%, MALAY: 0.30% | 0.00%, SOTHO: 0.20% | 0.00%, TSWANA: 0.10% | 0.00%, TAGALOG: 0.30% | 0.00%, BASQUE: 0.20% | 0.00%, GANDA: 0.10% | 0.00%, AZERBAIJANI: 0.10% | 0.00%, NYNORSK: 0.10% | 0.00%, DANISH: 0.10% | 0.00%, PORTUGUESE: 0.10% | 0.00%, XHOSA: 0.10% | 0.00%, SHONA: 0.10% | 0.00%, ESPERANTO: 0.30% | 0.00%, CZECH: 0.10% | 0.00%, POLISH: 0.20% | 0.00%, MAORI: 0.10% | 0.00%
+Erroneously classified as CROATIAN: 1.90% | 0.80%, BOSNIAN: 1.20% | 0.40%, ZULU: 0.10% | 0.10%, LATIN: 0.20% | 0.10%, FINNISH: 0.20% | 0.00%, SLOVAK: 0.70% | 0.00%, TSONGA: 0.10% | 0.00%, MALAY: 0.30% | 0.00%, SOTHO: 0.20% | 0.00%, TSWANA: 0.10% | 0.00%, TAGALOG: 0.30% | 0.00%, BASQUE: 0.20% | 0.00%, GANDA: 0.10% | 0.00%, AZERBAIJANI: 0.10% | 0.00%, NYNORSK: 0.10% | 0.00%, DANISH: 0.10% | 0.00%, PORTUGUESE: 0.10% | 0.00%, XHOSA: 0.10% | 0.00%, SHONA: 0.10% | 0.00%, ESPERANTO: 0.30% | 0.00%, CZECH: 0.10% | 0.00%, POLISH: 0.10% | 0.00%, OROMO: 0.10% | 0.00%, MAORI: 0.10% | 0.00%
 
->> Exact values: 66.73333333333335 39.300000000000004 67.80000000000001 93.10000000000001 82.16666666666667 61.199999999999996 86.7 98.6
+>> Exact values: 66.66666666666667 39.1 67.80000000000001 93.10000000000001 82.16666666666667 61.199999999999996 86.7 98.6

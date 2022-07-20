@@ -2,18 +2,18 @@
 
 Legend: 'low accuracy mode | high accuracy mode'
 
->>> Accuracy on average: 71.27% | 84.17%
+>>> Accuracy on average: 71.20% | 84.10%
 
 >> Detection of 1000 single words (average length: 8 chars)
-Accuracy: 44.10% | 65.30%
-Erroneously classified as SOTHO: 17.00% | 15.80%, TSONGA: 5.10% | 2.40%, SHONA: 2.00% | 1.70%, SWAHILI: 2.40% | 1.40%, ENGLISH: 1.50% | 1.30%, XHOSA: 3.80% | 1.30%, TAGALOG: 0.90% | 1.10%, BASQUE: 1.30% | 1.00%, ZULU: 3.40% | 1.00%, LATIN: 0.70% | 1.00%, MALAY: 1.90% | 0.80%, GANDA: 1.70% | 0.70%, YORUBA: 0.80% | 0.50%, FRENCH: 0.60% | 0.50%, MAORI: 1.80% | 0.40%, SOMALI: 0.70% | 0.40%, GERMAN: 0.20% | 0.40%, ITALIAN: 0.30% | 0.40%, ROMANIAN: 0.50% | 0.30%, BOKMAL: 0.20% | 0.30%, IRISH: 0.40% | 0.20%, AFRIKAANS: 0.20% | 0.20%, CZECH: 0.20% | 0.20%, CATALAN: 0.10% | 0.20%, ESPERANTO: 0.30% | 0.10%, TURKISH: 0.40% | 0.10%, CROATIAN: 0.80% | 0.10%, BOSNIAN: 0.40% | 0.10%, INDONESIAN: 1.20% | 0.10%, PORTUGUESE: 0.80% | 0.10%, SWEDISH: 0.10% | 0.10%, SLOVENE: 0.40% | 0.10%, FINNISH: 0.30% | 0.10%, POLISH: 0.10% | 0.10%, DANISH: 0.00% | 0.10%, WELSH: 0.20% | 0.10%, HUNGARIAN: 0.70% | 0.00%, AZERBAIJANI: 0.40% | 0.00%, LATVIAN: 0.20% | 0.00%, LITHUANIAN: 0.30% | 0.00%, ESTONIAN: 0.30% | 0.00%, NYNORSK: 0.40% | 0.00%, SLOVAK: 0.20% | 0.00%, ICELANDIC: 0.20% | 0.00%, DUTCH: 0.10% | 0.00%, SPANISH: 0.10% | 0.00%, ALBANIAN: 0.20% | 0.00%, VIETNAMESE: 0.10% | 0.00%
+Accuracy: 44.00% | 65.10%
+Erroneously classified as SOTHO: 17.00% | 15.70%, TSONGA: 5.10% | 2.30%, SHONA: 2.00% | 1.70%, SWAHILI: 2.40% | 1.40%, ENGLISH: 1.50% | 1.30%, XHOSA: 3.60% | 1.30%, TAGALOG: 0.90% | 1.10%, BASQUE: 1.20% | 1.00%, LATIN: 0.70% | 1.00%, MALAY: 1.90% | 0.80%, ZULU: 3.40% | 0.80%, GANDA: 1.70% | 0.70%, OROMO: 0.90% | 0.60%, YORUBA: 0.80% | 0.50%, FRENCH: 0.60% | 0.50%, MAORI: 1.70% | 0.40%, SOMALI: 0.50% | 0.40%, GERMAN: 0.20% | 0.40%, ITALIAN: 0.30% | 0.40%, ROMANIAN: 0.40% | 0.30%, BOKMAL: 0.20% | 0.30%, IRISH: 0.40% | 0.20%, AFRIKAANS: 0.20% | 0.20%, CZECH: 0.20% | 0.20%, CATALAN: 0.10% | 0.20%, ESPERANTO: 0.30% | 0.10%, TURKISH: 0.40% | 0.10%, CROATIAN: 0.80% | 0.10%, BOSNIAN: 0.40% | 0.10%, INDONESIAN: 1.20% | 0.10%, PORTUGUESE: 0.80% | 0.10%, SWEDISH: 0.00% | 0.10%, SLOVENE: 0.40% | 0.10%, FINNISH: 0.30% | 0.10%, POLISH: 0.10% | 0.10%, DANISH: 0.00% | 0.10%, WELSH: 0.20% | 0.10%, HUNGARIAN: 0.70% | 0.00%, AZERBAIJANI: 0.40% | 0.00%, LATVIAN: 0.20% | 0.00%, LITHUANIAN: 0.30% | 0.00%, ESTONIAN: 0.30% | 0.00%, NYNORSK: 0.40% | 0.00%, SLOVAK: 0.20% | 0.00%, ICELANDIC: 0.20% | 0.00%, DUTCH: 0.10% | 0.00%, SPANISH: 0.10% | 0.00%, ALBANIAN: 0.20% | 0.00%, VIETNAMESE: 0.10% | 0.00%
 
 >> Detection of 1000 word pairs (average length: 15 chars)
-Accuracy: 73.40% | 88.50%
-Erroneously classified as SOTHO: 14.80% | 8.20%, ENGLISH: 0.50% | 0.80%, TSONGA: 1.80% | 0.50%, XHOSA: 1.70% | 0.40%, SWAHILI: 0.40% | 0.30%, SHONA: 0.80% | 0.30%, BASQUE: 0.30% | 0.30%, CZECH: 0.10% | 0.20%, AFRIKAANS: 0.10% | 0.10%, PORTUGUESE: 0.10% | 0.10%, TAGALOG: 0.60% | 0.10%, ZULU: 0.80% | 0.10%, GANDA: 0.40% | 0.10%, MALAY: 0.60% | 0.00%, GERMAN: 0.10% | 0.00%, HUNGARIAN: 0.20% | 0.00%, INDONESIAN: 0.30% | 0.00%, MAORI: 0.50% | 0.00%, POLISH: 0.10% | 0.00%, SLOVENE: 0.10% | 0.00%, LATIN: 0.30% | 0.00%, WELSH: 0.30% | 0.00%, ESTONIAN: 0.30% | 0.00%, YORUBA: 0.10% | 0.00%, BOSNIAN: 0.30% | 0.00%, CROATIAN: 0.10% | 0.00%, LITHUANIAN: 0.20% | 0.00%, DUTCH: 0.10% | 0.00%, ESPERANTO: 0.10% | 0.00%, ITALIAN: 0.20% | 0.00%, TURKISH: 0.10% | 0.00%, SPANISH: 0.10% | 0.00%, FINNISH: 0.10% | 0.00%
+Accuracy: 73.30% | 88.50%
+Erroneously classified as SOTHO: 14.80% | 8.20%, ENGLISH: 0.50% | 0.80%, TSONGA: 1.80% | 0.50%, XHOSA: 1.60% | 0.40%, SWAHILI: 0.40% | 0.30%, SHONA: 0.80% | 0.30%, BASQUE: 0.30% | 0.30%, CZECH: 0.10% | 0.20%, AFRIKAANS: 0.10% | 0.10%, PORTUGUESE: 0.10% | 0.10%, TAGALOG: 0.60% | 0.10%, ZULU: 0.80% | 0.10%, GANDA: 0.40% | 0.10%, MALAY: 0.60% | 0.00%, GERMAN: 0.10% | 0.00%, HUNGARIAN: 0.20% | 0.00%, INDONESIAN: 0.30% | 0.00%, MAORI: 0.50% | 0.00%, POLISH: 0.10% | 0.00%, SLOVENE: 0.10% | 0.00%, LATIN: 0.30% | 0.00%, WELSH: 0.30% | 0.00%, ESTONIAN: 0.30% | 0.00%, YORUBA: 0.10% | 0.00%, BOSNIAN: 0.30% | 0.00%, OROMO: 0.20% | 0.00%, CROATIAN: 0.10% | 0.00%, LITHUANIAN: 0.20% | 0.00%, DUTCH: 0.10% | 0.00%, ESPERANTO: 0.10% | 0.00%, ITALIAN: 0.20% | 0.00%, TURKISH: 0.10% | 0.00%, SPANISH: 0.10% | 0.00%, FINNISH: 0.10% | 0.00%
 
 >> Detection of 1000 sentences (average length: 113 chars)
 Accuracy: 96.30% | 98.70%
 Erroneously classified as SOTHO: 3.00% | 1.10%, ENGLISH: 0.20% | 0.10%, YORUBA: 0.10% | 0.10%, BOKMAL: 0.10% | 0.00%, SHONA: 0.20% | 0.00%, ITALIAN: 0.10% | 0.00%
 
->> Exact values: 71.26666666666667 44.1 73.4 96.3 84.16666666666667 65.3 88.5 98.7
+>> Exact values: 71.2 44.0 73.3 96.3 84.10000000000001 65.10000000000001 88.5 98.7
