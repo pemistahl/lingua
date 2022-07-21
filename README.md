@@ -2507,5 +2507,5 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/resources/language-testdata
 [accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config
 [accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua
-[accuracy report nonlingua url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua/AbstractLanguageDetectionAccuracyReport#L324
+[accuracy report nonlingua url]: https://github.com/pemistahl/lingua/blob/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/AbstractLanguageDetectionAccuracyReport.kt#L324
 [gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L60
