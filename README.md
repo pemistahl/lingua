@@ -2455,7 +2455,8 @@ introduced with Java 8.
     Look at the other languages' files in this directory to see how the class must look like.
     It should be pretty self-explanatory. If one of the other language detector libraries
     supports your language already, you can add test classes for those as well. Each library
-    has its own directory for this purpose.
+    has its own directory for this purpose. If your language is not supported by the other
+    language detector libraries, exclude it in [`AbstractLanguageDetectionAccuracyReport`][accuracy report nonlingua url].
 11. Fix the existing unit tests by adding your new language.
 12. Add your new language to property [`linguaSupportedLanguages`][gradle properties url]
     in `/gradle.properties`.
@@ -2506,4 +2507,5 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [test data directory url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/resources/language-testdata
 [accuracy report config url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/config
 [accuracy report lingua url]: https://github.com/pemistahl/lingua/tree/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/lingua
+[accuracy report nonlingua url]: https://github.com/pemistahl/lingua/blob/main/src/accuracyReport/kotlin/com/github/pemistahl/lingua/report/AbstractLanguageDetectionAccuracyReport.kt#L324
 [gradle properties url]: https://github.com/pemistahl/lingua/blob/main/gradle.properties#L60

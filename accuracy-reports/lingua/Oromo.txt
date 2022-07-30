@@ -1,0 +1,19 @@
+##### OROMO #####
+
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 85.79% | 94.83%
+
+>> Detection of 1000 single words (average length: 7 chars)
+Accuracy: 74.60% | 92.90%
+Erroneously classified as SOMALI: 4.60% | 2.20%, INDONESIAN: 0.30% | 1.00%, GANDA: 3.40% | 0.60%, FINNISH: 1.90% | 0.40%, SWAHILI: 0.10% | 0.40%, SHONA: 5.50% | 0.30%, BASQUE: 0.30% | 0.30%, ENGLISH: 0.20% | 0.30%, AFRIKAANS: 0.80% | 0.30%, FRENCH: 0.20% | 0.20%, YORUBA: 0.10% | 0.10%, MALAY: 0.50% | 0.10%, MAORI: 0.70% | 0.10%, CATALAN: 1.10% | 0.10%, ITALIAN: 0.10% | 0.10%, DUTCH: 0.80% | 0.10%, TAGALOG: 0.50% | 0.10%, XHOSA: 0.50% | 0.10%, ZULU: 0.30% | 0.10%, ROMANIAN: 0.20% | 0.10%, LATVIAN: 0.00% | 0.10%, SPANISH: 0.10% | 0.00%, SOTHO: 0.60% | 0.00%, SLOVENE: 0.40% | 0.00%, LATIN: 0.30% | 0.00%, TSONGA: 0.30% | 0.00%, TSWANA: 0.50% | 0.00%, GERMAN: 0.30% | 0.00%, SWEDISH: 0.10% | 0.00%, ALBANIAN: 0.20% | 0.00%, ICELANDIC: 0.10% | 0.00%, PORTUGUESE: 0.20% | 0.00%, ESTONIAN: 0.10% | 0.00%, AZERBAIJANI: 0.10% | 0.00%
+
+>> Detection of 1000 word pairs (average length: 16 chars)
+Accuracy: 92.80% | 97.70%
+Erroneously classified as ENGLISH: 0.70% | 0.70%, YORUBA: 0.10% | 0.30%, GANDA: 0.50% | 0.20%, SOMALI: 1.90% | 0.20%, SWAHILI: 0.30% | 0.20%, XHOSA: 0.20% | 0.10%, AFRIKAANS: 0.00% | 0.10%, LATIN: 0.00% | 0.10%, BASQUE: 0.00% | 0.10%, TAGALOG: 0.00% | 0.10%, GERMAN: 0.10% | 0.10%, CATALAN: 0.00% | 0.10%, ALBANIAN: 0.30% | 0.00%, SOTHO: 0.20% | 0.00%, ESTONIAN: 0.10% | 0.00%, FINNISH: 0.80% | 0.00%, TSWANA: 0.10% | 0.00%, SWEDISH: 0.10% | 0.00%, ITALIAN: 0.30% | 0.00%, WELSH: 0.10% | 0.00%, ICELANDIC: 0.10% | 0.00%, DUTCH: 0.10% | 0.00%, BOKMAL: 0.10% | 0.00%, FRENCH: 0.10% | 0.00%, SHONA: 0.30% | 0.00%, BOSNIAN: 0.20% | 0.00%, TSONGA: 0.20% | 0.00%, SPANISH: 0.10% | 0.00%, MALAY: 0.10% | 0.00%, INDONESIAN: 0.10% | 0.00%
+
+>> Detection of 996 sentences (average length: 273 chars)
+Accuracy: 89.96% | 93.88%
+Erroneously classified as ENGLISH: 1.61% | 3.21%, NYNORSK: 0.60% | 0.40%, SWAHILI: 0.30% | 0.30%, ITALIAN: 0.30% | 0.30%, SOMALI: 0.80% | 0.20%, SHONA: 0.30% | 0.20%, LATIN: 0.40% | 0.20%, MALAY: 0.20% | 0.20%, DANISH: 0.10% | 0.20%, CATALAN: 0.20% | 0.10%, FRENCH: 0.30% | 0.10%, ESTONIAN: 0.30% | 0.10%, GERMAN: 0.20% | 0.10%, UNKNOWN: 0.20% | 0.10%, BASQUE: 0.10% | 0.10%, YORUBA: 0.50% | 0.10%, ESPERANTO: 0.30% | 0.10%, GANDA: 0.10% | 0.10%, SLOVAK: 0.10% | 0.00%, XHOSA: 0.60% | 0.00%, SOTHO: 0.40% | 0.00%, FINNISH: 0.70% | 0.00%, POLISH: 0.10% | 0.00%, ROMANIAN: 0.10% | 0.00%, ICELANDIC: 0.10% | 0.00%, WELSH: 0.10% | 0.00%, LITHUANIAN: 0.10% | 0.00%, TSONGA: 0.20% | 0.00%, MAORI: 0.20% | 0.00%, IRISH: 0.10% | 0.00%, SWEDISH: 0.10% | 0.00%, DUTCH: 0.10% | 0.00%, TAGALOG: 0.10% | 0.00%, CZECH: 0.10% | 0.00%
+
+>> Exact values: 85.78661311914324 74.6 92.80000000000001 89.95983935742971 94.82516733601072 92.9 97.7 93.87550200803213

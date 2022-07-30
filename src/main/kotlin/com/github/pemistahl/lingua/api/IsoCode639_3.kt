@@ -254,6 +254,11 @@ enum class IsoCode639_3 {
     NOB,
 
     /**
+     * The ISO 639-3 code for [Oromo][Language.OROMO].
+     */
+    ORM,
+
+    /**
      * The ISO 639-3 code for [Punjabi][Language.PUNJABI].
      */
     PAN,
