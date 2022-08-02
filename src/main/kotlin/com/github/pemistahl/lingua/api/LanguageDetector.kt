@@ -34,6 +34,8 @@ import com.github.pemistahl.lingua.internal.util.extension.incrementCounter
 import com.github.pemistahl.lingua.internal.util.extension.isLogogram
 import it.unimi.dsi.fastutil.objects.Object2FloatMap
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
+import java.security.AccessController
+import java.security.PrivilegedAction
 import java.util.EnumMap
 import java.util.SortedMap
 import java.util.TreeMap
@@ -138,22 +140,24 @@ class LanguageDetector internal constructor(
         }
         val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
             Callable {
-                val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-                val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+                AccessController.doPrivileged(PrivilegedAction {
+                    val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                    val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
-                val unigramCounts = if (i == 1) {
-                    val languages = probabilities.keys
-                    val unigramFilteredLanguages =
-                        if (languages.isNotEmpty()) filteredLanguages.asSequence()
-                            .filter { languages.contains(it) }
-                            .toSet()
-                        else filteredLanguages
-                    countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-                } else {
-                    null
-                }
+                    val unigramCounts = if (i == 1) {
+                        val languages = probabilities.keys
+                        val unigramFilteredLanguages =
+                            if (languages.isNotEmpty()) filteredLanguages.asSequence()
+                                .filter { languages.contains(it) }
+                                .toSet()
+                            else filteredLanguages
+                        countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
+                    } else {
+                        null
+                    }
 
-                Pair(probabilities, unigramCounts)
+                    Pair(probabilities, unigramCounts)
+                })
             }
         }
 
