@@ -140,24 +140,26 @@ class LanguageDetector internal constructor(
         }
         val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
             Callable {
-                AccessController.doPrivileged(PrivilegedAction {
-                    val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-                    val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+                AccessController.doPrivileged(
+                    PrivilegedAction {
+                        val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                        val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
 
-                    val unigramCounts = if (i == 1) {
-                        val languages = probabilities.keys
-                        val unigramFilteredLanguages =
-                            if (languages.isNotEmpty()) filteredLanguages.asSequence()
-                                .filter { languages.contains(it) }
-                                .toSet()
-                            else filteredLanguages
-                        countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-                    } else {
-                        null
+                        val unigramCounts = if (i == 1) {
+                            val languages = probabilities.keys
+                            val unigramFilteredLanguages =
+                                if (languages.isNotEmpty()) filteredLanguages.asSequence()
+                                    .filter { languages.contains(it) }
+                                    .toSet()
+                                else filteredLanguages
+                            countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
+                        } else {
+                            null
+                        }
+
+                        Pair(probabilities, unigramCounts)
                     }
-
-                    Pair(probabilities, unigramCounts)
-                })
+                )
             }
         }
 
