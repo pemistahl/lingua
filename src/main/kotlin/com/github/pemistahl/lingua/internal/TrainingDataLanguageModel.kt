@@ -40,18 +40,12 @@ internal class TrainingDataLanguageModel(
             ngrams.computeIfAbsent(fraction) { mutableListOf() }.add(ngram)
         }
         val jsonLanguageModel = JsonLanguageModel(language, ngrams.mapValues { it.value.joinToString(separator = " ") })
-        return jsonAdapter.toJson(jsonLanguageModel)
+        return JSON_ADAPTER.toJson(jsonLanguageModel)
     }
 
     companion object {
         private const val LANGUAGE_NAME = "language"
         private const val NGRAMS_NAME = "ngrams"
-
-        private val jsonAdapter = Moshi.Builder()
-            .add(FractionAdapter())
-            .addLast(KotlinJsonAdapterFactory())
-            .build()
-            .adapter(JsonLanguageModel::class.java)
 
         fun fromText(
             text: Sequence<String>,
@@ -161,3 +155,9 @@ internal class TrainingDataLanguageModel(
         }
     }
 }
+
+private val JSON_ADAPTER = Moshi.Builder()
+    .add(FractionAdapter())
+    .addLast(KotlinJsonAdapterFactory())
+    .build()
+    .adapter(JsonLanguageModel::class.java)
