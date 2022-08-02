@@ -81,7 +81,6 @@ import com.github.pemistahl.lingua.internal.Ngram
 import com.github.pemistahl.lingua.internal.TestDataLanguageModel
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap
 import org.assertj.core.api.Assertions.assertThat
@@ -229,7 +228,6 @@ class LanguageDetectorTest {
     @MockK
     private lateinit var quadrigramTestDataLanguageModel: TestDataLanguageModel
 
-    @SpyK
     private var detectorForEnglishAndGerman = LanguageDetector(
         languages = mutableSetOf(ENGLISH, GERMAN),
         minimumRelativeDistance = 0.0,

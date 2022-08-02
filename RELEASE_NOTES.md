@@ -1,3 +1,12 @@
+## Lingua 1.2.2 (released on 02 Aug 2022)
+
+### Bug Fixes
+
+- Due to a bug in the Moshi JSON serialization library, language detection
+  was not possible in certain cases. (#144, #147)
+- Lingua could not be used properly when a security manager was enabled
+  in the JVM. (#141)
+
 ## Lingua 1.2.1 (released on 09 Jun 2022)
 
 ### Bug Fixes
