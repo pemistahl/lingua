@@ -1,0 +1,19 @@
+##### SINHALA #####
+
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 99.87% | 99.87%
+
+>> Detection of 1000 single words (average length: 5 chars)
+Accuracy: 100.00% | 100.00%
+Erroneously classified as 
+
+>> Detection of 1000 word pairs (average length: 12 chars)
+Accuracy: 100.00% | 100.00%
+Erroneously classified as 
+
+>> Detection of 997 sentences (average length: 208 chars)
+Accuracy: 99.60% | 99.60%
+Erroneously classified as UNKNOWN: 0.10% | 0.10%, SLOVAK: 0.10% | 0.10%, BASQUE: 0.10% | 0.10%, HUNGARIAN: 0.10% | 0.10%
+
+>> Exact values: 99.86626546305583 100.0 100.0 99.5987963891675 99.86626546305583 100.0 100.0 99.5987963891675

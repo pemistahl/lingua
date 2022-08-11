@@ -68,6 +68,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.PL
 import com.github.pemistahl.lingua.api.IsoCode639_1.PT
 import com.github.pemistahl.lingua.api.IsoCode639_1.RO
 import com.github.pemistahl.lingua.api.IsoCode639_1.RU
+import com.github.pemistahl.lingua.api.IsoCode639_1.SI
 import com.github.pemistahl.lingua.api.IsoCode639_1.SK
 import com.github.pemistahl.lingua.api.IsoCode639_1.SL
 import com.github.pemistahl.lingua.api.IsoCode639_1.SN
@@ -142,6 +143,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.POL
 import com.github.pemistahl.lingua.api.IsoCode639_3.POR
 import com.github.pemistahl.lingua.api.IsoCode639_3.RON
 import com.github.pemistahl.lingua.api.IsoCode639_3.RUS
+import com.github.pemistahl.lingua.api.IsoCode639_3.SIN
 import com.github.pemistahl.lingua.api.IsoCode639_3.SLK
 import com.github.pemistahl.lingua.api.IsoCode639_3.SLV
 import com.github.pemistahl.lingua.api.IsoCode639_3.SNA
@@ -242,6 +244,7 @@ enum class Language(
     RUSSIAN(RU, RUS, enumSetOf(CYRILLIC), null),
     SERBIAN(SR, SRP, enumSetOf(CYRILLIC), "ЂђЋћ"),
     SHONA(SN, SNA, enumSetOf(Alphabet.LATIN), null),
+    SINHALA(SI, SIN, enumSetOf(Alphabet.SINHALA), null),
     SLOVAK(SK, SLK, enumSetOf(Alphabet.LATIN), "ĹĺĽľŔŕ"),
     SLOVENE(SL, SLV, enumSetOf(Alphabet.LATIN), null),
     SOMALI(SO, SOM, enumSetOf(Alphabet.LATIN), null),

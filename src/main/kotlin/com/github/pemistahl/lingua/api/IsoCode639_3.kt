@@ -279,6 +279,11 @@ enum class IsoCode639_3 {
     RUS,
 
     /**
+     * The ISO 639-3 code for [Sinhala][Language.SINHALA].
+     */
+    SIN,
+
+    /**
      * The ISO 639-3 code for [Slovak][Language.SLOVAK].
      */
     SLK,

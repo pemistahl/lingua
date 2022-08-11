@@ -70,6 +70,7 @@ import com.github.pemistahl.lingua.api.Language.ROMANIAN
 import com.github.pemistahl.lingua.api.Language.RUSSIAN
 import com.github.pemistahl.lingua.api.Language.SERBIAN
 import com.github.pemistahl.lingua.api.Language.SHONA
+import com.github.pemistahl.lingua.api.Language.SINHALA
 import com.github.pemistahl.lingua.api.Language.SLOVAK
 import com.github.pemistahl.lingua.api.Language.SLOVENE
 import com.github.pemistahl.lingua.api.Language.SOMALI
@@ -110,7 +111,7 @@ class LanguageTest {
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI,
             MARATHI, MONGOLIAN, NYNORSK, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA,
-            SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
+            SINHALA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
             TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
@@ -122,7 +123,7 @@ class LanguageTest {
             CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI, MARATHI, MONGOLIAN,
-            NYNORSK, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SLOVAK, SLOVENE,
+            NYNORSK, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SINHALA, SLOVAK, SLOVENE,
             SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
             TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
@@ -234,6 +235,7 @@ class LanguageTest {
         "RU, RUSSIAN",
         "SR, SERBIAN",
         "SN, SHONA",
+        "SI, SINHALA",
         "SK, SLOVAK",
         "SL, SLOVENE",
         "SO, SOMALI",
@@ -299,6 +301,7 @@ class LanguageTest {
                 WELSH, XHOSA, YORUBA, ZULU
             )
         ),
+        arguments(Alphabet.SINHALA, listOf(SINHALA)),
         arguments(Alphabet.TAMIL, listOf(TAMIL)),
         arguments(Alphabet.TELUGU, listOf(TELUGU)),
         arguments(Alphabet.THAI, listOf(THAI)),

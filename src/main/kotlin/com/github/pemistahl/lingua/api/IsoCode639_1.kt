@@ -284,6 +284,11 @@ enum class IsoCode639_1 {
     RU,
 
     /**
+     * The ISO 639-1 code for [Sinhala][Language.SINHALA].
+     */
+    SI,
+
+    /**
      * The ISO 639-1 code for [Slovak][Language.SLOVAK].
      */
     SK,
