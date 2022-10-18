@@ -29,6 +29,11 @@ enum class IsoCode639_1 {
     AF,
 
     /**
+     * The ISO 639-1 code for [Amharic][Language.AMHARIC].
+     */
+    AM,
+
+    /**
      * The ISO 639-1 code for [Arabic][Language.ARABIC].
      */
     AR,

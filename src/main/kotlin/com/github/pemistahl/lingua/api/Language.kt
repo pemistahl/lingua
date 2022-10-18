@@ -17,6 +17,7 @@
 package com.github.pemistahl.lingua.api
 
 import com.github.pemistahl.lingua.api.IsoCode639_1.AF
+import com.github.pemistahl.lingua.api.IsoCode639_1.AM
 import com.github.pemistahl.lingua.api.IsoCode639_1.AR
 import com.github.pemistahl.lingua.api.IsoCode639_1.AZ
 import com.github.pemistahl.lingua.api.IsoCode639_1.BE
@@ -93,6 +94,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.YO
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZH
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
 import com.github.pemistahl.lingua.api.IsoCode639_3.AFR
+import com.github.pemistahl.lingua.api.IsoCode639_3.AMH
 import com.github.pemistahl.lingua.api.IsoCode639_3.ARA
 import com.github.pemistahl.lingua.api.IsoCode639_3.AZE
 import com.github.pemistahl.lingua.api.IsoCode639_3.BEL
@@ -171,6 +173,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.ZUL
 import com.github.pemistahl.lingua.internal.Alphabet
 import com.github.pemistahl.lingua.internal.Alphabet.CYRILLIC
 import com.github.pemistahl.lingua.internal.Alphabet.DEVANAGARI
+import com.github.pemistahl.lingua.internal.Alphabet.ETHIOPIC
 import com.github.pemistahl.lingua.internal.Alphabet.GURMUKHI
 import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
@@ -192,6 +195,7 @@ enum class Language(
 ) {
     AFRIKAANS(AF, AFR, enumSetOf(Alphabet.LATIN), null),
     ALBANIAN(SQ, SQI, enumSetOf(Alphabet.LATIN), null),
+    AMHARIC(AM, AMH, enumSetOf(Alphabet.ETHIOPIC), null),
     ARABIC(AR, ARA, enumSetOf(Alphabet.ARABIC), null),
     ARMENIAN(HY, HYE, enumSetOf(Alphabet.ARMENIAN), null),
     AZERBAIJANI(AZ, AZE, enumSetOf(Alphabet.LATIN), "Əə"),
@@ -310,6 +314,12 @@ enum class Language(
          */
         @JvmStatic
         fun allWithDevanagariScript(): List<Language> = values().filter { it.alphabets.contains(DEVANAGARI) }
+
+        /**
+         * Returns a list of all built-in languages supporting the Ethiopic script.
+         */
+        @JvmStatic
+        fun allWithEthiopicScript(): List<Language> = values().filter { it.alphabets.contains(ETHIOPIC) }
 
         /**
          * Returns a list of all built-in languages supporting the Latin script.
