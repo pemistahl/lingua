@@ -25,6 +25,7 @@ internal enum class Alphabet {
     BENGALI,
     CYRILLIC,
     DEVANAGARI,
+    ETHIOPIC,
     GEORGIAN,
     GREEK,
     GUJARATI,

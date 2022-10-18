@@ -349,6 +349,11 @@ enum class IsoCode639_3 {
     THA,
 
     /**
+     * The ISO 639-3 code for [Tigrinya][Language.TIGRINYA].
+     */
+    TIR,
+
+    /**
      * The ISO 639-3 code for [Tswana][Language.TSWANA].
      */
     TSN,

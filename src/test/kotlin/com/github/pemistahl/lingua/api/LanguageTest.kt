@@ -81,6 +81,7 @@ import com.github.pemistahl.lingua.api.Language.TAGALOG
 import com.github.pemistahl.lingua.api.Language.TAMIL
 import com.github.pemistahl.lingua.api.Language.TELUGU
 import com.github.pemistahl.lingua.api.Language.THAI
+import com.github.pemistahl.lingua.api.Language.TIGRINYA
 import com.github.pemistahl.lingua.api.Language.TSONGA
 import com.github.pemistahl.lingua.api.Language.TSWANA
 import com.github.pemistahl.lingua.api.Language.TURKISH
@@ -110,8 +111,8 @@ class LanguageTest {
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI,
             MARATHI, MONGOLIAN, NYNORSK, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA,
-            SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
-            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA,
+            TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
@@ -123,7 +124,7 @@ class LanguageTest {
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI, MARATHI, MONGOLIAN,
             NYNORSK, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SLOVAK, SLOVENE,
-            SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
+            SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA, TSONGA, TSWANA,
             TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
@@ -245,6 +246,7 @@ class LanguageTest {
         "TA, TAMIL",
         "TE, TELUGU",
         "TH, THAI",
+        "TI, TIGRINYA",
         "TS, TSONGA",
         "TN, TSWANA",
         "TR, TURKISH",
@@ -278,6 +280,7 @@ class LanguageTest {
             )
         ),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI, MARATHI)),
+        arguments(Alphabet.ETHIOPIC, listOf(TIGRINYA)),
         arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
         arguments(Alphabet.GREEK, listOf(GREEK)),
         arguments(Alphabet.GUJARATI, listOf(GUJARATI)),

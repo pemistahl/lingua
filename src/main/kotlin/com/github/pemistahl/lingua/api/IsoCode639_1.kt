@@ -344,6 +344,11 @@ enum class IsoCode639_1 {
     TH,
 
     /**
+     * The ISO 639-1 code for [Tigrinya][Language.TIGRINYA].
+     */
+    TI,
+
+    /**
      * The ISO 639-1 code for [Tagalog][Language.TAGALOG].
      */
     TL,

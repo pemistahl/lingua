@@ -80,6 +80,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.SW
 import com.github.pemistahl.lingua.api.IsoCode639_1.TA
 import com.github.pemistahl.lingua.api.IsoCode639_1.TE
 import com.github.pemistahl.lingua.api.IsoCode639_1.TH
+import com.github.pemistahl.lingua.api.IsoCode639_1.TI
 import com.github.pemistahl.lingua.api.IsoCode639_1.TL
 import com.github.pemistahl.lingua.api.IsoCode639_1.TN
 import com.github.pemistahl.lingua.api.IsoCode639_1.TR
@@ -156,6 +157,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.TAM
 import com.github.pemistahl.lingua.api.IsoCode639_3.TEL
 import com.github.pemistahl.lingua.api.IsoCode639_3.TGL
 import com.github.pemistahl.lingua.api.IsoCode639_3.THA
+import com.github.pemistahl.lingua.api.IsoCode639_3.TIR
 import com.github.pemistahl.lingua.api.IsoCode639_3.TSN
 import com.github.pemistahl.lingua.api.IsoCode639_3.TSO
 import com.github.pemistahl.lingua.api.IsoCode639_3.TUR
@@ -253,6 +255,7 @@ enum class Language(
     TAMIL(TA, TAM, enumSetOf(Alphabet.TAMIL), null),
     TELUGU(TE, TEL, enumSetOf(Alphabet.TELUGU), null),
     THAI(TH, THA, enumSetOf(Alphabet.THAI), null),
+    TIGRINYA(TI, TIR, enumSetOf(Alphabet.ETHIOPIC), null),
     TSONGA(TS, TSO, enumSetOf(Alphabet.LATIN), null),
     TSWANA(TN, TSN, enumSetOf(Alphabet.LATIN), null),
     TURKISH(TR, TUR, enumSetOf(Alphabet.LATIN), null),
