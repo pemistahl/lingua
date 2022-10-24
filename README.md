@@ -17,7 +17,7 @@
 * this library tries to solve language detection of very short words and phrases, even shorter than tweets
 * makes use of both statistical and rule-based approaches
 * outperforms *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* for more than 70 languages
-* works within every Java 6+ application
+* works within every Java 8+ application
 * no additional training of language models necessary
 * api for adding your own language models
 * offline usage without having to connect to an external service or API
@@ -2478,7 +2478,7 @@ Take a look at the [planned issues](https://github.com/pemistahl/lingua/mileston
 [supported languages badge]: https://img.shields.io/badge/supported%20languages-75-green.svg
 [lingua version badge]: https://img.shields.io/badge/Download%20Jar-1.2.2-blue.svg
 [lingua download url]: https://github.com/pemistahl/lingua/releases/download/v1.2.2/lingua-1.2.2-with-dependencies.jar
-[Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%206%2B-blue.svg
+[Kotlin platforms badge]: https://img.shields.io/badge/platforms-JDK%208%2B-blue.svg
 [Kotlin platforms url]: https://kotlinlang.org/docs/reference/server-overview.html
 [license badge]: https://img.shields.io/badge/license-Apache%202.0-blue.svg
 [license url]: https://www.apache.org/licenses/LICENSE-2.0
