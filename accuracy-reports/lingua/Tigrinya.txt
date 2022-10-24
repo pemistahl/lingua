@@ -1,0 +1,19 @@
+##### TIGRINYA #####
+
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 97.49% | 97.99%
+
+>> Detection of 1000 single words (average length: 6 chars)
+Accuracy: 98.60% | 98.30%
+Erroneously classified as AMHARIC: 1.40% | 1.70%
+
+>> Detection of 1000 word pairs (average length: 12 chars)
+Accuracy: 99.80% | 99.90%
+Erroneously classified as AMHARIC: 0.20% | 0.10%
+
+>> Detection of 994 sentences (average length: 75 chars)
+Accuracy: 94.06% | 95.77%
+Erroneously classified as AMHARIC: 3.12% | 1.41%, ENGLISH: 0.70% | 0.91%, SHONA: 0.00% | 0.40%, XHOSA: 0.00% | 0.40%, SOTHO: 0.10% | 0.30%, ITALIAN: 0.00% | 0.20%, RUSSIAN: 0.00% | 0.20%, FRENCH: 0.10% | 0.10%, NYNORSK: 0.00% | 0.10%, ARABIC: 0.00% | 0.10%, GERMAN: 0.00% | 0.10%, UNKNOWN: 1.71% | 0.00%, WELSH: 0.20% | 0.00%
+
+>> Exact values: 97.48812877263582 98.6 99.8 94.06438631790745 97.99154929577465 98.3 99.9 95.77464788732394

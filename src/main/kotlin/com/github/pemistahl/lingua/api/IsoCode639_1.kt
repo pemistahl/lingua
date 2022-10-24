@@ -29,6 +29,11 @@ enum class IsoCode639_1 {
     AF,
 
     /**
+     * The ISO 639-1 code for [Amharic][Language.AMHARIC].
+     */
+    AM,
+
+    /**
      * The ISO 639-1 code for [Arabic][Language.ARABIC].
      */
     AR,
@@ -352,6 +357,11 @@ enum class IsoCode639_1 {
      * The ISO 639-1 code for [Thai][Language.THAI].
      */
     TH,
+
+    /**
+     * The ISO 639-1 code for [Tigrinya][Language.TIGRINYA].
+     */
+    TI,
 
     /**
      * The ISO 639-1 code for [Tagalog][Language.TAGALOG].

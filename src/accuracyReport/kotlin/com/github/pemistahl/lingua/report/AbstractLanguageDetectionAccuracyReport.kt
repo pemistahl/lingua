@@ -17,6 +17,7 @@
 package com.github.pemistahl.lingua.report
 
 import com.github.pemistahl.lingua.api.IsoCode639_1
+import com.github.pemistahl.lingua.api.IsoCode639_1.AM
 import com.github.pemistahl.lingua.api.IsoCode639_1.AZ
 import com.github.pemistahl.lingua.api.IsoCode639_1.BS
 import com.github.pemistahl.lingua.api.IsoCode639_1.EO
@@ -33,6 +34,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.OM
 import com.github.pemistahl.lingua.api.IsoCode639_1.SI
 import com.github.pemistahl.lingua.api.IsoCode639_1.SN
 import com.github.pemistahl.lingua.api.IsoCode639_1.ST
+import com.github.pemistahl.lingua.api.IsoCode639_1.TI
 import com.github.pemistahl.lingua.api.IsoCode639_1.TN
 import com.github.pemistahl.lingua.api.IsoCode639_1.TS
 import com.github.pemistahl.lingua.api.IsoCode639_1.XH
@@ -323,7 +325,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         }.toTypedArray()
 
         private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
-            it in setOf(AZ, BS, EO, HY, KA, KK, LA, LG, MI, MN, NB, NN, OM, SI, SN, ST, TN, TS, XH, YO, ZU)
+            it in setOf(AM, AZ, BS, EO, HY, KA, KK, LA, LG, MI, MN, NB, NN, OM, SI, SN, ST, TI, TN, TS, XH, YO, ZU)
         }.map { it.toString() }
 
         internal val linguaDetectorWithLowAccuracy by lazy {
