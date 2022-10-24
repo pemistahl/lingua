@@ -287,7 +287,6 @@ tasks.register<PythonTask>("writeAccuracyTable") {
 }
 
 tasks.addMainModuleInfo {
-    version = project.version
     // Create Multi-Release JAR with Java 9 as lowest version
     jvmVersion.set("9")
     // Overwrite the output JAR file (if any) from a previous Gradle execution
@@ -295,6 +294,10 @@ tasks.addMainModuleInfo {
     module {
         moduleInfoFile = File("$projectDir/src/main/java-9/module-info.java")
     }
+
+    // Manually specify input; otherwise task seems to be erroneously considered UP-TO-DATE
+    // despite the JAR having changed, see https://github.com/moditect/moditect-gradle-plugin/pull/17
+    inputs.file(mainModule.get().inputJar)
 }
 // Workaround to avoid circular dependencies between tasks, see https://github.com/moditect/moditect-gradle-plugin/issues/14
 project.afterEvaluate {
