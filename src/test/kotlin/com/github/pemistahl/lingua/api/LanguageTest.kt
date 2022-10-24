@@ -18,6 +18,7 @@ package com.github.pemistahl.lingua.api
 
 import com.github.pemistahl.lingua.api.Language.AFRIKAANS
 import com.github.pemistahl.lingua.api.Language.ALBANIAN
+import com.github.pemistahl.lingua.api.Language.AMHARIC
 import com.github.pemistahl.lingua.api.Language.ARABIC
 import com.github.pemistahl.lingua.api.Language.ARMENIAN
 import com.github.pemistahl.lingua.api.Language.AZERBAIJANI
@@ -83,6 +84,7 @@ import com.github.pemistahl.lingua.api.Language.TAGALOG
 import com.github.pemistahl.lingua.api.Language.TAMIL
 import com.github.pemistahl.lingua.api.Language.TELUGU
 import com.github.pemistahl.lingua.api.Language.THAI
+import com.github.pemistahl.lingua.api.Language.TIGRINYA
 import com.github.pemistahl.lingua.api.Language.TSONGA
 import com.github.pemistahl.lingua.api.Language.TSWANA
 import com.github.pemistahl.lingua.api.Language.TURKISH
@@ -107,25 +109,25 @@ class LanguageTest {
     @Test
     fun `assert that all supported languages are available`() {
         assertThat(Language.all()).containsExactly(
-            AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOKMAL, BOSNIAN, BULGARIAN,
-            CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
+            AFRIKAANS, ALBANIAN, AMHARIC, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOKMAL, BOSNIAN,
+            BULGARIAN, CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI,
             MARATHI, MONGOLIAN, NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA,
-            SINHALA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA,
-            TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            SINHALA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA,
+            TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
     @Test
     fun `assert that all supported spoken languages are available`() {
         assertThat(Language.allSpokenOnes()).containsExactly(
-            AFRIKAANS, ALBANIAN, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOKMAL, BOSNIAN, BULGARIAN,
-            CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
+            AFRIKAANS, ALBANIAN, AMHARIC, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOKMAL, BOSNIAN,
+            BULGARIAN, CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI, MARATHI, MONGOLIAN,
             NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SINHALA, SLOVAK,
-            SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TSONGA, TSWANA,
+            SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA, TSONGA, TSWANA,
             TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
@@ -152,6 +154,11 @@ class LanguageTest {
     @Test
     fun `assert that certain languages support Devanagari script`() {
         assertThat(Language.allWithDevanagariScript()).containsExactly(HINDI, MARATHI)
+    }
+
+    @Test
+    fun `assert that certain languages support Ethiopic script`() {
+        assertThat(Language.allWithEthiopicScript()).containsExactly(AMHARIC, TIGRINYA)
     }
 
     @Test
@@ -184,6 +191,7 @@ class LanguageTest {
     @ParameterizedTest
     @CsvSource(
         "AF, AFRIKAANS",
+        "AM, AMHARIC",
         "SQ, ALBANIAN",
         "AR, ARABIC",
         "HY, ARMENIAN",
@@ -249,6 +257,7 @@ class LanguageTest {
         "TA, TAMIL",
         "TE, TELUGU",
         "TH, THAI",
+        "TI, TIGRINYA",
         "TS, TSONGA",
         "TN, TSWANA",
         "TR, TURKISH",
@@ -282,6 +291,7 @@ class LanguageTest {
             )
         ),
         arguments(Alphabet.DEVANAGARI, listOf(HINDI, MARATHI)),
+        arguments(Alphabet.ETHIOPIC, listOf(AMHARIC, TIGRINYA)),
         arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
         arguments(Alphabet.GREEK, listOf(GREEK)),
         arguments(Alphabet.GUJARATI, listOf(GUJARATI)),

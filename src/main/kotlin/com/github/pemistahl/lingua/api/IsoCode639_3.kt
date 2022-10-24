@@ -29,6 +29,11 @@ enum class IsoCode639_3 {
     AFR,
 
     /**
+     * The ISO 639-3 code for [Amharic][Language.AMHARIC].
+     */
+    AMH,
+
+    /**
      * The ISO 639-3 code for [Arabic][Language.ARABIC].
      */
     ARA,
@@ -357,6 +362,11 @@ enum class IsoCode639_3 {
      * The ISO 639-3 code for [Thai][Language.THAI].
      */
     THA,
+
+    /**
+     * The ISO 639-3 code for [Tigrinya][Language.TIGRINYA].
+     */
+    TIR,
 
     /**
      * The ISO 639-3 code for [Tswana][Language.TSWANA].
