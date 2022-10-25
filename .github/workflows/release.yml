@@ -16,21 +16,21 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
+          distribution: 'temurin'
           java-version: 8
           cache: 'gradle'
 
       - name: Get tag version
-        id: get_version
+        id: version
         uses: battila7/get-version-action@v2
 
       - name: Create release artifacts
-        run: ./gradlew jar sourcesJar jarWithDependencies dokkaJavadocJar
+        run: ./gradlew -Pversion=${{ steps.version.outputs.version-without-v }} jar sourcesJar jarWithDependencies dokkaJavadocJar
 
       - name: Create release and upload artifacts
         uses: softprops/action-gh-release@v1
         with:
-          name: Lingua ${{ steps.get_version.outputs.version-without-v }}
+          name: Lingua ${{ steps.version.outputs.version-without-v }}
           files: build/libs/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

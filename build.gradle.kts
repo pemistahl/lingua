@@ -47,16 +47,15 @@ val githubPackagesUrl: String by project
 val compileTestKotlin: KotlinCompile by tasks
 
 group = linguaGroupId
-version = linguaVersion
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.6.21"
-    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
+    kotlin("jvm") version "1.7.20"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("com.adarshr.test-logger") version "3.2.0"
-    id("com.asarkar.gradle.build-time-tracker") version "3.0.1"
-    id("org.jetbrains.dokka") version "1.6.21"
-    id("ru.vyarus.use-python") version "2.3.0"
+    id("com.asarkar.gradle.build-time-tracker") version "4.3.0"
+    id("org.jetbrains.dokka") version "1.7.20"
+    id("ru.vyarus.use-python") version "3.0.0"
     id("org.moditect.gradleplugin") version "1.0.0-rc3"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -84,12 +83,6 @@ val accuracyReportImplementation by configurations.getting {
 }
 
 configurations["accuracyReportRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
-
-compileTestKotlin.kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-
-tasks.named("compileAccuracyReportKotlin", KotlinCompile::class) {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-}
 
 tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
@@ -307,7 +300,7 @@ project.afterEvaluate {
 
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.configureEach {
-        jdkVersion.set(6)
+        jdkVersion.set(8)
         reportUndocumented.set(false)
         perPackageOption {
             matchingRegex.set(".*\\.(app|internal).*")
@@ -320,14 +313,14 @@ tasks.register<Jar>("dokkaJavadocJar") {
     dependsOn("dokkaJavadoc")
     group = "Build"
     description = "Assembles a jar archive containing Javadoc documentation."
-    classifier = "javadoc"
+    archiveClassifier.set("javadoc")
     from("$buildDir/dokka/javadoc")
 }
 
 tasks.register<Jar>("sourcesJar") {
     group = "Build"
     description = "Assembles a jar archive containing the main source code."
-    classifier = "sources"
+    archiveClassifier.set("sources")
     from("src/main/kotlin")
 }
 
@@ -341,7 +334,7 @@ tasks.register<ShadowJar>("jarWithDependencies") {
     dependsOn("relocateDependencies")
     group = "Build"
     description = "Assembles a jar archive containing the main classes and all external dependencies."
-    classifier = "with-dependencies"
+    archiveClassifier.set("with-dependencies")
     from(sourceSets.main.get().output)
     configurations = listOf(project.configurations.runtimeClasspath.get())
     manifest { attributes("Main-Class" to linguaMainClass) }
@@ -350,33 +343,32 @@ tasks.register<ShadowJar>("jarWithDependencies") {
 tasks.register<JavaExec>("runLinguaOnConsole") {
     group = linguaTaskGroup
     description = "Starts a REPL (read-evaluate-print loop) to try Lingua on the command line."
-    main = linguaMainClass
+    mainClass.set(linguaMainClass)
     standardInput = System.`in`
     classpath = sourceSets["main"].runtimeClasspath
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
-    implementation("it.unimi.dsi:fastutil:8.5.8")
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation("it.unimi.dsi:fastutil:8.5.9")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    testImplementation("org.assertj:assertj-core:3.22.0")
-    testImplementation("io.mockk:mockk:1.12.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation("org.assertj:assertj-core:3.23.1")
+    testImplementation("io.mockk:mockk:1.13.2")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
-    accuracyReportImplementation("org.apache.tika:tika-core:2.3.0")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.3.0")
-    accuracyReportImplementation("org.slf4j:slf4j-nop:1.7.36")
+    accuracyReportImplementation("org.apache.tika:tika-core:2.5.0")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.5.0")
+    accuracyReportImplementation("org.slf4j:slf4j-nop:2.0.3")
 }
 
 python {
-    pip("matplotlib:3.5.2")
-    pip("seaborn:0.11.2")
-    pip("pandas:1.4.2")
-    pip("numpy:1.22.0")
+    pip("matplotlib:3.6.0")
+    pip("seaborn:0.12.1")
+    pip("pandas:1.5.1")
+    pip("numpy:1.23.0")
 }
 
 publishing {
@@ -384,7 +376,7 @@ publishing {
         create<MavenPublication>("lingua") {
             groupId = linguaGroupId
             artifactId = linguaArtifactId
-            version = linguaVersion
+            version = project.version.toString()
 
             from(components["kotlin"])
 
