@@ -29,7 +29,7 @@ abstract class AbstractTsongaDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/single-words/ts.txt"],
+        resources = ["/language-testdata/single-words/tso.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -40,7 +40,7 @@ abstract class AbstractTsongaDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/word-pairs/ts.txt"],
+        resources = ["/language-testdata/word-pairs/tso.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -51,7 +51,7 @@ abstract class AbstractTsongaDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/sentences/ts.txt"],
+        resources = ["/language-testdata/sentences/tso.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )

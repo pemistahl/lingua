@@ -29,7 +29,7 @@ abstract class AbstractRussianDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/single-words/ru.txt"],
+        resources = ["/language-testdata/single-words/rus.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -40,7 +40,7 @@ abstract class AbstractRussianDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/word-pairs/ru.txt"],
+        resources = ["/language-testdata/word-pairs/rus.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -51,7 +51,7 @@ abstract class AbstractRussianDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/sentences/ru.txt"],
+        resources = ["/language-testdata/sentences/rus.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )

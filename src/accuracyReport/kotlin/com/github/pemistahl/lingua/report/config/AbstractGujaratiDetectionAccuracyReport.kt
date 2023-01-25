@@ -29,7 +29,7 @@ abstract class AbstractGujaratiDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/single-words/gu.txt"],
+        resources = ["/language-testdata/single-words/guj.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -40,7 +40,7 @@ abstract class AbstractGujaratiDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/word-pairs/gu.txt"],
+        resources = ["/language-testdata/word-pairs/guj.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -51,7 +51,7 @@ abstract class AbstractGujaratiDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/sentences/gu.txt"],
+        resources = ["/language-testdata/sentences/guj.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )

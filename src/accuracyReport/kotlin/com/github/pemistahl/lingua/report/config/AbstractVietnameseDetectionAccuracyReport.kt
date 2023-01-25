@@ -29,7 +29,7 @@ abstract class AbstractVietnameseDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/single-words/vi.txt"],
+        resources = ["/language-testdata/single-words/vie.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -40,7 +40,7 @@ abstract class AbstractVietnameseDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/word-pairs/vi.txt"],
+        resources = ["/language-testdata/word-pairs/vie.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -51,7 +51,7 @@ abstract class AbstractVietnameseDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/sentences/vi.txt"],
+        resources = ["/language-testdata/sentences/vie.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )

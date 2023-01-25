@@ -29,7 +29,7 @@ abstract class AbstractAlbanianDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/single-words/sq.txt"],
+        resources = ["/language-testdata/single-words/sqi.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -40,7 +40,7 @@ abstract class AbstractAlbanianDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/word-pairs/sq.txt"],
+        resources = ["/language-testdata/word-pairs/sqi.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )
@@ -51,7 +51,7 @@ abstract class AbstractAlbanianDetectionAccuracyReport(
 
     @ParameterizedTest
     @CsvFileSource(
-        resources = ["/language-testdata/sentences/sq.txt"],
+        resources = ["/language-testdata/sentences/sqi.txt"],
         delimiter = CSV_FILE_DELIMITER,
         encoding = CSV_FILE_ENCODING
     )

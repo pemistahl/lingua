@@ -42,8 +42,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.YO
 import com.github.pemistahl.lingua.api.IsoCode639_1.ZU
 import com.github.pemistahl.lingua.api.IsoCode639_3
 import com.github.pemistahl.lingua.api.Language
-import com.github.pemistahl.lingua.api.Language.CHINESE
-import com.github.pemistahl.lingua.api.Language.UNKNOWN
+import com.github.pemistahl.lingua.api.Language.*
 import com.github.pemistahl.lingua.api.LanguageDetectorBuilder
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.LINGUA
 import com.github.pemistahl.lingua.report.LanguageDetectorImplementation.OPENNLP
@@ -206,6 +205,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 val languageInHighAccuracyMode = linguaDetectorWithHighAccuracy.detectLanguageOf(element)
                 languageInLowAccuracyMode to languageInHighAccuracyMode
             }
+
             OPTIMAIZE -> null to mapLocaleToLanguage(optimaizeDetector.detect(textObjectFactory.forText(element)))
             TIKA -> {
                 tikaDetector.addText(element)
@@ -213,6 +213,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
                 tikaDetector.reset()
                 null to detectedLanguage
             }
+
             OPENNLP -> {
                 val detectedLanguage = opennlpDetector.predictLanguage(element)
                 val isoCode = try {
@@ -307,7 +308,7 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             !locale.isPresent -> UNKNOWN
             locale.get().language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(locale.get().language.uppercase()))
+            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(locale.get().language.uppercase())).first()
         }
     }
 
@@ -315,18 +316,23 @@ abstract class AbstractLanguageDetectionAccuracyReport(
         return when {
             result.isUnknown -> UNKNOWN
             result.language.startsWith("zh") -> CHINESE
-            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(result.language.uppercase()))
+            else -> Language.getByIsoCode639_1(IsoCode639_1.valueOf(result.language.uppercase())).first()
         }
     }
 
     companion object {
-        private val languageIsoCodesToTest = Language.values().toSet().minus(arrayOf(UNKNOWN)).map {
+        val languagesToTest = Language.values().toSet().minus(arrayOf(UNKNOWN))
+        private val languageIsoCodesToTest = languagesToTest.map {
             it.isoCode639_1
         }.toTypedArray()
 
-        private val filteredIsoCodesForTikaAndOptimaize = languageIsoCodesToTest.filterNot {
-            it in setOf(AM, AZ, BS, EO, HY, KA, KK, LA, LG, MI, MN, NB, NN, OM, SI, SN, ST, TI, TN, TS, XH, YO, ZU)
-        }.map { it.toString() }
+        private val filteredIsoCodesForTikaAndOptimaize = languagesToTest
+            .filterNot { it.isoCode639_3 in setOf(IsoCode639_3.GSW) }
+            .map { it.isoCode639_1 }
+            .filterNot {
+                it in setOf(AM, AZ, BS, EO, HY, KA, KK, LA, LG, MI, MN, NB, NN, OM, SI, SN, ST, TI, TN, TS, XH, YO, ZU)
+            }
+            .map { it.toString() }
 
         internal val linguaDetectorWithLowAccuracy by lazy {
             LanguageDetectorBuilder

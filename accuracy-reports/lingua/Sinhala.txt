@@ -14,6 +14,6 @@ Erroneously classified as
 
 >> Detection of 997 sentences (average length: 208 chars)
 Accuracy: 99.60% | 99.60%
-Erroneously classified as UNKNOWN: 0.10% | 0.10%, SLOVAK: 0.10% | 0.10%, BASQUE: 0.10% | 0.10%, HUNGARIAN: 0.10% | 0.10%
+Erroneously classified as UNKNOWN: 0.10% | 0.10%, SLOVAK: 0.10% | 0.10%, BASQUE: 0.10% | 0.10%, SWISS_GERMAN: 0.00% | 0.10%, HUNGARIAN: 0.10% | 0.00%
 
 >> Exact values: 99.86626546305583 100.0 100.0 99.5987963891675 99.86626546305583 100.0 100.0 99.5987963891675

@@ -288,7 +288,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/orange.png"> 39</td>
 		<td><img src="images/yellow.png"> 58</td>
-		<td><img src="images/orange.png"> 38</td>
+		<td><img src="images/orange.png"> 37</td>
 		<td><img src="images/yellow.png"> 44</td>
 		<td><img src="images/yellow.png"> 41</td>
 		<td><img src="images/red.png"> 3</td>
@@ -310,7 +310,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 79</td>
 		<td><img src="images/lightgreen.png"> 71</td>
 		<td><img src="images/lightgreen.png"> 70</td>
-		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/orange.png"> 40</td>
@@ -325,6 +325,29 @@ including mean, median and standard deviation.
 		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Amharic</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
 	</tr>
 	<tr>
 		<td>Arabic</td>
@@ -403,7 +426,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 77</td>
 		<td><img src="images/lightgreen.png"> 66</td>
 		<td><img src="images/lightgreen.png"> 71</td>
-		<td><img src="images/yellow.png"> 56</td>
+		<td><img src="images/yellow.png"> 55</td>
 		<td><img src="images/lightgreen.png"> 64</td>
 		<td><img src="images/yellow.png"> 56</td>
 		<td><img src="images/orange.png"> 33</td>
@@ -412,7 +435,7 @@ including mean, median and standard deviation.
 		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/green.png"> 82</td>
 		<td><img src="images/lightgreen.png"> 70</td>
-		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 92</td>
 		<td><img src="images/green.png"> 91</td>
 		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 92</td>
@@ -471,7 +494,7 @@ including mean, median and standard deviation.
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 66</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/orange.png"> 38</td>
 		<td><img src="images/orange.png"> 27</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 42</td>
@@ -596,7 +619,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/yellow.png"> 44</td>
 		<td><img src="images/orange.png"> 24</td>
-		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 89</td>
 		<td><img src="images/green.png"> 85</td>
 		<td><img src="images/green.png"> 97</td>
 		<td><img src="images/green.png"> 81</td>
@@ -609,13 +632,13 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/lightgreen.png"> 67</td>
 		<td><img src="images/yellow.png"> 49</td>
-		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 65</td>
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/yellow.png"> 42</td>
 		<td><img src="images/orange.png"> 21</td>
 		<td><img src="images/green.png"> 84</td>
-		<td><img src="images/lightgreen.png"> 72</td>
+		<td><img src="images/lightgreen.png"> 71</td>
 		<td><img src="images/lightgreen.png"> 75</td>
 		<td><img src="images/lightgreen.png"> 70</td>
 		<td><img src="images/yellow.png"> 46</td>
@@ -651,17 +674,17 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Dutch</td>
 		<td><img src="images/lightgreen.png"> 77</td>
-		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/lightgreen.png"> 63</td>
 		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/lightgreen.png"> 61</td>
 		<td><img src="images/orange.png"> 39</td>
-		<td><img src="images/yellow.png"> 55</td>
-		<td><img src="images/orange.png"> 36</td>
+		<td><img src="images/yellow.png"> 54</td>
+		<td><img src="images/orange.png"> 34</td>
 		<td><img src="images/orange.png"> 31</td>
 		<td><img src="images/orange.png"> 31</td>
 		<td><img src="images/red.png"> 6</td>
-		<td><img src="images/green.png"> 81</td>
-		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/yellow.png"> 52</td>
 		<td><img src="images/yellow.png"> 57</td>
 		<td><img src="images/red.png"> 19</td>
@@ -697,17 +720,17 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Esperanto</td>
 		<td><img src="images/green.png"> 84</td>
-		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 65</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 76</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 67</td>
-		<td><img src="images/yellow.png"> 44</td>
+		<td><img src="images/yellow.png"> 43</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 50</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 85</td>
-		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/grey.png"> -</td>
@@ -719,13 +742,13 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Estonian</td>
-		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/green.png"> 91</td>
 		<td><img src="images/green.png"> 83</td>
 		<td><img src="images/green.png"> 84</td>
 		<td><img src="images/yellow.png"> 59</td>
 		<td><img src="images/lightgreen.png"> 61</td>
-		<td><img src="images/lightgreen.png"> 80</td>
-		<td><img src="images/lightgreen.png"> 62</td>
+		<td><img src="images/lightgreen.png"> 79</td>
+		<td><img src="images/lightgreen.png"> 61</td>
 		<td><img src="images/lightgreen.png"> 66</td>
 		<td><img src="images/orange.png"> 29</td>
 		<td><img src="images/orange.png"> 23</td>
@@ -743,17 +766,17 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Finnish</td>
 		<td><img src="images/green.png"> 96</td>
-		<td><img src="images/green.png"> 91</td>
+		<td><img src="images/green.png"> 90</td>
 		<td><img src="images/green.png"> 94</td>
 		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/lightgreen.png"> 79</td>
 		<td><img src="images/green.png"> 90</td>
-		<td><img src="images/lightgreen.png"> 77</td>
+		<td><img src="images/lightgreen.png"> 75</td>
 		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/yellow.png"> 51</td>
 		<td><img src="images/green.png"> 98</td>
-		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 94</td>
 		<td><img src="images/green.png"> 96</td>
 		<td><img src="images/green.png"> 91</td>
 		<td><img src="images/green.png"> 86</td>
@@ -771,12 +794,12 @@ including mean, median and standard deviation.
 		<td><img src="images/yellow.png"> 59</td>
 		<td><img src="images/yellow.png"> 54</td>
 		<td><img src="images/lightgreen.png"> 74</td>
-		<td><img src="images/yellow.png"> 52</td>
+		<td><img src="images/yellow.png"> 51</td>
 		<td><img src="images/yellow.png"> 55</td>
 		<td><img src="images/orange.png"> 25</td>
 		<td><img src="images/red.png"> 18</td>
 		<td><img src="images/green.png"> 94</td>
-		<td><img src="images/green.png"> 83</td>
+		<td><img src="images/green.png"> 82</td>
 		<td><img src="images/lightgreen.png"> 80</td>
 		<td><img src="images/yellow.png"> 55</td>
 		<td><img src="images/yellow.png"> 48</td>
@@ -789,17 +812,17 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Ganda</td>
 		<td><img src="images/green.png"> 91</td>
-		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 83</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 79</td>
-		<td><img src="images/lightgreen.png"> 65</td>
+		<td><img src="images/lightgreen.png"> 63</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 95</td>
-		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
@@ -834,23 +857,23 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>German</td>
-		<td><img src="images/green.png"> 89</td>
-		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/lightgreen.png"> 76</td>
 		<td><img src="images/lightgreen.png"> 74</td>
 		<td><img src="images/lightgreen.png"> 67</td>
 		<td><img src="images/yellow.png"> 55</td>
-		<td><img src="images/lightgreen.png"> 74</td>
-		<td><img src="images/yellow.png"> 57</td>
+		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/yellow.png"> 52</td>
 		<td><img src="images/yellow.png"> 50</td>
 		<td><img src="images/orange.png"> 38</td>
 		<td><img src="images/orange.png"> 21</td>
-		<td><img src="images/green.png"> 94</td>
-		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/lightgreen.png"> 79</td>
 		<td><img src="images/lightgreen.png"> 71</td>
 		<td><img src="images/lightgreen.png"> 66</td>
 		<td><img src="images/yellow.png"> 46</td>
-		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 99</td>
@@ -954,7 +977,7 @@ including mean, median and standard deviation.
 		<td><img src="images/green.png"> 88</td>
 		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/lightgreen.png"> 77</td>
-		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/lightgreen.png"> 77</td>
 		<td><img src="images/lightgreen.png"> 75</td>
 		<td><img src="images/yellow.png"> 53</td>
@@ -996,7 +1019,7 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Indonesian</td>
 		<td><img src="images/yellow.png"> 60</td>
-		<td><img src="images/yellow.png"> 48</td>
+		<td><img src="images/yellow.png"> 47</td>
 		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/orange.png"> 29</td>
 		<td><img src="images/red.png"> 18</td>
@@ -1006,7 +1029,7 @@ including mean, median and standard deviation.
 		<td><img src="images/red.png"> 10</td>
 		<td><img src="images/red.png"> 0</td>
 		<td><img src="images/lightgreen.png"> 61</td>
-		<td><img src="images/yellow.png"> 46</td>
+		<td><img src="images/yellow.png"> 45</td>
 		<td><img src="images/lightgreen.png"> 62</td>
 		<td><img src="images/orange.png"> 25</td>
 		<td><img src="images/red.png"> 1</td>
@@ -1134,16 +1157,16 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Latin</td>
 		<td><img src="images/green.png"> 87</td>
-		<td><img src="images/lightgreen.png"> 73</td>
+		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 70</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 72</td>
-		<td><img src="images/yellow.png"> 49</td>
+		<td><img src="images/yellow.png"> 48</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 43</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/green.png"> 92</td>
 		<td><img src="images/lightgreen.png"> 76</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 71</td>
@@ -1166,7 +1189,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/yellow.png"> 56</td>
-		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 96</td>
 		<td><img src="images/green.png"> 90</td>
 		<td><img src="images/green.png"> 93</td>
 		<td><img src="images/green.png"> 88</td>
@@ -1185,7 +1208,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 79</td>
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/green.png"> 86</td>
-		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 75</td>
 		<td><img src="images/lightgreen.png"> 74</td>
 		<td><img src="images/yellow.png"> 56</td>
 		<td><img src="images/orange.png"> 40</td>
@@ -1259,7 +1282,7 @@ including mean, median and standard deviation.
 		<td><img src="images/green.png"> 85</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 92</td>
-		<td><img src="images/green.png"> 88</td>
+		<td><img src="images/green.png"> 87</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 90</td>
 		<td><img src="images/grey.png"> -</td>
@@ -1317,7 +1340,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Nynorsk</td>
-		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 65</td>
 		<td><img src="images/yellow.png"> 52</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 55</td>
@@ -1327,7 +1350,7 @@ including mean, median and standard deviation.
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/orange.png"> 24</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/lightgreen.png"> 66</td>
+		<td><img src="images/lightgreen.png"> 65</td>
 		<td><img src="images/yellow.png"> 49</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 47</td>
@@ -1336,6 +1359,29 @@ including mean, median and standard deviation.
 		<td><img src="images/green.png"> 81</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 92</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Oromo</td>
+		<td><img src="images/green.png"> 95</td>
+		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/lightgreen.png"> 74</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 93</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 	</tr>
 	<tr>
@@ -1432,7 +1478,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Romanian</td>
-		<td><img src="images/green.png"> 87</td>
+		<td><img src="images/green.png"> 86</td>
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/lightgreen.png"> 67</td>
@@ -1506,13 +1552,36 @@ including mean, median and standard deviation.
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/lightgreen.png"> 78</td>
+		<td><img src="images/lightgreen.png"> 77</td>
 		<td><img src="images/yellow.png"> 56</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/green.png"> 96</td>
 		<td><img src="images/green.png"> 86</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Sinhala</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
@@ -1570,23 +1639,23 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Somali</td>
-		<td><img src="images/green.png"> 92</td>
-		<td><img src="images/green.png"> 85</td>
+		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 82</td>
 		<td><img src="images/green.png"> 91</td>
 		<td><img src="images/lightgreen.png"> 69</td>
 		<td><img src="images/lightgreen.png"> 79</td>
-		<td><img src="images/green.png"> 82</td>
-		<td><img src="images/lightgreen.png"> 64</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/yellow.png"> 59</td>
 		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/orange.png"> 35</td>
 		<td><img src="images/yellow.png"> 50</td>
-		<td><img src="images/green.png"> 96</td>
-		<td><img src="images/green.png"> 90</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/green.png"> 88</td>
 		<td><img src="images/green.png"> 94</td>
 		<td><img src="images/lightgreen.png"> 74</td>
 		<td><img src="images/green.png"> 88</td>
 		<td><img src="images/green.png"> 100</td>
-		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 100</td>
@@ -1626,7 +1695,7 @@ including mean, median and standard deviation.
 		<td><img src="images/orange.png"> 29</td>
 		<td><img src="images/red.png"> 8</td>
 		<td><img src="images/red.png"> 0</td>
-		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/yellow.png"> 49</td>
 		<td><img src="images/yellow.png"> 50</td>
 		<td><img src="images/orange.png"> 25</td>
@@ -1639,8 +1708,8 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Swahili</td>
-		<td><img src="images/green.png"> 81</td>
-		<td><img src="images/lightgreen.png"> 70</td>
+		<td><img src="images/lightgreen.png"> 80</td>
+		<td><img src="images/lightgreen.png"> 69</td>
 		<td><img src="images/lightgreen.png"> 75</td>
 		<td><img src="images/lightgreen.png"> 73</td>
 		<td><img src="images/yellow.png"> 60</td>
@@ -1662,7 +1731,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Swedish</td>
-		<td><img src="images/green.png"> 84</td>
+		<td><img src="images/green.png"> 83</td>
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/lightgreen.png"> 71</td>
 		<td><img src="images/lightgreen.png"> 69</td>
@@ -1673,15 +1742,38 @@ including mean, median and standard deviation.
 		<td><img src="images/yellow.png"> 41</td>
 		<td><img src="images/red.png"> 15</td>
 		<td><img src="images/green.png"> 88</td>
-		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/lightgreen.png"> 75</td>
 		<td><img src="images/lightgreen.png"> 72</td>
 		<td><img src="images/lightgreen.png"> 69</td>
 		<td><img src="images/yellow.png"> 42</td>
-		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/green.png"> 98</td>
 		<td><img src="images/green.png"> 95</td>
 		<td><img src="images/green.png"> 97</td>
 		<td><img src="images/green.png"> 97</td>
 		<td><img src="images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Swiss_German</td>
+		<td><img src="images/yellow.png"> 48</td>
+		<td><img src="images/orange.png"> 39</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 28</td>
+		<td><img src="images/red.png"> 18</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/orange.png"> 34</td>
+		<td><img src="images/orange.png"> 25</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 76</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
 	</tr>
 	<tr>
 		<td>Tagalog</td>
@@ -1774,6 +1866,29 @@ including mean, median and standard deviation.
 		<td><img src="images/green.png"> 100</td>
 		<td><img src="images/green.png"> 99</td>
 		<td><img src="images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Tigrinya</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 98</td>
+		<td><img src="images/green.png"> 99</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/green.png"> 100</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/green.png"> 96</td>
+		<td><img src="images/green.png"> 94</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
+		<td><img src="images/grey.png"> -</td>
 	</tr>
 	<tr>
 		<td>Tsonga</td>
@@ -1921,7 +2036,7 @@ including mean, median and standard deviation.
 		<td><img src="images/lightgreen.png"> 77</td>
 		<td><img src="images/lightgreen.png"> 77</td>
 		<td><img src="images/lightgreen.png"> 78</td>
-		<td><img src="images/lightgreen.png"> 61</td>
+		<td><img src="images/yellow.png"> 60</td>
 		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/yellow.png"> 50</td>
 		<td><img src="images/yellow.png"> 50</td>
@@ -1939,12 +2054,12 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Xhosa</td>
 		<td><img src="images/green.png"> 82</td>
-		<td><img src="images/lightgreen.png"> 69</td>
+		<td><img src="images/lightgreen.png"> 68</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 64</td>
-		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/yellow.png"> 44</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
@@ -1961,7 +2076,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Yoruba</td>
-		<td><img src="images/lightgreen.png"> 75</td>
+		<td><img src="images/lightgreen.png"> 74</td>
 		<td><img src="images/lightgreen.png"> 62</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
@@ -1976,7 +2091,7 @@ including mean, median and standard deviation.
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
-		<td><img src="images/green.png"> 97</td>
+		<td><img src="images/green.png"> 96</td>
 		<td><img src="images/green.png"> 93</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/grey.png"> -</td>
@@ -1984,13 +2099,13 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Zulu</td>
-		<td><img src="images/green.png"> 81</td>
+		<td><img src="images/lightgreen.png"> 80</td>
 		<td><img src="images/lightgreen.png"> 70</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 78</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/lightgreen.png"> 62</td>
-		<td><img src="images/yellow.png"> 45</td>
+		<td><img src="images/yellow.png"> 44</td>
 		<td><img src="images/grey.png"> -</td>
 		<td><img src="images/yellow.png"> 51</td>
 		<td><img src="images/grey.png"> -</td>
@@ -2011,7 +2126,7 @@ including mean, median and standard deviation.
 	<tr>
 		<td><strong>Mean</strong></td>
 		<td><img src="images/green.png"> <strong>86</strong></td>
-		<td><img src="images/lightgreen.png"> <strong>77</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>78</strong></td>
 		<td><img src="images/lightgreen.png"> <strong>80</strong></td>
 		<td><img src="images/lightgreen.png"> <strong>74</strong></td>
 		<td><img src="images/lightgreen.png"> <strong>65</strong></td>
@@ -2021,7 +2136,7 @@ including mean, median and standard deviation.
 		<td><img src="images/yellow.png"> <strong>53</strong></td>
 		<td><img src="images/yellow.png"> <strong>41</strong></td>
 		<td><img src="images/green.png"> <strong>89</strong></td>
-		<td><img src="images/lightgreen.png"> <strong>78</strong></td>
+		<td><img src="images/lightgreen.png"> <strong>79</strong></td>
 		<td><img src="images/green.png"> <strong>81</strong></td>
 		<td><img src="images/lightgreen.png"> <strong>74</strong></td>
 		<td><img src="images/lightgreen.png"> <strong>61</strong></td>
@@ -2036,51 +2151,51 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Median</td>
-		<td>89.23</td>
+		<td>89.6</td>
 		<td>79.63</td>
 		<td>81.3</td>
 		<td>75.55</td>
 		<td>63.85</td>
-		<td>74.3</td>
-		<td>56.7</td>
+		<td>76.15</td>
+		<td>59.25</td>
 		<td>63.39</td>
 		<td>48.7</td>
 		<td>30.75</td>
-		<td>93.7</td>
-		<td>80.6</td>
+		<td>93.85</td>
+		<td>81.5</td>
 		<td>84.25</td>
 		<td>75.55</td>
 		<td>65.95</td>
-		<td>99.0</td>
-		<td>96.9</td>
+		<td>98.75</td>
+		<td>96.65</td>
 		<td>99.15</td>
 		<td>99.0</td>
 		<td>97.4</td>
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.12</td>
-		<td>17.26</td>
+		<td>13.67</td>
+		<td>17.73</td>
 		<td>16.2</td>
 		<td>18.56</td>
 		<td>23.87</td>
-		<td>18.43</td>
-		<td>24.81</td>
+		<td>19.33</td>
+		<td>25.63</td>
 		<td>23.9</td>
 		<td>27.37</td>
 		<td>33.87</td>
-		<td>13.13</td>
-		<td>18.96</td>
+		<td>14.33</td>
+		<td>19.84</td>
 		<td>18.74</td>
 		<td>21.32</td>
 		<td>31.32</td>
-		<td>11.02</td>
-		<td>11.86</td>
+		<td>10.8</td>
+		<td>11.67</td>
 		<td>10.77</td>
 		<td>12.59</td>
 		<td>13.54</td>
 	</tr>
-    </table>
+</table>
 </details>
 
 ## 5. Why is it better than other libraries?
@@ -2441,6 +2556,8 @@ introduced with Java 8.
 6. Create a new subdirectory in [`/src/main/resources/language-models`][language models directory url]
    and put the generated language model files in there. Do **not** rename the language model files.
    The name of the subdirectory **must** be the language's ISO 639-1 code, completely lowercased.
+   Inside this subdirectory you **must** put another with the name of the language's ISO 639-3 code.
+   An example would be `/src/main/resources/language-models/de/deu/`.
 7. Use [`TestDataFilesWriter`][test data files writer url] to create the test data files used for
    accuracy report generation. The input file from which to create the test data should have each
    sentence on a separate line.

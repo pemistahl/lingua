@@ -23,6 +23,7 @@ import com.github.pemistahl.lingua.internal.io.FilesWriter
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 
 object LanguageModelFilesWriter : FilesWriter() {
 

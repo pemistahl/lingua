@@ -75,7 +75,7 @@ object TestDataFilesWriter : FilesWriter() {
         language: Language,
         maximumLines: Int
     ) {
-        val fileName = "${language.isoCode639_1}.txt"
+        val fileName = "${language.isoCode639_3}.txt"
         val sentencesDirectoryPath = outputDirectoryPath.resolve("sentences")
         val sentencesFilePath = sentencesDirectoryPath.resolve(fileName)
         var lineCounter = 0
@@ -108,7 +108,7 @@ object TestDataFilesWriter : FilesWriter() {
         charClass: String,
         maximumLines: Int
     ): List<String> {
-        val fileName = "${language.isoCode639_1}.txt"
+        val fileName = "${language.isoCode639_3}.txt"
         val singleWordsDirectoryPath = outputDirectoryPath.resolve("single-words")
         val singleWordsFilePath = singleWordsDirectoryPath.resolve(fileName)
         val wordRegex = Regex("[$charClass]{5,}")
@@ -159,7 +159,7 @@ object TestDataFilesWriter : FilesWriter() {
         language: Language,
         maximumLines: Int
     ) {
-        val fileName = "${language.isoCode639_1}.txt"
+        val fileName = "${language.isoCode639_3}.txt"
         val wordPairsDirectoryPath = outputDirectoryPath.resolve("word-pairs")
         val wordPairsFilePath = wordPairsDirectoryPath.resolve(fileName)
         val wordPairs = mutableSetOf<String>()

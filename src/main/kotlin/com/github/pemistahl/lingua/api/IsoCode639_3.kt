@@ -134,6 +134,11 @@ enum class IsoCode639_3 {
     GLE,
 
     /**
+     * The ISO 639-3 code for [Swiss German][Language.SWISS_GERMAN]
+     */
+    GSW,
+
+    /**
      * The ISO 639-3 code for [Gujarati][Language.GUJARATI].
      */
     GUJ,
