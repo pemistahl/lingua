@@ -137,6 +137,7 @@ Currently, the following 75 languages are supported:
   - Spanish
   - Swahili
   - Swedish
+  - Swiss German
 - T
   - Tagalog
   - Tamil
