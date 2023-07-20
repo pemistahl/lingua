@@ -9,6 +9,7 @@ on:
       - 'gradle.properties'
       - 'settings.gradle.kts'
       - 'src/**'
+      - '**.yml'
   pull_request:
     branches:
       - main
@@ -17,6 +18,7 @@ on:
       - 'gradle.properties'
       - 'settings.gradle.kts'
       - 'src/**'
+      - '**.yml'
 
 jobs:
   build:
