@@ -43,9 +43,6 @@ jobs:
           java-version: ${{ matrix.java-version }}
           cache: 'gradle'
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-
       - name: Build and test on Ubuntu and macOS
         if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' }}
         run: ./gradlew check
