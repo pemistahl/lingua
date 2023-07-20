@@ -15,7 +15,6 @@
  */
 
 import com.adarshr.gradle.testlogger.theme.ThemeType
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -50,14 +49,14 @@ group = linguaGroupId
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm") version "1.9.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("com.adarshr.test-logger") version "3.2.0"
     id("com.asarkar.gradle.build-time-tracker") version "3.0.1" // newer versions need Java 11+
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.jetbrains.dokka") version "1.8.20"
     id("ru.vyarus.use-python") version "3.0.0"
     id("org.moditect.gradleplugin") version "1.0.0-rc3"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
     signing
@@ -97,9 +96,9 @@ tasks.test {
 testing {
     suites {
         // Separate test suite for module testing
-        val testJavaModule by registering(JvmTestSuite::class) {
+        register<JvmTestSuite>("testJavaModule") {
             dependencies {
-                implementation(project)
+                implementation(project())
             }
         }
     }
@@ -116,9 +115,9 @@ if (JavaVersion.current().isJava9Compatible) {
 tasks.jacocoTestReport {
     dependsOn("test")
     reports {
-        xml.isEnabled = true
-        csv.isEnabled = false
-        html.isEnabled = true
+        xml.required.set(true)
+        csv.required.set(false)
+        html.required.set(true)
     }
     classDirectories.setFrom(
         files(
@@ -185,8 +184,8 @@ tasks.register<Test>("accuracyReport") {
 
     maxHeapSize = "4096m"
     maxParallelForks = cpuCores
-    reports.html.isEnabled = false
-    reports.junitXml.isEnabled = false
+    reports.html.required.set(false)
+    reports.junitXml.required.set(false)
 
     testlogger {
         theme = ThemeType.STANDARD_PARALLEL
@@ -199,7 +198,7 @@ tasks.register<Test>("accuracyReport") {
             languages.forEach { language ->
                 includeTestsMatching(
                     "$linguaGroupId.$linguaArtifactId.report" +
-                        ".${detector.toLowerCase(Locale.ROOT)}.${language}DetectionAccuracyReport"
+                        ".${detector.lowercase(Locale.ROOT)}.${language}DetectionAccuracyReport"
                 )
             }
         }
@@ -233,7 +232,7 @@ tasks.register("writeAggregatedAccuracyReport") {
 
             for (detector in detectors) {
                 val languageReportFileName =
-                    "$accuracyReportsDirectoryName/${detector.toLowerCase(Locale.ROOT)}/$language.txt"
+                    "$accuracyReportsDirectoryName/${detector.lowercase(Locale.ROOT)}/$language.txt"
                 val languageReportFile = file(languageReportFileName)
                 val sliceLength = if (detector == "Lingua") (1..8) else (1..4)
 
@@ -324,14 +323,7 @@ tasks.register<Jar>("sourcesJar") {
     from("src/main/kotlin")
 }
 
-tasks.register<ConfigureShadowRelocation>("relocateDependencies") {
-    group = "shadow"
-    description = "Specifies the ShadowJar task for which to relocate the dependencies."
-    target = tasks["jarWithDependencies"] as ShadowJar
-}
-
 tasks.register<ShadowJar>("jarWithDependencies") {
-    dependsOn("relocateDependencies")
     group = "Build"
     description = "Assembles a jar archive containing the main classes and all external dependencies."
     archiveClassifier.set("with-dependencies")
