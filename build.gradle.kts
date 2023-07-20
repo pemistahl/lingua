@@ -354,7 +354,7 @@ dependencies {
     implementation("it.unimi.dsi:fastutil:8.5.9")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.assertj:assertj-core:3.23.1")
+    testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("io.mockk:mockk:1.13.2")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
