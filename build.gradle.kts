@@ -347,7 +347,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.assertj:assertj-core:3.24.2")
-    testImplementation("io.mockk:mockk:1.13.2")
+    testImplementation("io.mockk:mockk:1.13.5")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
