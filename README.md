@@ -1,28 +1,18 @@
-![lingua](images/logo.png) 
+<div align="center">
 
-<br>
+![lingua](images/logo.png) 
 
 [![ci build status][ci badge]][ci url]
 [![codecov][codecov badge]][codecov url]
 [![supported languages][supported languages badge]](#supported-languages)
 [![Kotlin platforms badge][Kotlin platforms badge]][Kotlin platforms url]
 [![license badge][license badge]][license url]
-
 [![javadoc][javadoc badge]][javadoc url]
 [![Maven Central][Maven Central badge]][Maven Central]
 [![Download][lingua version badge]][lingua download url]
+</div>
 
----
-### Quick Info
-* this library tries to solve language detection of very short words and phrases, even shorter than tweets
-* makes use of both statistical and rule-based approaches
-* outperforms *Apache Tika*, *Apache OpenNLP* and *Optimaize Language Detector* for more than 70 languages
-* works within every Java 8+ application
-* no additional training of language models necessary
-* api for adding your own language models
-* offline usage without having to connect to an external service or API
-* can be used in a REPL for a quick try-out
----
+<br>
 
 ## 1. What does this library do?
 Its task is simple: It tells you which language some provided textual data is written in. 
