@@ -55,7 +55,6 @@ plugins {
     id("com.asarkar.gradle.build-time-tracker") version "3.0.1" // newer versions need Java 11+
     id("org.jetbrains.dokka") version "1.8.20"
     id("ru.vyarus.use-python") version "3.0.0"
-    id("org.moditect.gradleplugin") version "1.0.0-rc3"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
@@ -83,6 +82,9 @@ val accuracyReportImplementation by configurations.getting {
 
 configurations["accuracyReportRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
+// copy module-info.java to Kotlin classes directory so that Java module is detected
+tasks.compileJava.get().destinationDirectory = tasks.compileKotlin.get().destinationDirectory
+
 tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
 }
@@ -96,7 +98,7 @@ tasks.test {
 testing {
     suites {
         // Separate test suite for module testing
-        register<JvmTestSuite>("testJavaModule") {
+        register<JvmTestSuite>("integrationTest") {
             dependencies {
                 implementation(project())
             }
@@ -108,7 +110,7 @@ testing {
 if (JavaVersion.current().isJava9Compatible) {
     tasks.check {
         @Suppress("UnstableApiUsage")
-        dependsOn(testing.suites.named("testJavaModule"))
+        dependsOn(testing.suites.named("integrationTest"))
     }
 }
 
@@ -276,25 +278,6 @@ tasks.register<PythonTask>("writeAccuracyTable") {
     group = linguaTaskGroup
     description = "Creates HTML table from all accuracy detection results and writes it to a markdown file."
     command = "src/python-scripts/write_accuracy_table.py"
-}
-
-tasks.addMainModuleInfo {
-    // Create Multi-Release JAR with Java 9 as lowest version
-    jvmVersion.set("9")
-    // Overwrite the output JAR file (if any) from a previous Gradle execution
-    overwriteExistingFiles.set(true)
-    module {
-        moduleInfoFile = File("$projectDir/src/main/java-9/module-info.java")
-    }
-
-    // Manually specify input; otherwise task seems to be erroneously considered UP-TO-DATE
-    // despite the JAR having changed, see https://github.com/moditect/moditect-gradle-plugin/pull/17
-    inputs.file(mainModule.get().inputJar)
-}
-// Workaround to avoid circular dependencies between tasks, see https://github.com/moditect/moditect-gradle-plugin/issues/14
-project.afterEvaluate {
-    val compileJavaTask = tasks.compileJava.get()
-    compileJavaTask.setDependsOn(compileJavaTask.dependsOn - tasks.addDependenciesModuleInfo.get())
 }
 
 tasks.withType<DokkaTask>().configureEach {
