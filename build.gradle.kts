@@ -17,6 +17,7 @@
 import com.adarshr.gradle.testlogger.theme.ThemeType
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import ru.vyarus.gradle.plugin.python.task.PythonTask
 import java.util.Locale
@@ -24,7 +25,6 @@ import java.util.Locale
 val linguaTaskGroup: String by project
 val linguaGroupId: String by project
 val linguaArtifactId: String by project
-val linguaVersion: String by project
 val linguaName: String by project
 val linguaDescription: String by project
 val linguaLicenseName: String by project
@@ -49,7 +49,7 @@ group = linguaGroupId
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "1.9.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("com.adarshr.test-logger") version "3.2.0"
     id("com.asarkar.gradle.build-time-tracker") version "3.0.1" // newer versions need Java 11+
@@ -60,6 +60,17 @@ plugins {
     `maven-publish`
     signing
     jacoco
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
+    }
 }
 
 jacoco.toolVersion = "0.8.8"
@@ -106,12 +117,9 @@ testing {
     }
 }
 
-// Module tests require Java 9 or newer to compile and execute
-if (JavaVersion.current().isJava9Compatible) {
-    tasks.check {
-        @Suppress("UnstableApiUsage")
-        dependsOn(testing.suites.named("integrationTest"))
-    }
+tasks.check {
+    @Suppress("UnstableApiUsage")
+    dependsOn(testing.suites.named("integrationTest"))
 }
 
 tasks.jacocoTestReport {
@@ -282,7 +290,7 @@ tasks.register<PythonTask>("writeAccuracyTable") {
 
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.configureEach {
-        jdkVersion.set(8)
+        jdkVersion.set(11)
         reportUndocumented.set(false)
         perPackageOption {
             matchingRegex.set(".*\\.(app|internal).*")
