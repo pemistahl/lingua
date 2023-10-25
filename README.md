@@ -2135,16 +2135,6 @@ Accuracy: 99.20% | 99.70%
 Erroneously classified as DUTCH: 0.00% | 0.20%, LATIN: 0.20% | 0.10%, NYNORSK: 0.10% | 0.00%, SPANISH: 0.10% | 0.00%, DANISH: 0.10% | 0.00%, SOTHO: 0.20% | 0.00%, ZULU: 0.10% | 0.00%
 ```
 
-The plots have been created with Python and the libraries Pandas, Matplotlib and Seaborn. 
-If you have a global Python 3 installation and the `python3` command available on your command line, 
-you can redraw the plots after modifying the test reports by executing the following Gradle task:
-
-    ./gradlew drawAccuracyPlots
-    
-The detailed statistics table that contains all accuracy values can be written with:
-
-    ./gradlew writeAccuracyTable
-
 ## 7. How to add it to your project?
 
 *Lingua* is hosted on [GitHub Packages] and [Maven Central].

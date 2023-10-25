@@ -19,7 +19,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import ru.vyarus.gradle.plugin.python.task.PythonTask
 import java.util.Locale
 
 val linguaTaskGroup: String by project
@@ -54,7 +53,6 @@ plugins {
     id("com.adarshr.test-logger") version "3.2.0"
     id("com.asarkar.gradle.build-time-tracker") version "3.0.1" // newer versions need Java 11+
     id("org.jetbrains.dokka") version "1.8.20"
-    id("ru.vyarus.use-python") version "3.0.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     `maven-publish`
@@ -274,20 +272,6 @@ tasks.register("writeAggregatedAccuracyReport") {
     }
 }
 
-tasks.register<PythonTask>("drawAccuracyPlots") {
-    dependsOn("writeAggregatedAccuracyReport")
-    group = linguaTaskGroup
-    description = "Draws plots showing the results of the accuracy detection reports."
-    command = "src/python-scripts/draw_accuracy_plots.py"
-}
-
-tasks.register<PythonTask>("writeAccuracyTable") {
-    dependsOn("writeAggregatedAccuracyReport")
-    group = linguaTaskGroup
-    description = "Creates HTML table from all accuracy detection results and writes it to a markdown file."
-    command = "src/python-scripts/write_accuracy_table.py"
-}
-
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.configureEach {
         jdkVersion.set(11)
@@ -345,13 +329,6 @@ dependencies {
     accuracyReportImplementation("org.apache.tika:tika-core:2.5.0")
     accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.5.0")
     accuracyReportImplementation("org.slf4j:slf4j-nop:2.0.3")
-}
-
-python {
-    pip("matplotlib:3.6.0")
-    pip("seaborn:0.12.1")
-    pip("pandas:1.5.1")
-    pip("numpy:1.23.0")
 }
 
 publishing {
