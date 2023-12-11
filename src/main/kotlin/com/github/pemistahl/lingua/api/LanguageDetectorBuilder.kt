@@ -181,7 +181,7 @@ class LanguageDetectorBuilder private constructor(
             val isoCodesToLoad = isoCodes.toMutableSet()
             isoCodesToLoad.remove(IsoCode639_1.NONE)
             require(isoCodesToLoad.size >= 2) { MISSING_LANGUAGE_MESSAGE }
-            val languages = isoCodesToLoad.map { Language.getByIsoCode639_1(it) }
+            val languages = isoCodesToLoad.flatMap { Language.getByIsoCode639_1(it) }
             return LanguageDetectorBuilder(languages)
         }
 

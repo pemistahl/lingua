@@ -80,6 +80,7 @@ import com.github.pemistahl.lingua.api.Language.SOTHO
 import com.github.pemistahl.lingua.api.Language.SPANISH
 import com.github.pemistahl.lingua.api.Language.SWAHILI
 import com.github.pemistahl.lingua.api.Language.SWEDISH
+import com.github.pemistahl.lingua.api.Language.SWISS_GERMAN
 import com.github.pemistahl.lingua.api.Language.TAGALOG
 import com.github.pemistahl.lingua.api.Language.TAMIL
 import com.github.pemistahl.lingua.api.Language.TELUGU
@@ -101,7 +102,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments.arguments
-import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 
 class LanguageTest {
@@ -114,8 +114,8 @@ class LanguageTest {
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI,
             MARATHI, MONGOLIAN, NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA,
-            SINHALA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA,
-            TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            SINHALA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, SWISS_GERMAN, TAGALOG, TAMIL, TELUGU,
+            THAI, TIGRINYA, TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
@@ -127,8 +127,8 @@ class LanguageTest {
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI, MARATHI, MONGOLIAN,
             NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SINHALA, SLOVAK,
-            SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA, TSONGA, TSWANA,
-            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, SWISS_GERMAN, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA,
+            TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
@@ -168,8 +168,8 @@ class LanguageTest {
             DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA, GERMAN,
             HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
             LITHUANIAN, MALAY, MAORI, NYNORSK, OROMO, POLISH, PORTUGUESE,
-            ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA,
-            TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, SWISS_GERMAN, TAGALOG, TSONGA,
+            TSWANA, TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
         )
     }
 
@@ -189,89 +189,91 @@ class LanguageTest {
     }
 
     @ParameterizedTest
-    @CsvSource(
-        "AF, AFRIKAANS",
-        "AM, AMHARIC",
-        "SQ, ALBANIAN",
-        "AR, ARABIC",
-        "HY, ARMENIAN",
-        "AZ, AZERBAIJANI",
-        "EU, BASQUE",
-        "BE, BELARUSIAN",
-        "BN, BENGALI",
-        "NB, BOKMAL",
-        "BS, BOSNIAN",
-        "BG, BULGARIAN",
-        "CA, CATALAN",
-        "ZH, CHINESE",
-        "HR, CROATIAN",
-        "CS, CZECH",
-        "DA, DANISH",
-        "NL, DUTCH",
-        "EN, ENGLISH",
-        "EO, ESPERANTO",
-        "ET, ESTONIAN",
-        "FI, FINNISH",
-        "FR, FRENCH",
-        "LG, GANDA",
-        "KA, GEORGIAN",
-        "DE, GERMAN",
-        "EL, GREEK",
-        "GU, GUJARATI",
-        "HE, HEBREW",
-        "HI, HINDI",
-        "HU, HUNGARIAN",
-        "IS, ICELANDIC",
-        "ID, INDONESIAN",
-        "GA, IRISH",
-        "IT, ITALIAN",
-        "JA, JAPANESE",
-        "KK, KAZAKH",
-        "LA, LATIN",
-        "LV, LATVIAN",
-        "LT, LITHUANIAN",
-        "MI, MAORI",
-        "MK, MACEDONIAN",
-        "MS, MALAY",
-        "MR, MARATHI",
-        "MN, MONGOLIAN",
-        "NN, NYNORSK",
-        "OM, OROMO",
-        "FA, PERSIAN",
-        "PL, POLISH",
-        "PT, PORTUGUESE",
-        "PA, PUNJABI",
-        "RO, ROMANIAN",
-        "RU, RUSSIAN",
-        "SR, SERBIAN",
-        "SN, SHONA",
-        "SI, SINHALA",
-        "SK, SLOVAK",
-        "SL, SLOVENE",
-        "SO, SOMALI",
-        "ST, SOTHO",
-        "ES, SPANISH",
-        "SW, SWAHILI",
-        "SV, SWEDISH",
-        "TL, TAGALOG",
-        "TA, TAMIL",
-        "TE, TELUGU",
-        "TH, THAI",
-        "TI, TIGRINYA",
-        "TS, TSONGA",
-        "TN, TSWANA",
-        "TR, TURKISH",
-        "UK, UKRAINIAN",
-        "UR, URDU",
-        "VI, VIETNAMESE",
-        "CY, WELSH",
-        "XH, XHOSA",
-        "YO, YORUBA",
-        "ZU, ZULU"
-    )
-    fun `assert that correct language is returned for iso code`(isoCode: IsoCode639_1, language: Language) {
+    @MethodSource("iso639_1ToLanguageMappingProvider")
+    fun `assert that correct language is returned for iso code`(isoCode: IsoCode639_1, language: List<Language>) {
         assertThat(Language.getByIsoCode639_1(isoCode)).isEqualTo(language)
     }
+
+    private fun iso639_1ToLanguageMappingProvider() = listOf(
+        arguments(IsoCode639_1.AF, listOf(AFRIKAANS)),
+        arguments(IsoCode639_1.AM, listOf(AMHARIC)),
+        arguments(IsoCode639_1.SQ, listOf(ALBANIAN)),
+        arguments(IsoCode639_1.AR, listOf(ARABIC)),
+        arguments(IsoCode639_1.HY, listOf(ARMENIAN)),
+        arguments(IsoCode639_1.AZ, listOf(AZERBAIJANI)),
+        arguments(IsoCode639_1.EU, listOf(BASQUE)),
+        arguments(IsoCode639_1.BE, listOf(BELARUSIAN)),
+        arguments(IsoCode639_1.BN, listOf(BENGALI)),
+        arguments(IsoCode639_1.NB, listOf(BOKMAL)),
+        arguments(IsoCode639_1.BS, listOf(BOSNIAN)),
+        arguments(IsoCode639_1.BG, listOf(BULGARIAN)),
+        arguments(IsoCode639_1.CA, listOf(CATALAN)),
+        arguments(IsoCode639_1.ZH, listOf(CHINESE)),
+        arguments(IsoCode639_1.HR, listOf(CROATIAN)),
+        arguments(IsoCode639_1.CS, listOf(CZECH)),
+        arguments(IsoCode639_1.DA, listOf(DANISH)),
+        arguments(IsoCode639_1.NL, listOf(DUTCH)),
+        arguments(IsoCode639_1.EN, listOf(ENGLISH)),
+        arguments(IsoCode639_1.EO, listOf(ESPERANTO)),
+        arguments(IsoCode639_1.ET, listOf(ESTONIAN)),
+        arguments(IsoCode639_1.FI, listOf(FINNISH)),
+        arguments(IsoCode639_1.FR, listOf(FRENCH)),
+        arguments(IsoCode639_1.LG, listOf(GANDA)),
+        arguments(IsoCode639_1.KA, listOf(GEORGIAN)),
+        arguments(IsoCode639_1.DE, listOf(GERMAN, SWISS_GERMAN)),
+        arguments(IsoCode639_1.EL, listOf(GREEK)),
+        arguments(IsoCode639_1.GU, listOf(GUJARATI)),
+        arguments(IsoCode639_1.HE, listOf(HEBREW)),
+        arguments(IsoCode639_1.HI, listOf(HINDI)),
+        arguments(IsoCode639_1.HU, listOf(HUNGARIAN)),
+        arguments(IsoCode639_1.IS, listOf(ICELANDIC)),
+        arguments(IsoCode639_1.ID, listOf(INDONESIAN)),
+        arguments(IsoCode639_1.GA, listOf(IRISH)),
+        arguments(IsoCode639_1.IT, listOf(ITALIAN)),
+        arguments(IsoCode639_1.JA, listOf(JAPANESE)),
+        arguments(IsoCode639_1.KK, listOf(KAZAKH)),
+        arguments(IsoCode639_1.LA, listOf(LATIN)),
+        arguments(IsoCode639_1.LV, listOf(LATVIAN)),
+        arguments(IsoCode639_1.LT, listOf(LITHUANIAN)),
+        arguments(IsoCode639_1.MI, listOf(MAORI)),
+        arguments(IsoCode639_1.MK, listOf(MACEDONIAN)),
+        arguments(IsoCode639_1.MS, listOf(MALAY)),
+        arguments(IsoCode639_1.MR, listOf(MARATHI)),
+        arguments(IsoCode639_1.MN, listOf(MONGOLIAN)),
+        arguments(IsoCode639_1.NN, listOf(NYNORSK)),
+        arguments(IsoCode639_1.OM, listOf(OROMO)),
+        arguments(IsoCode639_1.FA, listOf(PERSIAN)),
+        arguments(IsoCode639_1.PL, listOf(POLISH)),
+        arguments(IsoCode639_1.PT, listOf(PORTUGUESE)),
+        arguments(IsoCode639_1.PA, listOf(PUNJABI)),
+        arguments(IsoCode639_1.RO, listOf(ROMANIAN)),
+        arguments(IsoCode639_1.RU, listOf(RUSSIAN)),
+        arguments(IsoCode639_1.SR, listOf(SERBIAN)),
+        arguments(IsoCode639_1.SN, listOf(SHONA)),
+        arguments(IsoCode639_1.SI, listOf(SINHALA)),
+        arguments(IsoCode639_1.SK, listOf(SLOVAK)),
+        arguments(IsoCode639_1.SL, listOf(SLOVENE)),
+        arguments(IsoCode639_1.SO, listOf(SOMALI)),
+        arguments(IsoCode639_1.ST, listOf(SOTHO)),
+        arguments(IsoCode639_1.ES, listOf(SPANISH)),
+        arguments(IsoCode639_1.SW, listOf(SWAHILI)),
+        arguments(IsoCode639_1.SV, listOf(SWEDISH)),
+        arguments(IsoCode639_1.TL, listOf(TAGALOG)),
+        arguments(IsoCode639_1.TA, listOf(TAMIL)),
+        arguments(IsoCode639_1.TE, listOf(TELUGU)),
+        arguments(IsoCode639_1.TH, listOf(THAI)),
+        arguments(IsoCode639_1.TI, listOf(TIGRINYA)),
+        arguments(IsoCode639_1.TS, listOf(TSONGA)),
+        arguments(IsoCode639_1.TN, listOf(TSWANA)),
+        arguments(IsoCode639_1.TR, listOf(TURKISH)),
+        arguments(IsoCode639_1.UK, listOf(UKRAINIAN)),
+        arguments(IsoCode639_1.UR, listOf(URDU)),
+        arguments(IsoCode639_1.VI, listOf(VIETNAMESE)),
+        arguments(IsoCode639_1.CY, listOf(WELSH)),
+        arguments(IsoCode639_1.XH, listOf(XHOSA)),
+        arguments(IsoCode639_1.YO, listOf(YORUBA)),
+        arguments(IsoCode639_1.ZU, listOf(ZULU))
+    )
 
     private fun filteredLanguagesProvider() = listOf(
         arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
@@ -309,8 +311,8 @@ class LanguageTest {
                 GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
                 LATIN, LATVIAN, LITHUANIAN, MALAY, MAORI, NYNORSK, OROMO,
                 POLISH, PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO,
-                SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE,
-                WELSH, XHOSA, YORUBA, ZULU
+                SPANISH, SWAHILI, SWEDISH, SWISS_GERMAN, TAGALOG, TSONGA, TSWANA, TURKISH,
+                VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
             )
         ),
         arguments(Alphabet.SINHALA, listOf(SINHALA)),

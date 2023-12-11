@@ -117,6 +117,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.FAS
 import com.github.pemistahl.lingua.api.IsoCode639_3.FIN
 import com.github.pemistahl.lingua.api.IsoCode639_3.FRA
 import com.github.pemistahl.lingua.api.IsoCode639_3.GLE
+import com.github.pemistahl.lingua.api.IsoCode639_3.GSW
 import com.github.pemistahl.lingua.api.IsoCode639_3.GUJ
 import com.github.pemistahl.lingua.api.IsoCode639_3.HEB
 import com.github.pemistahl.lingua.api.IsoCode639_3.HIN
@@ -183,7 +184,6 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
-import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 import com.github.pemistahl.lingua.internal.util.extension.enumSetOf
 import java.util.EnumSet
@@ -261,6 +261,7 @@ enum class Language(
     SPANISH(ES, SPA, enumSetOf(Alphabet.LATIN), "¿¡"),
     SWAHILI(SW, SWA, enumSetOf(Alphabet.LATIN), null),
     SWEDISH(SV, SWE, enumSetOf(Alphabet.LATIN), null),
+    SWISS_GERMAN(DE, GSW, enumSetOf(Alphabet.LATIN), null),
     TAGALOG(TL, TGL, enumSetOf(Alphabet.LATIN), null),
     TAMIL(TA, TAM, enumSetOf(Alphabet.TAMIL), null),
     TELUGU(TE, TEL, enumSetOf(Alphabet.TELUGU), null),
@@ -334,10 +335,10 @@ enum class Language(
         fun allWithLatinScript(): List<Language> = values().filter { it.alphabets.contains(Alphabet.LATIN) }
 
         /**
-         * Returns the language for the given ISO 639-1 code.
+         * Returns the languages for the given ISO 639-1 code.
          */
         @JvmStatic
-        fun getByIsoCode639_1(isoCode: IsoCode639_1): Language = values().first { it.isoCode639_1 == isoCode }
+        fun getByIsoCode639_1(isoCode: IsoCode639_1): List<Language> = values().filter { it.isoCode639_1 == isoCode }
 
         /**
          * Returns the language for the given ISO 639-3 code.

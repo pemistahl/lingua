@@ -18,6 +18,7 @@ package com.github.pemistahl.lingua.api
 
 import com.github.pemistahl.lingua.api.Language.ENGLISH
 import com.github.pemistahl.lingua.api.Language.GERMAN
+import com.github.pemistahl.lingua.api.Language.SWISS_GERMAN
 import com.github.pemistahl.lingua.api.Language.SWEDISH
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
@@ -189,7 +190,7 @@ class LanguageDetectorBuilderTest {
     fun `assert that LanguageDetector can be built from iso codes`() {
         run {
             val builder = LanguageDetectorBuilder.fromIsoCodes639_1(IsoCode639_1.DE, IsoCode639_1.SV)
-            val expectedLanguages = listOf(GERMAN, SWEDISH)
+            val expectedLanguages = listOf(GERMAN, SWISS_GERMAN, SWEDISH)
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
