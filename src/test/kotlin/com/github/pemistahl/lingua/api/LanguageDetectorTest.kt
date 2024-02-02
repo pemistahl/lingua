@@ -577,7 +577,7 @@ class LanguageDetectorTest {
         ),
         arguments(
             "плаваща",
-            listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN)
+            listOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN)
         ),
         arguments(
             "довършат",

@@ -96,7 +96,8 @@ internal object Constant {
         "Ôô" to enumSetOf(FRENCH, PORTUGUESE, SLOVAK, VIETNAMESE),
 
         "ЁёЫыЭэ" to enumSetOf(BELARUSIAN, KAZAKH, MONGOLIAN, RUSSIAN),
-        "ЩщЪъ" to enumSetOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
+        "Щщ" to enumSetOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN, UKRAINIAN),
+        "Ъъ" to enumSetOf(BULGARIAN, KAZAKH, MONGOLIAN, RUSSIAN),
         "Òò" to enumSetOf(CATALAN, ITALIAN, VIETNAMESE, YORUBA),
         "Ææ" to enumSetOf(BOKMAL, DANISH, ICELANDIC, NYNORSK),
         "Åå" to enumSetOf(BOKMAL, DANISH, NYNORSK, SWEDISH),
