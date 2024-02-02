@@ -91,33 +91,12 @@ val accuracyReportImplementation by configurations.getting {
 
 configurations["accuracyReportRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-// copy module-info.java to Kotlin classes directory so that Java module is detected
-tasks.compileJava.get().destinationDirectory = tasks.compileKotlin.get().destinationDirectory
-
 tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
 }
 
 tasks.test {
     maxParallelForks = 1
-}
-
-// Suppress warnings about incubating test suites feature
-@Suppress("UnstableApiUsage")
-testing {
-    suites {
-        // Separate test suite for module testing
-        register<JvmTestSuite>("integrationTest") {
-            dependencies {
-                implementation(project())
-            }
-        }
-    }
-}
-
-tasks.check {
-    @Suppress("UnstableApiUsage")
-    dependsOn(testing.suites.named("integrationTest"))
 }
 
 tasks.jacocoTestReport {
