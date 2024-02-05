@@ -304,7 +304,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.5")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
+    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:2.3.2")
     accuracyReportImplementation("org.apache.tika:tika-core:2.5.0")
     accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.5.0")
     accuracyReportImplementation("org.slf4j:slf4j-nop:2.0.3")
