@@ -20,7 +20,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class TestDataLanguageModelTest {
-
     private val text =
         """
         These sentences are intended for testing purposes.
@@ -35,8 +34,8 @@ class TestDataLanguageModelTest {
         assertThat(model.ngrams).containsExactlyInAnyOrderElementsOf(
             setOf(
                 "a", "b", "c", "d", "e", "f", "g", "h", "i", "l",
-                "m", "n", "o", "p", "r", "s", "t", "u", "w", "y"
-            ).map { Ngram(it) }
+                "m", "n", "o", "p", "r", "s", "t", "u", "w", "y",
+            ).map { Ngram(it) },
         )
     }
 
@@ -51,8 +50,8 @@ class TestDataLanguageModelTest {
                 "ey", "nc", "nd", "ay", "ng", "ro", "rp", "no", "ns", "nt",
                 "fo", "wa", "se", "od", "si", "by", "of", "wo", "on", "st",
                 "ce", "or", "os", "ot", "co", "ta", "te", "ct", "th", "ti",
-                "to", "he", "po"
-            ).map { Ngram(it) }
+                "to", "he", "po",
+            ).map { Ngram(it) },
         )
     }
 
@@ -67,8 +66,8 @@ class TestDataLanguageModelTest {
                 "tal", "tes", "uct", "sti", "pro", "odu", "nsi", "rod", "for",
                 "ces", "nce", "not", "are", "pos", "tot", "end", "enc", "sis",
                 "sen", "nte", "ses", "ord", "ing", "ent", "int", "nde", "way",
-                "the", "rpo", "urp", "duc", "ons", "ese"
-            ).map { Ngram(it) }
+                "the", "rpo", "urp", "duc", "ons", "ese",
+            ).map { Ngram(it) },
         )
     }
 
@@ -82,8 +81,8 @@ class TestDataLanguageModelTest {
                 "tend", "thes", "rpos", "ting", "nten", "nsis", "they", "tota",
                 "cons", "tion", "prod", "ence", "test", "otal", "pose", "nded",
                 "oses", "inte", "urpo", "them", "sent", "duct", "stin", "ente",
-                "ucti", "purp", "ctio", "rodu", "word", "hese"
-            ).map { Ngram(it) }
+                "ucti", "purp", "ctio", "rodu", "word", "hese",
+            ).map { Ngram(it) },
         )
     }
 
@@ -96,8 +95,8 @@ class TestDataLanguageModelTest {
                 "testi", "sente", "ences", "tende", "these", "ntenc", "ducti",
                 "ntend", "onsis", "total", "uctio", "enten", "poses", "ction",
                 "produ", "inten", "nsist", "words", "sting", "tence", "purpo",
-                "estin", "roduc", "urpos", "ended", "rpose", "oduct", "consi"
-            ).map { Ngram(it) }
+                "estin", "roduc", "urpos", "ended", "rpose", "oduct", "consi",
+            ).map { Ngram(it) },
         )
     }
 }

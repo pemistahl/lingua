@@ -30,27 +30,29 @@ internal value class Ngram(val value: String) : Comparable<Ngram> {
 
     fun rangeOfLowerOrderNgrams() = NgramRange(this, Ngram(this.value[0].toString()))
 
-    operator fun dec(): Ngram = when (value.length) {
-        0 -> error("Zerogram is ngram type of lowest order and can not be decremented")
-        1 -> Ngram("")
-        else -> Ngram(this.value.substring(0, this.value.length - 1))
-    }
+    operator fun dec(): Ngram =
+        when (value.length) {
+            0 -> error("Zerogram is ngram type of lowest order and can not be decremented")
+            1 -> Ngram("")
+            else -> Ngram(this.value.substring(0, this.value.length - 1))
+        }
 
     companion object {
-        fun getNgramNameByLength(ngramLength: Int) = when (ngramLength) {
-            1 -> "unigram"
-            2 -> "bigram"
-            3 -> "trigram"
-            4 -> "quadrigram"
-            5 -> "fivegram"
-            else -> throw IllegalArgumentException("ngram length $ngramLength is not in range 1..5")
-        }
+        fun getNgramNameByLength(ngramLength: Int) =
+            when (ngramLength) {
+                1 -> "unigram"
+                2 -> "bigram"
+                3 -> "trigram"
+                4 -> "quadrigram"
+                5 -> "fivegram"
+                else -> throw IllegalArgumentException("ngram length $ngramLength is not in range 1..5")
+            }
     }
 }
 
 internal data class NgramRange(
     override val start: Ngram,
-    override val endInclusive: Ngram
+    override val endInclusive: Ngram,
 ) : ClosedRange<Ngram>, Iterable<Ngram> {
     init {
         require(start >= endInclusive) {

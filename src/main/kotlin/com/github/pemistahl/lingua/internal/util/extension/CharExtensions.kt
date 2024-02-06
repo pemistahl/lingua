@@ -20,9 +20,9 @@ import com.github.pemistahl.lingua.api.Language
 import com.github.pemistahl.lingua.internal.Constant.LANGUAGES_SUPPORTING_LOGOGRAMS
 
 // Cache set of scripts here to avoid evaluating it every time for isLogogram()
-private val scriptsWithLogograms = LANGUAGES_SUPPORTING_LOGOGRAMS.asSequence()
-    .flatMap(Language::alphabets)
-    .toSet()
+private val scriptsWithLogograms =
+    LANGUAGES_SUPPORTING_LOGOGRAMS.asSequence()
+        .flatMap(Language::alphabets)
+        .toSet()
 
-internal fun Char.isLogogram(): Boolean =
-    !this.isWhitespace() && scriptsWithLogograms.any { it.matches(this) }
+internal fun Char.isLogogram(): Boolean = !this.isWhitespace() && scriptsWithLogograms.any { it.matches(this) }

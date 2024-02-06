@@ -20,9 +20,8 @@ import com.squareup.moshi.ToJson
 
 internal data class Fraction(
     var numerator: Int,
-    var denominator: Int
+    var denominator: Int,
 ) : Number(), Comparable<Fraction> {
-
     init {
         val (num, den) = reduceToLowestTerms(numerator, denominator)
         this.numerator = num
@@ -43,8 +42,6 @@ internal data class Fraction(
 
     override fun toByte() = toDouble().toInt().toByte()
 
-    override fun toChar() = toDouble().toInt().toChar()
-
     override fun toDouble() = numerator.toDouble() / denominator.toDouble()
 
     override fun toFloat() = toDouble().toFloat()
@@ -55,7 +52,10 @@ internal data class Fraction(
 
     override fun toShort() = toDouble().toInt().toShort()
 
-    private fun reduceToLowestTerms(numerator: Int, denominator: Int): Pair<Int, Int> {
+    private fun reduceToLowestTerms(
+        numerator: Int,
+        denominator: Int,
+    ): Pair<Int, Int> {
         var num = numerator
         var den = denominator
 
@@ -82,7 +82,10 @@ internal data class Fraction(
         return Pair(num, den)
     }
 
-    private fun greatestCommonDenominator(a: Int, b: Int): Int {
+    private fun greatestCommonDenominator(
+        a: Int,
+        b: Int,
+    ): Int {
         if (a == 0 || b == 0) {
             if (a == Int.MIN_VALUE || b == Int.MIN_VALUE) {
                 throw ArithmeticException("overflow: greatestCommonDenominator($a, $b) is 2^31")
@@ -97,13 +100,19 @@ internal data class Fraction(
         var useLong = false
 
         if (x < 0) {
-            if (x == Int.MIN_VALUE) useLong = true
-            else x = -x
+            if (x == Int.MIN_VALUE) {
+                useLong = true
+            } else {
+                x = -x
+            }
             xl = -xl
         }
         if (y < 0) {
-            if (y == Int.MIN_VALUE) useLong = true
-            else y = -y
+            if (y == Int.MIN_VALUE) {
+                useLong = true
+            } else {
+                y = -y
+            }
             yl = -yl
         }
         if (useLong) {
@@ -124,7 +133,10 @@ internal data class Fraction(
         return greatestCommonDivisor(x, y)
     }
 
-    private fun greatestCommonDivisor(a: Int, b: Int): Int {
+    private fun greatestCommonDivisor(
+        a: Int,
+        b: Int,
+    ): Int {
         assert(a >= 0)
         assert(b >= 0)
 
@@ -157,10 +169,26 @@ internal data class Fraction(
         var j = i
         var n = 31
 
-        var y = j shl 16; if (y != 0) { n -= 16; j = y }
-        y = j shl 8; if (y != 0) { n -= 8; j = y }
-        y = j shl 4; if (y != 0) { n -= 4; j = y }
-        y = j shl 2; if (y != 0) { n -= 2; j = y }
+        var y = j shl 16
+        if (y != 0) {
+            n -= 16
+            j = y
+        }
+        y = j shl 8
+        if (y != 0) {
+            n -= 8
+            j = y
+        }
+        y = j shl 4
+        if (y != 0) {
+            n -= 4
+            j = y
+        }
+        y = j shl 2
+        if (y != 0) {
+            n -= 2
+            j = y
+        }
 
         return n - (j shl 1).ushr(31)
     }

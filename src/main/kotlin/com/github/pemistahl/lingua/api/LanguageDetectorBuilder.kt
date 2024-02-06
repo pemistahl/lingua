@@ -23,17 +23,18 @@ class LanguageDetectorBuilder private constructor(
     internal val languages: List<Language>,
     internal var minimumRelativeDistance: Double = 0.0,
     internal var isEveryLanguageModelPreloaded: Boolean = false,
-    internal var isLowAccuracyModeEnabled: Boolean = false
+    internal var isLowAccuracyModeEnabled: Boolean = false,
 ) {
     /**
      * Creates and returns the configured instance of [LanguageDetector].
      */
-    fun build() = LanguageDetector(
-        languages.toMutableSet(),
-        minimumRelativeDistance,
-        isEveryLanguageModelPreloaded,
-        isLowAccuracyModeEnabled
-    )
+    fun build() =
+        LanguageDetector(
+            languages.toMutableSet(),
+            minimumRelativeDistance,
+            isEveryLanguageModelPreloaded,
+            isLowAccuracyModeEnabled,
+        )
 
     /**
      * Sets the desired value for the minimum relative distance measure.
@@ -177,6 +178,7 @@ class LanguageDetectorBuilder private constructor(
          * @throws [IllegalArgumentException] if less than two iso codes are specified.
          */
         @JvmStatic
+        @Suppress("ktlint:standard:function-naming")
         fun fromIsoCodes639_1(vararg isoCodes: IsoCode639_1): LanguageDetectorBuilder {
             val isoCodesToLoad = isoCodes.toMutableSet()
             isoCodesToLoad.remove(IsoCode639_1.NONE)
@@ -193,6 +195,7 @@ class LanguageDetectorBuilder private constructor(
          * @throws [IllegalArgumentException] if less than two iso codes are specified.
          */
         @JvmStatic
+        @Suppress("ktlint:standard:function-naming")
         fun fromIsoCodes639_3(vararg isoCodes: IsoCode639_3): LanguageDetectorBuilder {
             val isoCodesToLoad = isoCodes.toMutableSet()
             isoCodesToLoad.remove(IsoCode639_3.NONE)

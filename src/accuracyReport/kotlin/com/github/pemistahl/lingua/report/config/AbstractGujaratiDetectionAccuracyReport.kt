@@ -24,14 +24,13 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
 
 abstract class AbstractGujaratiDetectionAccuracyReport(
-    implementationToUse: LanguageDetectorImplementation
+    implementationToUse: LanguageDetectorImplementation,
 ) : AbstractLanguageDetectionAccuracyReport(Language.GUJARATI, implementationToUse) {
-
     @ParameterizedTest
     @CsvFileSource(
         resources = ["/language-testdata/single-words/gu.txt"],
         delimiter = CSV_FILE_DELIMITER,
-        encoding = CSV_FILE_ENCODING
+        encoding = CSV_FILE_ENCODING,
     )
     @DisplayName("single word detection")
     override fun `assert that single words are identified correctly`(singleWord: String) {
@@ -42,7 +41,7 @@ abstract class AbstractGujaratiDetectionAccuracyReport(
     @CsvFileSource(
         resources = ["/language-testdata/word-pairs/gu.txt"],
         delimiter = CSV_FILE_DELIMITER,
-        encoding = CSV_FILE_ENCODING
+        encoding = CSV_FILE_ENCODING,
     )
     @DisplayName("word pair detection")
     override fun `assert that word pairs are identified correctly`(wordPair: String) {
@@ -53,7 +52,7 @@ abstract class AbstractGujaratiDetectionAccuracyReport(
     @CsvFileSource(
         resources = ["/language-testdata/sentences/gu.txt"],
         delimiter = CSV_FILE_DELIMITER,
-        encoding = CSV_FILE_ENCODING
+        encoding = CSV_FILE_ENCODING,
     )
     @DisplayName("sentence detection")
     override fun `assert that entire sentences are identified correctly`(sentence: String) {

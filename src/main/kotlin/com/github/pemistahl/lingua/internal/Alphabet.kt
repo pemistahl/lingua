@@ -40,13 +40,15 @@ internal enum class Alphabet {
     TAMIL,
     TELUGU,
     THAI,
-    NONE;
+    NONE,
+    ;
 
-    private val script: UnicodeScript? = try {
-        UnicodeScript.forName(this.name)
-    } catch (e: IllegalArgumentException) {
-        null
-    }
+    private val script: UnicodeScript? =
+        try {
+            UnicodeScript.forName(this.name)
+        } catch (e: IllegalArgumentException) {
+            null
+        }
 
     fun matches(chr: Char): Boolean = UnicodeScript.of(chr.code) == this.script
 

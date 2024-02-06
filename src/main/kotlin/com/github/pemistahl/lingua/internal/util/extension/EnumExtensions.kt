@@ -19,17 +19,19 @@ package com.github.pemistahl.lingua.internal.util.extension
 import java.util.EnumMap
 import java.util.EnumSet
 
-internal inline fun <reified K : Enum<K>, V> enumMapOf(vararg pairs: Pair<K, V>): EnumMap<K, V> = when (pairs.size) {
-    0 -> EnumMap(K::class.java)
-    else -> EnumMap(pairs.toMap())
-}
+internal inline fun <reified K : Enum<K>, V> enumMapOf(vararg pairs: Pair<K, V>): EnumMap<K, V> =
+    when (pairs.size) {
+        0 -> EnumMap(K::class.java)
+        else -> EnumMap(pairs.toMap())
+    }
 
-internal inline fun <reified E : Enum<E>> enumSetOf(vararg elements: E): EnumSet<E> = when (elements.size) {
-    0 -> EnumSet.noneOf(E::class.java)
-    1 -> EnumSet.of(elements[0])
-    2 -> EnumSet.of(elements[0], elements[1])
-    3 -> EnumSet.of(elements[0], elements[1], elements[2])
-    4 -> EnumSet.of(elements[0], elements[1], elements[2], elements[3])
-    5 -> EnumSet.of(elements[0], elements[1], elements[2], elements[3], elements[4])
-    else -> EnumSet.of(elements[0], *elements.drop(1).toTypedArray())
-}
+internal inline fun <reified E : Enum<E>> enumSetOf(vararg elements: E): EnumSet<E> =
+    when (elements.size) {
+        0 -> EnumSet.noneOf(E::class.java)
+        1 -> EnumSet.of(elements[0])
+        2 -> EnumSet.of(elements[0], elements[1])
+        3 -> EnumSet.of(elements[0], elements[1], elements[2])
+        4 -> EnumSet.of(elements[0], elements[1], elements[2], elements[3])
+        5 -> EnumSet.of(elements[0], elements[1], elements[2], elements[3], elements[4])
+        else -> EnumSet.of(elements[0], *elements.drop(1).toTypedArray())
+    }

@@ -25,7 +25,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 object LanguageModelFilesWriter : FilesWriter() {
-
     /**
      * Creates language model files and writes them to a directory.
      *
@@ -42,51 +41,56 @@ object LanguageModelFilesWriter : FilesWriter() {
         inputFileCharset: Charset = Charsets.UTF_8,
         outputDirectoryPath: Path,
         language: Language,
-        charClass: String = "\\p{L}"
+        charClass: String = "\\p{L}",
     ) {
         checkInputFilePath(inputFilePath)
         checkOutputDirectoryPath(outputDirectoryPath)
 
-        val unigramModel = createLanguageModel(
-            inputFilePath,
-            inputFileCharset,
-            language,
-            1,
-            charClass,
-            emptyMap()
-        )
-        val bigramModel = createLanguageModel(
-            inputFilePath,
-            inputFileCharset,
-            language,
-            2,
-            charClass,
-            unigramModel.absoluteFrequencies
-        )
-        val trigramModel = createLanguageModel(
-            inputFilePath,
-            inputFileCharset,
-            language,
-            3,
-            charClass,
-            bigramModel.absoluteFrequencies
-        )
-        val quadrigramModel = createLanguageModel(
-            inputFilePath,
-            inputFileCharset,
-            language,
-            4,
-            charClass,
-            trigramModel.absoluteFrequencies
-        )
-        val fivegramModel = createLanguageModel(
-            inputFilePath,
-            inputFileCharset,
-            language,
-            5,
-            charClass,
-            quadrigramModel.absoluteFrequencies
-        )
+        val unigramModel =
+            createLanguageModel(
+                inputFilePath,
+                inputFileCharset,
+                language,
+                1,
+                charClass,
+                emptyMap(),
+            )
+        val bigramModel =
+            createLanguageModel(
+                inputFilePath,
+                inputFileCharset,
+                language,
+                2,
+                charClass,
+                unigramModel.absoluteFrequencies,
+            )
+        val trigramModel =
+            createLanguageModel(
+                inputFilePath,
+                inputFileCharset,
+                language,
+                3,
+                charClass,
+                bigramModel.absoluteFrequencies,
+            )
+        val quadrigramModel =
+            createLanguageModel(
+                inputFilePath,
+                inputFileCharset,
+                language,
+                4,
+                charClass,
+                trigramModel.absoluteFrequencies,
+            )
+        val fivegramModel =
+            createLanguageModel(
+                inputFilePath,
+                inputFileCharset,
+                language,
+                5,
+                charClass,
+                quadrigramModel.absoluteFrequencies,
+            )
 
         writeLanguageModel(unigramModel, outputDirectoryPath, "unigrams.json")
         writeLanguageModel(bigramModel, outputDirectoryPath, "bigrams.json")
@@ -101,18 +105,18 @@ object LanguageModelFilesWriter : FilesWriter() {
         language: Language,
         ngramLength: Int,
         charClass: String,
-        lowerNgramAbsoluteFrequencies: Map<Ngram, Int>
+        lowerNgramAbsoluteFrequencies: Map<Ngram, Int>,
     ): TrainingDataLanguageModel {
-
         lateinit var model: TrainingDataLanguageModel
         inputFilePath.toFile().bufferedReader(charset = inputFileCharset).useLines { lines ->
-            model = TrainingDataLanguageModel.fromText(
-                text = lines,
-                language = language,
-                ngramLength = ngramLength,
-                charClass = charClass,
-                lowerNgramAbsoluteFrequencies = lowerNgramAbsoluteFrequencies
-            )
+            model =
+                TrainingDataLanguageModel.fromText(
+                    text = lines,
+                    language = language,
+                    ngramLength = ngramLength,
+                    charClass = charClass,
+                    lowerNgramAbsoluteFrequencies = lowerNgramAbsoluteFrequencies,
+                )
         }
         return model
     }
@@ -120,7 +124,7 @@ object LanguageModelFilesWriter : FilesWriter() {
     private fun writeLanguageModel(
         model: TrainingDataLanguageModel,
         outputDirectoryPath: Path,
-        fileName: String
+        fileName: String,
     ) {
         val modelFilePath = outputDirectoryPath.resolve(fileName)
 

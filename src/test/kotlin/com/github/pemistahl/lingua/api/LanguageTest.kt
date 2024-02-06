@@ -105,7 +105,6 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 
 class LanguageTest {
-
     @Test
     fun `assert that all supported languages are available`() {
         assertThat(Language.all()).containsExactly(
@@ -115,7 +114,7 @@ class LanguageTest {
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI,
             MARATHI, MONGOLIAN, NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA,
             SINHALA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA,
-            TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            TSONGA, TSWANA, TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU,
         )
     }
 
@@ -128,7 +127,7 @@ class LanguageTest {
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI, MARATHI, MONGOLIAN,
             NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SINHALA, SLOVAK,
             SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TAMIL, TELUGU, THAI, TIGRINYA, TSONGA, TSWANA,
-            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            TURKISH, UKRAINIAN, URDU, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU,
         )
     }
 
@@ -147,7 +146,7 @@ class LanguageTest {
             MONGOLIAN,
             RUSSIAN,
             SERBIAN,
-            UKRAINIAN
+            UKRAINIAN,
         )
     }
 
@@ -169,7 +168,7 @@ class LanguageTest {
             HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN, LATIN, LATVIAN,
             LITHUANIAN, MALAY, MAORI, NYNORSK, OROMO, POLISH, PORTUGUESE,
             ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO, SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA,
-            TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU
+            TURKISH, VIETNAMESE, WELSH, XHOSA, YORUBA, ZULU,
         )
     }
 
@@ -177,14 +176,14 @@ class LanguageTest {
     @MethodSource("filteredLanguagesProvider")
     internal fun `assert that languages support correct alphabets`(
         alphabet: Alphabet,
-        expectedLanguages: List<Language>
+        expectedLanguages: List<Language>,
     ) {
         assertThat(
-            Language.values().filter { it.alphabets.contains(alphabet) }
+            Language.values().filter { it.alphabets.contains(alphabet) },
         ).`as`(
-            "alphabet '$alphabet'"
+            "alphabet '$alphabet'",
         ).containsExactlyElementsOf(
-            expectedLanguages
+            expectedLanguages,
         )
     }
 
@@ -267,56 +266,60 @@ class LanguageTest {
         "CY, WELSH",
         "XH, XHOSA",
         "YO, YORUBA",
-        "ZU, ZULU"
+        "ZU, ZULU",
     )
-    fun `assert that correct language is returned for iso code`(isoCode: IsoCode639_1, language: Language) {
+    fun `assert that correct language is returned for iso code`(
+        isoCode: IsoCode639_1,
+        language: Language,
+    ) {
         assertThat(Language.getByIsoCode639_1(isoCode)).isEqualTo(language)
     }
 
-    private fun filteredLanguagesProvider() = listOf(
-        arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
-        arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
-        arguments(Alphabet.BENGALI, listOf(BENGALI)),
-        arguments(
-            Alphabet.CYRILLIC,
-            listOf(
-                BELARUSIAN,
-                BULGARIAN,
-                KAZAKH,
-                MACEDONIAN,
-                MONGOLIAN,
-                RUSSIAN,
-                SERBIAN,
-                UKRAINIAN
-            )
-        ),
-        arguments(Alphabet.DEVANAGARI, listOf(HINDI, MARATHI)),
-        arguments(Alphabet.ETHIOPIC, listOf(AMHARIC, TIGRINYA)),
-        arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
-        arguments(Alphabet.GREEK, listOf(GREEK)),
-        arguments(Alphabet.GUJARATI, listOf(GUJARATI)),
-        arguments(Alphabet.GURMUKHI, listOf(PUNJABI)),
-        arguments(Alphabet.HAN, listOf(CHINESE, JAPANESE)),
-        arguments(Alphabet.HANGUL, listOf(KOREAN)),
-        arguments(Alphabet.HEBREW, listOf(HEBREW)),
-        arguments(Alphabet.HIRAGANA, listOf(JAPANESE)),
-        arguments(Alphabet.KATAKANA, listOf(JAPANESE)),
-        arguments(
-            Alphabet.LATIN,
-            listOf(
-                AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN,
-                CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA,
-                GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
-                LATIN, LATVIAN, LITHUANIAN, MALAY, MAORI, NYNORSK, OROMO,
-                POLISH, PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO,
-                SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE,
-                WELSH, XHOSA, YORUBA, ZULU
-            )
-        ),
-        arguments(Alphabet.SINHALA, listOf(SINHALA)),
-        arguments(Alphabet.TAMIL, listOf(TAMIL)),
-        arguments(Alphabet.TELUGU, listOf(TELUGU)),
-        arguments(Alphabet.THAI, listOf(THAI)),
-        arguments(Alphabet.NONE, listOf(UNKNOWN))
-    )
+    private fun filteredLanguagesProvider() =
+        listOf(
+            arguments(Alphabet.ARABIC, listOf(ARABIC, PERSIAN, URDU)),
+            arguments(Alphabet.ARMENIAN, listOf(ARMENIAN)),
+            arguments(Alphabet.BENGALI, listOf(BENGALI)),
+            arguments(
+                Alphabet.CYRILLIC,
+                listOf(
+                    BELARUSIAN,
+                    BULGARIAN,
+                    KAZAKH,
+                    MACEDONIAN,
+                    MONGOLIAN,
+                    RUSSIAN,
+                    SERBIAN,
+                    UKRAINIAN,
+                ),
+            ),
+            arguments(Alphabet.DEVANAGARI, listOf(HINDI, MARATHI)),
+            arguments(Alphabet.ETHIOPIC, listOf(AMHARIC, TIGRINYA)),
+            arguments(Alphabet.GEORGIAN, listOf(GEORGIAN)),
+            arguments(Alphabet.GREEK, listOf(GREEK)),
+            arguments(Alphabet.GUJARATI, listOf(GUJARATI)),
+            arguments(Alphabet.GURMUKHI, listOf(PUNJABI)),
+            arguments(Alphabet.HAN, listOf(CHINESE, JAPANESE)),
+            arguments(Alphabet.HANGUL, listOf(KOREAN)),
+            arguments(Alphabet.HEBREW, listOf(HEBREW)),
+            arguments(Alphabet.HIRAGANA, listOf(JAPANESE)),
+            arguments(Alphabet.KATAKANA, listOf(JAPANESE)),
+            arguments(
+                Alphabet.LATIN,
+                listOf(
+                    AFRIKAANS, ALBANIAN, AZERBAIJANI, BASQUE, BOKMAL, BOSNIAN, CATALAN, CROATIAN,
+                    CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN, FINNISH, FRENCH, GANDA,
+                    GERMAN, HUNGARIAN, ICELANDIC, INDONESIAN, IRISH, ITALIAN,
+                    LATIN, LATVIAN, LITHUANIAN, MALAY, MAORI, NYNORSK, OROMO,
+                    POLISH, PORTUGUESE, ROMANIAN, SHONA, SLOVAK, SLOVENE, SOMALI, SOTHO,
+                    SPANISH, SWAHILI, SWEDISH, TAGALOG, TSONGA, TSWANA, TURKISH, VIETNAMESE,
+                    WELSH, XHOSA, YORUBA, ZULU,
+                ),
+            ),
+            arguments(Alphabet.SINHALA, listOf(SINHALA)),
+            arguments(Alphabet.TAMIL, listOf(TAMIL)),
+            arguments(Alphabet.TELUGU, listOf(TELUGU)),
+            arguments(Alphabet.THAI, listOf(THAI)),
+            arguments(Alphabet.NONE, listOf(UNKNOWN)),
+        )
 }

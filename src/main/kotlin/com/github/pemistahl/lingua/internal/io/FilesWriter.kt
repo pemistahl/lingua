@@ -23,7 +23,6 @@ import java.nio.file.NotDirectoryException
 import java.nio.file.Path
 
 abstract class FilesWriter {
-
     protected fun checkInputFilePath(inputFilePath: Path) {
         if (!inputFilePath.isAbsolute()) {
             throw IllegalArgumentException("Input file path '$inputFilePath' is not absolute")

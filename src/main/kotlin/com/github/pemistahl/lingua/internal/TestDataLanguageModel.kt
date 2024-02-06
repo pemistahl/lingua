@@ -17,11 +17,13 @@
 package com.github.pemistahl.lingua.internal
 
 internal data class TestDataLanguageModel(val ngrams: Set<Ngram>) {
-
     companion object {
         private val LETTER_REGEX = Regex("\\p{L}+")
 
-        fun fromText(text: String, ngramLength: Int): TestDataLanguageModel {
+        fun fromText(
+            text: String,
+            ngramLength: Int,
+        ): TestDataLanguageModel {
             require(ngramLength in 1..5) {
                 "ngram length $ngramLength is not in range 1..5"
             }

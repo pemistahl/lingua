@@ -28,7 +28,6 @@ fun main() {
 }
 
 private fun runApp() {
-
     println(
         """
         This is Lingua.
@@ -40,7 +39,7 @@ private fun runApp() {
         Type a number and press <Enter>.
         Type :quit to exit.
 
-        """.trimIndent()
+        """.trimIndent(),
     )
 
     val console: Console? = System.console()
@@ -53,12 +52,13 @@ private fun runApp() {
         if (input == ":quit") break
         if (input.isEmpty()) continue
 
-        number = try {
-            input.toInt()
-        } catch (e: NumberFormatException) {
-            println("This is not a valid number. Try again.\n")
-            continue
-        }
+        number =
+            try {
+                input.toInt()
+            } catch (e: NumberFormatException) {
+                println("This is not a valid number. Try again.\n")
+                continue
+            }
 
         if (number !in 1..2) {
             println("This selection is out of range.\nEnter number 1 or 2.\n")
@@ -85,7 +85,7 @@ private fun runApp() {
                 List some language iso 639-1 codes separated by spaces and press <Enter>.
                 Type :quit to exit.
 
-                """.trimIndent()
+                """.trimIndent(),
             )
 
             while (true) {
@@ -142,7 +142,7 @@ private fun runApp() {
             Type some text and press <Enter> to detect its language.
             Type :quit to exit.
 
-            """.trimIndent()
+            """.trimIndent(),
         )
 
         while (true) {

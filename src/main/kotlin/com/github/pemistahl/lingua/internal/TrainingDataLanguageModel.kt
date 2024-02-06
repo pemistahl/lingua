@@ -32,7 +32,7 @@ internal class JsonLanguageModel(val language: Language, val ngrams: Map<Fractio
 internal class TrainingDataLanguageModel(
     val language: Language,
     val absoluteFrequencies: Map<Ngram, Int>,
-    val relativeFrequencies: Map<Ngram, Fraction>
+    val relativeFrequencies: Map<Ngram, Fraction>,
 ) {
     fun toJson(): String {
         val ngrams = mutableMapOf<Fraction, MutableList<Ngram>>()
@@ -52,29 +52,30 @@ internal class TrainingDataLanguageModel(
             language: Language,
             ngramLength: Int,
             charClass: String,
-            lowerNgramAbsoluteFrequencies: Map<Ngram, Int>
+            lowerNgramAbsoluteFrequencies: Map<Ngram, Int>,
         ): TrainingDataLanguageModel {
-
             require(ngramLength in 1..5) {
                 "ngram length $ngramLength is not in range 1..5"
             }
 
-            val absoluteFrequencies = computeAbsoluteFrequencies(
-                text,
-                ngramLength,
-                charClass
-            )
+            val absoluteFrequencies =
+                computeAbsoluteFrequencies(
+                    text,
+                    ngramLength,
+                    charClass,
+                )
 
-            val relativeFrequencies = computeRelativeFrequencies(
-                ngramLength,
-                absoluteFrequencies,
-                lowerNgramAbsoluteFrequencies
-            )
+            val relativeFrequencies =
+                computeRelativeFrequencies(
+                    ngramLength,
+                    absoluteFrequencies,
+                    lowerNgramAbsoluteFrequencies,
+                )
 
             return TrainingDataLanguageModel(
                 language,
                 absoluteFrequencies,
-                relativeFrequencies
+                relativeFrequencies,
             )
         }
 
@@ -113,9 +114,8 @@ internal class TrainingDataLanguageModel(
         private fun computeAbsoluteFrequencies(
             text: Sequence<String>,
             ngramLength: Int,
-            charClass: String
+            charClass: String,
         ): Map<Ngram, Int> {
-
             val absoluteFrequencies = mutableMapOf<Ngram, Int>()
             val regex = Regex("[$charClass]+")
 
@@ -136,18 +136,18 @@ internal class TrainingDataLanguageModel(
         private fun computeRelativeFrequencies(
             ngramLength: Int,
             absoluteFrequencies: Map<Ngram, Int>,
-            lowerNgramAbsoluteFrequencies: Map<Ngram, Int>
+            lowerNgramAbsoluteFrequencies: Map<Ngram, Int>,
         ): Map<Ngram, Fraction> {
-
             val ngramProbabilities = mutableMapOf<Ngram, Fraction>()
             val totalNgramFrequency = absoluteFrequencies.values.sum()
 
             for ((ngram, frequency) in absoluteFrequencies) {
-                val denominator = if (ngramLength == 1 || lowerNgramAbsoluteFrequencies.isEmpty()) {
-                    totalNgramFrequency
-                } else {
-                    lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.substring(0, ngramLength - 1)))
-                }
+                val denominator =
+                    if (ngramLength == 1 || lowerNgramAbsoluteFrequencies.isEmpty()) {
+                        totalNgramFrequency
+                    } else {
+                        lowerNgramAbsoluteFrequencies.getValue(Ngram(ngram.value.substring(0, ngramLength - 1)))
+                    }
                 ngramProbabilities[ngram] = Fraction(frequency, denominator)
             }
 
@@ -156,8 +156,9 @@ internal class TrainingDataLanguageModel(
     }
 }
 
-private val JSON_ADAPTER = Moshi.Builder()
-    .add(FractionAdapter())
-    .addLast(KotlinJsonAdapterFactory())
-    .build()
-    .adapter(JsonLanguageModel::class.java)
+private val JSON_ADAPTER =
+    Moshi.Builder()
+        .add(FractionAdapter())
+        .addLast(KotlinJsonAdapterFactory())
+        .build()
+        .adapter(JsonLanguageModel::class.java)

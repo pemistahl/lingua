@@ -17,9 +17,8 @@
 package com.github.pemistahl.lingua.report
 
 enum class LanguageDetectorImplementation {
-
     LINGUA,
     OPTIMAIZE,
     TIKA,
-    OPENNLP
+    OPENNLP,
 }

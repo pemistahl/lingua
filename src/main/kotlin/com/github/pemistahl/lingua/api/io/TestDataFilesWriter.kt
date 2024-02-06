@@ -26,7 +26,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 object TestDataFilesWriter : FilesWriter() {
-
     /**
      * Creates test data files for accuracy report generation and writes them to a directory.
      *
@@ -45,7 +44,7 @@ object TestDataFilesWriter : FilesWriter() {
         outputDirectoryPath: Path,
         language: Language,
         charClass: String = "\\p{L}",
-        maximumLines: Int
+        maximumLines: Int,
     ) {
         checkInputFilePath(inputFilePath)
         checkOutputDirectoryPath(outputDirectoryPath)
@@ -55,16 +54,17 @@ object TestDataFilesWriter : FilesWriter() {
             inputFileCharset,
             outputDirectoryPath,
             language,
-            maximumLines
+            maximumLines,
         )
-        val singleWords = createAndWriteSingleWordsFile(
-            inputFilePath,
-            inputFileCharset,
-            outputDirectoryPath,
-            language,
-            charClass,
-            maximumLines
-        )
+        val singleWords =
+            createAndWriteSingleWordsFile(
+                inputFilePath,
+                inputFileCharset,
+                outputDirectoryPath,
+                language,
+                charClass,
+                maximumLines,
+            )
         createAndWriteWordPairsFile(singleWords, outputDirectoryPath, language, maximumLines)
     }
 
@@ -73,7 +73,7 @@ object TestDataFilesWriter : FilesWriter() {
         inputFileCharset: Charset,
         outputDirectoryPath: Path,
         language: Language,
-        maximumLines: Int
+        maximumLines: Int,
     ) {
         val fileName = "${language.isoCode639_1}.txt"
         val sentencesDirectoryPath = outputDirectoryPath.resolve("sentences")
@@ -106,7 +106,7 @@ object TestDataFilesWriter : FilesWriter() {
         outputDirectoryPath: Path,
         language: Language,
         charClass: String,
-        maximumLines: Int
+        maximumLines: Int,
     ): List<String> {
         val fileName = "${language.isoCode639_1}.txt"
         val singleWordsDirectoryPath = outputDirectoryPath.resolve("single-words")
@@ -125,14 +125,15 @@ object TestDataFilesWriter : FilesWriter() {
 
         inputFilePath.toFile().bufferedReader(charset = inputFileCharset).useLines { lines ->
             for (line in lines) {
-                val singleWords = line
-                    .replace(PUNCTUATION, "")
-                    .replace(NUMBERS, "")
-                    .replace(MULTIPLE_WHITESPACE, " ")
-                    .replace("\"", "")
-                    .split(' ')
-                    .map { it.trim().lowercase() }
-                    .filter { wordRegex.matches(it) }
+                val singleWords =
+                    line
+                        .replace(PUNCTUATION, "")
+                        .replace(NUMBERS, "")
+                        .replace(MULTIPLE_WHITESPACE, " ")
+                        .replace("\"", "")
+                        .split(' ')
+                        .map { it.trim().lowercase() }
+                        .filter { wordRegex.matches(it) }
 
                 words.addAll(singleWords)
             }
@@ -157,7 +158,7 @@ object TestDataFilesWriter : FilesWriter() {
         words: List<String>,
         outputDirectoryPath: Path,
         language: Language,
-        maximumLines: Int
+        maximumLines: Int,
     ) {
         val fileName = "${language.isoCode639_1}.txt"
         val wordPairsDirectoryPath = outputDirectoryPath.resolve("word-pairs")

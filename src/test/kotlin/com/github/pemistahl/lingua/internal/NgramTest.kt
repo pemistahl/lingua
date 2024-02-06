@@ -23,7 +23,6 @@ import org.assertj.core.api.Assertions.assertThatIllegalStateException
 import org.junit.jupiter.api.Test
 
 class NgramTest {
-
     private val zerogram = Ngram("")
     private val unigram = Ngram("q")
     private val bigram = Ngram("qw")
@@ -44,47 +43,39 @@ class NgramTest {
 
     @Test
     fun `assert that Ngram comparisons work correctly`() {
-        val comparisons = listOf(
-            fivegram > quadrigram,
-            fivegram > trigram,
-            fivegram > bigram,
-            fivegram > unigram,
-            fivegram > zerogram,
-
-            quadrigram > trigram,
-            quadrigram > bigram,
-            quadrigram > unigram,
-            quadrigram > zerogram,
-
-            trigram > bigram,
-            trigram > unigram,
-            trigram > zerogram,
-
-            bigram > unigram,
-            bigram > zerogram,
-
-            unigram > zerogram,
-
-            quadrigram < fivegram,
-            trigram < fivegram,
-            bigram < fivegram,
-            unigram < fivegram,
-            zerogram < fivegram,
-
-            trigram < quadrigram,
-            bigram < quadrigram,
-            unigram < quadrigram,
-            zerogram < trigram,
-
-            bigram < trigram,
-            unigram < trigram,
-            zerogram < trigram,
-
-            unigram < bigram,
-            zerogram < bigram,
-
-            zerogram < unigram
-        )
+        val comparisons =
+            listOf(
+                fivegram > quadrigram,
+                fivegram > trigram,
+                fivegram > bigram,
+                fivegram > unigram,
+                fivegram > zerogram,
+                quadrigram > trigram,
+                quadrigram > bigram,
+                quadrigram > unigram,
+                quadrigram > zerogram,
+                trigram > bigram,
+                trigram > unigram,
+                trigram > zerogram,
+                bigram > unigram,
+                bigram > zerogram,
+                unigram > zerogram,
+                quadrigram < fivegram,
+                trigram < fivegram,
+                bigram < fivegram,
+                unigram < fivegram,
+                zerogram < fivegram,
+                trigram < quadrigram,
+                bigram < quadrigram,
+                unigram < quadrigram,
+                zerogram < trigram,
+                bigram < trigram,
+                unigram < trigram,
+                zerogram < trigram,
+                unigram < bigram,
+                zerogram < bigram,
+                zerogram < unigram,
+            )
 
         for (comparison in comparisons) {
             assertThat(comparison).isTrue()
@@ -111,7 +102,7 @@ class NgramTest {
         assertThatIllegalStateException().isThrownBy {
             zerogram.dec()
         }.withMessage(
-            "Zerogram is ngram type of lowest order and can not be decremented"
+            "Zerogram is ngram type of lowest order and can not be decremented",
         )
     }
 
@@ -140,7 +131,7 @@ class NgramTest {
     fun `assert that range of lower order ngrams can be generated correctly`() {
         for (ngram in ngrams) {
             assertThat(
-                ngram.rangeOfLowerOrderNgrams()
+                ngram.rangeOfLowerOrderNgrams(),
             ).isEqualTo(NgramRange(ngram, unigram))
         }
     }
@@ -157,7 +148,7 @@ class NgramTest {
             assertThat(next()).isEqualTo(unigram)
 
             assertThatExceptionOfType(
-                NoSuchElementException::class.java
+                NoSuchElementException::class.java,
             ).isThrownBy {
                 next()
             }

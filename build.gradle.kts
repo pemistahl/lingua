@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import com.adarshr.gradle.testlogger.theme.ThemeType
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -48,26 +47,24 @@ group = linguaGroupId
 description = linguaDescription
 
 plugins {
-    kotlin("jvm") version "1.9.10"
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-    id("com.adarshr.test-logger") version "3.2.0"
-    id("com.asarkar.gradle.build-time-tracker") version "3.0.1" // newer versions need Java 11+
-    id("org.jetbrains.dokka") version "1.8.20"
+    kotlin("jvm") version "1.9.22"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    id("org.jetbrains.dokka") version "1.9.10"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     `maven-publish`
     signing
     jacoco
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.JVM_1_8
     }
 }
 
@@ -95,10 +92,6 @@ tasks.withType<Test> {
     useJUnitPlatform { failFast = true }
 }
 
-tasks.test {
-    maxParallelForks = 1
-}
-
 tasks.jacocoTestReport {
     dependsOn("test")
     reports {
@@ -112,8 +105,8 @@ tasks.jacocoTestReport {
                 fileTree(it) {
                     exclude("**/app/**")
                 }
-            }
-        )
+            },
+        ),
     )
 }
 
@@ -124,40 +117,50 @@ tasks.register<Test>("accuracyReport") {
     classpath = sourceSets["accuracyReport"].runtimeClasspath
 
     val allowedDetectors = linguaSupportedDetectors.split(',')
-    val detectors = if (project.hasProperty("detectors"))
-        project.property("detectors").toString().split(Regex("\\s*,\\s*"))
-    else allowedDetectors
+    val detectors =
+        if (project.hasProperty("detectors")) {
+            project.property("detectors").toString().split(Regex("\\s*,\\s*"))
+        } else {
+            allowedDetectors
+        }
 
     detectors.filterNot { it in allowedDetectors }.forEach {
         throw GradleException(
             """
             detector '$it' does not exist
             supported detectors: ${allowedDetectors.joinToString(
-                ", "
+                ", ",
             )}
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
     val allowedLanguages = linguaSupportedLanguages.split(',')
-    val languages = if (project.hasProperty("languages"))
-        project.property("languages").toString().split(Regex("\\s*,\\s*"))
-    else allowedLanguages
+    val languages =
+        if (project.hasProperty("languages")) {
+            project.property("languages").toString().split(Regex("\\s*,\\s*"))
+        } else {
+            allowedLanguages
+        }
 
     languages.filterNot { it in allowedLanguages }.forEach {
         throw GradleException("language '$it' is not supported")
     }
 
     val availableCpuCores = Runtime.getRuntime().availableProcessors()
-    val cpuCoresRepr = if (project.hasProperty("cpuCores"))
-        project.property("cpuCores").toString()
-    else "1"
+    val cpuCoresRepr =
+        if (project.hasProperty("cpuCores")) {
+            project.property("cpuCores").toString()
+        } else {
+            "1"
+        }
 
-    val cpuCores = try {
-        cpuCoresRepr.toInt()
-    } catch (e: NumberFormatException) {
-        throw GradleException("'$cpuCoresRepr' is not a valid value for argument -PcpuCores")
-    }
+    val cpuCores =
+        try {
+            cpuCoresRepr.toInt()
+        } catch (e: NumberFormatException) {
+            throw GradleException("'$cpuCoresRepr' is not a valid value for argument -PcpuCores")
+        }
 
     if (cpuCores !in 1..availableCpuCores) {
         throw GradleException(
@@ -165,7 +168,7 @@ tasks.register<Test>("accuracyReport") {
             $cpuCores cpu cores are not supported
             minimum: 1
             maximum: $availableCpuCores
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 
@@ -174,18 +177,12 @@ tasks.register<Test>("accuracyReport") {
     reports.html.required.set(false)
     reports.junitXml.required.set(false)
 
-    testlogger {
-        theme = ThemeType.STANDARD_PARALLEL
-        showPassed = false
-        showSkipped = false
-    }
-
     filter {
         detectors.forEach { detector ->
             languages.forEach { language ->
                 includeTestsMatching(
                     "$linguaGroupId.$linguaArtifactId.report" +
-                        ".${detector.lowercase(Locale.ROOT)}.${language}DetectionAccuracyReport"
+                        ".${detector.lowercase(Locale.ROOT)}.${language}DetectionAccuracyReport",
                 )
             }
         }
@@ -226,11 +223,12 @@ tasks.register("writeAggregatedAccuracyReport") {
                 if (languageReportFile.exists()) {
                     for (line in languageReportFile.readLines()) {
                         if (line.startsWith(stringToSplitAt)) {
-                            val accuracyValues = line
-                                .split(stringToSplitAt)[1]
-                                .split(' ')
-                                .slice(sliceLength)
-                                .joinToString(",")
+                            val accuracyValues =
+                                line
+                                    .split(stringToSplitAt)[1]
+                                    .split(' ')
+                                    .slice(sliceLength)
+                                    .joinToString(",")
                             csvFile.appendText(",")
                             csvFile.appendText(accuracyValues)
                         }
@@ -251,9 +249,18 @@ tasks.register("writeAggregatedAccuracyReport") {
     }
 }
 
+tasks.named("compileAccuracyReportKotlin", KotlinCompile::class) {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+}
+
+tasks.named("compileAccuracyReportJava", JavaCompile::class) {
+    sourceCompatibility = JavaVersion.VERSION_17.toString()
+    targetCompatibility = JavaVersion.VERSION_17.toString()
+}
+
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.configureEach {
-        jdkVersion.set(11)
+        jdkVersion.set(8)
         reportUndocumented.set(false)
         perPackageOption {
             matchingRegex.set(".*\\.(app|internal).*")
@@ -267,7 +274,7 @@ tasks.register<Jar>("dokkaJavadocJar") {
     group = "Build"
     description = "Assembles a jar archive containing Javadoc documentation."
     archiveClassifier.set("javadoc")
-    from("$buildDir/dokka/javadoc")
+    from("${layout.buildDirectory}/dokka/javadoc")
 }
 
 tasks.register<Jar>("sourcesJar") {
@@ -297,16 +304,16 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 dependencies {
     implementation("com.squareup.moshi:moshi:1.15.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-    implementation("it.unimi.dsi:fastutil:8.5.9")
+    implementation("it.unimi.dsi:fastutil:8.5.12")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("io.mockk:mockk:1.13.5")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
-    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:1.9.4")
-    accuracyReportImplementation("org.apache.tika:tika-core:2.5.0")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.5.0")
+    accuracyReportImplementation("org.apache.opennlp:opennlp-tools:2.3.2")
+    accuracyReportImplementation("org.apache.tika:tika-core:2.9.1")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.9.1")
     accuracyReportImplementation("org.slf4j:slf4j-nop:2.0.3")
 }
 

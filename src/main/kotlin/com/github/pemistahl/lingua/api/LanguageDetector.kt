@@ -54,9 +54,10 @@ class LanguageDetector internal constructor(
     internal val numberOfLoadedLanguages: Int = languages.size,
 ) {
     private val languagesWithUniqueCharacters = languages.filterNot { it.uniqueCharacters.isNullOrBlank() }.asSequence()
-    private val oneLanguageAlphabets = Alphabet.allSupportingExactlyOneLanguage().filterValues {
-        it in languages
-    }
+    private val oneLanguageAlphabets =
+        Alphabet.allSupportingExactlyOneLanguage().filterValues {
+            it in languages
+        }
 
     init {
         if (isEveryLanguageModelPreloaded) {
@@ -131,37 +132,43 @@ class LanguageDetector internal constructor(
             return values
         }
 
-        val ngramSizeRange = if (cleanedUpText.length >= HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH ||
-            isLowAccuracyModeEnabled
-        ) {
-            (3..3)
-        } else {
-            (1..5)
-        }
-        val tasks = ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
-            Callable {
-                AccessController.doPrivileged(
-                    PrivilegedAction {
-                        val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
-                        val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
-
-                        val unigramCounts = if (i == 1) {
-                            val languages = probabilities.keys
-                            val unigramFilteredLanguages =
-                                if (languages.isNotEmpty()) filteredLanguages.asSequence()
-                                    .filter { languages.contains(it) }
-                                    .toSet()
-                                else filteredLanguages
-                            countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
-                        } else {
-                            null
-                        }
-
-                        Pair(probabilities, unigramCounts)
-                    }
-                )
+        val ngramSizeRange =
+            if (cleanedUpText.length >= HIGH_ACCURACY_MODE_MAX_TEXT_LENGTH ||
+                isLowAccuracyModeEnabled
+            ) {
+                (3..3)
+            } else {
+                (1..5)
             }
-        }
+        val tasks =
+            ngramSizeRange.filter { i -> cleanedUpText.length >= i }.map { i ->
+                Callable {
+                    AccessController.doPrivileged(
+                        PrivilegedAction {
+                            val testDataModel = TestDataLanguageModel.fromText(cleanedUpText, ngramLength = i)
+                            val probabilities = computeLanguageProbabilities(testDataModel, filteredLanguages)
+
+                            val unigramCounts =
+                                if (i == 1) {
+                                    val languages = probabilities.keys
+                                    val unigramFilteredLanguages =
+                                        if (languages.isNotEmpty()) {
+                                            filteredLanguages.asSequence()
+                                                .filter { languages.contains(it) }
+                                                .toSet()
+                                        } else {
+                                            filteredLanguages
+                                        }
+                                    countUnigramsOfInputText(testDataModel, unigramFilteredLanguages)
+                                } else {
+                                    null
+                                }
+
+                            Pair(probabilities, unigramCounts)
+                        },
+                    )
+                }
+            }
 
         val allProbabilitiesAndUnigramCounts = ForkJoinPool.commonPool().invokeAll(tasks).map { it.get() }
         val allProbabilities = allProbabilitiesAndUnigramCounts.map { (probabilities, _) -> probabilities }
@@ -260,7 +267,7 @@ class LanguageDetector internal constructor(
 
     internal fun countUnigramsOfInputText(
         unigramLanguageModel: TestDataLanguageModel,
-        filteredLanguages: Set<Language>
+        filteredLanguages: Set<Language>,
     ): Map<Language, Int> {
         val unigramCounts = mutableMapOf<Language, Int>()
         for (language in filteredLanguages) {
@@ -277,7 +284,7 @@ class LanguageDetector internal constructor(
     internal fun sumUpProbabilities(
         probabilities: List<Map<Language, Float>>,
         unigramCountsOfInputText: Map<Language, Int>,
-        filteredLanguages: Set<Language>
+        filteredLanguages: Set<Language>,
     ): Map<Language, Float> {
         val summedUpProbabilities = mutableMapOf<Language, Float>()
         for (language in filteredLanguages) {
@@ -428,7 +435,7 @@ class LanguageDetector internal constructor(
 
     internal fun computeLanguageProbabilities(
         testDataModel: TestDataLanguageModel,
-        filteredLanguages: Set<Language>
+        filteredLanguages: Set<Language>,
     ): Map<Language, Float> {
         val probabilities = mutableMapOf<Language, Float>()
         for (language in filteredLanguages) {
@@ -439,7 +446,7 @@ class LanguageDetector internal constructor(
 
     internal fun computeSumOfNgramProbabilities(
         language: Language,
-        ngrams: Set<Ngram>
+        ngrams: Set<Ngram>,
     ): Float {
         var probabilitiesSum = 0F
 
@@ -457,18 +464,19 @@ class LanguageDetector internal constructor(
 
     internal fun lookUpNgramProbability(
         language: Language,
-        ngram: Ngram
+        ngram: Ngram,
     ): Float {
         val ngramLength = ngram.value.length
-        val languageModels = when (ngramLength) {
-            5 -> fivegramLanguageModels
-            4 -> quadrigramLanguageModels
-            3 -> trigramLanguageModels
-            2 -> bigramLanguageModels
-            1 -> unigramLanguageModels
-            0 -> throw IllegalArgumentException("Zerogram detected")
-            else -> throw IllegalArgumentException("unsupported ngram length detected: ${ngram.value.length}")
-        }
+        val languageModels =
+            when (ngramLength) {
+                5 -> fivegramLanguageModels
+                4 -> quadrigramLanguageModels
+                3 -> trigramLanguageModels
+                2 -> bigramLanguageModels
+                1 -> unigramLanguageModels
+                0 -> throw IllegalArgumentException("Zerogram detected")
+                else -> throw IllegalArgumentException("unsupported ngram length detected: ${ngram.value.length}")
+            }
 
         val model = loadLanguageModels(languageModels, language, ngramLength)
 
@@ -492,14 +500,15 @@ class LanguageDetector internal constructor(
         ForkJoinPool.commonPool().invokeAll(tasks).forEach { it.get() }
     }
 
-    override fun equals(other: Any?) = when {
-        this === other -> true
-        other !is LanguageDetector -> false
-        languages != other.languages -> false
-        minimumRelativeDistance != other.minimumRelativeDistance -> false
-        isLowAccuracyModeEnabled != other.isLowAccuracyModeEnabled -> false
-        else -> true
-    }
+    override fun equals(other: Any?) =
+        when {
+            this === other -> true
+            other !is LanguageDetector -> false
+            languages != other.languages -> false
+            minimumRelativeDistance != other.minimumRelativeDistance -> false
+            isLowAccuracyModeEnabled != other.isLowAccuracyModeEnabled -> false
+            else -> true
+        }
 
     override fun hashCode() =
         31 * languages.hashCode() + minimumRelativeDistance.hashCode() + isLowAccuracyModeEnabled.hashCode()
@@ -516,7 +525,7 @@ class LanguageDetector internal constructor(
         private fun loadLanguageModels(
             languageModels: EnumMap<Language, Object2FloatMap<String>>,
             language: Language,
-            ngramLength: Int
+            ngramLength: Int,
         ): Object2FloatMap<String> {
             synchronized(languageModels) {
                 if (languageModels.containsKey(language)) {
@@ -530,7 +539,10 @@ class LanguageDetector internal constructor(
             }
         }
 
-        private fun loadLanguageModel(language: Language, ngramLength: Int): Object2FloatMap<String> {
+        private fun loadLanguageModel(
+            language: Language,
+            ngramLength: Int,
+        ): Object2FloatMap<String> {
             val fileName = "${Ngram.getNgramNameByLength(ngramLength)}s.json"
             val filePath = "/language-models/${language.isoCode639_1}/$fileName"
             val inputStream = Language::class.java.getResourceAsStream(filePath) ?: return Object2FloatOpenHashMap()

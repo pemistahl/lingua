@@ -24,7 +24,6 @@ import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 
 class LanguageDetectorBuilderTest {
-
     private val minimumLanguagesErrorMessage = "LanguageDetector needs at least 2 languages to choose from"
 
     @Test
@@ -40,8 +39,8 @@ class LanguageDetectorBuilderTest {
                 Language.all().toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = false,
-                isLowAccuracyModeEnabled = false
-            )
+                isLowAccuracyModeEnabled = false,
+            ),
         )
 
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
@@ -50,8 +49,8 @@ class LanguageDetectorBuilderTest {
                 Language.all().toMutableSet(),
                 minimumRelativeDistance = 0.2,
                 isEveryLanguageModelPreloaded = false,
-                isLowAccuracyModeEnabled = false
-            )
+                isLowAccuracyModeEnabled = false,
+            ),
         )
     }
 
@@ -68,8 +67,8 @@ class LanguageDetectorBuilderTest {
                 Language.allSpokenOnes().toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = false,
-                isLowAccuracyModeEnabled = false
-            )
+                isLowAccuracyModeEnabled = false,
+            ),
         )
 
         assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
@@ -78,8 +77,8 @@ class LanguageDetectorBuilderTest {
                 Language.allSpokenOnes().toMutableSet(),
                 minimumRelativeDistance = 0.2,
                 isEveryLanguageModelPreloaded = false,
-                isLowAccuracyModeEnabled = false
-            )
+                isLowAccuracyModeEnabled = false,
+            ),
         )
     }
 
@@ -110,13 +109,15 @@ class LanguageDetectorBuilderTest {
     @Test
     fun `assert that LanguageDetector can be built from blacklist`() {
         run {
-            val builder = LanguageDetectorBuilder.fromAllLanguagesWithout(
-                Language.TURKISH,
-                Language.ROMANIAN
-            )
-            val expectedLanguages = Language.values().toSet().minus(
-                arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN)
-            ).toList()
+            val builder =
+                LanguageDetectorBuilder.fromAllLanguagesWithout(
+                    Language.TURKISH,
+                    Language.ROMANIAN,
+                )
+            val expectedLanguages =
+                Language.values().toSet().minus(
+                    arrayOf(Language.TURKISH, Language.ROMANIAN, Language.UNKNOWN),
+                ).toList()
 
             assertThat(builder.languages).isEqualTo(expectedLanguages)
             assertThat(builder.minimumRelativeDistance).isEqualTo(0.0)
@@ -127,8 +128,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
@@ -137,8 +138,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
         }
         run {
@@ -164,8 +165,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
@@ -174,8 +175,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
         }
         run {
@@ -200,8 +201,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.0,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
 
             assertThat(builder.withMinimumRelativeDistance(0.2).minimumRelativeDistance).isEqualTo(0.2)
@@ -210,8 +211,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
 
             assertThat(builder.build()).isEqualTo(
@@ -219,8 +220,8 @@ class LanguageDetectorBuilderTest {
                     expectedLanguages.toMutableSet(),
                     minimumRelativeDistance = 0.2,
                     isEveryLanguageModelPreloaded = false,
-                    isLowAccuracyModeEnabled = false
-                )
+                    isLowAccuracyModeEnabled = false,
+                ),
             )
         }
         run {
@@ -259,8 +260,8 @@ class LanguageDetectorBuilderTest {
                 expectedLanguages.toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = true,
-                isLowAccuracyModeEnabled = false
-            )
+                isLowAccuracyModeEnabled = false,
+            ),
         )
     }
 
@@ -278,8 +279,8 @@ class LanguageDetectorBuilderTest {
                 expectedLanguages.toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = false,
-                isLowAccuracyModeEnabled = true
-            )
+                isLowAccuracyModeEnabled = true,
+            ),
         )
 
         builder.withPreloadedLanguageModels()
@@ -291,8 +292,8 @@ class LanguageDetectorBuilderTest {
                 expectedLanguages.toMutableSet(),
                 minimumRelativeDistance = 0.0,
                 isEveryLanguageModelPreloaded = true,
-                isLowAccuracyModeEnabled = true
-            )
+                isLowAccuracyModeEnabled = true,
+            ),
         )
     }
 }

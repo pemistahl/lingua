@@ -24,14 +24,13 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
 
 abstract class AbstractTsongaDetectionAccuracyReport(
-    implementationToUse: LanguageDetectorImplementation
+    implementationToUse: LanguageDetectorImplementation,
 ) : AbstractLanguageDetectionAccuracyReport(Language.TSONGA, implementationToUse) {
-
     @ParameterizedTest
     @CsvFileSource(
         resources = ["/language-testdata/single-words/ts.txt"],
         delimiter = CSV_FILE_DELIMITER,
-        encoding = CSV_FILE_ENCODING
+        encoding = CSV_FILE_ENCODING,
     )
     @DisplayName("single word detection")
     override fun `assert that single words are identified correctly`(singleWord: String) {
@@ -42,7 +41,7 @@ abstract class AbstractTsongaDetectionAccuracyReport(
     @CsvFileSource(
         resources = ["/language-testdata/word-pairs/ts.txt"],
         delimiter = CSV_FILE_DELIMITER,
-        encoding = CSV_FILE_ENCODING
+        encoding = CSV_FILE_ENCODING,
     )
     @DisplayName("word pair detection")
     override fun `assert that word pairs are identified correctly`(wordPair: String) {
@@ -53,7 +52,7 @@ abstract class AbstractTsongaDetectionAccuracyReport(
     @CsvFileSource(
         resources = ["/language-testdata/sentences/ts.txt"],
         delimiter = CSV_FILE_DELIMITER,
-        encoding = CSV_FILE_ENCODING
+        encoding = CSV_FILE_ENCODING,
     )
     @DisplayName("sentence detection")
     override fun `assert that entire sentences are identified correctly`(sentence: String) {

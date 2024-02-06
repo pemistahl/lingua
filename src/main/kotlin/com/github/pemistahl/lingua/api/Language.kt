@@ -195,7 +195,7 @@ enum class Language(
     val isoCode639_1: IsoCode639_1,
     val isoCode639_3: IsoCode639_3,
     internal val alphabets: EnumSet<Alphabet>,
-    internal val uniqueCharacters: String?
+    internal val uniqueCharacters: String?,
 ) {
     AFRIKAANS(AF, AFR, enumSetOf(Alphabet.LATIN), null),
     ALBANIAN(SQ, SQI, enumSetOf(Alphabet.LATIN), null),
@@ -275,10 +275,11 @@ enum class Language(
         VI,
         VIE,
         enumSetOf(Alphabet.LATIN),
-        "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"
+        "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ",
     ),
     WELSH(CY, CYM, enumSetOf(Alphabet.LATIN), null),
     XHOSA(XH, XHO, enumSetOf(Alphabet.LATIN), null),
+
     // TODO for YORUBA: "E̩e̩Ẹ́ẹ́É̩é̩Ẹ̀ẹ̀È̩è̩Ẹ̄ẹ̄Ē̩ē̩ŌōO̩o̩Ọ́ọ́Ó̩ó̩Ọ̀ọ̀Ò̩ò̩Ọ̄ọ̄Ō̩ō̩ṢṣS̩s̩"
     YORUBA(YO, YOR, enumSetOf(Alphabet.LATIN), "Ṣṣ"),
     ZULU(ZU, ZUL, enumSetOf(Alphabet.LATIN), null),
@@ -288,7 +289,8 @@ enum class Language(
      *
      * This value is returned if no language can be detected reliably.
      */
-    UNKNOWN(IsoCode639_1.NONE, IsoCode639_3.NONE, enumSetOf(NONE), null);
+    UNKNOWN(IsoCode639_1.NONE, IsoCode639_3.NONE, enumSetOf(NONE), null),
+    ;
 
     companion object {
         /**
@@ -337,12 +339,14 @@ enum class Language(
          * Returns the language for the given ISO 639-1 code.
          */
         @JvmStatic
+        @Suppress("ktlint:standard:function-naming")
         fun getByIsoCode639_1(isoCode: IsoCode639_1): Language = values().first { it.isoCode639_1 == isoCode }
 
         /**
          * Returns the language for the given ISO 639-3 code.
          */
         @JvmStatic
+        @Suppress("ktlint:standard:function-naming")
         fun getByIsoCode639_3(isoCode: IsoCode639_3): Language = values().first { it.isoCode639_3 == isoCode }
 
         private fun filterOutLanguages(vararg languages: Language) = values().filterNot { it in languages }

@@ -21,8 +21,8 @@ package com.github.pemistahl.lingua.api
  *
  * ISO 639 is a standardized nomenclature used to classify languages.
  */
+@Suppress("ktlint:standard:class-naming")
 enum class IsoCode639_3 {
-
     /**
      * The ISO 639-3 code for [Afrikaans][Language.AFRIKAANS].
      */
@@ -421,7 +421,9 @@ enum class IsoCode639_3 {
     /**
      * The ISO 639-3 code for [the imaginary unknown language][Language.UNKNOWN].
      */
-    NONE;
+    NONE,
+
+    ;
 
     override fun toString() = this.name.lowercase()
 }

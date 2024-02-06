@@ -21,7 +21,6 @@ import org.assertj.core.api.Assertions.assertThatExceptionOfType
 import org.junit.jupiter.api.Test
 
 class FractionTest {
-
     private val fraction1 = Fraction(12, 144)
     private val fraction2 = Fraction(63, 27)
     private val fraction3 = Fraction(0, 1234)
@@ -88,6 +87,7 @@ class FractionTest {
         assertThat(fraction4.toLong()).isEqualTo(0)
         assertThat(fraction5.toLong()).isEqualTo(-2)
     }
+
     @Test
     fun `assert that toShort() implementation of Fraction is correct`() {
         assertThat(fraction1.toShort()).isEqualTo(0)
@@ -108,29 +108,29 @@ class FractionTest {
 
     @Test
     fun `assert that Fraction comparisons work correctly`() {
-        val comparisons = listOf(
-            fraction1 > fraction3,
-            fraction1 > fraction4,
-            fraction1 > fraction5,
-            fraction2 > fraction1,
-            fraction2 > fraction3,
-            fraction2 > fraction4,
-            fraction2 > fraction5,
-            fraction3 > fraction4,
-            fraction3 > fraction5,
-            fraction4 > fraction5,
-
-            fraction1 < fraction2,
-            fraction3 < fraction1,
-            fraction3 < fraction2,
-            fraction4 < fraction1,
-            fraction4 < fraction2,
-            fraction4 < fraction3,
-            fraction5 < fraction1,
-            fraction5 < fraction2,
-            fraction5 < fraction3,
-            fraction5 < fraction4
-        )
+        val comparisons =
+            listOf(
+                fraction1 > fraction3,
+                fraction1 > fraction4,
+                fraction1 > fraction5,
+                fraction2 > fraction1,
+                fraction2 > fraction3,
+                fraction2 > fraction4,
+                fraction2 > fraction5,
+                fraction3 > fraction4,
+                fraction3 > fraction5,
+                fraction4 > fraction5,
+                fraction1 < fraction2,
+                fraction3 < fraction1,
+                fraction3 < fraction2,
+                fraction4 < fraction1,
+                fraction4 < fraction2,
+                fraction4 < fraction3,
+                fraction5 < fraction1,
+                fraction5 < fraction2,
+                fraction5 < fraction3,
+                fraction5 < fraction4,
+            )
 
         for (comparison in comparisons) {
             assertThat(comparison).isTrue()
