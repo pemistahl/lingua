@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew -Pversion=${{ steps.version.outputs.version-without-v }} jar sourcesJar jarWithDependencies dokkaJavadocJar
 
       - name: Create release and upload artifacts
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: Lingua ${{ steps.version.outputs.version-without-v }}
           files: build/libs/*.jar
