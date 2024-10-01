@@ -313,7 +313,7 @@ dependencies {
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:2.3.2")
     accuracyReportImplementation("org.apache.tika:tika-core:2.9.2")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.9.1")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.9.2")
     accuracyReportImplementation("org.slf4j:slf4j-nop:2.0.3")
 }
 
