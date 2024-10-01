@@ -304,16 +304,16 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 dependencies {
     implementation("com.squareup.moshi:moshi:1.15.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-    implementation("it.unimi.dsi:fastutil:8.5.12")
+    implementation("it.unimi.dsi:fastutil:8.5.13")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.assertj:assertj-core:3.25.3")
     testImplementation("io.mockk:mockk:1.13.5")
 
     accuracyReportImplementation("com.optimaize.languagedetector:language-detector:0.6")
     accuracyReportImplementation("org.apache.opennlp:opennlp-tools:2.3.2")
-    accuracyReportImplementation("org.apache.tika:tika-core:2.9.1")
-    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.9.1")
+    accuracyReportImplementation("org.apache.tika:tika-core:2.9.2")
+    accuracyReportImplementation("org.apache.tika:tika-langdetect-optimaize:2.9.2")
     accuracyReportImplementation("org.slf4j:slf4j-nop:2.0.13")
 }
 
