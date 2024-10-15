@@ -306,7 +306,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
     implementation("it.unimi.dsi:fastutil:8.5.14")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.2")
     testImplementation("org.assertj:assertj-core:3.26.3")
     testImplementation("io.mockk:mockk:1.13.13")
 
