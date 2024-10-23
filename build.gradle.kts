@@ -304,7 +304,7 @@ tasks.register<JavaExec>("runLinguaOnConsole") {
 dependencies {
     implementation("com.squareup.moshi:moshi:1.15.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-    implementation("it.unimi.dsi:fastutil:8.5.14")
+    implementation("it.unimi.dsi:fastutil:8.5.15")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
     testImplementation("org.assertj:assertj-core:3.26.3")
