@@ -1,0 +1,329 @@
+/*
+ * Copyright © 2018-today Peter M. Stahl pemistahl@gmail.com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+//import org.jetbrains.dokka.gradle.DokkaTask
+//import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id 'java'
+    id 'org.jlleitschuh.gradle.ktlint' version '12.1.1'
+    id 'org.jetbrains.dokka' version '1.9.20'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+    id 'com.github.sherter.google-java-format' version '0.9' // Last versions that are compatible with Java 8
+    id 'maven-publish'
+    id 'signing'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '8.3.0'
+}
+
+
+group = project.hasProperty("linguaGroupId") ? project.property("linguaGroupId") : 'default.group.id'
+description = project.hasProperty("linguaDescription") ? project.property("linguaDescription") : 'Default description'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+sourceSets {
+    main {
+        resources {
+            exclude 'training-data/**'
+        }
+    }
+    create("accuracyReport") {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    accuracyReportImplementation {
+        extendsFrom(configurations.testImplementation)
+    }
+    accuracyReportRuntimeOnly {
+        extendsFrom(configurations.runtimeOnly)
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform {
+        failFast = true
+    }
+}
+
+tasks.named("jacocoTestReport", JacocoReport).configure {
+    dependsOn "test"
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.required.set(true)
+    }
+    classDirectories.setFrom(files(classDirectories.files.collect {
+        fileTree(it) {
+            exclude '**/app/**'
+        }
+    }))
+}
+
+tasks.register("accuracyReport", Test) {
+    group = project.hasProperty("linguaTaskGroup") ? project.property("linguaTaskGroup") : 'defaultGroup'
+    description = "Runs Lingua on provided test data, and writes detection accuracy reports for each language."
+    testClassesDirs = sourceSets["accuracyReport"].output.classesDirs
+    classpath = sourceSets["accuracyReport"].runtimeClasspath
+
+    doFirst {
+        def allowedDetectors = project.hasProperty("linguaSupportedDetectors") ? project.property("linguaSupportedDetectors").split(',') : []
+        def detectors = project.hasProperty('detectors') ? project.property('detectors').split(',') : allowedDetectors
+
+        detectors.each {
+            if (!allowedDetectors.contains(it)) {
+                throw GradleException("detector '$it' does not exist, supported detectors: ${allowedDetectors.join(', ')}")
+            }
+        }
+
+        def allowedLanguages = project.hasProperty("linguaSupportedLanguages") ? project.property("linguaSupportedLanguages").split(',') : []
+        def languages = project.hasProperty('languages') ? project.property('languages').split(',') : allowedLanguages
+
+        languages.each {
+            if (!allowedLanguages.contains(it)) {
+                throw GradleException("language '$it' is not supported")
+            }
+        }
+
+        // Validate CPU cores
+        def availableCpuCores = Runtime.getRuntime().availableProcessors()
+        def cpuCoresRepr = project.hasProperty('cpuCores') ? project.property('cpuCores').toString() : "1"
+        def cpuCores = cpuCoresRepr.toInteger()
+
+        if (cpuCores < 1 || cpuCores > availableCpuCores) {
+            throw GradleException("$cpuCores cpu cores are not supported. Min: 1, Max: $availableCpuCores")
+        }
+
+        maxHeapSize = '4096m'
+        maxParallelForks = cpuCores
+        reports.html.required.set(false)
+        reports.junitXml.required.set(false)
+
+        filter {
+            detectors.each { detector ->
+                languages.each { language ->
+                    includeTestsMatching("${project.property('linguaGroupId')}.${project.property('linguaArtifactId')}.report.${detector.toLowerCase()}.${language}DetectionAccuracyReport")
+                }
+            }
+        }
+    }
+}
+
+tasks.register("writeAggregatedAccuracyReport") {
+    group = project.hasProperty("linguaTaskGroup") ? project.property("linguaTaskGroup") : 'defaultGroup'
+    description = "Creates a table from all accuracy detection reports and writes it to a CSV file."
+
+    doLast {
+        def accuracyReportsDirectoryName = 'accuracy-reports'
+        def accuracyReportsDirectory = file(accuracyReportsDirectoryName)
+        if (!accuracyReportsDirectory.exists()) {
+            throw GradleException("directory '$accuracyReportsDirectoryName' does not exist")
+        }
+
+        def detectors = project.hasProperty("linguaSupportedDetectors") ? project.property("linguaSupportedDetectors").split(',') : []
+        def languages = project.hasProperty("linguaSupportedLanguages") ? project.property("linguaSupportedLanguages").split(',') : []
+        def csvFile = file("$accuracyReportsDirectoryName/aggregated-accuracy-values.csv")
+        def stringToSplitAt = ">> Exact values:"
+
+        if (csvFile.exists()) csvFile.delete()
+        csvFile.createNewFile()
+        csvFile.appendText(project.hasProperty("linguaCsvHeader") ? project.property("linguaCsvHeader") : "")
+        csvFile.appendText("\n")
+
+        languages.each { language ->
+            csvFile.appendText(language)
+
+            detectors.each { detector ->
+                def languageReportFileName = "$accuracyReportsDirectoryName/${detector.toLowerCase()}/$language.txt"
+                def languageReportFile = file(languageReportFileName)
+                def sliceLength = detector == "Lingua" ? (1..8) : (1..4)
+
+                if (languageReportFile.exists()) {
+                    languageReportFile.readLines().each { line ->
+                        if (line.startsWith(stringToSplitAt)) {
+                            def accuracyValues = line.split(stringToSplitAt)[1].split(' ').slice(sliceLength).join(',')
+                            csvFile.appendText(",${accuracyValues}")
+                        }
+                    }
+                } else {
+                    csvFile.appendText(detector == "Lingua" ? ",NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN" : ",NaN,NaN,NaN,NaN")
+                }
+            }
+
+            csvFile.appendText("\n")
+        }
+
+        println("file 'aggregated-accuracy-values.csv' written successfully")
+    }
+}
+
+//tasks.named("compileAccuracyReportKotlin", KotlinCompile).configure {
+//    kotlinOptions.jvmTarget = "17"
+//}
+
+tasks.named("compileAccuracyReportJava", JavaCompile).configure {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}
+
+//tasks.withType(DokkaTask).configureEach {
+//    dokkaSourceSets.configureEach {
+//        jdkVersion.set(8)
+//        reportUndocumented.set(false)
+//        perPackageOption {
+//            matchingRegex.set(".*\\.(app|internal).*")
+//            suppress.set(true)
+//        }
+//    }
+//}
+
+tasks.register("dokkaJavadocJar", Jar).configure {
+    dependsOn "dokkaJavadoc"
+    group = "Build"
+    description = "Assembles a jar archive containing Javadoc documentation."
+    archiveClassifier.set("javadoc")
+    from("${layout.buildDirectory}/dokka/javadoc")
+}
+
+tasks.register("sourcesJar", Jar).configure {
+    group = "Build"
+    description = "Assembles a jar archive containing the main source code."
+    archiveClassifier.set("sources")
+    from("src/main/kotlin")
+}
+
+tasks.register("jarWithDependencies", ShadowJar).configure {
+    group = "Build"
+    description = "Assembles a jar archive containing the main classes and all external dependencies."
+    archiveClassifier.set("with-dependencies")
+    from(sourceSets.main.output)
+    configurations = [project.configurations.runtimeClasspath]
+    manifest {
+        attributes "Main-Class": project.property("linguaMainClass")
+    }
+}
+
+tasks.register("runLinguaOnConsole", JavaExec).configure {
+    group = project.hasProperty("linguaTaskGroup") ? project.property("linguaTaskGroup") : 'defaultGroup'
+    description = "Starts a REPL (read-evaluate-print loop) to try Lingua on the command line."
+    mainClass.set(project.property("linguaMainClass"))
+    standardInput = System.in
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+dependencies {
+    implementation "com.squareup.moshi:moshi:1.15.1"
+    implementation "com.squareup.moshi:moshi-kotlin:1.15.1"
+    implementation "it.unimi.dsi:fastutil:8.5.15"
+
+    testImplementation "org.junit.jupiter:junit-jupiter:5.11.3"
+    testImplementation "org.assertj:assertj-core:3.26.3"
+    testImplementation "org.mockito:mockito-core:5.2.0"
+    testImplementation "org.mockito:mockito-junit-jupiter:5.2.0"
+
+    accuracyReportImplementation "com.optimaize.languagedetector:language-detector:0.6"
+    accuracyReportImplementation "org.apache.opennlp:opennlp-tools:2.4.0"
+    accuracyReportImplementation "org.apache.tika:tika-core:3.0.0"
+    accuracyReportImplementation "org.apache.tika:tika-langdetect-optimaize:3.0.0"
+    accuracyReportImplementation "org.slf4j:slf4j-nop:2.0.16"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.findProperty("linguaGroupId").toString()
+            artifactId = project.findProperty("linguaArtifactId").toString()
+            version = project.version.toString()
+
+            from components.java
+
+            artifact sourcesJar
+            artifact jarWithDependencies
+            artifact dokkaJavadocJar
+
+            pom {
+                name.set(project.findProperty("linguaName").toString())
+                description.set(project.findProperty("linguaDescription").toString())
+                url.set(project.findProperty("linguaWebsiteUrl").toString())
+
+                licenses {
+                    license {
+                        name.set(project.findProperty("linguaLicenseName").toString())
+                        url.set(project.findProperty("linguaLicenseUrl").toString())
+                    }
+                }
+                developers {
+                    developer {
+                        id.set(project.findProperty("linguaDeveloperId").toString())
+                        name.set(project.findProperty("linguaDeveloperName").toString())
+                        email.set(project.findProperty("linguaDeveloperEmail").toString())
+                        url.set(project.findProperty("linguaDeveloperUrl").toString())
+                    }
+                }
+                scm {
+                    connection.set(project.findProperty("linguaScmConnection").toString())
+                    developerConnection.set(project.findProperty("linguaScmDeveloperConnection").toString())
+                    url.set(project.findProperty("linguaScmUrl").toString())
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri(project.findProperty("githubPackagesUrl").toString())
+            credentials {
+                username = project.findProperty("linguaDeveloperId").toString()
+                password = project.findProperty("ghPackagesToken")?.toString() ?: ""
+            }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
+    }
+}
+
+signing {
+    //sign(publishing.publications["lingua"])
+    sign publishing.publications.mavenJava
+}
+
+repositories {
+    mavenCentral()
+}
+
+googleJavaFormat {
+    toolVersion = '1.7' // Last versions that are compatible with Java 8
+    exclude '**/wrapper/dists/**'
+    exclude '**/src/*/resources/**'
+}
+verifyGoogleJavaFormat.dependsOn(tasks.googleJavaFormat)
