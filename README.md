@@ -49,105 +49,83 @@ Compared to other language detection libraries, *Lingua's* focus is on *quality 
 getting detection right for a small set of languages first before adding new ones. 
 Currently, the following 75 languages are supported:
 
-- A
-  - Afrikaans
-  - Albanian
-  - Arabic
-  - Armenian
-  - Azerbaijani
-- B
-  - Basque
-  - Belarusian
-  - Bengali
-  - Norwegian Bokmal
-  - Bosnian
-  - Bulgarian
-- C
-  - Catalan
-  - Chinese
-  - Croatian
-  - Czech
-- D
-  - Danish
-  - Dutch
-- E
-  - English
-  - Esperanto
-  - Estonian
-- F
-  - Finnish
-  - French
-- G
-  - Ganda
-  - Georgian
-  - German
-  - Greek
-  - Gujarati
-- H
-  - Hebrew
-  - Hindi
-  - Hungarian
-- I
-  - Icelandic
-  - Indonesian
-  - Irish
-  - Italian
-- J
-  - Japanese
-- K
-  - Kazakh
-  - Korean
-- L
-  - Latin
-  - Latvian
-  - Lithuanian
-- M
-  - Macedonian
-  - Malay
-  - Maori
-  - Marathi
-  - Mongolian
-- N
-  - Norwegian Nynorsk
-- P
-  - Persian
-  - Polish
-  - Portuguese
-  - Punjabi
-- R
-  - Romanian
-  - Russian
-- S
-  - Serbian
-  - Shona
-  - Slovak
-  - Slovene
-  - Somali
-  - Sotho
-  - Spanish
-  - Swahili
-  - Swedish
-- T
-  - Tagalog
-  - Tamil
-  - Telugu
-  - Thai
-  - Tsonga
-  - Tswana
-  - Turkish
-- U
-  - Ukrainian
-  - Urdu
-- V
-  - Vietnamese
-- W
-  - Welsh
-- X
-  - Xhosa
-- Y
-  - Yoruba
-- Z
-  - Zulu   
+|Langauge Name    |Other Language Name(s)|ISO 639-1 Code|ISO 639-2/B Code|ISO 639-2/T Code|ISO 639-3 Macrolanguage Code|
+|-----------------|----------------------|--------------|----------------|----------------|----------------------------|
+|Afrikaans        |                      |af            |afr             |afr             |afr                         |
+|Albanian         |                      |sq            |alb             |sqi             |sqi                         |
+|Arabic           |                      |ar            |ara             |ara             |ara                         |
+|Armenian         |                      |hy            |arm             |hye             |hye                         |
+|Azerbaijani      |                      |az            |aze             |aze             |aze                         |
+|Basque           |                      |eu            |baq             |eus             |eus                         |
+|Belarusian       |                      |be            |bel             |bel             |bel                         |
+|Bengali          |                      |bn            |ben             |ben             |ben                         |
+|Bosnian          |                      |bs            |bos             |bos             |bos                         |
+|Bulgarian        |                      |bg            |bul             |bul             |bul                         |
+|Catalan          |Valencian             |ca            |cat             |cat             |cat                         |
+|Chinese          |                      |zh            |chi             |zho             |zho                         |
+|Croatian         |                      |hr            |hrv             |hrv             |hrv                         |
+|Czech            |                      |cs            |cze             |ces             |ces                         |
+|Danish           |                      |da            |dan             |dan             |dan                         |
+|Dutch            |Flemish               |nl            |dut             |nld             |nld                         |
+|English          |                      |en            |eng             |eng             |eng                         |
+|Esperanto        |                      |eo            |epo             |epo             |epo                         |
+|Estonian         |                      |et            |est             |est             |est                         |
+|Finnish          |                      |fi            |fin             |fin             |fin                         |
+|French           |                      |fr            |fre             |fra             |fra                         |
+|Ganda            |                      |lg            |lug             |lug             |lug                         |
+|Georgian         |                      |ka            |geo             |kat             |kat                         |
+|German           |                      |de            |ger             |deu             |deu                         |
+|Greek            |                      |el            |gre             |ell             |ell                         |
+|Gujarati         |                      |gu            |guj             |guj             |guj                         |
+|Hebrew           |                      |he            |heb             |heb             |heb                         |
+|Hindi            |                      |hi            |hin             |hin             |hin                         |
+|Hungarian        |                      |hu            |hun             |hun             |hun                         |
+|Icelandic        |                      |is            |ice             |isl             |isl                         |
+|Indonesian       |                      |id            |ind             |ind             |ind                         |
+|Irish            |                      |ga            |gle             |gle             |gle                         |
+|Italian          |                      |it            |ita             |ita             |ita                         |
+|Japanese         |                      |ja            |jpn             |jpn             |jpn                         |
+|Kazakh           |                      |kk            |kaz             |kaz             |kaz                         |
+|Korean           |                      |ko            |kor             |kor             |kor                         |
+|Latin            |                      |la            |lat             |lat             |lat                         |
+|Latvian          |                      |lv            |lav             |lav             |lav                         |
+|Lithuanian       |                      |lt            |lit             |lit             |lit                         |
+|Macedonian       |                      |mk            |mac             |mkd             |mkd                         |
+|Malay            |                      |ms            |may             |msa             |msa                         |
+|Maori            |                      |mi            |mao             |mri             |mri                         |
+|Marathi          |                      |mr            |mar             |mar             |mar                         |
+|Mongolian        |                      |mn            |mon             |mon             |mon                         |
+|Norwegian Bokmal |                      |nb            |nob             |nob             |nob                         |
+|Norwegian Nynorsk|                      |nn            |nno             |nno             |nno                         |
+|Persian          |                      |fa            |per             |fas             |fas                         |
+|Polish           |                      |pl            |pol             |pol             |pol                         |
+|Portuguese       |                      |pt            |por             |por             |por                         |
+|Punjabi          |Panjabi               |pa            |pan             |pan             |pan                         |
+|Romanian         |Moldavian, Moldovan   |ro            |rum             |ron             |ron                         |
+|Russian          |                      |ru            |rus             |rus             |rus                         |
+|Serbian          |                      |sr            |srp             |srp             |srp                         |
+|Shona            |                      |sn            |sna             |sna             |sna                         |
+|Slovak           |                      |sk            |slo             |slk             |slk                         |
+|Slovenian        |Slovene               |sl            |slv             |slv             |slv                         |
+|Somali           |                      |so            |som             |som             |som                         |
+|Sotho            |Southern Sotho        |st            |sot             |sot             |sot                         |
+|Spanish          |Castillian            |es            |spa             |spa             |spa                         |
+|Swahili          |                      |sw            |swa             |swa             |swa                         |
+|Swedish          |                      |sv            |swe             |swe             |swe                         |
+|Tagalog          |                      |tl            |tgl             |tgl             |tgl                         |
+|Tamil            |                      |ta            |tam             |tam             |tam                         |
+|Telugu           |                      |te            |tel             |tel             |tel                         |
+|Thai             |                      |th            |tha             |tha             |tha                         |
+|Tsonga           |                      |ts            |tso             |tso             |tso                         |
+|Tswana           |                      |tn            |tsn             |tsn             |tsn                         |
+|Turkish          |                      |tr            |tur             |tur             |tur                         |
+|Ukrainian        |                      |uk            |ukr             |ukr             |ukr                         |
+|Urdu             |                      |ur            |urd             |urd             |urd                         |
+|Vietnamese       |                      |vi            |vie             |vie             |vie                         |
+|Welsh            |                      |cy            |wel             |cym             |cym                         |
+|Xhosa            |                      |xh            |xho             |xho             |xho                         |
+|Yoruba           |                      |yo            |yor             |yor             |yor                         |
+|Zulu             |                      |zu            |zul             |zul             |zul                         |
 
 ## 4. How good is it?
 
