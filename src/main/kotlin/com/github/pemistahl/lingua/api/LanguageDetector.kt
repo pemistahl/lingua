@@ -527,10 +527,8 @@ class LanguageDetector internal constructor(
             language: Language,
             ngramLength: Int,
         ): Object2FloatMap<String> {
-            synchronized(languageModels) {
-                if (languageModels.containsKey(language)) {
-                    return languageModels.getValue(language)
-                }
+            if (languageModels.containsKey(language)) {
+                return languageModels.getValue(language)
             }
             val model = loadLanguageModel(language, ngramLength)
             synchronized(languageModels) {
