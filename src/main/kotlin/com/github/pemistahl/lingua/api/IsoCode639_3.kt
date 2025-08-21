@@ -244,6 +244,11 @@ enum class IsoCode639_3 {
     MSA,
 
     /**
+     * The ISO 639-3 code for [Burmese][Language.BURMESE].
+     */
+    MYA,
+
+    /**
      * The ISO 639-3 code for [Dutch][Language.DUTCH].
      */
     NLD,

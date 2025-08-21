@@ -249,6 +249,11 @@ enum class IsoCode639_1 {
     MS,
 
     /**
+     * The ISO 639-1 code for [Burmese][Language.BURMESE].
+     */
+    MY,
+
+    /**
      * The ISO 639-1 code for [Norwegian Bokmal][Language.BOKMAL].
      */
     NB,

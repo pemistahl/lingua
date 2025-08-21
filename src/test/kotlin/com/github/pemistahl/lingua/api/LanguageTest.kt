@@ -28,6 +28,7 @@ import com.github.pemistahl.lingua.api.Language.BENGALI
 import com.github.pemistahl.lingua.api.Language.BOKMAL
 import com.github.pemistahl.lingua.api.Language.BOSNIAN
 import com.github.pemistahl.lingua.api.Language.BULGARIAN
+import com.github.pemistahl.lingua.api.Language.BURMESE
 import com.github.pemistahl.lingua.api.Language.CATALAN
 import com.github.pemistahl.lingua.api.Language.CHINESE
 import com.github.pemistahl.lingua.api.Language.CROATIAN
@@ -109,7 +110,7 @@ class LanguageTest {
     fun `assert that all supported languages are available`() {
         assertThat(Language.all()).containsExactly(
             AFRIKAANS, ALBANIAN, AMHARIC, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOKMAL, BOSNIAN,
-            BULGARIAN, CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
+            BULGARIAN, BURMESE, CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATIN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI,
             MARATHI, MONGOLIAN, NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA,
@@ -122,7 +123,7 @@ class LanguageTest {
     fun `assert that all supported spoken languages are available`() {
         assertThat(Language.allSpokenOnes()).containsExactly(
             AFRIKAANS, ALBANIAN, AMHARIC, ARABIC, ARMENIAN, AZERBAIJANI, BASQUE, BELARUSIAN, BENGALI, BOKMAL, BOSNIAN,
-            BULGARIAN, CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
+            BULGARIAN, BURMESE, CATALAN, CHINESE, CROATIAN, CZECH, DANISH, DUTCH, ENGLISH, ESPERANTO, ESTONIAN,
             FINNISH, FRENCH, GANDA, GEORGIAN, GERMAN, GREEK, GUJARATI, HEBREW, HINDI, HUNGARIAN, ICELANDIC, INDONESIAN,
             IRISH, ITALIAN, JAPANESE, KAZAKH, KOREAN, LATVIAN, LITHUANIAN, MACEDONIAN, MALAY, MAORI, MARATHI, MONGOLIAN,
             NYNORSK, OROMO, PERSIAN, POLISH, PORTUGUESE, PUNJABI, ROMANIAN, RUSSIAN, SERBIAN, SHONA, SINHALA, SLOVAK,
@@ -234,6 +235,7 @@ class LanguageTest {
         "MS, MALAY",
         "MR, MARATHI",
         "MN, MONGOLIAN",
+        "MY, BURMESE",
         "NN, NYNORSK",
         "OM, OROMO",
         "FA, PERSIAN",

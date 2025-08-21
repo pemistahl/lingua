@@ -23,6 +23,7 @@ internal enum class Alphabet {
     ARABIC,
     ARMENIAN,
     BENGALI,
+    BURMESE,
     CYRILLIC,
     DEVANAGARI,
     ETHIOPIC,

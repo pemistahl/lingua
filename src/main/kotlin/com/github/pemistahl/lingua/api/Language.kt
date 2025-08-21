@@ -61,6 +61,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_1.MK
 import com.github.pemistahl.lingua.api.IsoCode639_1.MN
 import com.github.pemistahl.lingua.api.IsoCode639_1.MR
 import com.github.pemistahl.lingua.api.IsoCode639_1.MS
+import com.github.pemistahl.lingua.api.IsoCode639_1.MY
 import com.github.pemistahl.lingua.api.IsoCode639_1.NB
 import com.github.pemistahl.lingua.api.IsoCode639_1.NL
 import com.github.pemistahl.lingua.api.IsoCode639_1.NN
@@ -139,6 +140,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.MKD
 import com.github.pemistahl.lingua.api.IsoCode639_3.MON
 import com.github.pemistahl.lingua.api.IsoCode639_3.MRI
 import com.github.pemistahl.lingua.api.IsoCode639_3.MSA
+import com.github.pemistahl.lingua.api.IsoCode639_3.MYA
 import com.github.pemistahl.lingua.api.IsoCode639_3.NLD
 import com.github.pemistahl.lingua.api.IsoCode639_3.NNO
 import com.github.pemistahl.lingua.api.IsoCode639_3.NOB
@@ -175,6 +177,7 @@ import com.github.pemistahl.lingua.api.IsoCode639_3.YOR
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZHO
 import com.github.pemistahl.lingua.api.IsoCode639_3.ZUL
 import com.github.pemistahl.lingua.internal.Alphabet
+import com.github.pemistahl.lingua.internal.Alphabet.BURMESE
 import com.github.pemistahl.lingua.internal.Alphabet.CYRILLIC
 import com.github.pemistahl.lingua.internal.Alphabet.DEVANAGARI
 import com.github.pemistahl.lingua.internal.Alphabet.ETHIOPIC
@@ -183,7 +186,6 @@ import com.github.pemistahl.lingua.internal.Alphabet.HAN
 import com.github.pemistahl.lingua.internal.Alphabet.HANGUL
 import com.github.pemistahl.lingua.internal.Alphabet.HIRAGANA
 import com.github.pemistahl.lingua.internal.Alphabet.KATAKANA
-import com.github.pemistahl.lingua.internal.Alphabet.LATIN
 import com.github.pemistahl.lingua.internal.Alphabet.NONE
 import com.github.pemistahl.lingua.internal.util.extension.enumSetOf
 import java.util.EnumSet
@@ -209,6 +211,12 @@ enum class Language(
     BOKMAL(NB, NOB, enumSetOf(Alphabet.LATIN), null),
     BOSNIAN(BS, BOS, enumSetOf(Alphabet.LATIN), null),
     BULGARIAN(BG, BUL, enumSetOf(CYRILLIC), null),
+    BURMESE(
+        MY,
+        MYA,
+        enumSetOf(Alphabet.BURMESE),
+        "ကခဂဃငစဆဇဈဉညတထဒဓနပဖဗဘမယရလဝသဟဠအါာိီုူေေါံ့း်၀၁၂၃၄၅၆၇၈၉",
+    ),
     CATALAN(CA, CAT, enumSetOf(Alphabet.LATIN), "Ïï"),
     CHINESE(ZH, ZHO, enumSetOf(HAN), null),
     CROATIAN(HR, HRV, enumSetOf(Alphabet.LATIN), null),

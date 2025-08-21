@@ -1,0 +1,19 @@
+##### BURMESE #####
+
+Legend: 'low accuracy mode | high accuracy mode'
+
+>>> Accuracy on average: 76.19% | 84.53%
+
+>> Detection of 52 single words (average length: 6 chars)
+Accuracy: 86.54% | 84.62%
+Erroneously classified as NYNORSK: 7.69% | 7.69%, DANISH: 0.00% | 3.85%, WELSH: 3.85% | 1.92%, GREEK: 1.92% | 1.92%
+
+>> Detection of 23 word pairs (average length: 13 chars)
+Accuracy: 82.61% | 78.26%
+Erroneously classified as NYNORSK: 8.70% | 8.70%, ICELANDIC: 0.00% | 4.35%, DANISH: 0.00% | 4.35%, GREEK: 0.00% | 4.35%, WELSH: 8.70% | 0.00%
+
+>> Detection of 882 sentences (average length: 285 chars)
+Accuracy: 59.41% | 90.70%
+Erroneously classified as UNKNOWN: 39.12% | 5.10%, WELSH: 1.13% | 2.38%, SOMALI: 0.34% | 1.02%, CROATIAN: 0.00% | 0.34%, DANISH: 0.00% | 0.34%, ICELANDIC: 0.00% | 0.11%
+
+>> Exact values: 76.18586267654591 86.53846153846155 82.6086956521739 59.410430839002274 84.526400675469 84.61538461538461 78.26086956521739 90.702947845805
